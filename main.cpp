@@ -1,3 +1,4 @@
+#include "lodepng.h"
 #include <iostream>
 using namespace std;
 
