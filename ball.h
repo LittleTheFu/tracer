@@ -1,9 +1,11 @@
 #ifndef _BALL_H_
 #define _BALL_H_
 
+#include "vector.h"
+
 class ball {
     public:
-        float center;
+        vector3 center;
         float r;
 };
 
