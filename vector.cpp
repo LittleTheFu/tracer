@@ -33,6 +33,15 @@ float Vector3::operator*(const Vector3 &that)
     return x + y + z;
 }
 
+float Vector3::lenthSqr()
+{
+    float xSqr = x * x;
+    float ySqr = y * y;
+    float zSqr = z * z;
+
+    float lenSqr = xSqr + ySqr + zSqr;
+}
+
 void Vector3::normalize()
 {
     float len = length();
@@ -44,11 +53,11 @@ void Vector3::normalize()
 
 float Vector3::length()
 {
-    float xSqr = x * x;
-    float ySqr = y * y;
-    float zSqr = z * z;
-
-    float lenSqr = xSqr + ySqr + zSqr;
+    float lenSqr = lenthSqr();
+    if (lenSqr <= 0.0f)
+    {
+        return 0.0f;
+    }
 
     return sqrt(lenSqr);
 }
