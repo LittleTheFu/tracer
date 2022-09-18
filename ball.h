@@ -3,9 +3,9 @@
 
 #include "vector.h"
 
-class ball {
+class Ball {
     public:
-        vector3 center;
+        Vector3 center;
         float r;
 };
 

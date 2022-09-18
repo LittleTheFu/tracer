@@ -2,12 +2,15 @@
 #define _RAY_H_
 
 #include "vector.h"
+#include "ball.h"
 
-class ray {
+class Ray {
     public:
-        vector3 origin;
-        vector3 dir;
+        Vector3 origin;
+        Vector3 dir;
         float t;
+
+        bool hit(const Ball& ball);
 };
 
 #endif
