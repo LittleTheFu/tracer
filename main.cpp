@@ -18,18 +18,19 @@ int main()
     // bool hit = ray.hit(ball);
     // // generate some image
 
-    const Vector3 center(10, 10, 20);
-    const Ball ball(center, 10);
+    const Vector3 center(5, 5, 30);
+    const Ball ball(center, 3);
 
     unsigned width = 512, height = 512;
-    const float half = 256;
+    const float half_width = width / 2.0f;
+    const float half_height = height / 2.0f;
     std::vector<unsigned char> image;
     image.resize(width * height * 4);
     for (unsigned y = 0; y < height; y++)
         for (unsigned x = 0; x < width; x++)
         {
             const Vector3 origin(0, 0, 0);
-            const Vector3 dir((x - half) / half, (y - half) / half, 1);
+            const Vector3 dir((x - half_width) / half_width, (y - half_height) / half_height, 2);
             Ray ray(origin, dir);
 
             bool hit = ray.hit(ball);
