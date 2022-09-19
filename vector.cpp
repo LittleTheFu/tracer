@@ -46,6 +46,15 @@ void Vector3::normalize()
 {
     float len = length();
 
+    if (len <= 0)
+    {
+        x = 0;
+        y = 0;
+        z = 0;
+
+        return;
+    }
+
     x /= len;
     y /= len;
     z /= len;
