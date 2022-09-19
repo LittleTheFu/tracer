@@ -12,7 +12,7 @@ class Ray {
         Vector3 dir;
         float t;
 
-        bool hit(const Ball& ball);
+        bool hit(const Ball& ball) const;
 };
 
 #endif

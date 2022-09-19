@@ -7,8 +7,8 @@ public:
     Vector3();
     Vector3(float x, float y, float z);
 
-    Vector3 operator+(const Vector3 &that);
-    float operator*(const Vector3 &that);
+    Vector3 operator+(const Vector3 &that) const;
+    float operator*(const Vector3 &that) const;
 
     float lenthSqr() const;
     void normalize();

@@ -15,7 +15,7 @@ Vector3::Vector3(float x, float y, float z)
     this->z = z;
 }
 
-Vector3 Vector3::operator+(const Vector3 &that)
+Vector3 Vector3::operator+(const Vector3 &that) const
 {
     float x = this->x + that.x;
     float y = this->y + that.y;
@@ -24,7 +24,7 @@ Vector3 Vector3::operator+(const Vector3 &that)
     return Vector3(x, y, z);
 }
 
-float Vector3::operator*(const Vector3 &that)
+float Vector3::operator*(const Vector3 &that) const
 {
     float x = this->x * that.x;
     float y = this->y * that.y;

@@ -7,7 +7,7 @@ Ray::Ray(const Vector3 &origin, const Vector3 &dir)
     this->dir.normalize();
 }
 
-bool Ray::hit(const Ball &ball)
+bool Ray::hit(const Ball &ball) const
 {
     const float a = dir.lenthSqr();
     const float b = 2 * (dir * origin - dir * ball.getCenter());
