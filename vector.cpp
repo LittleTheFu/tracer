@@ -33,13 +33,13 @@ float Vector3::operator*(const Vector3 &that)
     return x + y + z;
 }
 
-float Vector3::lenthSqr()
+float Vector3::lenthSqr() const
 {
     float xSqr = x * x;
     float ySqr = y * y;
     float zSqr = z * z;
 
-    float lenSqr = xSqr + ySqr + zSqr;
+    return xSqr + ySqr + zSqr;
 }
 
 void Vector3::normalize()

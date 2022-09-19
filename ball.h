@@ -3,10 +3,16 @@
 
 #include "vector.h"
 
-class Ball {
-    public:
-        Vector3 center;
-        float r;
+class Ball
+{
+public:
+    Ball(const Vector3 &center, float r);
+    float r;
+
+    Vector3 getCenter() const;
+
+private:
+    Vector3 center;
 };
 
 #endif

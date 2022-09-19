@@ -10,7 +10,7 @@ public:
     Vector3 operator+(const Vector3 &that);
     float operator*(const Vector3 &that);
 
-    float lenthSqr();
+    float lenthSqr() const;
     void normalize();
 
     float x;
