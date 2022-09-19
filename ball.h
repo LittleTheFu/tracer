@@ -10,6 +10,7 @@ public:
     float r;
 
     Vector3 getCenter() const;
+    Vector3 getNormal(const Vector3 &point) const;
 
 private:
     Vector3 center;

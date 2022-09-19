@@ -24,6 +24,15 @@ Vector3 Vector3::operator+(const Vector3 &that) const
     return Vector3(x, y, z);
 }
 
+Vector3 Vector3::operator-(const Vector3 &that) const
+{
+    float x = this->x - that.x;
+    float y = this->y - that.y;
+    float z = this->z - that.z;
+
+    return Vector3(x, y, z);
+}
+
 float Vector3::operator*(const Vector3 &that) const
 {
     float x = this->x * that.x;

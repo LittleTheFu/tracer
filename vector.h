@@ -8,6 +8,7 @@ public:
     Vector3(float x, float y, float z);
 
     Vector3 operator+(const Vector3 &that) const;
+    Vector3 operator-(const Vector3 &that) const;
     float operator*(const Vector3 &that) const;
 
     float lenthSqr() const;
