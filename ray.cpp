@@ -30,3 +30,18 @@ bool Ray::hit(const Ball &ball) const
 
     return hit;
 }
+
+bool Ray::hit(const Plane &plane) const
+{
+    if (dir * plane.normal <= 0)
+    {
+        return false;
+    }
+
+    // const float n = (plane.center - origin) * plane.normal;
+    // const float d = dir * plane.normal;
+
+    // const float t = n/d;
+
+    return true;
+}
