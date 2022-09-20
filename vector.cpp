@@ -42,6 +42,24 @@ float Vector3::operator*(const Vector3 &that) const
     return x + y + z;
 }
 
+Vector3 operator*(const float s, const Vector3& v)
+{
+    float x = v.x * s;
+    float y = v.y * s;
+    float z = v.z * s;
+
+    return Vector3(x, y, z);
+}
+
+Vector3 Vector3::operator-() const
+{
+    float x = -this->x;
+    float y = -this->y;
+    float z = -this->z;
+
+    return Vector3(x, y, z);
+}
+
 float Vector3::lenthSqr() const
 {
     float xSqr = x * x;
@@ -67,6 +85,21 @@ void Vector3::normalize()
     x /= len;
     y /= len;
     z /= len;
+}
+
+Vector3 Vector3::reflect(const Vector3 &normal) const
+{
+    Vector3 n = normal;
+    n.normalize();
+
+    float m = this->operator*(n);
+    if (m < 0)
+    {
+        n = -n;
+        m = -m;
+    }
+
+    return 2 * m * n - (*this);
 }
 
 float Vector3::length()
