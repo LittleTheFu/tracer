@@ -4,7 +4,6 @@ const float Spectrum::CIE_Y_integral = 106.856895f;
 
 Spectrum::Spectrum()
 {
-    const int n = number / nRGB2SpectSamples;
     for (int i = 0; i <= number; i++)
     {
         c[i] = RGBRefl2SpectWhite[i / nRGB2SpectSamples];

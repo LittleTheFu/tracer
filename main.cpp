@@ -2,6 +2,7 @@
 
 #include "ray.h"
 #include "ball.h"
+#include "plane.h"
 #include "objectpool.h"
 
 #include <iostream>
@@ -15,9 +16,14 @@ int main()
     const Vector3 centerTwo(-5, -15, 50);
     const Ball ballTwo(centerTwo, 4);
 
+    const Vector3 centerThree(-25, -25, 80);
+    const Vector3 planeNormal(10, 10, -1);
+    const Plane plane(centerThree, planeNormal);
+
     ObjectPool pool;
     pool.add(ballOne);
     pool.add(ballTwo);
+    pool.add(plane);
 
     unsigned width = 512, height = 512;
     const float half_width = width / 2.0f;

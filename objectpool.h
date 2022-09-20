@@ -3,16 +3,19 @@
 
 #include <vector>
 #include "ball.h"
+#include "plane.h"
 #include "ray.h"
 
 class ObjectPool
 {
 public:
     void add(const Ball &ball);
+    void add(const Plane &plane);
     bool hit(const Ray &ray);
 
 private:
     std::vector<Ball> m_balls;
+    std::vector<Plane> m_planes;
 };
 
 #endif

@@ -5,11 +5,20 @@ void ObjectPool::add(const Ball &ball)
     m_balls.push_back(ball);
 }
 
+void ObjectPool::add(const Plane &plane)
+{
+    m_planes.push_back(plane);
+}
+
 bool ObjectPool::hit(const Ray &ray)
 {
-    std::vector<Ball>::iterator it; // declare an iterator to a vector of strings
+    for (std::vector<Ball>::iterator it = m_balls.begin(); it != m_balls.end(); it++)
+    {
+        if (ray.hit(*it))
+            return true;
+    }
 
-    for (it = m_balls.begin(); it != m_balls.end(); it++)
+    for (std::vector<Plane>::iterator it = m_planes.begin(); it != m_planes.end(); it++)
     {
         if (ray.hit(*it))
             return true;
