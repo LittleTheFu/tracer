@@ -33,7 +33,7 @@ bool Ray::hit(const Ball &ball) const
 
 bool Ray::hit(const Plane &plane) const
 {
-    if (dir * plane.normal <= 0)
+    if (dir * plane.normal > 0)
     {
         return false;
     }
