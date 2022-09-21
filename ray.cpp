@@ -25,9 +25,9 @@ bool Ray::hit(const Ball &ball, float &t) const
         return false;
 
     float t0 = (-b + delta) / (2 * a);
-    float t1 = (b + delta) / (2 * a);
+    float t1 = (-b - delta) / (2 * a);
     float temp = 0;
-    if(t0 > t1)
+    if (t0 > t1)
     {
         temp = t0;
         t0 = t1;
@@ -39,8 +39,11 @@ bool Ray::hit(const Ball &ball, float &t) const
 
     if (!hit)
     {
-        hit = t1 > 0.0f;
-        t = t1;
+        if (t1 > 0.0f)
+        {
+            hit = true;
+            t = t1;
+        }
     }
 
     return hit;

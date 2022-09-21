@@ -13,8 +13,8 @@ int main()
     const Vector3 centerOne(5, 5, 30);
     const Ball ballOne(centerOne, 10);
 
-    const Vector3 centerTwo(-10, 0, 100);
-    const Ball ballTwo(centerTwo, 15);
+    const Vector3 centerTwo(-10, 0, 200);
+    const Ball ballTwo(centerTwo, 30);
 
     const Vector3 centerThree(-10, 0, 100);
     const Vector3 planeNormal(1, 0, 0);
