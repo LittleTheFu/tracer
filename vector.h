@@ -17,6 +17,7 @@ public:
     void normalize();
 
     Vector3 reflect(const Vector3 &normal) const;
+    bool isInSameSide(const Vector3 &that) const;
 
     float x;
     float y;

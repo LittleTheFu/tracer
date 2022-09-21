@@ -16,9 +16,8 @@ int main()
     const Vector3 centerTwo(-10, 0, 200);
     const Ball ballTwo(centerTwo, 10);
 
-
     const float c = 100;
-    const float r = 3 * c;
+    const float r = 5 * c;
     const Vector3 wallLeftCenter(-c, 0, 0);
     const Vector3 wallNormalLeft(1, 0, 0);
     const Plane wallLeft(wallLeftCenter, wallNormalLeft, r);
@@ -36,16 +35,16 @@ int main()
     const Plane wallBottom(wallBottomCenter, wallNormalBottom, r);
 
     const Vector3 wallFrontCenter(0, 0, c);
-    const Vector3 wallNormalFront(0,0,-1);
+    const Vector3 wallNormalFront(0, 0, -1);
     const Plane wallFront(wallFrontCenter, wallNormalFront, r);
 
-    const Vector3 wallBackCenter(0,0,-c);
-    const Vector3 wallNormalBack(0,0,1);
+    const Vector3 wallBackCenter(0, 0, -c);
+    const Vector3 wallNormalBack(0, 0, 1);
     const Plane wallBack(wallBackCenter, wallNormalBack, r);
 
     ObjectPool pool;
     // pool.add(ballOne);
-    pool.add(ballTwo);
+    // pool.add(ballTwo);
     pool.add(wallLeft);
     pool.add(wallRight);
     pool.add(wallTop);
@@ -65,8 +64,10 @@ int main()
             const Vector3 dir((x - half_width) / half_width, (y - half_height) / half_height, 2);
             Ray ray(origin, dir);
 
+            Vector3 hitPoint;
+            Vector3 hitNormal;
             bool isBall = true;
-            bool hit = pool.hit(ray, isBall);
+            bool hit = pool.hit(ray, isBall, hitPoint, hitNormal);
 
             char r = 0;
             char g = 0;
@@ -85,6 +86,11 @@ int main()
             image[4 * width * y + 4 * x + 3] = 255;
         }
 
+    const Vector3 traceRayOrigin = Vector3(0,0,0);
+    const Vector3 traceRayDir = Vector3(2,9,31);
+    const Ray traceRay = Ray(traceRayOrigin, traceRayDir);
+
+    pool.trace(traceRay);
     unsigned error = lodepng::encode("img.png", image, width, height);
 
     if (error)

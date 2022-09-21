@@ -1,5 +1,6 @@
 #include "objectpool.h"
 #include <limits>
+#include <iostream>
 
 void ObjectPool::add(const Ball &ball)
 {
@@ -11,7 +12,7 @@ void ObjectPool::add(const Plane &plane)
     m_planes.push_back(plane);
 }
 
-bool ObjectPool::hit(const Ray &ray, bool &isBall)
+bool ObjectPool::hit(const Ray &ray, bool &isBall, Vector3 &hitPoint, Vector3 &hitNormal)
 {
     float t = std::numeric_limits<float>::max();
     float tMin = t;
@@ -28,6 +29,8 @@ bool ObjectPool::hit(const Ray &ray, bool &isBall)
             {
                 isBall = true;
                 tMin = t;
+                hitPoint = p;
+                hitNormal = it->getNormal(hitPoint);
             }
         }
     }
@@ -42,9 +45,49 @@ bool ObjectPool::hit(const Ray &ray, bool &isBall)
             {
                 tMin = t;
                 isBall = false;
+                hitPoint = p;
+                hitNormal = it->normal;
             }
         }
     }
 
     return hit;
+}
+
+void ObjectPool::trace(const Ray &ray)
+{
+    std::cout << "POS : (" << ray.origin.x << "," << ray.origin.y << "," << ray.origin.z << ")" << std::endl;
+
+    bool isBall = false;
+    bool isHit = false;
+
+    Vector3 point;
+    Vector3 normal;
+
+    isHit = hit(ray, isBall, point, normal);
+
+    if (ray.dir.isInSameSide(normal))
+    {
+        std::cout << "SAME SIDE !!!" << std::endl;
+        std::cout << "OLD_DIR : (" << ray.dir.x << "," << ray.dir.y << "," << ray.dir.z << ")" << std::endl;
+        std::cout << "NORMAL : (" << normal.x << "," << normal.y << "," << normal.z << ")" << std::endl;
+        return;
+    }
+
+    const Vector3 dir = ray.dir.reflect(normal);
+    const Ray newRay = Ray(point + dir, dir);
+
+    if (isHit)
+    {
+        std::cout << "OLD_DIR : (" << ray.dir.x << "," << ray.dir.y << "," << ray.dir.z << ")" << std::endl;
+        std::cout << "NEW_DIR : (" << dir.x << "," << dir.y << "," << dir.z << ")" << std::endl;
+        std::cout << "NORMAL : (" << normal.x << "," << normal.y << "," << normal.z << ")" << std::endl;
+
+        trace(newRay);
+    }
+
+    std::cout << "NORMAL END!!!!" << std::endl;
+    std::cout << "OLD_DIR : (" << ray.dir.x << "," << ray.dir.y << "," << ray.dir.z << ")" << std::endl;
+    std::cout << "NEW_DIR : (" << dir.x << "," << dir.y << "," << dir.z << ")" << std::endl;
+    std::cout << "NORMAL : (" << normal.x << "," << normal.y << "," << normal.z << ")" << std::endl;
 }

@@ -42,7 +42,7 @@ float Vector3::operator*(const Vector3 &that) const
     return x + y + z;
 }
 
-Vector3 operator*(const float s, const Vector3& v)
+Vector3 operator*(const float s, const Vector3 &v)
 {
     float x = v.x * s;
     float y = v.y * s;
@@ -92,14 +92,21 @@ Vector3 Vector3::reflect(const Vector3 &normal) const
     Vector3 n = normal;
     n.normalize();
 
-    float m = this->operator*(n);
-    if (m < 0)
-    {
-        n = -n;
-        m = -m;
-    }
+    float m = -this->operator*(n);
+    // if (m < 0)
+    // {
+    //     n = -n;
+    //     m = -m;
+    // }
 
-    return 2 * m * n - (*this);
+    return 2 * m * n + (*this);
+}
+
+bool Vector3::isInSameSide(const Vector3 &that) const
+{
+    const float result = this->operator*(that);
+
+    return result > 0;
 }
 
 float Vector3::length()
