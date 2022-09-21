@@ -14,31 +14,44 @@ int main()
     const Ball ballOne(centerOne, 10);
 
     const Vector3 centerTwo(-10, 0, 200);
-    const Ball ballTwo(centerTwo, 60);
+    const Ball ballTwo(centerTwo, 10);
 
-    const Vector3 centerLeft(-20, 0, 100);
-    const Vector3 planeNormalLeft(1, 0, 0);
-    const Plane planeLeft(centerLeft, planeNormalLeft, 40);
 
-    const Vector3 centerRight(20, 0, 100);
-    const Vector3 planeNormalRight(-1, 0, 0);
-    const Plane planeRight(centerRight, planeNormalRight, 40);
+    const float c = 100;
+    const float r = 3 * c;
+    const Vector3 wallLeftCenter(-c, 0, 0);
+    const Vector3 wallNormalLeft(1, 0, 0);
+    const Plane wallLeft(wallLeftCenter, wallNormalLeft, r);
 
-    const Vector3 centerTop(0, 20, 100);
-    const Vector3 planeNormalTop(0, -1, 0);
-    const Plane planeTop(centerTop, planeNormalTop, 40);
+    const Vector3 wallRightCenter(c, 0, 0);
+    const Vector3 wallNormalRight(-1, 0, 0);
+    const Plane wallRight(wallRightCenter, wallNormalRight, r);
 
-    const Vector3 centerBottom(0, -20, 100);
-    const Vector3 planeNormalBottom(0, 1, 0);
-    const Plane planeBottom(centerBottom, planeNormalBottom, 40);
+    const Vector3 wallTopCenter(0, c, 0);
+    const Vector3 wallNormalTop(0, -1, 0);
+    const Plane wallTop(wallTopCenter, wallNormalTop, r);
+
+    const Vector3 wallBottomCenter(0, -c, 0);
+    const Vector3 wallNormalBottom(0, 1, 0);
+    const Plane wallBottom(wallBottomCenter, wallNormalBottom, r);
+
+    const Vector3 wallFrontCenter(0, 0, c);
+    const Vector3 wallNormalFront(0,0,-1);
+    const Plane wallFront(wallFrontCenter, wallNormalFront, r);
+
+    const Vector3 wallBackCenter(0,0,-c);
+    const Vector3 wallNormalBack(0,0,1);
+    const Plane wallBack(wallBackCenter, wallNormalBack, r);
 
     ObjectPool pool;
     // pool.add(ballOne);
     pool.add(ballTwo);
-    pool.add(planeLeft);
-    pool.add(planeRight);
-    pool.add(planeTop);
-    pool.add(planeBottom);
+    pool.add(wallLeft);
+    pool.add(wallRight);
+    pool.add(wallTop);
+    pool.add(wallBottom);
+    pool.add(wallFront);
+    pool.add(wallBack);
 
     unsigned width = 512, height = 512;
     const float half_width = width / 2.0f;
