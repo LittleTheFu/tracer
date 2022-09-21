@@ -16,9 +16,9 @@ int main()
     const Vector3 centerTwo(-10, 0, 200);
     const Ball ballTwo(centerTwo, 30);
 
-    const Vector3 centerThree(-10, 0, 100);
+    const Vector3 centerThree(-20, 0, 100);
     const Vector3 planeNormal(1, 0, 0);
-    const Plane plane(centerThree, planeNormal);
+    const Plane plane(centerThree, planeNormal, 40);
 
     ObjectPool pool;
     // pool.add(ballOne);

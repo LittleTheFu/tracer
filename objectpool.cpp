@@ -16,10 +16,11 @@ bool ObjectPool::hit(const Ray &ray, bool &isBall)
     float t = std::numeric_limits<float>::max();
     float tMin = t;
     bool hit = false;
+    Vector3 p;
 
     for (std::vector<Ball>::iterator it = m_balls.begin(); it != m_balls.end(); it++)
     {
-        if (ray.hit(*it, t))
+        if (ray.hit(*it, t, p))
         {
             hit = true;
 
@@ -33,7 +34,7 @@ bool ObjectPool::hit(const Ray &ray, bool &isBall)
 
     for (std::vector<Plane>::iterator it = m_planes.begin(); it != m_planes.end(); it++)
     {
-        if (ray.hit(*it, t))
+        if (ray.hit(*it, t, p))
         {
             hit = true;
 

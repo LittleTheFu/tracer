@@ -8,7 +8,7 @@ Ray::Ray(const Vector3 &origin, const Vector3 &dir)
     this->dir.normalize();
 }
 
-bool Ray::hit(const Ball &ball, float &t) const
+bool Ray::hit(const Ball &ball, float &t, Vector3 &point) const
 {
     t = std::numeric_limits<float>::max();
 
@@ -46,10 +46,15 @@ bool Ray::hit(const Ball &ball, float &t) const
         }
     }
 
+    if (hit)
+    {
+        point = origin + t * dir;
+    }
+
     return hit;
 }
 
-bool Ray::hit(const Plane &plane, float &t) const
+bool Ray::hit(const Plane &plane, float &t, Vector3 &point) const
 {
     t = std::numeric_limits<float>::max();
 
@@ -62,6 +67,13 @@ bool Ray::hit(const Plane &plane, float &t) const
     const float d = dir * plane.normal;
 
     t = n / d;
+
+    point = origin + t * dir;
+
+    if(!plane.isIn(point))
+    {
+        return false;
+    }
 
     return true;
 }
