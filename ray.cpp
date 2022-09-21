@@ -1,4 +1,5 @@
 #include "ray.h"
+#include <limits>
 
 Ray::Ray(const Vector3 &origin, const Vector3 &dir)
 {
@@ -7,8 +8,10 @@ Ray::Ray(const Vector3 &origin, const Vector3 &dir)
     this->dir.normalize();
 }
 
-bool Ray::hit(const Ball &ball) const
+bool Ray::hit(const Ball &ball, float &t) const
 {
+    t = std::numeric_limits<float>::max();
+
     const float a = dir.lenthSqr();
     const float b = 2 * (dir * origin - dir * ball.getCenter());
     const float c = origin.lenthSqr() +
@@ -21,27 +24,41 @@ bool Ray::hit(const Ball &ball) const
     if (delta < 0.0f)
         return false;
 
-    const float t0 = (-b + delta) / (2 * a);
-    const float t1 = (b + delta) / (2 * a);
+    float t0 = (-b + delta) / (2 * a);
+    float t1 = (b + delta) / (2 * a);
+    float temp = 0;
+    if(t0 > t1)
+    {
+        temp = t0;
+        t0 = t1;
+        t1 = temp;
+    }
 
     bool hit = t0 > 0.0f;
+    t = t0;
+
     if (!hit)
+    {
         hit = t1 > 0.0f;
+        t = t1;
+    }
 
     return hit;
 }
 
-bool Ray::hit(const Plane &plane) const
+bool Ray::hit(const Plane &plane, float &t) const
 {
+    t = std::numeric_limits<float>::max();
+
     if (dir * plane.normal > 0)
     {
         return false;
     }
 
-    // const float n = (plane.center - origin) * plane.normal;
-    // const float d = dir * plane.normal;
+    const float n = (plane.center - origin) * plane.normal;
+    const float d = dir * plane.normal;
 
-    // const float t = n/d;
+    t = n / d;
 
     return true;
 }

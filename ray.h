@@ -14,8 +14,8 @@ public:
     Vector3 dir;
     float t;
 
-    bool hit(const Ball &ball) const;
-    bool hit(const Plane &plane) const;
+    bool hit(const Ball &ball, float &t) const;
+    bool hit(const Plane &plane, float &t) const;
 };
 
 #endif

@@ -11,7 +11,7 @@ class ObjectPool
 public:
     void add(const Ball &ball);
     void add(const Plane &plane);
-    bool hit(const Ray &ray);
+    bool hit(const Ray &ray, bool &isBall);
 
 private:
     std::vector<Ball> m_balls;

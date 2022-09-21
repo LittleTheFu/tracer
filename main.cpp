@@ -11,17 +11,17 @@ using namespace std;
 int main()
 {
     const Vector3 centerOne(5, 5, 30);
-    const Ball ballOne(centerOne, 3);
+    const Ball ballOne(centerOne, 10);
 
-    const Vector3 centerTwo(-5, -15, 50);
-    const Ball ballTwo(centerTwo, 4);
+    const Vector3 centerTwo(-10, 0, 100);
+    const Ball ballTwo(centerTwo, 15);
 
-    const Vector3 centerThree(-25, -25, 80);
-    const Vector3 planeNormal(1, 1, 0);
+    const Vector3 centerThree(-10, 0, 100);
+    const Vector3 planeNormal(1, 0, 0);
     const Plane plane(centerThree, planeNormal);
 
     ObjectPool pool;
-    pool.add(ballOne);
+    // pool.add(ballOne);
     pool.add(ballTwo);
     pool.add(plane);
 
@@ -37,10 +37,22 @@ int main()
             const Vector3 dir((x - half_width) / half_width, (y - half_height) / half_height, 2);
             Ray ray(origin, dir);
 
-            bool hit = pool.hit(ray);
+            bool isBall = true;
+            bool hit = pool.hit(ray, isBall);
 
-            image[4 * width * y + 4 * x + 0] = hit ? 255 : 0;
-            image[4 * width * y + 4 * x + 1] = 0;
+            char r = 0;
+            char g = 0;
+
+            if (hit)
+            {
+                if (isBall)
+                    r = 255;
+                else
+                    g = 255;
+            }
+
+            image[4 * width * y + 4 * x + 0] = r;
+            image[4 * width * y + 4 * x + 1] = g;
             image[4 * width * y + 4 * x + 2] = 0;
             image[4 * width * y + 4 * x + 3] = 255;
         }
