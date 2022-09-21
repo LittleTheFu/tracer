@@ -1,5 +1,6 @@
 #include "ray.h"
 #include <limits>
+#include <cmath>
 
 Ray::Ray(const Vector3 &origin, const Vector3 &dir)
 {
@@ -12,7 +13,7 @@ bool Ray::hit(const Ball &ball, float &t, Vector3 &point) const
 {
     t = std::numeric_limits<float>::max();
 
-    //page 135
+    // page 135 57
     const float a = dir.lenthSqr();
     const float b = 2 * (dir * origin - dir * ball.getCenter());
     const float c = origin.lenthSqr() +
@@ -25,8 +26,8 @@ bool Ray::hit(const Ball &ball, float &t, Vector3 &point) const
     if (delta < 0.0f)
         return false;
 
-    float t0 = (-b + delta) / (2 * a);
-    float t1 = (-b - delta) / (2 * a);
+    float t0 = (-b + sqrt(delta)) / (2 * a);
+    float t1 = (-b - sqrt(delta)) / (2 * a);
     float temp = 0;
     if (t0 > t1)
     {
@@ -71,7 +72,7 @@ bool Ray::hit(const Plane &plane, float &t, Vector3 &point) const
 
     point = origin + t * dir;
 
-    if(!plane.isIn(point))
+    if (!plane.isIn(point))
     {
         return false;
     }
