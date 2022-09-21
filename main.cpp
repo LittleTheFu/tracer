@@ -10,8 +10,8 @@ using namespace std;
 
 int main()
 {
-    const Vector3 centerOne(5, 5, 30);
-    const Ball ballOne(centerOne, 10);
+    const Vector3 centerOne(20, 0, 40);
+    const Ball ballOne(centerOne, 30);
 
     const Vector3 centerTwo(-10, 0, 200);
     const Ball ballTwo(centerTwo, 10);
@@ -43,7 +43,7 @@ int main()
     const Plane wallBack(wallBackCenter, wallNormalBack, r);
 
     ObjectPool pool;
-    // pool.add(ballOne);
+    pool.add(ballOne);
     // pool.add(ballTwo);
     pool.add(wallLeft);
     pool.add(wallRight);
@@ -87,7 +87,7 @@ int main()
         }
 
     const Vector3 traceRayOrigin = Vector3(0,0,0);
-    const Vector3 traceRayDir = Vector3(2,9,31);
+    const Vector3 traceRayDir = Vector3(0,0,1);
     const Ray traceRay = Ray(traceRayOrigin, traceRayDir);
 
     pool.trace(traceRay);

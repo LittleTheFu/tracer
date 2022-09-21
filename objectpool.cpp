@@ -56,6 +56,7 @@ bool ObjectPool::hit(const Ray &ray, bool &isBall, Vector3 &hitPoint, Vector3 &h
 
 void ObjectPool::trace(const Ray &ray)
 {
+    std::cout<<std::endl;
     std::cout << "POS : (" << ray.origin.x << "," << ray.origin.y << "," << ray.origin.z << ")" << std::endl;
 
     bool isBall = false;
@@ -75,7 +76,8 @@ void ObjectPool::trace(const Ray &ray)
     }
 
     const Vector3 dir = ray.dir.reflect(normal);
-    const Ray newRay = Ray(point + dir, dir);
+    // const Ray newRay = Ray(point + dir, dir);
+    const Ray newRay = Ray(point, dir);
 
     if (isHit)
     {

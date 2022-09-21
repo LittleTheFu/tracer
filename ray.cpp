@@ -12,6 +12,7 @@ bool Ray::hit(const Ball &ball, float &t, Vector3 &point) const
 {
     t = std::numeric_limits<float>::max();
 
+    //page 135
     const float a = dir.lenthSqr();
     const float b = 2 * (dir * origin - dir * ball.getCenter());
     const float c = origin.lenthSqr() +
