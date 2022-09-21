@@ -14,16 +14,21 @@ int main()
     const Ball ballOne(centerOne, 10);
 
     const Vector3 centerTwo(-10, 0, 200);
-    const Ball ballTwo(centerTwo, 30);
+    const Ball ballTwo(centerTwo, 60);
 
     const Vector3 centerThree(-20, 0, 100);
-    const Vector3 planeNormal(1, 0, 0);
-    const Plane plane(centerThree, planeNormal, 40);
+    const Vector3 planeNormalLeft(1, 0, 0);
+    const Plane planeLeft(centerThree, planeNormalLeft, 40);
+
+    const Vector3 centerFour(20, 0, 100);
+    const Vector3 planeNormalRight(-1, 0, 0);
+    const Plane planeRight(centerFour, planeNormalRight, 40);
 
     ObjectPool pool;
     // pool.add(ballOne);
     pool.add(ballTwo);
-    pool.add(plane);
+    pool.add(planeLeft);
+    pool.add(planeRight);
 
     unsigned width = 512, height = 512;
     const float half_width = width / 2.0f;
