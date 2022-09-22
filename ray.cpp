@@ -16,14 +16,15 @@ bool Ray::hit(const Ball &ball, float &t, Vector3 &point) const
     // page 135 57
     const float a = dir.lenthSqr();
     const float b = 2 * (dir * origin - dir * ball.getCenter());
-    const float c = origin.lenthSqr() +
-                    ball.getCenter().lenthSqr() -
-                    2 * (origin * ball.getCenter()) -
-                    ball.r * ball.r;
+    // const float c = origin.lenthSqr() +
+    //                 ball.getCenter().lenthSqr() -
+    //                 2 * (origin * ball.getCenter()) -
+    //                 ball.r * ball.r;
+    const float c = (origin - ball.getCenter()).lenthSqr() - ball.r * ball.r;
 
     const float delta = b * b - 4 * a * c;
 
-    if (delta < 0.0f)
+    if (delta <= 0.0f)
         return false;
 
     float t0 = (-b + sqrt(delta)) / (2 * a);

@@ -56,8 +56,9 @@ bool ObjectPool::hit(const Ray &ray, bool &isBall, Vector3 &hitPoint, Vector3 &h
 
 void ObjectPool::trace(const Ray &ray)
 {
-    std::cout<<std::endl;
-    std::cout << "POS : (" << ray.origin.x << "," << ray.origin.y << "," << ray.origin.z << ")" << std::endl;
+    std::cout << "---------------------" << std::endl;
+    std::cout << "START POS : (" << ray.origin.x << "," << ray.origin.y << "," << ray.origin.z << ")" << std::endl;
+    std::cout << "START dir : (" << ray.dir.x << "," << ray.dir.y << "," << ray.dir.z << ")" << std::endl;
 
     bool isBall = false;
     bool isHit = false;
@@ -69,21 +70,32 @@ void ObjectPool::trace(const Ray &ray)
 
     if (ray.dir.isInSameSide(normal))
     {
+        std::cout << "**********" << std::endl;
         std::cout << "SAME SIDE !!!" << std::endl;
         std::cout << "OLD_DIR : (" << ray.dir.x << "," << ray.dir.y << "," << ray.dir.z << ")" << std::endl;
-        std::cout << "NORMAL : (" << normal.x << "," << normal.y << "," << normal.z << ")" << std::endl;
+        std::cout << "HIT_POS : (" << point.x << "," << point.y << "," << point.z << ")" << std::endl;
+        std::cout << "HIT_NORMAL : (" << normal.x << "," << normal.y << "," << normal.z << ")" << std::endl;
+
+        std::cout << "IS_BALL : " << isBall << std::endl;
+        std::cout << "**********" << std::endl;
         return;
     }
 
     const Vector3 dir = ray.dir.reflect(normal);
     // const Ray newRay = Ray(point + dir, dir);
-    const Ray newRay = Ray(point, dir);
+    Vector3 offset = ray.dir;
+    offset.normalize();
+
+    Vector3 n = normal;
+    n.normalize();
+    const Ray newRay = Ray(point + n, dir);
 
     if (isHit)
     {
-        std::cout << "OLD_DIR : (" << ray.dir.x << "," << ray.dir.y << "," << ray.dir.z << ")" << std::endl;
+        // std::cout << "OLD_DIR : (" << ray.dir.x << "," << ray.dir.y << "," << ray.dir.z << ")" << std::endl;
+        std::cout << "HIT_POS : (" << point.x << "," << point.y << "," << point.z << ")" << std::endl;
+        std::cout << "HIT_NORMAL : (" << normal.x << "," << normal.y << "," << normal.z << ")" << std::endl;
         std::cout << "NEW_DIR : (" << dir.x << "," << dir.y << "," << dir.z << ")" << std::endl;
-        std::cout << "NORMAL : (" << normal.x << "," << normal.y << "," << normal.z << ")" << std::endl;
 
         trace(newRay);
     }
