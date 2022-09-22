@@ -52,7 +52,7 @@ int main()
     pool.add(wallFront);
     pool.add(wallBack);
 
-    pool.setLight(-5, -10, 50, 6);
+    pool.setLight(-5, -10, 50, 10);
 
     unsigned width = 512, height = 512;
     const float half_width = width / 2.0f;
@@ -62,15 +62,21 @@ int main()
     for (unsigned y = 0; y < height; y++)
         for (unsigned x = 0; x < width; x++)
         {
+            if (x == 0)
+            {
+                std::cout << "x:y --- "
+                          << "(" << x << "," << y << ")" << std::endl;
+            }
             const Vector3 origin(0, 0, 0);
             const Vector3 dir((x - half_width) / half_width, (y - half_height) / half_height, 2);
             Ray ray(origin, dir);
 
             Vector3 hitPoint;
             Vector3 hitNormal;
-            bool isBall = true;
+            // bool isBall = true;
             int outIndex = 0;
-            bool hit = pool.hit(ray, isBall, outIndex, hitPoint, hitNormal);
+            // bool hit = pool.hit(ray, isBall, outIndex, hitPoint, hitNormal);
+            bool hit = pool.startTrace(ray, outIndex, 512);
 
             char r = 0;
             char g = 0;

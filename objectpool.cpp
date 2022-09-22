@@ -92,6 +92,57 @@ bool ObjectPool::hit(const Ray &ray, bool &isBall, int &outIndex, Vector3 &hitPo
     return hit;
 }
 
+bool ObjectPool::startTrace(const Ray &ray, int &index, int maxDepth)
+{
+    return lightTrace(ray, index, 0, maxDepth);
+}
+
+bool ObjectPool::lightTrace(const Ray &ray, int &index, int depth, int maxDepth)
+{
+    if (depth > maxDepth)
+    {
+        // std::cout << "miss!" << std::endl;
+        return false;
+    }
+
+    bool isBall = false;
+    bool isHit = false;
+
+    Vector3 point;
+    Vector3 normal;
+
+    int outIndex;
+    isHit = hit(ray, isBall, outIndex, point, normal);
+    index = outIndex;
+
+    if (ray.dir.isInSameSide(normal))
+    {
+        return false;
+    }
+
+    if (outIndex == 100)
+    {
+        // std::cout << "depth : " << depth << std::endl;
+        return true;
+    }
+
+    const Vector3 dir = ray.dir.reflect(normal);
+    Vector3 offset = ray.dir;
+    offset.normalize();
+
+    Vector3 n = normal;
+    n.normalize();
+    const Ray newRay = Ray(point + n, dir);
+
+    int dummpIndex = 0;
+    if (isHit)
+    {
+        return lightTrace(newRay, dummpIndex, depth + 1, maxDepth);
+    }
+
+    return false;
+}
+
 void ObjectPool::trace(const Ray &ray)
 {
     std::cout << "---------------------" << std::endl;

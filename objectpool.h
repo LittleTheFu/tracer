@@ -18,6 +18,8 @@ public:
     bool hit(const Ray &ray, bool &isBall, int &outIndex, Vector3 &hitPoint, Vector3 &hitNormal);
 
     void trace(const Ray &ray);
+    bool startTrace(const Ray &ray, int &index, int maxDepth);
+    bool lightTrace(const Ray &ray, int &index, int depth, int maxDepth);
 
 private:
     std::vector<Ball> m_balls;
