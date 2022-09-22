@@ -4,6 +4,8 @@
 
 ObjectPool::ObjectPool()
 {
+    m_attenuation = 0.99999999f;    
+    // m_attenuation = 1;    
 }
 
 void ObjectPool::setLight(float x, float y, float z, float r)
@@ -92,16 +94,17 @@ bool ObjectPool::hit(const Ray &ray, bool &isBall, int &outIndex, Vector3 &hitPo
     return hit;
 }
 
-bool ObjectPool::startTrace(const Ray &ray, int &index, int maxDepth)
+bool ObjectPool::startTrace(const Ray &ray, int &index, int maxDepth, float &outFactor)
 {
-    return lightTrace(ray, index, 0, maxDepth);
+    return lightTrace(ray, index, 0, maxDepth, 1.0f, outFactor);
 }
 
-bool ObjectPool::lightTrace(const Ray &ray, int &index, int depth, int maxDepth)
+bool ObjectPool::lightTrace(const Ray &ray, int &index, int depth, int maxDepth, float inFactor, float &outFactor)
 {
     if (depth > maxDepth)
     {
         // std::cout << "miss!" << std::endl;
+        outFactor = inFactor;
         return false;
     }
 
@@ -117,12 +120,14 @@ bool ObjectPool::lightTrace(const Ray &ray, int &index, int depth, int maxDepth)
 
     if (ray.dir.isInSameSide(normal))
     {
+        outFactor = inFactor;
         return false;
     }
 
     if (outIndex == 100)
     {
         // std::cout << "depth : " << depth << std::endl;
+        outFactor = inFactor;
         return true;
     }
 
@@ -137,7 +142,7 @@ bool ObjectPool::lightTrace(const Ray &ray, int &index, int depth, int maxDepth)
     int dummpIndex = 0;
     if (isHit)
     {
-        return lightTrace(newRay, dummpIndex, depth + 1, maxDepth);
+        return lightTrace(newRay, dummpIndex, depth + 1, maxDepth, inFactor * m_attenuation, outFactor);
     }
 
     return false;

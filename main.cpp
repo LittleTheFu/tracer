@@ -75,12 +75,14 @@ int main()
             Vector3 hitNormal;
             // bool isBall = true;
             int outIndex = 0;
+            float factor = 0;
             // bool hit = pool.hit(ray, isBall, outIndex, hitPoint, hitNormal);
-            bool hit = pool.startTrace(ray, outIndex, 512);
+            bool hit = pool.startTrace(ray, outIndex, 50, factor);
 
             char r = 0;
             char g = 0;
             char b = 0;
+            char a = 255;
 
             if (hit)
             {
@@ -94,12 +96,17 @@ int main()
                     g = (outIndex + 13) * 119 % 255;
                     b = (outIndex + 23) * 291 % 255;
                 }
+
+                // r *= factor;
+                // g *= factor;
+                // b *= factor;
+                a *= factor;
             }
 
             image[4 * width * y + 4 * x + 0] = r;
             image[4 * width * y + 4 * x + 1] = g;
             image[4 * width * y + 4 * x + 2] = b;
-            image[4 * width * y + 4 * x + 3] = 255;
+            image[4 * width * y + 4 * x + 3] = a;
         }
 
     unsigned error = lodepng::encode("img.png", image, width, height);
