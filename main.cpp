@@ -10,11 +10,11 @@ using namespace std;
 
 int main()
 {
-    const Vector3 centerOne(33, 44, 40);
-    const Ball ballOne(centerOne, 27);
+    const Vector3 centerOne(20 / 1.414f, 0, 40);
+    const Ball ballOne(centerOne, 20);
 
     const Vector3 centerTwo(-17, -67, 53);
-    const Ball ballTwo(centerTwo,20);
+    const Ball ballTwo(centerTwo, 20);
 
     const float c = 100;
     const float r = 5 * c;
@@ -44,7 +44,7 @@ int main()
 
     ObjectPool pool;
     pool.add(ballOne);
-    pool.add(ballTwo);
+    // pool.add(ballTwo);
     pool.add(wallLeft);
     pool.add(wallRight);
     pool.add(wallTop);
@@ -92,7 +92,7 @@ int main()
     //     std::cout << "encoder error " << error << ": " << lodepng_error_text(error) << std::endl;
 
     const Vector3 traceRayOrigin = Vector3(0, 0, 0);
-    const Vector3 traceRayDir = Vector3(5, 9, 7);
+    const Vector3 traceRayDir = Vector3(0, 0, 1);
     const Ray traceRay = Ray(traceRayOrigin, traceRayDir);
 
     pool.trace(traceRay);
