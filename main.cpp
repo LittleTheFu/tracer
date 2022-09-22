@@ -10,11 +10,11 @@ using namespace std;
 
 int main()
 {
-    const Vector3 centerOne(20 / 1.414f, 0, 40);
-    const Ball ballOne(centerOne, 20);
+    const Vector3 centerOne(0, 0, 40);
+    const Ball ballOne(centerOne, 5);
 
-    const Vector3 centerTwo(-17, -67, 53);
-    const Ball ballTwo(centerTwo, 20);
+    const Vector3 centerTwo(5, 15, 80);
+    const Ball ballTwo(centerTwo, 5);
 
     const float c = 100;
     const float r = 5 * c;
@@ -44,58 +44,59 @@ int main()
 
     ObjectPool pool;
     pool.add(ballOne);
-    // pool.add(ballTwo);
+    pool.add(ballTwo);
     pool.add(wallLeft);
     pool.add(wallRight);
     pool.add(wallTop);
     pool.add(wallBottom);
-    pool.add(wallFront);
+    // pool.add(wallFront);
     pool.add(wallBack);
 
-    // unsigned width = 512, height = 512;
-    // const float half_width = width / 2.0f;
-    // const float half_height = height / 2.0f;
-    // std::vector<unsigned char> image;
-    // image.resize(width * height * 4);
-    // for (unsigned y = 0; y < height; y++)
-    //     for (unsigned x = 0; x < width; x++)
-    //     {
-    //         const Vector3 origin(0, 0, 0);
-    //         const Vector3 dir((x - half_width) / half_width, (y - half_height) / half_height, 2);
-    //         Ray ray(origin, dir);
+    unsigned width = 512, height = 512;
+    const float half_width = width / 2.0f;
+    const float half_height = height / 2.0f;
+    std::vector<unsigned char> image;
+    image.resize(width * height * 4);
+    for (unsigned y = 0; y < height; y++)
+        for (unsigned x = 0; x < width; x++)
+        {
+            const Vector3 origin(0, 0, 0);
+            const Vector3 dir((x - half_width) / half_width, (y - half_height) / half_height, 2);
+            Ray ray(origin, dir);
 
-    //         Vector3 hitPoint;
-    //         Vector3 hitNormal;
-    //         bool isBall = true;
-    //         bool hit = pool.hit(ray, isBall, hitPoint, hitNormal);
+            Vector3 hitPoint;
+            Vector3 hitNormal;
+            bool isBall = true;
+            int outIndex = 0;
+            bool hit = pool.hit(ray, isBall, outIndex, hitPoint, hitNormal);
 
-    //         char r = 0;
-    //         char g = 0;
+            char r = 0;
+            char g = 0;
+            char b = 0;
 
-    //         if (hit)
-    //         {
-    //             if (isBall)
-    //                 r = 255;
-    //             else
-    //                 g = 255;
-    //         }
+            if (hit)
+            {
+                r = ( outIndex + 113 ) * 713 % 255;
+                r = ( outIndex + 13 ) * 119 % 255;
+                b = ( outIndex + 23 ) * 291 % 255;
+            }
 
-    //         image[4 * width * y + 4 * x + 0] = r;
-    //         image[4 * width * y + 4 * x + 1] = g;
-    //         image[4 * width * y + 4 * x + 2] = 0;
-    //         image[4 * width * y + 4 * x + 3] = 255;
-    //     }
+            image[4 * width * y + 4 * x + 0] = r;
+            image[4 * width * y + 4 * x + 1] = g;
+            image[4 * width * y + 4 * x + 2] = b;
+            image[4 * width * y + 4 * x + 3] = 255;
+        }
 
-    // unsigned error = lodepng::encode("img.png", image, width, height);
+    unsigned error = lodepng::encode("img.png", image, width, height);
 
-    // if (error)
-    //     std::cout << "encoder error " << error << ": " << lodepng_error_text(error) << std::endl;
+    if (error)
+        std::cout << "encoder error " << error << ": " << lodepng_error_text(error) << std::endl;
 
-    const Vector3 traceRayOrigin = Vector3(0, 0, 0);
-    const Vector3 traceRayDir = Vector3(0, 0, 1);
-    const Ray traceRay = Ray(traceRayOrigin, traceRayDir);
+    // const Vector3 traceRayOrigin = Vector3(0, 0, 0);
+    // const Vector3 traceRayDir = Vector3(0, 0, 1);
+    // const Ray traceRay = Ray(traceRayOrigin, traceRayDir);
 
-    pool.trace(traceRay);
+    // pool.trace(traceRay);
 
     return 0;
 }

@@ -12,15 +12,20 @@ void ObjectPool::add(const Plane &plane)
     m_planes.push_back(plane);
 }
 
-bool ObjectPool::hit(const Ray &ray, bool &isBall, Vector3 &hitPoint, Vector3 &hitNormal)
+bool ObjectPool::hit(const Ray &ray, bool &isBall, int &outIndex, Vector3 &hitPoint, Vector3 &hitNormal)
 {
     float t = std::numeric_limits<float>::max();
     float tMin = t;
     bool hit = false;
     Vector3 p;
 
+    int index = 0;
+    outIndex = 0;
+
     for (std::vector<Ball>::iterator it = m_balls.begin(); it != m_balls.end(); it++)
     {
+        index++;
+
         if (ray.hit(*it, t, p))
         {
             hit = true;
@@ -31,12 +36,15 @@ bool ObjectPool::hit(const Ray &ray, bool &isBall, Vector3 &hitPoint, Vector3 &h
                 tMin = t;
                 hitPoint = p;
                 hitNormal = it->getNormal(hitPoint);
+                outIndex = index;
             }
         }
     }
 
     for (std::vector<Plane>::iterator it = m_planes.begin(); it != m_planes.end(); it++)
     {
+        index++;
+
         if (ray.hit(*it, t, p))
         {
             hit = true;
@@ -47,6 +55,7 @@ bool ObjectPool::hit(const Ray &ray, bool &isBall, Vector3 &hitPoint, Vector3 &h
                 isBall = false;
                 hitPoint = p;
                 hitNormal = it->normal;
+                outIndex = index;
             }
         }
     }
@@ -66,7 +75,8 @@ void ObjectPool::trace(const Ray &ray)
     Vector3 point;
     Vector3 normal;
 
-    isHit = hit(ray, isBall, point, normal);
+    int outIndex;
+    isHit = hit(ray, isBall, outIndex, point, normal);
 
     if (ray.dir.isInSameSide(normal))
     {

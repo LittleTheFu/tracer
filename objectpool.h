@@ -11,7 +11,7 @@ class ObjectPool
 public:
     void add(const Ball &ball);
     void add(const Plane &plane);
-    bool hit(const Ray &ray, bool &isBall, Vector3 &hitPoint, Vector3 &hitNormal);
+    bool hit(const Ray &ray, bool &isBall, int &outIndex, Vector3 &hitPoint, Vector3 &hitNormal);
 
     void trace(const Ray &ray);
 
