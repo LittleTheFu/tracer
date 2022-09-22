@@ -52,6 +52,8 @@ int main()
     pool.add(wallFront);
     pool.add(wallBack);
 
+    pool.setLight(-5, -10, 50, 6);
+
     unsigned width = 512, height = 512;
     const float half_width = width / 2.0f;
     const float half_height = height / 2.0f;
@@ -76,9 +78,16 @@ int main()
 
             if (hit)
             {
-                r = (outIndex + 113) * 713 % 255;
-                r = (outIndex + 13) * 119 % 255;
-                b = (outIndex + 23) * 291 % 255;
+                if (outIndex == 100)
+                {
+                    r = g = b = 255;
+                }
+                else
+                {
+                    r = (outIndex + 113) * 713 % 255;
+                    g = (outIndex + 13) * 119 % 255;
+                    b = (outIndex + 23) * 291 % 255;
+                }
             }
 
             image[4 * width * y + 4 * x + 0] = r;

@@ -6,7 +6,12 @@
 class Ball
 {
 public:
+    Ball();
     Ball(const Vector3 &center, float r);
+
+    void setPos(float x, float y, float z);
+    void setR(float r);
+
     float r;
 
     Vector3 getCenter() const;

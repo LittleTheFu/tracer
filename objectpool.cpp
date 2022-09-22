@@ -2,6 +2,16 @@
 #include <limits>
 #include <iostream>
 
+ObjectPool::ObjectPool()
+{
+}
+
+void ObjectPool::setLight(float x, float y, float z, float r)
+{
+    m_light.setPos(x, y, z);
+    m_light.setR(r);
+}
+
 void ObjectPool::add(const Ball &ball)
 {
     m_balls.push_back(ball);
@@ -62,6 +72,22 @@ bool ObjectPool::hit(const Ray &ray, bool &isBall, int &outIndex, Vector3 &hitPo
         }
     }
     // std::cout << "------END------" << std::endl;
+
+    index = 100;
+    if (ray.hit(m_light, t, p))
+    {
+        // std::cout << "HIT : " << index << " " << t << std::endl;
+        hit = true;
+
+        if (t >= 0 && t < tMin)
+        {
+            tMin = t;
+            isBall = false;
+            hitPoint = p;
+            hitNormal = m_light.getNormal(p);
+            outIndex = index;
+        }
+    }
 
     return hit;
 }

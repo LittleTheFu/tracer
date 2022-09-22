@@ -1,5 +1,11 @@
 #include "ball.h"
 
+Ball::Ball()
+{
+    center = Vector3(0, 0, 0);
+    r = 10;
+}
+
 Ball::Ball(const Vector3 &center, float r)
 {
     this->center = center;
@@ -17,4 +23,16 @@ Vector3 Ball::getNormal(const Vector3 &point) const
     normal.normalize();
 
     return normal;
+}
+
+void Ball::setPos(float x, float y, float z)
+{
+    center.x = x;
+    center.y = y;
+    center.z = z;
+}
+
+void Ball::setR(float r)
+{
+    this->r = r;
 }
