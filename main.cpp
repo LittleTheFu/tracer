@@ -10,7 +10,7 @@ using namespace std;
 
 int main()
 {
-    const Vector3 centerOne(0, 0, 40);
+    const Vector3 centerOne(-20, 0, 100);
     const Ball ballOne(centerOne, 5);
 
     const Vector3 centerTwo(5, 15, 80);
@@ -34,11 +34,11 @@ int main()
     const Vector3 wallNormalBottom(0, 1, 0);
     const Plane wallBottom(wallBottomCenter, wallNormalBottom, r);
 
-    const Vector3 wallFrontCenter(0, 0, c);
+    const Vector3 wallFrontCenter(0, 0, 3 * c);
     const Vector3 wallNormalFront(0, 0, -1);
     const Plane wallFront(wallFrontCenter, wallNormalFront, r);
 
-    const Vector3 wallBackCenter(0, 0, -c);
+    const Vector3 wallBackCenter(0, 0, -3 * c);
     const Vector3 wallNormalBack(0, 0, 1);
     const Plane wallBack(wallBackCenter, wallNormalBack, r);
 
@@ -49,7 +49,7 @@ int main()
     pool.add(wallRight);
     pool.add(wallTop);
     pool.add(wallBottom);
-    // pool.add(wallFront);
+    pool.add(wallFront);
     pool.add(wallBack);
 
     unsigned width = 512, height = 512;
@@ -76,9 +76,9 @@ int main()
 
             if (hit)
             {
-                r = ( outIndex + 113 ) * 713 % 255;
-                r = ( outIndex + 13 ) * 119 % 255;
-                b = ( outIndex + 23 ) * 291 % 255;
+                r = (outIndex + 113) * 713 % 255;
+                r = (outIndex + 13) * 119 % 255;
+                b = (outIndex + 23) * 291 % 255;
             }
 
             image[4 * width * y + 4 * x + 0] = r;

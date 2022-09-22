@@ -41,12 +41,14 @@ bool ObjectPool::hit(const Ray &ray, bool &isBall, int &outIndex, Vector3 &hitPo
         }
     }
 
+    // std::cout << "------BEGIN------" << std::endl;
     for (std::vector<Plane>::iterator it = m_planes.begin(); it != m_planes.end(); it++)
     {
         index++;
 
         if (ray.hit(*it, t, p))
         {
+            // std::cout << "HIT : " << index << " " << t << std::endl;
             hit = true;
 
             if (t >= 0 && t < tMin)
@@ -59,6 +61,7 @@ bool ObjectPool::hit(const Ray &ray, bool &isBall, int &outIndex, Vector3 &hitPo
             }
         }
     }
+    // std::cout << "------END------" << std::endl;
 
     return hit;
 }
