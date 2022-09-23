@@ -16,6 +16,10 @@ public:
 
     bool hit(const Ball &ball, float &t, Vector3 &point) const;
     bool hit(const Plane &plane, float &t, Vector3 &point) const;
+
+    float getDistranceT(const Vector3 &that) const;
+
+    static float getT(const Ray &ray, const Vector3& thatPoint);
 };
 
 #endif

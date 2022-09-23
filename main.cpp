@@ -52,7 +52,7 @@ int main()
     pool.add(wallFront);
     pool.add(wallBack);
 
-    pool.setLight(-5, -10, 50, 10);
+    pool.setLight(5, 10, 10, 10);
 
     unsigned width = 512, height = 512;
     const float half_width = width / 2.0f;
@@ -75,9 +75,10 @@ int main()
             Vector3 hitNormal;
             // bool isBall = true;
             int outIndex = 0;
-            float factor = 0;
+            float factor = 1;
             // bool hit = pool.hit(ray, isBall, outIndex, hitPoint, hitNormal);
-            bool hit = pool.startTrace(ray, outIndex, 50, factor);
+            // bool hit = pool.startTrace(ray, outIndex, 50, factor);
+            bool hit = pool.directTrace(ray, outIndex);
 
             char r = 0;
             char g = 0;

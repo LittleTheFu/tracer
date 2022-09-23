@@ -4,8 +4,8 @@
 
 ObjectPool::ObjectPool()
 {
-    m_attenuation = 0.99999999f;    
-    // m_attenuation = 1;    
+    m_attenuation = 0.99999999f;
+    // m_attenuation = 1;
 }
 
 void ObjectPool::setLight(float x, float y, float z, float r)
@@ -199,4 +199,96 @@ void ObjectPool::trace(const Ray &ray)
     std::cout << "OLD_DIR : (" << ray.dir.x << "," << ray.dir.y << "," << ray.dir.z << ")" << std::endl;
     std::cout << "NEW_DIR : (" << dir.x << "," << dir.y << "," << dir.z << ")" << std::endl;
     std::cout << "NORMAL : (" << normal.x << "," << normal.y << "," << normal.z << ")" << std::endl;
+}
+
+bool ObjectPool::hitSceneObject(const Ray &ray, float &tMin, int &outIndex, Vector3 &hitPoint, Vector3 &hitNormal)
+{
+    float t = std::numeric_limits<float>::max();
+    tMin = t;
+    bool hit = false;
+    Vector3 p;
+
+    int index = 0;
+    outIndex = 0;
+
+    for (std::vector<Ball>::iterator it = m_balls.begin(); it != m_balls.end(); it++)
+    {
+        index++;
+
+        if (ray.hit(*it, t, p))
+        {
+            hit = true;
+
+            if (t >= 0 && t < tMin)
+            {
+                tMin = t;
+                hitPoint = p;
+                hitNormal = it->getNormal(hitPoint);
+                outIndex = index;
+            }
+        }
+    }
+
+    for (std::vector<Plane>::iterator it = m_planes.begin(); it != m_planes.end(); it++)
+    {
+        index++;
+
+        if (ray.hit(*it, t, p))
+        {
+            hit = true;
+
+            if (t >= 0 && t < tMin)
+            {
+                tMin = t;
+                hitPoint = p;
+                hitNormal = it->normal;
+                outIndex = index;
+            }
+        }
+    }
+
+    return hit;
+}
+
+bool ObjectPool::directTrace(const Ray &ray, int &index)
+{
+    float t = std::numeric_limits<float>::max();
+    // int index = 0;
+    Vector3 point;
+    Vector3 normal;
+    bool hit = false;
+
+    hit = hitSceneObject(ray, t, index, point, normal);
+
+    if(hit)
+    {
+        Vector3 offset = normal;
+        offset.normalize();
+        Vector3 rayPos = point + offset;
+        Vector3 dir = rayPos - m_light.getCenter();
+        dir.normalize();
+
+        const Ray newRay = Ray(rayPos, dir);
+        
+        float t1 = std::numeric_limits<float>::max();
+        int dummyIndex = 0;
+        Vector3 dummyPoint;
+        Vector3 dummyNormal;
+        bool lastHit = hitSceneObject(newRay, t1, dummyIndex, dummyPoint, dummyNormal);
+
+        if(!lastHit)
+        {
+            return true;
+        }
+
+        const float lightHitT = Ray::getT(ray, m_light.getCenter());
+
+        if(lightHitT <= t1)
+        {
+            return true;
+        }
+        
+    }
+
+    return false;
 }

@@ -80,3 +80,38 @@ bool Ray::hit(const Plane &plane, float &t, Vector3 &point) const
 
     return true;
 }
+
+float Ray::getDistranceT(const Vector3 &that) const
+{
+    return 0;
+}
+
+float Ray::getT(const Ray &ray, const Vector3& thatPoint)
+{
+    Vector3 d = thatPoint - ray.origin;
+    if(ray.dir.x > ray.dir.y)
+    {
+        if(ray.dir.x > ray.dir.z)
+        {
+            return d.x / ray.dir.x;
+        }
+        else
+        {
+            return d.z / ray.dir.z;
+        }
+
+    }
+    else
+    {
+        if(ray.dir.y > ray.dir.z)
+        {
+            return d.y / ray.dir.y;
+        }
+        else
+        {
+            return d.z / ray.dir.z;
+        }
+    }
+
+    return 0;
+}
