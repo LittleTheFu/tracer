@@ -303,6 +303,9 @@ bool ObjectPool::directTrace(const Ray &ray, int &index)
         std::cout << "new_ray_pos: (" << newRay.origin.x << "," << newRay.origin.y << "," << newRay.origin.z << ")" << std::endl;
         std::cout << "new_raw_dir: (" << rawDir.x << "," << rawDir.y << "," << rawDir.z << ")" << std::endl;
         std::cout << "new_ray_dir: (" << newRay.dir.x << "," << newRay.dir.y << "," << newRay.dir.z << ")" << std::endl;
+        std::cout << "second_hit_index : " << dummyIndex << std::endl;
+        std::cout << "second_hit_point:(" << dummyPoint.x << "," << dummyPoint.y << "," << dummyPoint.z << ")" << std::endl;
+        std::cout << "second_hit_normal:(" << dummyNormal.x << "," << dummyNormal.y << "," << dummyNormal.z << ")" << std::endl;
 #endif
 
         if (!lastHit)
@@ -311,9 +314,11 @@ bool ObjectPool::directTrace(const Ray &ray, int &index)
         }
 
         // const float lightHitT = Ray::getT(ray, m_light.getCenter());
-        const float lightHitT = (m_light.getCenter() - ray.origin).length();
+        const Vector3 lightCenter = m_light.getCenter();
+        const float lightHitT = (lightCenter - newRay.origin).length();
 
 #ifdef _OBJECT_POOL_DEBUG_PRINT_
+        std::cout << "light_pos : ( " << lightCenter.x << "," << lightCenter.y << "," << lightCenter.z << ")" << std::endl;
         std::cout << "object_t : " << t1 << std::endl;
         std::cout << "light_t : " << lightHitT << std::endl;
 #endif

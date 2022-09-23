@@ -10,11 +10,17 @@ using namespace std;
 
 int main()
 {
-    const Vector3 centerOne(-10, 0, 60);
-    const Ball ballOne(centerOne, 5);
+    const Vector3 centerOne(-10, 0, 70);
+    const Ball ballOne(centerOne, 3);
 
-    const Vector3 centerTwo(-20, 20, 90);
-    const Ball ballTwo(centerTwo, 8);
+    const Vector3 centerTwo(15, 0, 50);
+    const Ball ballTwo(centerTwo, 3);
+
+    const Vector3 centerThree(25, 25, 80);
+    const Ball ballThree(centerThree, 3);
+
+    const Vector3 centerFour(-2, 5, 25);
+    const Ball ballFour(centerFour, 2);
 
     const float c = 100;
     const float r = 5 * c;
@@ -45,6 +51,8 @@ int main()
     ObjectPool pool;
     pool.add(ballOne);
     pool.add(ballTwo);
+    pool.add(ballThree);
+    pool.add(ballFour);
     pool.add(wallLeft);
     pool.add(wallRight);
     pool.add(wallTop);
@@ -52,7 +60,14 @@ int main()
     pool.add(wallFront);
     pool.add(wallBack);
 
-    pool.setLight(0, -30, 80, 8);
+    pool.setLight(0, 0, 10, 8);
+
+    bool bTestHit = false;
+    Vector3 testOrigin = Vector3(0,0,0);
+    Vector3 testDir = Vector3(-200, 0, 100);
+    Ray testRay = Ray(testOrigin, testDir);
+    int testIndex = 0;
+    bTestHit = pool.directTrace(testRay, testIndex);
 
     unsigned width = 512, height = 512;
     const float half_width = width / 2.0f;
