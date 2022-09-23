@@ -36,3 +36,11 @@ void Ball::setR(float r)
 {
     this->r = r;
 }
+
+bool Ball::isInTheBall(const Vector3 &point)
+{
+    const float distSqr = (point - center).lenthSqr();
+    const float diff = distSqr - r * r;
+
+    return diff <= 0.00001;
+}

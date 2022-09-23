@@ -61,7 +61,7 @@ bool Ray::hit(const Plane &plane, float &t, Vector3 &point) const
 {
     t = std::numeric_limits<float>::max();
 
-    if (dir * plane.normal > 0)
+    if (dir * plane.normal >= 0)
     {
         return false;
     }

@@ -2,6 +2,8 @@
 #include <limits>
 #include <iostream>
 
+// #define _OBJECT_POOL_DEBUG_PRINT_
+
 ObjectPool::ObjectPool()
 {
     m_attenuation = 0.99999999f;
@@ -215,11 +217,16 @@ bool ObjectPool::hitSceneObject(const Ray &ray, float &tMin, int &outIndex, Vect
     {
         index++;
 
+        if (it->isInTheBall(ray.origin))
+        {
+            continue;
+        }
+
         if (ray.hit(*it, t, p))
         {
             hit = true;
 
-            if (t >= 0 && t < tMin)
+            if (t > 0 && t < tMin)
             {
                 tMin = t;
                 hitPoint = p;
@@ -233,11 +240,16 @@ bool ObjectPool::hitSceneObject(const Ray &ray, float &tMin, int &outIndex, Vect
     {
         index++;
 
+        if (it->isInSamePlane(ray.origin))
+        {
+            continue;
+        }
+
         if (ray.hit(*it, t, p))
         {
             hit = true;
 
-            if (t >= 0 && t < tMin)
+            if (t > 0 && t < tMin)
             {
                 tMin = t;
                 hitPoint = p;
@@ -252,6 +264,13 @@ bool ObjectPool::hitSceneObject(const Ray &ray, float &tMin, int &outIndex, Vect
 
 bool ObjectPool::directTrace(const Ray &ray, int &index)
 {
+#ifdef _OBJECT_POOL_DEBUG_PRINT_
+    std::cout << "!!!!!!!!!!" << std::endl;
+
+    std::cout << "ray_pos: (" << ray.origin.x << "," << ray.origin.y << "," << ray.origin.z << ")" << std::endl;
+    std::cout << "ray_dir: (" << ray.dir.x << "," << ray.dir.y << "," << ray.dir.z << ")" << std::endl;
+#endif
+
     float t = std::numeric_limits<float>::max();
     // int index = 0;
     Vector3 point;
@@ -260,34 +279,49 @@ bool ObjectPool::directTrace(const Ray &ray, int &index)
 
     hit = hitSceneObject(ray, t, index, point, normal);
 
-    if(hit)
+    if (hit)
     {
         Vector3 offset = normal;
         offset.normalize();
+        // Vector3 rayPos = point + offset;
         Vector3 rayPos = point + offset;
-        Vector3 dir = rayPos - m_light.getCenter();
+        Vector3 rawDir = m_light.getCenter() - rayPos;
+        Vector3 dir = rawDir;
         dir.normalize();
 
         const Ray newRay = Ray(rayPos, dir);
-        
+
         float t1 = std::numeric_limits<float>::max();
         int dummyIndex = 0;
         Vector3 dummyPoint;
         Vector3 dummyNormal;
         bool lastHit = hitSceneObject(newRay, t1, dummyIndex, dummyPoint, dummyNormal);
 
-        if(!lastHit)
+#ifdef _OBJECT_POOL_DEBUG_PRINT_
+        std::cout << "hit_pos: (" << point.x << "," << point.y << "," << point.z << ")" << std::endl;
+        std::cout << "hit_normal: (" << normal.x << "," << normal.y << "," << normal.z << ")" << std::endl;
+        std::cout << "new_ray_pos: (" << newRay.origin.x << "," << newRay.origin.y << "," << newRay.origin.z << ")" << std::endl;
+        std::cout << "new_raw_dir: (" << rawDir.x << "," << rawDir.y << "," << rawDir.z << ")" << std::endl;
+        std::cout << "new_ray_dir: (" << newRay.dir.x << "," << newRay.dir.y << "," << newRay.dir.z << ")" << std::endl;
+#endif
+
+        if (!lastHit)
         {
             return true;
         }
 
-        const float lightHitT = Ray::getT(ray, m_light.getCenter());
+        // const float lightHitT = Ray::getT(ray, m_light.getCenter());
+        const float lightHitT = (m_light.getCenter() - ray.origin).length();
 
-        if(lightHitT <= t1)
+#ifdef _OBJECT_POOL_DEBUG_PRINT_
+        std::cout << "object_t : " << t1 << std::endl;
+        std::cout << "light_t : " << lightHitT << std::endl;
+#endif
+
+        if (lightHitT < t1)
         {
             return true;
         }
-        
     }
 
     return false;

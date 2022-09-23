@@ -1,4 +1,6 @@
 #include "plane.h"
+#include <cmath>
+#include <limits>
 
 Plane::Plane(const Vector3 &center, const Vector3 &normal, const float r)
 {
@@ -14,4 +16,18 @@ bool Plane::isIn(const Vector3 &p) const
     float distSqr = (center - p).lenthSqr();
 
     return distSqr <= (r * r);
+}
+
+bool Plane::isInSamePlane(const Vector3 &p) const
+{
+    return false;
+
+    Vector3 v = p - center;
+
+    float r = v * normal;
+    float rr = abs(r);
+
+    // float t = std::numeric_limits<float>::min();
+    // return rr < 0.00000000001;
+    return rr == 0;
 }

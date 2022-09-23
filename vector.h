@@ -13,6 +13,7 @@ public:
     float operator*(const Vector3 &that) const;
     friend Vector3 operator*(const float s, const Vector3& v);
 
+    float length();
     float lenthSqr() const;
     void normalize();
 
@@ -23,8 +24,6 @@ public:
     float y;
     float z;
 
-private:
-    float length();
 };
 
 #endif

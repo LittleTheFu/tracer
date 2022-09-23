@@ -10,11 +10,11 @@ using namespace std;
 
 int main()
 {
-    const Vector3 centerOne(-20, 0, 100);
+    const Vector3 centerOne(-10, 0, 60);
     const Ball ballOne(centerOne, 5);
 
-    const Vector3 centerTwo(5, 15, 80);
-    const Ball ballTwo(centerTwo, 5);
+    const Vector3 centerTwo(-20, 20, 90);
+    const Ball ballTwo(centerTwo, 8);
 
     const float c = 100;
     const float r = 5 * c;
@@ -52,7 +52,7 @@ int main()
     pool.add(wallFront);
     pool.add(wallBack);
 
-    pool.setLight(5, 10, 10, 10);
+    pool.setLight(0, -30, 80, 8);
 
     unsigned width = 512, height = 512;
     const float half_width = width / 2.0f;

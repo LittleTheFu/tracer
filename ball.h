@@ -12,6 +12,8 @@ public:
     void setPos(float x, float y, float z);
     void setR(float r);
 
+    bool isInTheBall(const Vector3 &point);
+
     float r;
 
     Vector3 getCenter() const;
