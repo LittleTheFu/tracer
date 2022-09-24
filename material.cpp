@@ -20,13 +20,13 @@ void Material::set(unsigned char r, unsigned char g, unsigned char b)
     this->b = b;
 }
 
-const Material Material::MTRL_1 = Material(25,10,10);
-const Material Material::MTRL_2 = Material(10,10,10);
-const Material Material::MTRL_3 = Material(10,10,10);
-const Material Material::MTRL_4 = Material(10,10,10);
-const Material Material::MTRL_5 = Material(10,10,10);
-const Material Material::MTRL_6 = Material(10,10,10);
-const Material Material::MTRL_7 = Material(10,10,10);
-const Material Material::MTRL_8 = Material(10,10,10);
-const Material Material::MTRL_9 = Material(10,10,10);
-const Material Material::MTRL_10 = Material(10,10,10);
+const Material Material::MTRL_RED = Material(255, 0, 0);
+const Material Material::MTRL_GREEN = Material(0, 255, 0);
+const Material Material::MTRL_BLUE = Material(0, 0, 255);
+const Material Material::MTRL_YELLOW = Material(255, 255, 0);
+const Material Material::MTRL_AQUA = Material(0, 255, 255);
+const Material Material::MTRL_SILVER = Material(192, 192, 192);
+const Material Material::MTRL_GRAY = Material(128, 128, 128);
+const Material Material::MTRL_PURPLE = Material(128, 0, 128);
+const Material Material::MTRL_WHITE = Material(255, 255, 255);
+const Material Material::MTRL_BLACK = Material(0, 0, 0);

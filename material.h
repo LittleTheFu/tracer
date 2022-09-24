@@ -14,16 +14,16 @@ public:
     unsigned char b;
     unsigned char a;
 
-    const static Material MTRL_1;
-    const static Material MTRL_2;
-    const static Material MTRL_3;
-    const static Material MTRL_4;
-    const static Material MTRL_5;
-    const static Material MTRL_6;
-    const static Material MTRL_7;
-    const static Material MTRL_8;
-    const static Material MTRL_9;
-    const static Material MTRL_10;
+    const static Material MTRL_RED;
+    const static Material MTRL_GREEN;
+    const static Material MTRL_BLUE;
+    const static Material MTRL_YELLOW;
+    const static Material MTRL_AQUA;
+    const static Material MTRL_SILVER;
+    const static Material MTRL_GRAY;
+    const static Material MTRL_PURPLE;
+    const static Material MTRL_WHITE;
+    const static Material MTRL_BLACK;
 };
 
 #endif
