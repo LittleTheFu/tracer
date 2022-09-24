@@ -5,6 +5,7 @@
 #include "ball.h"
 #include "plane.h"
 #include "ray.h"
+#include "hitinfo.h"
 
 class ObjectPool
 {
@@ -22,7 +23,7 @@ public:
     bool lightTrace(const Ray &ray, int &index, int depth, int maxDepth, float inFactor, float &outFactor);
     bool directTrace(const Ray &ray, int &index);
 
-    bool hitSceneObject(const Ray &ray, float &tMin, int &outIndex, Vector3 &hitPoint, Vector3 &hitNormal);
+    bool hitSceneObject(const Ray &ray, float &tMin, int &outIndex, HitInfo &info);
 
 private:
     std::vector<Ball> m_balls;

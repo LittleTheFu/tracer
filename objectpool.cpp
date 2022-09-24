@@ -1,6 +1,7 @@
 #include "objectpool.h"
 #include <limits>
 #include <iostream>
+#include "hitinfo.h"
 
 // #define _OBJECT_POOL_DEBUG_PRINT_
 
@@ -203,7 +204,7 @@ void ObjectPool::trace(const Ray &ray)
     std::cout << "NORMAL : (" << normal.x << "," << normal.y << "," << normal.z << ")" << std::endl;
 }
 
-bool ObjectPool::hitSceneObject(const Ray &ray, float &tMin, int &outIndex, Vector3 &hitPoint, Vector3 &hitNormal)
+bool ObjectPool::hitSceneObject(const Ray &ray, float &tMin, int &outIndex, HitInfo &info)
 {
     float t = std::numeric_limits<float>::max();
     tMin = t;
@@ -229,8 +230,8 @@ bool ObjectPool::hitSceneObject(const Ray &ray, float &tMin, int &outIndex, Vect
             if (t > 0 && t < tMin)
             {
                 tMin = t;
-                hitPoint = p;
-                hitNormal = it->getNormal(hitPoint);
+                info.m_point = p;
+                info.m_normal = it->getNormal(p);
                 outIndex = index;
             }
         }
@@ -252,8 +253,8 @@ bool ObjectPool::hitSceneObject(const Ray &ray, float &tMin, int &outIndex, Vect
             if (t > 0 && t < tMin)
             {
                 tMin = t;
-                hitPoint = p;
-                hitNormal = it->normal;
+                info.m_point = p;
+                info.m_normal = it->normal;
                 outIndex = index;
             }
         }
@@ -273,18 +274,17 @@ bool ObjectPool::directTrace(const Ray &ray, int &index)
 
     float t = std::numeric_limits<float>::max();
     // int index = 0;
-    Vector3 point;
-    Vector3 normal;
     bool hit = false;
 
-    hit = hitSceneObject(ray, t, index, point, normal);
+    HitInfo info;
+    hit = hitSceneObject(ray, t, index, info);
 
     if (hit)
     {
-        Vector3 offset = normal;
+        Vector3 offset = info.m_normal;
         offset.normalize();
         // Vector3 rayPos = point + offset;
-        Vector3 rayPos = point + offset;
+        Vector3 rayPos = info.m_point + offset;
         Vector3 rawDir = m_light.getCenter() - rayPos;
         Vector3 dir = rawDir;
         dir.normalize();
@@ -293,9 +293,8 @@ bool ObjectPool::directTrace(const Ray &ray, int &index)
 
         float t1 = std::numeric_limits<float>::max();
         int dummyIndex = 0;
-        Vector3 dummyPoint;
-        Vector3 dummyNormal;
-        bool lastHit = hitSceneObject(newRay, t1, dummyIndex, dummyPoint, dummyNormal);
+        HitInfo dummyInfo;
+        bool lastHit = hitSceneObject(newRay, t1, dummyIndex, dummyInfo);
 
 #ifdef _OBJECT_POOL_DEBUG_PRINT_
         std::cout << "hit_pos: (" << point.x << "," << point.y << "," << point.z << ")" << std::endl;
