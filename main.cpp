@@ -32,6 +32,10 @@ int main()
     Ball ballFive(centerFive, 2);
     ballFive.setMaterial(Material::MTRL_PURPLE);
 
+    const Vector3 centerSix(-3, -5, 20);
+    Ball ballSix(centerSix, 0.2);
+    ballSix.setMaterial(Material::MTRL_PURPLE);
+
     const float c = 100;
     const float r = 5 * c;
     const Vector3 wallLeftCenter(-c, 0, 0);
@@ -70,6 +74,7 @@ int main()
     pool.add(ballThree);
     pool.add(ballFour);
     pool.add(ballFive);
+    pool.add(ballSix);
     pool.add(wallLeft);
     pool.add(wallRight);
     pool.add(wallTop);
