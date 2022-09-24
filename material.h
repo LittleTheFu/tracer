@@ -8,6 +8,7 @@ public:
     Material(unsigned char r, unsigned char g, unsigned char b);
 
     void set(unsigned char r, unsigned char g, unsigned char b);
+    void set(const Material &mtrl);
 
     unsigned char r;
     unsigned char g;

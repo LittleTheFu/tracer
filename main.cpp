@@ -4,6 +4,8 @@
 #include "ball.h"
 #include "plane.h"
 #include "objectpool.h"
+#include "material.h"
+#include "hitinfo.h"
 
 #include <iostream>
 using namespace std;
@@ -11,42 +13,52 @@ using namespace std;
 int main()
 {
     const Vector3 centerOne(-10, 0, 70);
-    const Ball ballOne(centerOne, 3);
+    Ball ballOne(centerOne, 3);
+    ballOne.setMaterial(Material::MTRL_AQUA);
 
     const Vector3 centerTwo(15, 0, 50);
-    const Ball ballTwo(centerTwo, 3);
+    Ball ballTwo(centerTwo, 3);
+    ballTwo.setMaterial(Material::MTRL_RED);
 
     const Vector3 centerThree(25, 25, 80);
-    const Ball ballThree(centerThree, 3);
+    Ball ballThree(centerThree, 3);
+    ballThree.setMaterial(Material::MTRL_BLUE);
 
     const Vector3 centerFour(-2, 5, 25);
-    const Ball ballFour(centerFour, 2);
+    Ball ballFour(centerFour, 2);
+    ballFour.setMaterial(Material::MTRL_PURPLE);
 
     const float c = 100;
     const float r = 5 * c;
     const Vector3 wallLeftCenter(-c, 0, 0);
     const Vector3 wallNormalLeft(1, 0, 0);
-    const Plane wallLeft(wallLeftCenter, wallNormalLeft, r);
+    Plane wallLeft(wallLeftCenter, wallNormalLeft, r);
+    wallLeft.setMaterial(Material::MTRL_BLUE);
 
     const Vector3 wallRightCenter(c, 0, 0);
     const Vector3 wallNormalRight(-1, 0, 0);
-    const Plane wallRight(wallRightCenter, wallNormalRight, r);
+    Plane wallRight(wallRightCenter, wallNormalRight, r);
+    wallRight.setMaterial(Material::MTRL_YELLOW);
 
     const Vector3 wallTopCenter(0, c, 0);
     const Vector3 wallNormalTop(0, -1, 0);
-    const Plane wallTop(wallTopCenter, wallNormalTop, r);
+    Plane wallTop(wallTopCenter, wallNormalTop, r);
+    wallTop.setMaterial(Material::MTRL_SILVER);
 
     const Vector3 wallBottomCenter(0, -c, 0);
     const Vector3 wallNormalBottom(0, 1, 0);
-    const Plane wallBottom(wallBottomCenter, wallNormalBottom, r);
+    Plane wallBottom(wallBottomCenter, wallNormalBottom, r);
+    wallBottom.setMaterial(Material::MTRL_RED);
 
     const Vector3 wallFrontCenter(0, 0, 3 * c);
     const Vector3 wallNormalFront(0, 0, -1);
-    const Plane wallFront(wallFrontCenter, wallNormalFront, r);
+    Plane wallFront(wallFrontCenter, wallNormalFront, r);
+    wallFront.setMaterial(Material::MTRL_GRAY);
 
     const Vector3 wallBackCenter(0, 0, -3 * c);
     const Vector3 wallNormalBack(0, 0, 1);
-    const Plane wallBack(wallBackCenter, wallNormalBack, r);
+    Plane wallBack(wallBackCenter, wallNormalBack, r);
+    wallBack.setMaterial(Material::MTRL_WHITE);
 
     ObjectPool pool;
     pool.add(ballOne);
@@ -91,38 +103,19 @@ int main()
             // bool isBall = true;
             int outIndex = 0;
             float factor = 1;
-            // bool hit = pool.hit(ray, isBall, outIndex, hitPoint, hitNormal);
-            // bool hit = pool.startTrace(ray, outIndex, 50, factor);
-            bool hit = pool.directTrace(ray, outIndex);
+            HitInfo info;
+            bool hit = pool.directTrace(ray, outIndex, info);
+            Material mtrl(Material::MTRL_BLACK);
 
-            char r = 0;
-            char g = 0;
-            char b = 0;
-            char a = 255;
-
-            if (hit)
+            if(hit)
             {
-                if (outIndex == 100)
-                {
-                    r = g = b = 255;
-                }
-                else
-                {
-                    r = (outIndex + 113) * 713 % 255;
-                    g = (outIndex + 13) * 119 % 255;
-                    b = (outIndex + 23) * 291 % 255;
-                }
-
-                // r *= factor;
-                // g *= factor;
-                // b *= factor;
-                a *= factor;
+                mtrl = info.m_mtrl;
             }
 
-            image[4 * width * y + 4 * x + 0] = r;
-            image[4 * width * y + 4 * x + 1] = g;
-            image[4 * width * y + 4 * x + 2] = b;
-            image[4 * width * y + 4 * x + 3] = a;
+            image[4 * width * y + 4 * x + 0] = mtrl.r;
+            image[4 * width * y + 4 * x + 1] = mtrl.g;
+            image[4 * width * y + 4 * x + 2] = mtrl.b;
+            image[4 * width * y + 4 * x + 3] = mtrl.a;
         }
 
     unsigned error = lodepng::encode("img.png", image, width, height);

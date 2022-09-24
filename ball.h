@@ -14,6 +14,7 @@ public:
     void setR(float r);
 
     bool isInTheBall(const Vector3 &point);
+    void setMaterial(const Material &mtrl);
 
     float r;
 

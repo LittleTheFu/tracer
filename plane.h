@@ -2,6 +2,7 @@
 #define _PLANE_H_
 
 #include "vector.h"
+#include "material.h"
 
 class Plane
 {
@@ -10,6 +11,10 @@ public:
 
     bool isIn(const Vector3 &p) const;
     bool isInSamePlane(const Vector3 &p) const;
+
+    void setMaterial(const Material &mtrl);
+
+    Material mtrl;
 
     Vector3 center;
     Vector3 normal;

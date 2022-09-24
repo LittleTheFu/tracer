@@ -44,3 +44,8 @@ bool Ball::isInTheBall(const Vector3 &point)
 
     return diff <= 0.00001;
 }
+
+void Ball::setMaterial(const Material &mtrl)
+{
+    this->mtrl = mtrl;
+}

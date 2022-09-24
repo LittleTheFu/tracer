@@ -31,3 +31,8 @@ bool Plane::isInSamePlane(const Vector3 &p) const
     // return rr < 0.00000000001;
     return rr == 0;
 }
+
+void Plane::setMaterial(const Material &mtrl)
+{
+    this->mtrl = mtrl;
+}

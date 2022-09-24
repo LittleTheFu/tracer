@@ -10,6 +10,7 @@ Material::Material()
 
 Material::Material(unsigned char r, unsigned char g, unsigned char b)
 {
+    a = 255;
     set(r, g, b);
 }
 
@@ -18,6 +19,11 @@ void Material::set(unsigned char r, unsigned char g, unsigned char b)
     this->r = r;
     this->g = g;
     this->b = b;
+}
+
+void Material::set(const Material &mtrl)
+{
+    (*this) = mtrl;
 }
 
 const Material Material::MTRL_RED = Material(255, 0, 0);

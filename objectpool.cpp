@@ -232,6 +232,7 @@ bool ObjectPool::hitSceneObject(const Ray &ray, float &tMin, int &outIndex, HitI
                 tMin = t;
                 info.m_point = p;
                 info.m_normal = it->getNormal(p);
+                info.m_mtrl = it->mtrl;
                 outIndex = index;
             }
         }
@@ -255,6 +256,7 @@ bool ObjectPool::hitSceneObject(const Ray &ray, float &tMin, int &outIndex, HitI
                 tMin = t;
                 info.m_point = p;
                 info.m_normal = it->normal;
+                info.m_mtrl = it->mtrl;
                 outIndex = index;
             }
         }
@@ -263,7 +265,7 @@ bool ObjectPool::hitSceneObject(const Ray &ray, float &tMin, int &outIndex, HitI
     return hit;
 }
 
-bool ObjectPool::directTrace(const Ray &ray, int &index)
+bool ObjectPool::directTrace(const Ray &ray, int &index, HitInfo &outInfo)
 {
 #ifdef _OBJECT_POOL_DEBUG_PRINT_
     std::cout << "!!!!!!!!!!" << std::endl;
@@ -278,6 +280,7 @@ bool ObjectPool::directTrace(const Ray &ray, int &index)
 
     HitInfo info;
     hit = hitSceneObject(ray, t, index, info);
+    outInfo = info;
 
     if (hit)
     {
