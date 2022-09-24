@@ -62,12 +62,12 @@ int main()
 
     pool.setLight(0, 0, 10, 8);
 
-    bool bTestHit = false;
-    Vector3 testOrigin = Vector3(0,0,0);
-    Vector3 testDir = Vector3(-200, 0, 100);
-    Ray testRay = Ray(testOrigin, testDir);
-    int testIndex = 0;
-    bTestHit = pool.directTrace(testRay, testIndex);
+    // bool bTestHit = false;
+    // Vector3 testOrigin = Vector3(0,0,0);
+    // Vector3 testDir = Vector3(-200, 0, 100);
+    // Ray testRay = Ray(testOrigin, testDir);
+    // int testIndex = 0;
+    // bTestHit = pool.directTrace(testRay, testIndex);
 
     unsigned width = 512, height = 512;
     const float half_width = width / 2.0f;
