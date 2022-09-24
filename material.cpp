@@ -26,6 +26,29 @@ void Material::set(const Material &mtrl)
     (*this) = mtrl;
 }
 
+Material &Material::operator+=(const Material &that)
+{
+    r += that.r;
+    g += that.g;
+    b += that.b;
+
+    return *this;
+}
+
+Material Material::operator*(float m)
+{
+    return Material(r * m, g * m, b * m);
+}
+
+Material &Material::operator*=(float m)
+{
+    r *= m;
+    g *= m;
+    b *= m;
+
+    return *this;
+}
+
 const Material Material::MTRL_RED = Material(255, 0, 0);
 const Material Material::MTRL_GREEN = Material(0, 255, 0);
 const Material Material::MTRL_BLUE = Material(0, 0, 255);

@@ -10,6 +10,10 @@ public:
     void set(unsigned char r, unsigned char g, unsigned char b);
     void set(const Material &mtrl);
 
+    Material &operator*=(float m);
+    Material &operator+=(const Material &that);
+    Material operator*(float m);
+
     unsigned char r;
     unsigned char g;
     unsigned char b;

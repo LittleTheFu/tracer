@@ -112,16 +112,41 @@ int main()
             Vector3 hitNormal;
             // bool isBall = true;
             int outIndex = 0;
-            float factor = 1;
+            // float factor = 1;
             HitInfo info;
             // bool hit = pool.directTrace(ray, outIndex, info);
-            bool hit = pool.traceWithTimes(ray, 2, outIndex, info);
             Material mtrl(Material::MTRL_BLACK);
+            float weight = 0;
 
-            if (hit)
+            for (int i = 2; i < 50; i++)
             {
-                mtrl = info.m_mtrl;
+                bool hit = pool.traceWithTimes(ray, i, outIndex, info);
+                int power = (i - 1);
+                float w = 1;
+                float m = 0.5;
+                for (int i = 0; i < power; i++)
+                {
+                    w *= m;
+                }
+
+                if (hit)
+                {
+                    mtrl += info.m_mtrl * w;
+                }
             }
+
+            if (weight > 1)
+            {
+                weight = 1;
+            }
+
+            // cout<<"weight:"<<weight<<endl;
+            // mtrl *= weight;
+
+            // if (hit)
+            // {
+            //     mtrl = info.m_mtrl;
+            // }
 
             image[4 * width * y + 4 * x + 0] = mtrl.r;
             image[4 * width * y + 4 * x + 1] = mtrl.g;
