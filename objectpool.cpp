@@ -265,6 +265,76 @@ bool ObjectPool::hitSceneObject(const Ray &ray, float &tMin, int &outIndex, HitI
     return hit;
 }
 
+bool ObjectPool::testLightReachable(const Ray &ray, const Vector3 &light)
+{
+    float t1 = std::numeric_limits<float>::max();
+    int dummyIndex = 0;
+    HitInfo dummyInfo;
+    bool lastHit = hitSceneObject(ray, t1, dummyIndex, dummyInfo);
+
+#ifdef _OBJECT_POOL_DEBUG_PRINT_
+    std::cout << "hit_pos: (" << point.x << "," << point.y << "," << point.z << ")" << std::endl;
+    std::cout << "hit_normal: (" << normal.x << "," << normal.y << "," << normal.z << ")" << std::endl;
+    std::cout << "new_ray_pos: (" << newRay.origin.x << "," << newRay.origin.y << "," << newRay.origin.z << ")" << std::endl;
+    std::cout << "new_raw_dir: (" << rawDir.x << "," << rawDir.y << "," << rawDir.z << ")" << std::endl;
+    std::cout << "new_ray_dir: (" << newRay.dir.x << "," << newRay.dir.y << "," << newRay.dir.z << ")" << std::endl;
+    std::cout << "second_hit_index : " << dummyIndex << std::endl;
+    std::cout << "second_hit_point:(" << dummyPoint.x << "," << dummyPoint.y << "," << dummyPoint.z << ")" << std::endl;
+    std::cout << "second_hit_normal:(" << dummyNormal.x << "," << dummyNormal.y << "," << dummyNormal.z << ")" << std::endl;
+#endif
+
+    if (!lastHit)
+    {
+        return true;
+    }
+
+    // const float lightHitT = Ray::getT(ray, m_light.getCenter());
+    const Vector3 lightCenter = m_light.getCenter();
+    const float lightHitT = (lightCenter - ray.origin).length();
+
+#ifdef _OBJECT_POOL_DEBUG_PRINT_
+    std::cout << "light_pos : ( " << lightCenter.x << "," << lightCenter.y << "," << lightCenter.z << ")" << std::endl;
+    std::cout << "object_t : " << t1 << std::endl;
+    std::cout << "light_t : " << lightHitT << std::endl;
+#endif
+
+    if (lightHitT < t1)
+    {
+        return true;
+    }
+
+    return false;
+}
+
+bool ObjectPool::traceWithTimes(const Ray &ray, int bounceNum, int &index, HitInfo &outInfo)
+{
+
+    bounceNum -= 1;
+    if (bounceNum <= 0)
+    {
+        return testLightReachable(ray, m_light.getCenter());
+    }
+
+    float t = std::numeric_limits<float>::max();
+    bool hit = false;
+
+    HitInfo info;
+    hit = hitSceneObject(ray, t, index, info);
+    outInfo = info;
+
+    if (hit)
+    {
+        Vector3 offset = info.m_normal;
+        offset.normalize();
+        Vector3 rayPos = info.m_point + offset;
+
+        // return testLightReachable(rayPos, m_light.getCenter());
+        return true;
+    }
+
+    return false;
+}
+
 bool ObjectPool::directTrace(const Ray &ray, int &index, HitInfo &outInfo)
 {
 #ifdef _OBJECT_POOL_DEBUG_PRINT_
@@ -294,41 +364,43 @@ bool ObjectPool::directTrace(const Ray &ray, int &index, HitInfo &outInfo)
 
         const Ray newRay = Ray(rayPos, dir);
 
-        float t1 = std::numeric_limits<float>::max();
-        int dummyIndex = 0;
-        HitInfo dummyInfo;
-        bool lastHit = hitSceneObject(newRay, t1, dummyIndex, dummyInfo);
+        return testLightReachable(newRay, m_light.getCenter());
 
-#ifdef _OBJECT_POOL_DEBUG_PRINT_
-        std::cout << "hit_pos: (" << point.x << "," << point.y << "," << point.z << ")" << std::endl;
-        std::cout << "hit_normal: (" << normal.x << "," << normal.y << "," << normal.z << ")" << std::endl;
-        std::cout << "new_ray_pos: (" << newRay.origin.x << "," << newRay.origin.y << "," << newRay.origin.z << ")" << std::endl;
-        std::cout << "new_raw_dir: (" << rawDir.x << "," << rawDir.y << "," << rawDir.z << ")" << std::endl;
-        std::cout << "new_ray_dir: (" << newRay.dir.x << "," << newRay.dir.y << "," << newRay.dir.z << ")" << std::endl;
-        std::cout << "second_hit_index : " << dummyIndex << std::endl;
-        std::cout << "second_hit_point:(" << dummyPoint.x << "," << dummyPoint.y << "," << dummyPoint.z << ")" << std::endl;
-        std::cout << "second_hit_normal:(" << dummyNormal.x << "," << dummyNormal.y << "," << dummyNormal.z << ")" << std::endl;
-#endif
+        //         float t1 = std::numeric_limits<float>::max();
+        //         int dummyIndex = 0;
+        //         HitInfo dummyInfo;
+        //         bool lastHit = hitSceneObject(newRay, t1, dummyIndex, dummyInfo);
 
-        if (!lastHit)
-        {
-            return true;
-        }
+        // #ifdef _OBJECT_POOL_DEBUG_PRINT_
+        //         std::cout << "hit_pos: (" << point.x << "," << point.y << "," << point.z << ")" << std::endl;
+        //         std::cout << "hit_normal: (" << normal.x << "," << normal.y << "," << normal.z << ")" << std::endl;
+        //         std::cout << "new_ray_pos: (" << newRay.origin.x << "," << newRay.origin.y << "," << newRay.origin.z << ")" << std::endl;
+        //         std::cout << "new_raw_dir: (" << rawDir.x << "," << rawDir.y << "," << rawDir.z << ")" << std::endl;
+        //         std::cout << "new_ray_dir: (" << newRay.dir.x << "," << newRay.dir.y << "," << newRay.dir.z << ")" << std::endl;
+        //         std::cout << "second_hit_index : " << dummyIndex << std::endl;
+        //         std::cout << "second_hit_point:(" << dummyPoint.x << "," << dummyPoint.y << "," << dummyPoint.z << ")" << std::endl;
+        //         std::cout << "second_hit_normal:(" << dummyNormal.x << "," << dummyNormal.y << "," << dummyNormal.z << ")" << std::endl;
+        // #endif
 
-        // const float lightHitT = Ray::getT(ray, m_light.getCenter());
-        const Vector3 lightCenter = m_light.getCenter();
-        const float lightHitT = (lightCenter - newRay.origin).length();
+        //         if (!lastHit)
+        //         {
+        //             return true;
+        //         }
 
-#ifdef _OBJECT_POOL_DEBUG_PRINT_
-        std::cout << "light_pos : ( " << lightCenter.x << "," << lightCenter.y << "," << lightCenter.z << ")" << std::endl;
-        std::cout << "object_t : " << t1 << std::endl;
-        std::cout << "light_t : " << lightHitT << std::endl;
-#endif
+        //         // const float lightHitT = Ray::getT(ray, m_light.getCenter());
+        //         const Vector3 lightCenter = m_light.getCenter();
+        //         const float lightHitT = (lightCenter - newRay.origin).length();
 
-        if (lightHitT < t1)
-        {
-            return true;
-        }
+        // #ifdef _OBJECT_POOL_DEBUG_PRINT_
+        //         std::cout << "light_pos : ( " << lightCenter.x << "," << lightCenter.y << "," << lightCenter.z << ")" << std::endl;
+        //         std::cout << "object_t : " << t1 << std::endl;
+        //         std::cout << "light_t : " << lightHitT << std::endl;
+        // #endif
+
+        //         if (lightHitT < t1)
+        //         {
+        //             return true;
+        //         }
     }
 
     return false;
