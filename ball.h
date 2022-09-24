@@ -2,6 +2,7 @@
 #define _BALL_H_
 
 #include "vector.h"
+#include "material.h"
 
 class Ball
 {
@@ -18,6 +19,8 @@ public:
 
     Vector3 getCenter() const;
     Vector3 getNormal(const Vector3 &point) const;
+
+    Material mtrl;
 
 private:
     Vector3 center;

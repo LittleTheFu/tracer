@@ -2,11 +2,14 @@
 #define _CIRCLE_H_
 
 #include "vector.h"
+#include "material.h"
 
 class Circle
 {
 public:
     Circle(const Vector3 &center, const Vector3 &normal, float r);
+
+    Material mtrl;
 
 private:
     Vector3 center;
