@@ -302,10 +302,12 @@ bool ObjectPool::traceWithTimes(const Ray &ray, int bounceNum, int &index, HitIn
     bool hit = false;
 
     HitInfo info;
-    hit = hitSceneObject(ray, t, index, outInfo);
+    hit = hitSceneObject(ray, t, index, info);
+    outInfo = info;
 
     if (hit)
     {
+        HitInfo newInfo;
         Vector3 offset = info.m_normal;
         offset.normalize();
 
@@ -317,7 +319,7 @@ bool ObjectPool::traceWithTimes(const Ray &ray, int bounceNum, int &index, HitIn
 
         const Ray newRay = Ray(rayPos, dir);
 
-        return traceWithTimes(newRay, bounceNum, index, info);
+        return traceWithTimes(newRay, bounceNum, index, newInfo);
     }
 
     return false;

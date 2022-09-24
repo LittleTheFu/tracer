@@ -114,10 +114,11 @@ int main()
             int outIndex = 0;
             float factor = 1;
             HitInfo info;
-            bool hit = pool.directTrace(ray, outIndex, info);
+            // bool hit = pool.directTrace(ray, outIndex, info);
+            bool hit = pool.traceWithTimes(ray, 2, outIndex, info);
             Material mtrl(Material::MTRL_BLACK);
 
-            if(hit)
+            if (hit)
             {
                 mtrl = info.m_mtrl;
             }
