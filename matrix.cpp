@@ -45,9 +45,14 @@ const Matrix Matrix::getRotXMatrix(float theta)
 {
     Matrix mtx;
 
+    // mtx.m[1][1] = std::cos(theta);
+    // mtx.m[1][2] = -std::sin(theta);
+    // mtx.m[2][1] = std::sin(theta);
+    // mtx.m[2][2] = std::cos(theta);
+
     mtx.m[1][1] = std::cos(theta);
-    mtx.m[1][2] = -std::sin(theta);
-    mtx.m[2][1] = std::sin(theta);
+    mtx.m[1][2] = std::sin(theta);
+    mtx.m[2][1] = -std::sin(theta);
     mtx.m[2][2] = std::cos(theta);
 
     return mtx;
@@ -56,9 +61,14 @@ const Matrix Matrix::getRotYMatrix(float theta)
 {
     Matrix mtx;
 
+    // mtx.m[0][0] = std::cos(theta);
+    // mtx.m[0][2] = std::sin(theta);
+    // mtx.m[2][0] = -std::sin(theta);
+    // mtx.m[2][2] = std::cos(theta);
+
     mtx.m[0][0] = std::cos(theta);
-    mtx.m[0][2] = std::sin(theta);
-    mtx.m[2][0] = -std::sin(theta);
+    mtx.m[0][2] = -std::sin(theta);
+    mtx.m[2][0] = std::sin(theta);
     mtx.m[2][2] = std::cos(theta);
 
     return mtx;
@@ -68,9 +78,14 @@ const Matrix Matrix::getRotZMatrix(float theta)
 {
     Matrix mtx;
 
+    // mtx.m[0][0] = std::cos(theta);
+    // mtx.m[0][1] = -std::sin(theta);
+    // mtx.m[1][0] = std::sin(theta);
+    // mtx.m[1][1] = std::cos(theta);
+
     mtx.m[0][0] = std::cos(theta);
-    mtx.m[0][1] = -std::sin(theta);
-    mtx.m[1][0] = std::sin(theta);
+    mtx.m[0][1] = std::sin(theta);
+    mtx.m[1][0] = -std::sin(theta);
     mtx.m[1][1] = std::cos(theta);
 
     return mtx;
