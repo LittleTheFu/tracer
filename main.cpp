@@ -12,7 +12,7 @@ using namespace std;
 
 int main()
 {
-    const Vector3 centerOne(-10, 0, 70);
+    const Vector3 centerOne(-30, 20, 70);
     Ball ballOne(centerOne, 3);
     ballOne.setMaterial(Material::MTRL_AQUA);
 
@@ -44,30 +44,38 @@ int main()
     const Vector3 wallNormalLeft(1, 0, 0);
     Plane wallLeft(wallLeftCenter, wallNormalLeft, r);
     wallLeft.setMaterial(Material::MTRL_BLUE);
-    wallLeft.transform.rotateY(-pi);
-    wallLeft.transform.setOrigin(wallLeft.center.x, wallLeft.center.y, wallLeft.center.z);
+    wallLeft.transform.rotateY(-pi / 2);
+    wallLeft.transform.translate(0, 0, -c);
+    // wallLeft.transform.setOrigin(wallLeft.center.x, wallLeft.center.y, wallLeft.center.z);
 
     const Vector3 wallRightCenter(c, 0, 0);
     const Vector3 wallNormalRight(-1, 0, 0);
     Plane wallRight(wallRightCenter, wallNormalRight, r);
-    wallRight.setMaterial(Material::MTRL_YELLOW);
+    wallRight.setMaterial(Material::MTRL_GRAY);
+    wallRight.transform.rotateY(pi / 2);
+    wallRight.transform.translate(0, 0, -c);
 
     const Vector3 wallTopCenter(0, c, 0);
     const Vector3 wallNormalTop(0, -1, 0);
     Plane wallTop(wallTopCenter, wallNormalTop, r);
     wallTop.setMaterial(Material::MTRL_SILVER);
+    wallTop.transform.rotateX(pi / 2);
+    wallTop.transform.translate(0, 0, -c);
 
     const Vector3 wallBottomCenter(0, -c, 0);
     const Vector3 wallNormalBottom(0, 1, 0);
     Plane wallBottom(wallBottomCenter, wallNormalBottom, r);
     wallBottom.setMaterial(Material::MTRL_RED);
+    wallBottom.transform.rotateX(-pi / 2);
+    wallBottom.transform.translate(0, 0, -c);
 
     const Vector3 wallFrontCenter(0, 0, 3 * c);
     const Vector3 wallNormalFront(0, 0, -1);
     Plane wallFront(wallFrontCenter, wallNormalFront, r);
     wallFront.setMaterial(Material::MTRL_YELLOW);
     wallFront.transform.rotateX(pi);
-    wallFront.transform.setOrigin(wallFront.center.x, wallFront.center.y, wallFront.center.z);
+    // wallFront.transform.setOrigin(wallFront.center.x, wallFront.center.y, wallFront.center.z);
+    wallFront.transform.translate(0, 0, -3 * c);
 
     // const float pi = 3.14159274101257324219f;
     // wallFront.transform.rotateX(pi/3);
@@ -77,6 +85,7 @@ int main()
     const Vector3 wallNormalBack(0, 0, 1);
     Plane wallBack(wallBackCenter, wallNormalBack, r);
     wallBack.setMaterial(Material::MTRL_WHITE);
+    wallBack.transform.translate(0, 0, -3 * c);
 
     ObjectPool pool;
     pool.add(ballOne);
@@ -85,12 +94,12 @@ int main()
     pool.add(ballFour);
     pool.add(ballFive);
     pool.add(ballSix);
-    // pool.add(wallLeft);
-    // pool.add(wallRight);
-    // pool.add(wallTop);
-    // pool.add(wallBottom);
+    pool.add(wallLeft);
+    pool.add(wallRight);
+    pool.add(wallTop);
+    pool.add(wallBottom);
     pool.add(wallFront);
-    // pool.add(wallBack);
+    pool.add(wallBack);
 
     pool.setLight(0, 0, 10, 8);
 
@@ -108,13 +117,18 @@ int main()
     // pool.add(ballAlpha);
 
     // const Vector3 centerRayAlpha = Vector3(0, 0, 0);
-    // const Vector3 dirRayAlpha = Vector3(0, 0, 1);
+    // const Vector3 dirRayAlpha = Vector3(-1, 0, 0);
     // const Ray rayAlpha = Ray(centerRayAlpha, dirRayAlpha);
 
     // float t1, t2;
     // int out1, out2;
     // HitInfo info1, info2;
     // bool flag1, flag2;
+
+    // wallLeft.transform.rotateY(-pi / 2);
+    // wallLeft.transform.setOrigin(wallLeft.center.x, wallLeft.center.y, wallLeft.center.z);
+    // wallLeft.transform.translate(0, 0, -c);
+    // pool.add(wallLeft);
 
     // wallFront.transform.rotateX(pi);
     // // wallFront.transform.translate(wallFront.center.x, wallFront.center.y,wallFront.center.z);
