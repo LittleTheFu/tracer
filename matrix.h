@@ -1,6 +1,8 @@
 #ifndef _MATRIX_H_
 #define _MATRIX_H_
 
+#include "vector.h"
+
 class Matrix
 {
 public:
@@ -13,6 +15,8 @@ public:
     static const Matrix getRotZMatrix(float theta);
 
     static const Matrix Mul(const Matrix &m1, const Matrix &m2);
+    static const Vector3 MulVector(const Matrix &m, const Vector3 &v);
+    static const Vector3 MulPoint(const Matrix &m, const Vector3 &p);
 
     static const Matrix Identity;
 

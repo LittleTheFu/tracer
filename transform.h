@@ -6,6 +6,7 @@
 class Transform
 {
 public:
+    Transform();
     Transform(const Matrix &matrix, const Matrix &invMatrix);
 
     void scale(float sx, float sy, float sz);

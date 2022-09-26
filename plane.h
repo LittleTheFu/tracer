@@ -3,6 +3,7 @@
 
 #include "vector.h"
 #include "material.h"
+#include "transform.h"
 
 class Plane
 {
@@ -19,6 +20,8 @@ public:
     Vector3 center;
     Vector3 normal;
     float r;
+
+    Transform transform;
 };
 
 #endif

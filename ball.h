@@ -3,6 +3,7 @@
 
 #include "vector.h"
 #include "material.h"
+#include "transform.h"
 
 class Ball
 {
@@ -22,6 +23,8 @@ public:
     Vector3 getNormal(const Vector3 &point) const;
 
     Material mtrl;
+
+    Transform transform;
 
 private:
     Vector3 center;

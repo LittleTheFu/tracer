@@ -81,17 +81,25 @@ bool Ray::hit(const Plane &plane, float &t, Vector3 &point) const
     return true;
 }
 
+Ray Ray::genNewRay(const Transform &transform)
+{
+    const Vector3 o = Matrix::MulPoint(transform.m_matrix, origin);
+    const Vector3 d = Matrix::MulVector(transform.m_matrix, dir);
+
+    return Ray(o, d);
+}
+
 float Ray::getDistranceT(const Vector3 &that) const
 {
     return 0;
 }
 
-float Ray::getT(const Ray &ray, const Vector3& thatPoint)
+float Ray::getT(const Ray &ray, const Vector3 &thatPoint)
 {
     Vector3 d = thatPoint - ray.origin;
-    if(ray.dir.x > ray.dir.y)
+    if (ray.dir.x > ray.dir.y)
     {
-        if(ray.dir.x > ray.dir.z)
+        if (ray.dir.x > ray.dir.z)
         {
             return d.x / ray.dir.x;
         }
@@ -99,11 +107,10 @@ float Ray::getT(const Ray &ray, const Vector3& thatPoint)
         {
             return d.z / ray.dir.z;
         }
-
     }
     else
     {
-        if(ray.dir.y > ray.dir.z)
+        if (ray.dir.y > ray.dir.z)
         {
             return d.y / ray.dir.y;
         }

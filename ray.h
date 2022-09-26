@@ -4,6 +4,7 @@
 #include "vector.h"
 #include "ball.h"
 #include "plane.h"
+#include "transform.h"
 
 class Ray
 {
@@ -16,6 +17,8 @@ public:
 
     bool hit(const Ball &ball, float &t, Vector3 &point) const;
     bool hit(const Plane &plane, float &t, Vector3 &point) const;
+
+    Ray genNewRay(const Transform &transform);
 
     float getDistranceT(const Vector3 &that) const;
 

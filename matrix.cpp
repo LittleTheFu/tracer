@@ -90,3 +90,23 @@ const Matrix Matrix::Mul(const Matrix &m1, const Matrix &m2)
     }
     return r;
 }
+
+const Vector3 Matrix::MulVector(const Matrix &m, const Vector3 &v)
+{
+    float x = m.m[0][0] * v.x + m.m[0][1] * v.y + m.m[0][2] * v.z;
+    float y = m.m[1][0] * v.x + m.m[1][1] * v.y + m.m[1][2] * v.z;
+    float z = m.m[2][0] * v.x + m.m[2][1] * v.y + m.m[2][2] * v.z;
+
+    return Vector3(x, y, z);
+}
+
+const Vector3 Matrix::MulPoint(const Matrix &m, const Vector3 &p)
+{
+    float x = m.m[0][0] * p.x + m.m[0][1] * p.y + m.m[0][2] * p.z + m.m[0][3];
+    float y = m.m[1][0] * p.x + m.m[1][1] * p.y + m.m[1][2] * p.z + m.m[1][3];
+    float z = m.m[2][0] * p.x + m.m[2][1] * p.y + m.m[2][2] * p.z + m.m[2][3];
+
+    // float w = 1;
+
+    return Vector3(x, y, z);
+}

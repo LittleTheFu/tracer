@@ -1,5 +1,10 @@
 #include "transform.h"
 
+Transform::Transform()
+{
+
+}
+
 Transform::Transform(const Matrix &matrix, const Matrix &invMatrix)
 {
     m_matrix = matrix;
