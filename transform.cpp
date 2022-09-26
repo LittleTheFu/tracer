@@ -2,7 +2,6 @@
 
 Transform::Transform()
 {
-
 }
 
 Transform::Transform(const Matrix &matrix, const Matrix &invMatrix)
@@ -54,4 +53,38 @@ void Transform::rotateZ(float theta)
 
     m_matrix = Matrix::Mul(m_matrix, r);
     m_invMatrix = Matrix::Mul(m_invMatrix, inv_r);
+}
+
+Vector3 Transform::transformVector(const Vector3 &v)
+{
+    return Matrix::MulVector(m_matrix, v);
+}
+
+Vector3 Transform::invTransformVector(const Vector3 &v)
+{
+    return Matrix::MulVector(m_invMatrix, v);
+}
+
+Vector3 Transform::transformPoint(const Vector3 &p)
+{
+    return Matrix::MulPoint(m_matrix, p);
+}
+
+Vector3 Transform::invTransformPoint(const Vector3 &p)
+{
+    return Matrix::MulPoint(m_invMatrix, p);
+}
+
+Vector3 Transform::transformNormal(const Vector3 &n)
+{
+    const Matrix mtx = Matrix::getTransposeMatrix(m_invMatrix);
+
+    return Matrix::MulVector(mtx, n);
+}
+
+Vector3 Transform::invTransformNormal(const Vector3 &n)
+{
+    const Matrix mtx = Matrix::getTransposeMatrix(m_matrix);
+
+    return Matrix::MulVector(mtx, n);
 }

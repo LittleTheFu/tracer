@@ -18,6 +18,8 @@ public:
     static const Vector3 MulVector(const Matrix &m, const Vector3 &v);
     static const Vector3 MulPoint(const Matrix &m, const Vector3 &p);
 
+    static const Matrix getTransposeMatrix(const Matrix &m);
+
     static const Matrix Identity;
 
     float m[4][4];
