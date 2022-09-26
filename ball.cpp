@@ -10,6 +10,21 @@ Ball::Ball(const Vector3 &center, float r)
 {
     this->center = center;
     this->r = r;
+
+    transform.translate(center.x, center.y, center.z);
+}
+
+Vector3 Ball::getLocalCenter() const
+{
+    return Vector3(0, 0, 0);
+}
+
+Vector3 Ball::getLocalNormal(const Vector3 &point) const
+{
+    Vector3 normal = point - getLocalCenter();
+    normal.normalize();
+
+    return normal;
 }
 
 Vector3 Ball::getCenter() const
@@ -30,6 +45,8 @@ void Ball::setPos(float x, float y, float z)
     center.x = x;
     center.y = y;
     center.z = z;
+
+    transform.translate(x, y, z);
 }
 
 void Ball::setR(float r)

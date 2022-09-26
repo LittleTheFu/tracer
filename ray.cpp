@@ -9,6 +9,56 @@ Ray::Ray(const Vector3 &origin, const Vector3 &dir)
     this->dir.normalize();
 }
 
+bool Ray::localHit(const Ball &ball, float &t, Vector3 &point, Vector3 &normal) const
+{
+    t = std::numeric_limits<float>::max();
+
+    const Ray newRay = genNewRay(ball.transform);
+
+    // page 135 57
+    const float a = newRay.dir.lenthSqr();
+    const float b = 2 * (newRay.dir * newRay.origin - newRay.dir * ball.getLocalCenter());
+    const float c = (newRay.origin - ball.getLocalCenter()).lenthSqr() - ball.r * ball.r;
+
+    const float delta = b * b - 4 * a * c;
+
+    if (delta <= 0.0f)
+        return false;
+
+    float t0 = (-b + sqrt(delta)) / (2 * a);
+    float t1 = (-b - sqrt(delta)) / (2 * a);
+    float temp = 0;
+    if (t0 > t1)
+    {
+        temp = t0;
+        t0 = t1;
+        t1 = temp;
+    }
+
+    bool hit = t0 > 0.0f;
+    t = t0;
+
+    if (!hit)
+    {
+        if (t1 > 0.0f)
+        {
+            hit = true;
+            t = t1;
+        }
+    }
+
+    if (hit)
+    {
+        const Vector3 localPoint = newRay.origin + t * newRay.dir;
+        point = ball.transform.transformPoint(localPoint);
+
+        const Vector3 localNormal = ball.getLocalNormal(localPoint);
+        normal = ball.transform.transformNormal(localNormal);
+    }
+
+    return hit;
+}
+
 bool Ray::hit(const Ball &ball, float &t, Vector3 &point) const
 {
     t = std::numeric_limits<float>::max();
@@ -81,10 +131,10 @@ bool Ray::hit(const Plane &plane, float &t, Vector3 &point) const
     return true;
 }
 
-Ray Ray::genNewRay(const Transform &transform)
+Ray Ray::genNewRay(const Transform &transform) const
 {
-    const Vector3 o = transform.transformPoint(origin);
-    const Vector3 d = transform.transformVector(dir);
+    const Vector3 o = transform.invTransformPoint(origin);
+    const Vector3 d = transform.invTransformVector(dir);
 
     return Ray(o, d);
 }

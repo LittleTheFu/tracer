@@ -91,6 +91,24 @@ int main()
     // int testIndex = 0;
     // bTestHit = pool.directTrace(testRay, testIndex);
 
+    // const Vector3 centerAplha(0, 0, 70);
+    // Ball ballAlpha(centerAplha, 3);
+    // ballAlpha.setMaterial(Material::MTRL_AQUA);
+
+    // pool.add(ballAlpha);
+
+    // const Vector3 centerRayAlpha = Vector3(0, 0, 0);
+    // const Vector3 dirRayAlpha = Vector3(0, 0, 1);
+    // const Ray rayAlpha = Ray(centerRayAlpha, dirRayAlpha);
+
+    // float t1, t2;
+    // int out1, out2;
+    // HitInfo info1, info2;
+    // bool flag1, flag2;
+
+    // flag1 = pool.hitSceneObjectOld(rayAlpha, t1, out1, info1);
+    // flag2 = pool.hitSceneObject(rayAlpha, t2, out2, info2);
+
     unsigned width = 512, height = 512;
     const float half_width = width / 2.0f;
     const float half_height = height / 2.0f;
@@ -118,7 +136,7 @@ int main()
             Material mtrl(Material::MTRL_BLACK);
             float weight = 0;
 
-            for (int i = 2; i < 20; i++)
+            for (int i = 2; i < 5; i++)
             {
                 bool hit = pool.traceWithTimes(ray, i, outIndex, info);
                 int power = (i - 1);

@@ -19,6 +19,9 @@ public:
 
     float r;
 
+    Vector3 getLocalCenter() const;
+    Vector3 getLocalNormal(const Vector3 &point) const;
+
     Vector3 getCenter() const;
     Vector3 getNormal(const Vector3 &point) const;
 

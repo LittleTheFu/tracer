@@ -18,7 +18,10 @@ public:
     bool hit(const Ball &ball, float &t, Vector3 &point) const;
     bool hit(const Plane &plane, float &t, Vector3 &point) const;
 
-    Ray genNewRay(const Transform &transform);
+    bool localHit(const Ball &ball, float &t, Vector3 &point, Vector3 &normal) const;
+    // bool localHit(const Plane &plane, float &t, Vector3 &point) const;
+
+    Ray genNewRay(const Transform &transform) const;
 
     float getDistranceT(const Vector3 &that) const;
 
