@@ -15,6 +15,8 @@ public:
     void rotateY(float theta);
     void rotateZ(float theta);
 
+    void setOrigin(float x, float y, float z);
+
     Vector3 transformVector(const Vector3 &v) const;
     Vector3 invTransformVector(const Vector3 &v) const;
     Vector3 transformPoint(const Vector3 &p) const;

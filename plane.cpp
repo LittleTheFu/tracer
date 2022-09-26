@@ -9,6 +9,15 @@ Plane::Plane(const Vector3 &center, const Vector3 &normal, const float r)
     this->r = r;
 
     this->normal.normalize();
+
+    // transform.translate(center.x, center.y, center.z);
+}
+
+bool Plane::isLocalIn(const Vector3 &p) const
+{
+    float distSqr = (getLocalCenter() - p).lenthSqr();
+
+    return distSqr <= (r * r);
 }
 
 bool Plane::isIn(const Vector3 &p) const
@@ -35,4 +44,14 @@ bool Plane::isInSamePlane(const Vector3 &p) const
 void Plane::setMaterial(const Material &mtrl)
 {
     this->mtrl = mtrl;
+}
+
+Vector3 Plane::getLocalNormal() const
+{
+    return Vector3(0, 0, 1);
+}
+
+Vector3 Plane::getLocalCenter() const
+{
+    return Vector3(0, 0, 0);
 }

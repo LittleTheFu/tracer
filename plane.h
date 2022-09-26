@@ -10,10 +10,15 @@ class Plane
 public:
     Plane(const Vector3 &center, const Vector3 &normal, const float r = 30);
 
+    bool isLocalIn(const Vector3 &p) const;
+
     bool isIn(const Vector3 &p) const;
     bool isInSamePlane(const Vector3 &p) const;
 
     void setMaterial(const Material &mtrl);
+
+    Vector3 getLocalNormal() const;
+    Vector3 getLocalCenter() const;
 
     Material mtrl;
 

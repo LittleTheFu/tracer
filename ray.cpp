@@ -59,6 +59,35 @@ bool Ray::localHit(const Ball &ball, float &t, Vector3 &point, Vector3 &normal) 
     return hit;
 }
 
+bool Ray::localHit(const Plane &plane, float &t, Vector3 &point, Vector3 &normal) const
+{
+    t = std::numeric_limits<float>::max();
+
+    const Ray newRay = genNewRay(plane.transform);
+
+    if (newRay.dir * plane.getLocalNormal() >= 0)
+    {
+        return false;
+    }
+
+    const float n = (plane.getLocalCenter() - newRay.origin) * plane.getLocalNormal();
+    const float d = newRay.dir * plane.getLocalNormal();
+
+    t = n / d;
+
+    Vector3 localPoint = newRay.origin + t * newRay.dir;
+
+    if (!plane.isLocalIn(localPoint))
+    {
+        return false;
+    }
+
+    point = plane.transform.transformPoint(localPoint);
+    normal = plane.transform.transformVector(plane.getLocalNormal());
+
+    return true;
+}
+
 bool Ray::hit(const Ball &ball, float &t, Vector3 &point) const
 {
     t = std::numeric_limits<float>::max();

@@ -266,7 +266,6 @@ bool ObjectPool::hitSceneObjectOld(const Ray &ray, float &tMin, int &outIndex, H
     return hit;
 }
 
-
 bool ObjectPool::hitSceneObject(const Ray &ray, float &tMin, int &outIndex, HitInfo &info)
 {
     float t = std::numeric_limits<float>::max();
@@ -287,8 +286,8 @@ bool ObjectPool::hitSceneObject(const Ray &ray, float &tMin, int &outIndex, HitI
         }
 
         // use this
-         Vector3 tempNormal;
-         if (ray.localHit(*it, t, p, tempNormal))
+        Vector3 tempNormal;
+        if (ray.localHit(*it, t, p, tempNormal))
         // if (ray.hit(*it, t, p))
         {
             hit = true;
@@ -314,7 +313,9 @@ bool ObjectPool::hitSceneObject(const Ray &ray, float &tMin, int &outIndex, HitI
             continue;
         }
 
-        if (ray.hit(*it, t, p))
+        // if (ray.hit(*it, t, p))
+        Vector3 normalTemp;
+        if (ray.localHit(*it, t, p, normalTemp))
         {
             hit = true;
 
@@ -322,7 +323,7 @@ bool ObjectPool::hitSceneObject(const Ray &ray, float &tMin, int &outIndex, HitI
             {
                 tMin = t;
                 info.m_point = p;
-                info.m_normal = it->normal;
+                info.m_normal = normalTemp;
                 info.m_mtrl = it->mtrl;
                 outIndex = index;
             }

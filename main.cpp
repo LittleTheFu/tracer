@@ -36,12 +36,16 @@ int main()
     Ball ballSix(centerSix, 0.7);
     ballSix.setMaterial(Material::MTRL_PURPLE);
 
+    const float pi = 3.14159274101257324219f;
+
     const float c = 100;
     const float r = 5 * c;
     const Vector3 wallLeftCenter(-c, 0, 0);
     const Vector3 wallNormalLeft(1, 0, 0);
     Plane wallLeft(wallLeftCenter, wallNormalLeft, r);
     wallLeft.setMaterial(Material::MTRL_BLUE);
+    wallLeft.transform.rotateY(-pi);
+    wallLeft.transform.setOrigin(wallLeft.center.x, wallLeft.center.y, wallLeft.center.z);
 
     const Vector3 wallRightCenter(c, 0, 0);
     const Vector3 wallNormalRight(-1, 0, 0);
@@ -61,7 +65,13 @@ int main()
     const Vector3 wallFrontCenter(0, 0, 3 * c);
     const Vector3 wallNormalFront(0, 0, -1);
     Plane wallFront(wallFrontCenter, wallNormalFront, r);
-    wallFront.setMaterial(Material::MTRL_GRAY);
+    wallFront.setMaterial(Material::MTRL_YELLOW);
+    wallFront.transform.rotateX(pi);
+    wallFront.transform.setOrigin(wallFront.center.x, wallFront.center.y, wallFront.center.z);
+
+    // const float pi = 3.14159274101257324219f;
+    // wallFront.transform.rotateX(pi/3);
+    // wallFront.transform.rotateY(pi/3);
 
     const Vector3 wallBackCenter(0, 0, -3 * c);
     const Vector3 wallNormalBack(0, 0, 1);
@@ -75,12 +85,12 @@ int main()
     pool.add(ballFour);
     pool.add(ballFive);
     pool.add(ballSix);
-    pool.add(wallLeft);
-    pool.add(wallRight);
-    pool.add(wallTop);
-    pool.add(wallBottom);
+    // pool.add(wallLeft);
+    // pool.add(wallRight);
+    // pool.add(wallTop);
+    // pool.add(wallBottom);
     pool.add(wallFront);
-    pool.add(wallBack);
+    // pool.add(wallBack);
 
     pool.setLight(0, 0, 10, 8);
 
@@ -105,6 +115,11 @@ int main()
     // int out1, out2;
     // HitInfo info1, info2;
     // bool flag1, flag2;
+
+    // wallFront.transform.rotateX(pi);
+    // // wallFront.transform.translate(wallFront.center.x, wallFront.center.y,wallFront.center.z);
+    // wallFront.transform.setOrigin(wallFront.center.x, wallFront.center.y,wallFront.center.z);
+    // pool.add(wallFront);
 
     // flag1 = pool.hitSceneObjectOld(rayAlpha, t1, out1, info1);
     // flag2 = pool.hitSceneObject(rayAlpha, t2, out2, info2);
