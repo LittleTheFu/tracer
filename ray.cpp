@@ -83,8 +83,8 @@ bool Ray::hit(const Plane &plane, float &t, Vector3 &point) const
 
 Ray Ray::genNewRay(const Transform &transform)
 {
-    const Vector3 o = Matrix::MulPoint(transform.m_matrix, origin);
-    const Vector3 d = Matrix::MulVector(transform.m_matrix, dir);
+    const Vector3 o = transform.transformPoint(origin);
+    const Vector3 d = transform.transformVector(dir);
 
     return Ray(o, d);
 }

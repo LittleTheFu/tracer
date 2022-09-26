@@ -15,12 +15,12 @@ public:
     void rotateY(float theta);
     void rotateZ(float theta);
 
-    Vector3 transformVector(const Vector3 &v);
-    Vector3 invTransformVector(const Vector3 &v);
-    Vector3 transformPoint(const Vector3 &p);
-    Vector3 invTransformPoint(const Vector3 &p);
-    Vector3 transformNormal(const Vector3 &n);
-    Vector3 invTransformNormal(const Vector3 &n);
+    Vector3 transformVector(const Vector3 &v) const;
+    Vector3 invTransformVector(const Vector3 &v) const;
+    Vector3 transformPoint(const Vector3 &p) const;
+    Vector3 invTransformPoint(const Vector3 &p) const;
+    Vector3 transformNormal(const Vector3 &n) const;
+    Vector3 invTransformNormal(const Vector3 &n) const;
 
     Matrix m_matrix;
     Matrix m_invMatrix;
