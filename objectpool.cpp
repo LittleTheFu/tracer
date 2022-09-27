@@ -385,7 +385,9 @@ bool ObjectPool::traceWithTimes(const Ray &ray, int bounceNum, int &index, HitIn
 
         Vector3 rayPos = info.m_point + offset;
 
-        Vector3 rawDir = m_light.getCenter() - rayPos;
+        // Vector3 rawDir = m_light.getCenter() - rayPos;
+        // Vector3 rawDir = ray.dir.reflect(info.m_normal);
+        Vector3 rawDir = info.m_randomReflect;
         Vector3 dir = rawDir;
         dir.normalize();
 

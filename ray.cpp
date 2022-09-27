@@ -55,7 +55,8 @@ bool Ray::localHit(const Ball &ball, float &t, Vector3 &point, Vector3 &normal, 
         const Vector3 localNormal = ball.getLocalNormal(localPoint);
         normal = ball.transform.transformNormal(localNormal);
 
-        const Vector3 localReflectVector = Vector3::getRandomVector();
+        // const Vector3 localReflectVector = Vector3::getRandomVector();
+        const Vector3 localReflectVector = newRay.dir.reflect(localNormal);
         randomReflectVector = ball.transform.transformVector(localReflectVector);
     }
 
