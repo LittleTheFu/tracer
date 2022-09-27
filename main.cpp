@@ -165,7 +165,7 @@ int main()
             Material mtrl(Material::MTRL_BLACK);
             float weight = 0;
 
-            for (int i = 2; i < 5; i++)
+            for (int i = 2; i < 20; i++)
             {
                 bool hit = pool.traceWithTimes(ray, i, outIndex, info);
                 int power = (i - 1);

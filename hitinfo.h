@@ -9,6 +9,7 @@ class HitInfo
 public:
     Vector3 m_point;
     Vector3 m_normal;
+    Vector3 m_randomReflect;
     Material m_mtrl;
 };
 

@@ -20,6 +20,8 @@ public:
     Vector3 reflect(const Vector3 &normal) const;
     bool isInSameSide(const Vector3 &that) const;
 
+    static Vector3 getRandomVector();
+
     float x;
     float y;
     float z;

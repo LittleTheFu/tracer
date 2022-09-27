@@ -287,7 +287,8 @@ bool ObjectPool::hitSceneObject(const Ray &ray, float &tMin, int &outIndex, HitI
 
         // use this
         Vector3 tempNormal;
-        if (ray.localHit(*it, t, p, tempNormal))
+        Vector3 tempReflect;
+        if (ray.localHit(*it, t, p, tempNormal, tempReflect))
         // if (ray.hit(*it, t, p))
         {
             hit = true;
@@ -298,6 +299,7 @@ bool ObjectPool::hitSceneObject(const Ray &ray, float &tMin, int &outIndex, HitI
                 info.m_point = p;
                 info.m_normal = tempNormal;
                 // info.m_normal = it->getNormal(p);
+                info.m_randomReflect = tempReflect;
                 info.m_mtrl = it->mtrl;
                 outIndex = index;
             }
@@ -315,7 +317,8 @@ bool ObjectPool::hitSceneObject(const Ray &ray, float &tMin, int &outIndex, HitI
 
         // if (ray.hit(*it, t, p))
         Vector3 normalTemp;
-        if (ray.localHit(*it, t, p, normalTemp))
+        Vector3 randomReflect;
+        if (ray.localHit(*it, t, p, normalTemp, randomReflect))
         {
             hit = true;
 
@@ -324,6 +327,7 @@ bool ObjectPool::hitSceneObject(const Ray &ray, float &tMin, int &outIndex, HitI
                 tMin = t;
                 info.m_point = p;
                 info.m_normal = normalTemp;
+                info.m_randomReflect = randomReflect;
                 info.m_mtrl = it->mtrl;
                 outIndex = index;
             }

@@ -9,7 +9,7 @@ Ray::Ray(const Vector3 &origin, const Vector3 &dir)
     this->dir.normalize();
 }
 
-bool Ray::localHit(const Ball &ball, float &t, Vector3 &point, Vector3 &normal) const
+bool Ray::localHit(const Ball &ball, float &t, Vector3 &point, Vector3 &normal, Vector3 &randomReflectVector) const
 {
     t = std::numeric_limits<float>::max();
 
@@ -54,12 +54,15 @@ bool Ray::localHit(const Ball &ball, float &t, Vector3 &point, Vector3 &normal) 
 
         const Vector3 localNormal = ball.getLocalNormal(localPoint);
         normal = ball.transform.transformNormal(localNormal);
+
+        const Vector3 localReflectVector = Vector3::getRandomVector();
+        randomReflectVector = ball.transform.transformVector(localReflectVector);
     }
 
     return hit;
 }
 
-bool Ray::localHit(const Plane &plane, float &t, Vector3 &point, Vector3 &normal) const
+bool Ray::localHit(const Plane &plane, float &t, Vector3 &point, Vector3 &normal, Vector3 &randomReflectVector) const
 {
     t = std::numeric_limits<float>::max();
 
@@ -84,6 +87,9 @@ bool Ray::localHit(const Plane &plane, float &t, Vector3 &point, Vector3 &normal
 
     point = plane.transform.transformPoint(localPoint);
     normal = plane.transform.transformVector(plane.getLocalNormal());
+
+    const Vector3 localReflectVector = Vector3::getRandomVector();
+    randomReflectVector = plane.transform.transformVector(localReflectVector);
 
     return true;
 }
