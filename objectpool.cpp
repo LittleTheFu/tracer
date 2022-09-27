@@ -344,14 +344,19 @@ bool ObjectPool::testLightReachable(const Ray &ray, const Vector3 &light)
     int dummyIndex = 0;
     HitInfo dummyInfo;
 
-    bool lastHit = hitSceneObject(ray, t1, dummyIndex, dummyInfo);
+    Ray lightRay = ray;
+    Vector3 dir = light - ray.origin;
+    dir.normalize();
+    lightRay.dir = dir;
+
+    bool lastHit = hitSceneObject(lightRay, t1, dummyIndex, dummyInfo);
 
     if (!lastHit)
     {
         return true;
     }
 
-    const float lightHitT = (light - ray.origin).length();
+    const float lightHitT = (light - lightRay.origin).length();
 
     if (lightHitT < t1)
     {
@@ -384,6 +389,7 @@ bool ObjectPool::traceWithTimes(const Ray &ray, int bounceNum, int &index, HitIn
         offset.normalize();
 
         Vector3 rayPos = info.m_point + offset;
+        // Vector3 rayPos = info.m_point;
 
         // Vector3 rawDir = m_light.getCenter() - rayPos;
         // Vector3 rawDir = ray.dir.reflect(info.m_normal);
