@@ -14,6 +14,8 @@ public:
     Material &operator+=(const Material &that);
     Material operator*(float m);
 
+    void safeAdd(const Material &that);
+
     unsigned char r;
     unsigned char g;
     unsigned char b;

@@ -26,6 +26,26 @@ void Material::set(const Material &mtrl)
     (*this) = mtrl;
 }
 
+void Material::safeAdd(const Material &that)
+{
+    unsigned char t_r = r + that.r;
+    unsigned char t_g = g + that.g;
+    unsigned char t_b = b + that.b;
+
+    if (t_r < r || t_r < that.r)
+        t_r = 255;
+
+    if (t_g < g || t_g < that.g)
+        t_g = 255;
+
+    if (t_b < b || t_b < that.b)
+        t_b = 255;
+
+    r = t_r;
+    g = t_g;
+    b = t_b;
+}
+
 Material &Material::operator+=(const Material &that)
 {
     r += that.r;
