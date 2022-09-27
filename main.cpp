@@ -16,9 +16,9 @@ int main()
     Ball ballOne(centerOne, 3);
     ballOne.setMaterial(Material::MTRL_AQUA);
 
-    const Vector3 centerTwo(15, 0, 50);
+    const Vector3 centerTwo(5, 0, 30);
     Ball ballTwo(centerTwo, 3);
-    ballTwo.setMaterial(Material::MTRL_GRAY);
+    ballTwo.setMaterial(Material::MTRL_GREEN);
 
     const Vector3 centerThree(25, 25, 80);
     Ball ballThree(centerThree, 3);
@@ -28,13 +28,21 @@ int main()
     Ball ballFour(centerFour, 3);
     ballFour.setMaterial(Material::MTRL_PURPLE);
 
-    const Vector3 centerFive(-15, -25, 60);
+    const Vector3 centerFive(5, -25, 60);
     Ball ballFive(centerFive, 3);
     ballFive.setMaterial(Material::MTRL_GREEN);
 
-    const Vector3 centerSix(-3, -5, 20);
+    const Vector3 centerSix(-20, -15, 90);
     Ball ballSix(centerSix, 3);
     ballSix.setMaterial(Material::MTRL_RED);
+
+    const Vector3 centerSeven(13, -8, 50);
+    Ball ballSeven(centerSeven, 3);
+    ballSeven.setMaterial(Material::MTRL_BLUE);
+
+    const Vector3 centerEight(-3, 0, 30);
+    Ball ballEight(centerEight, 3);
+    ballEight.setMaterial(Material::MTRL_GREEN);
 
     const float pi = 3.14159274101257324219f;
 
@@ -88,12 +96,16 @@ int main()
     wallBack.transform.translate(0, 0, -3 * c);
 
     ObjectPool pool;
+
     pool.add(ballOne);
     pool.add(ballTwo);
     pool.add(ballThree);
     pool.add(ballFour);
     pool.add(ballFive);
     pool.add(ballSix);
+    pool.add(ballSeven);
+    pool.add(ballEight);
+
     pool.add(wallLeft);
     pool.add(wallRight);
     pool.add(wallTop);
@@ -101,7 +113,7 @@ int main()
     pool.add(wallFront);
     pool.add(wallBack);
 
-    pool.setLight(50, -50, 100, 8);
+    pool.setLight(0, 0, 15, 8);
 
     // bool bTestHit = false;
     // Vector3 testOrigin = Vector3(0,0,0);
@@ -165,7 +177,7 @@ int main()
             Material mtrl(Material::MTRL_BLACK);
             float weight = 0;
 
-            for (int i = 2; i < 7; i++)
+            for (int i = 2; i < 30; i++)
             {
                 bool hit = pool.traceWithTimes(ray, i, outIndex, info);
                 int power = (i - 1);
@@ -178,7 +190,8 @@ int main()
 
                 if (hit)
                 {
-                    mtrl += info.m_mtrl * w;
+                    // mtrl += info.m_mtrl * w;
+                    mtrl.safeAdd(info.m_mtrl * w);
                 }
             }
 
