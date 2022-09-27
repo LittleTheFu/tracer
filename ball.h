@@ -17,6 +17,10 @@ public:
     bool isInTheBall(const Vector3 &point);
     void setMaterial(const Material &mtrl);
 
+    // u~phi, v~theta
+    Vector3 dpdu(const Vector3 &p) const;
+    Vector3 dpdv(const Vector3 &p) const;
+
     float r;
 
     Vector3 getLocalCenter() const;
@@ -30,6 +34,9 @@ public:
     Transform transform;
 
 private:
+    float getPhi(const Vector3 &p) const;
+    float getTheta(const Vector3 &p) const;
+
     Vector3 center;
 };
 

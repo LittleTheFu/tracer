@@ -18,23 +18,23 @@ int main()
 
     const Vector3 centerTwo(15, 0, 50);
     Ball ballTwo(centerTwo, 3);
-    ballTwo.setMaterial(Material::MTRL_RED);
+    ballTwo.setMaterial(Material::MTRL_GRAY);
 
     const Vector3 centerThree(25, 25, 80);
     Ball ballThree(centerThree, 3);
     ballThree.setMaterial(Material::MTRL_BLUE);
 
     const Vector3 centerFour(-2, 5, 25);
-    Ball ballFour(centerFour, 2);
+    Ball ballFour(centerFour, 3);
     ballFour.setMaterial(Material::MTRL_PURPLE);
 
     const Vector3 centerFive(-15, -25, 60);
-    Ball ballFive(centerFive, 2);
-    ballFive.setMaterial(Material::MTRL_PURPLE);
+    Ball ballFive(centerFive, 3);
+    ballFive.setMaterial(Material::MTRL_GREEN);
 
     const Vector3 centerSix(-3, -5, 20);
-    Ball ballSix(centerSix, 0.7);
-    ballSix.setMaterial(Material::MTRL_PURPLE);
+    Ball ballSix(centerSix, 3);
+    ballSix.setMaterial(Material::MTRL_RED);
 
     const float pi = 3.14159274101257324219f;
 
@@ -101,7 +101,7 @@ int main()
     pool.add(wallFront);
     pool.add(wallBack);
 
-    pool.setLight(0, 0, 10, 8);
+    pool.setLight(50, -50, 100, 8);
 
     // bool bTestHit = false;
     // Vector3 testOrigin = Vector3(0,0,0);
@@ -165,7 +165,7 @@ int main()
             Material mtrl(Material::MTRL_BLACK);
             float weight = 0;
 
-            for (int i = 2; i < 8; i++)
+            for (int i = 2; i < 7; i++)
             {
                 bool hit = pool.traceWithTimes(ray, i, outIndex, info);
                 int power = (i - 1);
