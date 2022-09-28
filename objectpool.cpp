@@ -345,9 +345,9 @@ bool ObjectPool::testLightReachable(const Ray &ray, const Vector3 &light)
     HitInfo dummyInfo;
 
     Ray lightRay = ray;
-    Vector3 dir = light - ray.origin;
-    dir.normalize();
-    lightRay.dir = dir;
+    // Vector3 dir = light - ray.origin;
+    // dir.normalize();
+    // lightRay.dir = dir;
 
     bool lastHit = hitSceneObject(lightRay, t1, dummyIndex, dummyInfo);
 
@@ -366,12 +366,13 @@ bool ObjectPool::testLightReachable(const Ray &ray, const Vector3 &light)
     return false;
 }
 
-bool ObjectPool::traceWithTimes(const Ray &ray, int bounceNum, int &index, HitInfo &outInfo)
+bool ObjectPool::traceWithTimes(const Ray &ray, int bounceNum, int &index, HitInfo &outInfo, float &w)
 {
 
     bounceNum -= 1;
     if (bounceNum <= 0)
     {
+        // std::cout << "weight : " << w << std::endl;
         return testLightReachable(ray, m_light.getCenter());
     }
 
@@ -385,10 +386,10 @@ bool ObjectPool::traceWithTimes(const Ray &ray, int bounceNum, int &index, HitIn
     if (hit)
     {
         HitInfo newInfo;
-        Vector3 offset = info.m_normal;
-        offset.normalize();
+        Vector3 n = info.m_normal;
+        n.normalize();
 
-        Vector3 rayPos = info.m_point + offset;
+        Vector3 rayPos = info.m_point + n;
         // Vector3 rayPos = info.m_point;
 
         // Vector3 rawDir = m_light.getCenter() - rayPos;
@@ -397,9 +398,21 @@ bool ObjectPool::traceWithTimes(const Ray &ray, int bounceNum, int &index, HitIn
         Vector3 dir = rawDir;
         dir.normalize();
 
-        const Ray newRay = Ray(rayPos, dir);
+        Ray newRay = Ray(rayPos, dir);
 
-        return traceWithTimes(newRay, bounceNum, index, newInfo);
+        if (bounceNum > 1)
+        {
+            const float reflectNormalWeight = dir * n;
+            w *= reflectNormalWeight;
+        }
+        else
+        {
+            Vector3 lightDir = m_light.getCenter() - newRay.origin;
+            lightDir.normalize();
+            newRay.dir = lightDir;
+        }
+
+        return traceWithTimes(newRay, bounceNum, index, newInfo, w);
     }
 
     return false;

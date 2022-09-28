@@ -177,9 +177,10 @@ int main()
             Material mtrl(Material::MTRL_BLACK);
             float weight = 0;
 
-            for (int i = 2; i < 30; i++)
+            for (int i = 2; i < 10; i++)
             {
-                bool hit = pool.traceWithTimes(ray, i, outIndex, info);
+                float pathWeight = 1.0f;
+                bool hit = pool.traceWithTimes(ray, i, outIndex, info, pathWeight);
                 int power = (i - 1);
                 float w = 1;
                 float m = 0.5;
@@ -191,7 +192,7 @@ int main()
                 if (hit)
                 {
                     // mtrl += info.m_mtrl * w;
-                    mtrl.safeAdd(info.m_mtrl * w);
+                    mtrl.safeAdd(info.m_mtrl * w * pathWeight);
                 }
             }
 
