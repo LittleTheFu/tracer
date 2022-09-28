@@ -402,7 +402,11 @@ bool ObjectPool::traceWithTimes(const Ray &ray, int bounceNum, int &index, HitIn
 
         if (bounceNum > 1)
         {
-            const float reflectNormalWeight = dir * n;
+            float reflectNormalWeight = dir * n;
+            // if (reflectNormalWeight < 0.005)
+            //     reflectNormalWeight = 0.005;
+            if (reflectNormalWeight < 0)
+                reflectNormalWeight = 0;
             w *= reflectNormalWeight;
         }
         else
@@ -410,6 +414,11 @@ bool ObjectPool::traceWithTimes(const Ray &ray, int bounceNum, int &index, HitIn
             Vector3 lightDir = m_light.getCenter() - newRay.origin;
             lightDir.normalize();
             newRay.dir = lightDir;
+
+            float lightWeight = lightDir * n;
+            if (lightWeight < 0)
+                lightWeight = 0;
+            w *= lightWeight;
         }
 
         return traceWithTimes(newRay, bounceNum, index, newInfo, w);

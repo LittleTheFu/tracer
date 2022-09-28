@@ -5,6 +5,7 @@ class Common
 {
 public:
     const static float PI;
+    const static float getWeight(float rawWeight);
 };
 
 #endif

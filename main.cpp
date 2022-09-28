@@ -20,11 +20,11 @@ int main()
     Ball ballTwo(centerTwo, 3);
     ballTwo.setMaterial(Material::MTRL_GREEN);
 
-    const Vector3 centerThree(25, 25, 80);
+    const Vector3 centerThree(3, 6, 18);
     Ball ballThree(centerThree, 3);
     ballThree.setMaterial(Material::MTRL_BLUE);
 
-    const Vector3 centerFour(-2, 5, 25);
+    const Vector3 centerFour(-5, -30, 90);
     Ball ballFour(centerFour, 3);
     ballFour.setMaterial(Material::MTRL_PURPLE);
 
@@ -32,7 +32,7 @@ int main()
     Ball ballFive(centerFive, 3);
     ballFive.setMaterial(Material::MTRL_GREEN);
 
-    const Vector3 centerSix(-20, -15, 90);
+    const Vector3 centerSix(-5, -20, 80);
     Ball ballSix(centerSix, 3);
     ballSix.setMaterial(Material::MTRL_RED);
 
@@ -113,7 +113,7 @@ int main()
     pool.add(wallFront);
     pool.add(wallBack);
 
-    pool.setLight(0, 0, 15, 8);
+    pool.setLight(0, 0, 20, 8);
 
     // bool bTestHit = false;
     // Vector3 testOrigin = Vector3(0,0,0);
@@ -183,7 +183,7 @@ int main()
                 bool hit = pool.traceWithTimes(ray, i, outIndex, info, pathWeight);
                 int power = (i - 1);
                 float w = 1;
-                float m = 0.5;
+                float m = 0.6;
                 for (int i = 0; i < power; i++)
                 {
                     w *= m;
@@ -194,11 +194,6 @@ int main()
                     // mtrl += info.m_mtrl * w;
                     mtrl.safeAdd(info.m_mtrl * w * pathWeight);
                 }
-            }
-
-            if (weight > 1)
-            {
-                weight = 1;
             }
 
             // cout<<"weight:"<<weight<<endl;

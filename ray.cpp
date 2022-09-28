@@ -54,6 +54,7 @@ bool Ray::localHit(const Ball &ball, float &t, Vector3 &point, Vector3 &normal, 
 
         const Vector3 localNormal = ball.getLocalNormal(localPoint);
         normal = ball.transform.transformNormal(localNormal);
+        // normal = ball.transform.transformVector(localNormal);
 
         const Vector3 dpdu = ball.dpdu(localPoint);
         const Vector3 dpdv = ball.dpdv(localPoint);
