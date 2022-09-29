@@ -153,12 +153,13 @@ int main()
     unsigned width = 512, height = 512;
     const float half_width = width / 2.0f;
     const float half_height = height / 2.0f;
+    const int bounceTime = 10;
     std::vector<unsigned char> image;
     image.resize(width * height * 4);
     for (unsigned y = 0; y < height; y++)
         for (unsigned x = 0; x < width; x++)
         {
-            if (x == 0)
+            if (x >= 0)
             {
                 std::cout << "x:y --- "
                           << "(" << x << "," << y << ")" << std::endl;
@@ -177,7 +178,7 @@ int main()
             Material mtrl(Material::MTRL_BLACK);
             float weight = 0;
 
-            for (int i = 2; i < 10; i++)
+            for (int i = 2; i < bounceTime; i++)
             {
                 float pathWeight = 1.0f;
                 bool hit = pool.traceWithTimes(ray, i, outIndex, info, pathWeight);
