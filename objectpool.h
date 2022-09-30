@@ -22,7 +22,7 @@ public:
     bool startTrace(const Ray &ray, int &index, int maxDepth, float &outFactor);
     bool lightTrace(const Ray &ray, int &index, int depth, int maxDepth, float inFactor, float &outFactor);
     bool directTrace(const Ray &ray, int &index, HitInfo &outInfo);
-    bool traceWithTimes(const Ray &ray, int bounceNum, int &index, HitInfo &outInfo, float &w);
+    bool traceWithTimes(const Ray &ray, int bounceNum, int &index, HitInfo &outInfo, float &w, const Material &currentMtrl);
     bool testLightReachable(const Ray &ray, const Vector3 &light);
 
     bool hitSceneObjectOld(const Ray &ray, float &tMin, int &outIndex, HitInfo &info);

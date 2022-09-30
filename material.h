@@ -13,6 +13,8 @@ public:
     Material &operator*=(float m);
     Material &operator+=(const Material &that);
     Material operator*(float m);
+    Material operator*(const Material &that) const;
+    Material operator+(const Material &that) const;
 
     void safeAdd(const Material &that);
 

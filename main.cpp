@@ -20,15 +20,15 @@ int main()
     Ball ballTwo(centerTwo, 3);
     ballTwo.setMaterial(Material::MTRL_GREEN);
 
-    const Vector3 centerThree(3, 6, 18);
+    const Vector3 centerThree(1, 1, 70);
     Ball ballThree(centerThree, 3);
-    ballThree.setMaterial(Material::MTRL_BLUE);
+    ballThree.setMaterial(Material::MTRL_WHITE);
 
     const Vector3 centerFour(-5, -30, 90);
     Ball ballFour(centerFour, 3);
     ballFour.setMaterial(Material::MTRL_PURPLE);
 
-    const Vector3 centerFive(5, -25, 60);
+    const Vector3 centerFive(5, -5, 75);
     Ball ballFive(centerFive, 3);
     ballFive.setMaterial(Material::MTRL_GREEN);
 
@@ -42,7 +42,7 @@ int main()
 
     const Vector3 centerEight(-3, 0, 30);
     Ball ballEight(centerEight, 3);
-    ballEight.setMaterial(Material::MTRL_GREEN);
+    ballEight.setMaterial(Material::MTRL_RED);
 
     const float pi = 3.14159274101257324219f;
 
@@ -159,7 +159,7 @@ int main()
     for (unsigned y = 0; y < height; y++)
         for (unsigned x = 0; x < width; x++)
         {
-            if (x >= 0)
+            if (x == 0)
             {
                 std::cout << "x:y --- "
                           << "(" << x << "," << y << ")" << std::endl;
@@ -181,10 +181,10 @@ int main()
             for (int i = 2; i < bounceTime; i++)
             {
                 float pathWeight = 1.0f;
-                bool hit = pool.traceWithTimes(ray, i, outIndex, info, pathWeight);
+                bool hit = pool.traceWithTimes(ray, i, outIndex, info, pathWeight, Material::MTRL_WHITE);
                 int power = (i - 1);
                 float w = 1;
-                float m = 0.6;
+                float m = 1;
                 for (int i = 0; i < power; i++)
                 {
                     w *= m;
@@ -193,7 +193,8 @@ int main()
                 if (hit)
                 {
                     // mtrl += info.m_mtrl * w;
-                    mtrl.safeAdd(info.m_mtrl * w * pathWeight);
+                    // mtrl.safeAdd(info.m_mtrl * w * pathWeight);
+                    mtrl.safeAdd(info.m_mtrl * w);
                 }
             }
 
