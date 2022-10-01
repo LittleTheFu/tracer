@@ -72,7 +72,10 @@ bool Ray::localHit(const Ball &ball, float &t, Vector3 &point, Vector3 &normal, 
         localReflectVector.normalize();
         randomReflectVector = ball.transform.transformVector(localReflectVector);
 
-        // randomReflectVector = newRay.dir.reflect(localNormal);
+        if (ball.mtrl.specular)
+        {
+            randomReflectVector = newRay.dir.reflect(localNormal);
+        }
     }
 
     return hit;

@@ -6,12 +6,16 @@ Material::Material()
     g = 0;
     b = 0;
     a = 255;
+
+    specular = false;
 }
 
 Material::Material(unsigned char r, unsigned char g, unsigned char b)
 {
     a = 255;
     set(r, g, b);
+
+    specular = false;
 }
 
 void Material::set(unsigned char r, unsigned char g, unsigned char b)

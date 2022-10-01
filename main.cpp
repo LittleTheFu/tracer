@@ -22,15 +22,16 @@ int main()
 
     const Vector3 centerThree(1, 1, 70);
     Ball ballThree(centerThree, 3);
-    ballThree.setMaterial(Material::MTRL_WHITE);
+    ballThree.setMaterial(Material::MTRL_AQUA);
 
     const Vector3 centerFour(-5, -30, 90);
     Ball ballFour(centerFour, 3);
     ballFour.setMaterial(Material::MTRL_PURPLE);
 
-    const Vector3 centerFive(5, -5, 75);
+    const Vector3 centerFive(0, 5, 20);
     Ball ballFive(centerFive, 3);
-    ballFive.setMaterial(Material::MTRL_GREEN);
+    ballFive.mtrl.specular = true;
+    ballFive.setMaterial(Material::MTRL_WHITE);
 
     const Vector3 centerSix(-5, -20, 80);
     Ball ballSix(centerSix, 3);
@@ -59,14 +60,14 @@ int main()
     const Vector3 wallRightCenter(c, 0, 0);
     const Vector3 wallNormalRight(-1, 0, 0);
     Plane wallRight(wallRightCenter, wallNormalRight, r);
-    wallRight.setMaterial(Material::MTRL_GRAY);
+    wallRight.setMaterial(Material::MTRL_BLUE);
     wallRight.transform.rotateY(pi / 2);
     wallRight.transform.translate(0, 0, -c);
 
     const Vector3 wallTopCenter(0, c, 0);
     const Vector3 wallNormalTop(0, -1, 0);
     Plane wallTop(wallTopCenter, wallNormalTop, r);
-    wallTop.setMaterial(Material::MTRL_SILVER);
+    wallTop.setMaterial(Material::MTRL_RED);
     wallTop.transform.rotateX(pi / 2);
     wallTop.transform.translate(0, 0, -c);
 
@@ -92,7 +93,7 @@ int main()
     const Vector3 wallBackCenter(0, 0, -3 * c);
     const Vector3 wallNormalBack(0, 0, 1);
     Plane wallBack(wallBackCenter, wallNormalBack, r);
-    wallBack.setMaterial(Material::MTRL_WHITE);
+    wallBack.setMaterial(Material::MTRL_YELLOW);
     wallBack.transform.translate(0, 0, -3 * c);
 
     ObjectPool pool;

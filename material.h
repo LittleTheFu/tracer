@@ -23,6 +23,8 @@ public:
     unsigned char b;
     unsigned char a;
 
+    bool specular;
+
     const static Material MTRL_RED;
     const static Material MTRL_GREEN;
     const static Material MTRL_BLUE;

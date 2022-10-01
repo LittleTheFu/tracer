@@ -378,10 +378,12 @@ bool ObjectPool::traceWithTimes(const Ray &ray, int bounceNum, int &index, HitIn
         if (flag)
         {
             outInfo.m_mtrl = currentMtrl * Material::MTRL_WHITE;
+            // outInfo.m_mtrl = Material::MTRL_WHITE;
         }
         else
         {
             outInfo.m_mtrl = currentMtrl * Material::MTRL_BLACK;
+            // outInfo.m_mtrl = Material::MTRL_BLACK;
         }
 
         return flag;
@@ -434,7 +436,11 @@ bool ObjectPool::traceWithTimes(const Ray &ray, int bounceNum, int &index, HitIn
 
         bool traceFlag = traceWithTimes(newRay, bounceNum, index, newInfo, w, info.m_mtrl);
 
-        const float me_weight = 0;
+        float me_weight = 0.5;
+        if(currentMtrl.specular)
+        {
+            me_weight = 0;
+        }
         const float that_weight = 1 - me_weight;
         const Material me_mtrl = currentMtrl * newInfo.m_mtrl * me_weight;
         const Material that_mtrl = newInfo.m_mtrl * that_weight;
