@@ -20,17 +20,18 @@ int main()
     Ball ballTwo(centerTwo, 3);
     ballTwo.setMaterial(Material::MTRL_GREEN);
 
-    const Vector3 centerThree(3, 6, 18);
+    const Vector3 centerThree(1, 1, 70);
     Ball ballThree(centerThree, 3);
-    ballThree.setMaterial(Material::MTRL_BLUE);
+    ballThree.setMaterial(Material::MTRL_AQUA);
 
     const Vector3 centerFour(-5, -30, 90);
     Ball ballFour(centerFour, 3);
     ballFour.setMaterial(Material::MTRL_PURPLE);
 
-    const Vector3 centerFive(5, -25, 60);
+    const Vector3 centerFive(0, 5, 20);
     Ball ballFive(centerFive, 3);
-    ballFive.setMaterial(Material::MTRL_GREEN);
+    ballFive.mtrl.specular = true;
+    ballFive.setMaterial(Material::MTRL_WHITE);
 
     const Vector3 centerSix(-5, -20, 80);
     Ball ballSix(centerSix, 3);
@@ -42,7 +43,7 @@ int main()
 
     const Vector3 centerEight(-3, 0, 30);
     Ball ballEight(centerEight, 3);
-    ballEight.setMaterial(Material::MTRL_GREEN);
+    ballEight.setMaterial(Material::MTRL_RED);
 
     const float pi = 3.14159274101257324219f;
 
@@ -59,14 +60,14 @@ int main()
     const Vector3 wallRightCenter(c, 0, 0);
     const Vector3 wallNormalRight(-1, 0, 0);
     Plane wallRight(wallRightCenter, wallNormalRight, r);
-    wallRight.setMaterial(Material::MTRL_GRAY);
+    wallRight.setMaterial(Material::MTRL_BLUE);
     wallRight.transform.rotateY(pi / 2);
     wallRight.transform.translate(0, 0, -c);
 
     const Vector3 wallTopCenter(0, c, 0);
     const Vector3 wallNormalTop(0, -1, 0);
     Plane wallTop(wallTopCenter, wallNormalTop, r);
-    wallTop.setMaterial(Material::MTRL_SILVER);
+    wallTop.setMaterial(Material::MTRL_RED);
     wallTop.transform.rotateX(pi / 2);
     wallTop.transform.translate(0, 0, -c);
 
@@ -92,7 +93,7 @@ int main()
     const Vector3 wallBackCenter(0, 0, -3 * c);
     const Vector3 wallNormalBack(0, 0, 1);
     Plane wallBack(wallBackCenter, wallNormalBack, r);
-    wallBack.setMaterial(Material::MTRL_WHITE);
+    wallBack.setMaterial(Material::MTRL_YELLOW);
     wallBack.transform.translate(0, 0, -3 * c);
 
     ObjectPool pool;
@@ -153,13 +154,13 @@ int main()
     unsigned width = 512, height = 512;
     const float half_width = width / 2.0f;
     const float half_height = height / 2.0f;
-    const int bounceTime = 10;
+    const int bounceTime = 15;
     std::vector<unsigned char> image;
     image.resize(width * height * 4);
     for (unsigned y = 0; y < height; y++)
         for (unsigned x = 0; x < width; x++)
         {
-            if (x >= 0)
+            if (x == 0)
             {
                 std::cout << "x:y --- "
                           << "(" << x << "," << y << ")" << std::endl;
@@ -181,10 +182,10 @@ int main()
             for (int i = 2; i < bounceTime; i++)
             {
                 float pathWeight = 1.0f;
-                bool hit = pool.traceWithTimes(ray, i, outIndex, info, pathWeight);
+                bool hit = pool.traceWithTimes(ray, i, outIndex, info, pathWeight, Material::MTRL_WHITE);
                 int power = (i - 1);
                 float w = 1;
-                float m = 0.6;
+                float m = 1;
                 for (int i = 0; i < power; i++)
                 {
                     w *= m;
@@ -193,7 +194,8 @@ int main()
                 if (hit)
                 {
                     // mtrl += info.m_mtrl * w;
-                    mtrl.safeAdd(info.m_mtrl * w * pathWeight);
+                    // mtrl.safeAdd(info.m_mtrl * w * pathWeight);
+                    mtrl.safeAdd(info.m_mtrl * w);
                 }
             }
 

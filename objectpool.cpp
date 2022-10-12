@@ -366,14 +366,27 @@ bool ObjectPool::testLightReachable(const Ray &ray, const Vector3 &light)
     return false;
 }
 
-bool ObjectPool::traceWithTimes(const Ray &ray, int bounceNum, int &index, HitInfo &outInfo, float &w)
+bool ObjectPool::traceWithTimes(const Ray &ray, int bounceNum, int &index, HitInfo &outInfo, float &w, const Material &currentMtrl)
 {
 
     bounceNum -= 1;
     if (bounceNum <= 0)
     {
         // std::cout << "weight : " << w << std::endl;
-        return testLightReachable(ray, m_light.getCenter());
+        bool flag = testLightReachable(ray, m_light.getCenter());
+
+        if (flag)
+        {
+            outInfo.m_mtrl = currentMtrl * Material::MTRL_WHITE;
+            // outInfo.m_mtrl = Material::MTRL_WHITE;
+        }
+        else
+        {
+            outInfo.m_mtrl = currentMtrl * Material::MTRL_BLACK;
+            // outInfo.m_mtrl = Material::MTRL_BLACK;
+        }
+
+        return flag;
     }
 
     float t = std::numeric_limits<float>::max();
@@ -381,7 +394,7 @@ bool ObjectPool::traceWithTimes(const Ray &ray, int bounceNum, int &index, HitIn
 
     HitInfo info;
     hit = hitSceneObject(ray, t, index, info);
-    outInfo = info;
+    // outInfo = info;
 
     if (hit)
     {
@@ -421,7 +434,21 @@ bool ObjectPool::traceWithTimes(const Ray &ray, int bounceNum, int &index, HitIn
             w *= lightWeight;
         }
 
-        return traceWithTimes(newRay, bounceNum, index, newInfo, w);
+        bool traceFlag = traceWithTimes(newRay, bounceNum, index, newInfo, w, info.m_mtrl);
+
+        float me_weight = 0.5;
+        if(currentMtrl.specular)
+        {
+            me_weight = 0;
+        }
+        const float that_weight = 1 - me_weight;
+        const Material me_mtrl = currentMtrl * newInfo.m_mtrl * me_weight;
+        const Material that_mtrl = newInfo.m_mtrl * that_weight;
+        outInfo.m_mtrl = (me_mtrl + that_mtrl) * w;
+        // outInfo.m_mtrl = currentMtrl * newInfo.m_mtrl;
+
+        return traceFlag;
+        // return traceWithTimes(newRay, bounceNum, index, newInfo, w);
     }
 
     return false;

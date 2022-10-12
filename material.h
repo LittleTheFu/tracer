@@ -13,6 +13,8 @@ public:
     Material &operator*=(float m);
     Material &operator+=(const Material &that);
     Material operator*(float m);
+    Material operator*(const Material &that) const;
+    Material operator+(const Material &that) const;
 
     void safeAdd(const Material &that);
 
@@ -20,6 +22,8 @@ public:
     unsigned char g;
     unsigned char b;
     unsigned char a;
+
+    bool specular;
 
     const static Material MTRL_RED;
     const static Material MTRL_GREEN;
