@@ -15,8 +15,8 @@ public:
     Vector3 dir;
     float t;
 
-    bool hit(const Ball &ball, float &t, Vector3 &point) const;
-    bool hit(const Plane &plane, float &t, Vector3 &point) const;
+    // bool hit(const Ball &ball, float &t, Vector3 &point) const;
+    // bool hit(const Plane &plane, float &t, Vector3 &point) const;
 
     bool localHit(const Ball &ball, float &t, Vector3 &point, Vector3 &normal, Vector3 &randomReflectVector) const;
     bool localHit(const Plane &plane, float &t, Vector3 &point, Vector3 &normal, Vector3 &randomReflectVector) const;
