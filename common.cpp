@@ -1,6 +1,7 @@
 #include "common.h"
 
 const float Common::PI = 3.14159274101257324219f;
+const float Common::FLOAT_SAMLL_NUMBER = 0.0001f;
 
 const float Common::getWeight(float rawWeight)
 {
