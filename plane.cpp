@@ -2,11 +2,11 @@
 #include <cmath>
 #include <limits>
 
-Plane::Plane(const Vector3 &center, const Vector3 &normal, const float r)
+Plane::Plane(const Vector3 &center, const Vector3 &normal, const float length)
 {
     this->center = center;
     this->normal = normal;
-    this->r = r;
+    this->length = length;
 
     this->normal.normalize();
 
@@ -17,14 +17,14 @@ bool Plane::isLocalIn(const Vector3 &p) const
 {
     float distSqr = (getLocalCenter() - p).lenthSqr();
 
-    return distSqr <= (r * r);
+    return distSqr <= (length * length);
 }
 
 bool Plane::isIn(const Vector3 &p) const
 {
     float distSqr = (center - p).lenthSqr();
 
-    return distSqr <= (r * r);
+    return distSqr <= (length * length);
 }
 
 bool Plane::isInSamePlane(const Vector3 &p) const

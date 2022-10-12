@@ -8,7 +8,7 @@
 class Plane
 {
 public:
-    Plane(const Vector3 &center, const Vector3 &normal, const float r = 30);
+    Plane(const Vector3 &center, const Vector3 &normal, const float length = 30);
 
     bool isLocalIn(const Vector3 &p) const;
 
@@ -24,7 +24,7 @@ public:
 
     Vector3 center;
     Vector3 normal;
-    float r;
+    float length;
 
     Transform transform;
 };
