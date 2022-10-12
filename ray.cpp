@@ -1,6 +1,7 @@
 #include "ray.h"
 #include <limits>
 #include <cmath>
+#include "common.h"
 
 Ray::Ray(const Vector3 &origin, const Vector3 &dir)
 {
@@ -35,12 +36,12 @@ bool Ray::localHit(const Ball &ball, float &t, Vector3 &point, Vector3 &normal, 
         t1 = temp;
     }
 
-    bool hit = t0 > 0.0f;
+    bool hit = t0 > Common::FLOAT_SAMLL_NUMBER;
     t = t0;
 
     if (!hit)
     {
-        if (t1 > 0.0f)
+        if (t1 > Common::FLOAT_SAMLL_NUMBER)
         {
             hit = true;
             t = t1;
@@ -97,6 +98,8 @@ bool Ray::localHit(const Plane &plane, float &t, Vector3 &point, Vector3 &normal
     const float d = newRay.dir * plane.getLocalNormal();
 
     t = n / d;
+    if (t < Common::FLOAT_SAMLL_NUMBER)
+        return false;
 
     Vector3 localPoint = newRay.origin + t * newRay.dir;
 
