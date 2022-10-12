@@ -25,7 +25,6 @@ public:
     bool traceWithTimes(const Ray &ray, int bounceNum, int &index, HitInfo &outInfo, float &w, const Material &currentMtrl);
     bool testLightReachable(const Ray &ray, const Vector3 &light);
 
-    bool hitSceneObjectOld(const Ray &ray, float &tMin, int &outIndex, HitInfo &info);
     bool hitSceneObject(const Ray &ray, float &tMin, int &outIndex, HitInfo &info);
 
 private:

@@ -204,68 +204,6 @@ void ObjectPool::trace(const Ray &ray)
     std::cout << "NORMAL : (" << normal.x << "," << normal.y << "," << normal.z << ")" << std::endl;
 }
 
-bool ObjectPool::hitSceneObjectOld(const Ray &ray, float &tMin, int &outIndex, HitInfo &info)
-{
-    float t = std::numeric_limits<float>::max();
-    tMin = t;
-    bool hit = false;
-    Vector3 p;
-
-    int index = 0;
-    outIndex = 0;
-
-    for (std::vector<Ball>::iterator it = m_balls.begin(); it != m_balls.end(); it++)
-    {
-        index++;
-
-        if (it->isInTheBall(ray.origin))
-        {
-            continue;
-        }
-
-        // use this
-        if (ray.hit(*it, t, p))
-        {
-            hit = true;
-
-            if (t > 0 && t < tMin)
-            {
-                tMin = t;
-                info.m_point = p;
-                info.m_normal = it->getNormal(p);
-                info.m_mtrl = it->mtrl;
-                outIndex = index;
-            }
-        }
-    }
-
-    for (std::vector<Plane>::iterator it = m_planes.begin(); it != m_planes.end(); it++)
-    {
-        index++;
-
-        if (it->isInSamePlane(ray.origin))
-        {
-            continue;
-        }
-
-        if (ray.hit(*it, t, p))
-        {
-            hit = true;
-
-            if (t > 0 && t < tMin)
-            {
-                tMin = t;
-                info.m_point = p;
-                info.m_normal = it->normal;
-                info.m_mtrl = it->mtrl;
-                outIndex = index;
-            }
-        }
-    }
-
-    return hit;
-}
-
 bool ObjectPool::hitSceneObject(const Ray &ray, float &tMin, int &outIndex, HitInfo &info)
 {
     float t = std::numeric_limits<float>::max();
