@@ -152,7 +152,7 @@ int main()
     unsigned width = 512, height = 512;
     const float half_width = width / 2.0f;
     const float half_height = height / 2.0f;
-    const int bounceTime = 15;
+    const int bounceTime = 7;
     std::vector<unsigned char> image;
     image.resize(width * height * 4);
     for (unsigned y = 0; y < height; y++)
