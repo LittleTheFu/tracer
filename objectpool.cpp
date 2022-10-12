@@ -248,7 +248,7 @@ bool ObjectPool::hitSceneObject(const Ray &ray, float &tMin, int &outIndex, HitI
     {
         index++;
 
-        if (it->isInSamePlane(ray.origin))
+        if (it->isOnThePlane(ray.origin))
         {
             continue;
         }

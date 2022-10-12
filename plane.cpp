@@ -27,7 +27,7 @@ bool Plane::isIn(const Vector3 &p) const
     return distSqr <= (length * length);
 }
 
-bool Plane::isInSamePlane(const Vector3 &p) const
+bool Plane::isOnThePlane(const Vector3 &p) const
 {
     return false;
 

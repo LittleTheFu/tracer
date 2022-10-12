@@ -13,7 +13,7 @@ public:
     bool isLocalIn(const Vector3 &p) const;
 
     bool isIn(const Vector3 &p) const;
-    bool isInSamePlane(const Vector3 &p) const;
+    bool isOnThePlane(const Vector3 &p) const;
 
     void setMaterial(const Material &mtrl);
 
