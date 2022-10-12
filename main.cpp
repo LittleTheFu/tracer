@@ -6,7 +6,7 @@
 #include "objectpool.h"
 #include "material.h"
 #include "hitinfo.h"
-
+#include "common.h"
 #include <iostream>
 using namespace std;
 
@@ -45,15 +45,13 @@ int main()
     Ball ballEight(centerEight, 3);
     ballEight.setMaterial(Material::MTRL_RED);
 
-    const float pi = 3.14159274101257324219f;
-
     const float c = 100;
     const float r = 5 * c;
     const Vector3 wallLeftCenter(-c, 0, 0);
     const Vector3 wallNormalLeft(1, 0, 0);
     Plane wallLeft(wallLeftCenter, wallNormalLeft, r);
     wallLeft.setMaterial(Material::MTRL_BLUE);
-    wallLeft.transform.rotateY(-pi / 2);
+    wallLeft.transform.rotateY(-Common::PI / 2);
     wallLeft.transform.translate(0, 0, -c);
     // wallLeft.transform.setOrigin(wallLeft.center.x, wallLeft.center.y, wallLeft.center.z);
 
@@ -61,34 +59,34 @@ int main()
     const Vector3 wallNormalRight(-1, 0, 0);
     Plane wallRight(wallRightCenter, wallNormalRight, r);
     wallRight.setMaterial(Material::MTRL_BLUE);
-    wallRight.transform.rotateY(pi / 2);
+    wallRight.transform.rotateY(Common::PI / 2);
     wallRight.transform.translate(0, 0, -c);
 
     const Vector3 wallTopCenter(0, c, 0);
     const Vector3 wallNormalTop(0, -1, 0);
     Plane wallTop(wallTopCenter, wallNormalTop, r);
     wallTop.setMaterial(Material::MTRL_RED);
-    wallTop.transform.rotateX(pi / 2);
+    wallTop.transform.rotateX(Common::PI / 2);
     wallTop.transform.translate(0, 0, -c);
 
     const Vector3 wallBottomCenter(0, -c, 0);
     const Vector3 wallNormalBottom(0, 1, 0);
     Plane wallBottom(wallBottomCenter, wallNormalBottom, r);
     wallBottom.setMaterial(Material::MTRL_RED);
-    wallBottom.transform.rotateX(-pi / 2);
+    wallBottom.transform.rotateX(-Common::PI / 2);
     wallBottom.transform.translate(0, 0, -c);
 
     const Vector3 wallFrontCenter(0, 0, 3 * c);
     const Vector3 wallNormalFront(0, 0, -1);
     Plane wallFront(wallFrontCenter, wallNormalFront, r);
     wallFront.setMaterial(Material::MTRL_YELLOW);
-    wallFront.transform.rotateX(pi);
+    wallFront.transform.rotateX(Common::PI);
     // wallFront.transform.setOrigin(wallFront.center.x, wallFront.center.y, wallFront.center.z);
     wallFront.transform.translate(0, 0, -3 * c);
 
-    // const float pi = 3.14159274101257324219f;
-    // wallFront.transform.rotateX(pi/3);
-    // wallFront.transform.rotateY(pi/3);
+    // const float Common::PI = 3.14159274101257324219f;
+    // wallFront.transform.rotateX(Common::PI/3);
+    // wallFront.transform.rotateY(Common::PI/3);
 
     const Vector3 wallBackCenter(0, 0, -3 * c);
     const Vector3 wallNormalBack(0, 0, 1);
@@ -138,12 +136,12 @@ int main()
     // HitInfo info1, info2;
     // bool flag1, flag2;
 
-    // wallLeft.transform.rotateY(-pi / 2);
+    // wallLeft.transform.rotateY(-Common::PI / 2);
     // wallLeft.transform.setOrigin(wallLeft.center.x, wallLeft.center.y, wallLeft.center.z);
     // wallLeft.transform.translate(0, 0, -c);
     // pool.add(wallLeft);
 
-    // wallFront.transform.rotateX(pi);
+    // wallFront.transform.rotateX(Common::PI);
     // // wallFront.transform.translate(wallFront.center.x, wallFront.center.y,wallFront.center.z);
     // wallFront.transform.setOrigin(wallFront.center.x, wallFront.center.y,wallFront.center.z);
     // pool.add(wallFront);
