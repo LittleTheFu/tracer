@@ -81,12 +81,7 @@ int main()
     Plane wallFront(wallFrontCenter, wallNormalFront, r);
     wallFront.setMaterial(Material::MTRL_YELLOW);
     wallFront.transform.rotateX(Common::PI);
-    // wallFront.transform.setOrigin(wallFront.center.x, wallFront.center.y, wallFront.center.z);
     wallFront.transform.translate(0, 0, -3 * c);
-
-    // const float Common::PI = 3.14159274101257324219f;
-    // wallFront.transform.rotateX(Common::PI/3);
-    // wallFront.transform.rotateY(Common::PI/3);
 
     const Vector3 wallBackCenter(0, 0, -3 * c);
     const Vector3 wallNormalBack(0, 0, 1);
@@ -149,10 +144,10 @@ int main()
     // flag1 = pool.hitSceneObjectOld(rayAlpha, t1, out1, info1);
     // flag2 = pool.hitSceneObject(rayAlpha, t2, out2, info2);
 
-    unsigned width = 512, height = 512;
+    unsigned width = 2048, height = 2048;
     const float half_width = width / 2.0f;
     const float half_height = height / 2.0f;
-    const int bounceTime = 7;
+    const int bounceTime = 20;
     std::vector<unsigned char> image;
     image.resize(width * height * 4);
     for (unsigned y = 0; y < height; y++)
@@ -169,11 +164,10 @@ int main()
 
             Vector3 hitPoint;
             Vector3 hitNormal;
-            // bool isBall = true;
+
             int outIndex = 0;
-            // float factor = 1;
+
             HitInfo info;
-            // bool hit = pool.directTrace(ray, outIndex, info);
             Material mtrl(Material::MTRL_BLACK);
             float weight = 0;
 
@@ -215,12 +209,6 @@ int main()
 
     if (error)
         std::cout << "encoder error " << error << ": " << lodepng_error_text(error) << std::endl;
-
-    // const Vector3 traceRayOrigin = Vector3(0, 0, 0);
-    // const Vector3 traceRayDir = Vector3(0, 0, 1);
-    // const Ray traceRay = Ray(traceRayOrigin, traceRayDir);
-
-    // pool.trace(traceRay);
 
     return 0;
 }
