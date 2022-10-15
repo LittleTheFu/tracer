@@ -109,41 +109,6 @@ int main()
 
     pool.setLight(0, 0, 20, 8);
 
-    // bool bTestHit = false;
-    // Vector3 testOrigin = Vector3(0,0,0);
-    // Vector3 testDir = Vector3(-200, 0, 100);
-    // Ray testRay = Ray(testOrigin, testDir);
-    // int testIndex = 0;
-    // bTestHit = pool.directTrace(testRay, testIndex);
-
-    // const Vector3 centerAplha(0, 0, 70);
-    // Ball ballAlpha(centerAplha, 3);
-    // ballAlpha.setMaterial(Material::MTRL_AQUA);
-
-    // pool.add(ballAlpha);
-
-    // const Vector3 centerRayAlpha = Vector3(0, 0, 0);
-    // const Vector3 dirRayAlpha = Vector3(-1, 0, 0);
-    // const Ray rayAlpha = Ray(centerRayAlpha, dirRayAlpha);
-
-    // float t1, t2;
-    // int out1, out2;
-    // HitInfo info1, info2;
-    // bool flag1, flag2;
-
-    // wallLeft.transform.rotateY(-Common::PI / 2);
-    // wallLeft.transform.setOrigin(wallLeft.center.x, wallLeft.center.y, wallLeft.center.z);
-    // wallLeft.transform.translate(0, 0, -c);
-    // pool.add(wallLeft);
-
-    // wallFront.transform.rotateX(Common::PI);
-    // // wallFront.transform.translate(wallFront.center.x, wallFront.center.y,wallFront.center.z);
-    // wallFront.transform.setOrigin(wallFront.center.x, wallFront.center.y,wallFront.center.z);
-    // pool.add(wallFront);
-
-    // flag1 = pool.hitSceneObjectOld(rayAlpha, t1, out1, info1);
-    // flag2 = pool.hitSceneObject(rayAlpha, t2, out2, info2);
-
     unsigned width = 2048, height = 2048;
     const float half_width = width / 2.0f;
     const float half_height = height / 2.0f;
@@ -185,19 +150,9 @@ int main()
 
                 if (hit)
                 {
-                    // mtrl += info.m_mtrl * w;
-                    // mtrl.safeAdd(info.m_mtrl * w * pathWeight);
                     mtrl.safeAdd(info.m_mtrl * w);
                 }
             }
-
-            // cout<<"weight:"<<weight<<endl;
-            // mtrl *= weight;
-
-            // if (hit)
-            // {
-            //     mtrl = info.m_mtrl;
-            // }
 
             image[4 * width * y + 4 * x + 0] = mtrl.r;
             image[4 * width * y + 4 * x + 1] = mtrl.g;
