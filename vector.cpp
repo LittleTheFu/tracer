@@ -1,5 +1,6 @@
 #include "vector.h"
 #include <tgmath.h>
+#include "common.h"
 
 Vector3::Vector3()
 {
@@ -116,6 +117,22 @@ bool Vector3::isInSameSide(const Vector3 &that) const
     const float result = this->operator*(that);
 
     return result > 0;
+}
+
+bool Vector3::isZero() const
+{
+    return x == 0 && y == 0 && z == 0;
+}
+
+bool Vector3::isPerpendicular(const Vector3 &that) const
+{
+    const Vector3 r = this->cross(that);
+
+    bool isX = std::abs(r.x) < Common::FLOAT_SAMLL_NUMBER;
+    bool isY = std::abs(r.y) < Common::FLOAT_SAMLL_NUMBER;
+    bool isZ = std::abs(r.z) < Common::FLOAT_SAMLL_NUMBER;
+
+    return isX && isY && isZ;
 }
 
 float Vector3::length()

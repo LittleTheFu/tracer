@@ -16,6 +16,9 @@ public:
     friend Vector3 operator*(const float s, const Vector3& v);
 
 
+    bool isZero() const;
+    bool isPerpendicular(const Vector3& that) const;
+
     float length();
     float lenthSqr() const;
     void normalize();

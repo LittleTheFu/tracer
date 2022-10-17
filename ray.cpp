@@ -2,6 +2,7 @@
 #include <limits>
 #include <cmath>
 #include "common.h"
+#include "frame.h"
 
 Ray::Ray(const Vector3 &origin, const Vector3 &dir)
 {
@@ -55,21 +56,20 @@ bool Ray::localHit(const Ball &ball, float &t, Vector3 &point, Vector3 &normal, 
 
         const Vector3 localNormal = ball.getLocalNormal(localPoint);
         normal = ball.transform.transformNormal(localNormal);
-        // normal = ball.transform.transformVector(localNormal);
 
         const Vector3 dpdu = ball.dpdu(localPoint);
         const Vector3 dpdv = ball.dpdv(localPoint);
 
         Vector3 r = Vector3::getRandomVector();
-        // float rx = r * dpdu;
-        // float ry = r * dpdv;
-        // float rz = r * localNormal;
         if (r.z == 0)
             r.z = 1;
         if (r.z < 0)
             r.z *= -1;
 
-        Vector3 localReflectVector = r.x * dpdu + r.y * dpdv + r.z * localNormal;
+        Frame frame(localNormal, dpdu);
+
+        // Vector3 localReflectVector = r.x * dpdu + r.y * dpdv + r.z * localNormal;
+        Vector3 localReflectVector = r.x * frame.x + r.y * frame.y + r.z * frame.z;
         localReflectVector.normalize();
         randomReflectVector = ball.transform.transformVector(localReflectVector);
 
