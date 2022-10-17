@@ -7,11 +7,14 @@ public:
     Vector3();
     Vector3(float x, float y, float z);
 
+    Vector3 cross(const Vector3 &that) const;
+
     Vector3 operator+(const Vector3 &that) const;
     Vector3 operator-(const Vector3 &that) const;
     Vector3 operator-() const;
     float operator*(const Vector3 &that) const;
     friend Vector3 operator*(const float s, const Vector3& v);
+
 
     float length();
     float lenthSqr() const;

@@ -15,6 +15,15 @@ Vector3::Vector3(float x, float y, float z)
     this->z = z;
 }
 
+Vector3 Vector3::cross(const Vector3 &that) const
+{
+    float rX = y * that.z - z * that.y;
+    float rY = z * that.x - x * that.z;
+    float rZ = x * that.y - y * that.x;
+
+    return Vector3(rX, rY, rZ);
+}
+
 Vector3 Vector3::operator+(const Vector3 &that) const
 {
     float x = this->x + that.x;
