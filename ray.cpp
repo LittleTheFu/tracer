@@ -17,7 +17,6 @@ bool Ray::localHit(const Ball &ball, float &t, Vector3 &point, Vector3 &normal, 
 
     const Ray newRay = genNewRay(ball.transform);
 
-    // page 135 57
     const float a = newRay.dir.lenthSqr();
     const float b = 2 * (newRay.dir * newRay.origin - newRay.dir * ball.getLocalCenter());
     const float c = (newRay.origin - ball.getLocalCenter()).lenthSqr() - ball.r * ball.r;
