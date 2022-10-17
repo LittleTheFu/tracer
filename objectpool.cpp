@@ -27,13 +27,11 @@ void ObjectPool::add(const Plane &plane)
     m_planes.push_back(plane);
 }
 
-// 
+//
 
+//
 
-
-// 
-
-// 
+//
 
 bool ObjectPool::hitSceneObject(const Ray &ray, float &tMin, int &outIndex, HitInfo &info)
 {
@@ -70,6 +68,7 @@ bool ObjectPool::hitSceneObject(const Ray &ray, float &tMin, int &outIndex, HitI
                 // info.m_normal = it->getNormal(p);
                 info.m_randomReflect = tempReflect;
                 info.m_mtrl = it->mtrl;
+                // std::cout << "****** :" << it->mtrl.specular << "*******" << std::endl;
                 outIndex = index;
             }
         }
@@ -137,10 +136,15 @@ bool ObjectPool::testLightReachable(const Ray &ray, const Vector3 &light)
 
 bool ObjectPool::traceWithTimes(const Ray &ray, int bounceNum, int &index, HitInfo &outInfo, float &w, const Material &currentMtrl)
 {
-
     bounceNum -= 1;
     if (bounceNum <= 0)
     {
+        if (currentMtrl.specular)
+        {
+            outInfo.m_mtrl = currentMtrl * Material::MTRL_BLACK;
+            return false;
+        }
+
         // std::cout << "weight : " << w << std::endl;
         bool flag = testLightReachable(ray, m_light.getCenter());
 
@@ -184,12 +188,18 @@ bool ObjectPool::traceWithTimes(const Ray &ray, int bounceNum, int &index, HitIn
 
         if (bounceNum > 1)
         {
-            float reflectNormalWeight = dir * n;
-            // if (reflectNormalWeight < 0.005)
-            //     reflectNormalWeight = 0.005;
-            if (reflectNormalWeight < 0)
-                reflectNormalWeight = 0;
-            w *= reflectNormalWeight;
+            if (info.m_mtrl.specular)
+            {
+            }
+            else
+            {
+                float reflectNormalWeight = dir * n;
+                // if (reflectNormalWeight < 0.005)
+                //     reflectNormalWeight = 0.005;
+                if (reflectNormalWeight < 0)
+                    reflectNormalWeight = 0;
+                w *= reflectNormalWeight;
+            }
         }
         else
         {
@@ -206,7 +216,7 @@ bool ObjectPool::traceWithTimes(const Ray &ray, int bounceNum, int &index, HitIn
         bool traceFlag = traceWithTimes(newRay, bounceNum, index, newInfo, w, info.m_mtrl);
 
         float me_weight = 0.5;
-        if(currentMtrl.specular)
+        if (currentMtrl.specular)
         {
             me_weight = 0;
         }
@@ -242,7 +252,7 @@ bool ObjectPool::traceWithTimes(const Ray &ray, int bounceNum, int &index, HitIn
     // return false;
 }
 
-// 
+//
 
 // #ifdef _OBJECT_POOL_DEBUG_PRINT_
 //     std::cout << "hit_pos: (" << point.x << "," << point.y << "," << point.z << ")" << std::endl;
@@ -313,7 +323,6 @@ bool ObjectPool::traceWithTimes(const Ray &ray, int bounceNum, int &index, HitIn
 //     std::cout << "NEW_DIR : (" << dir.x << "," << dir.y << "," << dir.z << ")" << std::endl;
 //     std::cout << "NORMAL : (" << normal.x << "," << normal.y << "," << normal.z << ")" << std::endl;
 // }
-
 
 // bool ObjectPool::lightTrace(const Ray &ray, int &index, int depth, int maxDepth, float inFactor, float &outFactor)
 // {
@@ -401,7 +410,6 @@ bool ObjectPool::traceWithTimes(const Ray &ray, int bounceNum, int &index, HitIn
 
 //     return false;
 // }
-
 
 // bool ObjectPool::hit(const Ray &ray, bool &isBall, int &outIndex, Vector3 &hitPoint, Vector3 &hitNormal)
 // {

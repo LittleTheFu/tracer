@@ -18,7 +18,8 @@ int main()
 
     const Vector3 centerTwo(5, 0, 30);
     Ball ballTwo(centerTwo, 3);
-    ballTwo.setMaterial(Material::MTRL_GREEN);
+    ballTwo.setMaterial(Material::MTRL_RED);
+    ballTwo.mtrl.specular = true;
 
     const Vector3 centerThree(1, 1, 70);
     Ball ballThree(centerThree, 3);
@@ -30,12 +31,13 @@ int main()
 
     const Vector3 centerFive(0, 5, 20);
     Ball ballFive(centerFive, 3);
-    ballFive.mtrl.specular = true;
     ballFive.setMaterial(Material::MTRL_WHITE);
+    ballFive.mtrl.specular = true;
 
     const Vector3 centerSix(-5, -20, 80);
     Ball ballSix(centerSix, 3);
     ballSix.setMaterial(Material::MTRL_RED);
+    ballSix.mtrl.specular = true;
 
     const Vector3 centerSeven(13, -8, 50);
     Ball ballSeven(centerSeven, 3);
@@ -44,6 +46,7 @@ int main()
     const Vector3 centerEight(-3, 0, 30);
     Ball ballEight(centerEight, 3);
     ballEight.setMaterial(Material::MTRL_RED);
+    ballEight.mtrl.specular = true;
 
     const float c = 100;
     const float r = 5 * c;
@@ -109,10 +112,10 @@ int main()
 
     pool.setLight(0, 0, 20, 8);
 
-    unsigned width = 2048, height = 2048;
+    unsigned width = 512, height = 512;
     const float half_width = width / 2.0f;
     const float half_height = height / 2.0f;
-    const int bounceTime = 20;
+    const int bounceTime = 5;
     std::vector<unsigned char> image;
     image.resize(width * height * 4);
     for (unsigned y = 0; y < height; y++)
