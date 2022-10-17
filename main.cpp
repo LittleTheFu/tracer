@@ -32,7 +32,7 @@ int main()
     const Vector3 centerFive(0, 5, 20);
     Ball ballFive(centerFive, 3);
     ballFive.setMaterial(Material::MTRL_WHITE);
-    ballFive.mtrl.specular = true;
+    ballFive.mtrl.specular = false;
 
     const Vector3 centerSix(-5, -20, 80);
     Ball ballSix(centerSix, 3);
@@ -115,7 +115,7 @@ int main()
     unsigned width = 512, height = 512;
     const float half_width = width / 2.0f;
     const float half_height = height / 2.0f;
-    const int bounceTime = 5;
+    const int bounceTime = 10;
     std::vector<unsigned char> image;
     image.resize(width * height * 4);
     for (unsigned y = 0; y < height; y++)
