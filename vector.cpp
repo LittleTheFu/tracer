@@ -173,7 +173,8 @@ Vector3 Vector3::sampleUniformFromHemisphere()
     const float u = std::rand() / max;
     const float v = std::rand() / max;
 
-    const float sinTheta = std::sqrt(1 - u * u);
+    const float cosTheta = u;
+    const float sinTheta = std::sqrt(1 - cosTheta * cosTheta);
     const float phi = 2 * Common::PI * v;
 
     const float x = sinTheta * std::cos(phi);
