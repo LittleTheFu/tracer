@@ -137,12 +137,11 @@ int main()
 
             HitInfo info;
             Material mtrl(Material::MTRL_BLACK);
-            float weight = 0;
 
             for (int i = 2; i < bounceTime; i++)
             {
                 float pathWeight = 1.0f;
-                bool hit = pool.traceWithTimes(ray, i, outIndex, info, pathWeight, Material::MTRL_WHITE);
+                bool hit = pool.traceWithTimes(ray, i, outIndex, info, Material::MTRL_WHITE);
                 int power = (i - 1);
                 float w = 1;
                 float m = 1;

@@ -134,7 +134,7 @@ bool ObjectPool::testLightReachable(const Ray &ray, const Vector3 &light)
     return false;
 }
 
-bool ObjectPool::traceWithTimes(const Ray &ray, int bounceNum, int &index, HitInfo &outInfo, float &w, const Material &currentMtrl)
+bool ObjectPool::traceWithTimes(const Ray &ray, int bounceNum, int &index, HitInfo &outInfo, const Material &currentMtrl)
 {
     bounceNum -= 1;
     if (bounceNum <= 0)
@@ -186,20 +186,13 @@ bool ObjectPool::traceWithTimes(const Ray &ray, int bounceNum, int &index, HitIn
 
         Ray newRay = Ray(rayPos, dir);
 
+        float thetaWeight = 1;
         if (bounceNum > 1)
         {
-            if (info.m_mtrl.specular)
-            {
-            }
-            else
-            {
-                float reflectNormalWeight = dir * n;
-                // if (reflectNormalWeight < 0.005)
-                //     reflectNormalWeight = 0.005;
-                if (reflectNormalWeight < 0)
-                    reflectNormalWeight = 0;
-                w *= reflectNormalWeight;
-            }
+            thetaWeight = dir * n;
+
+            if (thetaWeight < 0)
+                thetaWeight = 0;
         }
         else
         {
@@ -207,27 +200,27 @@ bool ObjectPool::traceWithTimes(const Ray &ray, int bounceNum, int &index, HitIn
             lightDir.normalize();
             newRay.dir = lightDir;
 
-            float lightWeight = lightDir * n;
-            if (lightWeight < 0)
-                lightWeight = 0;
-            w *= lightWeight;
+            thetaWeight = lightDir * n;
+            if (thetaWeight < 0)
+                thetaWeight = 0;
         }
 
-        bool traceFlag = traceWithTimes(newRay, bounceNum, index, newInfo, w, info.m_mtrl);
+        // bool traceFlag = traceWithTimes(newRay, bounceNum, index, newInfo, w, info.m_mtrl);
+        bool traceFlag = traceWithTimes(newRay, bounceNum, index, newInfo, info.m_mtrl);
 
-        float me_weight = 0.5;
+        const Material me_mtrl = currentMtrl * newInfo.m_mtrl * thetaWeight;
+        const Material that_mtrl = newInfo.m_mtrl;
+
         if (currentMtrl.specular)
         {
-            me_weight = 0;
+            outInfo.m_mtrl = that_mtrl;
         }
-        const float that_weight = 1 - me_weight;
-        const Material me_mtrl = currentMtrl * newInfo.m_mtrl * me_weight;
-        const Material that_mtrl = newInfo.m_mtrl * that_weight;
-        outInfo.m_mtrl = (me_mtrl + that_mtrl) * w;
-        // outInfo.m_mtrl = currentMtrl * newInfo.m_mtrl;
+        else
+        {
+            outInfo.m_mtrl = me_mtrl;
+        }
 
         return traceFlag;
-        // return traceWithTimes(newRay, bounceNum, index, newInfo, w);
     }
 
     return false;

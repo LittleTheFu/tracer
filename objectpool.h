@@ -17,7 +17,7 @@ public:
     void add(const Ball &ball);
     void add(const Plane &plane);
     
-    bool traceWithTimes(const Ray &ray, int bounceNum, int &index, HitInfo &outInfo, float &w, const Material &currentMtrl);
+    bool traceWithTimes(const Ray &ray, int bounceNum, int &index, HitInfo &outInfo, const Material &currentMtrl);
     bool testLightReachable(const Ray &ray, const Vector3 &light);
     bool hitSceneObject(const Ray &ray, float &tMin, int &outIndex, HitInfo &info);
 
