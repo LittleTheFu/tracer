@@ -12,7 +12,7 @@ public:
 
     Material &operator*=(float m);
     Material &operator+=(const Material &that);
-    Material operator*(float m);
+    Material operator*(const float m) const;
     Material operator*(const Material &that) const;
     Material operator+(const Material &that) const;
 

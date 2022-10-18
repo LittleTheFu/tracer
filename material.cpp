@@ -59,7 +59,7 @@ Material &Material::operator+=(const Material &that)
     return *this;
 }
 
-Material Material::operator*(float m)
+Material Material::operator*(const float m) const
 {
     return Material(r * m, g * m, b * m);
 }
