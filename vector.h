@@ -27,6 +27,7 @@ public:
     bool isInSameSide(const Vector3 &that) const;
 
     static Vector3 getRandomVector();
+    static Vector3 sampleUniformFromHemisphere();
 
     float x;
     float y;

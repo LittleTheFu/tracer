@@ -1,6 +1,7 @@
 #include "vector.h"
 #include <tgmath.h>
 #include "common.h"
+#include <cassert>
 
 Vector3::Vector3()
 {
@@ -164,4 +165,28 @@ Vector3 Vector3::getRandomVector()
     v.normalize();
 
     return v;
+}
+
+Vector3 Vector3::sampleUniformFromHemisphere()
+{
+    const float max = (float)RAND_MAX;
+    const float u = std::rand() / max;
+    const float v = std::rand() / max;
+
+    const float sinTheta = std::sqrt(1 - u * u);
+    const float phi = 2 * Common::PI * v;
+
+    const float x = sinTheta * std::cos(phi);
+    const float y = sinTheta * std::sin(phi);
+    const float z = u;
+
+    const Vector3 vec(x, y, z);
+    const float lenthSqr = vec.lenthSqr();
+    const float diff = lenthSqr - 1.0f;
+    if (std::abs(diff) > Common::FLOAT_SAMLL_NUMBER)
+    {
+        assert("vector is not normalized!");
+    }
+
+    return vec;
 }

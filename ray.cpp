@@ -59,7 +59,8 @@ bool Ray::localHit(const Ball &ball, float &t, Vector3 &point, Vector3 &normal, 
         const Vector3 dpdu = ball.dpdu(localPoint);
         const Vector3 dpdv = ball.dpdv(localPoint);
 
-        Vector3 r = Vector3::getRandomVector();
+        // Vector3 r = Vector3::getRandomVector();
+        Vector3 r = Vector3::sampleUniformFromHemisphere();
         if (r.z == 0)
             r.z = 1;
         if (r.z < 0)
@@ -110,7 +111,8 @@ bool Ray::localHit(const Plane &plane, float &t, Vector3 &point, Vector3 &normal
     point = plane.transform.transformPoint(localPoint);
     normal = plane.transform.transformVector(plane.getLocalNormal());
 
-    const Vector3 localReflectVector = Vector3::getRandomVector();
+    // const Vector3 localReflectVector = Vector3::getRandomVector();
+    const Vector3 localReflectVector = Vector3::sampleUniformFromHemisphere();
     randomReflectVector = plane.transform.transformVector(localReflectVector);
     // randomReflectVector = plane.transform.transformVector(plane.getLocalNormal());
 
