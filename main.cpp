@@ -14,38 +14,41 @@ int main()
 {
     const Vector3 centerOne(-30, 20, 70);
     Ball ballOne(centerOne, 3);
-    ballOne.setMaterial(Material::MTRL_AQUA);
+    ballOne.setMaterial(Material::MTRL_AQUA * Material::pho);
 
     const Vector3 centerTwo(5, 0, 30);
     Ball ballTwo(centerTwo, 3);
-    ballTwo.setMaterial(Material::MTRL_RED);
+    ballTwo.setMaterial(Material::MTRL_RED * Material::pho);
     ballTwo.mtrl.specular = true;
 
     const Vector3 centerThree(1, 1, 70);
     Ball ballThree(centerThree, 3);
-    ballThree.setMaterial(Material::MTRL_AQUA);
+    ballThree.setMaterial(Material::MTRL_AQUA * Material::pho);
+    ballThree.mtrl.specular = false;
 
     const Vector3 centerFour(-5, -30, 90);
     Ball ballFour(centerFour, 3);
-    ballFour.setMaterial(Material::MTRL_PURPLE);
+    ballFour.setMaterial(Material::MTRL_PURPLE * Material::pho);
+    ballFour.mtrl.specular = false;
 
     const Vector3 centerFive(0, 5, 20);
     Ball ballFive(centerFive, 3);
-    ballFive.setMaterial(Material::MTRL_WHITE);
+    ballFive.setMaterial(Material::MTRL_WHITE * Material::pho);
     ballFive.mtrl.specular = false;
 
     const Vector3 centerSix(-5, -20, 80);
     Ball ballSix(centerSix, 3);
-    ballSix.setMaterial(Material::MTRL_RED);
+    ballSix.setMaterial(Material::MTRL_RED * Material::pho);
     ballSix.mtrl.specular = true;
 
     const Vector3 centerSeven(13, -8, 50);
     Ball ballSeven(centerSeven, 3);
-    ballSeven.setMaterial(Material::MTRL_BLUE);
+    ballSeven.setMaterial(Material::MTRL_BLUE * Material::pho);
+    ballSeven.mtrl.specular = false;
 
     const Vector3 centerEight(-3, 0, 30);
     Ball ballEight(centerEight, 3);
-    ballEight.setMaterial(Material::MTRL_RED);
+    ballEight.setMaterial(Material::MTRL_RED * Material::pho);
     ballEight.mtrl.specular = true;
 
     const float c = 100;
@@ -112,12 +115,12 @@ int main()
 
     pool.setLight(0, 0, 20, 8);
 
-    // unsigned width = 512 * 8, height = 512 * 8;
+    unsigned width = 512, height = 512;
     // unsigned width = 512 * 4, height = 512 * 4;
-    unsigned width = 512 * 1, height = 512 * 1;
+    // unsigned width = 512 * 1, height = 512 * 1;
     const float half_width = width / 2.0f;
     const float half_height = height / 2.0f;
-    const int bounceTime = 10;
+    const int bounceTime = 16;
     std::vector<unsigned char> image;
     image.resize(width * height * 4);
     for (unsigned y = 0; y < height; y++)
