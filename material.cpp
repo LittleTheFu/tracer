@@ -115,4 +115,4 @@ const Material Material::MTRL_PURPLE = Material(128, 0, 128);
 const Material Material::MTRL_WHITE = Material(255, 255, 255);
 const Material Material::MTRL_BLACK = Material(0, 0, 0);
 
-const float Material::pho = 0.2f;
+const float Material::rho = 0.2f;

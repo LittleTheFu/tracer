@@ -14,41 +14,41 @@ int main()
 {
     const Vector3 centerOne(-30, 20, 70);
     Ball ballOne(centerOne, 3);
-    ballOne.setMaterial(Material::MTRL_AQUA * Material::pho);
+    ballOne.setMaterial(Material::MTRL_AQUA * Material::rho);
 
     const Vector3 centerTwo(5, 0, 30);
     Ball ballTwo(centerTwo, 3);
-    ballTwo.setMaterial(Material::MTRL_RED * Material::pho);
+    ballTwo.setMaterial(Material::MTRL_RED * Material::rho);
     ballTwo.mtrl.specular = true;
 
     const Vector3 centerThree(1, 1, 70);
     Ball ballThree(centerThree, 3);
-    ballThree.setMaterial(Material::MTRL_AQUA * Material::pho);
+    ballThree.setMaterial(Material::MTRL_AQUA * Material::rho);
     ballThree.mtrl.specular = false;
 
     const Vector3 centerFour(-5, -30, 90);
     Ball ballFour(centerFour, 3);
-    ballFour.setMaterial(Material::MTRL_PURPLE * Material::pho);
+    ballFour.setMaterial(Material::MTRL_PURPLE * Material::rho);
     ballFour.mtrl.specular = false;
 
     const Vector3 centerFive(0, 5, 20);
     Ball ballFive(centerFive, 3);
-    ballFive.setMaterial(Material::MTRL_WHITE * Material::pho);
+    ballFive.setMaterial(Material::MTRL_WHITE * Material::rho);
     ballFive.mtrl.specular = false;
 
     const Vector3 centerSix(-5, -20, 80);
     Ball ballSix(centerSix, 3);
-    ballSix.setMaterial(Material::MTRL_RED * Material::pho);
+    ballSix.setMaterial(Material::MTRL_RED * Material::rho);
     ballSix.mtrl.specular = true;
 
     const Vector3 centerSeven(13, -8, 50);
     Ball ballSeven(centerSeven, 3);
-    ballSeven.setMaterial(Material::MTRL_BLUE * Material::pho);
+    ballSeven.setMaterial(Material::MTRL_BLUE * Material::rho);
     ballSeven.mtrl.specular = false;
 
     const Vector3 centerEight(-3, 0, 30);
     Ball ballEight(centerEight, 3);
-    ballEight.setMaterial(Material::MTRL_RED * Material::pho);
+    ballEight.setMaterial(Material::MTRL_RED * Material::rho);
     ballEight.mtrl.specular = true;
 
     const float c = 100;

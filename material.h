@@ -36,7 +36,7 @@ public:
     const static Material MTRL_WHITE;
     const static Material MTRL_BLACK;
 
-    const static float pho;
+    const static float rho;
 };
 
 #endif
