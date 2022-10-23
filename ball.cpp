@@ -95,7 +95,7 @@ float Ball::getTheta(const Vector3 &p) const
 
 Vector3 Ball::dpdu(const Vector3 &p) const
 {
-    const float phi = getPhi(p);
+    // const float phi = getPhi(p);
     const float phi_max = Common::PI * 2;
 
     const float x = -p.y * phi_max;

@@ -57,7 +57,7 @@ bool Ray::localHit(const Ball &ball, float &t, Vector3 &point, Vector3 &normal, 
         normal = ball.transform.transformNormal(localNormal);
 
         const Vector3 dpdu = ball.dpdu(localPoint);
-        const Vector3 dpdv = ball.dpdv(localPoint);
+        // const Vector3 dpdv = ball.dpdv(localPoint);
 
         // Vector3 r = Vector3::getRandomVector();
         Vector3 r = Vector3::sampleUniformFromHemisphere();
