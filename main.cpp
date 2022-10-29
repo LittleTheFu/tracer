@@ -115,9 +115,9 @@ int main()
 
     pool.setLight(0, 0, 20, 8);
 
-    unsigned width = 512 * 8, height = 512 * 8;
+    // unsigned width = 512 * 8, height = 512 * 8;
     // unsigned width = 512 * 4, height = 512 * 4;
-    // unsigned width = 512 * 1, height = 512 * 1;
+    unsigned width = 512 * 1, height = 512 * 1;
     const float half_width = width / 2.0f;
     const float half_height = height / 2.0f;
     const int bounceTime = 16;
@@ -145,7 +145,6 @@ int main()
 
             for (int i = 2; i < bounceTime; i++)
             {
-                // float pathWeight = 1.0f;
                 bool hit = pool.traceWithTimes(ray, i, outIndex, info, Material::MTRL_WHITE);
                 int power = (i - 1);
                 float w = 1;
@@ -157,7 +156,6 @@ int main()
 
                 if (hit)
                 {
-                    // mtrl.safeAdd(info.m_mtrl * w);
                     mtrl.safeAdd(info.m_mtrl);
                 }
             }
