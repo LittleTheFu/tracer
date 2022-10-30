@@ -1,8 +1,6 @@
 #include "lodepng.h"
 
 #include "ray.h"
-#include "ball.h"
-#include "plane.h"
 #include "objectpool.h"
 #include "material.h"
 #include "hitinfo.h"
@@ -33,108 +31,28 @@ int main()
 
     CBall myBall(Vector3::ZERO, Vector3(0, 0, 20), 5, lambMtrlRed);
 
-    const Vector3 centerOne(-30, 20, 70);
-    Ball ballOne(centerOne, 3);
-    ballOne.setMaterial(Material::MTRL_AQUA * Material::rho);
-
-    const Vector3 centerTwo(5, 0, 30);
-    Ball ballTwo(centerTwo, 3);
-    ballTwo.setMaterial(Material::MTRL_RED * Material::rho);
-    ballTwo.mtrl.specular = true;
-
-    const Vector3 centerThree(1, 1, 70);
-    Ball ballThree(centerThree, 3);
-    ballThree.setMaterial(Material::MTRL_AQUA * Material::rho);
-    ballThree.mtrl.specular = false;
-
-    const Vector3 centerFour(-5, -30, 90);
-    Ball ballFour(centerFour, 3);
-    ballFour.setMaterial(Material::MTRL_PURPLE * Material::rho);
-    ballFour.mtrl.specular = false;
-
-    const Vector3 centerFive(0, 5, 20);
-    Ball ballFive(centerFive, 3);
-    ballFive.setMaterial(Material::MTRL_WHITE * Material::rho);
-    ballFive.mtrl.specular = false;
-
-    const Vector3 centerSix(-5, -20, 80);
-    Ball ballSix(centerSix, 3);
-    ballSix.setMaterial(Material::MTRL_RED * Material::rho);
-    ballSix.mtrl.specular = true;
-
-    const Vector3 centerSeven(13, -8, 50);
-    Ball ballSeven(centerSeven, 3);
-    ballSeven.setMaterial(Material::MTRL_BLUE * Material::rho);
-    ballSeven.mtrl.specular = false;
-
-    const Vector3 centerEight(-3, 0, 30);
-    Ball ballEight(centerEight, 3);
-    ballEight.setMaterial(Material::MTRL_RED * Material::rho);
-    ballEight.mtrl.specular = true;
-
     const float c = 100;
     const float r = 5 * c;
-    const Vector3 wallLeftCenter(-c, 0, 0);
-    const Vector3 wallNormalLeft(1, 0, 0);
-    Plane wallLeft(wallLeftCenter, wallNormalLeft, r);
-    wallLeft.setMaterial(Material::MTRL_BLUE);
-    wallLeft.transform.rotateY(-Common::PI / 2);
-    wallLeft.transform.translate(0, 0, -c);
-    // wallLeft.transform.setOrigin(wallLeft.center.x, wallLeft.center.y, wallLeft.center.z);
 
     Vector3 leftRotate(0, -Common::PI / 2, 0);
     Vector3 leftPosition(0, 0, -c);
     CPlane leftPlane(leftRotate, leftPosition, r, lambMtrlRed);
 
-    const Vector3 wallRightCenter(c, 0, 0);
-    const Vector3 wallNormalRight(-1, 0, 0);
-    Plane wallRight(wallRightCenter, wallNormalRight, r);
-    wallRight.setMaterial(Material::MTRL_BLUE);
-    wallRight.transform.rotateY(Common::PI / 2);
-    wallRight.transform.translate(0, 0, -c);
-
     Vector3 rightRotate(0, Common::PI / 2, 0);
     Vector3 rightPosition(0, 0, -c);
     CPlane rightPlane(rightRotate, rightPosition, r, lambMtrlRed);
-
-    // const Vector3 wallTopCenter(0, c, 0);
-    // const Vector3 wallNormalTop(0, -1, 0);
-    // Plane wallTop(wallTopCenter, wallNormalTop, r);
-    // wallTop.setMaterial(Material::MTRL_RED);
-    // wallTop.transform.rotateX(Common::PI / 2);
-    // wallTop.transform.translate(0, 0, -c);
 
     Vector3 topRotate(Common::PI / 2, 0, 0);
     Vector3 topPosition(0, 0, -c);
     CPlane topPlane(topRotate, topPosition, r, lambMtrlBlue);
 
-    // const Vector3 wallBottomCenter(0, -c, 0);
-    // const Vector3 wallNormalBottom(0, 1, 0);
-    // Plane wallBottom(wallBottomCenter, wallNormalBottom, r);
-    // wallBottom.setMaterial(Material::MTRL_RED);
-    // wallBottom.transform.rotateX(-Common::PI / 2);
-    // wallBottom.transform.translate(0, 0, -c);
-
     Vector3 bottomRotate(-Common::PI / 2, 0, 0);
     Vector3 bottomPosition(0, 0, -c);
     CPlane bottomPlane(bottomRotate, bottomPosition, r, lambMtrlBlue);
 
-    // const Vector3 wallFrontCenter(0, 0, 3 * c);
-    // const Vector3 wallNormalFront(0, 0, -1);
-    // Plane wallFront(wallFrontCenter, wallNormalFront, r);
-    // wallFront.setMaterial(Material::MTRL_YELLOW);
-    // wallFront.transform.rotateX(Common::PI);
-    // wallFront.transform.translate(0, 0, -3 * c);
-
     Vector3 frontRotate(0, Common::PI, 0);
     Vector3 frontPosition(0, 0, -3 * c);
     CPlane frontPlane(frontRotate, frontPosition, r, lambMtrlGreen);
-
-    // const Vector3 wallBackCenter(0, 0, -3 * c);
-    // const Vector3 wallNormalBack(0, 0, 1);
-    // Plane wallBack(wallBackCenter, wallNormalBack, r);
-    // wallBack.setMaterial(Material::MTRL_YELLOW);
-    // wallBack.transform.translate(0, 0, -3 * c);
 
     Vector3 backRotate(0, -Common::PI, 0);
     Vector3 backPosition(0, 0, -3 * c);
@@ -149,21 +67,6 @@ int main()
     pool.add(&bottomPlane);
     pool.add(&leftPlane);
     pool.add(&rightPlane);
-    // pool.add(ballOne);
-    // pool.add(ballTwo);
-    // pool.add(ballThree);
-    // pool.add(ballFour);
-    // pool.add(ballFive);
-    // pool.add(ballSix);
-    // pool.add(ballSeven);
-    // pool.add(ballEight);
-
-    // pool.add(wallLeft);
-    // pool.add(wallRight);
-    // pool.add(wallTop);
-    // pool.add(wallBottom);
-    // pool.add(wallFront);
-    // pool.add(wallBack);
 
     pool.setLight(0, 0, 20, 8);
 
