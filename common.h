@@ -13,8 +13,9 @@ public:
 
     const static float getWeight(float rawWeight);
     const static bool float_equal(float x, float y);
-    
+
     const static float FLOAT_SAMLL_NUMBER;
+    const static float FLOAT_MAX;
 
     const static Vector3 LOCAL_NORMAL;
 };
