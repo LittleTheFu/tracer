@@ -6,7 +6,7 @@
 CBall::CBall(const Vector3 &rotate, const Vector3 &position, float r, const Rmaterial &mtrl)
 {
     init(rotate, position);
-    
+
     this->r = r;
     this->mtrl = mtrl;
 }
@@ -111,7 +111,7 @@ Vector3 CBall::dpdv(const Vector3 &point) const
     return v;
 }
 
-float Ball::getPhi(const Vector3 &point) const
+float CBall::getPhi(const Vector3 &point) const
 {
     float phi = std::atan2(point.y, point.x);
     if (phi < 0)
@@ -122,7 +122,7 @@ float Ball::getPhi(const Vector3 &point) const
     return phi;
 }
 
-float Ball::getTheta(const Vector3 &point) const
+float CBall::getTheta(const Vector3 &point) const
 {
     float a = point.z / r;
     if (a < -1)

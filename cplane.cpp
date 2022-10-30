@@ -59,7 +59,7 @@ Vector3 CPlane::dpdv(const Vector3 &point) const
     return Vector3(0, 1, 0);
 }
 
-bool Plane::isLocalIn(const Vector3 &p) const
+bool CPlane::isLocalIn(const Vector3 &p) const
 {
     if (!Common::float_equal(p.z, 0))
     {
