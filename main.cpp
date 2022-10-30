@@ -126,7 +126,7 @@ int main()
             image[4 * width * y + 4 * x + 0] = r;
             image[4 * width * y + 4 * x + 1] = g;
             image[4 * width * y + 4 * x + 2] = b;
-            image[4 * width * y + 4 * x + 3] = mtrl.a;
+            image[4 * width * y + 4 * x + 3] = 255;
         }
 
     unsigned error = lodepng::encode("img.png", image, width, height);
