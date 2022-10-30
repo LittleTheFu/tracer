@@ -10,6 +10,7 @@
 #include <iostream>
 #include "brdfMgr.h"
 #include "rmaterial.h"
+#include "cball.h"
 using namespace std;
 
 int main()
@@ -17,6 +18,8 @@ int main()
     BrdfMgr brdfMgr;
     Rmaterial lambMtrl;
     lambMtrl.pBrdf = brdfMgr.getBrdf();
+
+    CBall myBall(Vector3::ZERO, Vector3(0,0,20), 10, lambMtrl);
 
     const Vector3 centerOne(-30, 20, 70);
     Ball ballOne(centerOne, 3);
@@ -103,21 +106,21 @@ int main()
 
     ObjectPool pool;
 
-    pool.add(ballOne);
-    pool.add(ballTwo);
-    pool.add(ballThree);
-    pool.add(ballFour);
-    pool.add(ballFive);
-    pool.add(ballSix);
-    pool.add(ballSeven);
-    pool.add(ballEight);
+    // pool.add(ballOne);
+    // pool.add(ballTwo);
+    // pool.add(ballThree);
+    // pool.add(ballFour);
+    // pool.add(ballFive);
+    // pool.add(ballSix);
+    // pool.add(ballSeven);
+    // pool.add(ballEight);
 
-    pool.add(wallLeft);
-    pool.add(wallRight);
-    pool.add(wallTop);
-    pool.add(wallBottom);
-    pool.add(wallFront);
-    pool.add(wallBack);
+    // pool.add(wallLeft);
+    // pool.add(wallRight);
+    // pool.add(wallTop);
+    // pool.add(wallBottom);
+    // pool.add(wallFront);
+    // pool.add(wallBack);
 
     pool.setLight(0, 0, 20, 8);
 
@@ -126,7 +129,7 @@ int main()
     unsigned width = 512 * 1, height = 512 * 1;
     const float half_width = width / 2.0f;
     const float half_height = height / 2.0f;
-    const int bounceTime = 16;
+    const int bounceTime = 8;
     std::vector<unsigned char> image;
     image.resize(width * height * 4);
     for (unsigned y = 0; y < height; y++)

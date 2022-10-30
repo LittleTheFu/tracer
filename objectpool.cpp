@@ -28,6 +28,34 @@ void ObjectPool::add(const Plane &plane)
     m_planes.push_back(plane);
 }
 
+void ObjectPool::add(const Geometry *pGeometry)
+{
+    m_objects.push_back(pGeometry);
+}
+
+bool ObjectPool::hitScene(const Ray &ray, HitRecord &record)
+{
+    bool hit = false;
+    float tMin = Common::FLOAT_MAX;
+    HitRecord record;
+
+    for (std::vector<const Geometry *>::iterator it = m_objects.begin(); it != m_objects.end(); it++)
+    {
+        HitRecord tempRecord;
+
+        if ((*it)->hit(ray, tempRecord))
+        {
+            if(tempRecord.t < tMin)
+            {
+                record = tempRecord;
+                hit = true;
+            }
+        }
+    }
+
+    return hit;
+}
+
 bool ObjectPool::hitSceneObject(const Ray &ray, float &tMin, int &outIndex, HitInfo &info)
 {
     float t = std::numeric_limits<float>::max();
