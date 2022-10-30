@@ -37,7 +37,6 @@ bool ObjectPool::hitScene(const Ray &ray, HitRecord &record)
 {
     bool hit = false;
     float tMin = Common::FLOAT_MAX;
-    HitRecord record;
 
     for (std::vector<const Geometry *>::iterator it = m_objects.begin(); it != m_objects.end(); it++)
     {
@@ -47,6 +46,7 @@ bool ObjectPool::hitScene(const Ray &ray, HitRecord &record)
         {
             if(tempRecord.t < tMin)
             {
+                tMin = tempRecord.t;
                 record = tempRecord;
                 hit = true;
             }

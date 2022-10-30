@@ -11,6 +11,7 @@
 #include "brdfMgr.h"
 #include "rmaterial.h"
 #include "cball.h"
+#include "hitrecord.h"
 using namespace std;
 
 int main()
@@ -19,7 +20,7 @@ int main()
     Rmaterial lambMtrl;
     lambMtrl.pBrdf = brdfMgr.getBrdf();
 
-    CBall myBall(Vector3::ZERO, Vector3(0,0,20), 10, lambMtrl);
+    CBall myBall(Vector3::ZERO, Vector3(0,0,20), 5, lambMtrl);
 
     const Vector3 centerOne(-30, 20, 70);
     Ball ballOne(centerOne, 3);
@@ -106,6 +107,7 @@ int main()
 
     ObjectPool pool;
 
+    pool.add(&myBall);
     // pool.add(ballOne);
     // pool.add(ballTwo);
     // pool.add(ballThree);
@@ -144,30 +146,34 @@ int main()
             const Vector3 dir((x - half_width) / half_width, (y - half_height) / half_height, 2);
             Ray ray(origin, dir);
 
-            Vector3 hitPoint;
-            Vector3 hitNormal;
-
-            int outIndex = 0;
-
-            HitInfo info;
-            Material mtrl(Material::MTRL_BLACK);
-
-            for (int i = 2; i < bounceTime; i++)
+            Material mtrl = Material::MTRL_BLUE;
+            HitRecord record;
+            if(pool.hitScene(ray, record))
             {
-                bool hit = pool.traceWithTimes(ray, i, outIndex, info, Material::MTRL_WHITE);
-                int power = (i - 1);
-                float w = 1;
-                float m = 1;
-                for (int i = 0; i < power; i++)
-                {
-                    w *= m;
-                }
-
-                if (hit)
-                {
-                    mtrl.safeAdd(info.m_mtrl);
-                }
+                mtrl = Material::MTRL_RED;
             }
+
+            // int outIndex = 0;
+
+            // HitInfo info;
+            // Material mtrl(Material::MTRL_BLACK);
+
+            // for (int i = 2; i < bounceTime; i++)
+            // {
+            //     bool hit = pool.traceWithTimes(ray, i, outIndex, info, Material::MTRL_WHITE);
+            //     int power = (i - 1);
+            //     float w = 1;
+            //     float m = 1;
+            //     for (int i = 0; i < power; i++)
+            //     {
+            //         w *= m;
+            //     }
+
+            //     if (hit)
+            //     {
+            //         mtrl.safeAdd(info.m_mtrl);
+            //     }
+            // }
 
             image[4 * width * y + 4 * x + 0] = mtrl.r;
             image[4 * width * y + 4 * x + 1] = mtrl.g;
