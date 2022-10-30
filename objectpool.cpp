@@ -44,7 +44,7 @@ bool ObjectPool::hitScene(const Ray &ray, HitRecord &record)
 
         if ((*it)->hit(ray, tempRecord))
         {
-            if(tempRecord.t < tMin)
+            if (tempRecord.t < tMin)
             {
                 tMin = tempRecord.t;
                 record = tempRecord;
@@ -162,12 +162,6 @@ bool ObjectPool::traceWithTimes(const Ray &ray, int bounceNum, int &index, HitIn
     bounceNum -= 1;
     if (bounceNum <= 0)
     {
-        if (currentMtrl.specular)
-        {
-            outInfo.m_mtrl = currentMtrl * Material::MTRL_BLACK;
-            return false;
-        }
-
         // std::cout << "weight : " << w << std::endl;
         bool flag = testLightReachable(ray, m_light.getCenter());
 
@@ -235,14 +229,7 @@ bool ObjectPool::traceWithTimes(const Ray &ray, int bounceNum, int &index, HitIn
         const Material me_mtrl = currentMtrl * newInfo.m_mtrl * thetaWeight * 2;
         const Material that_mtrl = newInfo.m_mtrl;
 
-        if (currentMtrl.specular)
-        {
-            outInfo.m_mtrl = that_mtrl;
-        }
-        else
-        {
-            outInfo.m_mtrl = me_mtrl;
-        }
+        outInfo.m_mtrl = me_mtrl;
 
         return traceFlag;
     }
