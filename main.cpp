@@ -9,12 +9,15 @@
 #include "common.h"
 #include <iostream>
 #include "brdfMgr.h"
+#include "rmaterial.h"
 using namespace std;
 
 int main()
 {
     BrdfMgr brdfMgr;
-    
+    Rmaterial lambMtrl;
+    lambMtrl.pBrdf = brdfMgr.getBrdf();
+
     const Vector3 centerOne(-30, 20, 70);
     Ball ballOne(centerOne, 3);
     ballOne.setMaterial(Material::MTRL_AQUA * Material::rho);
