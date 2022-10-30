@@ -7,6 +7,10 @@ class CPlane : public Geometry
 {
 public:
     virtual bool hit(const Ray &ray, HitRecord &record) const;
+
+private:
+    virtual Vector3 dpdu(const Vector3 &point) const;
+    virtual Vector3 dpdv(const Vector3 &point) const;
 };
 
 #endif

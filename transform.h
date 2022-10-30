@@ -10,7 +10,9 @@ public:
     Transform(const Matrix &matrix, const Matrix &invMatrix);
 
     void scale(float sx, float sy, float sz);
+    void translate(const Vector3 &v);
     void translate(float tx, float ty, float tz);
+    void rotate(const Vector3 &v);
     void rotateX(float theta);
     void rotateY(float theta);
     void rotateZ(float theta);

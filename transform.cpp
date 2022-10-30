@@ -19,6 +19,11 @@ void Transform::scale(float sx, float sy, float sz)
     m_invMatrix = Matrix::Mul(inv_s, m_invMatrix);
 }
 
+void Transform::translate(const Vector3 &v)
+{
+    translate(v.x, v.y, v.z);
+}
+
 void Transform::translate(float tx, float ty, float tz)
 {
     Matrix t = Matrix::getTranslateMatrix(tx, ty, tz);
@@ -26,6 +31,29 @@ void Transform::translate(float tx, float ty, float tz)
 
     m_matrix = Matrix::Mul(m_matrix, t);
     m_invMatrix = Matrix::Mul(inv_t, m_invMatrix);
+}
+
+void Transform::rotate(const Vector3 &v)
+{
+    if (v == Vector3::ZERO)
+    {
+        return;
+    }
+
+    if (v.x != 0)
+    {
+        rotateX(v.x);
+    }
+
+    if (v.y != 0)
+    {
+        rotateY(v.y);
+    }
+
+    if (v.z != 0)
+    {
+        rotateZ(v.z);
+    }
 }
 
 void Transform::rotateX(float theta)

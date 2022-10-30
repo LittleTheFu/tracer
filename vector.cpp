@@ -3,6 +3,8 @@
 #include "common.h"
 #include <cassert>
 
+Vector3 const Vector3::ZERO = Vector3(0, 0, 0);
+
 Vector3::Vector3()
 {
     x = 0;
@@ -51,6 +53,15 @@ float Vector3::operator*(const Vector3 &that) const
     float z = this->z * that.z;
 
     return x + y + z;
+}
+
+bool Vector3::operator==(const Vector3 &that) const
+{
+    bool eqX = Common::float_equal(this->x, that.x);
+    bool eqY = Common::float_equal(this->y, that.y);
+    bool eqZ = Common::float_equal(this->z, that.z);
+
+    return (eqX && eqY && eqZ);
 }
 
 Vector3 operator*(const float s, const Vector3 &v)
