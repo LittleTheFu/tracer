@@ -82,6 +82,10 @@ int main()
     wallLeft.transform.translate(0, 0, -c);
     // wallLeft.transform.setOrigin(wallLeft.center.x, wallLeft.center.y, wallLeft.center.z);
 
+    Vector3 leftRotate(0, -Common::PI / 2, 0);
+    Vector3 leftPosition(0, 0, -c);
+    CPlane leftPlane(leftRotate, leftPosition, r, lambMtrlRed);
+
     const Vector3 wallRightCenter(c, 0, 0);
     const Vector3 wallNormalRight(-1, 0, 0);
     Plane wallRight(wallRightCenter, wallNormalRight, r);
@@ -89,41 +93,62 @@ int main()
     wallRight.transform.rotateY(Common::PI / 2);
     wallRight.transform.translate(0, 0, -c);
 
-    const Vector3 wallTopCenter(0, c, 0);
-    const Vector3 wallNormalTop(0, -1, 0);
-    Plane wallTop(wallTopCenter, wallNormalTop, r);
-    wallTop.setMaterial(Material::MTRL_RED);
-    wallTop.transform.rotateX(Common::PI / 2);
-    wallTop.transform.translate(0, 0, -c);
+    Vector3 rightRotate(0, Common::PI / 2, 0);
+    Vector3 rightPosition(0, 0, -c);
+    CPlane rightPlane(rightRotate, rightPosition, r, lambMtrlRed);
 
-    const Vector3 wallBottomCenter(0, -c, 0);
-    const Vector3 wallNormalBottom(0, 1, 0);
-    Plane wallBottom(wallBottomCenter, wallNormalBottom, r);
-    wallBottom.setMaterial(Material::MTRL_RED);
-    wallBottom.transform.rotateX(-Common::PI / 2);
-    wallBottom.transform.translate(0, 0, -c);
+    // const Vector3 wallTopCenter(0, c, 0);
+    // const Vector3 wallNormalTop(0, -1, 0);
+    // Plane wallTop(wallTopCenter, wallNormalTop, r);
+    // wallTop.setMaterial(Material::MTRL_RED);
+    // wallTop.transform.rotateX(Common::PI / 2);
+    // wallTop.transform.translate(0, 0, -c);
 
-    const Vector3 wallFrontCenter(0, 0, 3 * c);
-    const Vector3 wallNormalFront(0, 0, -1);
-    Plane wallFront(wallFrontCenter, wallNormalFront, r);
-    wallFront.setMaterial(Material::MTRL_YELLOW);
-    wallFront.transform.rotateX(Common::PI);
-    wallFront.transform.translate(0, 0, -3 * c);
+    Vector3 topRotate(Common::PI / 2, 0, 0);
+    Vector3 topPosition(0, 0, -c);
+    CPlane topPlane(topRotate, topPosition, r, lambMtrlBlue);
 
-    Vector3 rotate(0, Common::PI, 0);
-    Vector3 position(0, 0, -3 * c);
-    CPlane frontPlane(rotate, position, r, lambMtrlGreen);
+    // const Vector3 wallBottomCenter(0, -c, 0);
+    // const Vector3 wallNormalBottom(0, 1, 0);
+    // Plane wallBottom(wallBottomCenter, wallNormalBottom, r);
+    // wallBottom.setMaterial(Material::MTRL_RED);
+    // wallBottom.transform.rotateX(-Common::PI / 2);
+    // wallBottom.transform.translate(0, 0, -c);
 
-    const Vector3 wallBackCenter(0, 0, -3 * c);
-    const Vector3 wallNormalBack(0, 0, 1);
-    Plane wallBack(wallBackCenter, wallNormalBack, r);
-    wallBack.setMaterial(Material::MTRL_YELLOW);
-    wallBack.transform.translate(0, 0, -3 * c);
+    Vector3 bottomRotate(-Common::PI / 2, 0, 0);
+    Vector3 bottomPosition(0, 0, -c);
+    CPlane bottomPlane(bottomRotate, bottomPosition, r, lambMtrlBlue);
+
+    // const Vector3 wallFrontCenter(0, 0, 3 * c);
+    // const Vector3 wallNormalFront(0, 0, -1);
+    // Plane wallFront(wallFrontCenter, wallNormalFront, r);
+    // wallFront.setMaterial(Material::MTRL_YELLOW);
+    // wallFront.transform.rotateX(Common::PI);
+    // wallFront.transform.translate(0, 0, -3 * c);
+
+    Vector3 frontRotate(0, Common::PI, 0);
+    Vector3 frontPosition(0, 0, -3 * c);
+    CPlane frontPlane(frontRotate, frontPosition, r, lambMtrlGreen);
+
+    // const Vector3 wallBackCenter(0, 0, -3 * c);
+    // const Vector3 wallNormalBack(0, 0, 1);
+    // Plane wallBack(wallBackCenter, wallNormalBack, r);
+    // wallBack.setMaterial(Material::MTRL_YELLOW);
+    // wallBack.transform.translate(0, 0, -3 * c);
+
+    Vector3 backRotate(0, -Common::PI, 0);
+    Vector3 backPosition(0, 0, -3 * c);
+    CPlane backPlane(backRotate, backPosition, r, lambMtrlGreen);
 
     ObjectPool pool;
 
     pool.add(&myBall);
     pool.add(&frontPlane);
+    pool.add(&backPlane);
+    pool.add(&topPlane);
+    pool.add(&bottomPlane);
+    pool.add(&leftPlane);
+    pool.add(&rightPlane);
     // pool.add(ballOne);
     // pool.add(ballTwo);
     // pool.add(ballThree);
