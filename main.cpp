@@ -29,7 +29,7 @@ int main()
     Rmaterial lambMtrlWhite;
     lambMtrlWhite.pBrdf = brdfMgr.getWhiteBrdf();
 
-    CBall myBall(Vector3::ZERO, Vector3(0, 0, 20), 5, lambMtrlRed);
+    CBall myBall(Vector3::ZERO, Vector3(0, 0, 60), 5, lambMtrlRed);
 
     const float c = 100;
     const float r = 5 * c;
