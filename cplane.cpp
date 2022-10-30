@@ -2,10 +2,12 @@
 #include "common.h"
 #include <cmath>
 
-CPlane::CPlane(const Vector3 &rotate, const Vector3 &position, float length)
+CPlane::CPlane(const Vector3 &rotate, const Vector3 &position, float length, const Rmaterial &mtrl)
 {
     init(rotate, position);
+
     this->length = length;
+    this->mtrl = mtrl;
 }
 
 Vector3 CPlane::getLocalNormal() const

@@ -3,10 +3,12 @@
 #include <cmath>
 #include "frame.h"
 
-CBall::CBall(const Vector3 &rotate, const Vector3 &position, float r)
+CBall::CBall(const Vector3 &rotate, const Vector3 &position, float r, const Rmaterial &mtrl)
 {
     init(rotate, position);
+    
     this->r = r;
+    this->mtrl = mtrl;
 }
 
 Vector3 CBall::getLocalNormal(const Vector3 &point) const
