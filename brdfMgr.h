@@ -7,6 +7,7 @@ class BrdfMgr
 {
 public:
     BrdfMgr();
+    ~BrdfMgr();
     Brdf* getBrdf();
 
 private:
