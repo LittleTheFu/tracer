@@ -128,6 +128,20 @@ bool ObjectPool::hitSceneObject(const Ray &ray, float &tMin, int &outIndex, HitI
     return hit;
 }
 
+bool ObjectPool::isLightReachable(const Ray &ray, const Vector3 &light)
+{
+    HitRecord record;
+
+    if (!hitScene(ray, record))
+    {
+        return true;
+    }
+
+    const float lightHitT = (light - ray.origin).length();
+
+    return (lightHitT < record.t);
+}
+
 bool ObjectPool::testLightReachable(const Ray &ray, const Vector3 &light)
 {
     float t1 = std::numeric_limits<float>::max();
@@ -155,6 +169,35 @@ bool ObjectPool::testLightReachable(const Ray &ray, const Vector3 &light)
     }
 
     return false;
+}
+
+Color ObjectPool::trace(const Ray &ray, int bounceNum, const HitRecord &currentState)
+{
+    bounceNum -= 1;
+    if (bounceNum <= 0)
+    {
+        if (isLightReachable(ray, m_light.getCenter()))
+        {
+            return Color::COLOR_WHITE;
+        }
+        else
+        {
+            return Color::COLOR_BLACK;
+        }
+    }
+
+    HitRecord record;
+    if (!hitScene(ray, record))
+    {
+        return Color::COLOR_BLACK;
+    }
+
+    Ray newRay(Vector3::ZERO, Vector3::ZERO);
+    Color color = trace(newRay, bounceNum, record);
+
+    // func(color, currentState);
+
+    return Color::COLOR_WHITE;
 }
 
 bool ObjectPool::traceWithTimes(const Ray &ray, int bounceNum, int &index, HitInfo &outInfo, const Material &currentMtrl)

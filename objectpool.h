@@ -8,6 +8,7 @@
 #include "hitinfo.h"
 #include "geometry.h"
 #include "hitrecord.h"
+#include "color.h"
 
 class ObjectPool
 {
@@ -25,10 +26,13 @@ public:
     bool hitSceneObject(const Ray &ray, float &tMin, int &outIndex, HitInfo &info);
     bool hitScene(const Ray &ray, HitRecord &record);
 
+    Color trace(const Ray &ray, int bounceNum, const HitRecord &currentState);
+    bool isLightReachable(const Ray &ray, const Vector3 &light);
+
 private:
     std::vector<Ball> m_balls;
     std::vector<Plane> m_planes;
-    std::vector<const Geometry*> m_objects;
+    std::vector<const Geometry *> m_objects;
 
     Ball m_light;
 
