@@ -20,6 +20,15 @@ Color::Color(float r, float g, float b)
     this->b = b;
 }
 
+void Color::getConvertedValue(unsigned char &r, unsigned char &g, unsigned char &b)
+{
+    const unsigned char MAX = 255;
+
+    r = this->r * MAX;
+    g = this->g * MAX;
+    b = this->b * MAX;
+}
+
 Color Color::operator*(const float m) const
 {
     const float r = this->r * m;

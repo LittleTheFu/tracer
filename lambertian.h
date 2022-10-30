@@ -10,7 +10,7 @@ public:
     Lambertian(Color rho);
     Color sample_f(const Vector3 &wo, Vector3 &wi, float &pdf);
 
-private:
+// private:
     Color m_rho;
 };
 

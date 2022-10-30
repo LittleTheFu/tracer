@@ -8,10 +8,17 @@ class BrdfMgr
 public:
     BrdfMgr();
     ~BrdfMgr();
-    Brdf* getBrdf();
+
+    Brdf* getRedBrdf();
+    Brdf* getGreenBrdf();
+    Brdf* getBlueBrdf();
+    Brdf* getWhiteBrdf();
 
 private:
-    Brdf *brdf;
+    Brdf *brdfRed;
+    Brdf *brdfGreen;
+    Brdf *brdfBlue;
+    Brdf *brdfWhite;
 };
 
 #endif

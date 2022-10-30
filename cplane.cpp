@@ -40,6 +40,8 @@ bool CPlane::hit(const Ray &ray, HitRecord &record) const
         return false;
     }
 
+    record.mtrl = mtrl;
+
     record.point = m_transform.transformPoint(localPoint);
     record.normal = m_transform.transformVector(getLocalNormal());
 

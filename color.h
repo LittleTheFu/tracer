@@ -7,6 +7,8 @@ public:
     Color();
     Color(float r, float g, float b);
 
+    void getConvertedValue(unsigned char &r, unsigned char &g, unsigned char &b);
+    
     float r, g, b;
 
     Color operator*(const float m) const;

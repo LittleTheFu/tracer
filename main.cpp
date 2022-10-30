@@ -18,10 +18,20 @@ using namespace std;
 int main()
 {
     BrdfMgr brdfMgr;
-    Rmaterial lambMtrl;
-    lambMtrl.pBrdf = brdfMgr.getBrdf();
 
-    CBall myBall(Vector3::ZERO, Vector3(0, 0, 20), 5, lambMtrl);
+    Rmaterial lambMtrlRed;
+    lambMtrlRed.pBrdf = brdfMgr.getRedBrdf();
+
+    Rmaterial lambMtrlGreen;
+    lambMtrlGreen.pBrdf = brdfMgr.getGreenBrdf();
+
+    Rmaterial lambMtrlBlue;
+    lambMtrlBlue.pBrdf = brdfMgr.getBlueBrdf();
+
+    Rmaterial lambMtrlWhite;
+    lambMtrlWhite.pBrdf = brdfMgr.getWhiteBrdf();
+
+    CBall myBall(Vector3::ZERO, Vector3(0, 0, 20), 5, lambMtrlRed);
 
     const Vector3 centerOne(-30, 20, 70);
     Ball ballOne(centerOne, 3);
@@ -102,7 +112,7 @@ int main()
 
     Vector3 rotate(0, Common::PI, 0);
     Vector3 position(0, 0, -3 * c);
-    CPlane frontPlane(rotate, position, r, lambMtrl);
+    CPlane frontPlane(rotate, position, r, lambMtrlGreen);
 
     const Vector3 wallBackCenter(0, 0, -3 * c);
     const Vector3 wallNormalBack(0, 0, 1);
@@ -112,7 +122,7 @@ int main()
 
     ObjectPool pool;
 
-    // pool.add(&myBall);
+    pool.add(&myBall);
     pool.add(&frontPlane);
     // pool.add(ballOne);
     // pool.add(ballTwo);
@@ -154,9 +164,13 @@ int main()
 
             Material mtrl = Material::MTRL_BLUE;
             HitRecord record;
+
+            unsigned char r = 0;
+            unsigned char g = 0;
+            unsigned char b = 0;
             if (pool.hitScene(ray, record))
             {
-                mtrl = Material::MTRL_RED;
+                ((Lambertian *)(record.mtrl.pBrdf))->m_rho.getConvertedValue(r, g, b);
             }
 
             // int outIndex = 0;
@@ -181,9 +195,9 @@ int main()
             //     }
             // }
 
-            image[4 * width * y + 4 * x + 0] = mtrl.r;
-            image[4 * width * y + 4 * x + 1] = mtrl.g;
-            image[4 * width * y + 4 * x + 2] = mtrl.b;
+            image[4 * width * y + 4 * x + 0] = r;
+            image[4 * width * y + 4 * x + 1] = g;
+            image[4 * width * y + 4 * x + 2] = b;
             image[4 * width * y + 4 * x + 3] = mtrl.a;
         }
 

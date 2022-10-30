@@ -58,6 +58,8 @@ bool CBall::hit(const Ray &ray, HitRecord &record) const
 
     if (hit)
     {
+        record.mtrl = mtrl;
+
         const Vector3 localPoint = newRay.origin + record.t * newRay.dir;
         record.point = m_transform.transformPoint(localPoint);
 
