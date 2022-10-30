@@ -19,3 +19,12 @@ Color::Color(float r, float g, float b)
     this->g = g;
     this->b = b;
 }
+
+Color Color::operator*(const float m) const
+{
+    const float r = this->r * m;
+    const float g = this->g * m;
+    const float b = this->b * m;
+
+    return Color(r, g, b);
+}

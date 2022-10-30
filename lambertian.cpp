@@ -1,12 +1,12 @@
 #include "lambertian.h"
 #include "common.h"
 
-Lambertian::Lambertian(float rho)
+Lambertian::Lambertian(Color rho)
 {
     m_rho = rho;
 }
 
-float Lambertian::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf)
+Color Lambertian::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf)
 {
     wi = Vector3::sampleUniformFromHemisphere();
     pdf = Common::INV_TWO_PI;

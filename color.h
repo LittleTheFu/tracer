@@ -9,6 +9,8 @@ public:
 
     float r, g, b;
 
+    Color operator*(const float m) const;
+
     const static Color COLOR_BLACK;
     const static Color COLOR_WHITE;
     const static Color COLOR_RED;

@@ -6,7 +6,7 @@
 class Mirror : public Brdf
 {
 public:
-    float sample_f(const Vector3 &wo, Vector3 &wi, float &pdf) = 0;
+    Color sample_f(const Vector3 &wo, Vector3 &wi, float &pdf) = 0;
 };
 
 #endif
