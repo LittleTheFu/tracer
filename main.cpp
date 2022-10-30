@@ -11,6 +11,7 @@
 #include "brdfMgr.h"
 #include "rmaterial.h"
 #include "cball.h"
+#include "cplane.h"
 #include "hitrecord.h"
 using namespace std;
 
@@ -20,7 +21,7 @@ int main()
     Rmaterial lambMtrl;
     lambMtrl.pBrdf = brdfMgr.getBrdf();
 
-    CBall myBall(Vector3::ZERO, Vector3(0,0,20), 5, lambMtrl);
+    CBall myBall(Vector3::ZERO, Vector3(0, 0, 20), 5, lambMtrl);
 
     const Vector3 centerOne(-30, 20, 70);
     Ball ballOne(centerOne, 3);
@@ -99,6 +100,10 @@ int main()
     wallFront.transform.rotateX(Common::PI);
     wallFront.transform.translate(0, 0, -3 * c);
 
+    Vector3 rotate(0, Common::PI, 0);
+    Vector3 position(0, 0, -3 * c);
+    CPlane frontPlane(rotate, position, r, lambMtrl);
+
     const Vector3 wallBackCenter(0, 0, -3 * c);
     const Vector3 wallNormalBack(0, 0, 1);
     Plane wallBack(wallBackCenter, wallNormalBack, r);
@@ -107,7 +112,8 @@ int main()
 
     ObjectPool pool;
 
-    pool.add(&myBall);
+    // pool.add(&myBall);
+    pool.add(&frontPlane);
     // pool.add(ballOne);
     // pool.add(ballTwo);
     // pool.add(ballThree);
@@ -148,7 +154,7 @@ int main()
 
             Material mtrl = Material::MTRL_BLUE;
             HitRecord record;
-            if(pool.hitScene(ray, record))
+            if (pool.hitScene(ray, record))
             {
                 mtrl = Material::MTRL_RED;
             }
