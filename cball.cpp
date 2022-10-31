@@ -67,20 +67,22 @@ bool CBall::hit(const Ray &ray, HitRecord &record) const
         const Vector3 localNormal = getLocalNormal(localPoint);
         record.normal = m_transform.transformNormal(localNormal);
 
-        // Vector3 r = Vector3::sampleUniformFromHemisphere();
-        Vector3 r;
-        record.f = m_pMtrl->pBrdf->sample_f(newRay.dir, r, record.reflectPdf);
-        record.dot = Common::clamp(r * Common::LOCAL_NORMAL, Common::FLOAT_SAMLL_NUMBER, 1.0f);
-        if (r.z == 0)
-            r.z = 1;
-        if (r.z < 0)
-            r.z *= -1;
+        if (m_pMtrl->pBrdf)
+        {
+            Vector3 r;
+            record.f = m_pMtrl->pBrdf->sample_f(newRay.dir, r, record.reflectPdf);
+            record.dot = Common::clamp(r * Common::LOCAL_NORMAL, Common::FLOAT_SAMLL_NUMBER, 1.0f);
+            if (r.z == 0)
+                r.z = 1;
+            if (r.z < 0)
+                r.z *= -1;
 
-        Frame frame(localNormal, dpdu(localPoint));
+            Frame frame(localNormal, dpdu(localPoint));
 
-        Vector3 localReflectVector = r.x * frame.x + r.y * frame.y + r.z * frame.z;
-        localReflectVector.normalize();
-        record.reflect = m_transform.transformVector(localReflectVector);
+            Vector3 localReflectVector = r.x * frame.x + r.y * frame.y + r.z * frame.z;
+            localReflectVector.normalize();
+            record.reflect = m_transform.transformVector(localReflectVector);
+        }
     }
 
     return hit;
