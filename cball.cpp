@@ -59,6 +59,7 @@ bool CBall::hit(const Ray &ray, HitRecord &record) const
     if (hit)
     {
         record.mtrl = mtrl;
+        record.transform = m_transform;
 
         const Vector3 localPoint = newRay.origin + record.t * newRay.dir;
         record.point = m_transform.transformPoint(localPoint);
@@ -66,7 +67,10 @@ bool CBall::hit(const Ray &ray, HitRecord &record) const
         const Vector3 localNormal = getLocalNormal(localPoint);
         record.normal = m_transform.transformNormal(localNormal);
 
-        Vector3 r = Vector3::sampleUniformFromHemisphere();
+        // Vector3 r = Vector3::sampleUniformFromHemisphere();
+        Vector3 r;
+        record.f = mtrl.pBrdf->sample_f(newRay.dir, r, record.reflectPdf);
+        record.dot = Common::clamp(r * Common::LOCAL_NORMAL, Common::FLOAT_SAMLL_NUMBER, 1.0f);
         if (r.z == 0)
             r.z = 1;
         if (r.z < 0)

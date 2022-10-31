@@ -3,6 +3,8 @@
 #include <iostream>
 #include "hitinfo.h"
 #include "common.h"
+#include <algorithm>
+#include <cassert>
 
 // #define _OBJECT_POOL_DEBUG_PRINT_
 
@@ -192,12 +194,16 @@ Color ObjectPool::trace(const Ray &ray, int bounceNum, const HitRecord &currentS
         return Color::COLOR_BLACK;
     }
 
-    Ray newRay(Vector3::ZERO, Vector3::ZERO);
-    Color color = trace(newRay, bounceNum, record);
+    Ray newRay(record.point, record.reflect);
+    Color inputColor = trace(newRay, bounceNum, record);
 
     // func(color, currentState);
+    // Color color = currentState.mtrl.calc(inputColor, newRay);
 
-    return Color::COLOR_WHITE;
+    assert(currentState.reflectPdf > 0);
+    Color color = currentState.f * inputColor * currentState.dot / currentState.reflectPdf;
+
+    return color;
 }
 
 bool ObjectPool::traceWithTimes(const Ray &ray, int bounceNum, int &index, HitInfo &outInfo, const Material &currentMtrl)

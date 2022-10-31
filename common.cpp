@@ -19,6 +19,17 @@ const bool Common::float_equal(float x, float y)
     return diff < FLOAT_SAMLL_NUMBER;
 }
 
+const float Common::clamp(float v, float min, float max)
+{
+    if (v < min)
+        return min;
+
+    if (v > max)
+        return max;
+
+    return v;
+}
+
 const float Common::getWeight(float rawWeight)
 {
     if (rawWeight >= 0.2)

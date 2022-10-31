@@ -41,12 +41,15 @@ bool CPlane::hit(const Ray &ray, HitRecord &record) const
     }
 
     record.mtrl = mtrl;
+    record.transform = m_transform;
 
     record.point = m_transform.transformPoint(localPoint);
     record.normal = m_transform.transformVector(getLocalNormal());
 
-    const Vector3 localReflectVector = Vector3::sampleUniformFromHemisphere();
-    record.reflect = m_transform.transformVector(localReflectVector);
+    Vector3 r;
+    record.f = mtrl.pBrdf->sample_f(newRay.dir, r, record.reflectPdf);
+    record.dot = Common::clamp(r * Common::LOCAL_NORMAL, Common::FLOAT_SAMLL_NUMBER, 1.0f);
+    record.reflect = m_transform.transformVector(r);
 
     return true;
 }

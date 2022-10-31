@@ -29,44 +29,44 @@ int main()
     Rmaterial lambMtrlWhite;
     lambMtrlWhite.pBrdf = brdfMgr.getWhiteBrdf();
 
-    CBall myBall(Vector3::ZERO, Vector3(0, 0, 60), 5, lambMtrlRed);
+    CBall *myBall = new CBall(Vector3::ZERO, Vector3(0, 0, 60), 5, lambMtrlRed);
 
     const float c = 100;
     const float r = 5 * c;
 
     Vector3 leftRotate(0, -Common::PI / 2, 0);
     Vector3 leftPosition(0, 0, -c);
-    CPlane leftPlane(leftRotate, leftPosition, r, lambMtrlRed);
+    CPlane *leftPlane = new CPlane(leftRotate, leftPosition, r, lambMtrlRed);
 
     Vector3 rightRotate(0, Common::PI / 2, 0);
     Vector3 rightPosition(0, 0, -c);
-    CPlane rightPlane(rightRotate, rightPosition, r, lambMtrlRed);
+    CPlane *rightPlane = new CPlane(rightRotate, rightPosition, r, lambMtrlRed);
 
     Vector3 topRotate(Common::PI / 2, 0, 0);
     Vector3 topPosition(0, 0, -c);
-    CPlane topPlane(topRotate, topPosition, r, lambMtrlBlue);
+    CPlane*  topPlane = new CPlane(topRotate, topPosition, r, lambMtrlBlue);
 
     Vector3 bottomRotate(-Common::PI / 2, 0, 0);
     Vector3 bottomPosition(0, 0, -c);
-    CPlane bottomPlane(bottomRotate, bottomPosition, r, lambMtrlBlue);
+    CPlane* bottomPlane = new CPlane(bottomRotate, bottomPosition, r, lambMtrlBlue);
 
     Vector3 frontRotate(0, Common::PI, 0);
     Vector3 frontPosition(0, 0, -3 * c);
-    CPlane frontPlane(frontRotate, frontPosition, r, lambMtrlGreen);
+    CPlane* frontPlane = new CPlane(frontRotate, frontPosition, r, lambMtrlGreen);
 
     Vector3 backRotate(0, -Common::PI, 0);
     Vector3 backPosition(0, 0, -3 * c);
-    CPlane backPlane(backRotate, backPosition, r, lambMtrlGreen);
+    CPlane* backPlane = new CPlane(backRotate, backPosition, r, lambMtrlGreen);
 
     ObjectPool pool;
 
-    pool.add(&myBall);
-    pool.add(&frontPlane);
-    pool.add(&backPlane);
-    pool.add(&topPlane);
-    pool.add(&bottomPlane);
-    pool.add(&leftPlane);
-    pool.add(&rightPlane);
+    pool.add(myBall);
+    pool.add(frontPlane);
+    pool.add(backPlane);
+    pool.add(topPlane);
+    pool.add(bottomPlane);
+    pool.add(leftPlane);
+    pool.add(rightPlane);
 
     pool.setLight(0, 0, 20, 8);
 
@@ -75,7 +75,7 @@ int main()
     unsigned width = 512 * 1, height = 512 * 1;
     const float half_width = width / 2.0f;
     const float half_height = height / 2.0f;
-    const int bounceTime = 8;
+    const int bounceTime = 4;
     std::vector<unsigned char> image;
     image.resize(width * height * 4);
     for (unsigned y = 0; y < height; y++)
@@ -92,36 +92,24 @@ int main()
 
             Material mtrl = Material::MTRL_BLUE;
             HitRecord record;
+            record.reflectPdf = 1;
 
             unsigned char r = 0;
             unsigned char g = 0;
             unsigned char b = 0;
-            if (pool.hitScene(ray, record))
+            // if (pool.hitScene(ray, record))
+            // {
+            //     ((Lambertian *)(record.mtrl.pBrdf))->m_rho.getConvertedValue(r, g, b);
+            // }
+
+            Color color = Color::COLOR_BLACK;
+            for (int i = 2; i < bounceTime; i++)
             {
-                ((Lambertian *)(record.mtrl.pBrdf))->m_rho.getConvertedValue(r, g, b);
+                // bool hit = pool.traceWithTimes(ray, i, outIndex, info, Material::MTRL_WHITE);
+                color += pool.trace(ray, bounceTime, record);
             }
 
-            // int outIndex = 0;
-
-            // HitInfo info;
-            // Material mtrl(Material::MTRL_BLACK);
-
-            // for (int i = 2; i < bounceTime; i++)
-            // {
-            //     bool hit = pool.traceWithTimes(ray, i, outIndex, info, Material::MTRL_WHITE);
-            //     int power = (i - 1);
-            //     float w = 1;
-            //     float m = 1;
-            //     for (int i = 0; i < power; i++)
-            //     {
-            //         w *= m;
-            //     }
-
-            //     if (hit)
-            //     {
-            //         mtrl.safeAdd(info.m_mtrl);
-            //     }
-            // }
+            color.getConvertedValue(r, g, b);
 
             image[4 * width * y + 4 * x + 0] = r;
             image[4 * width * y + 4 * x + 1] = g;
