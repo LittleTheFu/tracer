@@ -20,5 +20,5 @@ Color Lambertian::calc(const Color &inputColor, const Vector3 &wi, float pdf)
 {
     // float dot = std::clamp(wi * Common::LOCAL_NORMAL, 0.0f, 1.0f);
     
-    Color::COLOR_WHITE;
+    return Color::COLOR_WHITE;
 }

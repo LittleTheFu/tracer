@@ -180,7 +180,7 @@ Color ObjectPool::trace(const Ray &ray, int bounceNum, const HitRecord &currentS
     {
         if (isLightReachable(ray, m_light.getCenter()))
         {
-            return Color::COLOR_WHITE;
+            return Color::COLOR_WHITE * currentState.f;
         }
         else
         {

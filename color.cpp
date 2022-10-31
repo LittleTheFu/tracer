@@ -1,5 +1,6 @@
 #include "color.h"
 #include <cassert>
+#include "common.h"
 
 const Color Color::COLOR_BLACK = Color(0, 0, 0);
 const Color Color::COLOR_WHITE = Color(1, 1, 1);
@@ -25,16 +26,24 @@ void Color::getConvertedValue(unsigned char &r, unsigned char &g, unsigned char 
 {
     const unsigned char MAX = 255;
 
-    r = this->r * MAX;
-    g = this->g * MAX;
-    b = this->b * MAX;
+    r = Common::clamp(this->r * MAX, 0, MAX);
+    g = Common::clamp(this->g * MAX, 0, MAX);
+    b = Common::clamp(this->b * MAX, 0, MAX);
 }
 
 Color &Color::operator+=(const Color &that)
 {
+    assert(that.r >= 0);
+    assert(that.g >= 0);
+    assert(that.b >= 0);
+
     r += that.r;
     g += that.g;
     b += that.b;
+
+    Common::clamp(r, 0, 1);
+    Common::clamp(g, 0, 1);
+    Common::clamp(b, 0, 1);
 
     return *this;
 }
@@ -54,9 +63,9 @@ Color Color::operator*(const Color &that) const
     assert(that.g >= 0);
     assert(that.b >= 0);
 
-    float r = this->r * that.r;
-    float g = this->g * that.g;
-    float b = this->b * that.b;
+    float r = Common::clamp(this->r * that.r, 0, 1);
+    float g = Common::clamp(this->g * that.g, 0, 1);
+    float b = Common::clamp(this->b * that.b, 0, 1);
 
     return Color(r, g, b);
 }
@@ -65,9 +74,9 @@ Color Color::operator/(const float m) const
 {
     assert(m > 0);
 
-    float r = this->r / m;
-    float g = this->g / m;
-    float b = this->b / m;
+    float r = Common::clamp(this->r / m, 0, 1);
+    float g = Common::clamp(this->g / m, 0, 1);
+    float b = Common::clamp(this->b / m, 0, 1);
 
     return Color(r, g, b);
 }
