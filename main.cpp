@@ -29,7 +29,7 @@ int main()
     Rmaterial lambMtrlWhite;
     lambMtrlWhite.pBrdf = brdfMgr.getWhiteBrdf();
 
-    CBall *myBall = new CBall(Vector3::ZERO, Vector3(5, 5, 60), 5, lambMtrlRed);
+    CBall *myBall = new CBall(Vector3::ZERO, Vector3(5, 2, 30), 3, lambMtrlRed);
 
     const float c = 100;
     const float r = 5 * c;
@@ -75,7 +75,7 @@ int main()
     unsigned width = 512 * 1, height = 512 * 1;
     const float half_width = width / 2.0f;
     const float half_height = height / 2.0f;
-    const int bounceTime = 5;
+    const int bounceTime = 3;
     std::vector<unsigned char> image;
     image.resize(width * height * 4);
     for (unsigned y = 0; y < height; y++)

@@ -175,10 +175,24 @@ bool ObjectPool::testLightReachable(const Ray &ray, const Vector3 &light)
 
 Color ObjectPool::trace(const Ray &ray, int bounceNum, const HitRecord &currentState)
 {
-    bounceNum -= 1;
-    if (bounceNum <= 0)
+    // if (bounceNum == 0)
+    // {
+    //     if (isLightReachable(ray, m_light.getCenter()))
+    //     {
+    //         return Color::COLOR_WHITE * currentState.f;
+    //     }
+    //     else
+    //     {
+    //         return Color::COLOR_BLACK;
+    //     }
+    // }
+    if (bounceNum == 1)
     {
-        if (isLightReachable(ray, m_light.getCenter()))
+        Vector3 dir = m_light.getCenter() - currentState.point;
+        dir.normalize();
+        Ray newRay(currentState.point, dir);
+
+        if (isLightReachable(newRay, m_light.getCenter()))
         {
             return Color::COLOR_WHITE * currentState.f;
         }
@@ -195,10 +209,7 @@ Color ObjectPool::trace(const Ray &ray, int bounceNum, const HitRecord &currentS
     }
 
     Ray newRay(record.point, record.reflect);
-    Color inputColor = trace(newRay, bounceNum, record);
-
-    // func(color, currentState);
-    // Color color = currentState.mtrl.calc(inputColor, newRay);
+    Color inputColor = trace(newRay, bounceNum - 1, record);
 
     assert(currentState.reflectPdf > 0);
     Color color = currentState.f * inputColor * currentState.dot / currentState.reflectPdf;
