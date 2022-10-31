@@ -10,7 +10,7 @@ class Light
 public:
     Light();
 
-    bool hit(const Ray &ray, float &t, Vector3 &normal);
+    bool hit(const Ray &ray, float &t, Vector3 &normal, float &dot);
 
     Geometry *m_pGeometry;
 };
