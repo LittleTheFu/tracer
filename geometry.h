@@ -10,8 +10,10 @@ class Geometry
 {
 public:
     void init(const Vector3 &rotate, const Vector3 &position);
-
     virtual bool hit(const Ray &ray, HitRecord &record) const = 0;
+
+    void setTag(int tag);
+    int getTag() const;
 
 private:
     virtual Vector3 dpdu(const Vector3 &point) const = 0;
@@ -19,6 +21,7 @@ private:
 
 protected:
     Transform m_transform;
+    int m_tag;
 };
 
 #endif
