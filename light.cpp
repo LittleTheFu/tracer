@@ -3,5 +3,5 @@
 
 Light::Light()
 {
-    m_pGeometry = new CBall(Vector3::ZERO, Vector3(5, 2, 30), 3, m_mtrl);
+    // m_pGeometry = new CBall(Vector3::ZERO, Vector3(5, 2, 30), 3, m_mtrl);
 }

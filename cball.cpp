@@ -3,12 +3,12 @@
 #include <cmath>
 #include "frame.h"
 
-CBall::CBall(const Vector3 &rotate, const Vector3 &position, float r, const Rmaterial &mtrl)
+CBall::CBall(const Vector3 &rotate, const Vector3 &position, float r, Rmaterial *pMtrl)
 {
     init(rotate, position);
 
     this->r = r;
-    this->mtrl = mtrl;
+    this->m_pMtrl = pMtrl;
 }
 
 Vector3 CBall::getLocalNormal(const Vector3 &point) const
@@ -58,7 +58,7 @@ bool CBall::hit(const Ray &ray, HitRecord &record) const
 
     if (hit)
     {
-        record.mtrl = mtrl;
+        record.mtrl = *m_pMtrl;
         record.transform = m_transform;
 
         const Vector3 localPoint = newRay.origin + record.t * newRay.dir;
@@ -69,7 +69,7 @@ bool CBall::hit(const Ray &ray, HitRecord &record) const
 
         // Vector3 r = Vector3::sampleUniformFromHemisphere();
         Vector3 r;
-        record.f = mtrl.pBrdf->sample_f(newRay.dir, r, record.reflectPdf);
+        record.f = m_pMtrl->pBrdf->sample_f(newRay.dir, r, record.reflectPdf);
         record.dot = Common::clamp(r * Common::LOCAL_NORMAL, Common::FLOAT_SAMLL_NUMBER, 1.0f);
         if (r.z == 0)
             r.z = 1;

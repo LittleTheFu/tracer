@@ -2,12 +2,12 @@
 #include "common.h"
 #include <cmath>
 
-CPlane::CPlane(const Vector3 &rotate, const Vector3 &position, float length, const Rmaterial &mtrl)
+CPlane::CPlane(const Vector3 &rotate, const Vector3 &position, float length, Rmaterial *pMtrl)
 {
     init(rotate, position);
 
     this->length = length;
-    this->mtrl = mtrl;
+    this->m_pMtrl = pMtrl;
 }
 
 Vector3 CPlane::getLocalNormal() const
@@ -40,14 +40,14 @@ bool CPlane::hit(const Ray &ray, HitRecord &record) const
         return false;
     }
 
-    record.mtrl = mtrl;
+    record.mtrl = *m_pMtrl;
     record.transform = m_transform;
 
     record.point = m_transform.transformPoint(localPoint);
     record.normal = m_transform.transformVector(getLocalNormal());
 
     Vector3 r;
-    record.f = mtrl.pBrdf->sample_f(newRay.dir, r, record.reflectPdf);
+    record.f = m_pMtrl->pBrdf->sample_f(newRay.dir, r, record.reflectPdf);
     record.dot = Common::clamp(r * Common::LOCAL_NORMAL, Common::FLOAT_SAMLL_NUMBER, 1.0f);
     record.reflect = m_transform.transformVector(r);
 

@@ -29,34 +29,34 @@ int main()
     Rmaterial lambMtrlWhite;
     lambMtrlWhite.pBrdf = brdfMgr.getWhiteBrdf();
 
-    CBall *myBall = new CBall(Vector3::ZERO, Vector3(5, 2, 30), 3, lambMtrlRed);
+    CBall *myBall = new CBall(Vector3::ZERO, Vector3(5, 2, 30), 3, &lambMtrlRed);
 
     const float c = 100;
     const float r = 5 * c;
 
     Vector3 leftRotate(0, -Common::PI / 2, 0);
     Vector3 leftPosition(0, 0, -c);
-    CPlane *leftPlane = new CPlane(leftRotate, leftPosition, r, lambMtrlRed);
+    CPlane *leftPlane = new CPlane(leftRotate, leftPosition, r, &lambMtrlRed);
 
     Vector3 rightRotate(0, Common::PI / 2, 0);
     Vector3 rightPosition(0, 0, -c);
-    CPlane *rightPlane = new CPlane(rightRotate, rightPosition, r, lambMtrlRed);
+    CPlane *rightPlane = new CPlane(rightRotate, rightPosition, r, &lambMtrlRed);
 
     Vector3 topRotate(Common::PI / 2, 0, 0);
     Vector3 topPosition(0, 0, -c);
-    CPlane*  topPlane = new CPlane(topRotate, topPosition, r, lambMtrlBlue);
+    CPlane*  topPlane = new CPlane(topRotate, topPosition, r, &lambMtrlBlue);
 
     Vector3 bottomRotate(-Common::PI / 2, 0, 0);
     Vector3 bottomPosition(0, 0, -c);
-    CPlane* bottomPlane = new CPlane(bottomRotate, bottomPosition, r, lambMtrlBlue);
+    CPlane* bottomPlane = new CPlane(bottomRotate, bottomPosition, r, &lambMtrlBlue);
 
     Vector3 frontRotate(0, Common::PI, 0);
     Vector3 frontPosition(0, 0, -3 * c);
-    CPlane* frontPlane = new CPlane(frontRotate, frontPosition, r, lambMtrlGreen);
+    CPlane* frontPlane = new CPlane(frontRotate, frontPosition, r, &lambMtrlGreen);
 
     Vector3 backRotate(0, -Common::PI, 0);
     Vector3 backPosition(0, 0, -3 * c);
-    CPlane* backPlane = new CPlane(backRotate, backPosition, r, lambMtrlGreen);
+    CPlane* backPlane = new CPlane(backRotate, backPosition, r, &lambMtrlGreen);
 
     ObjectPool pool;
 

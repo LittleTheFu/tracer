@@ -7,11 +7,11 @@
 class CPlane : public Geometry
 {
 public:
-    CPlane(const Vector3 &rotate, const Vector3 &position, float length, const Rmaterial &mtrl);
+    CPlane(const Vector3 &rotate, const Vector3 &position, float length, Rmaterial *pMtrl);
     virtual bool hit(const Ray &ray, HitRecord &record) const;
 
     float length;
-    Rmaterial mtrl;
+    Rmaterial *m_pMtrl;
 
 private:
     virtual Vector3 dpdu(const Vector3 &point) const;
@@ -19,8 +19,6 @@ private:
 
     Vector3 getLocalNormal() const;
     bool isLocalIn(const Vector3 &p) const;
-
-
 };
 
 #endif

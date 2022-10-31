@@ -7,11 +7,11 @@
 class CBall : public Geometry
 {
 public:
-    CBall(const Vector3 &rotate, const Vector3 &position, float r, const Rmaterial& mtrl);
+    CBall(const Vector3 &rotate, const Vector3 &position, float r, Rmaterial *pMtrl);
     virtual bool hit(const Ray &ray, HitRecord &record) const;
 
     float r;
-    Rmaterial mtrl;
+    Rmaterial *m_pMtrl;
 
 private:
     virtual Vector3 dpdu(const Vector3 &point) const;
