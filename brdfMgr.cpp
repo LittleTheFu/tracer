@@ -4,10 +4,10 @@
 
 BrdfMgr::BrdfMgr()
 {
-    brdfRed = new Lambertian(Color::COLOR_RED * 1);
-    brdfGreen = new Lambertian(Color::COLOR_GREEN * 1);
-    brdfBlue = new Lambertian(Color::COLOR_BLUE * 1);
-    brdfWhite = new Lambertian(Color::COLOR_WHITE * 1);
+    brdfRed = new Lambertian(Color::COLOR_RED * 0.5);
+    brdfGreen = new Lambertian(Color::COLOR_GREEN * 0.5);
+    brdfBlue = new Lambertian(Color::COLOR_BLUE * 0.5);
+    brdfWhite = new Lambertian(Color::COLOR_WHITE * 0.5);
 }
 
 BrdfMgr::~BrdfMgr()

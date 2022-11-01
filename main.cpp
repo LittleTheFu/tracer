@@ -78,7 +78,7 @@ int main()
     unsigned width = 512 * 1, height = 512 * 1;
     const float half_width = width / 2.0f;
     const float half_height = height / 2.0f;
-    const int bounceTime = 3;
+    const int bounceTime = 5;
     std::vector<unsigned char> image;
     image.resize(width * height * 4);
     for (unsigned y = 0; y < height; y++)
@@ -97,6 +97,7 @@ int main()
             HitRecord record;
             record.reflectPdf = 1;
             record.dot = 1;
+            record.f = Color::COLOR_WHITE;
 
             unsigned char r = 0;
             unsigned char g = 0;

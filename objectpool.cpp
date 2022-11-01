@@ -150,12 +150,12 @@ Color ObjectPool::getColorFromLight(const Ray &ray)
     HitRecord record;
     if (!hitScene(ray, record))
     {
-        return color;
+        return color * dot;
     }
 
     if (t < record.t)
     {
-        return color;
+        return color * dot;
     }
 
     return Color::COLOR_BLACK;
@@ -215,7 +215,9 @@ Color ObjectPool::trace(const Ray &ray, int bounceNum, const HitRecord &currentS
         Ray newRay(currentState.point, dir);
 
         Color lightColor = getColorFromLight(ray);
-        Color retColor = currentState.f * lightColor * currentState.dot / currentState.reflectPdf;
+        Color rretColor = currentState.f * lightColor * currentState.dot / currentState.reflectPdf;
+
+        Color retColor = lightColor * currentState.dot * currentState.f * 2 * Common::TWO_PI;
 
         return retColor;
     }
@@ -230,7 +232,8 @@ Color ObjectPool::trace(const Ray &ray, int bounceNum, const HitRecord &currentS
     Color inputColor = trace(newRay, bounceNum - 1, record);
 
     assert(currentState.reflectPdf > 0);
-    Color color = currentState.f * inputColor * currentState.dot / currentState.reflectPdf;
+    // Color color = currentState.f * inputColor * currentState.dot / currentState.reflectPdf;
+    Color color = inputColor * currentState.f * currentState.dot * 2 * Common::TWO_PI;
 
     return color;
 }
