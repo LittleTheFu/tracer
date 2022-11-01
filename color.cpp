@@ -91,3 +91,28 @@ Color Color::operator/(const float m) const
 
     return Color(r, g, b);
 }
+
+bool Color::operator==(const Color that) const
+{
+    if (!Common::float_equal(this->r, r))
+    {
+        return false;
+    }
+
+    if (!Common::float_equal(this->g, g))
+    {
+        return false;
+    }
+
+    if (!Common::float_equal(this->b, b))
+    {
+        return false;
+    }
+
+    return true;
+}
+
+bool Color::operator!=(const Color that) const
+{
+    return !this->operator==(that);
+}

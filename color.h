@@ -16,6 +16,9 @@ public:
     Color operator*(const Color &that) const;
     Color operator/(const float m) const;
 
+    bool operator==(const Color that) const;
+    bool operator!=(const Color that) const;
+
     const static Color COLOR_BLACK;
     const static Color COLOR_WHITE;
     const static Color COLOR_RED;
