@@ -37,9 +37,9 @@ void Color::getConvertedValue(unsigned char &r, unsigned char &g, unsigned char 
 
 Color &Color::operator+=(const Color &that)
 {
-    assert(that.r >= 0);
-    assert(that.g >= 0);
-    assert(that.b >= 0);
+    // assert(that.r >= 0);
+    // assert(that.g >= 0);
+    // assert(that.b >= 0);
 
     r += that.r;
     g += that.g;
@@ -63,9 +63,9 @@ Color Color::operator*(const float m) const
 
 Color Color::operator*(const Color &that) const
 {
-    assert(that.r >= 0);
-    assert(that.g >= 0);
-    assert(that.b >= 0);
+    // assert(that.r >= 0);
+    // assert(that.g >= 0);
+    // assert(that.b >= 0);
 
     float r = this->r * that.r;
     float g = this->g * that.g;

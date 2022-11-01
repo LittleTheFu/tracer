@@ -197,7 +197,7 @@ Vector3 Vector3::sampleUniformFromHemisphere()
     const float diff = lenthSqr - 1.0f;
     if (std::abs(diff) > Common::FLOAT_SAMLL_NUMBER)
     {
-        assert("vector is not normalized!");
+        // assert("vector is not normalized!");
     }
 
     return vec;
