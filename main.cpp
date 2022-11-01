@@ -86,8 +86,8 @@ int main()
         {
             if (x == 0)
             {
-                // std::cout << "x:y --- "
-                //           << "(" << x << "," << y << ")" << std::endl;
+                std::cout << "x:y --- "
+                          << "(" << x << "," << y << ")" << std::endl;
             }
             const Vector3 origin(0, 0, 0);
             const Vector3 dir((x - half_width) / half_width, (y - half_height) / half_height, 2);
