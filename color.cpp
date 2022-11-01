@@ -85,6 +85,9 @@ Color Color::operator/(const float m) const
     // float r = Common::clamp(this->r / m, 0, 1);
     // float g = Common::clamp(this->g / m, 0, 1);
     // float b = Common::clamp(this->b / m, 0, 1);
+    float r = this->r / m;
+    float g = this->g / m;
+    float b = this->b / m;
 
     return Color(r, g, b);
 }
