@@ -30,7 +30,7 @@ int main()
     Rmaterial lambMtrlWhite;
     lambMtrlWhite.pBrdf = brdfMgr.getWhiteBrdf();
 
-    CBall *myBall = new CBall(Vector3::ZERO, Vector3(5, 2, 30), 3, &lambMtrlRed);
+    CBall *myBall = new CBall(Vector3::ZERO, Vector3(-15, -15, 50), 5, &lambMtrlRed);
     Light *light = new Light(Vector3(0, 0, 50));
 
     const float c = 100;
@@ -63,7 +63,7 @@ int main()
     ObjectPool pool;
 
     pool.add(light);
-    // pool.add(myBall);
+    pool.add(myBall);
     pool.add(frontPlane);
     pool.add(backPlane);
     pool.add(topPlane);
@@ -95,7 +95,8 @@ int main()
 
             Material mtrl = Material::MTRL_BLUE;
             HitRecord record;
-            record.reflectPdf = Common::INV_TWO_PI;
+            // record.reflectPdf = Common::INV_TWO_PI;
+            record.reflectPdf = 1;
             record.dot = 1;
             record.f = Color::COLOR_WHITE;
 
