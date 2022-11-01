@@ -5,7 +5,7 @@
 
 Light::Light(const Vector3 &position)
 {
-    m_pGeometry = new CBall(Vector3::ZERO, position, 40, nullptr);
+    m_pGeometry = new CBall(Vector3::ZERO, position, 90, nullptr);
 }
 
 void Light::setPosition(const Vector3 &position)

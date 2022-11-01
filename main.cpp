@@ -78,7 +78,7 @@ int main()
     unsigned width = 512 * 1, height = 512 * 1;
     const float half_width = width / 2.0f;
     const float half_height = height / 2.0f;
-    const int bounceTime = 5;
+    const int bounceTime = 8;
     std::vector<unsigned char> image;
     image.resize(width * height * 4);
     for (unsigned y = 0; y < height; y++)
@@ -86,8 +86,8 @@ int main()
         {
             if (x == 0)
             {
-                std::cout << "x:y --- "
-                          << "(" << x << "," << y << ")" << std::endl;
+                // std::cout << "x:y --- "
+                //           << "(" << x << "," << y << ")" << std::endl;
             }
             const Vector3 origin(0, 0, 0);
             const Vector3 dir((x - half_width) / half_width, (y - half_height) / half_height, 2);
@@ -95,7 +95,7 @@ int main()
 
             Material mtrl = Material::MTRL_BLUE;
             HitRecord record;
-            record.reflectPdf = 1;
+            record.reflectPdf = Common::INV_TWO_PI;
             record.dot = 1;
             record.f = Color::COLOR_WHITE;
 

@@ -215,11 +215,17 @@ Color ObjectPool::trace(const Ray &ray, int bounceNum, const HitRecord &currentS
         Ray newRay(currentState.point, dir);
 
         Color lightColor = getColorFromLight(ray);
-        Color rretColor = currentState.f * lightColor * currentState.dot / currentState.reflectPdf;
+        float ttt = 1 / currentState.reflectPdf;
+        Color rretColor = lightColor * currentState.dot * currentState.f / currentState.reflectPdf;
 
-        Color retColor = lightColor * currentState.dot * currentState.f * 2 * Common::TWO_PI;
+        // Color retColor = lightColor * currentState.dot * currentState.f * 2 * Common::PI;
 
-        return retColor;
+        // if (rretColor != retColor)
+        // {
+        //     std::cout << "light color is not equal" << std::endl;
+        // }
+
+        return rretColor;
     }
 
     HitRecord record;
@@ -232,10 +238,14 @@ Color ObjectPool::trace(const Ray &ray, int bounceNum, const HitRecord &currentS
     Color inputColor = trace(newRay, bounceNum - 1, record);
 
     assert(currentState.reflectPdf > 0);
-    // Color color = currentState.f * inputColor * currentState.dot / currentState.reflectPdf;
-    Color color = inputColor * currentState.f * currentState.dot * 2 * Common::TWO_PI;
+    Color ccolor = currentState.f * inputColor * currentState.dot / currentState.reflectPdf;
+    // Color color = inputColor * currentState.f * currentState.dot * 2 * Common::PI;
 
-    return color;
+    // if (ccolor != color)
+    // {
+    //     std::cout << "color not equal" << std::endl;
+    // }
+    return ccolor;
 }
 
 bool ObjectPool::traceWithTimes(const Ray &ray, int bounceNum, int &index, HitInfo &outInfo, const Material &currentMtrl)
