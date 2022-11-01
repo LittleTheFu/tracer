@@ -30,7 +30,7 @@ int main()
     Rmaterial lambMtrlWhite;
     lambMtrlWhite.pBrdf = brdfMgr.getWhiteBrdf();
 
-    CBall *myBall = new CBall(Vector3::ZERO, Vector3(-15, -15, 50), 5, &lambMtrlRed);
+    CBall *myBall = new CBall(Vector3::ZERO, Vector3(-10, 0, 50), 5, &lambMtrlRed);
     Light *light = new Light(Vector3(0, 0, 50));
 
     const float c = 100;
