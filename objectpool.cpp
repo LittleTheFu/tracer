@@ -210,9 +210,6 @@ Color ObjectPool::trace(const Ray &ray, int bounceNum, const HitRecord &currentS
     {
         // does this ray can hit the light?
         // return light * cos * cos * sample_f / pdf
-        Vector3 dir = m_light.getCenter() - currentState.point;
-        dir.normalize();
-        Ray newRay(currentState.point, dir);
 
         Color lightColor = getColorFromLight(ray);
         float ttt = 1 / currentState.reflectPdf;
@@ -235,6 +232,17 @@ Color ObjectPool::trace(const Ray &ray, int bounceNum, const HitRecord &currentS
     }
 
     Ray newRay(record.point, record.reflect);
+    if(bounceNum == 2)
+    {
+        //trace to light
+        Vector3 lightDir = m_pLight->getPosition() - record.point;
+        lightDir.normalize();
+
+        record.reflect = lightDir;
+        record.dot = record.normal * lightDir;
+
+        newRay.dir = lightDir;
+    }
     Color inputColor = trace(newRay, bounceNum - 1, record);
 
     assert(currentState.reflectPdf > 0);
