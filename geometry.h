@@ -10,6 +10,7 @@ class Geometry
 {
 public:
     void init(const Vector3 &rotate, const Vector3 &position);
+    void setPosition(const Vector3 &position);
     virtual bool hit(const Ray &ray, HitRecord &record) const = 0;
 
     void setTag(int tag);

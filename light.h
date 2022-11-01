@@ -8,9 +8,10 @@
 class Light
 {
 public:
-    Light();
+    Light(const Vector3 &position);
 
-    bool hit(const Ray &ray, float &t, Vector3 &normal, float &dot);
+    void setPosition(const Vector3 &position);
+    bool hit(const Ray &ray, float &t, Vector3 &normal, float &dot) const;
 
     Geometry *m_pGeometry;
 };

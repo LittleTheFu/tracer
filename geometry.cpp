@@ -6,6 +6,11 @@ void Geometry::init(const Vector3 &rotate, const Vector3 &position)
     m_transform.translate(position);
 }
 
+void Geometry::setPosition(const Vector3 &position)
+{
+    m_transform.translate(position);
+}
+
 void Geometry::setTag(int tag)
 {
     m_tag = tag;

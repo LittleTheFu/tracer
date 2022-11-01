@@ -3,12 +3,20 @@
 #include "hitrecord.h"
 #include "common.h"
 
-Light::Light()
+Light::Light(const Vector3 &position)
 {
-    m_pGeometry = new CBall(Vector3::ZERO, Vector3(5, 2, 30), 3, nullptr);
+    m_pGeometry = new CBall(Vector3::ZERO, position, 45, nullptr);
 }
 
-bool Light::hit(const Ray &ray, float &t, Vector3 &normal, float &dot)
+void Light::setPosition(const Vector3 &position)
+{
+    if (m_pGeometry)
+    {
+        m_pGeometry->setPosition(position);
+    }
+}
+
+bool Light::hit(const Ray &ray, float &t, Vector3 &normal, float &dot) const
 {
     HitRecord record;
 

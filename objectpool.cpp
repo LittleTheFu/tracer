@@ -35,6 +35,11 @@ void ObjectPool::add(const Geometry *pGeometry)
     m_objects.push_back(pGeometry);
 }
 
+void ObjectPool::add(const Light *pLight)
+{
+    m_pLight = pLight;
+}
+
 bool ObjectPool::hitScene(const Ray &ray, HitRecord &record)
 {
     bool hit = false;
@@ -130,6 +135,32 @@ bool ObjectPool::hitSceneObject(const Ray &ray, float &tMin, int &outIndex, HitI
     return hit;
 }
 
+Color ObjectPool::getColorFromLight(const Ray &ray)
+{
+    float t;
+    Vector3 normal;
+    float dot;
+    if (!m_pLight->hit(ray, t, normal, dot))
+    {
+        return Color::COLOR_BLACK;
+    }
+
+    Color color = Color::COLOR_WHITE * dot;
+
+    HitRecord record;
+    if (!hitScene(ray, record))
+    {
+        return color;
+    }
+
+    if (t < record.t)
+    {
+        return color;
+    }
+
+    return Color::COLOR_BLACK;
+}
+
 bool ObjectPool::isLightReachable(const Ray &ray, const Vector3 &light)
 {
     HitRecord record;
@@ -175,31 +206,18 @@ bool ObjectPool::testLightReachable(const Ray &ray, const Vector3 &light)
 
 Color ObjectPool::trace(const Ray &ray, int bounceNum, const HitRecord &currentState)
 {
-    // if (bounceNum == 0)
-    // {
-    //     if (isLightReachable(ray, m_light.getCenter()))
-    //     {
-    //         return Color::COLOR_WHITE * currentState.f;
-    //     }
-    //     else
-    //     {
-    //         return Color::COLOR_BLACK;
-    //     }
-    // }
     if (bounceNum == 1)
     {
+        // does this ray can hit the light?
+        // return light * cos * cos * sample_f / pdf
         Vector3 dir = m_light.getCenter() - currentState.point;
         dir.normalize();
         Ray newRay(currentState.point, dir);
 
-        if (isLightReachable(newRay, m_light.getCenter()))
-        {
-            return Color::COLOR_WHITE * currentState.f;
-        }
-        else
-        {
-            return Color::COLOR_BLACK;
-        }
+        Color lightColor = getColorFromLight(ray);
+        Color retColor = currentState.f * lightColor * currentState.dot / currentState.reflectPdf;
+
+        return retColor;
     }
 
     HitRecord record;

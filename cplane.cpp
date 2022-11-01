@@ -46,7 +46,7 @@ bool CPlane::hit(const Ray &ray, HitRecord &record) const
     record.point = m_transform.transformPoint(localPoint);
     record.normal = m_transform.transformVector(getLocalNormal());
 
-    if (m_pMtrl->pBrdf)
+    if (m_pMtrl && m_pMtrl->pBrdf)
     {
         Vector3 r;
         record.f = m_pMtrl->pBrdf->sample_f(newRay.dir, r, record.reflectPdf);

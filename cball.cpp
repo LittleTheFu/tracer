@@ -58,7 +58,10 @@ bool CBall::hit(const Ray &ray, HitRecord &record) const
 
     if (hit)
     {
-        record.mtrl = *m_pMtrl;
+        if (m_pMtrl)
+        {
+            record.mtrl = *m_pMtrl;
+        }
         record.transform = m_transform;
 
         const Vector3 localPoint = newRay.origin + record.t * newRay.dir;
@@ -67,7 +70,7 @@ bool CBall::hit(const Ray &ray, HitRecord &record) const
         const Vector3 localNormal = getLocalNormal(localPoint);
         record.normal = m_transform.transformNormal(localNormal);
 
-        if (m_pMtrl->pBrdf)
+        if (m_pMtrl && m_pMtrl->pBrdf)
         {
             Vector3 r;
             record.f = m_pMtrl->pBrdf->sample_f(newRay.dir, r, record.reflectPdf);
