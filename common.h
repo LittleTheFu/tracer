@@ -11,7 +11,6 @@ public:
     const static float INV_PI;
     const static float INV_TWO_PI;
 
-    const static float getWeight(float rawWeight);
     const static bool float_equal(float x, float y);
     const static float clamp(float v, float min, float max);
 
