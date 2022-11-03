@@ -30,7 +30,7 @@ int main()
     Rmaterial lambMtrlWhite;
     lambMtrlWhite.pBrdf = brdfMgr.getWhiteBrdf();
 
-    CBall *myBall = new CBall(Vector3::ZERO, Vector3(-5, 5, 80), 5, &lambMtrlRed);
+    CBall *myBall = new CBall(Vector3::ZERO, Vector3(-10, 10, 80), 5, &lambMtrlRed);
     Light *light = new Light(Vector3(0, 0, 50));
 
     const float c = 100;
@@ -75,7 +75,8 @@ int main()
 
     // unsigned width = 512 * 8, height = 512 * 8;
     // unsigned width = 512 * 4, height = 512 * 4;
-    unsigned width = 512 * 1, height = 512 * 1;
+    unsigned width = 512 * 2, height = 512 * 2;
+    // unsigned width = 512 * 1, height = 512 * 1;
     const float half_width = width / 2.0f;
     const float half_height = height / 2.0f;
     const int bounceTime = 8;
