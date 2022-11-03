@@ -20,3 +20,10 @@ int Geometry::getTag() const
 {
     return m_tag;
 }
+
+Vector3 Geometry::sampleFromPoint(const Vector3 &thatPoint, float &pdf) const
+{
+    pdf = 1;
+    
+    return Vector3::ZERO;
+}

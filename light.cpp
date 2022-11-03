@@ -34,3 +34,8 @@ bool Light::hit(const Ray &ray, float &t, Vector3 &normal, float &dot) const
 
     return isHit;
 }
+
+Vector3 Light::sample(const Vector3 &thatPoint, float &pdf) const
+{
+    return m_pGeometry->sampleFromPoint(thatPoint, pdf);
+}

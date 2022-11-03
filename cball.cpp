@@ -11,9 +11,9 @@ CBall::CBall(const Vector3 &rotate, const Vector3 &position, float r, Rmaterial 
     this->m_pMtrl = pMtrl;
 }
 
-Vector3 CBall::getLocalNormal(const Vector3 &point) const
+Vector3 CBall::getLocalNormal(const Vector3 &thatPoint) const
 {
-    Vector3 normal = point;
+    Vector3 normal = thatPoint;
     normal.normalize();
 
     return normal;
@@ -89,6 +89,29 @@ bool CBall::hit(const Ray &ray, HitRecord &record) const
     }
 
     return hit;
+}
+
+Vector3 CBall::sampleFromPoint(const Vector3 &thatPoint, float &pdf) const
+{
+    Vector3 localPoint = m_transform.invTransformPoint(thatPoint);
+    Vector3 localNormal = getLocalNormal(localPoint);
+
+    Frame frame(localNormal, dpdu(thatPoint));
+    Vector3 framePoint = frame.toLocal(localPoint);
+
+    float d = framePoint.z;
+    float alpha = std::asin(r / d);
+
+    float thetaMax = Common::PI - alpha;
+    Vector3 dir = Vector3::sampleUniformFromCone(thetaMax);
+    Vector3 sampledFramePoint = r * dir;
+
+    Vector3 localSampledPoint = frame.toWorld(sampledFramePoint);
+    
+    Vector3 worldSampledPoint = m_transform.transformPoint(localSampledPoint);
+
+    pdf = (1 / (1 - std::cos(thetaMax))) * Common::INV_TWO_PI;
+    return worldSampledPoint;
 }
 
 Vector3 CBall::dpdu(const Vector3 &point) const

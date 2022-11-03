@@ -9,6 +9,7 @@ class CBall : public Geometry
 public:
     CBall(const Vector3 &rotate, const Vector3 &position, float r, Rmaterial *pMtrl);
     virtual bool hit(const Ray &ray, HitRecord &record) const;
+    virtual Vector3 sampleFromPoint(const Vector3 &thatPoint, float &pdf) const;
 
     float r;
     Rmaterial *m_pMtrl;

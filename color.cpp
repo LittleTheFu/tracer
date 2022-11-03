@@ -80,7 +80,7 @@ Color Color::operator*(const Color &that) const
 
 Color Color::operator/(const float m) const
 {
-    assert(m > 0);
+    // assert(m > 0);
 
     // float r = Common::clamp(this->r / m, 0, 1);
     // float g = Common::clamp(this->g / m, 0, 1);

@@ -235,7 +235,10 @@ Color ObjectPool::trace(const Ray &ray, int bounceNum, const HitRecord &currentS
     if(bounceNum == 2)
     {
         //trace to light
-        Vector3 lightDir = m_pLight->getPosition() - record.point;
+        // Vector3 lightDir = m_pLight->getPosition() - record.point;
+        // float dummyPdf;
+        Vector3 lightSurfacePoint = m_pLight->sample(record.point, record.reflectPdf);
+        Vector3 lightDir = lightSurfacePoint - record.point;
         lightDir.normalize();
 
         record.reflect = lightDir;

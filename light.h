@@ -12,6 +12,8 @@ public:
 
     void setPosition(const Vector3 &position);
     Vector3 getPosition() const;
+
+    Vector3 sample(const Vector3 &thatPoint, float &pdf) const;
     
     bool hit(const Ray &ray, float &t, Vector3 &normal, float &dot) const;
 
