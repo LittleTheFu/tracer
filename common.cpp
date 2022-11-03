@@ -1,6 +1,7 @@
 #include "common.h"
 #include <cmath>
 #include <limits>
+#include <cstdlib>
 
 const float Common::PI = 3.14159274101257324219f;
 const float Common::TWO_PI = 2 * Common::PI;
@@ -28,4 +29,12 @@ const float Common::clamp(float v, float min, float max)
         return max;
 
     return v;
+}
+
+const float Common::genRandomDecimal()
+{
+    const float max = (float)RAND_MAX;
+    const float u = std::rand() / max;
+
+    return u;
 }

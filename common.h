@@ -13,6 +13,7 @@ public:
 
     const static bool float_equal(float x, float y);
     const static float clamp(float v, float min, float max);
+    const static float genRandomDecimal();
 
     const static float FLOAT_SAMLL_NUMBER;
     const static float FLOAT_MAX;

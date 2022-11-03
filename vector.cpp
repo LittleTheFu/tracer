@@ -202,3 +202,19 @@ Vector3 Vector3::sampleUniformFromHemisphere()
 
     return vec;
 }
+
+Vector3 Vector3::sampleUniformFromCone(float thetaMax)
+{
+    float u = Common::genRandomDecimal();
+    float cosTheta = 1 - u + u * std::cos(thetaMax);
+    float sinTheta = std::sqrt(1 - cosTheta * cosTheta);
+
+    float v = Common::genRandomDecimal();
+    float phi = v * Common::TWO_PI;
+
+    float x = sinTheta * std::cos(phi);
+    float y = sinTheta * std::sin(phi);
+    float z = cosTheta;
+
+    return Vector3(x, y, z);
+}
