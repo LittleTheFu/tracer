@@ -10,6 +10,7 @@ BrdfMgr::BrdfMgr()
     brdfWhite = new Lambertian(Color::COLOR_WHITE * 0.5);
     brdfYellow = new Lambertian(Color::COLOR_YELLOW * 0.5);
     brdfAqua = new Lambertian(Color::COLOR_AQUA * 0.5);
+    brdfPurple = new Lambertian(Color::COLOR_PURPLE * 0.5);
 }
 
 BrdfMgr::~BrdfMgr()
@@ -50,4 +51,9 @@ Brdf *BrdfMgr::getYellowBrdf()
 Brdf *BrdfMgr::getAquaBrdf()
 {
     return brdfAqua;
+}
+
+Brdf *BrdfMgr::getPurpleBrdf()
+{
+    return brdfPurple;
 }

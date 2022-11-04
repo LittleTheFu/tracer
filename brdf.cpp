@@ -6,3 +6,8 @@ Color Brdf::calc(const Color &inputColor, const Vector3 &wi, float pdf)
 {
     return Color::COLOR_BLUE;
 }
+
+bool Brdf::canLitByDirectLight() const
+{
+    return true;
+}

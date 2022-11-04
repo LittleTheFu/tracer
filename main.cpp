@@ -27,6 +27,9 @@ int main()
     Rmaterial lambMtrlAqua;
     lambMtrlAqua.pBrdf = brdfMgr.getAquaBrdf();
 
+    Rmaterial lambMtrlPurple;
+    lambMtrlPurple.pBrdf = brdfMgr.getPurpleBrdf();
+
     Rmaterial lambMtrlGreen;
     lambMtrlGreen.pBrdf = brdfMgr.getGreenBrdf();
 
@@ -46,7 +49,7 @@ int main()
 
     Vector3 leftRotate(0, -Common::PI / 2, 0);
     Vector3 leftPosition(0, 0, -c);
-    CPlane *leftPlane = new CPlane(leftRotate, leftPosition, r, &lambMtrlRed);
+    CPlane *leftPlane = new CPlane(leftRotate, leftPosition, r, &lambMtrlPurple);
 
     Vector3 rightRotate(0, Common::PI / 2, 0);
     Vector3 rightPosition(0, 0, -c);
@@ -54,7 +57,7 @@ int main()
 
     Vector3 topRotate(Common::PI / 2, 0, 0);
     Vector3 topPosition(0, 0, -c);
-    CPlane *topPlane = new CPlane(topRotate, topPosition, r, &lambMtrlBlue);
+    CPlane *topPlane = new CPlane(topRotate, topPosition, r, &lambMtrlYellow);
 
     Vector3 bottomRotate(-Common::PI / 2, 0, 0);
     Vector3 bottomPosition(0, 0, -c);

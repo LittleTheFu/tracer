@@ -9,7 +9,7 @@ const Color Color::COLOR_GREEN = Color(0, 1, 0);
 const Color Color::COLOR_BLUE = Color(0, 0, 1);
 const Color Color::COLOR_AQUA = Color(0, 1, 1);
 const Color Color::COLOR_YELLOW = Color(1, 1, 0);
-
+const Color Color::COLOR_PURPLE = Color(0.5, 0, 0.5);
 
 Color::Color()
 {
