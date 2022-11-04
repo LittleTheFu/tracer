@@ -82,7 +82,8 @@ bool CBall::hit(const Ray &ray, HitRecord &record) const
 
             Frame frame(localNormal, dpdu(localPoint));
 
-            Vector3 localReflectVector = r.x * frame.x + r.y * frame.y + r.z * frame.z;
+            // Vector3 localReflectVector = r.x * frame.x + r.y * frame.y + r.z * frame.z;
+            Vector3 localReflectVector = frame.toWorld(r);
             localReflectVector.normalize();
             record.reflect = m_transform.transformVector(localReflectVector);
         }
@@ -108,7 +109,7 @@ Vector3 CBall::sampleFromPoint(const Vector3 &thatPoint, float &pdf) const
     sampledFramePoint *= Common::SAMPLE_LIGHTR_CORRECT_FACTOR;
 
     Vector3 localSampledPoint = frame.toWorld(sampledFramePoint);
-    
+
     Vector3 worldSampledPoint = m_transform.transformPoint(localSampledPoint);
 
     pdf = (1 / (1 - std::cos(thetaMax))) * Common::INV_TWO_PI;
