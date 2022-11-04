@@ -6,13 +6,13 @@
 
 BrdfMgr::BrdfMgr()
 {
-    brdfRed = new Lambertian(Color::COLOR_RED * 0.5);
-    brdfGreen = new Lambertian(Color::COLOR_GREEN * 0.5);
-    brdfBlue = new Lambertian(Color::COLOR_BLUE * 0.5);
-    brdfWhite = new Lambertian(Color::COLOR_WHITE * 0.5);
-    brdfYellow = new Lambertian(Color::COLOR_YELLOW * 0.5);
-    brdfAqua = new Lambertian(Color::COLOR_AQUA * 0.5);
-    brdfPurple = new Lambertian(Color::COLOR_PURPLE * 0.5);
+    brdfRed = new Lambertian(Color::COLOR_RED * 0.3);
+    brdfGreen = new Lambertian(Color::COLOR_GREEN * 0.3);
+    brdfBlue = new Lambertian(Color::COLOR_BLUE * 0.3);
+    brdfWhite = new Lambertian(Color::COLOR_WHITE * 0.3);
+    brdfYellow = new Lambertian(Color::COLOR_YELLOW * 0.3);
+    brdfAqua = new Lambertian(Color::COLOR_AQUA * 0.3);
+    brdfPurple = new Lambertian(Color::COLOR_PURPLE * 0.3);
     brdfMirror = new Mirror();
 }
 
