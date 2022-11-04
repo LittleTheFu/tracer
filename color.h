@@ -24,6 +24,8 @@ public:
     const static Color COLOR_RED;
     const static Color COLOR_GREEN;
     const static Color COLOR_BLUE;
+    const static Color COLOR_AQUA;
+    const static Color COLOR_YELLOW;
 };
 
 #endif
