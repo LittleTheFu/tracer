@@ -13,12 +13,16 @@ public:
     Brdf* getGreenBrdf();
     Brdf* getBlueBrdf();
     Brdf* getWhiteBrdf();
+    Brdf* getYellowBrdf();
+    Brdf* getAquaBrdf();
 
 private:
     Brdf *brdfRed;
     Brdf *brdfGreen;
     Brdf *brdfBlue;
     Brdf *brdfWhite;
+    Brdf *brdfAqua;
+    Brdf *brdfYellow;
 };
 
 #endif

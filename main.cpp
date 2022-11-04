@@ -21,6 +21,12 @@ int main()
     Rmaterial lambMtrlRed;
     lambMtrlRed.pBrdf = brdfMgr.getRedBrdf();
 
+    Rmaterial lambMtrlYellow;
+    lambMtrlYellow.pBrdf = brdfMgr.getYellowBrdf();
+
+    Rmaterial lambMtrlAqua;
+    lambMtrlAqua.pBrdf = brdfMgr.getAquaBrdf();
+
     Rmaterial lambMtrlGreen;
     lambMtrlGreen.pBrdf = brdfMgr.getGreenBrdf();
 
@@ -30,7 +36,9 @@ int main()
     Rmaterial lambMtrlWhite;
     lambMtrlWhite.pBrdf = brdfMgr.getWhiteBrdf();
 
-    CBall *myBall = new CBall(Vector3::ZERO, Vector3(-10, 10, 80), 5, &lambMtrlRed);
+    CBall *redBall = new CBall(Vector3::ZERO, Vector3(-10, 10, 80), 5, &lambMtrlRed);
+    CBall *yellowBall = new CBall(Vector3::ZERO, Vector3(10, 10, 80), 5, &lambMtrlYellow);
+    CBall *aquaBall = new CBall(Vector3::ZERO, Vector3(-20, -15, 90), 5, &lambMtrlAqua);
     Light *light = new Light(Vector3(0, 0, 50));
 
     const float c = 100;
@@ -63,7 +71,9 @@ int main()
     ObjectPool pool;
 
     pool.add(light);
-    pool.add(myBall);
+    pool.add(redBall);
+    pool.add(yellowBall);
+    pool.add(aquaBall);
     pool.add(frontPlane);
     pool.add(backPlane);
     pool.add(topPlane);
