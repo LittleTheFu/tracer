@@ -44,7 +44,10 @@ int main()
 
     CBall *redBall = new CBall(Vector3::ZERO, Vector3(-10, 10, 80), 5, &lambMtrlRed);
     CBall *yellowBall = new CBall(Vector3::ZERO, Vector3(10, 10, 80), 5, &lambMtrlYellow);
-    CBall *aquaBall = new CBall(Vector3::ZERO, Vector3(-20, -15, 90), 5, &lambMtrlAqua);
+    CBall *aquaBall = new CBall(Vector3::ZERO, Vector3(-20, -10, 80), 5, &lambMtrlAqua);
+    CBall *whiteBall = new CBall(Vector3::ZERO, Vector3(20, -10, 80), 5, &lambMtrlWhite);
+    CBall *mirrorBall = new CBall(Vector3::ZERO, Vector3(0, 0, 85), 5, &MtrlMirror);
+
     Light *light = new Light(Vector3(0, 0, 50));
 
     const float c = 100;
@@ -81,6 +84,9 @@ int main()
     pool.add(redBall);
     pool.add(yellowBall);
     pool.add(aquaBall);
+    pool.add(whiteBall);
+
+    pool.add(mirrorBall);
 
     pool.add(frontPlane);
     pool.add(backPlane);
@@ -90,7 +96,6 @@ int main()
     pool.add(rightPlane);
 
     pool.setLight(0, 0, 20, 8);
-
     // unsigned width = 512 * 8, height = 512 * 8;
     // unsigned width = 512 * 4, height = 512 * 4;
     // unsigned width = 512 * 2, height = 512 * 2;
