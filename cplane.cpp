@@ -1,6 +1,7 @@
 #include "cplane.h"
 #include "common.h"
 #include <cmath>
+#include <iostream>
 
 CPlane::CPlane(const Vector3 &rotate, const Vector3 &position, float length, Rmaterial *pMtrl)
 {
@@ -31,7 +32,10 @@ bool CPlane::hit(const Ray &ray, HitRecord &record) const
 
     record.t = n / d;
     if (record.t < Common::FLOAT_SAMLL_NUMBER)
+    {
+        // std::cout << record.t << "," << n << "," << d << std::endl;
         return false;
+    }
 
     Vector3 localPoint = newRay.origin + record.t * newRay.dir;
 

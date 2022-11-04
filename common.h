@@ -19,6 +19,8 @@ public:
     const static float FLOAT_MAX;
 
     const static Vector3 LOCAL_NORMAL;
+
+    const static float SAMPLE_LIGHTR_CORRECT_FACTOR;
 };
 
 #endif

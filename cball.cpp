@@ -31,7 +31,7 @@ bool CBall::hit(const Ray &ray, HitRecord &record) const
 
     const float delta = b * b - 4 * a * c;
 
-    if (delta <= 0.0f)
+    if (delta < 0.0f)
         return false;
 
     float t0 = (-b + sqrt(delta)) / (2 * a);
@@ -105,6 +105,7 @@ Vector3 CBall::sampleFromPoint(const Vector3 &thatPoint, float &pdf) const
     float thetaMax = Common::PI - alpha;
     Vector3 dir = Vector3::sampleUniformFromCone(thetaMax);
     Vector3 sampledFramePoint = r * dir;
+    sampledFramePoint *= Common::SAMPLE_LIGHTR_CORRECT_FACTOR;
 
     Vector3 localSampledPoint = frame.toWorld(sampledFramePoint);
     

@@ -55,6 +55,15 @@ float Vector3::operator*(const Vector3 &that) const
     return x + y + z;
 }
 
+Vector3 &Vector3::operator*=(float m)
+{
+    x *= m;
+    y *= m;
+    z *= m;
+
+    return *this;
+}
+
 bool Vector3::operator==(const Vector3 &that) const
 {
     bool eqX = Common::float_equal(this->x, that.x);

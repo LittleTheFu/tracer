@@ -15,6 +15,7 @@ public:
     Vector3 operator-(const Vector3 &that) const;
     Vector3 operator-() const;
     float operator*(const Vector3 &that) const;
+    Vector3 &operator*=(float m);
     friend Vector3 operator*(const float s, const Vector3 &v);
     bool operator==(const Vector3 &that) const;
 

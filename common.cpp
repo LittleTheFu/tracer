@@ -13,6 +13,8 @@ const float Common::FLOAT_MAX = std::numeric_limits<float>::max();
 
 const Vector3 Common::LOCAL_NORMAL = Vector3(0, 0, 1);
 
+const float Common::SAMPLE_LIGHTR_CORRECT_FACTOR = 0.98;
+
 const bool Common::float_equal(float x, float y)
 {
     float diff = std::abs(x - y);

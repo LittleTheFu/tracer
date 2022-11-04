@@ -142,6 +142,7 @@ Color ObjectPool::getColorFromLight(const Ray &ray)
     float dot;
     if (!m_pLight->hit(ray, t, normal, dot))
     {
+        // m_pLight->hit(ray, t, normal, dot);
         return Color::COLOR_BLACK;
     }
 
@@ -232,11 +233,11 @@ Color ObjectPool::trace(const Ray &ray, int bounceNum, const HitRecord &currentS
     }
 
     Ray newRay(record.point, record.reflect);
-    if(bounceNum == 2)
+    if (bounceNum == 2)
     {
-        //trace to light
-        // Vector3 lightDir = m_pLight->getPosition() - record.point;
-        // float dummyPdf;
+        // trace to light
+        //  Vector3 lightDir = m_pLight->getPosition() - record.point;
+        //  float dummyPdf;
         Vector3 lightSurfacePoint = m_pLight->sample(record.point, record.reflectPdf);
         Vector3 lightDir = lightSurfacePoint - record.point;
         lightDir.normalize();
