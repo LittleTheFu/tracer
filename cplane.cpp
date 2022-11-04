@@ -53,7 +53,7 @@ bool CPlane::hit(const Ray &ray, HitRecord &record) const
     if (m_pMtrl && m_pMtrl->pBrdf)
     {
         Vector3 r;
-        record.f = m_pMtrl->pBrdf->sample_f(newRay.dir, r, record.reflectPdf);
+        record.f = m_pMtrl->pBrdf->sample_f(-newRay.dir, r, record.reflectPdf);
         record.dot = Common::clamp(r * Common::LOCAL_NORMAL, Common::FLOAT_SAMLL_NUMBER, 1.0f);
         record.reflect = m_transform.transformVector(r);
     }
