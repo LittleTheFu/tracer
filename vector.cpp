@@ -64,6 +64,13 @@ bool Vector3::operator==(const Vector3 &that) const
     return (eqX && eqY && eqZ);
 }
 
+std::ostream &operator<<(std::ostream &os, const Vector3 &v)
+{
+    os << "(" << v.x << "," << v.y << "," << v.z << ")";
+
+    return os;
+}
+
 Vector3 operator*(const float s, const Vector3 &v)
 {
     float x = v.x * s;

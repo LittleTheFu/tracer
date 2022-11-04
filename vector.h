@@ -1,6 +1,8 @@
 #ifndef _VECTOR_H_
 #define _VECTOR_H_
 
+#include <iostream>
+
 class Vector3
 {
 public:
@@ -15,6 +17,8 @@ public:
     float operator*(const Vector3 &that) const;
     friend Vector3 operator*(const float s, const Vector3 &v);
     bool operator==(const Vector3 &that) const;
+
+    friend std::ostream &operator<<(std::ostream &os, const Vector3 &v);
 
     bool isZero() const;
     bool isPerpendicular(const Vector3 &that) const;
