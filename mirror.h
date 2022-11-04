@@ -6,7 +6,10 @@
 class Mirror : public Brdf
 {
 public:
-    Color sample_f(const Vector3 &wo, Vector3 &wi, float &pdf) = 0;
+    Mirror();
+    
+    Color sample_f(const Vector3 &wo, Vector3 &wi, float &pdf);
+    bool canLitByDirectLight() const;
 };
 
 #endif

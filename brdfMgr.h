@@ -1,7 +1,7 @@
 #ifndef _BRDF_MGR_H_
 #define _BRDF_MGR_H_
 
-#include "lambertian.h"
+#include "brdf.h"
 
 class BrdfMgr
 {
@@ -17,6 +17,8 @@ public:
     Brdf* getAquaBrdf();
     Brdf* getPurpleBrdf();
 
+    Brdf* getMirrorBrdf();
+
 private:
     Brdf *brdfRed;
     Brdf *brdfGreen;
@@ -25,6 +27,8 @@ private:
     Brdf *brdfAqua;
     Brdf *brdfYellow;
     Brdf *brdfPurple;
+
+    Brdf *brdfMirror;
 };
 
 #endif

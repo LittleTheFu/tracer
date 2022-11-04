@@ -9,6 +9,8 @@
 class HitRecord
 {
 public:
+    HitRecord();
+    
     Transform transform;
     Rmaterial mtrl;
 
@@ -24,6 +26,8 @@ public:
     // Vector3 dpdv;
 
     float t;
+
+    bool isMirror;
 };
 
 #endif

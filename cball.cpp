@@ -86,6 +86,7 @@ bool CBall::hit(const Ray &ray, HitRecord &record) const
             Vector3 localReflectVector = frame.toWorld(r);
             localReflectVector.normalize();
             record.reflect = m_transform.transformVector(localReflectVector);
+            record.isMirror = !m_pMtrl->pBrdf->canLitByDirectLight();
         }
     }
 

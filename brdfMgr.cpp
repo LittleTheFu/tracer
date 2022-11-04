@@ -1,5 +1,7 @@
 #include "brdfMgr.h"
 #include "color.h"
+#include "lambertian.h"
+#include "mirror.h"
 #include <iostream>
 
 BrdfMgr::BrdfMgr()
@@ -11,6 +13,7 @@ BrdfMgr::BrdfMgr()
     brdfYellow = new Lambertian(Color::COLOR_YELLOW * 0.5);
     brdfAqua = new Lambertian(Color::COLOR_AQUA * 0.5);
     brdfPurple = new Lambertian(Color::COLOR_PURPLE * 0.5);
+    brdfMirror = new Mirror();
 }
 
 BrdfMgr::~BrdfMgr()
@@ -56,4 +59,9 @@ Brdf *BrdfMgr::getAquaBrdf()
 Brdf *BrdfMgr::getPurpleBrdf()
 {
     return brdfPurple;
+}
+
+Brdf *BrdfMgr::getMirrorBrdf()
+{
+    return brdfMirror;
 }

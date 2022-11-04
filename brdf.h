@@ -8,7 +8,6 @@ class Brdf
 {
 public:
     virtual Color sample_f(const Vector3 &wo, Vector3 &wi, float &pdf) = 0;
-    virtual Color calc(const Color &inputColor, const Vector3 &wi, float pdf);
     virtual bool canLitByDirectLight() const;
 
     const static Vector3 LOCAL_NORMAL;
