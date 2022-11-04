@@ -2,6 +2,7 @@
 #define _COMMON_H_
 
 #include "vector.h"
+#include "color.h"
 
 class Common
 {
@@ -19,8 +20,10 @@ public:
     const static float FLOAT_MAX;
 
     const static Vector3 LOCAL_NORMAL;
+    const static Color LIGHT_COLOR;
 
     const static float SAMPLE_LIGHTR_CORRECT_FACTOR;
+
 };
 
 #endif

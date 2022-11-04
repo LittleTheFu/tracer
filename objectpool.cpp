@@ -146,7 +146,7 @@ Color ObjectPool::getColorFromLight(const Ray &ray)
         return Color::COLOR_BLACK;
     }
 
-    Color color = Color::COLOR_WHITE * dot;
+    Color color = Common::LIGHT_COLOR * dot;
 
     HitRecord record;
     if (!hitScene(ray, record))

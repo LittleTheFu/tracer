@@ -12,6 +12,7 @@ const float Common::FLOAT_SAMLL_NUMBER = 0.0001f;
 const float Common::FLOAT_MAX = std::numeric_limits<float>::max();
 
 const Vector3 Common::LOCAL_NORMAL = Vector3(0, 0, 1);
+const Color Common::LIGHT_COLOR = Color::COLOR_WHITE;
 
 const float Common::SAMPLE_LIGHTR_CORRECT_FACTOR = 0.96;
 
