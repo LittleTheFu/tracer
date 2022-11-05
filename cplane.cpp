@@ -42,6 +42,7 @@ bool CPlane::hit(const Ray &ray, HitRecord &record) const
 
     if (!isLocalIn(localPoint))
     {
+        //some bug here
         return false;
     }
 
