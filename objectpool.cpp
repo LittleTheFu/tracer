@@ -136,7 +136,7 @@ Color ObjectPool::trace(const Ray &ray, int bounceNum, const HitRecord &currentS
     }
 
     Ray newRay(record.point, record.reflect);
-    if (bounceNum == 2 && !currentState.isMirror)
+    if (bounceNum == 2 && !record.isMirror)
     {
         Vector3 lightSurfacePoint = m_pLight->sample(record.point, record.reflectPdf);
         Vector3 lightDir = lightSurfacePoint - record.point;

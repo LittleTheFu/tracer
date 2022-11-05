@@ -43,19 +43,20 @@ int main()
     MtrlMirror.pBrdf = brdfMgr.getMirrorBrdf();
 
     CBall *redBall = new CBall(Vector3::ZERO, Vector3(-10, 10, 80), 5, &lambMtrlRed);
-    CBall *yellowBall = new CBall(Vector3::ZERO, Vector3(10, 10, 80), 5, &lambMtrlYellow);
+    CBall *yellowBall = new CBall(Vector3::ZERO, Vector3(10, 10, 60), 5, &lambMtrlYellow);
     CBall *aquaBall = new CBall(Vector3::ZERO, Vector3(-20, -10, 80), 5, &lambMtrlAqua);
     CBall *whiteBall = new CBall(Vector3::ZERO, Vector3(20, -10, 80), 5, &lambMtrlWhite);
-    CBall *mirrorBall = new CBall(Vector3::ZERO, Vector3(0, 0, 85), 5, &MtrlMirror);
+    CBall *mirrorBall = new CBall(Vector3::ZERO, Vector3(0, -30, 85), 5, &MtrlMirror);
 
-    Light *light = new Light(Vector3(0, 0, 50));
+    Light *light = new Light(Vector3(0, 0, 70));
 
     const float c = 100;
     const float r = 5 * c;
 
     Vector3 leftRotate(0, -Common::PI / 2, 0);
     Vector3 leftPosition(0, 0, -c);
-    CPlane *leftPlane = new CPlane(leftRotate, leftPosition, r, &lambMtrlBlue);
+    // CPlane *leftPlane = new CPlane(leftRotate, leftPosition, r, &MtrlMirror);
+    CPlane *leftPlane = new CPlane(leftRotate, leftPosition, r, &lambMtrlRed);
 
     Vector3 rightRotate(0, Common::PI / 2, 0);
     Vector3 rightPosition(0, 0, -c);
@@ -63,7 +64,7 @@ int main()
 
     Vector3 topRotate(Common::PI / 2, 0, 0);
     Vector3 topPosition(0, 0, -c);
-    CPlane *topPlane = new CPlane(topRotate, topPosition, r, &lambMtrlYellow);
+    CPlane *topPlane = new CPlane(topRotate, topPosition, r, &lambMtrlPurple);
 
     Vector3 bottomRotate(-Common::PI / 2, 0, 0);
     Vector3 bottomPosition(0, 0, -c);
@@ -71,7 +72,8 @@ int main()
 
     Vector3 frontRotate(0, Common::PI, 0);
     Vector3 frontPosition(0, 0, -3 * c);
-    CPlane *frontPlane = new CPlane(frontRotate, frontPosition, r, &lambMtrlAqua);
+    CPlane *frontPlane = new CPlane(frontRotate, frontPosition, r, &MtrlMirror);
+    // CPlane *frontPlane = new CPlane(frontRotate, frontPosition, r, &lambMtrlAqua);
 
     // Vector3 backRotate(0, -Common::PI, 0);
     Vector3 backRotate(0, 0, 0);
@@ -79,6 +81,13 @@ int main()
     CPlane *backPlane = new CPlane(backRotate, backPosition, r, &lambMtrlAqua);
 
     ObjectPool pool;
+
+    frontPlane->setTag(0);
+    backPlane->setTag(1);
+    topPlane->setTag(2);
+    bottomPlane->setTag(3);
+    leftPlane->setTag(4);
+    rightPlane->setTag(5);
 
     pool.add(light);
 
@@ -99,8 +108,8 @@ int main()
     pool.setLight(0, 0, 20, 8);
     // unsigned width = 512 * 8, height = 512 * 8;
     // unsigned width = 512 * 4, height = 512 * 4;
-    unsigned width = 512 * 2, height = 512 * 2;
-    // unsigned width = 512 * 1, height = 512 * 1;
+    // unsigned width = 512 * 2, height = 512 * 2;
+    unsigned width = 512 * 1, height = 512 * 1;
     const float half_width = width / 2.0f;
     const float half_height = height / 2.0f;
     const int bounceTime = 10;
@@ -132,6 +141,11 @@ int main()
             // {
             //     ((Lambertian *)(record.mtrl.pBrdf))->m_rho.getConvertedValue(r, g, b);
             // }
+            if (x == 114 && y == 103)
+            {
+                std::cout << "test" << std::endl;
+                int b = 3;
+            }
 
             Color color = Color::COLOR_BLACK;
             for (int i = 2; i < bounceTime; i++)
@@ -141,6 +155,11 @@ int main()
             }
 
             color.getConvertedValue(r, g, b);
+
+            // if (r == 0 && g == 0 && b == 0)
+            // {
+            //     int a = 3;
+            // }
 
             image[4 * width * y + 4 * x + 0] = r;
             image[4 * width * y + 4 * x + 1] = g;

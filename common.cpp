@@ -8,7 +8,7 @@ const float Common::TWO_PI = 2 * Common::PI;
 const float Common::INV_PI = 1 / Common::PI;
 const float Common::INV_TWO_PI = 1 / Common::TWO_PI;
 
-const float Common::FLOAT_SAMLL_NUMBER = 0.0001f;
+const float Common::FLOAT_SAMLL_NUMBER = 0.1f;
 const float Common::FLOAT_MAX = std::numeric_limits<float>::max();
 
 const Vector3 Common::LOCAL_NORMAL = Vector3(0, 0, 1);

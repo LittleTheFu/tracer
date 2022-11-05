@@ -22,7 +22,8 @@ bool CPlane::hit(const Ray &ray, HitRecord &record) const
 
     const Ray newRay = ray.genNewRay(m_transform);
 
-    if (newRay.dir * getLocalNormal() >= 0)
+    // if (newRay.dir * getLocalNormal() >= 0)
+    if (newRay.dir.z >= 0)
     {
         return false;
     }
@@ -56,6 +57,7 @@ bool CPlane::hit(const Ray &ray, HitRecord &record) const
         record.f = m_pMtrl->pBrdf->sample_f(-newRay.dir, r, record.reflectPdf);
         if (r * Common::LOCAL_NORMAL < 0)
         {
+            // m_pMtrl->pBrdf->sample_f(-newRay.dir, r, record.reflectPdf);
             // std::cout << "less" << std::endl;
         }
         record.dot = Common::clamp(r * Common::LOCAL_NORMAL, Common::FLOAT_SAMLL_NUMBER, 1.0f);
@@ -78,6 +80,9 @@ Vector3 CPlane::dpdv(const Vector3 &point) const
 
 bool CPlane::isLocalIn(const Vector3 &p) const
 {
+    //bug, fix later
+    return true;
+
     if (!Common::float_equal(p.z, 0))
     {
         return false;
