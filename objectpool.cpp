@@ -110,7 +110,7 @@ Color ObjectPool::trace(const Ray &ray, int bounceNum, const HitRecord &currentS
     {
         // does this ray can hit the light?
         // return light * cos * cos * sample_f / pdf
-        if(currentState.isMirror)
+        if (currentState.isMirror)
         {
             return Color::COLOR_BLACK;
         }
@@ -146,6 +146,10 @@ Color ObjectPool::trace(const Ray &ray, int bounceNum, const HitRecord &currentS
         record.dot = record.normal * lightDir;
 
         newRay.dir = lightDir;
+    }
+    if (record.isMirror && bounceNum > 3)
+    {
+        // std::cout << "mirror" << std::endl;
     }
     Color inputColor = trace(newRay, bounceNum - 1, record);
 

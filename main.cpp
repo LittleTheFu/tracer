@@ -55,11 +55,11 @@ int main()
 
     Vector3 leftRotate(0, -Common::PI / 2, 0);
     Vector3 leftPosition(0, 0, -c);
-    CPlane *leftPlane = new CPlane(leftRotate, leftPosition, r, &lambMtrlPurple);
+    CPlane *leftPlane = new CPlane(leftRotate, leftPosition, r, &lambMtrlBlue);
 
     Vector3 rightRotate(0, Common::PI / 2, 0);
     Vector3 rightPosition(0, 0, -c);
-    CPlane *rightPlane = new CPlane(rightRotate, rightPosition, r, &lambMtrlRed);
+    CPlane *rightPlane = new CPlane(rightRotate, rightPosition, r, &lambMtrlBlue);
 
     Vector3 topRotate(Common::PI / 2, 0, 0);
     Vector3 topPosition(0, 0, -c);
@@ -67,15 +67,16 @@ int main()
 
     Vector3 bottomRotate(-Common::PI / 2, 0, 0);
     Vector3 bottomPosition(0, 0, -c);
-    CPlane *bottomPlane = new CPlane(bottomRotate, bottomPosition, r, &lambMtrlBlue);
+    CPlane *bottomPlane = new CPlane(bottomRotate, bottomPosition, r, &lambMtrlYellow);
 
     Vector3 frontRotate(0, Common::PI, 0);
     Vector3 frontPosition(0, 0, -3 * c);
-    CPlane *frontPlane = new CPlane(frontRotate, frontPosition, r, &lambMtrlGreen);
+    CPlane *frontPlane = new CPlane(frontRotate, frontPosition, r, &lambMtrlAqua);
 
-    Vector3 backRotate(0, -Common::PI, 0);
+    // Vector3 backRotate(0, -Common::PI, 0);
+    Vector3 backRotate(0, 0, 0);
     Vector3 backPosition(0, 0, -3 * c);
-    CPlane *backPlane = new CPlane(backRotate, backPosition, r, &lambMtrlGreen);
+    CPlane *backPlane = new CPlane(backRotate, backPosition, r, &lambMtrlAqua);
 
     ObjectPool pool;
 
@@ -98,11 +99,11 @@ int main()
     pool.setLight(0, 0, 20, 8);
     // unsigned width = 512 * 8, height = 512 * 8;
     // unsigned width = 512 * 4, height = 512 * 4;
-    // unsigned width = 512 * 2, height = 512 * 2;
-    unsigned width = 512 * 1, height = 512 * 1;
+    unsigned width = 512 * 2, height = 512 * 2;
+    // unsigned width = 512 * 1, height = 512 * 1;
     const float half_width = width / 2.0f;
     const float half_height = height / 2.0f;
-    const int bounceTime = 8;
+    const int bounceTime = 10;
     std::vector<unsigned char> image;
     image.resize(width * height * 4);
     for (unsigned y = 0; y < height; y++)

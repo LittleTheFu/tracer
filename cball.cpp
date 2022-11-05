@@ -75,10 +75,10 @@ bool CBall::hit(const Ray &ray, HitRecord &record) const
             Vector3 r;
             record.f = m_pMtrl->pBrdf->sample_f(-newRay.dir, r, record.reflectPdf);
             record.dot = Common::clamp(r * Common::LOCAL_NORMAL, Common::FLOAT_SAMLL_NUMBER, 1.0f);
-            if (r.z == 0)
-                r.z = 1;
-            if (r.z < 0)
-                r.z *= -1;
+            // if (r.z == 0)
+            //     r.z = 1;
+            // if (r.z < 0)
+            //     r.z *= -1;
 
             Frame frame(localNormal, dpdu(localPoint));
 
@@ -86,7 +86,7 @@ bool CBall::hit(const Ray &ray, HitRecord &record) const
             Vector3 localReflectVector = frame.toWorld(r);
             localReflectVector.normalize();
             record.reflect = m_transform.transformVector(localReflectVector);
-            record.isMirror = !m_pMtrl->pBrdf->canLitByDirectLight();
+            record.isMirror = m_pMtrl->pBrdf->isMirror();
         }
     }
 

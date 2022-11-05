@@ -9,7 +9,7 @@ public:
     Mirror();
     
     Color sample_f(const Vector3 &wo, Vector3 &wi, float &pdf);
-    bool canLitByDirectLight() const;
+    bool isMirror() const;
 };
 
 #endif
