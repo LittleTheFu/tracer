@@ -71,13 +71,13 @@ int main()
     CPlane *bottomPlane = new CPlane(bottomRotate, bottomPosition, r, &lambMtrlYellow);
 
     Vector3 frontRotate(0, Common::PI, 0);
-    Vector3 frontPosition(0, 0, -3 * c);
+    Vector3 frontPosition(0, 0, -2 * c);
     CPlane *frontPlane = new CPlane(frontRotate, frontPosition, r, &MtrlMirror);
     // CPlane *frontPlane = new CPlane(frontRotate, frontPosition, r, &lambMtrlAqua);
 
     // Vector3 backRotate(0, -Common::PI, 0);
     Vector3 backRotate(0, 0, 0);
-    Vector3 backPosition(0, 0, -3 * c);
+    Vector3 backPosition(0, 0, -2 * c);
     CPlane *backPlane = new CPlane(backRotate, backPosition, r, &lambMtrlAqua);
 
     ObjectPool pool;
@@ -106,13 +106,13 @@ int main()
     pool.add(rightPlane);
 
     pool.setLight(0, 0, 20, 8);
-    // unsigned width = 512 * 8, height = 512 * 8;
+    unsigned width = 512 * 8, height = 512 * 8;
     // unsigned width = 512 * 4, height = 512 * 4;
     // unsigned width = 512 * 2, height = 512 * 2;
-    unsigned width = 512 * 1, height = 512 * 1;
+    // unsigned width = 512 * 1, height = 512 * 1;
     const float half_width = width / 2.0f;
     const float half_height = height / 2.0f;
-    const int bounceTime = 10;
+    const int bounceTime = 16;
     std::vector<unsigned char> image;
     image.resize(width * height * 4);
     for (unsigned y = 0; y < height; y++)
