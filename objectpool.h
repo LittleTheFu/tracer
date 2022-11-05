@@ -23,9 +23,6 @@ public:
     void add(const Geometry *pGeometry);
     void add(const Light *pLight);
 
-    bool traceWithTimes(const Ray &ray, int bounceNum, int &index, HitInfo &outInfo, const Material &currentMtrl);
-    bool testLightReachable(const Ray &ray, const Vector3 &light);
-    bool hitSceneObject(const Ray &ray, float &tMin, int &outIndex, HitInfo &info);
     bool hitScene(const Ray &ray, HitRecord &record);
 
     Color trace(const Ray &ray, int bounceNum, const HitRecord &currentState);
