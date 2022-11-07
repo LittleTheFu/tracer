@@ -42,21 +42,21 @@ int main()
     Rmaterial MtrlMirror;
     MtrlMirror.pBrdf = brdfMgr.getMirrorBrdf();
 
-    CBall *redBall = new CBall(Vector3::ZERO, Vector3(-10, 10, 80), 5, &lambMtrlRed);
-    CBall *yellowBall = new CBall(Vector3::ZERO, Vector3(10, 10, 60), 5, &lambMtrlYellow);
+    CBall *redBall = new CBall(Vector3::ZERO, Vector3(-90, 10, 280), 5, &lambMtrlRed);
+    CBall *yellowBall = new CBall(Vector3::ZERO, Vector3(10, 10, 30), 5, &lambMtrlYellow);
     CBall *aquaBall = new CBall(Vector3::ZERO, Vector3(-20, -10, 80), 5, &lambMtrlAqua);
     CBall *whiteBall = new CBall(Vector3::ZERO, Vector3(20, -10, 80), 5, &lambMtrlWhite);
-    CBall *mirrorBall = new CBall(Vector3::ZERO, Vector3(0, -30, 85), 5, &MtrlMirror);
+    CBall *mirrorBall = new CBall(Vector3::ZERO, Vector3(-10, 10, 60), 5, &MtrlMirror);
 
-    Light *light = new Light(Vector3(0, 0, 70));
+    Light *light = new Light(Vector3(0, 0, 40));
 
     const float c = 100;
     const float r = 5 * c;
 
     Vector3 leftRotate(0, -Common::PI / 2, 0);
     Vector3 leftPosition(0, 0, -c);
-    // CPlane *leftPlane = new CPlane(leftRotate, leftPosition, r, &MtrlMirror);
-    CPlane *leftPlane = new CPlane(leftRotate, leftPosition, r, &lambMtrlRed);
+    CPlane *leftPlane = new CPlane(leftRotate, leftPosition, r, &MtrlMirror);
+    // CPlane *leftPlane = new CPlane(leftRotate, leftPosition, r, &lambMtrlRed);
 
     Vector3 rightRotate(0, Common::PI / 2, 0);
     Vector3 rightPosition(0, 0, -c);
@@ -71,13 +71,13 @@ int main()
     CPlane *bottomPlane = new CPlane(bottomRotate, bottomPosition, r, &lambMtrlYellow);
 
     Vector3 frontRotate(0, Common::PI, 0);
-    Vector3 frontPosition(0, 0, -2 * c);
-    CPlane *frontPlane = new CPlane(frontRotate, frontPosition, r, &MtrlMirror);
-    // CPlane *frontPlane = new CPlane(frontRotate, frontPosition, r, &lambMtrlAqua);
+    Vector3 frontPosition(0, 0, -3 * c);
+    // CPlane *frontPlane = new CPlane(frontRotate, frontPosition, r, &MtrlMirror);
+    CPlane *frontPlane = new CPlane(frontRotate, frontPosition, r, &lambMtrlAqua);
 
     // Vector3 backRotate(0, -Common::PI, 0);
     Vector3 backRotate(0, 0, 0);
-    Vector3 backPosition(0, 0, -2 * c);
+    Vector3 backPosition(0, 0, -3 * c);
     CPlane *backPlane = new CPlane(backRotate, backPosition, r, &lambMtrlAqua);
 
     ObjectPool pool;
@@ -106,10 +106,10 @@ int main()
     pool.add(rightPlane);
 
     pool.setLight(0, 0, 20, 8);
-    unsigned width = 512 * 8, height = 512 * 8;
+    // unsigned width = 512 * 8, height = 512 * 8;
     // unsigned width = 512 * 4, height = 512 * 4;
     // unsigned width = 512 * 2, height = 512 * 2;
-    // unsigned width = 512 * 1, height = 512 * 1;
+    unsigned width = 512 * 1, height = 512 * 1;
     const float half_width = width / 2.0f;
     const float half_height = height / 2.0f;
     const int bounceTime = 16;
