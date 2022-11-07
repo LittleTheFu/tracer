@@ -6,3 +6,8 @@ bool Brdf::isMirror() const
 {
     return false;
 }
+
+bool Brdf::isGlass() const
+{
+    return false;
+}
