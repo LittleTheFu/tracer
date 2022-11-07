@@ -42,13 +42,13 @@ int main()
     Rmaterial MtrlMirror;
     MtrlMirror.pBrdf = brdfMgr.getMirrorBrdf();
 
-    CBall *redBall = new CBall(Vector3::ZERO, Vector3(-90, 10, 280), 5, &lambMtrlRed);
-    CBall *yellowBall = new CBall(Vector3::ZERO, Vector3(10, 10, 30), 5, &lambMtrlYellow);
-    CBall *aquaBall = new CBall(Vector3::ZERO, Vector3(-20, -10, 80), 5, &lambMtrlAqua);
-    CBall *whiteBall = new CBall(Vector3::ZERO, Vector3(20, -10, 80), 5, &lambMtrlWhite);
-    CBall *mirrorBall = new CBall(Vector3::ZERO, Vector3(-10, 10, 60), 5, &MtrlMirror);
+    CBall *redBall = new CBall(Vector3::ZERO, Vector3(-75, 10, 230), 20, &lambMtrlRed);
+    CBall *yellowBall = new CBall(Vector3::ZERO, Vector3(60, 60, 230), 20, &lambMtrlYellow);
+    CBall *aquaBall = new CBall(Vector3::ZERO, Vector3(-50, -50, 230), 20, &lambMtrlAqua);
+    CBall *whiteBall = new CBall(Vector3::ZERO, Vector3(60, -60, 230), 20, &lambMtrlWhite);
+    CBall *mirrorBall = new CBall(Vector3::ZERO, Vector3(-10, 60, 230), 20, &MtrlMirror);
 
-    Light *light = new Light(Vector3(0, 0, 40));
+    Light *light = new Light(Vector3(0, 0, 100));
 
     const float c = 100;
     const float r = 5 * c;
@@ -72,8 +72,8 @@ int main()
 
     Vector3 frontRotate(0, Common::PI, 0);
     Vector3 frontPosition(0, 0, -3 * c);
-    // CPlane *frontPlane = new CPlane(frontRotate, frontPosition, r, &MtrlMirror);
-    CPlane *frontPlane = new CPlane(frontRotate, frontPosition, r, &lambMtrlAqua);
+    CPlane *frontPlane = new CPlane(frontRotate, frontPosition, r, &MtrlMirror);
+    // CPlane *frontPlane = new CPlane(frontRotate, frontPosition, r, &lambMtrlAqua);
 
     // Vector3 backRotate(0, -Common::PI, 0);
     Vector3 backRotate(0, 0, 0);
@@ -112,7 +112,7 @@ int main()
     unsigned width = 512 * 1, height = 512 * 1;
     const float half_width = width / 2.0f;
     const float half_height = height / 2.0f;
-    const int bounceTime = 16;
+    const int bounceTime = 10;
     std::vector<unsigned char> image;
     image.resize(width * height * 4);
     for (unsigned y = 0; y < height; y++)
