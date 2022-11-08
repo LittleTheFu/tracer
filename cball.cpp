@@ -38,7 +38,7 @@ bool CBall::hit(const Ray &ray, HitRecord &record) const
     float t0 = (-b + sqrt(delta)) / (2 * a);
     float t1 = (-b - sqrt(delta)) / (2 * a);
     float temp = 0;
-    if (t0 > t1)
+    if (t0 > t1 && t1 > 0)
     {
         std::swap(t0, t1);
         // temp = t0;
