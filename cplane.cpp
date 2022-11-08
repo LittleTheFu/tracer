@@ -64,6 +64,11 @@ bool CPlane::hit(const Ray &ray, HitRecord &record) const
         record.dot = Common::clamp(r * Common::LOCAL_NORMAL, Common::FLOAT_SAMLL_NUMBER, 1.0f);
         record.reflect = m_transform.transformVector(r);
         record.isMirror = m_pMtrl->pBrdf->isMirror();
+
+        if(record.isMirror)
+        {
+            record.dot = 1;
+        }
     }
 
     return true;

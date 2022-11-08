@@ -88,6 +88,11 @@ bool CBall::hit(const Ray &ray, HitRecord &record) const
             localReflectVector.normalize();
             record.reflect = m_transform.transformVector(localReflectVector);
             record.isMirror = m_pMtrl->pBrdf->isMirror();
+
+            if(record.isMirror)
+            {
+                record.dot = 1;
+            }
         }
     }
 
