@@ -1,6 +1,7 @@
 #include "cball.h"
 #include "common.h"
 #include <cmath>
+#include <algorithm>
 #include "frame.h"
 
 CBall::CBall(const Vector3 &rotate, const Vector3 &position, float r, Rmaterial *pMtrl)
@@ -39,9 +40,10 @@ bool CBall::hit(const Ray &ray, HitRecord &record) const
     float temp = 0;
     if (t0 > t1)
     {
-        temp = t0;
-        t0 = t1;
-        t1 = temp;
+        std::swap(t0, t1);
+        // temp = t0;
+        // t0 = t1;
+        // t1 = temp;
     }
 
     bool hit = t0 > Common::FLOAT_SAMLL_NUMBER;
