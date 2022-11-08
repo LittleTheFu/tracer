@@ -15,6 +15,7 @@ public:
     Vector3 operator-(const Vector3 &that) const;
     Vector3 operator-() const;
     float operator*(const Vector3 &that) const;
+    Vector3 operator*(float m) const;
     Vector3 &operator*=(float m);
     friend Vector3 operator*(const float s, const Vector3 &v);
     bool operator==(const Vector3 &that) const;
@@ -29,6 +30,7 @@ public:
     void normalize();
 
     Vector3 reflect(const Vector3 &normal) const;
+    Vector3 refract(const Vector3 &normal, float etaOutside, float etaInside);
     bool isInSameSide(const Vector3 &that) const;
 
     static Vector3 getRandomVector();

@@ -6,10 +6,15 @@
 class Glass : public Brdf
 {
 public:
-    Glass();
+    Glass(float etaOutsie, float etaInside);
 
     Color sample_f(const Vector3 &wo, Vector3 &wi, float &pdf);
     bool isGlass() const;
+    bool isMirror() const;
+
+private:
+    float m_etaOutside;
+    float m_etaInside;
 };
 
 #endif

@@ -42,11 +42,15 @@ int main()
     Rmaterial MtrlMirror;
     MtrlMirror.pBrdf = brdfMgr.getMirrorBrdf();
 
+    Rmaterial MtrlGlass;
+    MtrlGlass.pBrdf = brdfMgr.getGlassBrdf();
+
     CBall *redBall = new CBall(Vector3::ZERO, Vector3(-75, 10, 230), 20, &lambMtrlRed);
-    CBall *yellowBall = new CBall(Vector3::ZERO, Vector3(60, 60, 230), 20, &lambMtrlYellow);
+    CBall *yellowBall = new CBall(Vector3::ZERO, Vector3(60, 80, 230), 20, &lambMtrlYellow);
     CBall *aquaBall = new CBall(Vector3::ZERO, Vector3(-50, -50, 230), 20, &lambMtrlAqua);
     CBall *whiteBall = new CBall(Vector3::ZERO, Vector3(60, -60, 230), 20, &lambMtrlWhite);
-    CBall *mirrorBall = new CBall(Vector3::ZERO, Vector3(-10, 60, 230), 20, &MtrlMirror);
+    // CBall *mirrorBall = new CBall(Vector3::ZERO, Vector3(75, 10, 225), 20, &MtrlGlass);
+    CBall *mirrorBall = new CBall(Vector3::ZERO, Vector3(0, 0, 225), 20, &MtrlGlass);
 
     Light *light = new Light(Vector3(0, 0, 100));
 
@@ -55,8 +59,8 @@ int main()
 
     Vector3 leftRotate(0, -Common::PI / 2, 0);
     Vector3 leftPosition(0, 0, -c);
-    CPlane *leftPlane = new CPlane(leftRotate, leftPosition, r, &MtrlMirror);
-    // CPlane *leftPlane = new CPlane(leftRotate, leftPosition, r, &lambMtrlRed);
+    // CPlane *leftPlane = new CPlane(leftRotate, leftPosition, r, &MtrlMirror);
+    CPlane *leftPlane = new CPlane(leftRotate, leftPosition, r, &lambMtrlRed);
 
     Vector3 rightRotate(0, Common::PI / 2, 0);
     Vector3 rightPosition(0, 0, -c);
@@ -68,17 +72,21 @@ int main()
 
     Vector3 bottomRotate(-Common::PI / 2, 0, 0);
     Vector3 bottomPosition(0, 0, -c);
-    CPlane *bottomPlane = new CPlane(bottomRotate, bottomPosition, r, &lambMtrlYellow);
+    CPlane *bottomPlane = new CPlane(bottomRotate, bottomPosition, r, &lambMtrlGreen);
 
     Vector3 frontRotate(0, Common::PI, 0);
     Vector3 frontPosition(0, 0, -3 * c);
-    CPlane *frontPlane = new CPlane(frontRotate, frontPosition, r, &MtrlMirror);
-    // CPlane *frontPlane = new CPlane(frontRotate, frontPosition, r, &lambMtrlAqua);
+    // CPlane *frontPlane = new CPlane(frontRotate, frontPosition, r, &MtrlMirror);
+    CPlane *frontPlane = new CPlane(frontRotate, frontPosition, r, &lambMtrlAqua);
 
     // Vector3 backRotate(0, -Common::PI, 0);
     Vector3 backRotate(0, 0, 0);
     Vector3 backPosition(0, 0, -3 * c);
     CPlane *backPlane = new CPlane(backRotate, backPosition, r, &lambMtrlAqua);
+
+    Vector3 glassRotate(-Common::PI / 2, 0, 0);
+    Vector3 glassPosition(0, 0, -c * 0.5);
+    CPlane *glassPlane = new CPlane(glassRotate, glassPosition, r, &MtrlGlass);
 
     ObjectPool pool;
 
@@ -88,6 +96,8 @@ int main()
     bottomPlane->setTag(3);
     leftPlane->setTag(4);
     rightPlane->setTag(5);
+
+    glassPlane->setTag(101);
 
     pool.add(light);
 
@@ -105,11 +115,13 @@ int main()
     pool.add(leftPlane);
     pool.add(rightPlane);
 
+    pool.add(glassPlane);
+
     pool.setLight(0, 0, 20, 8);
-    // unsigned width = 512 * 8, height = 512 * 8;
+    unsigned width = 512 * 8, height = 512 * 8;
     // unsigned width = 512 * 4, height = 512 * 4;
     // unsigned width = 512 * 2, height = 512 * 2;
-    unsigned width = 512 * 1, height = 512 * 1;
+    // unsigned width = 512 * 1, height = 512 * 1;
     const float half_width = width / 2.0f;
     const float half_height = height / 2.0f;
     const int bounceTime = 10;

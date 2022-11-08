@@ -1,5 +1,6 @@
 #include "vector.h"
 #include <tgmath.h>
+#include <algorithm>
 #include "common.h"
 #include <cassert>
 
@@ -53,6 +54,11 @@ float Vector3::operator*(const Vector3 &that) const
     float z = this->z * that.z;
 
     return x + y + z;
+}
+
+Vector3 Vector3::operator*(float m) const
+{
+    return Vector3(x * m, y * m, z * m);
 }
 
 Vector3 &Vector3::operator*=(float m)
@@ -138,6 +144,44 @@ Vector3 Vector3::reflect(const Vector3 &normal) const
     // }
 
     return 2 * m * n + (*this);
+}
+
+Vector3 Vector3::refract(const Vector3 &normal, float etaOutside, float etaInside) 
+{
+    // this->x = 1;
+    // this->y = 1;
+    // this->z = -1;
+    // this->normalize();
+
+    assert(etaInside != 0);
+    assert(etaOutside != 0);
+
+    float dot = this->operator*(normal);
+    assert(dot <= 0);
+
+    if (dot == 0)
+    {
+        return *this;
+    }
+
+    float cosTheta = -dot;
+    float eta = etaOutside / etaInside;
+
+    float m = 1 - eta * eta * (1 - cosTheta * cosTheta);
+    if (m < 0)
+    {
+        return reflect(normal);
+    }
+    else
+    {
+        int a = 1;
+    }
+
+    float k = std::sqrt(m);
+    Vector3 v = normal * (eta * cosTheta - k) + this->operator*(eta);
+    // v.normalize();
+
+    return v;
 }
 
 bool Vector3::isInSameSide(const Vector3 &that) const

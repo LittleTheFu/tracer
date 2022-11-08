@@ -18,6 +18,7 @@ public:
     Brdf* getPurpleBrdf();
 
     Brdf* getMirrorBrdf();
+    Brdf* getGlassBrdf();
 
 private:
     Brdf *brdfRed;
@@ -29,6 +30,7 @@ private:
     Brdf *brdfPurple;
 
     Brdf *brdfMirror;
+    Brdf *brdfGlass;
 };
 
 #endif
