@@ -81,7 +81,7 @@ bool Vector3::operator==(const Vector3 &that) const
 
 std::ostream &operator<<(std::ostream &os, const Vector3 &v)
 {
-    os << "(" << v.x << "," << v.y << "," << v.z << ")";
+    os << "( " << v.x << ", " << v.y << ", " << v.z << " )";
 
     return os;
 }
