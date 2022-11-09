@@ -47,3 +47,10 @@ float Ray::getT(const Ray &ray, const Vector3 &thatPoint)
 
     return 0;
 }
+
+std::ostream &operator<<(std::ostream &os, const Ray &ray)
+{
+    os << "ray --- origin : ( " << ray.origin << " ) , dir : ( " << ray.dir << " ) ";
+
+    return os;
+}

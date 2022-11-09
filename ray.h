@@ -16,7 +16,9 @@ public:
     float t;
 
     Ray genNewRay(const Transform &transform) const;
-    static float getT(const Ray &ray, const Vector3& thatPoint);
+    static float getT(const Ray &ray, const Vector3 &thatPoint);
+
+    friend std::ostream &operator<<(std::ostream &os, const Ray &ray);
 };
 
 #endif
