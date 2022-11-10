@@ -46,11 +46,11 @@ int main()
     MtrlGlass.pBrdf = brdfMgr.getGlassBrdf();
 
     CBall *redBall = new CBall(Vector3::ZERO, Vector3(-75, 10, 300), 20, &lambMtrlRed);
-    CBall *yellowBall = new CBall(Vector3::ZERO, Vector3(60, 80, 300), 20, &lambMtrlYellow);
+    CBall *yellowBall = new CBall(Vector3::ZERO, Vector3(60, 80, 200), 20, &lambMtrlYellow);
     CBall *aquaBall = new CBall(Vector3::ZERO, Vector3(-50, -50, 300), 20, &lambMtrlAqua);
     CBall *whiteBall = new CBall(Vector3::ZERO, Vector3(20, -20, 300), 20, &lambMtrlWhite);
-    CBall *glassBall = new CBall(Vector3::ZERO, Vector3(0, 0, 220), 20, &MtrlGlass);
-    CBall *mirrorBall = new CBall(Vector3::ZERO, Vector3(-25, 40, 220), 20, &MtrlMirror);
+    CBall *glassBall = new CBall(Vector3::ZERO, Vector3(0, 0, 225), 20, &MtrlGlass);
+    CBall *mirrorBall = new CBall(Vector3::ZERO, Vector3(-25, 40, 225), 20, &MtrlMirror);
 
     Light *light = new Light(Vector3(0, -80, 220));
 
