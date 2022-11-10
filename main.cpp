@@ -121,7 +121,6 @@ int main()
 
     // pool.add(glassPlane);
 
-    pool.setLight(0, 0, 20, 8);
     // unsigned width = 512 * 8, height = 512 * 8;
     // unsigned width = 512 * 4, height = 512 * 4;
     // unsigned width = 512 * 2, height = 512 * 2;

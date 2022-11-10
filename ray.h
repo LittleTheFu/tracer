@@ -2,8 +2,6 @@
 #define _RAY_H_
 
 #include "vector.h"
-#include "ball.h"
-#include "plane.h"
 #include "transform.h"
 
 class Ray

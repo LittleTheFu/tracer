@@ -14,22 +14,6 @@ ObjectPool::ObjectPool()
     // m_attenuation = 1;
 }
 
-void ObjectPool::setLight(float x, float y, float z, float r)
-{
-    m_light.setPos(x, y, z);
-    m_light.setR(r);
-}
-
-void ObjectPool::add(const Ball &ball)
-{
-    m_balls.push_back(ball);
-}
-
-void ObjectPool::add(const Plane &plane)
-{
-    m_planes.push_back(plane);
-}
-
 void ObjectPool::add(const Geometry *pGeometry)
 {
     m_objects.push_back(pGeometry);
@@ -88,20 +72,6 @@ Color ObjectPool::getColorFromLight(const Ray &ray)
     }
 
     return Color::COLOR_BLACK;
-}
-
-bool ObjectPool::isLightReachable(const Ray &ray, const Vector3 &light)
-{
-    HitRecord record;
-
-    if (!hitScene(ray, record))
-    {
-        return true;
-    }
-
-    const float lightHitT = (light - ray.origin).length();
-
-    return (lightHitT < record.t);
 }
 
 Color ObjectPool::trace(const Ray &ray, int bounceNum, const HitRecord &currentState)
