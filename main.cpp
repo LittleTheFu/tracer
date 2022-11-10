@@ -82,7 +82,7 @@ int main()
     // Vector3 backRotate(0, -Common::PI, 0);
     Vector3 backRotate(0, 0, 0);
     Vector3 backPosition(0, 0, -3 * c);
-    CPlane *backPlane = new CPlane(backRotate, backPosition, r, &lambMtrlAqua);
+    CPlane *backPlane = new CPlane(backRotate, backPosition, r, &lambMtrlRed);
 
     Vector3 glassRotate(-Common::PI / 2, 0, 0);
     Vector3 glassPosition(0, 0, -c * 0.5);
