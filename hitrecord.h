@@ -2,7 +2,7 @@
 #define _HIT_RECORD_H_
 
 #include "vector.h"
-#include "rmaterial.h"
+#include "material.h"
 #include "transform.h"
 #include "color.h"
 
@@ -12,7 +12,7 @@ public:
     HitRecord();
     
     Transform transform;
-    Rmaterial mtrl;
+    Material mtrl;
 
     Vector3 point;
     Vector3 normal;

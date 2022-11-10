@@ -3,7 +3,6 @@
 
 #include <vector>
 #include "ray.h"
-#include "hitinfo.h"
 #include "geometry.h"
 #include "hitrecord.h"
 #include "color.h"

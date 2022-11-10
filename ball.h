@@ -2,17 +2,17 @@
 #define _C_BALL_H_
 
 #include "geometry.h"
-#include "rmaterial.h"
+#include "material.h"
 
-class CBall : public Geometry
+class Ball : public Geometry
 {
 public:
-    CBall(const Vector3 &rotate, const Vector3 &position, float r, Rmaterial *pMtrl);
+    Ball(const Vector3 &rotate, const Vector3 &position, float r, Material *pMtrl);
     virtual bool hit(const Ray &ray, HitRecord &record) const;
     virtual Vector3 sampleFromPoint(const Vector3 &thatPoint, float &pdf) const;
 
     float r;
-    Rmaterial *m_pMtrl;
+    Material *m_pMtrl;
 
 private:
     virtual Vector3 dpdu(const Vector3 &point) const;

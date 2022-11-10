@@ -3,13 +3,12 @@
 #include "ray.h"
 #include "objectpool.h"
 #include "material.h"
-#include "hitinfo.h"
 #include "common.h"
 #include <iostream>
 #include "brdfMgr.h"
-#include "rmaterial.h"
-#include "cball.h"
-#include "cplane.h"
+#include "material.h"
+#include "ball.h"
+#include "plane.h"
 #include "hitrecord.h"
 #include "light.h"
 using namespace std;
@@ -18,39 +17,39 @@ int main()
 {
     BrdfMgr brdfMgr;
 
-    Rmaterial lambMtrlRed;
+    Material lambMtrlRed;
     lambMtrlRed.pBrdf = brdfMgr.getRedBrdf();
 
-    Rmaterial lambMtrlYellow;
+    Material lambMtrlYellow;
     lambMtrlYellow.pBrdf = brdfMgr.getYellowBrdf();
 
-    Rmaterial lambMtrlAqua;
+    Material lambMtrlAqua;
     lambMtrlAqua.pBrdf = brdfMgr.getAquaBrdf();
 
-    Rmaterial lambMtrlPurple;
+    Material lambMtrlPurple;
     lambMtrlPurple.pBrdf = brdfMgr.getPurpleBrdf();
 
-    Rmaterial lambMtrlGreen;
+    Material lambMtrlGreen;
     lambMtrlGreen.pBrdf = brdfMgr.getGreenBrdf();
 
-    Rmaterial lambMtrlBlue;
+    Material lambMtrlBlue;
     lambMtrlBlue.pBrdf = brdfMgr.getBlueBrdf();
 
-    Rmaterial lambMtrlWhite;
+    Material lambMtrlWhite;
     lambMtrlWhite.pBrdf = brdfMgr.getWhiteBrdf();
 
-    Rmaterial MtrlMirror;
+    Material MtrlMirror;
     MtrlMirror.pBrdf = brdfMgr.getMirrorBrdf();
 
-    Rmaterial MtrlGlass;
+    Material MtrlGlass;
     MtrlGlass.pBrdf = brdfMgr.getGlassBrdf();
 
-    CBall *redBall = new CBall(Vector3::ZERO, Vector3(-75, 10, 300), 20, &lambMtrlRed);
-    CBall *yellowBall = new CBall(Vector3::ZERO, Vector3(60, 80, 200), 20, &lambMtrlYellow);
-    CBall *aquaBall = new CBall(Vector3::ZERO, Vector3(-50, -50, 300), 20, &lambMtrlAqua);
-    CBall *whiteBall = new CBall(Vector3::ZERO, Vector3(20, -20, 300), 20, &lambMtrlWhite);
-    CBall *glassBall = new CBall(Vector3::ZERO, Vector3(0, 0, 225), 20, &MtrlGlass);
-    CBall *mirrorBall = new CBall(Vector3::ZERO, Vector3(-25, 40, 225), 20, &MtrlMirror);
+    Ball *redBall = new Ball(Vector3::ZERO, Vector3(-75, 10, 300), 20, &lambMtrlRed);
+    Ball *yellowBall = new Ball(Vector3::ZERO, Vector3(60, 80, 200), 20, &lambMtrlYellow);
+    Ball *aquaBall = new Ball(Vector3::ZERO, Vector3(-50, -50, 300), 20, &lambMtrlAqua);
+    Ball *whiteBall = new Ball(Vector3::ZERO, Vector3(20, -20, 300), 20, &lambMtrlWhite);
+    Ball *glassBall = new Ball(Vector3::ZERO, Vector3(0, 0, 225), 20, &MtrlGlass);
+    Ball *mirrorBall = new Ball(Vector3::ZERO, Vector3(-25, 40, 225), 20, &MtrlMirror);
 
     Light *light = new Light(Vector3(0, -80, 220));
 
@@ -60,33 +59,33 @@ int main()
     Vector3 leftRotate(0, -Common::PI / 2, 0);
     Vector3 leftPosition(0, 0, -c);
     // CPlane *leftPlane = new CPlane(leftRotate, leftPosition, r, &MtrlMirror);
-    CPlane *leftPlane = new CPlane(leftRotate, leftPosition, r, &lambMtrlYellow);
+    Plane *leftPlane = new Plane(leftRotate, leftPosition, r, &lambMtrlYellow);
 
     Vector3 rightRotate(0, Common::PI / 2, 0);
     Vector3 rightPosition(0, 0, -c);
-    CPlane *rightPlane = new CPlane(rightRotate, rightPosition, r, &lambMtrlBlue);
+    Plane *rightPlane = new Plane(rightRotate, rightPosition, r, &lambMtrlBlue);
 
     Vector3 topRotate(Common::PI / 2, 0, 0);
     Vector3 topPosition(0, 0, -c);
-    CPlane *topPlane = new CPlane(topRotate, topPosition, r, &lambMtrlPurple);
+    Plane *topPlane = new Plane(topRotate, topPosition, r, &lambMtrlPurple);
 
     Vector3 bottomRotate(-Common::PI / 2, 0, 0);
     Vector3 bottomPosition(0, 0, -c);
-    CPlane *bottomPlane = new CPlane(bottomRotate, bottomPosition, r, &lambMtrlGreen);
+    Plane *bottomPlane = new Plane(bottomRotate, bottomPosition, r, &lambMtrlGreen);
 
     Vector3 frontRotate(0, Common::PI, 0);
     Vector3 frontPosition(0, 0, -5 * c);
     // CPlane *frontPlane = new CPlane(frontRotate, frontPosition, r, &MtrlMirror);
-    CPlane *frontPlane = new CPlane(frontRotate, frontPosition, r, &lambMtrlAqua);
+    Plane *frontPlane = new Plane(frontRotate, frontPosition, r, &lambMtrlAqua);
 
     // Vector3 backRotate(0, -Common::PI, 0);
     Vector3 backRotate(0, 0, 0);
     Vector3 backPosition(0, 0, -3 * c);
-    CPlane *backPlane = new CPlane(backRotate, backPosition, r, &lambMtrlRed);
+    Plane *backPlane = new Plane(backRotate, backPosition, r, &lambMtrlRed);
 
     Vector3 glassRotate(-Common::PI / 2, 0, 0);
     Vector3 glassPosition(0, 0, -c * 0.5);
-    CPlane *glassPlane = new CPlane(glassRotate, glassPosition, r, &MtrlGlass);
+    Plane *glassPlane = new Plane(glassRotate, glassPosition, r, &MtrlGlass);
 
     ObjectPool pool;
 
@@ -142,7 +141,6 @@ int main()
             const Vector3 dir((x - half_width) / half_width, (y - half_height) / half_height, 2);
             Ray ray(origin, dir);
 
-            Material mtrl = Material::MTRL_BLUE;
             HitRecord record;
             // record.reflectPdf = Common::INV_TWO_PI;
             record.reflectPdf = 1;

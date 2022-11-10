@@ -1,9 +1,9 @@
-#include "cplane.h"
+#include "plane.h"
 #include "common.h"
 #include <cmath>
 #include <iostream>
 
-CPlane::CPlane(const Vector3 &rotate, const Vector3 &position, float length, Rmaterial *pMtrl)
+Plane::Plane(const Vector3 &rotate, const Vector3 &position, float length, Material *pMtrl)
 {
     init(rotate, position);
 
@@ -11,12 +11,12 @@ CPlane::CPlane(const Vector3 &rotate, const Vector3 &position, float length, Rma
     this->m_pMtrl = pMtrl;
 }
 
-Vector3 CPlane::getLocalNormal() const
+Vector3 Plane::getLocalNormal() const
 {
     return Vector3(0, 0, 1);
 }
 
-bool CPlane::hit(const Ray &ray, HitRecord &record) const
+bool Plane::hit(const Ray &ray, HitRecord &record) const
 {
     record.t = Common::FLOAT_MAX;
 
@@ -74,17 +74,17 @@ bool CPlane::hit(const Ray &ray, HitRecord &record) const
     return true;
 }
 
-Vector3 CPlane::dpdu(const Vector3 &point) const
+Vector3 Plane::dpdu(const Vector3 &point) const
 {
     return Vector3(1, 0, 0);
 }
 
-Vector3 CPlane::dpdv(const Vector3 &point) const
+Vector3 Plane::dpdv(const Vector3 &point) const
 {
     return Vector3(0, 1, 0);
 }
 
-bool CPlane::isLocalIn(const Vector3 &p) const
+bool Plane::isLocalIn(const Vector3 &p) const
 {
     // bug, fix later
     return true;

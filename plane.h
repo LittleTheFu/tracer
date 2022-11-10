@@ -2,16 +2,16 @@
 #define _C_PLANE_H_
 
 #include "geometry.h"
-#include "rmaterial.h"
+#include "material.h"
 
-class CPlane : public Geometry
+class Plane : public Geometry
 {
 public:
-    CPlane(const Vector3 &rotate, const Vector3 &position, float length, Rmaterial *pMtrl);
+    Plane(const Vector3 &rotate, const Vector3 &position, float length, Material *pMtrl);
     virtual bool hit(const Ray &ray, HitRecord &record) const;
 
     float length;
-    Rmaterial *m_pMtrl;
+    Material *m_pMtrl;
 
 private:
     virtual Vector3 dpdu(const Vector3 &point) const;

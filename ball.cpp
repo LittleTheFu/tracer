@@ -1,10 +1,10 @@
-#include "cball.h"
+#include "ball.h"
 #include "common.h"
 #include <cmath>
 #include <algorithm>
 #include "frame.h"
 
-CBall::CBall(const Vector3 &rotate, const Vector3 &position, float r, Rmaterial *pMtrl)
+Ball::Ball(const Vector3 &rotate, const Vector3 &position, float r, Material *pMtrl)
 {
     init(rotate, position);
 
@@ -12,7 +12,7 @@ CBall::CBall(const Vector3 &rotate, const Vector3 &position, float r, Rmaterial 
     this->m_pMtrl = pMtrl;
 }
 
-Vector3 CBall::getLocalNormal(const Vector3 &thatPoint) const
+Vector3 Ball::getLocalNormal(const Vector3 &thatPoint) const
 {
     Vector3 normal = thatPoint;
     normal.normalize();
@@ -20,7 +20,7 @@ Vector3 CBall::getLocalNormal(const Vector3 &thatPoint) const
     return normal;
 }
 
-bool CBall::hit(const Ray &ray, HitRecord &record) const
+bool Ball::hit(const Ray &ray, HitRecord &record) const
 {
     record.t = Common::FLOAT_MAX;
 
@@ -99,7 +99,7 @@ bool CBall::hit(const Ray &ray, HitRecord &record) const
     return hit;
 }
 
-Vector3 CBall::sampleFromPoint(const Vector3 &thatPoint, float &pdf) const
+Vector3 Ball::sampleFromPoint(const Vector3 &thatPoint, float &pdf) const
 {
     Vector3 localPoint = m_transform.invTransformPoint(thatPoint);
     Vector3 localNormal = getLocalNormal(localPoint);
@@ -123,7 +123,7 @@ Vector3 CBall::sampleFromPoint(const Vector3 &thatPoint, float &pdf) const
     return worldSampledPoint;
 }
 
-Vector3 CBall::dpdu(const Vector3 &point) const
+Vector3 Ball::dpdu(const Vector3 &point) const
 {
     const float phi_max = Common::PI * 2;
 
@@ -137,7 +137,7 @@ Vector3 CBall::dpdu(const Vector3 &point) const
     return v;
 }
 
-Vector3 CBall::dpdv(const Vector3 &point) const
+Vector3 Ball::dpdv(const Vector3 &point) const
 {
     const float phi = getPhi(point);
     const float theta_range = Common::PI;
@@ -154,7 +154,7 @@ Vector3 CBall::dpdv(const Vector3 &point) const
     return v;
 }
 
-float CBall::getPhi(const Vector3 &point) const
+float Ball::getPhi(const Vector3 &point) const
 {
     float phi = std::atan2(point.y, point.x);
     if (phi < 0)
@@ -165,7 +165,7 @@ float CBall::getPhi(const Vector3 &point) const
     return phi;
 }
 
-float CBall::getTheta(const Vector3 &point) const
+float Ball::getTheta(const Vector3 &point) const
 {
     float a = point.z / r;
     if (a < -1)

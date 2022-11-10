@@ -12,9 +12,6 @@ public:
     // //u~phi, v~theta
     // Vector3 dpdu(const Vector3 &p);
     // Vector3 dpdv(const Vector3 &p);
-
-    Material mtrl;
-
 private:
     // float getPhi(const Vector3 &p);
     // float getTheta(const Vector3 &p);
