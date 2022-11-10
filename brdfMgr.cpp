@@ -19,7 +19,7 @@ BrdfMgr::BrdfMgr()
     brdfPurple = new Lambertian(Color::COLOR_PURPLE * 0.3);
     
     brdfMirror = new Mirror();
-    brdfGlass = new Glass(1, 1.4);
+    brdfGlass = new Glass(1, 1.5);
 }
 
 BrdfMgr::~BrdfMgr()

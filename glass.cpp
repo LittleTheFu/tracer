@@ -16,15 +16,19 @@ Color Glass::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf)
 {
     Vector3 normal = LOCAL_NORMAL;
     float dot = wo * normal;
+
+    float etaOutside = m_etaOutside;
+    float etaInside = m_etaInside;
+
     if (dot < 0)
     {
         normal = -normal;
-        std::swap(m_etaInside, m_etaOutside);
+        std::swap(etaInside, etaOutside);
     }
 
     // Vector3 inputVector = Vector3(wo.x, wo.y, -wo.z);
     Vector3 inputVector = -wo;
-    wi = inputVector.refract(normal, m_etaOutside, m_etaInside);
+    wi = inputVector.refract(normal, etaOutside, etaInside);
 
     pdf = 1;
 
