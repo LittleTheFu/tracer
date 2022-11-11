@@ -9,15 +9,15 @@ public:
     Transform();
     Transform(const Matrix &matrix, const Matrix &invMatrix);
 
-    void scale(float sx, float sy, float sz);
-    void translate(const Vector3 &v);
-    void translate(float tx, float ty, float tz);
-    void rotate(const Vector3 &v);
-    void rotateX(float theta);
-    void rotateY(float theta);
-    void rotateZ(float theta);
+    Transform &scale(float sx, float sy, float sz);
+    Transform &translate(const Vector3 &v);
+    Transform &translate(float tx, float ty, float tz);
+    Transform &rotate(const Vector3 &v);
+    Transform &rotateX(float theta);
+    Transform &rotateY(float theta);
+    Transform &rotateZ(float theta);
 
-    void set(const Vector3 &rotateXYZ, const Vector3 &position);
+    Transform &set(const Vector3 &rotateXYZ, const Vector3 &position);
 
     Vector3 transformVector(const Vector3 &v) const;
     Vector3 invTransformVector(const Vector3 &v) const;
@@ -32,6 +32,7 @@ private:
     Vector3 getAxisZ() const;
 
     Vector3 toLocal(const Vector3 &worldPosition) const;
+
 private:
     Matrix m_matrix;
     Matrix m_invMatrix;

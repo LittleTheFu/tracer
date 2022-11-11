@@ -1,4 +1,5 @@
 #include "transform.h"
+#include "common.h"
 
 Transform::Transform()
 {
@@ -10,85 +11,91 @@ Transform::Transform(const Matrix &matrix, const Matrix &invMatrix)
     m_invMatrix = invMatrix;
 }
 
-void Transform::scale(float sx, float sy, float sz)
+Transform &Transform::scale(float sx, float sy, float sz)
 {
     Matrix s = Matrix::getScaleMatrix(sx, sy, sz);
     Matrix inv_s = Matrix::getScaleMatrix(1.0f / sx, 1.0f / sy, 1.0f / sz);
 
     m_matrix = Matrix::Mul(m_matrix, s);
     m_invMatrix = Matrix::Mul(inv_s, m_invMatrix);
+
+    return *this;
 }
 
-void Transform::translate(const Vector3 &v)
+Transform &Transform::translate(const Vector3 &v)
 {
-    translate(v.x, v.y, v.z);
+    return translate(v.x, v.y, v.z);
 }
 
-void Transform::translate(float tx, float ty, float tz)
+Transform &Transform::translate(float tx, float ty, float tz)
 {
     Matrix t = Matrix::getTranslateMatrix(tx, ty, tz);
     Matrix inv_t = Matrix::getTranslateMatrix(-tx, -ty, -tz);
 
     m_matrix = Matrix::Mul(m_matrix, t);
     m_invMatrix = Matrix::Mul(inv_t, m_invMatrix);
+
+    return *this;
 }
 
-void Transform::rotate(const Vector3 &v)
+Transform &Transform::rotate(const Vector3 &v)
 {
-    if (v == Vector3::ZERO)
-    {
-        return;
-    }
-
-    if (v.x != 0)
-    {
-        rotateX(v.x);
-    }
-
-    if (v.y != 0)
-    {
-        rotateY(v.y);
-    }
-
-    if (v.z != 0)
-    {
-        rotateZ(v.z);
-    }
+    return rotateX(v.x).rotateY(v.y).rotateZ(v.z);
 }
 
-void Transform::rotateX(float theta)
+Transform &Transform::rotateX(float theta)
 {
+    if (Common::is_float_zero(theta))
+    {
+        return *this;
+    }
+
     Matrix r = Matrix::getRotXMatrix(theta);
     Matrix inv_r = Matrix::getRotXMatrix(-theta);
 
     m_matrix = Matrix::Mul(m_matrix, r);
     m_invMatrix = Matrix::Mul(inv_r, m_invMatrix);
+
+    return *this;
 }
 
-void Transform::rotateY(float theta)
+Transform &Transform::rotateY(float theta)
 {
+    if (Common::is_float_zero(theta))
+    {
+        return *this;
+    }
+
     Matrix r = Matrix::getRotYMatrix(theta);
     Matrix inv_r = Matrix::getRotYMatrix(-theta);
 
     m_matrix = Matrix::Mul(m_matrix, r);
     m_invMatrix = Matrix::Mul(inv_r, m_invMatrix);
+
+    return *this;
 }
 
-void Transform::rotateZ(float theta)
+Transform &Transform::rotateZ(float theta)
 {
+    if (Common::is_float_zero(theta))
+    {
+        return *this;
+    }
+
     Matrix r = Matrix::getRotZMatrix(theta);
     Matrix inv_r = Matrix::getRotZMatrix(-theta);
 
     m_matrix = Matrix::Mul(m_matrix, r);
     m_invMatrix = Matrix::Mul(inv_r, m_invMatrix);
+
+    return *this;
 }
 
-void Transform::set(const Vector3 &rotateXYZ, const Vector3 &position)
+Transform &Transform::set(const Vector3 &rotateXYZ, const Vector3 &position)
 {
-    rotate(rotateXYZ);
-
     Vector3 localPoint = toLocal(position);
-    translate(localPoint);
+    
+    return rotate(rotateXYZ).translate(localPoint);
 }
 
 Vector3 Transform::transformVector(const Vector3 &v) const
