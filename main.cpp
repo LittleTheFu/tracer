@@ -57,24 +57,24 @@ int main()
     const float r = 5 * c;
 
     Vector3 leftRotate(0, -Common::PI / 2, 0);
-    Vector3 leftPosition(0, 0, -c);
+    Vector3 leftPosition(-c, 0, 0);
     // CPlane *leftPlane = new CPlane(leftRotate, leftPosition, r, &MtrlMirror);
     Plane *leftPlane = new Plane(leftRotate, leftPosition, r, &lambMtrlYellow);
 
     Vector3 rightRotate(0, Common::PI / 2, 0);
-    Vector3 rightPosition(0, 0, -c);
+    Vector3 rightPosition(c, 0, 0);
     Plane *rightPlane = new Plane(rightRotate, rightPosition, r, &lambMtrlBlue);
 
     Vector3 topRotate(Common::PI / 2, 0, 0);
-    Vector3 topPosition(0, 0, -c);
+    Vector3 topPosition(0, -c, 0);
     Plane *topPlane = new Plane(topRotate, topPosition, r, &lambMtrlPurple);
 
     Vector3 bottomRotate(-Common::PI / 2, 0, 0);
-    Vector3 bottomPosition(0, 0, -c);
+    Vector3 bottomPosition(0, c, 0);
     Plane *bottomPlane = new Plane(bottomRotate, bottomPosition, r, &lambMtrlGreen);
 
     Vector3 frontRotate(0, Common::PI, 0);
-    Vector3 frontPosition(0, 0, -5 * c);
+    Vector3 frontPosition(0, 0, 5 * c);
     // CPlane *frontPlane = new CPlane(frontRotate, frontPosition, r, &MtrlMirror);
     Plane *frontPlane = new Plane(frontRotate, frontPosition, r, &lambMtrlAqua);
 

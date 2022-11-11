@@ -17,7 +17,7 @@ public:
     void rotateY(float theta);
     void rotateZ(float theta);
 
-    void setOrigin(float x, float y, float z);
+    void set(const Vector3 &rotateXYZ, const Vector3 &position);
 
     Vector3 transformVector(const Vector3 &v) const;
     Vector3 invTransformVector(const Vector3 &v) const;
@@ -26,6 +26,13 @@ public:
     Vector3 transformNormal(const Vector3 &n) const;
     Vector3 invTransformNormal(const Vector3 &n) const;
 
+private:
+    Vector3 getAxisX() const;
+    Vector3 getAxisY() const;
+    Vector3 getAxisZ() const;
+
+    Vector3 toLocal(const Vector3 &worldPosition) const;
+private:
     Matrix m_matrix;
     Matrix m_invMatrix;
 };

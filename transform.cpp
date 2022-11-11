@@ -83,19 +83,12 @@ void Transform::rotateZ(float theta)
     m_invMatrix = Matrix::Mul(inv_r, m_invMatrix);
 }
 
-void Transform::setOrigin(float x, float y, float z)
+void Transform::set(const Vector3 &rotateXYZ, const Vector3 &position)
 {
-    m_invMatrix.m[0][3] = x;
-    m_invMatrix.m[1][3] = y;
-    m_invMatrix.m[2][3] = z;
+    rotate(rotateXYZ);
 
-    float projX = m_matrix.m[0][0] * x + m_matrix.m[1][0] * y + m_matrix.m[2][0] * z;
-    float projY = m_matrix.m[0][1] * x + m_matrix.m[1][1] * y + m_matrix.m[2][1] * z;
-    float projZ = m_matrix.m[0][2] * x + m_matrix.m[1][2] * y + m_matrix.m[2][2] * z;
-
-    m_matrix.m[0][3] = -projX;
-    m_matrix.m[1][3] = -projY;
-    m_matrix.m[2][3] = -projZ;
+    Vector3 localPoint = toLocal(position);
+    translate(localPoint);
 }
 
 Vector3 Transform::transformVector(const Vector3 &v) const
@@ -130,4 +123,40 @@ Vector3 Transform::invTransformNormal(const Vector3 &n) const
     const Matrix mtx = Matrix::getTransposeMatrix(m_matrix);
 
     return Matrix::MulVector(mtx, n);
+}
+
+Vector3 Transform::getAxisX() const
+{
+    float x = m_matrix.m[0][0];
+    float y = m_matrix.m[1][0];
+    float z = m_matrix.m[2][0];
+
+    return Vector3(x, y, z);
+}
+
+Vector3 Transform::getAxisY() const
+{
+    float x = m_matrix.m[0][1];
+    float y = m_matrix.m[1][1];
+    float z = m_matrix.m[2][1];
+
+    return Vector3(x, y, z);
+}
+
+Vector3 Transform::getAxisZ() const
+{
+    float x = m_matrix.m[0][2];
+    float y = m_matrix.m[1][2];
+    float z = m_matrix.m[2][2];
+
+    return Vector3(x, y, z);
+}
+
+Vector3 Transform::toLocal(const Vector3 &worldPosition) const
+{
+    float x = worldPosition * getAxisX();
+    float y = worldPosition * getAxisY();
+    float z = worldPosition * getAxisZ();
+
+    return Vector3(x, y, z);
 }
