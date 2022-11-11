@@ -97,17 +97,17 @@ Color Color::operator/(const float m) const
 
 bool Color::operator==(const Color that) const
 {
-    if (!Common::float_equal(this->r, r))
+    if (!Common::is_float_equal(this->r, r))
     {
         return false;
     }
 
-    if (!Common::float_equal(this->g, g))
+    if (!Common::is_float_equal(this->g, g))
     {
         return false;
     }
 
-    if (!Common::float_equal(this->b, b))
+    if (!Common::is_float_equal(this->b, b))
     {
         return false;
     }

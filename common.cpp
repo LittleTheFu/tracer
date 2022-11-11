@@ -16,7 +16,7 @@ const Color Common::LIGHT_COLOR = Color::COLOR_WHITE;
 
 const float Common::SAMPLE_LIGHTR_CORRECT_FACTOR = 0.96;
 
-const bool Common::float_equal(float x, float y)
+const bool Common::is_float_equal(float x, float y)
 {
     float diff = std::abs(x - y);
 
@@ -25,7 +25,7 @@ const bool Common::float_equal(float x, float y)
 
 const bool Common::is_float_zero(float x)
 {
-    return float_equal(x, FLOAT_SAMLL_NUMBER);
+    return is_float_equal(x, FLOAT_SAMLL_NUMBER);
 }
 
 const float Common::clamp(float v, float min, float max)

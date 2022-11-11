@@ -72,9 +72,9 @@ Vector3 &Vector3::operator*=(float m)
 
 bool Vector3::operator==(const Vector3 &that) const
 {
-    bool eqX = Common::float_equal(this->x, that.x);
-    bool eqY = Common::float_equal(this->y, that.y);
-    bool eqZ = Common::float_equal(this->z, that.z);
+    bool eqX = Common::is_float_equal(this->x, that.x);
+    bool eqY = Common::is_float_equal(this->y, that.y);
+    bool eqZ = Common::is_float_equal(this->z, that.z);
 
     return (eqX && eqY && eqZ);
 }

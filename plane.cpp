@@ -89,7 +89,7 @@ bool Plane::isLocalIn(const Vector3 &p) const
     // bug, fix later
     return true;
 
-    if (!Common::float_equal(p.z, 0))
+    if (!Common::is_float_equal(p.z, 0))
     {
         return false;
     }
