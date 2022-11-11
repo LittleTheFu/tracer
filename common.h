@@ -13,9 +13,11 @@ public:
     const static float INV_TWO_PI;
 
     const static bool float_equal(float x, float y);
+    const static bool is_float_zero(float x);
     const static float clamp(float v, float min, float max);
+    
     const static float genRandomDecimal();
-
+    
     const static float FLOAT_SAMLL_NUMBER;
     const static float FLOAT_MAX;
 
@@ -23,7 +25,6 @@ public:
     const static Color LIGHT_COLOR;
 
     const static float SAMPLE_LIGHTR_CORRECT_FACTOR;
-
 };
 
 #endif

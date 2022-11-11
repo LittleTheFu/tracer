@@ -23,6 +23,11 @@ const bool Common::float_equal(float x, float y)
     return diff < FLOAT_SAMLL_NUMBER;
 }
 
+const bool Common::is_float_zero(float x)
+{
+    return float_equal(x, FLOAT_SAMLL_NUMBER);
+}
+
 const float Common::clamp(float v, float min, float max)
 {
     if (v < min)
