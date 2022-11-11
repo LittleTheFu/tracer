@@ -15,6 +15,8 @@ public:
     virtual Vector3 sampleFromPoint(const Vector3 &thatPoint, float &pdf) const;
 
     void applyTransform(const Transform &t);
+    void setTransform(const Transform &t);
+    Transform getTransform() const;
 
     void setTag(int tag);
     int getTag() const;

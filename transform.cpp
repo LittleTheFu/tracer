@@ -23,6 +23,9 @@ Transform &Transform::applyTransform(const Transform &t)
     m_matrix = Matrix::Mul(m_matrix, t.getMatrix());
     m_invMatrix = Matrix::Mul(m_invMatrix, t.getInverseMatrix());
 
+    // m_matrix = Matrix::Mul(t.getMatrix(), m_matrix);
+    // m_invMatrix = Matrix::Mul(t.getInverseMatrix(), m_invMatrix);
+
     return *this;
 }
 

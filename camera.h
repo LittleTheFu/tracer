@@ -4,6 +4,7 @@
 #include "objectpool.h"
 #include "vector.h"
 #include "transform.h"
+#include <string>
 
 class Camera
 {
@@ -14,9 +15,9 @@ public:
     void build(const Vector3 &position, const Vector3 &theta);
 
     Transform getTransform() const;
-    
+
     void render();
-    bool saveToImage() const;
+    bool saveToImage(const std::string &name) const;
 
 private:
     const ObjectPool *m_pObjectPool;

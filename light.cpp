@@ -30,3 +30,8 @@ Vector3 Light::sample(const Vector3 &thatPoint, float &pdf) const
 {
     return m_pGeometry->sampleFromPoint(thatPoint, pdf);
 }
+
+const Geometry *Light::getGeometry() const
+{
+    return m_pGeometry;
+}

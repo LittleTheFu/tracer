@@ -15,6 +15,8 @@ public:
     Vector3 sample(const Vector3 &thatPoint, float &pdf) const;
     bool hit(const Ray &ray, float &t, Vector3 &normal, float &dot) const;
 
+    const Geometry *getGeometry() const;
+
 private:
     Geometry *m_pGeometry;
 };

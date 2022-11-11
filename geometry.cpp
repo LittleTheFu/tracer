@@ -27,6 +27,16 @@ void Geometry::applyTransform(const Transform &t)
     m_transform.applyTransform(t);
 }
 
+void Geometry::setTransform(const Transform &t)
+{
+    m_transform = t;
+}
+
+Transform Geometry::getTransform() const
+{
+    return m_transform;
+}
+
 Vector3 Geometry::sampleFromPoint(const Vector3 &thatPoint, float &pdf) const
 {
     pdf = 1;
