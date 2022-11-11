@@ -13,6 +13,21 @@ Camera::Camera(const ObjectPool *pool)
     m_BounceTime = 10;
 }
 
+void Camera::build(const Vector3 &position, const Vector3 &direction, const Vector3 &worldUp)
+{
+
+}
+
+void Camera::build(const Vector3 &position, const Vector3 &theta)
+{
+    m_transform.set(theta, position);
+}
+
+Transform Camera::getTransform() const
+{
+    return m_transform;
+}
+
 void Camera::render()
 {
     const float half_width = m_Width / 2.0f;
@@ -56,7 +71,7 @@ void Camera::render()
         }
 }
 
-bool Camera::saveToImage()
+bool Camera::saveToImage() const
 {
     unsigned error = lodepng::encode("img.png", m_Image, m_Width, m_Height);
     std::cout << "encoder error " << error << ": " << lodepng_error_text(error) << std::endl;

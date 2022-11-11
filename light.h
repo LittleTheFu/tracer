@@ -4,23 +4,19 @@
 #include "geometry.h"
 #include "ray.h"
 #include "vector.h"
+#include "transform.h"
 
 class Light
 {
 public:
     Light(const Vector3 &position);
 
-    void setPosition(const Vector3 &position);
-    Vector3 getPosition() const;
-
+    void applyTransform(const Transform &t);
     Vector3 sample(const Vector3 &thatPoint, float &pdf) const;
-    
     bool hit(const Ray &ray, float &t, Vector3 &normal, float &dot) const;
 
+private:
     Geometry *m_pGeometry;
-
-    private:
-        Vector3 m_position;
 };
 
 #endif

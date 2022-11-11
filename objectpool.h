@@ -7,14 +7,17 @@
 #include "hitrecord.h"
 #include "color.h"
 #include "light.h"
+#include "transform.h"
 
 class ObjectPool
 {
 public:
     ObjectPool();
 
-    void add(const Geometry *pGeometry);
-    void add(const Light *pLight);
+    void add(Geometry *pGeometry);
+    void add(Light *pLight);
+
+    void applyTransfrom(Transform t);
 
     bool hitScene(const Ray &ray, HitRecord &record) const;
 
@@ -22,8 +25,8 @@ public:
     Color getColorFromLight(const Ray &ray) const;
 
 private:
-    std::vector<const Geometry *> m_objects;
-    const Light *m_pLight;
+    std::vector<Geometry *> m_objects;
+    Light *m_pLight;
 
     float m_attenuation;
 };

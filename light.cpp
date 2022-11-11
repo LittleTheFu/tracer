@@ -5,21 +5,12 @@
 
 Light::Light(const Vector3 &position)
 {
-    m_pGeometry = new Ball(Vector3::ZERO, position, 10, nullptr);
-    m_position = position;
+    m_pGeometry = new Ball(Vector3::ZERO, position, 5, nullptr);
 }
 
-void Light::setPosition(const Vector3 &position)
+void Light::applyTransform(const Transform &t)
 {
-    if (m_pGeometry)
-    {
-        m_pGeometry->setPosition(position);
-    }
-}
-
-Vector3 Light::getPosition() const
-{
-    return m_position;
+    m_pGeometry->applyTransform(t);
 }
 
 bool Light::hit(const Ray &ray, float &t, Vector3 &normal, float &dot) const

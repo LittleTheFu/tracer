@@ -11,6 +11,21 @@ Transform::Transform(const Matrix &matrix, const Matrix &invMatrix)
     m_invMatrix = invMatrix;
 }
 
+Transform Transform::getInverseTransform()
+{
+    Transform t(m_invMatrix, m_matrix);
+
+    return t;
+}
+
+Transform &Transform::applyTransform(const Transform &t)
+{
+    m_matrix = Matrix::Mul(m_matrix, t.getMatrix());
+    m_invMatrix = Matrix::Mul(m_invMatrix, t.getInverseMatrix());
+
+    return *this;
+}
+
 Transform &Transform::scale(float sx, float sy, float sz)
 {
     Matrix s = Matrix::getScaleMatrix(sx, sy, sz);
@@ -95,7 +110,7 @@ Transform &Transform::set(const Vector3 &rotateXYZ, const Vector3 &position)
 {
     rotate(rotateXYZ);
     Vector3 localPoint = toLocal(position);
-    
+
     return translate(localPoint);
 }
 
@@ -167,4 +182,14 @@ Vector3 Transform::toLocal(const Vector3 &worldPosition) const
     float z = worldPosition * getAxisZ();
 
     return Vector3(x, y, z);
+}
+
+Matrix Transform::getMatrix() const
+{
+    return m_matrix;
+}
+
+Matrix Transform::getInverseMatrix() const
+{
+    return m_invMatrix;
 }

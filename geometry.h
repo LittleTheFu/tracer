@@ -14,6 +14,8 @@ public:
     virtual bool hit(const Ray &ray, HitRecord &record) const = 0;
     virtual Vector3 sampleFromPoint(const Vector3 &thatPoint, float &pdf) const;
 
+    void applyTransform(const Transform &t);
+
     void setTag(int tag);
     int getTag() const;
 

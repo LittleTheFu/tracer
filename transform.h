@@ -9,6 +9,10 @@ public:
     Transform();
     Transform(const Matrix &matrix, const Matrix &invMatrix);
 
+    Transform getInverseTransform();
+
+    Transform &applyTransform(const Transform &t);
+
     Transform &scale(float sx, float sy, float sz);
     Transform &translate(const Vector3 &v);
     Transform &translate(float tx, float ty, float tz);
@@ -25,6 +29,9 @@ public:
     Vector3 invTransformPoint(const Vector3 &p) const;
     Vector3 transformNormal(const Vector3 &n) const;
     Vector3 invTransformNormal(const Vector3 &n) const;
+
+    Matrix getMatrix() const;
+    Matrix getInverseMatrix() const;
 
 private:
     Vector3 getAxisX() const;

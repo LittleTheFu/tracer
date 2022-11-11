@@ -13,14 +13,24 @@ ObjectPool::ObjectPool()
     // m_attenuation = 1;
 }
 
-void ObjectPool::add(const Geometry *pGeometry)
+void ObjectPool::add(Geometry *pGeometry)
 {
     m_objects.push_back(pGeometry);
 }
 
-void ObjectPool::add(const Light *pLight)
+void ObjectPool::add(Light *pLight)
 {
     m_pLight = pLight;
+}
+
+void ObjectPool::applyTransfrom(Transform t)
+{
+    for (std::vector<Geometry *>::iterator it = m_objects.begin(); it != m_objects.end(); it++)
+    {
+        (*it)->applyTransform(t);
+    }
+
+    m_pLight->applyTransform(t);
 }
 
 bool ObjectPool::hitScene(const Ray &ray, HitRecord &record) const
@@ -28,7 +38,7 @@ bool ObjectPool::hitScene(const Ray &ray, HitRecord &record) const
     bool hit = false;
     float tMin = Common::FLOAT_MAX;
 
-    for (std::vector<const Geometry *>::const_iterator it = m_objects.begin(); it != m_objects.end(); it++)
+    for (std::vector<Geometry *>::const_iterator it = m_objects.begin(); it != m_objects.end(); it++)
     {
         HitRecord tempRecord;
 

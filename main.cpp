@@ -10,6 +10,7 @@
 #include "hitrecord.h"
 #include "light.h"
 #include "camera.h"
+#include "transform.h"
 using namespace std;
 
 int main()
@@ -50,7 +51,7 @@ int main()
     Ball *glassBall = new Ball(Vector3::ZERO, Vector3(0, 0, 225), 20, &MtrlGlass);
     Ball *mirrorBall = new Ball(Vector3::ZERO, Vector3(-25, 40, 225), 20, &MtrlMirror);
 
-    Light *light = new Light(Vector3(0, -80, 220));
+    Light *light = new Light(Vector3(0, -75, 200));
 
     const float c = 100;
     const float r = 5 * c;
@@ -118,6 +119,9 @@ int main()
     pool->add(rightPlane);
 
     Camera camera(pool);
+    camera.build(Vector3(0, 0, 100), Vector3(0, 0, 0));
+    Transform t = camera.getTransform().getInverseTransform();
+    pool->applyTransfrom(t);
     camera.render();
     if (!camera.saveToImage())
     {
