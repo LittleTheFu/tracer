@@ -50,7 +50,7 @@ bool Plane::hit(const Ray &ray, HitRecord &record) const
     record.transform = m_transform;
 
     record.point = m_transform.transformPoint(localPoint);
-    record.normal = m_transform.transformVector(getLocalNormal());
+    record.normal = m_transform.transformNormal(getLocalNormal());
 
     if (m_pMtrl && m_pMtrl->pBrdf)
     {
