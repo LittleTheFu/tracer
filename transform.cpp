@@ -93,9 +93,10 @@ Transform &Transform::rotateZ(float theta)
 
 Transform &Transform::set(const Vector3 &rotateXYZ, const Vector3 &position)
 {
+    rotate(rotateXYZ);
     Vector3 localPoint = toLocal(position);
     
-    return rotate(rotateXYZ).translate(localPoint);
+    return translate(localPoint);
 }
 
 Vector3 Transform::transformVector(const Vector3 &v) const
