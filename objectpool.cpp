@@ -23,12 +23,12 @@ void ObjectPool::add(const Light *pLight)
     m_pLight = pLight;
 }
 
-bool ObjectPool::hitScene(const Ray &ray, HitRecord &record)
+bool ObjectPool::hitScene(const Ray &ray, HitRecord &record) const
 {
     bool hit = false;
     float tMin = Common::FLOAT_MAX;
 
-    for (std::vector<const Geometry *>::iterator it = m_objects.begin(); it != m_objects.end(); it++)
+    for (std::vector<const Geometry *>::const_iterator it = m_objects.begin(); it != m_objects.end(); it++)
     {
         HitRecord tempRecord;
 
@@ -46,7 +46,7 @@ bool ObjectPool::hitScene(const Ray &ray, HitRecord &record)
     return hit;
 }
 
-Color ObjectPool::getColorFromLight(const Ray &ray)
+Color ObjectPool::getColorFromLight(const Ray &ray) const
 {
     float t;
     Vector3 normal;
@@ -73,7 +73,7 @@ Color ObjectPool::getColorFromLight(const Ray &ray)
     return Color::COLOR_BLACK;
 }
 
-Color ObjectPool::trace(const Ray &ray, int bounceNum, const HitRecord &currentState)
+Color ObjectPool::trace(const Ray &ray, int bounceNum, const HitRecord &currentState) const
 {
     if (bounceNum == 1)
     {

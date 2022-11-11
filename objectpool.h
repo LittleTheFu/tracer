@@ -16,10 +16,10 @@ public:
     void add(const Geometry *pGeometry);
     void add(const Light *pLight);
 
-    bool hitScene(const Ray &ray, HitRecord &record);
+    bool hitScene(const Ray &ray, HitRecord &record) const;
 
-    Color trace(const Ray &ray, int bounceNum, const HitRecord &currentState);
-    Color getColorFromLight(const Ray &ray);
+    Color trace(const Ray &ray, int bounceNum, const HitRecord &currentState) const;
+    Color getColorFromLight(const Ray &ray) const;
 
 private:
     std::vector<const Geometry *> m_objects;

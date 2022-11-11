@@ -1,5 +1,3 @@
-#include "lodepng.h"
-
 #include "ray.h"
 #include "objectpool.h"
 #include "material.h"
@@ -11,6 +9,7 @@
 #include "plane.h"
 #include "hitrecord.h"
 #include "light.h"
+#include "camera.h"
 using namespace std;
 
 int main()
@@ -87,7 +86,7 @@ int main()
     Vector3 glassPosition(0, 0, -c * 0.5);
     Plane *glassPlane = new Plane(glassRotate, glassPosition, r, &MtrlGlass);
 
-    ObjectPool pool;
+    ObjectPool *pool = new ObjectPool();
 
     frontPlane->setTag(0);
     backPlane->setTag(1);
@@ -101,89 +100,30 @@ int main()
 
     mirrorBall->setTag(200);
 
-    pool.add(light);
+    pool->add(light);
 
-    pool.add(redBall);
-    pool.add(yellowBall);
-    pool.add(aquaBall);
-    pool.add(whiteBall);
+    pool->add(redBall);
+    pool->add(yellowBall);
+    pool->add(aquaBall);
+    pool->add(whiteBall);
 
-    pool.add(glassBall);
-    pool.add(mirrorBall);
+    pool->add(glassBall);
+    pool->add(mirrorBall);
 
-    pool.add(frontPlane);
-    pool.add(backPlane);
-    pool.add(topPlane);
-    pool.add(bottomPlane);
-    pool.add(leftPlane);
-    pool.add(rightPlane);
+    pool->add(frontPlane);
+    pool->add(backPlane);
+    pool->add(topPlane);
+    pool->add(bottomPlane);
+    pool->add(leftPlane);
+    pool->add(rightPlane);
 
-    // pool.add(glassPlane);
-
-    // unsigned width = 512 * 8, height = 512 * 8;
-    // unsigned width = 512 * 4, height = 512 * 4;
-    // unsigned width = 512 * 2, height = 512 * 2;
-    unsigned width = 512 * 1, height = 512 * 1;
-    const float half_width = width / 2.0f;
-    const float half_height = height / 2.0f;
-    const int bounceTime = 10;
-    std::vector<unsigned char> image;
-    image.resize(width * height * 4);
-    for (unsigned y = 0; y < height; y++)
-        for (unsigned x = 0; x < width; x++)
-        {
-            if (x == 0)
-            {
-                std::cout << "x:y --- "
-                          << "(" << x << "," << y << ")" << std::endl;
-            }
-            const Vector3 origin(0, 0, 0);
-            const Vector3 dir((x - half_width) / half_width, (y - half_height) / half_height, 2);
-            Ray ray(origin, dir);
-
-            HitRecord record;
-            // record.reflectPdf = Common::INV_TWO_PI;
-            record.reflectPdf = 1;
-            record.dot = 1;
-            record.f = Color::COLOR_WHITE;
-
-            unsigned char r = 0;
-            unsigned char g = 0;
-            unsigned char b = 0;
-            // if (pool.hitScene(ray, record))
-            // {
-            //     ((Lambertian *)(record.mtrl.pBrdf))->m_rho.getConvertedValue(r, g, b);
-            // }
-            if (x == 114 && y == 103)
-            {
-                std::cout << "test" << std::endl;
-                int b = 3;
-            }
-
-            Color color = Color::COLOR_BLACK;
-            for (int i = 2; i < bounceTime; i++)
-            {
-                // bool hit = pool.traceWithTimes(ray, i, outIndex, info, Material::MTRL_WHITE);
-                color += pool.trace(ray, i, record);
-            }
-
-            color.getConvertedValue(r, g, b);
-
-            // if (r == 0 && g == 0 && b == 0)
-            // {
-            //     int a = 3;
-            // }
-
-            image[4 * width * y + 4 * x + 0] = r;
-            image[4 * width * y + 4 * x + 1] = g;
-            image[4 * width * y + 4 * x + 2] = b;
-            image[4 * width * y + 4 * x + 3] = 255;
-        }
-
-    unsigned error = lodepng::encode("img.png", image, width, height);
-
-    if (error)
-        std::cout << "encoder error " << error << ": " << lodepng_error_text(error) << std::endl;
+    Camera camera(pool);
+    camera.render();
+    if (!camera.saveToImage())
+    {
+        // std::cout << "encoder error " << error << ": " << lodepng_error_text(error) << std::endl;
+        std::cout << "fail to save to image" << std::endl;
+    }
 
     return 0;
 }
