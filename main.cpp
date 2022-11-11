@@ -121,7 +121,6 @@ int main()
     camera.render();
     if (!camera.saveToImage())
     {
-        // std::cout << "encoder error " << error << ": " << lodepng_error_text(error) << std::endl;
         std::cout << "fail to save to image" << std::endl;
     }
 

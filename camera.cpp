@@ -59,6 +59,7 @@ void Camera::render()
 bool Camera::saveToImage()
 {
     unsigned error = lodepng::encode("img.png", m_Image, m_Width, m_Height);
+    std::cout << "encoder error " << error << ": " << lodepng_error_text(error) << std::endl;
 
     return error == 0;
 }
