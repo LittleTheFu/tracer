@@ -12,6 +12,7 @@ public:
     float r, g, b;
 
     Color &operator+=(const Color &that);
+    Color &operator*=(const Color &that);
     Color operator*(const float m) const;
     Color operator*(const Color &that) const;
     Color operator/(const float m) const;

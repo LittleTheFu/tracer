@@ -25,6 +25,9 @@ private:
     virtual Vector3 dpdu(const Vector3 &point) const = 0;
     virtual Vector3 dpdv(const Vector3 &point) const = 0;
 
+    virtual float u(const Vector3 &point) const = 0;
+    virtual float v(const Vector3 &point) const = 0;
+
 protected:
     Transform m_transform;
     int m_tag;

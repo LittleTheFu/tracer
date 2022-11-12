@@ -72,12 +72,20 @@ bool Ball::hit(const Ray &ray, HitRecord &record) const
         const Vector3 localNormal = getLocalNormal(localPoint);
         record.normal = m_transform.transformNormal(localNormal);
 
+        record.u = u(localPoint);
+        record.v = v(localPoint);
+
         if (m_pMtrl && m_pMtrl->pBrdf)
         {
             Frame frame(localNormal, dpdu(localPoint));
+
             const Vector3 local_wo = frame.toLocal(-newRay.dir);
             Vector3 r;
             record.f = m_pMtrl->pBrdf->sample_f(local_wo, r, record.reflectPdf);
+            if (m_pMtrl->pTexture)
+            {
+                record.f *= m_pMtrl->pTexture->getColor(record.u, record.v);
+            }
             record.dot = Common::clamp(std::abs(r * Common::LOCAL_NORMAL), Common::FLOAT_SAMLL_NUMBER, 1.0f);
             // if (r.z == 0)
             //     r.z = 1;
@@ -176,4 +184,20 @@ float Ball::getTheta(const Vector3 &point) const
     const float theta = std::acos(point.z / r);
 
     return theta;
+}
+
+float Ball::u(const Vector3 &point) const
+{
+    float theta = getTheta(point);
+    float uu = theta * Common::INV_PI;
+
+    return uu;
+}
+
+float Ball::v(const Vector3 &point) const
+{
+    float phi = getPhi(point);
+    float vv = phi * Common::INV_TWO_PI;
+
+    return vv;
 }

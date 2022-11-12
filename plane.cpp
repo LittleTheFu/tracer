@@ -9,6 +9,8 @@ Plane::Plane(const Vector3 &rotate, const Vector3 &position, float length, Mater
 
     this->length = length;
     this->m_pMtrl = pMtrl;
+
+    this->m_uvCellSize = 400;
 }
 
 Vector3 Plane::getLocalNormal() const
@@ -52,10 +54,17 @@ bool Plane::hit(const Ray &ray, HitRecord &record) const
     record.point = m_transform.transformPoint(localPoint);
     record.normal = m_transform.transformNormal(getLocalNormal());
 
+    record.u = u(localPoint);
+    record.v = v(localPoint);
+
     if (m_pMtrl && m_pMtrl->pBrdf)
     {
         Vector3 r;
         record.f = m_pMtrl->pBrdf->sample_f(-newRay.dir, r, record.reflectPdf);
+        if (m_pMtrl->pTexture)
+        {
+            record.f *= m_pMtrl->pTexture->getColor(record.u, record.v);
+        }
         if (r * Common::LOCAL_NORMAL < 0)
         {
             // m_pMtrl->pBrdf->sample_f(-newRay.dir, r, record.reflectPdf);
@@ -82,6 +91,22 @@ Vector3 Plane::dpdu(const Vector3 &point) const
 Vector3 Plane::dpdv(const Vector3 &point) const
 {
     return Vector3(0, 1, 0);
+}
+
+float Plane::u(const Vector3 &point) const
+{
+    float rawU = point.x / m_uvCellSize;
+    float uu = rawU - (int)rawU;
+
+    return uu;
+}
+
+float Plane::v(const Vector3 &point) const
+{
+    float rawV = point.y / m_uvCellSize;
+    float vv = rawV - (int)rawV;
+
+    return vv;
 }
 
 bool Plane::isLocalIn(const Vector3 &p) const

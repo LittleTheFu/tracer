@@ -2,6 +2,7 @@
 #define _BRDF_MGR_H_
 
 #include "brdf.h"
+#include "texture.h"
 
 class BrdfMgr
 {
@@ -20,6 +21,8 @@ public:
     Brdf* getMirrorBrdf();
     Brdf* getGlassBrdf();
 
+    Texture* getTexture();
+
 private:
     Brdf *brdfRed;
     Brdf *brdfGreen;
@@ -31,6 +34,8 @@ private:
 
     Brdf *brdfMirror;
     Brdf *brdfGlass;
+
+    Texture *texture;
 };
 
 #endif

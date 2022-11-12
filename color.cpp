@@ -55,6 +55,15 @@ Color &Color::operator+=(const Color &that)
     return *this;
 }
 
+Color &Color::operator*=(const Color &that)
+{
+    r *= that.r;
+    r *= that.g;
+    r *= that.b;
+
+    return *this;
+}
+
 Color Color::operator*(const float m) const
 {
     const float r = this->r * m;

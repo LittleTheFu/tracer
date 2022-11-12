@@ -17,8 +17,13 @@ private:
     virtual Vector3 dpdu(const Vector3 &point) const;
     virtual Vector3 dpdv(const Vector3 &point) const;
 
+    virtual float u(const Vector3 &point) const;
+    virtual float v(const Vector3 &point) const;
+
     Vector3 getLocalNormal() const;
     bool isLocalIn(const Vector3 &p) const;
+
+    int m_uvCellSize;
 };
 
 #endif

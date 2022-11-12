@@ -8,7 +8,7 @@
 BrdfMgr::BrdfMgr()
 {
     brdfRed = new Lambertian(Color::COLOR_RED * 0.3);
-    
+
     brdfGreen = new Lambertian(Color::COLOR_GREEN * 0.3);
     brdfBlue = new Lambertian(Color::COLOR_BLUE * 0.3);
 
@@ -17,9 +17,11 @@ BrdfMgr::BrdfMgr()
 
     brdfAqua = new Lambertian(Color::COLOR_AQUA * 0.3);
     brdfPurple = new Lambertian(Color::COLOR_PURPLE * 0.3);
-    
+
     brdfMirror = new Mirror();
     brdfGlass = new Glass(1, 1.5);
+
+    texture = new Texture();
 }
 
 BrdfMgr::~BrdfMgr()
@@ -75,4 +77,9 @@ Brdf *BrdfMgr::getMirrorBrdf()
 Brdf *BrdfMgr::getGlassBrdf()
 {
     return brdfGlass;
+}
+
+Texture *BrdfMgr::getTexture()
+{
+    return texture;
 }

@@ -22,6 +22,9 @@ public:
     float dot;
     Color f;
 
+    float u;
+    float v;
+
     // Vector3 dpdu;
     // Vector3 dpdv;
 

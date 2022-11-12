@@ -1,9 +1,10 @@
 #include "material.h"
 
-// void Rmaterial::eval(const HitInfo& info)
-// {
-    
-// }
+Material::Material()
+{
+    pBrdf = nullptr;
+    pTexture = nullptr;
+}
 
 Color Material::calc(const Color &inputColor, const Ray &inputDir) const
 {

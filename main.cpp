@@ -19,24 +19,31 @@ int main()
 
     Material lambMtrlRed;
     lambMtrlRed.pBrdf = brdfMgr.getRedBrdf();
+    lambMtrlRed.pTexture = brdfMgr.getTexture();
 
     Material lambMtrlYellow;
     lambMtrlYellow.pBrdf = brdfMgr.getYellowBrdf();
+    // lambMtrlYellow.pTexture = brdfMgr.getTexture();
 
     Material lambMtrlAqua;
     lambMtrlAqua.pBrdf = brdfMgr.getAquaBrdf();
+    // lambMtrlAqua.pTexture = brdfMgr.getTexture();
 
     Material lambMtrlPurple;
     lambMtrlPurple.pBrdf = brdfMgr.getPurpleBrdf();
+    // lambMtrlPurple.pTexture = brdfMgr.getTexture();
 
     Material lambMtrlGreen;
     lambMtrlGreen.pBrdf = brdfMgr.getGreenBrdf();
+    // lambMtrlGreen.pTexture = brdfMgr.getTexture();
 
     Material lambMtrlBlue;
     lambMtrlBlue.pBrdf = brdfMgr.getBlueBrdf();
+    // lambMtrlAqua.pTexture = brdfMgr.getTexture();
 
     Material lambMtrlWhite;
     lambMtrlWhite.pBrdf = brdfMgr.getWhiteBrdf();
+    // lambMtrlWhite.pTexture = brdfMgr.getTexture();
 
     Material MtrlMirror;
     MtrlMirror.pBrdf = brdfMgr.getMirrorBrdf();
@@ -45,13 +52,13 @@ int main()
     MtrlGlass.pBrdf = brdfMgr.getGlassBrdf();
 
     Ball *redBall = new Ball(Vector3::ZERO, Vector3(-75, 10, 300), 20, &lambMtrlRed);
-    Ball *yellowBall = new Ball(Vector3::ZERO, Vector3(60, 80, 200), 20, &lambMtrlYellow);
+    Ball *yellowBall = new Ball(Vector3::ZERO, Vector3(60, 80, 225), 20, &lambMtrlYellow);
     Ball *aquaBall = new Ball(Vector3::ZERO, Vector3(-50, -50, 300), 20, &lambMtrlAqua);
     Ball *whiteBall = new Ball(Vector3::ZERO, Vector3(20, -20, 300), 20, &lambMtrlWhite);
     Ball *glassBall = new Ball(Vector3::ZERO, Vector3(0, 0, 225), 20, &MtrlGlass);
     Ball *mirrorBall = new Ball(Vector3::ZERO, Vector3(-25, 40, 225), 20, &MtrlMirror);
 
-    Light *light = new Light(Vector3(0, -80, 250));
+    Light *light = new Light(Vector3(0, -80, 260));
 
     const float c = 100;
     const float r = 5 * c;
@@ -126,7 +133,7 @@ int main()
     camera.saveToImage("img");
     pool->applyTransfrom(t.getInverseTransform());
 
-    // for (int i = 0; i < 20; i++)
+    // for (int i = 7; i < 8; i++)
     // {
     //     Camera camera(pool);
     //     std::string name = "b_img" + std::to_string(i);
