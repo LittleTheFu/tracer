@@ -10,11 +10,12 @@ Camera::Camera(const ObjectPool *pool)
     m_Width = 512 * m_factor;
     m_Height = 512 * m_factor;
 
-    m_BounceTime = 3;
+    m_BounceTime = 10;
 }
 
 void Camera::build(const Vector3 &position, const Vector3 &direction, const Vector3 &worldUp)
 {
+    //todo:
 }
 
 void Camera::build(const Vector3 &position, const Vector3 &theta)
@@ -58,6 +59,8 @@ void Camera::render()
             Color color = Color::COLOR_BLACK;
             for (int i = 2; i < m_BounceTime; i++)
             {
+                // ray.origin = Vector3::ZERO;
+                // ray.dir = Vector3(0, 0, 1);
                 color += m_pObjectPool->trace(ray, i, record);
             }
 

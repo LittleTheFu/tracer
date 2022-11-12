@@ -2,6 +2,7 @@
 #define _MATRIX_H_
 
 #include "vector.h"
+#include <iostream>
 
 class Matrix
 {
@@ -19,6 +20,8 @@ public:
     static const Vector3 MulPoint(const Matrix &m, const Vector3 &p);
 
     static const Matrix getTransposeMatrix(const Matrix &m);
+
+    friend std::ostream &operator<<(std::ostream &os, const Matrix &matrix);
 
     static const Matrix Identity;
 

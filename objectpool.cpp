@@ -58,8 +58,6 @@ bool ObjectPool::hitScene(const Ray &ray, HitRecord &record) const
 
 Color ObjectPool::getColorFromLight(const Ray &ray) const
 {
-    return Color::COLOR_WHITE;
-    
     float t;
     Vector3 normal;
     float dot;

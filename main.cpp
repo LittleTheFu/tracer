@@ -51,29 +51,29 @@ int main()
     Ball *glassBall = new Ball(Vector3::ZERO, Vector3(0, 0, 225), 20, &MtrlGlass);
     Ball *mirrorBall = new Ball(Vector3::ZERO, Vector3(-25, 40, 225), 20, &MtrlMirror);
 
-    Light *light = new Light(Vector3(0, -40, 200));
+    Light *light = new Light(Vector3(0, -80, 250));
 
     const float c = 100;
     const float r = 5 * c;
 
-    Vector3 leftRotate(0, -Common::PI / 2, 0);
+    Vector3 leftRotate(0, Common::PI / 2, 0);
     Vector3 leftPosition(-c, 0, 0);
     // CPlane *leftPlane = new CPlane(leftRotate, leftPosition, r, &MtrlMirror);
     Plane *leftPlane = new Plane(leftRotate, leftPosition, r, &lambMtrlYellow);
 
-    Vector3 rightRotate(0, Common::PI / 2, 0);
+    Vector3 rightRotate(0, -Common::PI / 2, 0);
     Vector3 rightPosition(c, 0, 0);
     Plane *rightPlane = new Plane(rightRotate, rightPosition, r, &lambMtrlBlue);
 
-    Vector3 topRotate(Common::PI / 2, 0, 0);
+    Vector3 topRotate(-Common::PI / 2, 0, 0);
     Vector3 topPosition(0, -c, 0);
     Plane *topPlane = new Plane(topRotate, topPosition, r, &lambMtrlPurple);
 
-    Vector3 bottomRotate(-Common::PI / 2, 0, 0);
+    Vector3 bottomRotate(Common::PI / 2, 0, 0);
     Vector3 bottomPosition(0, c, 0);
     Plane *bottomPlane = new Plane(bottomRotate, bottomPosition, r, &lambMtrlGreen);
 
-    Vector3 frontRotate(0, Common::PI, 0);
+    Vector3 frontRotate(Common::PI, 0, 0);
     Vector3 frontPosition(0, 0, 5 * c);
     // CPlane *frontPlane = new CPlane(frontRotate, frontPosition, r, &MtrlMirror);
     Plane *frontPlane = new Plane(frontRotate, frontPosition, r, &lambMtrlAqua);
@@ -119,21 +119,24 @@ int main()
     pool->add(rightPlane);
 
     Camera camera(pool);
+    camera.build(Vector3::ZERO, Vector3::ZERO);
+    Transform t = camera.getTransform().getInverseTransform();
+    pool->applyTransfrom(t);
+    camera.render();
+    camera.saveToImage("img");
+    pool->applyTransfrom(t.getInverseTransform());
 
-    for (int i = 0; i < 20; i++)
-    {
-        // redBall->setTransform(light->getGeometry()->getTransform());
-        Camera camera(pool);
-        std::string name = "t_img" + std::to_string(i);
-        camera.build(Vector3(0, 0, 0), Vector3(0, 0, Common::PI / 5 * i));
-        // camera.build(Vector3(0, 0, -i * 5), Vector3(0, 0, 0));
-        // camera.build(Vector3(0, 0, 0), Vector3(0, 0, 0));
-        Transform t = camera.getTransform().getInverseTransform();
-        pool->applyTransfrom(t);
-        camera.render();
-        camera.saveToImage(name);
-        pool->applyTransfrom(t.getInverseTransform());
-    }
+    // for (int i = 0; i < 20; i++)
+    // {
+    //     Camera camera(pool);
+    //     std::string name = "b_img" + std::to_string(i);
+    //     camera.build(Vector3(0, 0, -200 + i * 30), Vector3(0, 0, Common::PI / 10 * i));
+    //     Transform t = camera.getTransform().getInverseTransform();
+    //     pool->applyTransfrom(t);
+    //     camera.render();
+    //     camera.saveToImage(name);
+    //     pool->applyTransfrom(t.getInverseTransform());
+    // }
 
     return 0;
 }
