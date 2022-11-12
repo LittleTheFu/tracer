@@ -5,7 +5,7 @@ Camera::Camera(const ObjectPool *pool)
 {
     m_pObjectPool = pool;
 
-    m_factor = 1;
+    m_factor = 8;
 
     m_Width = 512 * m_factor;
     m_Height = 512 * m_factor;

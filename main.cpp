@@ -125,25 +125,25 @@ int main()
     pool->add(leftPlane);
     pool->add(rightPlane);
 
-    Camera camera(pool);
-    camera.build(Vector3::ZERO, Vector3::ZERO);
-    Transform t = camera.getTransform().getInverseTransform();
-    pool->applyTransfrom(t);
-    camera.render();
-    camera.saveToImage("img");
-    pool->applyTransfrom(t.getInverseTransform());
+    // Camera camera(pool);
+    // camera.build(Vector3::ZERO, Vector3::ZERO);
+    // Transform t = camera.getTransform().getInverseTransform();
+    // pool->applyTransfrom(t);
+    // camera.render();
+    // camera.saveToImage("img");
+    // pool->applyTransfrom(t.getInverseTransform());
 
-    // for (int i = 7; i < 8; i++)
-    // {
-    //     Camera camera(pool);
-    //     std::string name = "b_img" + std::to_string(i);
-    //     camera.build(Vector3(0, 0, -200 + i * 30), Vector3(0, 0, Common::PI / 10 * i));
-    //     Transform t = camera.getTransform().getInverseTransform();
-    //     pool->applyTransfrom(t);
-    //     camera.render();
-    //     camera.saveToImage(name);
-    //     pool->applyTransfrom(t.getInverseTransform());
-    // }
+    for (int i = 0; i < 50; i++)
+    {
+        Camera camera(pool);
+        std::string name = "b_img" + std::to_string(i);
+        camera.build(Vector3(0, 0, -200 + i * 5), Vector3(0, 0, Common::PI / 50 * i));
+        Transform t = camera.getTransform().getInverseTransform();
+        pool->applyTransfrom(t);
+        camera.render();
+        camera.saveToImage(name);
+        pool->applyTransfrom(t.getInverseTransform());
+    }
 
     return 0;
 }
