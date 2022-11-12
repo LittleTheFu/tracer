@@ -124,7 +124,7 @@ Color ObjectPool::trace(const Ray &ray, int bounceNum, const HitRecord &currentS
         lightDir.normalize();
 
         record.reflect = lightDir;
-        record.dot = record.normal * lightDir;
+        record.dot = record.normal * lightDir;//dot less than 0
 
         newRay.dir = lightDir;
     }
