@@ -90,7 +90,7 @@ float Plane::u(const Vector3 &point) const
     float modU = (int)x % m_uvCellSize;
     float uu = modU / (float)m_uvCellSize;
 
-    return std::abs(uu);
+    return Common::clamp(std::abs(uu), 0, 1);
 }
 
 float Plane::v(const Vector3 &point) const
@@ -99,7 +99,7 @@ float Plane::v(const Vector3 &point) const
     float modV = (int)y % m_uvCellSize;
     float vv = modV / (float)m_uvCellSize;
 
-    return std::abs(vv);
+    return Common::clamp(std::abs(vv), 0, 1);
 }
 
 bool Plane::isLocalIn(const Vector3 &p) const
