@@ -9,12 +9,17 @@ LambertianMaterial::LambertianMaterial(const Color &rho, const Texture *pTexture
 
 Color LambertianMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf) const
 {
-    Color f = m_pBrdf->sample_f(wo, wi, pdf);
-
     if (m_pTexture)
     {
-        f *= m_pTexture->getColor(u, v);
+        // f *= m_pTexture->getColor(u, v);
+        // f += m_pTexture->getColor(u, v);
+        // f /= 5;
+
+        //WARNING: CAST
+        ((Lambertian *)(m_pBrdf))->m_rho = m_pTexture->getColor(u, v);
     }
+
+    Color f = m_pBrdf->sample_f(wo, wi, pdf);
 
     return f;
 }

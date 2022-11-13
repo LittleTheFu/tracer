@@ -19,6 +19,7 @@
 #include "glassMaterial.h"
 #include "mirrorMaterial.h"
 #include "checkboard.h"
+#include "image.h"
 
 int main()
 {
@@ -26,9 +27,9 @@ int main()
 
     float rho = 0.3;
 
-    LambertianMaterial lambMtrlRed(Color::COLOR_RED * rho, new Checkboard());
+    LambertianMaterial lambMtrlRed(Color::COLOR_RED * rho);
     LambertianMaterial lambMtrlYellow(Color::COLOR_YELLOW * rho);
-    LambertianMaterial lambMtrlAqua(Color::COLOR_AQUA * rho);
+    LambertianMaterial lambMtrlAqua(Color::COLOR_AQUA * rho, new Image("lena.png"));
     LambertianMaterial lambMtrlPurple(Color::COLOR_PURPLE * rho);
     LambertianMaterial lambMtrlGreen(Color::COLOR_GREEN * rho);
     LambertianMaterial lambMtrlBlue(Color::COLOR_BLUE * rho);
@@ -37,14 +38,14 @@ int main()
     MirrorMaterial MtrlMirror;
     GlassMaterial MtrlGlass;
 
-    Ball *redBall = new Ball(Vector3::ZERO, Vector3(-75, 10, 300), 20, &lambMtrlRed);
+    Ball *redBall = new Ball(Vector3::ZERO, Vector3(-55, 10, 210), 20, &lambMtrlRed);
     Ball *yellowBall = new Ball(Vector3::ZERO, Vector3(60, 80, 225), 20, &lambMtrlYellow);
     Ball *aquaBall = new Ball(Vector3::ZERO, Vector3(-50, -50, 300), 20, &lambMtrlAqua);
     Ball *whiteBall = new Ball(Vector3::ZERO, Vector3(20, -20, 300), 20, &lambMtrlWhite);
     Ball *glassBall = new Ball(Vector3::ZERO, Vector3(0, 0, 225), 20, &MtrlGlass);
     Ball *mirrorBall = new Ball(Vector3::ZERO, Vector3(-25, 40, 225), 20, &MtrlMirror);
 
-    Light *light = new Light(Vector3(0, -80, 260));
+    Light *light = new Light(Vector3(0, -80, 200));
 
     const float c = 100;
     const float r = 5 * c;
@@ -96,13 +97,13 @@ int main()
 
     pool->add(light);
 
-    pool->add(redBall);
-    pool->add(yellowBall);
-    pool->add(aquaBall);
-    pool->add(whiteBall);
+    // pool->add(redBall);
+    // pool->add(yellowBall);
+    // pool->add(aquaBall);
+    // pool->add(whiteBall);
 
-    pool->add(glassBall);
-    pool->add(mirrorBall);
+    // pool->add(glassBall);
+    // pool->add(mirrorBall);
 
     pool->add(frontPlane);
     pool->add(backPlane);
@@ -114,7 +115,7 @@ int main()
     // FishEyeCamera camera(pool);
     // OrthographicCamera camera(pool);
     PinholeCamera camera(pool);
-    camera.build(Vector3::ZERO, Vector3::ZERO);
+    camera.build(Vector3(0, 0, 250), Vector3(0, 0, 0));
     Transform t = camera.getTransform().getInverseTransform();
     pool->applyTransfrom(t);
     camera.render();

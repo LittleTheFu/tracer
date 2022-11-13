@@ -25,6 +25,15 @@ Color::Color(float r, float g, float b)
     this->b = b;
 }
 
+// Color::Color(unsigned char r, unsigned char g, unsigned char b)
+// {
+//     const float MAX = 255;
+
+//     this->r = r / MAX;
+//     this->g = r / MAX;
+//     this->b = r / MAX;
+// }
+
 void Color::getConvertedValue(unsigned char &r, unsigned char &g, unsigned char &b)
 {
     const unsigned char MAX = 255;
@@ -102,6 +111,15 @@ Color Color::operator/(const float m) const
     float b = this->b / m;
 
     return Color(r, g, b);
+}
+
+Color &Color::operator/=(const float m)
+{
+    r /= m;
+    g /= m;
+    b /= m;
+
+    return *this;
 }
 
 bool Color::operator==(const Color that) const

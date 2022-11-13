@@ -10,7 +10,7 @@ Plane::Plane(const Vector3 &rotate, const Vector3 &position, float length, Mater
     this->length = length;
     this->m_pMtrl = pMtrl;
 
-    this->m_uvCellSize = 400;
+    this->m_uvCellSize = 100;
 }
 
 Vector3 Plane::getLocalNormal() const
@@ -86,18 +86,20 @@ Vector3 Plane::dpdv(const Vector3 &point) const
 
 float Plane::u(const Vector3 &point) const
 {
-    float rawU = point.x / m_uvCellSize;
-    float uu = rawU - (int)rawU;
+    float x = std::abs(point.x);
+    float modU = (int)x % m_uvCellSize;
+    float uu = modU / (float)m_uvCellSize;
 
-    return uu;
+    return std::abs(uu);
 }
 
 float Plane::v(const Vector3 &point) const
 {
-    float rawV = point.y / m_uvCellSize;
-    float vv = rawV - (int)rawV;
+    float y = std::abs(point.y);
+    float modV = (int)y % m_uvCellSize;
+    float vv = modV / (float)m_uvCellSize;
 
-    return vv;
+    return std::abs(vv);
 }
 
 bool Plane::isLocalIn(const Vector3 &p) const
