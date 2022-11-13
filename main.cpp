@@ -97,13 +97,13 @@ int main()
 
     pool->add(light);
 
-    // pool->add(redBall);
-    // pool->add(yellowBall);
-    // pool->add(aquaBall);
-    // pool->add(whiteBall);
+    pool->add(redBall);
+    pool->add(yellowBall);
+    pool->add(aquaBall);
+    pool->add(whiteBall);
 
-    // pool->add(glassBall);
-    // pool->add(mirrorBall);
+    pool->add(glassBall);
+    pool->add(mirrorBall);
 
     pool->add(frontPlane);
     pool->add(backPlane);
