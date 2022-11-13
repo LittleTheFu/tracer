@@ -9,13 +9,14 @@
 #include "plane.h"
 #include "hitrecord.h"
 #include "light.h"
-#include "camera.h"
+#include "pinholeCamera.h"
 #include "transform.h"
 #include <string>
 #include "color.h"
 #include "lambertianMaterial.h"
 #include "glassMaterial.h"
 #include "mirrorMaterial.h"
+#include "texture.h"
 
 int main()
 {
@@ -23,7 +24,7 @@ int main()
 
     float rho = 0.3;
 
-    LambertianMaterial lambMtrlRed(Color::COLOR_RED * rho);
+    LambertianMaterial lambMtrlRed(Color::COLOR_RED * rho, new Texture());
     LambertianMaterial lambMtrlYellow(Color::COLOR_YELLOW * rho);
     LambertianMaterial lambMtrlAqua(Color::COLOR_AQUA * rho);
     LambertianMaterial lambMtrlPurple(Color::COLOR_PURPLE * rho);
@@ -108,7 +109,7 @@ int main()
     pool->add(leftPlane);
     pool->add(rightPlane);
 
-    Camera camera(pool);
+    PinholeCamera camera(pool);
     camera.build(Vector3::ZERO, Vector3::ZERO);
     Transform t = camera.getTransform().getInverseTransform();
     pool->applyTransfrom(t);

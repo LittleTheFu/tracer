@@ -15,7 +15,7 @@ Camera::Camera(const ObjectPool *pool)
 
 void Camera::build(const Vector3 &position, const Vector3 &direction, const Vector3 &worldUp)
 {
-    //todo:
+    // todo:
 }
 
 void Camera::build(const Vector3 &position, const Vector3 &theta)
@@ -42,9 +42,15 @@ void Camera::render()
                 std::cout << "x:y --- "
                           << "(" << x << "," << y << ")" << std::endl;
             }
-            const Vector3 origin(0, 0, 0);
-            const Vector3 dir((x - half_width) / half_width, (y - half_height) / half_height, 2);
-            Ray ray(origin, dir);
+            // const Vector3 origin(0, 0, 0);
+            // const Vector3 dir((x - half_width) / half_width, (y - half_height) / half_height, 2);
+
+            // const Vector3 origin(100 * (x - half_width) / half_width, 100 * (y - half_height) / half_height, 0);
+            // const Vector3 dir(0, 0, 1);
+            
+            // Ray ray(origin, dir);
+
+            const Ray ray = generateRay(x, y);
 
             HitRecord record;
             // record.reflectPdf = Common::INV_TWO_PI;
