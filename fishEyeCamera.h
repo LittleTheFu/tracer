@@ -1,0 +1,15 @@
+#ifndef _FISH_EYE_CAMERA_H_
+#define _FISH_EYE_CAMERA_H_
+
+#include "camera.h"
+
+class FishEyeCamera : public Camera
+{
+public:
+    FishEyeCamera(const ObjectPool *pool);
+
+private:
+    Ray generateRay(float screenX, float screenY) const;
+};
+
+#endif

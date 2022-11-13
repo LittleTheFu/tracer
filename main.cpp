@@ -11,6 +11,7 @@
 #include "light.h"
 #include "pinholeCamera.h"
 #include "orthographicCamera.h"
+#include "fishEyeCamera.h"
 #include "transform.h"
 #include <string>
 #include "color.h"
@@ -110,6 +111,7 @@ int main()
     pool->add(leftPlane);
     pool->add(rightPlane);
 
+    // FishEyeCamera camera(pool);
     // OrthographicCamera camera(pool);
     PinholeCamera camera(pool);
     camera.build(Vector3::ZERO, Vector3::ZERO);
@@ -121,7 +123,7 @@ int main()
 
     // for (int i = 7; i < 8; i++)
     // {
-    //     Camera camera(pool);
+    //     FishEyeCamera camera(pool);
     //     std::string name = "b_img" + std::to_string(i);
     //     camera.build(Vector3(0, 0, -200 + i * 30), Vector3(0, 0, Common::PI / 10 * i));
     //     Transform t = camera.getTransform().getInverseTransform();

@@ -4,6 +4,12 @@
 #include <algorithm>
 #include "frame.h"
 
+Ball::Ball()
+{
+    this->r = 1;
+    this->m_pMtrl = nullptr;
+}
+
 Ball::Ball(const Vector3 &rotate, const Vector3 &position, float r, Material *pMtrl)
 {
     init(rotate, position);
@@ -18,6 +24,18 @@ Vector3 Ball::getLocalNormal(const Vector3 &thatPoint) const
     normal.normalize();
 
     return normal;
+}
+
+Vector3 Ball::getLocalDirection(float u, float v) const
+{
+    const float phi = u * Common::TWO_PI;
+    const float theta = v * Common::PI;
+
+    const float x = std::sin(theta) * std::cos(phi);
+    const float y = std::sin(theta) * std::sin(phi);
+    const float z = std::cos(theta);
+
+    return Vector3(x, y, z);
 }
 
 bool Ball::hit(const Ray &ray, HitRecord &record) const
