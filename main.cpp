@@ -10,6 +10,7 @@
 #include "hitrecord.h"
 #include "light.h"
 #include "pinholeCamera.h"
+#include "orthographicCamera.h"
 #include "transform.h"
 #include <string>
 #include "color.h"
@@ -109,6 +110,7 @@ int main()
     pool->add(leftPlane);
     pool->add(rightPlane);
 
+    // OrthographicCamera camera(pool);
     PinholeCamera camera(pool);
     camera.build(Vector3::ZERO, Vector3::ZERO);
     Transform t = camera.getTransform().getInverseTransform();
