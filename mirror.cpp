@@ -5,7 +5,7 @@ Mirror::Mirror()
 
 }
 
-Color Mirror::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf)
+Color Mirror::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf) const
 {
     const Vector3 local_wo = -wo;
     wi = local_wo.reflect(LOCAL_NORMAL);

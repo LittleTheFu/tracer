@@ -75,17 +75,14 @@ bool Ball::hit(const Ray &ray, HitRecord &record) const
         record.u = u(localPoint);
         record.v = v(localPoint);
 
-        if (m_pMtrl && m_pMtrl->pBrdf)
+        if (m_pMtrl)
         {
             Frame frame(localNormal, dpdu(localPoint));
 
             const Vector3 local_wo = frame.toLocal(-newRay.dir);
             Vector3 r;
-            record.f = m_pMtrl->pBrdf->sample_f(local_wo, r, record.reflectPdf);
-            if (m_pMtrl->pTexture)
-            {
-                record.f *= m_pMtrl->pTexture->getColor(record.u, record.v);
-            }
+            record.f = m_pMtrl->eval(record.u, record.v, local_wo, r, record.reflectPdf);
+
             record.dot = Common::clamp(std::abs(r * Common::LOCAL_NORMAL), Common::FLOAT_SAMLL_NUMBER, 1.0f);
             // if (r.z == 0)
             //     r.z = 1;
@@ -95,7 +92,7 @@ bool Ball::hit(const Ray &ray, HitRecord &record) const
             Vector3 localReflectVector = frame.toWorld(r);
             localReflectVector.normalize();
             record.reflect = m_transform.transformVector(localReflectVector);
-            record.isMirror = m_pMtrl->pBrdf->isMirror();
+            record.isMirror = m_pMtrl->isMirror();
 
             if (record.isMirror)
             {

@@ -57,22 +57,13 @@ bool Plane::hit(const Ray &ray, HitRecord &record) const
     record.u = u(localPoint);
     record.v = v(localPoint);
 
-    if (m_pMtrl && m_pMtrl->pBrdf)
+    if (m_pMtrl)
     {
         Vector3 r;
-        record.f = m_pMtrl->pBrdf->sample_f(-newRay.dir, r, record.reflectPdf);
-        if (m_pMtrl->pTexture)
-        {
-            record.f *= m_pMtrl->pTexture->getColor(record.u, record.v);
-        }
-        if (r * Common::LOCAL_NORMAL < 0)
-        {
-            // m_pMtrl->pBrdf->sample_f(-newRay.dir, r, record.reflectPdf);
-            // std::cout << "less" << std::endl;
-        }
+        record.f = m_pMtrl->eval(record.u, record.v, -newRay.dir, r, record.reflectPdf);
         record.dot = Common::clamp(std::abs(r * Common::LOCAL_NORMAL), Common::FLOAT_SAMLL_NUMBER, 1.0f);
         record.reflect = m_transform.transformVector(r);
-        record.isMirror = m_pMtrl->pBrdf->isMirror();
+        record.isMirror = m_pMtrl->isMirror();
 
         if (record.isMirror)
         {

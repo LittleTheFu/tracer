@@ -12,44 +12,27 @@
 #include "camera.h"
 #include "transform.h"
 #include <string>
+#include "color.h"
+#include "lambertianMaterial.h"
+#include "glassMaterial.h"
+#include "mirrorMaterial.h"
 
 int main()
 {
     BrdfMgr brdfMgr;
 
-    Material lambMtrlRed;
-    lambMtrlRed.pBrdf = brdfMgr.getRedBrdf();
-    lambMtrlRed.pTexture = brdfMgr.getTexture();
+    float rho = 0.3;
 
-    Material lambMtrlYellow;
-    lambMtrlYellow.pBrdf = brdfMgr.getYellowBrdf();
-    // lambMtrlYellow.pTexture = brdfMgr.getTexture();
+    LambertianMaterial lambMtrlRed(Color::COLOR_RED * rho);
+    LambertianMaterial lambMtrlYellow(Color::COLOR_YELLOW * rho);
+    LambertianMaterial lambMtrlAqua(Color::COLOR_AQUA * rho);
+    LambertianMaterial lambMtrlPurple(Color::COLOR_PURPLE * rho);
+    LambertianMaterial lambMtrlGreen(Color::COLOR_GREEN * rho);
+    LambertianMaterial lambMtrlBlue(Color::COLOR_BLUE * rho);
+    LambertianMaterial lambMtrlWhite(Color::COLOR_WHITE * rho);
 
-    Material lambMtrlAqua;
-    lambMtrlAqua.pBrdf = brdfMgr.getAquaBrdf();
-    // lambMtrlAqua.pTexture = brdfMgr.getTexture();
-
-    Material lambMtrlPurple;
-    lambMtrlPurple.pBrdf = brdfMgr.getPurpleBrdf();
-    // lambMtrlPurple.pTexture = brdfMgr.getTexture();
-
-    Material lambMtrlGreen;
-    lambMtrlGreen.pBrdf = brdfMgr.getGreenBrdf();
-    // lambMtrlGreen.pTexture = brdfMgr.getTexture();
-
-    Material lambMtrlBlue;
-    lambMtrlBlue.pBrdf = brdfMgr.getBlueBrdf();
-    // lambMtrlAqua.pTexture = brdfMgr.getTexture();
-
-    Material lambMtrlWhite;
-    lambMtrlWhite.pBrdf = brdfMgr.getWhiteBrdf();
-    // lambMtrlWhite.pTexture = brdfMgr.getTexture();
-
-    Material MtrlMirror;
-    MtrlMirror.pBrdf = brdfMgr.getMirrorBrdf();
-
-    Material MtrlGlass;
-    MtrlGlass.pBrdf = brdfMgr.getGlassBrdf();
+    MirrorMaterial MtrlMirror;
+    GlassMaterial MtrlGlass;
 
     Ball *redBall = new Ball(Vector3::ZERO, Vector3(-75, 10, 300), 20, &lambMtrlRed);
     Ball *yellowBall = new Ball(Vector3::ZERO, Vector3(60, 80, 225), 20, &lambMtrlYellow);
