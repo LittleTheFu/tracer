@@ -115,7 +115,7 @@ int main()
     // FishEyeCamera camera(pool);
     // OrthographicCamera camera(pool);
     PinholeCamera camera(pool);
-    camera.build(Vector3(0, 0, 250), Vector3(0, 0, 0));
+    camera.build(Vector3(0, 0, 0), Vector3(0, 0, 0));
     Transform t = camera.getTransform().getInverseTransform();
     pool->applyTransfrom(t);
     camera.render();
