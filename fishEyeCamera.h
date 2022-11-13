@@ -3,6 +3,7 @@
 
 #include "camera.h"
 
+//bug, fix later
 class FishEyeCamera : public Camera
 {
 public:
