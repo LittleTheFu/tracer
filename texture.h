@@ -6,7 +6,7 @@
 class Texture
 {
 public:
-    Color getColor(float u, float v) const;
+    virtual Color getColor(float u, float v) const = 0;
 };
 
 #endif

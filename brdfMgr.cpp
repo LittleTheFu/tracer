@@ -21,7 +21,7 @@ BrdfMgr::BrdfMgr()
     brdfMirror = new Mirror();
     brdfGlass = new Glass(1, 1.5);
 
-    texture = new Texture();
+    texture = new Checkboard();
 }
 
 BrdfMgr::~BrdfMgr()
@@ -79,7 +79,7 @@ Brdf *BrdfMgr::getGlassBrdf()
     return brdfGlass;
 }
 
-Texture *BrdfMgr::getTexture()
+Checkboard *BrdfMgr::getTexture()
 {
     return texture;
 }

@@ -18,7 +18,7 @@
 #include "lambertianMaterial.h"
 #include "glassMaterial.h"
 #include "mirrorMaterial.h"
-#include "texture.h"
+#include "checkboard.h"
 
 int main()
 {
@@ -26,7 +26,7 @@ int main()
 
     float rho = 0.3;
 
-    LambertianMaterial lambMtrlRed(Color::COLOR_RED * rho, new Texture());
+    LambertianMaterial lambMtrlRed(Color::COLOR_RED * rho, new Checkboard());
     LambertianMaterial lambMtrlYellow(Color::COLOR_YELLOW * rho);
     LambertianMaterial lambMtrlAqua(Color::COLOR_AQUA * rho);
     LambertianMaterial lambMtrlPurple(Color::COLOR_PURPLE * rho);
