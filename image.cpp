@@ -14,8 +14,13 @@ Image::Image(const std::string fileName) : m_width(0), m_height(0)
 
 Color Image::getColor(float u, float v) const
 {
-    float uPixel = (unsigned)(u * m_width);
-    float vPixel = (unsigned)(v * m_height);
+    //something wrong here, uv passed was out of range
+    //should be fixed later
+    float uu = u - (int)u;
+    float vv = v - (int)v;
+
+    float uPixel = (unsigned)(uu * m_width);
+    float vPixel = (unsigned)(vv * m_height);
 
     unsigned index = vPixel * m_width + uPixel;
 
