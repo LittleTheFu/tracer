@@ -44,7 +44,6 @@ bool Plane::hit(const Ray &ray, HitRecord &record) const
 
     if (!isLocalIn(localPoint))
     {
-        // some bug here
         return false;
     }
 
@@ -104,9 +103,6 @@ float Plane::v(const Vector3 &point) const
 
 bool Plane::isLocalIn(const Vector3 &p) const
 {
-    // bug, fix later
-    // return true;
-
     if (!Common::is_float_equal(p.z, 0))
     {
         return false;
