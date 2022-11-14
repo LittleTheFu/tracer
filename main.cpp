@@ -24,18 +24,18 @@
 
 int main()
 {
-    float scale = 0.3;
+    float rho = 0.3;
 
-    LambertianMaterial lambMtrlLena(new Image("lena.png"), scale);
-    LambertianMaterial lambMtrlChessboard(new Chessboard(), scale);
+    LambertianMaterial lambMtrlLena(new Image("lena.png"), rho);
+    LambertianMaterial lambMtrlChessboard(new Chessboard(), rho);
 
-    LambertianMaterial lambMtrlRed(new ConstTexture(Color::COLOR_RED), scale);
-    LambertianMaterial lambMtrlYellow(new ConstTexture(Color::COLOR_YELLOW), scale);
-    LambertianMaterial lambMtrlAqua(new ConstTexture(Color::COLOR_AQUA), scale);
-    LambertianMaterial lambMtrlPurple(new ConstTexture(Color::COLOR_PURPLE), scale);
-    LambertianMaterial lambMtrlGreen(new ConstTexture(Color::COLOR_GREEN), scale);
-    LambertianMaterial lambMtrlBlue(new ConstTexture(Color::COLOR_BLUE), scale);
-    LambertianMaterial lambMtrlWhite(new ConstTexture(Color::COLOR_WHITE), scale);
+    LambertianMaterial lambMtrlRed(new ConstTexture(Color::COLOR_RED), rho);
+    LambertianMaterial lambMtrlYellow(new ConstTexture(Color::COLOR_YELLOW), rho);
+    LambertianMaterial lambMtrlAqua(new ConstTexture(Color::COLOR_AQUA), rho);
+    LambertianMaterial lambMtrlPurple(new ConstTexture(Color::COLOR_PURPLE), rho);
+    LambertianMaterial lambMtrlGreen(new ConstTexture(Color::COLOR_GREEN), rho);
+    LambertianMaterial lambMtrlBlue(new ConstTexture(Color::COLOR_BLUE), rho);
+    LambertianMaterial lambMtrlWhite(new ConstTexture(Color::COLOR_WHITE), rho);
 
     MirrorMaterial MtrlMirror;
     GlassMaterial MtrlGlass;
