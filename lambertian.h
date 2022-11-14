@@ -8,13 +8,13 @@ class Lambertian : public Brdf
 {
 public:
     Lambertian(float scale);
-    Lambertian(const Color &rho, float scale);
+    // Lambertian(const Color &rho, float scale);
     Color sample_f(const Vector3 &wo, Vector3 &wi, float &pdf) const;
 
-    void setRho(const Color &rho);
+    void setColor(const Color &color);
 
 private:
-    Color m_rho;
+    Color m_color;
     float m_scale;
 };
 

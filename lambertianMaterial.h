@@ -11,7 +11,7 @@ class LambertianMaterial : public Material
 {
 public:
     LambertianMaterial(const Texture *pTexture, float scale);
-    LambertianMaterial(const Color &rho, float scale);
+    // LambertianMaterial(const Color &rho, float scale);
 
     Color eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf) const;
 

@@ -1,41 +1,41 @@
-#ifndef _BRDF_MGR_H_
-#define _BRDF_MGR_H_
+// #ifndef _BRDF_MGR_H_
+// #define _BRDF_MGR_H_
 
-#include "brdf.h"
-#include "chessboard.h"
+// #include "brdf.h"
+// #include "chessboard.h"
 
-class BrdfMgr
-{
-public:
-    BrdfMgr();
-    ~BrdfMgr();
+// class BrdfMgr
+// {
+// public:
+//     BrdfMgr();
+//     ~BrdfMgr();
 
-    Brdf* getRedBrdf();
-    Brdf* getGreenBrdf();
-    Brdf* getBlueBrdf();
-    Brdf* getWhiteBrdf();
-    Brdf* getYellowBrdf();
-    Brdf* getAquaBrdf();
-    Brdf* getPurpleBrdf();
+//     Brdf* getRedBrdf();
+//     Brdf* getGreenBrdf();
+//     Brdf* getBlueBrdf();
+//     Brdf* getWhiteBrdf();
+//     Brdf* getYellowBrdf();
+//     Brdf* getAquaBrdf();
+//     Brdf* getPurpleBrdf();
 
-    Brdf* getMirrorBrdf();
-    Brdf* getGlassBrdf();
+//     Brdf* getMirrorBrdf();
+//     Brdf* getGlassBrdf();
 
-    Chessboard* getTexture();
+//     Chessboard* getTexture();
 
-private:
-    Brdf *brdfRed;
-    Brdf *brdfGreen;
-    Brdf *brdfBlue;
-    Brdf *brdfWhite;
-    Brdf *brdfAqua;
-    Brdf *brdfYellow;
-    Brdf *brdfPurple;
+// private:
+//     Brdf *brdfRed;
+//     Brdf *brdfGreen;
+//     Brdf *brdfBlue;
+//     Brdf *brdfWhite;
+//     Brdf *brdfAqua;
+//     Brdf *brdfYellow;
+//     Brdf *brdfPurple;
 
-    Brdf *brdfMirror;
-    Brdf *brdfGlass;
+//     Brdf *brdfMirror;
+//     Brdf *brdfGlass;
 
-    Chessboard *texture;
-};
+//     Chessboard *texture;
+// };
 
-#endif
+// #endif

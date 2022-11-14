@@ -20,23 +20,22 @@
 #include "mirrorMaterial.h"
 #include "chessboard.h"
 #include "image.h"
+#include "constTexture.h"
 
 int main()
 {
-    BrdfMgr brdfMgr;
-
     float scale = 0.3;
 
     LambertianMaterial lambMtrlLena(new Image("lena.png"), scale);
     LambertianMaterial lambMtrlChessboard(new Chessboard(), scale);
 
-    LambertianMaterial lambMtrlRed(Color::COLOR_RED, scale);
-    LambertianMaterial lambMtrlYellow(Color::COLOR_YELLOW, scale);
-    LambertianMaterial lambMtrlAqua(Color::COLOR_AQUA, scale);
-    LambertianMaterial lambMtrlPurple(Color::COLOR_PURPLE, scale);
-    LambertianMaterial lambMtrlGreen(Color::COLOR_GREEN, scale);
-    LambertianMaterial lambMtrlBlue(Color::COLOR_BLUE, scale);
-    LambertianMaterial lambMtrlWhite(Color::COLOR_WHITE, scale);
+    LambertianMaterial lambMtrlRed(new ConstTexture(Color::COLOR_RED), scale);
+    LambertianMaterial lambMtrlYellow(new ConstTexture(Color::COLOR_YELLOW), scale);
+    LambertianMaterial lambMtrlAqua(new ConstTexture(Color::COLOR_AQUA), scale);
+    LambertianMaterial lambMtrlPurple(new ConstTexture(Color::COLOR_PURPLE), scale);
+    LambertianMaterial lambMtrlGreen(new ConstTexture(Color::COLOR_GREEN), scale);
+    LambertianMaterial lambMtrlBlue(new ConstTexture(Color::COLOR_BLUE), scale);
+    LambertianMaterial lambMtrlWhite(new ConstTexture(Color::COLOR_WHITE), scale);
 
     MirrorMaterial MtrlMirror;
     GlassMaterial MtrlGlass;
