@@ -21,6 +21,7 @@
 #include "chessboard.h"
 #include "image.h"
 #include "constTexture.h"
+#include "uvTexture.h"
 
 int main()
 {
@@ -28,6 +29,7 @@ int main()
 
     LambertianMaterial lambMtrlLena(new Image("lena.png"), rho);
     LambertianMaterial lambMtrlChessboard(new Chessboard(), rho);
+    LambertianMaterial lambUV(new UvTexture(), 1);
 
     LambertianMaterial lambMtrlRed(new ConstTexture(Color::COLOR_RED), rho);
     LambertianMaterial lambMtrlYellow(new ConstTexture(Color::COLOR_YELLOW), rho);
