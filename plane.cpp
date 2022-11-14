@@ -85,18 +85,26 @@ Vector3 Plane::dpdv(const Vector3 &point) const
 
 float Plane::u(const Vector3 &point) const
 {
-    float x = std::abs(point.x);
-    float modU = (int)x % m_uvCellSize;
-    float uu = modU / (float)m_uvCellSize;
+    // float x = std::abs(point.x);
+    // float modU = (int)x % m_uvCellSize;
+    // float uu = modU / (float)m_uvCellSize;
+
+    float x = point.x + half_length;
+    float length = half_length * 2;
+    float uu = x / length;
 
     return Common::clamp(std::abs(uu), 0, 1);
 }
 
 float Plane::v(const Vector3 &point) const
 {
-    float y = std::abs(point.y);
-    float modV = (int)y % m_uvCellSize;
-    float vv = modV / (float)m_uvCellSize;
+    // float y = std::abs(point.y);
+    // float modV = (int)y % m_uvCellSize;
+    // float vv = modV / (float)m_uvCellSize;
+
+    float y = point.y + half_length;
+    float length = half_length * 2;
+    float vv = y / length;
 
     return Common::clamp(std::abs(vv), 0, 1);
 }
