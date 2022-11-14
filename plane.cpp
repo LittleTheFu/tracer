@@ -7,7 +7,7 @@ Plane::Plane(const Vector3 &rotate, const Vector3 &position, float length, Mater
 {
     init(rotate, position);
 
-    this->length = length;
+    this->half_length = length;
     this->m_pMtrl = pMtrl;
 
     this->m_uvCellSize = 100;
@@ -105,14 +105,12 @@ float Plane::v(const Vector3 &point) const
 bool Plane::isLocalIn(const Vector3 &p) const
 {
     // bug, fix later
-    return true;
+    // return true;
 
     if (!Common::is_float_equal(p.z, 0))
     {
         return false;
     }
-
-    const float half_length = length / 2;
 
     const float absX = std::abs(p.x);
     if (absX > half_length)

@@ -74,12 +74,12 @@ int main()
     Vector3 frontRotate(Common::PI, 0, 0);
     Vector3 frontPosition(0, 0, 5 * c);
     // CPlane *frontPlane = new CPlane(frontRotate, frontPosition, r, &MtrlMirror);
-    Plane *frontPlane = new Plane(frontRotate, frontPosition, r, &lambMtrlChessboard);
+    Plane *frontPlane = new Plane(frontRotate, frontPosition, 100, &lambMtrlChessboard);
 
     // Vector3 backRotate(0, -Common::PI, 0);
     Vector3 backRotate(0, 0, 0);
     Vector3 backPosition(0, 0, -3 * c);
-    Plane *backPlane = new Plane(backRotate, backPosition, r, &lambMtrlRed);
+    Plane *backPlane = new Plane(backRotate, backPosition, 100, &lambMtrlRed);
 
     Vector3 glassRotate(-Common::PI / 2, 0, 0);
     Vector3 glassPosition(0, 0, -c * 0.5);

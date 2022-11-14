@@ -10,7 +10,7 @@ public:
     Plane(const Vector3 &rotate, const Vector3 &position, float length, Material *pMtrl);
     virtual bool hit(const Ray &ray, HitRecord &record) const;
 
-    float length;
+    float half_length;
     Material *m_pMtrl;
 
 private:
