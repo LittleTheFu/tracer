@@ -85,6 +85,10 @@ int main()
     Vector3 glassPosition(0, 0, -c * 0.5);
     Plane *glassPlane = new Plane(glassRotate, glassPosition, r, &MtrlGlass);
 
+    Vector3 squareRotate(Common::PI, 0, 0);
+    Vector3 squarePosition(-25, -25, 205);
+    Plane *squarePlane = new Plane(squareRotate, squarePosition, 15, &lambMtrlBlue);
+
     ObjectPool *pool = new ObjectPool();
 
     frontPlane->setTag(0);
@@ -117,6 +121,8 @@ int main()
     pool->add(bottomPlane);
     pool->add(leftPlane);
     pool->add(rightPlane);
+
+    // pool->add(squarePlane);
 
     // FishEyeCamera camera(pool);
     // OrthographicCamera camera(pool);
