@@ -13,8 +13,13 @@ Plane::Plane(const Vector3 &rotate, const Vector3 &position, float length, Mater
     this->m_uvCellSize = 100;
 }
 
-Vector3 Plane::getLocalNormal() const
+Vector3 Plane::getLocalNormal(bool reverse = false) const
 {
+    if (reverse)
+    {
+        return Vector3(0, 0, -1);
+    }
+
     return Vector3(0, 0, 1);
 }
 
@@ -24,14 +29,15 @@ bool Plane::hit(const Ray &ray, HitRecord &record) const
 
     const Ray newRay = ray.genNewRay(m_transform);
 
+    bool reverse = false;
     // if (newRay.dir * getLocalNormal() >= 0)
     if (newRay.dir.z >= 0)
     {
-        return false;
+        reverse = true;
     }
 
-    const float n = (-newRay.origin) * getLocalNormal();
-    const float d = newRay.dir * getLocalNormal();
+    const float n = (-newRay.origin) * getLocalNormal(reverse);
+    const float d = newRay.dir * getLocalNormal(reverse);
 
     record.t = n / d;
     if (record.t < Common::FLOAT_SAMLL_NUMBER)
@@ -51,7 +57,7 @@ bool Plane::hit(const Ray &ray, HitRecord &record) const
     record.transform = m_transform;
 
     record.point = m_transform.transformPoint(localPoint);
-    record.normal = m_transform.transformNormal(getLocalNormal());
+    record.normal = m_transform.transformNormal(getLocalNormal(reverse));
 
     record.u = u(localPoint);
     record.v = v(localPoint);
