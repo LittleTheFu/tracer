@@ -46,7 +46,8 @@ int main()
     Ball *aquaBall = new Ball(Vector3::ZERO, Vector3(-50, -50, 300), 20, &lambMtrlAqua);
     Ball *whiteBall = new Ball(Vector3::ZERO, Vector3(20, -20, 300), 20, &lambMtrlWhite);
     Ball *glassBall = new Ball(Vector3::ZERO, Vector3(0, 0, 225), 20, &MtrlGlass);
-    Ball *mirrorBall = new Ball(Vector3::ZERO, Vector3(-25, 40, 225), 20, &MtrlMirror);
+    Ball *mirrorBall = new Ball(Vector3::ZERO, Vector3(25, 40, 225), 20, &MtrlMirror);
+    Ball *textureBall = new Ball(Vector3::ZERO, Vector3(-25, 40, 225), 20, &lambMtrlChessboard);
 
     Light *light = new Light(Vector3(0, -80, 200));
 
@@ -107,6 +108,8 @@ int main()
 
     pool->add(glassBall);
     pool->add(mirrorBall);
+
+    pool->add(textureBall);
 
     pool->add(frontPlane);
     pool->add(backPlane);
