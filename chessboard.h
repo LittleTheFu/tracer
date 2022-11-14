@@ -1,9 +1,9 @@
-#ifndef _CHECKBOARD_H_
-#define _CHECKBOARD_H_
+#ifndef _CHESSBOARD_H_
+#define _CHESSBOARD_H_
 
 #include "texture.h"
 
-class Checkboard : public Texture
+class Chessboard : public Texture
 {
 public:
     Color getColor(float u, float v) const;

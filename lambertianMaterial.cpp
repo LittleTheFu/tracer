@@ -2,10 +2,16 @@
 #include "lambertian.h"
 #include "common.h"
 
-LambertianMaterial::LambertianMaterial(const Color &rho, const Texture *pTexture)
+LambertianMaterial::LambertianMaterial(const Texture *pTexture, float scale)
 {
-    m_pBrdf = new Lambertian(rho);
+    m_pLambertianBrdf = new Lambertian(Color::COLOR_BLACK, scale);
     m_pTexture = pTexture;
+}
+
+LambertianMaterial::LambertianMaterial(const Color &rho, float scale)
+{
+    m_pLambertianBrdf = new Lambertian(rho, scale);
+    m_pTexture = nullptr;
 }
 
 Color LambertianMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf) const
@@ -17,10 +23,12 @@ Color LambertianMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi,
         // f /= 5;
 
         // WARNING: CAST
-        ((Lambertian *)(m_pBrdf))->m_rho = m_pTexture->getColor(u, v) * Common::INV_PI;
+        Color textureColor = m_pTexture->getColor(u, v);
+        m_pLambertianBrdf->setRho(textureColor);
+        // ((Lambertian *)(m_pBrdf))->m_rho = m_pTexture->getColor(u, v) * Common::INV_PI;
     }
 
-    Color f = m_pBrdf->sample_f(wo, wi, pdf);
+    Color f = m_pLambertianBrdf->sample_f(wo, wi, pdf);
 
     return f;
 }

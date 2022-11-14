@@ -1,6 +1,6 @@
-#include "checkboard.h"
+#include "chessboard.h"
 
-Color Checkboard::getColor(float u, float v) const
+Color Chessboard::getColor(float u, float v) const
 {
     int iU = (int)(u / 0.1);
     int iV = (int)(v / 0.1);

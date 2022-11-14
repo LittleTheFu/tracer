@@ -2,7 +2,7 @@
 #define _BRDF_MGR_H_
 
 #include "brdf.h"
-#include "checkboard.h"
+#include "chessboard.h"
 
 class BrdfMgr
 {
@@ -21,7 +21,7 @@ public:
     Brdf* getMirrorBrdf();
     Brdf* getGlassBrdf();
 
-    Checkboard* getTexture();
+    Chessboard* getTexture();
 
 private:
     Brdf *brdfRed;
@@ -35,7 +35,7 @@ private:
     Brdf *brdfMirror;
     Brdf *brdfGlass;
 
-    Checkboard *texture;
+    Chessboard *texture;
 };
 
 #endif

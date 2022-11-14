@@ -7,21 +7,21 @@
 
 BrdfMgr::BrdfMgr()
 {
-    brdfRed = new Lambertian(Color::COLOR_RED * 0.3);
+    brdfRed = new Lambertian(Color::COLOR_RED, 0.3);
 
-    brdfGreen = new Lambertian(Color::COLOR_GREEN * 0.3);
-    brdfBlue = new Lambertian(Color::COLOR_BLUE * 0.3);
+    brdfGreen = new Lambertian(Color::COLOR_GREEN, 0.3);
+    brdfBlue = new Lambertian(Color::COLOR_BLUE, 0.3);
 
-    brdfWhite = new Lambertian(Color::COLOR_WHITE * 0.3);
-    brdfYellow = new Lambertian(Color::COLOR_YELLOW * 0.3);
+    brdfWhite = new Lambertian(Color::COLOR_WHITE, 0.3);
+    brdfYellow = new Lambertian(Color::COLOR_YELLOW, 0.3);
 
-    brdfAqua = new Lambertian(Color::COLOR_AQUA * 0.3);
-    brdfPurple = new Lambertian(Color::COLOR_PURPLE * 0.3);
+    brdfAqua = new Lambertian(Color::COLOR_AQUA, 0.3);
+    brdfPurple = new Lambertian(Color::COLOR_PURPLE, 0.3);
 
     brdfMirror = new Mirror();
     brdfGlass = new Glass(1, 1.5);
 
-    texture = new Checkboard();
+    texture = new Chessboard();
 }
 
 BrdfMgr::~BrdfMgr()
@@ -79,7 +79,7 @@ Brdf *BrdfMgr::getGlassBrdf()
     return brdfGlass;
 }
 
-Checkboard *BrdfMgr::getTexture()
+Chessboard *BrdfMgr::getTexture()
 {
     return texture;
 }

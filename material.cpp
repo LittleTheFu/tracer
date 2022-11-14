@@ -2,26 +2,26 @@
 
 Material::Material()
 {
-    m_pBrdf = nullptr;
-    m_pTexture = nullptr;
+    // m_pBrdf = nullptr;
+    // m_pTexture = nullptr;
 }
 
 Color Material::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf) const
 {
-    if (m_pBrdf)
-    {
-        return m_pBrdf->sample_f(wo, wi, pdf);
-    }
+    // if (m_pBrdf)
+    // {
+    //     return m_pBrdf->sample_f(wo, wi, pdf);
+    // }
 
     return Color::COLOR_BLACK;
 }
 
 bool Material::isMirror() const
 {
-    if(m_pBrdf)
-    {
-        return m_pBrdf->isMirror();
-    }
+    // if(m_pBrdf)
+    // {
+    //     return m_pBrdf->isMirror();
+    // }
 
     return false;
 }

@@ -13,7 +13,7 @@ public:
     Material();
 
     virtual Color eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf) const;
-    bool isMirror() const;
+    virtual bool isMirror() const;
 
     // void setBrdf(const Brdf *pBrdf);
     // const Brdf *getBrdf() const;
@@ -22,8 +22,8 @@ public:
     // const Texture *getTexture() const;
 
 protected:
-    const Brdf *m_pBrdf;
-    const Texture *m_pTexture;
+    // const Brdf *m_pBrdf;
+    // const Texture *m_pTexture;
 };
 
 #endif

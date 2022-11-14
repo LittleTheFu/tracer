@@ -3,5 +3,10 @@
 
 GlassMaterial::GlassMaterial()
 {
-    m_pBrdf = new Glass(1, 1.5);
+    m_pGlassBrdf = new Glass(1, 1.5);
+}
+
+bool GlassMaterial::isMirror() const
+{
+    return true;
 }

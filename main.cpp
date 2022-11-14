@@ -18,22 +18,25 @@
 #include "lambertianMaterial.h"
 #include "glassMaterial.h"
 #include "mirrorMaterial.h"
-#include "checkboard.h"
+#include "chessboard.h"
 #include "image.h"
 
 int main()
 {
     BrdfMgr brdfMgr;
 
-    float rho = 0.3;
+    float scale = 0.3;
 
-    LambertianMaterial lambMtrlRed(Color::COLOR_RED * rho);
-    LambertianMaterial lambMtrlYellow(Color::COLOR_YELLOW * rho);
-    LambertianMaterial lambMtrlAqua(Color::COLOR_AQUA * rho, new Image("lena.png"));
-    LambertianMaterial lambMtrlPurple(Color::COLOR_PURPLE * rho);
-    LambertianMaterial lambMtrlGreen(Color::COLOR_GREEN * rho);
-    LambertianMaterial lambMtrlBlue(Color::COLOR_BLUE * rho);
-    LambertianMaterial lambMtrlWhite(Color::COLOR_WHITE * rho);
+    LambertianMaterial lambMtrlLena(new Image("lena.png"), scale);
+    LambertianMaterial lambMtrlChessboard(new Chessboard(), scale);
+
+    LambertianMaterial lambMtrlRed(Color::COLOR_RED, scale);
+    LambertianMaterial lambMtrlYellow(Color::COLOR_YELLOW, scale);
+    LambertianMaterial lambMtrlAqua(Color::COLOR_AQUA, scale);
+    LambertianMaterial lambMtrlPurple(Color::COLOR_PURPLE, scale);
+    LambertianMaterial lambMtrlGreen(Color::COLOR_GREEN, scale);
+    LambertianMaterial lambMtrlBlue(Color::COLOR_BLUE, scale);
+    LambertianMaterial lambMtrlWhite(Color::COLOR_WHITE, scale);
 
     MirrorMaterial MtrlMirror;
     GlassMaterial MtrlGlass;
@@ -57,7 +60,7 @@ int main()
 
     Vector3 rightRotate(0, -Common::PI / 2, 0);
     Vector3 rightPosition(c, 0, 0);
-    Plane *rightPlane = new Plane(rightRotate, rightPosition, r, &lambMtrlBlue);
+    Plane *rightPlane = new Plane(rightRotate, rightPosition, r, &lambMtrlLena);
 
     Vector3 topRotate(-Common::PI / 2, 0, 0);
     Vector3 topPosition(0, -c, 0);
@@ -70,7 +73,7 @@ int main()
     Vector3 frontRotate(Common::PI, 0, 0);
     Vector3 frontPosition(0, 0, 5 * c);
     // CPlane *frontPlane = new CPlane(frontRotate, frontPosition, r, &MtrlMirror);
-    Plane *frontPlane = new Plane(frontRotate, frontPosition, r, &lambMtrlAqua);
+    Plane *frontPlane = new Plane(frontRotate, frontPosition, r, &lambMtrlChessboard);
 
     // Vector3 backRotate(0, -Common::PI, 0);
     Vector3 backRotate(0, 0, 0);

@@ -3,5 +3,10 @@
 
 MirrorMaterial::MirrorMaterial()
 {
-    m_pBrdf = new Mirror();
+    m_pMirrorBrdf = new Mirror();
+}
+
+bool MirrorMaterial::isMirror() const
+{
+    return true;
 }
