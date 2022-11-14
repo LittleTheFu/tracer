@@ -1,6 +1,6 @@
 #include "color.h"
 #include <cassert>
-#include "common.h"
+#include "common/common.h"
 
 const Color Color::COLOR_BLACK = Color(0, 0, 0);
 const Color Color::COLOR_WHITE = Color(1, 1, 1);

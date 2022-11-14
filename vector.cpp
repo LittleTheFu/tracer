@@ -1,7 +1,7 @@
 #include "vector.h"
 #include <tgmath.h>
 #include <algorithm>
-#include "common.h"
+#include "common/common.h"
 #include <cassert>
 
 Vector3 const Vector3::ZERO = Vector3(0, 0, 0);

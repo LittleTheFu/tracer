@@ -1,6 +1,6 @@
 #include "circle.h"
 #include <cmath>
-#include "common.h"
+#include "common/common.h"
 
 Circle::Circle(const Vector3 &center, const Vector3 &normal, float r)
 {

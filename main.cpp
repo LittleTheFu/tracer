@@ -1,7 +1,7 @@
 #include "ray.h"
 #include "objectpool.h"
 #include "material.h"
-#include "common.h"
+#include "common/common.h"
 #include <iostream>
 #include "brdfMgr.h"
 #include "material.h"
