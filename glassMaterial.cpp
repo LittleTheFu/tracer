@@ -10,3 +10,10 @@ bool GlassMaterial::isMirror() const
 {
     return true;
 }
+
+Color GlassMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf) const
+{
+    Color color = m_pGlassBrdf->sample_f(wo, wi, pdf);
+
+    return color;
+}
