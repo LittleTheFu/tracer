@@ -25,10 +25,25 @@ float Noise::getValue(const Vector3 &v) const
     int iiY = modIndex(iY + 1);
     int iiZ = modIndex(iZ + 1);
 
+    // if(iiX < iX)
+    // {
+    //     std::swap(iX, iiX);
+    // }
+
+    // if(iiY < iY)
+    // {
+    //     std::swap(iY, iiY);
+    // }
+
+    // if(iiZ < iZ)
+    // {
+    //     std::swap(iZ, iiZ);
+    // }
+
     float v00 = Common::interpolate(m_data[iX][iY][iZ], m_data[iiX][iY][iZ], fX);
-    float v01 = Common::interpolate(m_data[iX][iY][iZ], m_data[iiX][iiY][iZ], fX);
-    float v10 = Common::interpolate(m_data[iX][iY][iZ], m_data[iiX][iY][iiZ], fX);
-    float v11 = Common::interpolate(m_data[iX][iY][iZ], m_data[iiX][iiY][iiZ], fX);
+    float v01 = Common::interpolate(m_data[iX][iiY][iZ], m_data[iiX][iiY][iZ], fX);
+    float v10 = Common::interpolate(m_data[iX][iY][iiZ], m_data[iiX][iY][iiZ], fX);
+    float v11 = Common::interpolate(m_data[iX][iiY][iiZ], m_data[iiX][iiY][iiZ], fX);
 
     float u0 = Common::interpolate(v00, v01, fY);
     float u1 = Common::interpolate(v10, v11, fY);
