@@ -39,6 +39,21 @@ const float Common::clamp(float v, float min, float max)
     return v;
 }
 
+const float Common::interpolate(float a, float b, float t)
+{
+    if (t <= 0)
+    {
+        return a;
+    }
+
+    if (t >= 1)
+    {
+        return b;
+    }
+
+    return a * (1 - t) + b * t;
+}
+
 const float Common::genRandomDecimal()
 {
     const float max = (float)RAND_MAX;

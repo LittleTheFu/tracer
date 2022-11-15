@@ -16,6 +16,8 @@ public:
     const static bool is_float_zero(float x);
     const static float clamp(float v, float min, float max);
 
+    const static float interpolate(float a, float b, float t);
+
     const static float genRandomDecimal();
     
     const static float FLOAT_SAMLL_NUMBER;
