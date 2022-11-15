@@ -27,8 +27,6 @@ public:
 private:
     std::vector<Geometry *> m_objects;
     Light *m_pLight;
-
-    float m_attenuation;
 };
 
 #endif

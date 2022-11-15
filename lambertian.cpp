@@ -9,12 +9,6 @@ Lambertian::Lambertian(float scale)
     m_scale = scale;
 }
 
-// Lambertian::Lambertian(const Color &rho, float scale)
-// {
-//     m_rho = rho;
-//     m_scale = scale;
-// }
-
 void Lambertian::setColor(const Color &rho)
 {
     m_color = rho;

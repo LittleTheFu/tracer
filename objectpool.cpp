@@ -9,8 +9,6 @@
 
 ObjectPool::ObjectPool()
 {
-    m_attenuation = 0.99999999f;
-    // m_attenuation = 1;
 }
 
 void ObjectPool::add(Geometry *pGeometry)
@@ -96,16 +94,9 @@ Color ObjectPool::trace(const Ray &ray, int bounceNum, const HitRecord &currentS
 
         Color lightColor = getColorFromLight(ray);
         float ttt = 1 / currentState.reflectPdf;
-        Color rretColor = lightColor * currentState.dot * currentState.f / currentState.reflectPdf;
+        Color retColor = lightColor * currentState.dot * currentState.f / currentState.reflectPdf;
 
-        // Color retColor = lightColor * currentState.dot * currentState.f * 2 * Common::PI;
-
-        // if (rretColor != retColor)
-        // {
-        //     std::cout << "light color is not equal" << std::endl;
-        // }
-
-        return rretColor;
+        return retColor;
     }
 
     HitRecord record;
@@ -134,7 +125,6 @@ Color ObjectPool::trace(const Ray &ray, int bounceNum, const HitRecord &currentS
 
     assert(currentState.reflectPdf > 0);
     Color ccolor = currentState.f * inputColor * currentState.dot / currentState.reflectPdf;
-    // Color color = inputColor * currentState.f * currentState.dot * 2 * Common::PI;
 
     // if (ccolor != color)
     // {

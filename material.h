@@ -14,16 +14,6 @@ public:
 
     virtual Color eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf) const;
     virtual bool isMirror() const;
-
-    // void setBrdf(const Brdf *pBrdf);
-    // const Brdf *getBrdf() const;
-
-    // void setTexture(const Texture *pTexture);
-    // const Texture *getTexture() const;
-
-protected:
-    // const Brdf *m_pBrdf;
-    // const Texture *m_pTexture;
 };
 
 #endif
