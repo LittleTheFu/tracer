@@ -17,8 +17,10 @@ public:
     const static float clamp(float v, float min, float max);
 
     const static float interpolate(float a, float b, float t);
+    // const static float TrilinearInterpolation();
 
     const static float genRandomDecimal();
+    const static float genRamdomSignDecimal();
     
     const static float FLOAT_SAMLL_NUMBER;
     const static float FLOAT_MAX;

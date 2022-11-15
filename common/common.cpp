@@ -61,3 +61,10 @@ const float Common::genRandomDecimal()
 
     return u;
 }
+
+const float Common::genRamdomSignDecimal()
+{
+    float v = 2 * (genRandomDecimal() - 0.5);
+
+    return v;
+}
