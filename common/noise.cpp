@@ -8,7 +8,7 @@ Noise::Noise()
         for (int j = 0; j < NUM; j++)
             for (int k = 0; k < NUM; k++)
             {
-                m_data[0][0][0] = Common::genRamdomSignDecimal();
+                m_data[i][j][k] = Common::genRamdomSignDecimal();
             }
 }
 
@@ -36,6 +36,24 @@ float Noise::getValue(const Vector3 &v) const
     float w = Common::interpolate(u0, u1, fZ);
 
     return w;
+}
+
+float Noise::getValue(float u, float v) const
+{
+    float uu = u * NUM;
+    float vv = v * NUM;
+
+    // int iU, iV;
+    // float fU, fV;
+
+    // getComponent(uu, iU, fU);
+    // getComponent(vv, iV, fV);
+
+    // int iDummy = 0;
+    // float fDummy = 0;
+    const Vector3 fake_position(uu, vv, 0);
+
+    return getValue(fake_position);
 }
 
 void Noise::getComponent(float a, int &i, float &f) const

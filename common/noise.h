@@ -8,6 +8,7 @@ class Noise
 public:
     Noise();
     float getValue(const Vector3 &v) const;
+    float getValue(float u, float v) const;
 
 private:
     int modIndex(int n) const;
