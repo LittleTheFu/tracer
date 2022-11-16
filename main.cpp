@@ -46,11 +46,11 @@ int main()
     GlassMaterial MtrlGlass;
 
     TriAngleVertex va = TriAngleVertex(-20, 20, 0, 0);
-    TriAngleVertex vb = TriAngleVertex(0, -20, 0, 1);
-    TriAngleVertex vc = TriAngleVertex(20, 20, 1, 1);
+    TriAngleVertex vb = TriAngleVertex(0, -20, 0.5, 1);
+    TriAngleVertex vc = TriAngleVertex(20, 20, 1, 0);
     TriAngle *triAngle = new TriAngle(va, vb, vc,
-                                      Vector3(0, 0, 0), Vector3(-70, -25, 220),
-                                      &lambMtrlAqua);
+                                      Vector3(0, -Common::PI / 4, 0), Vector3(-80, -50, 215),
+                                      &lambMtrlLena);
 
     Ball *redBall = new Ball(Vector3::ZERO, Vector3(-55, 10, 240), 20, &lambMtrlRed);
     Ball *yellowBall = new Ball(Vector3::ZERO, Vector3(60, 80, 225), 20, &lambMtrlYellow);
@@ -60,7 +60,7 @@ int main()
     Ball *mirrorBall = new Ball(Vector3::ZERO, Vector3(25, 40, 225), 20, &MtrlMirror);
     Ball *textureBall = new Ball(Vector3::ZERO, Vector3(-45, 40, 220), 20, &lambMtrlChessboard);
 
-    Light *light = new Light(Vector3(0, -80, 200));
+    Light *light = new Light(Vector3(0, -80, 230));
 
     const float c = 100;
     const float r = 5 * c;

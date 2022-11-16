@@ -28,7 +28,13 @@ public:
     virtual bool hit(const Ray &ray, HitRecord &record) const;
 
     Vector3 getLocalNormal(bool reverse) const;
-    bool isLocalIn(const Vector3 &p) const;
+    bool isAllFacePositive(const Vector3 &a, const Vector3 &b, const Vector3 &c) const;
+
+private:
+    void getCrossResult(const Vector3 &p,
+                        Vector3 &apCrossAb,
+                        Vector3 &apCrossBc,
+                        Vector3 &apCrossCa) const;
 
 private:
     virtual Vector3 dpdu(const Vector3 &point) const;
@@ -37,10 +43,19 @@ private:
     virtual float u(const Vector3 &point) const;
     virtual float v(const Vector3 &point) const;
 
+    void getWeight(const Vector3 &ap_ab,
+                   const Vector3 &ap_bc,
+                   const Vector3 &ap_ca,
+                   float &weightA,
+                   float &weightB,
+                   float &weightC) const;
+
 private:
     TriAngleVertex m_a;
     TriAngleVertex m_b;
     TriAngleVertex m_c;
+
+    float m_doulbe_area;
 };
 
 #endif

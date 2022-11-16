@@ -207,7 +207,7 @@ bool Vector3::isPerpendicular(const Vector3 &that) const
     return isX && isY && isZ;
 }
 
-float Vector3::length()
+float Vector3::length() const
 {
     float lenSqr = lenthSqr();
     if (lenSqr <= 0.0f)
