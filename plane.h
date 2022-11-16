@@ -11,7 +11,6 @@ public:
     virtual bool hit(const Ray &ray, HitRecord &record) const;
 
     float half_length;
-    Material *m_pMtrl;
 
 private:
     virtual Vector3 dpdu(const Vector3 &point) const;

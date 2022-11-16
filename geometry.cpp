@@ -1,5 +1,10 @@
 #include "geometry.h"
 
+Geometry::Geometry()
+{
+    m_pMtrl = nullptr;
+}
+
 void Geometry::init(const Vector3 &rotate, const Vector3 &position)
 {
     // m_transform.rotate(rotate);

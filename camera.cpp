@@ -50,7 +50,9 @@ void Camera::render()
             
             // Ray ray(origin, dir);
 
-            const Ray ray = generateRay(x, y);
+            Ray ray = generateRay(x, y);
+            // ray.origin = Vector3::ZERO;
+            // ray.dir = Vector3(0,0,1);
 
             HitRecord record;
             // record.reflectPdf = Common::INV_TWO_PI;

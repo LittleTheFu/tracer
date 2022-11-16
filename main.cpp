@@ -23,6 +23,7 @@
 #include "constTexture.h"
 #include "uvTexture.h"
 #include "noiseTexture.h"
+#include "triangle.h"
 
 int main()
 {
@@ -43,6 +44,13 @@ int main()
 
     MirrorMaterial MtrlMirror;
     GlassMaterial MtrlGlass;
+
+    TriAngleVertex va = TriAngleVertex(-20, 20, 0, 0);
+    TriAngleVertex vb = TriAngleVertex(0, -20, 0, 1);
+    TriAngleVertex vc = TriAngleVertex(20, 20, 1, 1);
+    TriAngle *triAngle = new TriAngle(va, vb, vc,
+                                      Vector3(0, 0, 0), Vector3(-70, -25, 220),
+                                      &lambMtrlAqua);
 
     Ball *redBall = new Ball(Vector3::ZERO, Vector3(-55, 10, 240), 20, &lambMtrlRed);
     Ball *yellowBall = new Ball(Vector3::ZERO, Vector3(60, 80, 225), 20, &lambMtrlYellow);
@@ -107,6 +115,8 @@ int main()
     mirrorBall->setTag(200);
 
     pool->add(light);
+
+    pool->add(triAngle);
 
     pool->add(redBall);
     pool->add(yellowBall);
