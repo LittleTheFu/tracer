@@ -1,7 +1,7 @@
 #include "vector.h"
 #include <tgmath.h>
 #include <algorithm>
-#include "common.h"
+#include "common/common.h"
 #include <cassert>
 
 Vector3 const Vector3::ZERO = Vector3(0, 0, 0);
@@ -207,7 +207,7 @@ bool Vector3::isPerpendicular(const Vector3 &that) const
     return isX && isY && isZ;
 }
 
-float Vector3::length()
+float Vector3::length() const
 {
     float lenSqr = lenthSqr();
     if (lenSqr <= 0.0f)

@@ -1,8 +1,14 @@
 #include "ball.h"
-#include "common.h"
+#include "common/common.h"
 #include <cmath>
 #include <algorithm>
 #include "frame.h"
+
+Ball::Ball()
+{
+    this->r = 1;
+    this->m_pMtrl = nullptr;
+}
 
 Ball::Ball(const Vector3 &rotate, const Vector3 &position, float r, Material *pMtrl)
 {
@@ -18,6 +24,18 @@ Vector3 Ball::getLocalNormal(const Vector3 &thatPoint) const
     normal.normalize();
 
     return normal;
+}
+
+Vector3 Ball::getLocalDirection(float u, float v) const
+{
+    const float phi = u * Common::TWO_PI;
+    const float theta = v * Common::PI;
+
+    const float x = std::sin(theta) * std::cos(phi);
+    const float y = std::sin(theta) * std::sin(phi);
+    const float z = std::cos(theta);
+
+    return Vector3(x, y, z);
 }
 
 bool Ball::hit(const Ray &ray, HitRecord &record) const
@@ -75,17 +93,14 @@ bool Ball::hit(const Ray &ray, HitRecord &record) const
         record.u = u(localPoint);
         record.v = v(localPoint);
 
-        if (m_pMtrl && m_pMtrl->pBrdf)
+        if (m_pMtrl)
         {
             Frame frame(localNormal, dpdu(localPoint));
 
             const Vector3 local_wo = frame.toLocal(-newRay.dir);
             Vector3 r;
-            record.f = m_pMtrl->pBrdf->sample_f(local_wo, r, record.reflectPdf);
-            if (m_pMtrl->pTexture)
-            {
-                record.f *= m_pMtrl->pTexture->getColor(record.u, record.v);
-            }
+            record.f = m_pMtrl->eval(record.u, record.v, local_wo, r, record.reflectPdf);
+
             record.dot = Common::clamp(std::abs(r * Common::LOCAL_NORMAL), Common::FLOAT_SAMLL_NUMBER, 1.0f);
             // if (r.z == 0)
             //     r.z = 1;
@@ -95,7 +110,7 @@ bool Ball::hit(const Ray &ray, HitRecord &record) const
             Vector3 localReflectVector = frame.toWorld(r);
             localReflectVector.normalize();
             record.reflect = m_transform.transformVector(localReflectVector);
-            record.isMirror = m_pMtrl->pBrdf->isMirror();
+            record.isMirror = m_pMtrl->isMirror();
 
             if (record.isMirror)
             {

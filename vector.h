@@ -25,7 +25,7 @@ public:
     bool isZero() const;
     bool isPerpendicular(const Vector3 &that) const;
 
-    float length();
+    float length() const;
     float lenthSqr() const;
     void normalize();
 

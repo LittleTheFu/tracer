@@ -6,6 +6,7 @@ class Color
 public:
     Color();
     Color(float r, float g, float b);
+    // Color(unsigned char r, unsigned char g, unsigned char b);
 
     void getConvertedValue(unsigned char &r, unsigned char &g, unsigned char &b);
 
@@ -16,6 +17,7 @@ public:
     Color operator*(const float m) const;
     Color operator*(const Color &that) const;
     Color operator/(const float m) const;
+    Color &operator/=(const float m);
 
     bool operator==(const Color that) const;
     bool operator!=(const Color that) const;

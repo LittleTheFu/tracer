@@ -5,15 +5,15 @@
 #include "color.h"
 #include "ray.h"
 #include "texture.h"
+#include "vector.h"
 
 class Material
 {
 public:
     Material();
-    // void eval(const HitInfo &info);
-    Color calc(const Color &inputColor, const Ray &inputDir) const;
-    Brdf *pBrdf;
-    Texture *pTexture;
+
+    virtual Color eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf) const;
+    virtual bool isMirror() const;
 };
 
 #endif

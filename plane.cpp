@@ -1,5 +1,5 @@
 #include "plane.h"
-#include "common.h"
+#include "common/common.h"
 #include <cmath>
 #include <iostream>
 
@@ -7,14 +7,19 @@ Plane::Plane(const Vector3 &rotate, const Vector3 &position, float length, Mater
 {
     init(rotate, position);
 
-    this->length = length;
+    this->half_length = length;
     this->m_pMtrl = pMtrl;
 
-    this->m_uvCellSize = 400;
+    this->m_uvCellSize = 100;
 }
 
-Vector3 Plane::getLocalNormal() const
+Vector3 Plane::getLocalNormal(bool reverse = false) const
 {
+    if (reverse)
+    {
+        return Vector3(0, 0, -1);
+    }
+
     return Vector3(0, 0, 1);
 }
 
@@ -24,14 +29,15 @@ bool Plane::hit(const Ray &ray, HitRecord &record) const
 
     const Ray newRay = ray.genNewRay(m_transform);
 
+    bool reverse = false;
     // if (newRay.dir * getLocalNormal() >= 0)
     if (newRay.dir.z >= 0)
     {
-        return false;
+        reverse = true;
     }
 
-    const float n = (-newRay.origin) * getLocalNormal();
-    const float d = newRay.dir * getLocalNormal();
+    const float n = (-newRay.origin) * getLocalNormal(reverse);
+    const float d = newRay.dir * getLocalNormal(reverse);
 
     record.t = n / d;
     if (record.t < Common::FLOAT_SAMLL_NUMBER)
@@ -44,7 +50,6 @@ bool Plane::hit(const Ray &ray, HitRecord &record) const
 
     if (!isLocalIn(localPoint))
     {
-        // some bug here
         return false;
     }
 
@@ -52,27 +57,18 @@ bool Plane::hit(const Ray &ray, HitRecord &record) const
     record.transform = m_transform;
 
     record.point = m_transform.transformPoint(localPoint);
-    record.normal = m_transform.transformNormal(getLocalNormal());
+    record.normal = m_transform.transformNormal(getLocalNormal(reverse));
 
     record.u = u(localPoint);
     record.v = v(localPoint);
 
-    if (m_pMtrl && m_pMtrl->pBrdf)
+    if (m_pMtrl)
     {
         Vector3 r;
-        record.f = m_pMtrl->pBrdf->sample_f(-newRay.dir, r, record.reflectPdf);
-        if (m_pMtrl->pTexture)
-        {
-            record.f *= m_pMtrl->pTexture->getColor(record.u, record.v);
-        }
-        if (r * Common::LOCAL_NORMAL < 0)
-        {
-            // m_pMtrl->pBrdf->sample_f(-newRay.dir, r, record.reflectPdf);
-            // std::cout << "less" << std::endl;
-        }
+        record.f = m_pMtrl->eval(record.u, record.v, -newRay.dir, r, record.reflectPdf);
         record.dot = Common::clamp(std::abs(r * Common::LOCAL_NORMAL), Common::FLOAT_SAMLL_NUMBER, 1.0f);
         record.reflect = m_transform.transformVector(r);
-        record.isMirror = m_pMtrl->pBrdf->isMirror();
+        record.isMirror = m_pMtrl->isMirror();
 
         if (record.isMirror)
         {
@@ -95,31 +91,36 @@ Vector3 Plane::dpdv(const Vector3 &point) const
 
 float Plane::u(const Vector3 &point) const
 {
-    float rawU = point.x / m_uvCellSize;
-    float uu = rawU - (int)rawU;
+    // float x = std::abs(point.x);
+    // float modU = (int)x % m_uvCellSize;
+    // float uu = modU / (float)m_uvCellSize;
 
-    return uu;
+    float x = point.x + half_length;
+    float length = half_length * 2;
+    float uu = x / length;
+
+    return Common::clamp(std::abs(uu), 0, 1);
 }
 
 float Plane::v(const Vector3 &point) const
 {
-    float rawV = point.y / m_uvCellSize;
-    float vv = rawV - (int)rawV;
+    // float y = std::abs(point.y);
+    // float modV = (int)y % m_uvCellSize;
+    // float vv = modV / (float)m_uvCellSize;
 
-    return vv;
+    float y = point.y + half_length;
+    float length = half_length * 2;
+    float vv = y / length;
+
+    return Common::clamp(std::abs(vv), 0, 1);
 }
 
 bool Plane::isLocalIn(const Vector3 &p) const
 {
-    // bug, fix later
-    return true;
-
     if (!Common::is_float_equal(p.z, 0))
     {
         return false;
     }
-
-    const float half_length = length / 2;
 
     const float absX = std::abs(p.x);
     if (absX > half_length)

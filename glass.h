@@ -8,7 +8,7 @@ class Glass : public Brdf
 public:
     Glass(float etaOutsie, float etaInside);
 
-    Color sample_f(const Vector3 &wo, Vector3 &wi, float &pdf);
+    Color sample_f(const Vector3 &wo, Vector3 &wi, float &pdf) const;
     bool isGlass() const;
     bool isMirror() const;
 

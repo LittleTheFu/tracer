@@ -8,7 +8,7 @@ class Mirror : public Brdf
 public:
     Mirror();
     
-    Color sample_f(const Vector3 &wo, Vector3 &wi, float &pdf);
+    Color sample_f(const Vector3 &wo, Vector3 &wi, float &pdf) const;
     bool isMirror() const;
 };
 

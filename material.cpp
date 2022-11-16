@@ -2,11 +2,14 @@
 
 Material::Material()
 {
-    pBrdf = nullptr;
-    pTexture = nullptr;
 }
 
-Color Material::calc(const Color &inputColor, const Ray &inputDir) const
+Color Material::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf) const
 {
-    return Color::COLOR_WHITE;
+    return Color::COLOR_BLACK;
+}
+
+bool Material::isMirror() const
+{
+    return false;
 }

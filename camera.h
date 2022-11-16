@@ -5,6 +5,7 @@
 #include "vector.h"
 #include "transform.h"
 #include <string>
+#include "ray.h"
 
 class Camera
 {
@@ -20,16 +21,19 @@ public:
     bool saveToImage(const std::string &name) const;
 
 private:
+    virtual Ray generateRay(float screenX, float screenY) const = 0;
+
+private:
     const ObjectPool *m_pObjectPool;
     std::vector<unsigned char> m_Image;
 
     Transform m_transform;
+    unsigned m_factor;
+    int m_BounceTime;
 
+protected:
     unsigned m_Width;
     unsigned m_Height;
-    unsigned m_factor;
-
-    int m_BounceTime;
 };
 
 #endif

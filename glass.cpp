@@ -12,7 +12,7 @@ Glass::Glass(float etaOutsie, float etaInside)
     m_etaOutside = etaOutsie;
 }
 
-Color Glass::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf)
+Color Glass::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf) const
 {
     Vector3 normal = LOCAL_NORMAL;
     float dot = wo * normal;

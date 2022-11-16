@@ -1,7 +1,7 @@
 #include "ray.h"
 #include "objectpool.h"
 #include "material.h"
-#include "common.h"
+#include "common/common.h"
 #include <iostream>
 #include "brdfMgr.h"
 #include "material.h"
@@ -9,56 +9,58 @@
 #include "plane.h"
 #include "hitrecord.h"
 #include "light.h"
-#include "camera.h"
+#include "pinholeCamera.h"
+#include "orthographicCamera.h"
+#include "fishEyeCamera.h"
 #include "transform.h"
 #include <string>
+#include "color.h"
+#include "lambertianMaterial.h"
+#include "glassMaterial.h"
+#include "mirrorMaterial.h"
+#include "chessboard.h"
+#include "image.h"
+#include "constTexture.h"
+#include "uvTexture.h"
+#include "noiseTexture.h"
+#include "triangle.h"
 
 int main()
 {
-    BrdfMgr brdfMgr;
+    float rho = 0.3;
 
-    Material lambMtrlRed;
-    lambMtrlRed.pBrdf = brdfMgr.getRedBrdf();
-    lambMtrlRed.pTexture = brdfMgr.getTexture();
+    LambertianMaterial lambMtrlLena(new Image("lena.png"), rho);
+    LambertianMaterial lambMtrlChessboard(new Chessboard(), rho);
+    LambertianMaterial lambUV(new UvTexture(), 1);
+    LambertianMaterial lambNoise(new NoiseTexture(Color::COLOR_WHITE), rho);
 
-    Material lambMtrlYellow;
-    lambMtrlYellow.pBrdf = brdfMgr.getYellowBrdf();
-    // lambMtrlYellow.pTexture = brdfMgr.getTexture();
+    LambertianMaterial lambMtrlRed(new ConstTexture(Color::COLOR_RED), rho);
+    LambertianMaterial lambMtrlYellow(new ConstTexture(Color::COLOR_YELLOW), rho);
+    LambertianMaterial lambMtrlAqua(new ConstTexture(Color::COLOR_AQUA), rho);
+    LambertianMaterial lambMtrlPurple(new ConstTexture(Color::COLOR_PURPLE), rho);
+    LambertianMaterial lambMtrlGreen(new ConstTexture(Color::COLOR_GREEN), rho);
+    LambertianMaterial lambMtrlBlue(new ConstTexture(Color::COLOR_BLUE), rho);
+    LambertianMaterial lambMtrlWhite(new ConstTexture(Color::COLOR_WHITE), rho);
 
-    Material lambMtrlAqua;
-    lambMtrlAqua.pBrdf = brdfMgr.getAquaBrdf();
-    // lambMtrlAqua.pTexture = brdfMgr.getTexture();
+    MirrorMaterial MtrlMirror;
+    GlassMaterial MtrlGlass;
 
-    Material lambMtrlPurple;
-    lambMtrlPurple.pBrdf = brdfMgr.getPurpleBrdf();
-    // lambMtrlPurple.pTexture = brdfMgr.getTexture();
+    TriAngleVertex va = TriAngleVertex(-20, 20, 0, 0);
+    TriAngleVertex vb = TriAngleVertex(0, -20, 0.5, 1);
+    TriAngleVertex vc = TriAngleVertex(20, 20, 1, 0);
+    TriAngle *triAngle = new TriAngle(va, vb, vc,
+                                      Vector3(0, -Common::PI / 4, 0), Vector3(-80, -50, 215),
+                                      &lambMtrlLena);
 
-    Material lambMtrlGreen;
-    lambMtrlGreen.pBrdf = brdfMgr.getGreenBrdf();
-    // lambMtrlGreen.pTexture = brdfMgr.getTexture();
-
-    Material lambMtrlBlue;
-    lambMtrlBlue.pBrdf = brdfMgr.getBlueBrdf();
-    // lambMtrlAqua.pTexture = brdfMgr.getTexture();
-
-    Material lambMtrlWhite;
-    lambMtrlWhite.pBrdf = brdfMgr.getWhiteBrdf();
-    // lambMtrlWhite.pTexture = brdfMgr.getTexture();
-
-    Material MtrlMirror;
-    MtrlMirror.pBrdf = brdfMgr.getMirrorBrdf();
-
-    Material MtrlGlass;
-    MtrlGlass.pBrdf = brdfMgr.getGlassBrdf();
-
-    Ball *redBall = new Ball(Vector3::ZERO, Vector3(-75, 10, 300), 20, &lambMtrlRed);
+    Ball *redBall = new Ball(Vector3::ZERO, Vector3(-55, 10, 240), 20, &lambMtrlRed);
     Ball *yellowBall = new Ball(Vector3::ZERO, Vector3(60, 80, 225), 20, &lambMtrlYellow);
     Ball *aquaBall = new Ball(Vector3::ZERO, Vector3(-50, -50, 300), 20, &lambMtrlAqua);
     Ball *whiteBall = new Ball(Vector3::ZERO, Vector3(20, -20, 300), 20, &lambMtrlWhite);
-    Ball *glassBall = new Ball(Vector3::ZERO, Vector3(0, 0, 225), 20, &MtrlGlass);
-    Ball *mirrorBall = new Ball(Vector3::ZERO, Vector3(-25, 40, 225), 20, &MtrlMirror);
+    Ball *glassBall = new Ball(Vector3::ZERO, Vector3(2, -2, 225), 20, &MtrlGlass);
+    Ball *mirrorBall = new Ball(Vector3::ZERO, Vector3(25, 40, 225), 20, &MtrlMirror);
+    Ball *textureBall = new Ball(Vector3::ZERO, Vector3(-45, 40, 220), 20, &lambMtrlChessboard);
 
-    Light *light = new Light(Vector3(0, -80, 260));
+    Light *light = new Light(Vector3(0, -80, 230));
 
     const float c = 100;
     const float r = 5 * c;
@@ -83,16 +85,20 @@ int main()
     Vector3 frontRotate(Common::PI, 0, 0);
     Vector3 frontPosition(0, 0, 5 * c);
     // CPlane *frontPlane = new CPlane(frontRotate, frontPosition, r, &MtrlMirror);
-    Plane *frontPlane = new Plane(frontRotate, frontPosition, r, &lambMtrlAqua);
+    Plane *frontPlane = new Plane(frontRotate, frontPosition, 100, &lambMtrlChessboard);
 
     // Vector3 backRotate(0, -Common::PI, 0);
     Vector3 backRotate(0, 0, 0);
     Vector3 backPosition(0, 0, -3 * c);
-    Plane *backPlane = new Plane(backRotate, backPosition, r, &lambMtrlRed);
+    Plane *backPlane = new Plane(backRotate, backPosition, 100, &lambMtrlRed);
 
     Vector3 glassRotate(-Common::PI / 2, 0, 0);
     Vector3 glassPosition(0, 0, -c * 0.5);
     Plane *glassPlane = new Plane(glassRotate, glassPosition, r, &MtrlGlass);
+
+    Vector3 squareRotate(Common::PI, -Common::PI / 4, Common::PI);
+    Vector3 squarePosition(70, -25, 290);
+    Plane *squarePlane = new Plane(squareRotate, squarePosition, 20, &lambMtrlLena);
 
     ObjectPool *pool = new ObjectPool();
 
@@ -110,6 +116,8 @@ int main()
 
     pool->add(light);
 
+    pool->add(triAngle);
+
     pool->add(redBall);
     pool->add(yellowBall);
     pool->add(aquaBall);
@@ -118,6 +126,8 @@ int main()
     pool->add(glassBall);
     pool->add(mirrorBall);
 
+    pool->add(textureBall);
+
     pool->add(frontPlane);
     pool->add(backPlane);
     pool->add(topPlane);
@@ -125,25 +135,29 @@ int main()
     pool->add(leftPlane);
     pool->add(rightPlane);
 
-    // Camera camera(pool);
-    // camera.build(Vector3::ZERO, Vector3::ZERO);
-    // Transform t = camera.getTransform().getInverseTransform();
-    // pool->applyTransfrom(t);
-    // camera.render();
-    // camera.saveToImage("img");
-    // pool->applyTransfrom(t.getInverseTransform());
+    pool->add(squarePlane);
 
-    for (int i = 0; i < 50; i++)
-    {
-        Camera camera(pool);
-        std::string name = "b_img" + std::to_string(i);
-        camera.build(Vector3(0, 0, -200 + i * 5), Vector3(0, 0, Common::PI / 50 * i));
-        Transform t = camera.getTransform().getInverseTransform();
-        pool->applyTransfrom(t);
-        camera.render();
-        camera.saveToImage(name);
-        pool->applyTransfrom(t.getInverseTransform());
-    }
+    // FishEyeCamera camera(pool);
+    // OrthographicCamera camera(pool);
+    PinholeCamera camera(pool);
+    camera.build(Vector3(0, 0, 0), Vector3(0, 0, 0));
+    Transform t = camera.getTransform().getInverseTransform();
+    pool->applyTransfrom(t);
+    camera.render();
+    camera.saveToImage("img");
+    pool->applyTransfrom(t.getInverseTransform());
+
+    // for (int i = 7; i < 8; i++)
+    // {
+    //     FishEyeCamera camera(pool);
+    //     std::string name = "b_img" + std::to_string(i);
+    //     camera.build(Vector3(0, 0, -200 + i * 30), Vector3(0, 0, Common::PI / 10 * i));
+    //     Transform t = camera.getTransform().getInverseTransform();
+    //     pool->applyTransfrom(t);
+    //     camera.render();
+    //     camera.saveToImage(name);
+    //     pool->applyTransfrom(t.getInverseTransform());
+    // }
 
     return 0;
 }
