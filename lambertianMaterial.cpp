@@ -1,4 +1,4 @@
-#include "LambertianMaterial.h"
+#include "lambertianMaterial.h"
 #include "lambertian.h"
 #include "common/common.h"
 
