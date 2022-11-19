@@ -5,6 +5,9 @@
 
 class Mist
 {
+public:
+    bool hit(const Ray &ray, HitRecord &record) const;
+
 private:
     Geometry *m_pGeometry;
 };

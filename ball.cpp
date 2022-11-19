@@ -55,7 +55,15 @@ bool Ball::hit(const Ray &ray, HitRecord &record) const
 
     float t0 = (-b + sqrt(delta)) / (2 * a);
     float t1 = (-b - sqrt(delta)) / (2 * a);
-    float temp = 0;
+
+    // t0,t1 for mist
+    record.t0 = t0;
+    record.t1 = t1;
+    if (record.t0 > record.t1)
+    {
+        std::swap(record.t0, record.t1);
+    }
+
     if (t0 > t1 && t1 > Common::FLOAT_SAMLL_NUMBER)
     {
         std::swap(t0, t1);

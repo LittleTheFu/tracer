@@ -36,7 +36,7 @@ void ObjectPool::applyTransfrom(Transform t)
     m_pLight->applyTransform(t);
 }
 
-bool ObjectPool::hitScene(const Ray &ray, HitRecord &record) const
+bool ObjectPool::hitScene(const Ray &ray, HitRecord &record, bool mist = false) const
 {
     bool hit = false;
     float tMin = Common::FLOAT_MAX;
@@ -54,6 +54,16 @@ bool ObjectPool::hitScene(const Ray &ray, HitRecord &record) const
                 hit = true;
             }
         }
+    }
+
+    if(mist)
+    {
+        HitRecord mistRecord;
+        bool bHitMist = m_pMist->hit(ray, mistRecord);
+
+        record.t0 = mistRecord.t0;
+        record.t1 = mistRecord.t1;
+        record.isMistHit = bHitMist;
     }
 
     return hit;
@@ -118,7 +128,7 @@ Color ObjectPool::trace(const Ray &ray, int bounceNum, const HitRecord &currentS
         lightDir.normalize();
 
         record.reflect = lightDir;
-        record.dot = record.normal * lightDir;//dot less than 0
+        record.dot = record.normal * lightDir; // dot less than 0
 
         newRay.dir = lightDir;
     }

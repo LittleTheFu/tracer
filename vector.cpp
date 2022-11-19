@@ -279,6 +279,8 @@ Vector3 Vector3::sampleUniformFromSphere()
     const float z = u;
 
     const Vector3 vec(x, y, z);
+
+    return vec;
 }
 
 Vector3 Vector3::sampleUniformFromCone(float thetaMax)
