@@ -8,6 +8,7 @@
 #include "color.h"
 #include "light.h"
 #include "transform.h"
+#include "mist.h"
 
 class ObjectPool
 {
@@ -16,6 +17,7 @@ public:
 
     void add(Geometry *pGeometry);
     void add(Light *pLight);
+    void add(Mist *pMist);
 
     void applyTransfrom(Transform t);
 
@@ -27,6 +29,7 @@ public:
 private:
     std::vector<Geometry *> m_objects;
     Light *m_pLight;
+    Mist *m_pMist;
 };
 
 #endif

@@ -21,6 +21,11 @@ void ObjectPool::add(Light *pLight)
     m_pLight = pLight;
 }
 
+void ObjectPool::add(Mist *pMist)
+{
+    m_pMist = pMist;
+}
+
 void ObjectPool::applyTransfrom(Transform t)
 {
     for (std::vector<Geometry *>::iterator it = m_objects.begin(); it != m_objects.end(); it++)
