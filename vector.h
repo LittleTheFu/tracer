@@ -35,6 +35,7 @@ public:
 
     static Vector3 getRandomVector();
     static Vector3 sampleUniformFromHemisphere();
+    static Vector3 sampleUniformFromSphere();
     static Vector3 sampleUniformFromCone(float thetaMax);
 
     static const Vector3 ZERO;

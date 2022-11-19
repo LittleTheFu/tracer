@@ -146,7 +146,7 @@ Vector3 Vector3::reflect(const Vector3 &normal) const
     return 2 * m * n + (*this);
 }
 
-Vector3 Vector3::refract(const Vector3 &normal, float etaOutside, float etaInside) 
+Vector3 Vector3::refract(const Vector3 &normal, float etaOutside, float etaInside)
 {
     // this->x = 1;
     // this->y = 1;
@@ -261,6 +261,24 @@ Vector3 Vector3::sampleUniformFromHemisphere()
     }
 
     return vec;
+}
+
+Vector3 Vector3::sampleUniformFromSphere()
+{
+    const float max = (float)RAND_MAX;
+
+    const float u = 1 - 2 * (std::rand() / max);
+    const float v = std::rand() / max;
+
+    const float cosTheta = u;
+    const float sinTheta = std::sqrt(1 - cosTheta * cosTheta);
+    const float phi = 2 * Common::PI * v;
+
+    const float x = sinTheta * std::cos(phi);
+    const float y = sinTheta * std::sin(phi);
+    const float z = u;
+
+    const Vector3 vec(x, y, z);
 }
 
 Vector3 Vector3::sampleUniformFromCone(float thetaMax)
