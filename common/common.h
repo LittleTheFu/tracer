@@ -29,6 +29,10 @@ public:
     const static Color LIGHT_COLOR;
 
     const static float SAMPLE_LIGHTR_CORRECT_FACTOR;
+
+    //for mist
+    const static float SIGMA_T;
+    const static float SIGMA_S;
 };
 
 #endif
