@@ -5,10 +5,10 @@
 #include <string>
 #include <vector>
 
-class Image : public Texture
+class ImageTexture : public Texture
 {
 public:
-    Image(const std::string fileName);
+    ImageTexture(const std::string fileName);
     Color getColor(float u, float v) const;
 
 private:

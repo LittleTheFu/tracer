@@ -1,8 +1,8 @@
-#include "image.h"
+#include "imageTexture.h"
 #include "lodepng.h"
 #include <iostream>
 
-Image::Image(const std::string fileName) : m_width(0), m_height(0)
+ImageTexture::ImageTexture(const std::string fileName) : m_width(0), m_height(0)
 {
     // decode
     unsigned error = lodepng::decode(m_data, m_width, m_height, fileName);
@@ -12,7 +12,7 @@ Image::Image(const std::string fileName) : m_width(0), m_height(0)
         std::cout << "decoder error " << error << ": " << lodepng_error_text(error) << std::endl;
 }
 
-Color Image::getColor(float u, float v) const
+Color ImageTexture::getColor(float u, float v) const
 {
     //something wrong here, uv passed was out of range
     //should be fixed later

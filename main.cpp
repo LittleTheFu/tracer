@@ -19,7 +19,7 @@
 #include "glassMaterial.h"
 #include "mirrorMaterial.h"
 #include "chessboard.h"
-#include "image.h"
+#include "imageTexture.h"
 #include "constTexture.h"
 #include "uvTexture.h"
 #include "noiseTexture.h"
@@ -29,7 +29,7 @@ int main()
 {
     float rho = 0.3;
 
-    LambertianMaterial lambMtrlLena(new Image("resource/lena.png"), rho);
+    LambertianMaterial lambMtrlLena(new ImageTexture("resource/lena.png"), rho);
     LambertianMaterial lambMtrlChessboard(new Chessboard(), rho);
     LambertianMaterial lambUV(new UvTexture(), 1);
     LambertianMaterial lambNoise(new NoiseTexture(Color::COLOR_WHITE), rho);
