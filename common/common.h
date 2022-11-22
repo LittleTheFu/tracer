@@ -3,6 +3,7 @@
 
 #include "../vector.h"
 #include "../color.h"
+#include <string>
 
 class Common
 {
@@ -29,6 +30,8 @@ public:
     const static Color LIGHT_COLOR;
 
     const static float SAMPLE_LIGHTR_CORRECT_FACTOR;
+
+    const static std::string LENA;
 
     //for mist
     const static float SIGMA_T;

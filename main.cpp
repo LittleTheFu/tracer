@@ -29,7 +29,7 @@ int main()
 {
     float rho = 0.3;
 
-    LambertianMaterial lambMtrlLena(new ImageTexture("resource/lena.png"), rho);
+    LambertianMaterial lambMtrlLena(new ImageTexture(Common::LENA), rho);
     LambertianMaterial lambMtrlChessboard(new Chessboard(), rho);
     LambertianMaterial lambUV(new UvTexture(), 1);
     LambertianMaterial lambNoise(new NoiseTexture(Color::COLOR_WHITE), rho);
