@@ -1,6 +1,6 @@
-#include "chessboard.h"
+#include "chessboardTexture.h"
 
-Color Chessboard::getColor(float u, float v) const
+Color ChessboardTexture::getColor(float u, float v) const
 {
     int iU = (int)(u / 0.5);
     int iV = (int)(v / 0.5);

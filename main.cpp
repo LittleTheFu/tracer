@@ -18,7 +18,7 @@
 #include "lambertianMaterial.h"
 #include "glassMaterial.h"
 #include "mirrorMaterial.h"
-#include "chessboard.h"
+#include "chessboardTexture.h"
 #include "imageTexture.h"
 #include "constTexture.h"
 #include "uvTexture.h"
@@ -30,7 +30,7 @@ int main()
     float rho = 0.3;
 
     LambertianMaterial lambMtrlLena(new ImageTexture(Common::LENA), rho);
-    LambertianMaterial lambMtrlChessboard(new Chessboard(), rho);
+    LambertianMaterial lambMtrlChessboard(new ChessboardTexture(), rho);
     LambertianMaterial lambUV(new UvTexture(), 1);
     LambertianMaterial lambNoise(new NoiseTexture(Color::COLOR_WHITE), rho);
 
