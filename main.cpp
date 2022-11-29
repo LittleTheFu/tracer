@@ -24,6 +24,7 @@
 #include "uvTexture.h"
 #include "noiseTexture.h"
 #include "triangle.h"
+#include "mixMaterial.h"
 
 int main()
 {
@@ -45,6 +46,8 @@ int main()
     MirrorMaterial MtrlMirror;
     GlassMaterial MtrlGlass;
 
+    MixMaterial MtrlMix;
+
     TriAngleVertex va = TriAngleVertex(-20, 20, 0, 0);
     TriAngleVertex vb = TriAngleVertex(0, -20, 0.5, 1);
     TriAngleVertex vc = TriAngleVertex(20, 20, 1, 0);
@@ -59,6 +62,7 @@ int main()
     Ball *glassBall = new Ball(Vector3::ZERO, Vector3(2, -2, 225), 20, &MtrlGlass);
     Ball *mirrorBall = new Ball(Vector3::ZERO, Vector3(25, 40, 225), 20, &MtrlMirror);
     Ball *textureBall = new Ball(Vector3::ZERO, Vector3(-45, 40, 220), 20, &lambMtrlChessboard);
+    Ball *mixBall = new Ball(Vector3::ZERO, Vector3(0, 0, 220), 20, &MtrlMix);
 
     Light *light = new Light(Vector3(0, -80, 230));
 
@@ -125,6 +129,7 @@ int main()
 
     pool->add(glassBall);
     pool->add(mirrorBall);
+    // pool->add(mixBall);
 
     pool->add(textureBall);
 

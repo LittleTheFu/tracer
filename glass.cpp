@@ -28,7 +28,8 @@ Color Glass::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf) const
 
     // Vector3 inputVector = Vector3(wo.x, wo.y, -wo.z);
     Vector3 inputVector = -wo;
-    wi = inputVector.refract(normal, etaOutside, etaInside);
+    bool totalReflect;
+    wi = inputVector.refract(normal, etaOutside, etaInside, totalReflect);
 
     pdf = 1;
 
