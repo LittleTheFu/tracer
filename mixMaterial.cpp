@@ -1,6 +1,7 @@
 #include "mixMaterial.h"
 #include "common/common.h"
 #include <cmath>
+#include <cassert>
 
 MixMaterial::MixMaterial()
 {
@@ -51,7 +52,7 @@ Color MixMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float 
 
     Color color;
 
-    if (rnd < F)
+    if (rnd <= F)
     {
         color = m_pMirrorBrdf->sample_f(wo, wi, pdf) * F;
         pdf = F;
@@ -61,6 +62,8 @@ Color MixMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float 
         color = m_pGlassBrdf->sample_f(wo, wi, pdf) * (1 - F);
         pdf = 1 - F;
     }
+
+    assert(pdf > 0);
 
     // if(pdf == 0)
     // {
