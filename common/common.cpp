@@ -21,6 +21,15 @@ const float Common::SIGMA_S = 0.2;
 
 const std::string Common::LENA = "resource/lena.png";
 
+const int Common::TAG_PLANE_LEFT = 1;
+const int Common::TAG_PLANE_RIGHT = 2;
+const int Common::TAG_PLANE_TOP = 3;
+const int Common::TAG_PLANE_BOTTOM = 4;
+const int Common::TAG_PLANE_FRONT = 5;
+const int Common::TAG_PLANE_BACK = 6;
+
+const int Common::TAG_LIGHT = 1001;
+
 const bool Common::is_float_equal(float x, float y)
 {
     float diff = std::abs(x - y);

@@ -36,6 +36,16 @@ public:
     //for mist
     const static float SIGMA_T;
     const static float SIGMA_S;
+
+    //tag
+    const static int TAG_PLANE_LEFT;
+    const static int TAG_PLANE_RIGHT;
+    const static int TAG_PLANE_TOP;
+    const static int TAG_PLANE_BOTTOM;
+    const static int TAG_PLANE_FRONT;
+    const static int TAG_PLANE_BACK;
+
+    const static int TAG_LIGHT;
 };
 
 #endif

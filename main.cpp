@@ -106,17 +106,19 @@ int main()
 
     ObjectPool *pool = new ObjectPool();
 
-    frontPlane->setTag(0);
-    backPlane->setTag(1);
-    topPlane->setTag(2);
-    bottomPlane->setTag(3);
-    leftPlane->setTag(4);
-    rightPlane->setTag(5);
+    frontPlane->setTag(Common::TAG_PLANE_FRONT);
+    backPlane->setTag(Common::TAG_PLANE_BACK);
+    topPlane->setTag(Common::TAG_PLANE_TOP);
+    bottomPlane->setTag(Common::TAG_PLANE_BOTTOM);
+    leftPlane->setTag(Common::TAG_PLANE_LEFT);
+    rightPlane->setTag(Common::TAG_PLANE_RIGHT);
 
-    glassBall->setTag(100);
-    glassPlane->setTag(101);
+    light->setTag(Common::TAG_LIGHT);
 
-    mirrorBall->setTag(200);
+    // glassBall->setTag(100);
+    // glassPlane->setTag(101);
+
+    // mirrorBall->setTag(200);
 
     pool->add(light);
 

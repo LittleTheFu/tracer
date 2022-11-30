@@ -13,6 +13,11 @@ void Light::applyTransform(const Transform &t)
     m_pGeometry->applyTransform(t);
 }
 
+void Light::setTag(int tag)
+{
+    m_pGeometry->setTag(tag);
+}
+
 bool Light::hit(const Ray &ray, float &t, Vector3 &normal, float &dot) const
 {
     HitRecord record;

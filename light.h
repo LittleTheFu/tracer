@@ -14,6 +14,7 @@ public:
     void applyTransform(const Transform &t);
     Vector3 sample(const Vector3 &thatPoint, float &pdf) const;
     bool hit(const Ray &ray, float &t, Vector3 &normal, float &dot) const;
+    void setTag(int tag);
 
     const Geometry *getGeometry() const;
 
