@@ -141,6 +141,10 @@ Color ObjectPool::trace(const Ray &ray, int bounceNum, const HitRecord &currentS
         record.reflect = lightDir;
         record.dot = record.normal * lightDir; // dot less than 0
         // assert(record.dot > 0);
+        if(record.dot <= 0)
+        {
+            return Color::COLOR_BLACK;
+        }
 
         newRay.dir = lightDir;
     }
