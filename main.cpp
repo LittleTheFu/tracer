@@ -122,18 +122,18 @@ int main()
 
     pool->add(light);
 
-    pool->add(triAngle);
+    // pool->add(triAngle);
 
-    pool->add(redBall);
-    pool->add(yellowBall);
-    pool->add(aquaBall);
-    pool->add(whiteBall);
+    // pool->add(redBall);
+    // pool->add(yellowBall);
+    // pool->add(aquaBall);
+    // pool->add(whiteBall);
 
-    pool->add(glassBall);
-    pool->add(mirrorBall);
+    // pool->add(glassBall);
+    // pool->add(mirrorBall);
     // pool->add(mixBall);
 
-    pool->add(textureBall);
+    // pool->add(textureBall);
 
     pool->add(frontPlane);
     pool->add(backPlane);
@@ -142,7 +142,7 @@ int main()
     pool->add(leftPlane);
     pool->add(rightPlane);
 
-    pool->add(squarePlane);
+    // pool->add(squarePlane);
 
     // FishEyeCamera camera(pool);
     // OrthographicCamera camera(pool);

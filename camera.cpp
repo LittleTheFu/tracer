@@ -61,6 +61,10 @@ void Camera::render()
             {
                 // ray.origin = Vector3::ZERO;
                 // ray.dir = Vector3(0, 0, 1);
+                if(i == 3)
+                {
+                    int x = 3;
+                }
                 color += m_pObjectPool->trace(ray, i, record);
             }
 

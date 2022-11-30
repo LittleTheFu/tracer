@@ -10,6 +10,7 @@ class HitRecord
 {
 public:
     HitRecord();
+    bool isPointValid() const;
     
     Transform transform;
     Material mtrl;
@@ -35,6 +36,8 @@ public:
 
     bool isMirror;
     bool isMistHit;
+
+    int tag;
 };
 
 #endif

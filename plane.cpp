@@ -2,6 +2,7 @@
 #include "common/common.h"
 #include <cmath>
 #include <iostream>
+#include <cassert>
 
 Plane::Plane(const Vector3 &rotate, const Vector3 &position, float length, Material *pMtrl)
 {
@@ -25,6 +26,16 @@ Vector3 Plane::getLocalNormal(bool reverse = false) const
 
 bool Plane::hit(const Ray &ray, HitRecord &record) const
 {
+    if (getTag() == Common::TAG_PLANE_LEFT)
+    {
+        int b = 3;
+    }
+
+    if(getTag() == Common::TAG_PLANE_TOP)
+    {
+        int c = 3;
+    }
+
     record.t = Common::FLOAT_MAX;
 
     const Ray newRay = ray.genNewRay(m_transform);
@@ -46,7 +57,25 @@ bool Plane::hit(const Ray &ray, HitRecord &record) const
         return false;
     }
 
+    // if(reverse)
+    // {
+    //     record.t += Common::FLOAT_SAMLL_NUMBER;
+    // }
+    // else
+    // {
+    //     record.t -= Common::FLOAT_SAMLL_NUMBER;
+    // }
+
     Vector3 localPoint = newRay.origin + record.t * newRay.dir;
+    // Vector3 offset = newRay.dir * 0.000;
+    // if(reverse)
+    // {
+    //     localPoint += offset;
+    // }
+    // else
+    // {
+    //     localPoint -= offset;
+    // }
 
     if (!isLocalIn(localPoint))
     {
@@ -57,10 +86,17 @@ bool Plane::hit(const Ray &ray, HitRecord &record) const
     record.transform = m_transform;
 
     record.point = m_transform.transformPoint(localPoint);
+    // assert(record.point.x >= -100);
+    // assert(record.point.x <= 100);
+    // assert(record.point.y >= -100);
+    // assert(record.point.y <= 100);
+
     record.normal = m_transform.transformNormal(getLocalNormal(reverse));
 
     record.u = u(localPoint);
     record.v = v(localPoint);
+
+    record.tag = getTag();
 
     if (m_pMtrl)
     {

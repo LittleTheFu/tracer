@@ -12,6 +12,8 @@ public:
     Vector3 cross(const Vector3 &that) const;
 
     Vector3 operator+(const Vector3 &that) const;
+    Vector3 &operator+=(const Vector3 &that);
+    Vector3 &operator-=(const Vector3 &that);
     Vector3 operator-(const Vector3 &that) const;
     Vector3 operator-() const;
     float operator*(const Vector3 &that) const;

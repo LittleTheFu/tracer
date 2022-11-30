@@ -38,6 +38,12 @@ void ObjectPool::applyTransfrom(Transform t)
 
 bool ObjectPool::hitScene(const Ray &ray, HitRecord &record, bool mist = false) const
 {
+    // assert(ray.origin.x >= -100);
+    // assert(ray.origin.x <= 100);
+
+    // assert(ray.origin.y >= -100);
+    // assert(ray.origin.y <= 100);
+
     bool hit = false;
     float tMin = Common::FLOAT_MAX;
 
@@ -56,7 +62,7 @@ bool ObjectPool::hitScene(const Ray &ray, HitRecord &record, bool mist = false) 
         }
     }
 
-    if(mist)
+    if (mist)
     {
         HitRecord mistRecord;
         bool bHitMist = m_pMist->hit(ray, mistRecord);
@@ -65,6 +71,11 @@ bool ObjectPool::hitScene(const Ray &ray, HitRecord &record, bool mist = false) 
         record.t1 = mistRecord.t1;
         record.isMistHit = bHitMist;
     }
+
+    // if(hit)
+    // {
+    //     assert(record.isPointValid());
+    // }
 
     return hit;
 }
@@ -129,6 +140,7 @@ Color ObjectPool::trace(const Ray &ray, int bounceNum, const HitRecord &currentS
 
         record.reflect = lightDir;
         record.dot = record.normal * lightDir; // dot less than 0
+        // assert(record.dot > 0);
 
         newRay.dir = lightDir;
     }

@@ -101,6 +101,8 @@ bool Ball::hit(const Ray &ray, HitRecord &record) const
         record.u = u(localPoint);
         record.v = v(localPoint);
 
+        record.tag = getTag();
+
         if (m_pMtrl)
         {
             Frame frame(localNormal, dpdu(localPoint));

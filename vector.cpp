@@ -38,6 +38,24 @@ Vector3 Vector3::operator+(const Vector3 &that) const
     return Vector3(x, y, z);
 }
 
+Vector3 &Vector3::operator+=(const Vector3 &that)
+{
+    x += that.x;
+    y += that.y;
+    z += that.z;
+
+    return *this;
+}
+
+Vector3 &Vector3::operator-=(const Vector3 &that)
+{
+    x -= that.x;
+    y -= that.y;
+    z -= that.z;
+
+    return *this;
+}
+
 Vector3 Vector3::operator-(const Vector3 &that) const
 {
     float x = this->x - that.x;
@@ -263,7 +281,7 @@ Vector3 Vector3::sampleUniformFromHemisphere()
     const float diff = lenthSqr - 1.0f;
     if (std::abs(diff) > Common::FLOAT_SAMLL_NUMBER)
     {
-        // assert("vector is not normalized!");
+        assert("vector is not normalized!");
     }
 
     return vec;

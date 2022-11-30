@@ -8,4 +8,31 @@ HitRecord::HitRecord()
 
     isMirror = false;
     isMistHit = false;
+
+    tag = -1;
+}
+
+bool HitRecord::isPointValid() const
+{
+    if(point.x < -100)
+    {
+        return false;
+    }
+
+    if(point.x > 100)
+    {
+        return false;
+    }
+
+    if(point.y < -100)
+    {
+        return false;
+    }
+
+    if(point.y > 100)
+    {
+        return false;
+    }
+
+    return true;
 }

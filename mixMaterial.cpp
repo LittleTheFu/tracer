@@ -62,10 +62,10 @@ Color MixMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float 
         pdf = 1 - F;
     }
 
-    if(pdf == 0)
-    {
-        pdf = Common::FLOAT_SAMLL_NUMBER;
-    }
+    // if(pdf == 0)
+    // {
+    //     pdf = Common::FLOAT_SAMLL_NUMBER;
+    // }
 
     return color;
 }
