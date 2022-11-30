@@ -129,11 +129,6 @@ int main()
 
     squarePlane->setTag(Common::TAG_SQUARE);
 
-    // glassBall->setTag(100);
-    // glassPlane->setTag(101);
-
-    // mirrorBall->setTag(200);
-
     pool->add(light);
 
     pool->add(triAngle);
@@ -145,7 +140,7 @@ int main()
 
     pool->add(glassBall);
     pool->add(mirrorBall);
-    // pool->add(mixBall);
+    pool->add(mixBall);
 
     pool->add(textureBall);
 
