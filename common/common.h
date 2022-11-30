@@ -45,6 +45,20 @@ public:
     const static int TAG_PLANE_FRONT;
     const static int TAG_PLANE_BACK;
 
+    const static int TAG_TRI;
+
+    const static int TAG_RED_BALL;
+    const static int TAG_YELLOW_BALL;
+    const static int TAG_AQUA_BALL;
+    const static int TAG_WHITE_BALL;
+
+    const static int TAG_GLASS_BALL;
+    const static int TAG_MIRROR_BALL;
+    const static int TAG_MIX_BALL;
+    const static int TAG_TEXTURE_BALL;
+
+    const static int TAG_SQUARE;
+
     const static int TAG_LIGHT;
 };
 

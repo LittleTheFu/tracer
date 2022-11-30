@@ -59,7 +59,7 @@ int main()
     Ball *yellowBall = new Ball(Vector3::ZERO, Vector3(60, 80, 225), 20, &lambMtrlYellow);
     Ball *aquaBall = new Ball(Vector3::ZERO, Vector3(-50, -50, 300), 20, &lambMtrlAqua);
     Ball *whiteBall = new Ball(Vector3::ZERO, Vector3(20, -20, 300), 20, &lambMtrlWhite);
-    Ball *glassBall = new Ball(Vector3::ZERO, Vector3(2, -2, 225), 20, &MtrlGlass);
+    Ball *glassBall = new Ball(Vector3::ZERO, Vector3(2, -45, 225), 20, &MtrlGlass);
     Ball *mirrorBall = new Ball(Vector3::ZERO, Vector3(25, 40, 225), 20, &MtrlMirror);
     Ball *textureBall = new Ball(Vector3::ZERO, Vector3(-45, 40, 220), 20, &lambMtrlChessboard);
     Ball *mixBall = new Ball(Vector3::ZERO, Vector3(0, 0, 220), 20, &MtrlMix);
@@ -106,6 +106,20 @@ int main()
 
     ObjectPool *pool = new ObjectPool();
 
+    light->setTag(Common::TAG_LIGHT);
+
+    triAngle->setTag(Common::TAG_TRI);
+
+    redBall->setTag(Common::TAG_RED_BALL);
+    yellowBall->setTag(Common::TAG_YELLOW_BALL);
+    aquaBall->setTag(Common::TAG_AQUA_BALL);
+    whiteBall->setTag(Common::TAG_WHITE_BALL);
+
+    glassBall->setTag(Common::TAG_GLASS_BALL);
+    mirrorBall->setTag(Common::TAG_MIRROR_BALL);
+    mixBall->setTag(Common::TAG_MIX_BALL);
+    textureBall->setTag(Common::TAG_TEXTURE_BALL);
+
     frontPlane->setTag(Common::TAG_PLANE_FRONT);
     backPlane->setTag(Common::TAG_PLANE_BACK);
     topPlane->setTag(Common::TAG_PLANE_TOP);
@@ -113,7 +127,7 @@ int main()
     leftPlane->setTag(Common::TAG_PLANE_LEFT);
     rightPlane->setTag(Common::TAG_PLANE_RIGHT);
 
-    light->setTag(Common::TAG_LIGHT);
+    squarePlane->setTag(Common::TAG_SQUARE);
 
     // glassBall->setTag(100);
     // glassPlane->setTag(101);
@@ -122,18 +136,18 @@ int main()
 
     pool->add(light);
 
-    // pool->add(triAngle);
+    pool->add(triAngle);
 
-    // pool->add(redBall);
-    // pool->add(yellowBall);
-    // pool->add(aquaBall);
-    // pool->add(whiteBall);
+    pool->add(redBall);
+    pool->add(yellowBall);
+    pool->add(aquaBall);
+    pool->add(whiteBall);
 
-    // pool->add(glassBall);
-    // pool->add(mirrorBall);
+    pool->add(glassBall);
+    pool->add(mirrorBall);
     // pool->add(mixBall);
 
-    // pool->add(textureBall);
+    pool->add(textureBall);
 
     pool->add(frontPlane);
     pool->add(backPlane);
@@ -142,7 +156,7 @@ int main()
     pool->add(leftPlane);
     pool->add(rightPlane);
 
-    // pool->add(squarePlane);
+    pool->add(squarePlane);
 
     // FishEyeCamera camera(pool);
     // OrthographicCamera camera(pool);

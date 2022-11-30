@@ -28,6 +28,20 @@ const int Common::TAG_PLANE_BOTTOM = 4;
 const int Common::TAG_PLANE_FRONT = 5;
 const int Common::TAG_PLANE_BACK = 6;
 
+const int Common::TAG_TRI = 10;
+
+const int Common::TAG_RED_BALL = 51;
+const int Common::TAG_YELLOW_BALL = 52;
+const int Common::TAG_AQUA_BALL = 53;
+const int Common::TAG_WHITE_BALL = 54;
+
+const int Common::TAG_GLASS_BALL = 81;
+const int Common::TAG_MIRROR_BALL = 82;
+const int Common::TAG_MIX_BALL = 83;
+const int Common::TAG_TEXTURE_BALL = 84;
+
+const int Common::TAG_SQUARE = 101;
+
 const int Common::TAG_LIGHT = 1001;
 
 const bool Common::is_float_equal(float x, float y)
