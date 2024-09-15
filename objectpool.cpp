@@ -134,10 +134,6 @@ Color ObjectPool::trace(const Ray &ray, int bounceNum, const HitRecord &currentS
     assert(currentState.reflectPdf > 0);
     Color ccolor = currentState.f * inputColor * currentState.dot / currentState.reflectPdf;
 
-    // if (ccolor != color)
-    // {
-    //     std::cout << "color not equal" << std::endl;
-    // }
     return ccolor;
 }
 
