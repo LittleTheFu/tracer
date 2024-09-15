@@ -25,7 +25,7 @@ public:
              const Vector3 &position,
              Material *pMtrl);
 
-    virtual bool hit(const Ray &ray, HitRecord &record) const;
+    virtual bool hit(const Ray &ray, HitRecord &record, Light *pLight) const;
 
     Vector3 getLocalNormal(bool reverse) const;
     bool isAllFacePositive(const Vector3 &a, const Vector3 &b, const Vector3 &c) const;

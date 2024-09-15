@@ -21,7 +21,7 @@ public:
 
     void applyTransfrom(Transform t);
 
-    bool hitScene(const Ray &ray, HitRecord &record, bool mist) const;
+    bool hitScene(const Ray &ray, HitRecord &record, bool mist, Light *pLight) const;
 
     Color trace(const Ray &ray, int bounceNum, const HitRecord &currentState) const;
     Color getColorFromLight(const Ray &ray) const;

@@ -38,7 +38,13 @@ Vector3 Ball::getLocalDirection(float u, float v) const
     return Vector3(x, y, z);
 }
 
-bool Ball::hit(const Ray &ray, HitRecord &record) const
+Color Ball::get_f(const Vector3 &wo, const Vector3 &wi, const Vector3 &point, const Vector3 &normal) const
+{
+    return Color::COLOR_WHITE;
+}
+
+
+bool Ball::hit(const Ray &ray, HitRecord &record, Light *pLight) const
 {
     record.t = Common::FLOAT_MAX;
 
@@ -108,7 +114,6 @@ bool Ball::hit(const Ray &ray, HitRecord &record) const
             const Vector3 local_wo = frame.toLocal(-newRay.dir);
             Vector3 r;
             record.f = m_pMtrl->eval(record.u, record.v, local_wo, r, record.reflectPdf);
-
             record.dot = Common::clamp(std::abs(r * Common::LOCAL_NORMAL), Common::FLOAT_SAMLL_NUMBER, 1.0f);
             // if (r.z == 0)
             //     r.z = 1;
@@ -119,6 +124,16 @@ bool Ball::hit(const Ray &ray, HitRecord &record) const
             localReflectVector.normalize();
             record.reflect = m_transform.transformVector(localReflectVector);
             record.isMirror = m_pMtrl->isMirror();
+
+            if(pLight)
+            {
+                Vector3 lightSurfacePoint = pLight->sample(record.point, record.reflectPdf);
+                Vector3 lightDir = lightSurfacePoint - record.point;
+                lightDir.normalize();
+
+                record.reflect = lightDir;
+                record.dot = record.normal * lightDir; // dot less than 0
+            }
 
             if (record.isMirror)
             {

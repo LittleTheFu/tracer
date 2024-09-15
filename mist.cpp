@@ -2,7 +2,8 @@
 
 bool Mist::hit(const Ray &ray, HitRecord &record) const
 {
-    bool isHit = m_pGeometry->hit(ray, record);
+    // bool isHit = m_pGeometry->hit(ray, record);
 
-    return isHit;
+    // return isHit;
+    return false;
 }

@@ -52,7 +52,7 @@ Vector3 TriAngle::getLocalNormal(bool reverse = false) const
     return Vector3(0, 0, 1);
 }
 
-bool TriAngle::hit(const Ray &ray, HitRecord &record) const
+bool TriAngle::hit(const Ray &ray, HitRecord &record, Light *pLight) const
 {
     record.t = Common::FLOAT_MAX;
 

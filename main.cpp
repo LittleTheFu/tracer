@@ -28,7 +28,7 @@
 
 int main()
 {
-    float rho = 0.3;
+    float rho = 1;
 
     LambertianMaterial lambMtrlLena(new ImageTexture(Common::LENA), rho);
     LambertianMaterial lambMtrlChessboard(new ChessboardTexture(), rho);

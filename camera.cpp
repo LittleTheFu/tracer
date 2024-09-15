@@ -5,13 +5,12 @@
 Camera::Camera(const ObjectPool *pool)
 {
     m_pObjectPool = pool;
-
-    m_factor = 1;
+    m_factor = 10;
 
     m_Width = Common::default_screen_width * m_factor;
     m_Height = Common::default_screen_height * m_factor;
 
-    m_BounceTime = 10;
+    m_BounceTime = 5;
 }
 
 void Camera::build(const Vector3 &position, const Vector3 &direction, const Vector3 &worldUp)
@@ -58,7 +57,7 @@ void Camera::render()
             unsigned char b = 0;
 
             Color color = Color::COLOR_BLACK;
-            for (int i = 2; i < m_BounceTime; i++)
+            for (int i = 3; i < m_BounceTime; i++)
             {
                 // ray.origin = Vector3::ZERO;
                 // ray.dir = Vector3(0, 0, 1);

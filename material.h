@@ -12,6 +12,8 @@ class Material
 public:
     Material();
 
+    virtual Color get_f(const Vector3 &wo, const Vector3 &wi) const;
+
     virtual Color eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf) const;
     virtual bool isMirror() const;
 };

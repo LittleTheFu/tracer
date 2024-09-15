@@ -36,7 +36,7 @@ void ObjectPool::applyTransfrom(Transform t)
     m_pLight->applyTransform(t);
 }
 
-bool ObjectPool::hitScene(const Ray &ray, HitRecord &record, bool mist = false) const
+bool ObjectPool::hitScene(const Ray &ray, HitRecord &record, bool mist = false, Light *pLight = nullptr) const
 {
     bool hit = false;
     float tMin = Common::FLOAT_MAX;
@@ -45,7 +45,7 @@ bool ObjectPool::hitScene(const Ray &ray, HitRecord &record, bool mist = false) 
     {
         HitRecord tempRecord;
 
-        if ((*it)->hit(ray, tempRecord))
+        if ((*it)->hit(ray, tempRecord, pLight))
         {
             if (tempRecord.t < tMin)
             {
@@ -110,24 +110,40 @@ Color ObjectPool::trace(const Ray &ray, int bounceNum, const HitRecord &currentS
         return retColor;
     }
 
+    // HitRecord record;
+    // if (!hitScene(ray, record))
+    // {
+    //     return Color::COLOR_BLACK;
+    // }
+
     HitRecord record;
-    if (!hitScene(ray, record))
+    if (bounceNum == 2)
     {
-        return Color::COLOR_BLACK;
+        if (!hitScene(ray, record, m_pLight))
+        {
+            return Color::COLOR_BLACK;
+        }
+    }
+    else
+    {
+        if (!hitScene(ray, record))
+        {
+            return Color::COLOR_BLACK;
+        }
     }
 
     Ray newRay(record.point, record.reflect);
-    if (bounceNum == 2)
-    {
-        Vector3 lightSurfacePoint = m_pLight->sample(record.point, record.reflectPdf);
-        Vector3 lightDir = lightSurfacePoint - record.point;
-        lightDir.normalize();
+    // if (bounceNum == 2)
+    // {
+    //     Vector3 lightSurfacePoint = m_pLight->sample(record.point, record.reflectPdf);
+    //     Vector3 lightDir = lightSurfacePoint - record.point;
+    //     lightDir.normalize();
 
-        record.reflect = lightDir;
-        record.dot = record.normal * lightDir; // dot less than 0
+    //     record.reflect = lightDir;
+    //     record.dot = record.normal * lightDir; // dot less than 0
 
-        newRay.dir = lightDir;
-    }
+    //     newRay.dir = lightDir;
+    // }
 
     Color inputColor = trace(newRay, bounceNum - 1, record);
 

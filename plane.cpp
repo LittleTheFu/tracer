@@ -23,7 +23,7 @@ Vector3 Plane::getLocalNormal(bool reverse = false) const
     return Vector3(0, 0, 1);
 }
 
-bool Plane::hit(const Ray &ray, HitRecord &record) const
+bool Plane::hit(const Ray &ray, HitRecord &record, Light *pLight) const
 {
     record.t = Common::FLOAT_MAX;
 
@@ -69,6 +69,16 @@ bool Plane::hit(const Ray &ray, HitRecord &record) const
         record.dot = Common::clamp(std::abs(r * Common::LOCAL_NORMAL), Common::FLOAT_SAMLL_NUMBER, 1.0f);
         record.reflect = m_transform.transformVector(r);
         record.isMirror = m_pMtrl->isMirror();
+
+        if (pLight)
+        {
+            Vector3 lightSurfacePoint = pLight->sample(record.point, record.reflectPdf);
+            Vector3 lightDir = lightSurfacePoint - record.point;
+            lightDir.normalize();
+
+            record.reflect = lightDir;
+            record.dot = record.normal * lightDir; // dot less than 0
+        }
 
         if (record.isMirror)
         {

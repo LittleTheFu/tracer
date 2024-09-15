@@ -6,6 +6,8 @@
 #include "vector.h"
 #include "transform.h"
 
+class Geometry;
+
 class Light
 {
 public:
