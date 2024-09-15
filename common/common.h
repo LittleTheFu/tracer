@@ -46,6 +46,9 @@ public:
     const static int TAG_PLANE_BACK;
 
     const static int TAG_LIGHT;
+
+    const static unsigned int default_screen_width;
+    const static unsigned int default_screen_height;
 };
 
 #endif

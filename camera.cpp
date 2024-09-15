@@ -1,5 +1,6 @@
 #include "camera.h"
 #include "lodepng.h"
+#include "common/common.h"
 
 Camera::Camera(const ObjectPool *pool)
 {
@@ -7,8 +8,8 @@ Camera::Camera(const ObjectPool *pool)
 
     m_factor = 1;
 
-    m_Width = 512 * m_factor;
-    m_Height = 512 * m_factor;
+    m_Width = Common::default_screen_width * m_factor;
+    m_Height = Common::default_screen_height * m_factor;
 
     m_BounceTime = 10;
 }

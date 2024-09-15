@@ -30,6 +30,9 @@ const int Common::TAG_PLANE_BACK = 6;
 
 const int Common::TAG_LIGHT = 1001;
 
+const  unsigned int Common::default_screen_width = 256;
+const  unsigned int Common::default_screen_height = 256;
+
 const bool Common::is_float_equal(float x, float y)
 {
     float diff = std::abs(x - y);
