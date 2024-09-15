@@ -147,3 +147,56 @@ Color ObjectPool::trace(const Ray &ray, int bounceNum, const HitRecord &currentS
     // }
     return ccolor;
 }
+
+//backup trace function
+// Color ObjectPool::trace(const Ray &ray, int bounceNum, const HitRecord &currentState) const
+// {
+//     if (bounceNum == 1)
+//     {
+//         // does this ray can hit the light?
+//         // return light * cos * cos * sample_f / pdf
+//         if (currentState.isMirror)
+//         {
+//             return Color::COLOR_BLACK;
+//         }
+
+//         Color lightColor = getColorFromLight(ray);
+//         float ttt = 1 / currentState.reflectPdf;
+//         Color retColor = lightColor * currentState.dot * currentState.f / currentState.reflectPdf;
+
+//         return retColor;
+//     }
+
+//     HitRecord record;
+//     if (!hitScene(ray, record))
+//     {
+//         return Color::COLOR_BLACK;
+//     }
+
+//     Ray newRay(record.point, record.reflect);
+//     if (bounceNum == 2 && !record.isMirror)
+//     {
+//         Vector3 lightSurfacePoint = m_pLight->sample(record.point, record.reflectPdf);
+//         Vector3 lightDir = lightSurfacePoint - record.point;
+//         lightDir.normalize();
+
+//         record.reflect = lightDir;
+//         record.dot = record.normal * lightDir; // dot less than 0
+
+//         newRay.dir = lightDir;
+//     }
+//     if (record.isMirror && bounceNum > 3)
+//     {
+//         // std::cout << "mirror" << std::endl;
+//     }
+//     Color inputColor = trace(newRay, bounceNum - 1, record);
+
+//     assert(currentState.reflectPdf > 0);
+//     Color ccolor = currentState.f * inputColor * currentState.dot / currentState.reflectPdf;
+
+//     // if (ccolor != color)
+//     // {
+//     //     std::cout << "color not equal" << std::endl;
+//     // }
+//     return ccolor;
+// }
