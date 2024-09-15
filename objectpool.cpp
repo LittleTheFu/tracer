@@ -102,10 +102,6 @@ Color ObjectPool::trace(const Ray &ray, int bounceNum, const HitRecord &currentS
     {
         // does this ray can hit the light?
         // return light * cos * cos * sample_f / pdf
-        if (currentState.isMirror)
-        {
-            return Color::COLOR_BLACK;
-        }
 
         Color lightColor = getColorFromLight(ray);
         float ttt = 1 / currentState.reflectPdf;
@@ -121,7 +117,7 @@ Color ObjectPool::trace(const Ray &ray, int bounceNum, const HitRecord &currentS
     }
 
     Ray newRay(record.point, record.reflect);
-    if (bounceNum == 2 && !record.isMirror)
+    if (bounceNum == 2)
     {
         Vector3 lightSurfacePoint = m_pLight->sample(record.point, record.reflectPdf);
         Vector3 lightDir = lightSurfacePoint - record.point;
@@ -132,10 +128,7 @@ Color ObjectPool::trace(const Ray &ray, int bounceNum, const HitRecord &currentS
 
         newRay.dir = lightDir;
     }
-    if (record.isMirror && bounceNum > 3)
-    {
-        // std::cout << "mirror" << std::endl;
-    }
+
     Color inputColor = trace(newRay, bounceNum - 1, record);
 
     assert(currentState.reflectPdf > 0);
