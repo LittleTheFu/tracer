@@ -45,7 +45,7 @@ Color Ball::get_f(const Vector3 &wo, const Vector3 &wi, const Vector3 &point, co
 
 bool Ball::hit(const Ray &ray, HitRecord &record, Light *pLight) const
 {
-    record.t = Common::FLOAT_MAX;
+    // record.t = Common::FLOAT_MAX;
 
     const Ray newRay = ray.genNewRay(m_transform);
 
