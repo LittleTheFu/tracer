@@ -5,12 +5,12 @@
 Camera::Camera(const ObjectPool *pool)
 {
     m_pObjectPool = pool;
-    m_factor = 10;
+    m_factor = 5;
 
     m_Width = Common::default_screen_width * m_factor;
     m_Height = Common::default_screen_height * m_factor;
 
-    m_BounceTime = 5;
+    m_BounceTime = 6;
 }
 
 void Camera::build(const Vector3 &position, const Vector3 &direction, const Vector3 &worldUp)

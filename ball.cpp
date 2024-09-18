@@ -125,15 +125,15 @@ bool Ball::hit(const Ray &ray, HitRecord &record, Light *pLight) const
             record.reflect = m_transform.transformVector(localReflectVector);
             record.isMirror = m_pMtrl->isMirror();
 
-            if(pLight)
-            {
-                Vector3 lightSurfacePoint = pLight->sample(record.point, record.reflectPdf);
-                Vector3 lightDir = lightSurfacePoint - record.point;
-                lightDir.normalize();
+            // if(pLight)
+            // {
+            //     Vector3 lightSurfacePoint = pLight->sample(record.point, record.reflectPdf);
+            //     Vector3 lightDir = lightSurfacePoint - record.point;
+            //     lightDir.normalize();
 
-                record.reflect = lightDir;
-                record.dot = record.normal * lightDir; // dot less than 0
-            }
+            //     record.reflect = lightDir;
+            //     record.dot = record.normal * lightDir; // dot less than 0
+            // }
 
             if (record.isMirror)
             {

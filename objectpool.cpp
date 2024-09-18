@@ -82,6 +82,9 @@ Color ObjectPool::getColorFromLight(const Ray &ray) const
 
     Color color = Color::COLOR_WHITE;
 
+    //bug fix
+    dot = 1;
+
     HitRecord record;
     if (!hitScene(ray, record))
     {
@@ -104,10 +107,11 @@ Color ObjectPool::trace(const Ray &ray, int bounceNum, const HitRecord &currentS
         // return light * cos * cos * sample_f / pdf
 
         Color lightColor = getColorFromLight(ray);
-        float ttt = 1 / currentState.reflectPdf;
-        Color retColor = lightColor * currentState.dot * currentState.f / currentState.reflectPdf;
+        // float ttt = 1 / currentState.reflectPdf;
+        // Color retColor = lightColor * currentState.dot * currentState.f / currentState.reflectPdf;
 
-        return retColor;
+        // return retColor;
+        return lightColor;
     }
 
     // HitRecord record;
@@ -117,33 +121,35 @@ Color ObjectPool::trace(const Ray &ray, int bounceNum, const HitRecord &currentS
     // }
 
     HitRecord record;
-    if (bounceNum == 2)
-    {
-        if (!hitScene(ray, record, m_pLight))
-        {
-            return Color::COLOR_BLACK;
-        }
-    }
-    else
-    {
-        if (!hitScene(ray, record))
-        {
-            return Color::COLOR_BLACK;
-        }
-    }
-
-    Ray newRay(record.point, record.reflect);
     // if (bounceNum == 2)
     // {
-    //     Vector3 lightSurfacePoint = m_pLight->sample(record.point, record.reflectPdf);
-    //     Vector3 lightDir = lightSurfacePoint - record.point;
-    //     lightDir.normalize();
-
-    //     record.reflect = lightDir;
-    //     record.dot = record.normal * lightDir; // dot less than 0
-
-    //     newRay.dir = lightDir;
+        // if (!hitScene(ray, record, m_pLight))
+        // {
+        //     return Color::COLOR_BLACK;
+        // }
+        // hitScene(ray, record, m_pLight);
+        // return Color::COLOR_WHITE;
     // }
+    // else
+    // {
+    if (!hitScene(ray, record))
+    {
+        return Color::COLOR_BLACK;
+    }
+    // }
+
+    Ray newRay(record.point, record.reflect);
+    if (bounceNum == 2)
+    {
+        Vector3 lightSurfacePoint = m_pLight->sample(record.point, record.reflectPdf);
+        Vector3 lightDir = lightSurfacePoint - record.point;
+        lightDir.normalize();
+
+        record.reflect = lightDir;
+        record.dot = record.normal * lightDir; // dot less than 0
+
+        newRay.dir = lightDir;
+    }
 
     Color inputColor = trace(newRay, bounceNum - 1, record);
 
