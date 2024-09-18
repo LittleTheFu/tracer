@@ -36,6 +36,41 @@ void ObjectPool::applyTransfrom(Transform t)
     m_pLight->applyTransform(t);
 }
 
+bool ObjectPool::hitSceneWithLight(const Ray &ray, HitRecord &record, bool &out_isLightHit) const
+{
+    out_isLightHit = false;
+
+    bool hit = false;
+    float tMin = Common::FLOAT_MAX;
+
+    for (std::vector<Geometry *>::const_iterator it = m_objects.begin(); it != m_objects.end(); it++)
+    {
+        HitRecord tempRecord;
+
+        if ((*it)->hit(ray, tempRecord, nullptr))
+        {
+            if (tempRecord.t < tMin)
+            {
+                tMin = tempRecord.t;
+                record = tempRecord;
+                hit = true;
+            }
+        }
+    }
+
+    float t;
+    Vector3 normal;
+    float dot;
+    bool isLightHit = m_pLight->hit(ray, t, normal, dot);
+    if( t < tMin)
+    {
+        out_isLightHit = true;
+        hit = true;
+    }
+
+    return hit;
+}
+
 bool ObjectPool::hitScene(const Ray &ray, HitRecord &record, bool mist = false, Light *pLight = nullptr) const
 {
     bool hit = false;
@@ -97,6 +132,36 @@ Color ObjectPool::getColorFromLight(const Ray &ray) const
     }
 
     return Color::COLOR_BLACK;
+}
+
+Color ObjectPool::traceRandom(const Ray &ray, int bounceNum, const HitRecord &currentState) const
+{
+    HitRecord record;
+
+    if (bounceNum == 1)
+    {
+        Color lightColor = getColorFromLight(ray);
+        return lightColor;
+    }
+
+    bool hit = false;
+    bool isLightHit = false;
+
+    hit = hitSceneWithLight(ray, record, isLightHit);
+
+    if (!hit)
+        return Color::COLOR_BLACK;
+    if (isLightHit)
+        return Color::COLOR_WHITE;
+
+    Ray newRay(record.point, record.reflect);
+
+    Color inputColor = traceRandom(newRay, bounceNum - 1, record);
+
+    assert(currentState.reflectPdf > 0);
+    Color ccolor = currentState.f * inputColor * currentState.dot / currentState.reflectPdf;
+
+    return ccolor;
 }
 
 Color ObjectPool::trace(const Ray &ray, int bounceNum, const HitRecord &currentState) const
