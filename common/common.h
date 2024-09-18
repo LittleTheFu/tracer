@@ -17,6 +17,10 @@ public:
     const static bool is_float_zero(float x);
     const static float clamp(float v, float min, float max);
 
+    //a*x*x + b*x + c = 0
+    const static float delta(float a, float b, float c);
+    const static bool solveLinerEquation(float a, float b, float c, float &r_min, float &r_max);
+
     const static float interpolate(float a, float b, float t);
     // const static float TrilinearInterpolation();
 

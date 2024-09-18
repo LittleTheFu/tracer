@@ -30,6 +30,10 @@ private:
 
     float getPhi(const Vector3 &point) const;
     float getTheta(const Vector3 &point) const;
+
+private:
+    bool getHitParam(float t_min, float t_max, float &t_out) const;
+    void genRayHitParam(const Ray &ray, float &a_out, float &b_out, float &c_out) const;
 };
 
 #endif

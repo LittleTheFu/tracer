@@ -56,6 +56,30 @@ const float Common::clamp(float v, float min, float max)
     return v;
 }
 
+const float Common::delta(float a, float b, float c)
+{
+    return b * b - 4 * a * c;
+}
+
+const bool Common::solveLinerEquation(float a, float b, float c, float &r_min, float &r_max)
+{
+    // check a == 0(not done)
+
+    const float delta = Common::delta(a, b, c);
+    if (delta < 0.0f)
+        return false;
+
+    r_min = (-b + sqrt(delta)) / (2 * a);
+    r_max = (-b - sqrt(delta)) / (2 * a);
+
+    if (r_min > r_max)
+    {
+        std::swap(r_min, r_max);
+    }
+
+    return true;
+}
+
 const float Common::interpolate(float a, float b, float t)
 {
     if (t <= 0)

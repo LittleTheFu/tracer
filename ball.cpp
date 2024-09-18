@@ -43,106 +43,58 @@ Color Ball::get_f(const Vector3 &wo, const Vector3 &wi, const Vector3 &point, co
     return Color::COLOR_WHITE;
 }
 
-
 bool Ball::hit(const Ray &ray, HitRecord &record, Light *pLight) const
 {
     record.t = Common::FLOAT_MAX;
 
     const Ray newRay = ray.genNewRay(m_transform);
 
-    const float a = newRay.dir.lenthSqr();
-    const float b = 2 * (newRay.dir * newRay.origin);
-    const float c = newRay.origin.lenthSqr() - r * r;
+    float a, b, c;
+    genRayHitParam(newRay, a, b, c);
 
-    const float delta = b * b - 4 * a * c;
-
-    if (delta < 0.0f)
+    float t0, t1;
+    if (!Common::solveLinerEquation(a, b, c, t0, t1))
         return false;
 
-    float t0 = (-b + sqrt(delta)) / (2 * a);
-    float t1 = (-b - sqrt(delta)) / (2 * a);
-
-    // t0,t1 for mist
-    record.t0 = t0;
-    record.t1 = t1;
-    if (record.t0 > record.t1)
-    {
-        std::swap(record.t0, record.t1);
-    }
-
-    if (t0 > t1 && t1 > Common::FLOAT_SAMLL_NUMBER)
-    {
-        std::swap(t0, t1);
-        // temp = t0;
-        // t0 = t1;
-        // t1 = temp;
-    }
-
-    bool hit = t0 > Common::FLOAT_SAMLL_NUMBER;
-    record.t = t0;
+    bool hit = getHitParam(t0, t1, record.t);
 
     if (!hit)
+        return false;
+
+    record.transform = m_transform;
+
+    const Vector3 localPoint = newRay.origin + record.t * newRay.dir;
+    record.point = m_transform.transformPoint(localPoint);
+
+    const Vector3 localNormal = getLocalNormal(localPoint);
+    record.normal = m_transform.transformNormal(localNormal);
+
+    record.u = u(localPoint);
+    record.v = v(localPoint);
+
+    if (m_pMtrl)
     {
-        if (t1 > Common::FLOAT_SAMLL_NUMBER)
+        record.mtrl = *m_pMtrl;
+
+        Frame frame(localNormal, dpdu(localPoint));
+
+        const Vector3 local_wo = frame.toLocal(-newRay.dir);
+        Vector3 r;
+        record.f = m_pMtrl->eval(record.u, record.v, local_wo, r, record.reflectPdf);
+        record.dot = Common::clamp(std::abs(r * Common::LOCAL_NORMAL), Common::FLOAT_SAMLL_NUMBER, 1.0f);
+
+        Vector3 localReflectVector = frame.toWorld(r);
+        localReflectVector.normalize();
+        record.reflect = m_transform.transformVector(localReflectVector);
+        record.isMirror = m_pMtrl->isMirror();
+
+        if (record.isMirror)
         {
-            hit = true;
-            record.t = t1;
+            record.dot = 1;
         }
     }
 
-    if (hit)
-    {
-        if (m_pMtrl)
-        {
-            record.mtrl = *m_pMtrl;
-        }
-        record.transform = m_transform;
-
-        const Vector3 localPoint = newRay.origin + record.t * newRay.dir;
-        record.point = m_transform.transformPoint(localPoint);
-
-        const Vector3 localNormal = getLocalNormal(localPoint);
-        record.normal = m_transform.transformNormal(localNormal);
-
-        record.u = u(localPoint);
-        record.v = v(localPoint);
-
-        if (m_pMtrl)
-        {
-            Frame frame(localNormal, dpdu(localPoint));
-
-            const Vector3 local_wo = frame.toLocal(-newRay.dir);
-            Vector3 r;
-            record.f = m_pMtrl->eval(record.u, record.v, local_wo, r, record.reflectPdf);
-            record.dot = Common::clamp(std::abs(r * Common::LOCAL_NORMAL), Common::FLOAT_SAMLL_NUMBER, 1.0f);
-            // if (r.z == 0)
-            //     r.z = 1;
-            // if (r.z < 0)
-            //     r.z *= -1;
-
-            Vector3 localReflectVector = frame.toWorld(r);
-            localReflectVector.normalize();
-            record.reflect = m_transform.transformVector(localReflectVector);
-            record.isMirror = m_pMtrl->isMirror();
-
-            // if(pLight)
-            // {
-            //     Vector3 lightSurfacePoint = pLight->sample(record.point, record.reflectPdf);
-            //     Vector3 lightDir = lightSurfacePoint - record.point;
-            //     lightDir.normalize();
-
-            //     record.reflect = lightDir;
-            //     record.dot = record.normal * lightDir; // dot less than 0
-            // }
-
-            if (record.isMirror)
-            {
-                record.dot = 1;
-            }
-        }
-    }
-
-    return hit;
+    return true;
 }
 
 Vector3 Ball::sampleFromPoint(const Vector3 &thatPoint, float &pdf) const
@@ -222,6 +174,32 @@ float Ball::getTheta(const Vector3 &point) const
     const float theta = std::acos(point.z / r);
 
     return theta;
+}
+
+bool Ball::getHitParam(float t_min, float t_max, float &t_out) const
+{
+    bool hit = t_min > Common::FLOAT_SAMLL_NUMBER;
+    if (hit)
+    {
+        t_out = t_min;
+    }
+    else
+    {
+        hit = t_max > Common::FLOAT_SAMLL_NUMBER;
+        if (hit)
+        {
+            t_out = t_max;
+        }
+    }
+
+    return hit;
+}
+
+void Ball::genRayHitParam(const Ray &ray, float &a_out, float &b_out, float &c_out) const
+{
+    a_out = ray.dir.lenthSqr();
+    b_out = 2 * (ray.dir * ray.origin);
+    c_out = ray.origin.lenthSqr() - r * r;
 }
 
 float Ball::u(const Vector3 &point) const
