@@ -5,7 +5,7 @@
 Camera::Camera(const ObjectPool *pool)
 {
     m_pObjectPool = pool;
-    m_factor = 30;
+    m_factor = 6;
 
     m_Width = Common::default_screen_width * m_factor;
     m_Height = Common::default_screen_height * m_factor;
