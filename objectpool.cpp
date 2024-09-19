@@ -117,9 +117,6 @@ Color ObjectPool::getColorFromLight(const Ray &ray) const
 
     Color color = Color::COLOR_WHITE;
 
-    //bug fix
-    dot = 1;
-
     HitRecord record;
     if (!hitScene(ray, record))
     {
@@ -141,6 +138,7 @@ Color ObjectPool::traceRandom(const Ray &ray, int bounceNum, const HitRecord &cu
     if (bounceNum == 1)
     {
         Color lightColor = getColorFromLight(ray);
+        lightColor = lightColor * currentState.f / currentState.reflectPdf;
         return lightColor;
     }
 
@@ -172,31 +170,16 @@ Color ObjectPool::trace(const Ray &ray, int bounceNum, const HitRecord &currentS
         // return light * cos * cos * sample_f / pdf
 
         Color lightColor = getColorFromLight(ray);
+        // lightColor *= currentState.f;
         // float ttt = 1 / currentState.reflectPdf;
-        // Color retColor = lightColor * currentState.dot * currentState.f / currentState.reflectPdf;
+        Color retColor = lightColor * currentState.f / currentState.reflectPdf;
 
-        // return retColor;
-        return lightColor;
+        return retColor;
+        // return lightColor;
     }
 
-    // HitRecord record;
-    // if (!hitScene(ray, record))
-    // {
-    //     return Color::COLOR_BLACK;
-    // }
-
     HitRecord record;
-    // if (bounceNum == 2)
-    // {
-        // if (!hitScene(ray, record, m_pLight))
-        // {
-        //     return Color::COLOR_BLACK;
-        // }
-        // hitScene(ray, record, m_pLight);
-        // return Color::COLOR_WHITE;
-    // }
-    // else
-    // {
+
     if (!hitScene(ray, record))
     {
         return Color::COLOR_BLACK;
@@ -212,6 +195,7 @@ Color ObjectPool::trace(const Ray &ray, int bounceNum, const HitRecord &currentS
 
         record.reflect = lightDir;
         record.dot = record.normal * lightDir; // dot less than 0
+        // record.dot = 1;
 
         newRay.dir = lightDir;
     }

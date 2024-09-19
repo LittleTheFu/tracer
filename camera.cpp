@@ -5,7 +5,7 @@
 Camera::Camera(const ObjectPool *pool)
 {
     m_pObjectPool = pool;
-    m_factor = 6;
+    m_factor = 5;
 
     m_Width = Common::default_screen_width * m_factor;
     m_Height = Common::default_screen_height * m_factor;
@@ -57,11 +57,11 @@ void Camera::render()
             unsigned char b = 0;
 
             Color color = Color::COLOR_BLACK;
-            for (int i = 3; i < m_BounceTime; i++)
+            for (int i = 2; i < m_BounceTime; i++)
             {
                 // ray.origin = Vector3::ZERO;
                 // ray.dir = Vector3(0, 0, 1);
-                color += m_pObjectPool->traceRandom(ray, i, record);
+                color += m_pObjectPool->trace(ray, i, record);
             }
 
             color.getConvertedValue(r, g, b);

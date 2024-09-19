@@ -28,7 +28,7 @@
 
 int main()
 {
-    float rho = 0.6;
+    float rho = 0.4;
 
     LambertianMaterial lambMtrlLena(new ImageTexture(Common::LENA), rho);
     LambertianMaterial lambMtrlChessboard(new ChessboardTexture(), rho);
@@ -64,7 +64,7 @@ int main()
     Ball *textureBall = new Ball(Vector3::ZERO, Vector3(-45, 40, 220), 20, &lambMtrlChessboard);
     Ball *mixBall = new Ball(Vector3::ZERO, Vector3(0, 0, 220), 20, &MtrlMix);
 
-    Light *light = new Light(Vector3(0, -80, 230));
+    Light *light = new Light(Vector3(20, -70, 320));
 
     const float c = 100;
     const float r = 5 * c;
@@ -127,6 +127,7 @@ int main()
     // pool->add(redBall);
     // pool->add(yellowBall);
     // pool->add(aquaBall);
+    
     pool->add(whiteBall);
 
     // pool->add(glassBall);
