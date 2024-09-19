@@ -64,7 +64,7 @@ int main()
     Ball *textureBall = new Ball(Vector3::ZERO, Vector3(-45, 40, 220), 20, &lambMtrlChessboard);
     Ball *mixBall = new Ball(Vector3::ZERO, Vector3(0, 0, 220), 20, &MtrlMix);
 
-    Light *light = new Light(Vector3(20, -70, 320));
+    Light *light = new Light(Vector3(20, -70, 250));
 
     const float c = 100;
     const float r = 5 * c;

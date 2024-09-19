@@ -170,8 +170,10 @@ Color ObjectPool::trace(const Ray &ray, int bounceNum, const HitRecord &currentS
         // return light * cos * cos * sample_f / pdf
 
         Color lightColor = getColorFromLight(ray);
-        // lightColor *= currentState.f;
-        // float ttt = 1 / currentState.reflectPdf;
+
+        //is this line needed?
+        lightColor = lightColor * currentState.dot;
+
         Color retColor = lightColor * currentState.f / currentState.reflectPdf;
 
         return retColor;
