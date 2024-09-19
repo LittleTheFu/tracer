@@ -34,6 +34,9 @@ private:
 private:
     bool getHitParam(float t_min, float t_max, float &t_out) const;
     void genRayHitParam(const Ray &ray, float &a_out, float &b_out, float &c_out) const;
+
+private:
+    void HandleMaterial(const Vector3 &localNormal, const Vector3 &localPoint, const Ray &newRay, HitRecord &record) const;
 };
 
 #endif

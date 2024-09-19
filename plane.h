@@ -23,6 +23,9 @@ private:
     bool isLocalIn(const Vector3 &p) const;
 
     int m_uvCellSize;
+
+private:
+    void HandleMaterial(const Ray &newRay, HitRecord &record) const;
 };
 
 #endif

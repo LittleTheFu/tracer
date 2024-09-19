@@ -64,29 +64,24 @@ bool Plane::hit(const Ray &ray, HitRecord &record, Light *pLight) const
 
     if (m_pMtrl)
     {
-        Vector3 r;
-        record.f = m_pMtrl->eval(record.u, record.v, -newRay.dir, r, record.reflectPdf);
-        record.dot = Common::clamp(std::abs(r * Common::LOCAL_NORMAL), Common::FLOAT_SAMLL_NUMBER, 1.0f);
-        record.reflect = m_transform.transformVector(r);
-        record.isMirror = m_pMtrl->isMirror();
-
-        // if (pLight)
-        // {
-        //     Vector3 lightSurfacePoint = pLight->sample(record.point, record.reflectPdf);
-        //     Vector3 lightDir = lightSurfacePoint - record.point;
-        //     lightDir.normalize();
-
-        //     record.reflect = lightDir;
-        //     record.dot = record.normal * lightDir; // dot less than 0
-        // }
-
-        if (record.isMirror)
-        {
-            record.dot = 1;
-        }
+        HandleMaterial(newRay, record);
     }
 
     return true;
+}
+
+void Plane::HandleMaterial(const Ray &newRay, HitRecord &record) const
+{
+    Vector3 r;
+    record.f = m_pMtrl->eval(record.u, record.v, -newRay.dir, r, record.reflectPdf);
+    record.dot = Common::clamp(std::abs(r * Common::LOCAL_NORMAL), Common::FLOAT_SAMLL_NUMBER, 1.0f);
+    record.reflect = m_transform.transformVector(r);
+    record.isMirror = m_pMtrl->isMirror();
+
+    if (record.isMirror)
+    {
+        record.dot = 1;
+    }
 }
 
 Vector3 Plane::dpdu(const Vector3 &point) const

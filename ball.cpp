@@ -74,24 +74,7 @@ bool Ball::hit(const Ray &ray, HitRecord &record, Light *pLight) const
 
     if (m_pMtrl)
     {
-        record.mtrl = *m_pMtrl;
-
-        Frame frame(localNormal, dpdu(localPoint));
-
-        const Vector3 local_wo = frame.toLocal(-newRay.dir);
-        Vector3 r;
-        record.f = m_pMtrl->eval(record.u, record.v, local_wo, r, record.reflectPdf);
-        record.dot = Common::clamp(std::abs(r * Common::LOCAL_NORMAL), Common::FLOAT_SAMLL_NUMBER, 1.0f);
-
-        Vector3 localReflectVector = frame.toWorld(r);
-        localReflectVector.normalize();
-        record.reflect = m_transform.transformVector(localReflectVector);
-        record.isMirror = m_pMtrl->isMirror();
-
-        if (record.isMirror)
-        {
-            record.dot = 1;
-        }
+        HandleMaterial(localNormal, localPoint, newRay, record);
     }
 
     return true;
@@ -193,6 +176,28 @@ bool Ball::getHitParam(float t_min, float t_max, float &t_out) const
     }
 
     return hit;
+}
+
+void Ball::HandleMaterial(const Vector3 &localNormal, const Vector3 &localPoint, const Ray& newRay, HitRecord &record) const
+{
+    record.mtrl = *m_pMtrl;
+
+    Frame frame(localNormal, dpdu(localPoint));
+
+    const Vector3 local_wo = frame.toLocal(-newRay.dir);
+    Vector3 r;
+    record.f = m_pMtrl->eval(record.u, record.v, local_wo, r, record.reflectPdf);
+    record.dot = Common::clamp(std::abs(r * Common::LOCAL_NORMAL), Common::FLOAT_SAMLL_NUMBER, 1.0f);
+
+    Vector3 localReflectVector = frame.toWorld(r);
+    localReflectVector.normalize();
+    record.reflect = m_transform.transformVector(localReflectVector);
+    record.isMirror = m_pMtrl->isMirror();
+
+    if (record.isMirror)
+    {
+        record.dot = 1;
+    }
 }
 
 void Ball::genRayHitParam(const Ray &ray, float &a_out, float &b_out, float &c_out) const
