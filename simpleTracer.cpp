@@ -5,18 +5,7 @@ Color SimpleTracer::trace(const ObjectPool *pool, Ray &ray, int bounceNum, const
 {
     if (bounceNum == 1)
     {
-        // does this ray can hit the light?
-        // return light * cos * cos * sample_f / pdf
-
-        Color lightColor = pool->getColorFromLight(ray);
-
-        // is this line needed?
-        lightColor = lightColor * currentState.dot;
-
-        Color retColor = lightColor * currentState.f / currentState.reflectPdf;
-
-        return retColor;
-        // return lightColor;
+       return HandleLastBounce(pool, ray, currentState);
     }
 
     HitRecord record;
@@ -30,15 +19,7 @@ Color SimpleTracer::trace(const ObjectPool *pool, Ray &ray, int bounceNum, const
     Ray newRay(record.point, record.reflect);
     if (bounceNum == 2)
     {
-        Vector3 lightSurfacePoint = pool->m_pLight->sample(record.point, record.reflectPdf);
-        Vector3 lightDir = lightSurfacePoint - record.point;
-        lightDir.normalize();
-
-        record.reflect = lightDir;
-        record.dot = record.normal * lightDir; // dot less than 0
-        // record.dot = 1;
-
-        newRay.dir = lightDir;
+        prepareSampleLight(pool, newRay, record);
     }
 
     Color inputColor = trace(pool, newRay, bounceNum - 1, record);
@@ -47,4 +28,29 @@ Color SimpleTracer::trace(const ObjectPool *pool, Ray &ray, int bounceNum, const
     Color ccolor = currentState.f * inputColor * currentState.dot / currentState.reflectPdf;
 
     return ccolor;
+}
+
+Color SimpleTracer::HandleLastBounce(const ObjectPool *pool, const Ray& ray, const HitRecord &currentState) const
+{
+    Color lightColor = pool->getColorFromLight(ray);
+
+    // is this line needed?
+    lightColor = lightColor * currentState.dot;
+
+    Color retColor = lightColor * currentState.f / currentState.reflectPdf;
+
+    return retColor;
+}
+
+void SimpleTracer::prepareSampleLight(const ObjectPool *pool, Ray &newRay, HitRecord &record) const
+{
+    Vector3 lightSurfacePoint = pool->m_pLight->sample(record.point, record.reflectPdf);
+    Vector3 lightDir = lightSurfacePoint - record.point;
+    lightDir.normalize();
+
+    record.reflect = lightDir;
+    record.dot = record.normal * lightDir; // dot less than 0
+    // record.dot = 1;
+
+    newRay.dir = lightDir;
 }
