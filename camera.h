@@ -24,6 +24,9 @@ private:
     virtual Ray generateRay(float screenX, float screenY) const = 0;
 
 private:
+    void setImage(unsigned int x, unsigned int y, const Color &color);
+
+private:
     const ObjectPool *m_pObjectPool;
     std::vector<unsigned char> m_Image;
 

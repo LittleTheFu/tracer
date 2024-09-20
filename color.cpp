@@ -34,7 +34,7 @@ Color::Color(float r, float g, float b)
 //     this->b = r / MAX;
 // }
 
-void Color::getConvertedValue(unsigned char &r, unsigned char &g, unsigned char &b)
+void Color::getConvertedValue(unsigned char &r, unsigned char &g, unsigned char &b) const
 {
     const unsigned char MAX = 255;
 

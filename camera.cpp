@@ -54,10 +54,6 @@ void Camera::render()
             record.dot = 1;
             record.f = Color::COLOR_WHITE;
 
-            unsigned char r = 0;
-            unsigned char g = 0;
-            unsigned char b = 0;
-
             SimpleTracer tracer;
             Color color = Color::COLOR_BLACK;
             for (int i = 2; i < m_BounceTime; i++)
@@ -67,12 +63,7 @@ void Camera::render()
                 color += tracer.trace(m_pObjectPool, ray, i, record);
             }
 
-            color.getConvertedValue(r, g, b);
-
-            m_Image[4 * m_Width * y + 4 * x + 0] = r;
-            m_Image[4 * m_Width * y + 4 * x + 1] = g;
-            m_Image[4 * m_Width * y + 4 * x + 2] = b;
-            m_Image[4 * m_Width * y + 4 * x + 3] = 255;
+            setImage(x, y, color);
         }
 }
 
@@ -82,4 +73,18 @@ bool Camera::saveToImage(const std::string &name) const
     std::cout << "encoder error " << error << ": " << lodepng_error_text(error) << std::endl;
 
     return error == 0;
+}
+
+void Camera::setImage(unsigned int x, unsigned int y, const Color &color)
+{
+    unsigned char r = 0;
+    unsigned char g = 0;
+    unsigned char b = 0;
+
+    color.getConvertedValue(r, g, b);
+
+    m_Image[4 * m_Width * y + 4 * x + 0] = r;
+    m_Image[4 * m_Width * y + 4 * x + 1] = g;
+    m_Image[4 * m_Width * y + 4 * x + 2] = b;
+    m_Image[4 * m_Width * y + 4 * x + 3] = 255;
 }
