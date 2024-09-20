@@ -1,6 +1,6 @@
 #include "orthographicCamera.h"
 
-OrthographicCamera::OrthographicCamera(const ObjectPool *pool) : Camera(pool)
+OrthographicCamera::OrthographicCamera() : Camera()
 {
 }
 

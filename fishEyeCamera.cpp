@@ -1,7 +1,7 @@
 #include "fishEyeCamera.h"
 #include "ball.h"
 
-FishEyeCamera::FishEyeCamera(const ObjectPool *pool) : Camera(pool)
+FishEyeCamera::FishEyeCamera() : Camera()
 {
 }
 

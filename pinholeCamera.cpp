@@ -1,6 +1,6 @@
 #include "pinholeCamera.h"
 
-PinholeCamera::PinholeCamera(const ObjectPool *pool) : Camera(pool)
+PinholeCamera::PinholeCamera() : Camera()
 {
 }
 

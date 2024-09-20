@@ -6,7 +6,7 @@
 class PinholeCamera : public Camera
 {
 public:
-    PinholeCamera(const ObjectPool *pool);
+    PinholeCamera();
 
 private:
     Ray generateRay(float screenX, float screenY) const;

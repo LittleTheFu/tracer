@@ -6,7 +6,7 @@
 class OrthographicCamera : public Camera
 {
 public:
-    OrthographicCamera(const ObjectPool *pool);
+    OrthographicCamera();
 
 private:
     Ray generateRay(float screenX, float screenY) const;

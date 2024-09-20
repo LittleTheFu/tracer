@@ -10,7 +10,9 @@
 class Camera
 {
 public:
-    Camera(const ObjectPool *pool);
+    Camera();
+
+    void setPool(const ObjectPool *pool);
 
     void build(const Vector3 &position, const Vector3 &direction, const Vector3 &up);
     void build(const Vector3 &position, const Vector3 &theta);

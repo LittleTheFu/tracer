@@ -7,7 +7,7 @@
 class FishEyeCamera : public Camera
 {
 public:
-    FishEyeCamera(const ObjectPool *pool);
+    FishEyeCamera();
 
 private:
     Ray generateRay(float screenX, float screenY) const;
