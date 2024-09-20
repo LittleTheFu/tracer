@@ -1,6 +1,8 @@
 #include "camera.h"
 #include "lodepng.h"
 #include "common/common.h"
+#include "simpleTracer.h"
+#include "randomTracer.h"
 
 Camera::Camera(const ObjectPool *pool)
 {
@@ -56,12 +58,13 @@ void Camera::render()
             unsigned char g = 0;
             unsigned char b = 0;
 
+            RandomTracer tracer;
             Color color = Color::COLOR_BLACK;
             for (int i = 2; i < m_BounceTime; i++)
             {
                 // ray.origin = Vector3::ZERO;
                 // ray.dir = Vector3(0, 0, 1);
-                color += m_pObjectPool->trace(ray, i, record);
+                color += tracer.trace(m_pObjectPool, ray, i, record);
             }
 
             color.getConvertedValue(r, g, b);

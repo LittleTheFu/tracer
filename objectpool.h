@@ -21,16 +21,17 @@ public:
 
     void applyTransfrom(Transform t);
 
-    bool hitScene(const Ray &ray, HitRecord &record, bool mist, Light *pLight) const;
+    bool hitScene(const Ray &ray, HitRecord &record, bool mist = false, Light *pLight = nullptr) const;
     bool hitSceneWithLight(const Ray &ray, HitRecord &record, bool &out_isLightHit) const;
 
     Color trace(const Ray &ray, int bounceNum, const HitRecord &currentState) const;
     Color traceRandom(const Ray &ray, int bounceNum, const HitRecord &currentState) const;
     Color getColorFromLight(const Ray &ray) const;
 
+    Light *m_pLight;
+
 private:
     std::vector<Geometry *> m_objects;
-    Light *m_pLight;
     Mist *m_pMist;
 };
 

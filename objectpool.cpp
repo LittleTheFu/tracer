@@ -71,7 +71,7 @@ bool ObjectPool::hitSceneWithLight(const Ray &ray, HitRecord &record, bool &out_
     return hit;
 }
 
-bool ObjectPool::hitScene(const Ray &ray, HitRecord &record, bool mist = false, Light *pLight = nullptr) const
+bool ObjectPool::hitScene(const Ray &ray, HitRecord &record, bool mist, Light *pLight) const
 {
     bool hit = false;
     float tMin = Common::FLOAT_MAX;
