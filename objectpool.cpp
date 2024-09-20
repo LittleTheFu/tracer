@@ -91,16 +91,6 @@ bool ObjectPool::hitScene(const Ray &ray, HitRecord &record, bool mist = false, 
         }
     }
 
-    if(mist)
-    {
-        HitRecord mistRecord;
-        bool bHitMist = m_pMist->hit(ray, mistRecord);
-
-        record.t0 = mistRecord.t0;
-        record.t1 = mistRecord.t1;
-        record.isMistHit = bHitMist;
-    }
-
     return hit;
 }
 
