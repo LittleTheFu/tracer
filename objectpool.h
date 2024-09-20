@@ -24,8 +24,6 @@ public:
     bool hitScene(const Ray &ray, HitRecord &record, bool mist = false, Light *pLight = nullptr) const;
     bool hitSceneWithLight(const Ray &ray, HitRecord &record, bool &out_isLightHit) const;
 
-    Color trace(const Ray &ray, int bounceNum, const HitRecord &currentState) const;
-    Color traceRandom(const Ray &ray, int bounceNum, const HitRecord &currentState) const;
     Color getColorFromLight(const Ray &ray) const;
 
     Light *m_pLight;
