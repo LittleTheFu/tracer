@@ -10,11 +10,16 @@ Color SimpleTracer::trace(const ObjectPool *pool, Ray &ray, int bounceNum, const
 
     HitRecord record;
 
-    if (!pool->hitScene(ray, record))
+    bool isLightHit = false;
+    if (!pool->hitSceneWithLight(ray, record, isLightHit))
     {
         return Color::COLOR_BLACK;
     }
-    // }
+
+    if(isLightHit)
+    {
+        return Color::COLOR_WHITE * record.dotLight;
+    }
 
     Ray newRay(record.point, record.reflect);
     if (bounceNum == 2)
