@@ -18,3 +18,8 @@ bool Material::isMirror() const
 {
     return false;
 }
+
+bool Material::isDelta() const
+{
+    return false;
+}

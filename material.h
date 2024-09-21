@@ -16,6 +16,8 @@ public:
 
     virtual Color eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf) const;
     virtual bool isMirror() const;
+
+    virtual bool isDelta() const;
 };
 
 #endif

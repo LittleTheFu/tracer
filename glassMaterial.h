@@ -10,6 +10,8 @@ public:
     GlassMaterial();
     bool isMirror() const;
 
+    virtual bool isDelta() const override;
+
     Color eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf) const;
 
 private:
