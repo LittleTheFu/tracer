@@ -127,7 +127,7 @@ void Scene::constructScene()
 
     light->setTag(Common::TAG_LIGHT);
 
-    glassBall->setTag(100);
+    glassBall->setTag(Common::TAG_GLASS_BALL);
     // glassPlane->setTag(101);
 
     // mirrorBall->setTag(200);
