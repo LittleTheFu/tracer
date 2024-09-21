@@ -22,7 +22,7 @@ private:
 
 private:
     ObjectPool* m_pObjectPool;
-    PinholeCamera* m_pCamera;
+    Camera* m_pCamera;
 };
 
 #endif

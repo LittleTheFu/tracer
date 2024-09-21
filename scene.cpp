@@ -28,18 +28,13 @@
 Scene::Scene()
 {
     m_pObjectPool = new ObjectPool();
-
     m_pCamera = new PinholeCamera();
-    m_pCamera->setPool(m_pObjectPool);
 }
 
 void Scene::run()
 {
     constructScene();
 
-    preRender();
-    render();
-    postRender();
 }
 
 void Scene::constructScene()
@@ -96,7 +91,7 @@ void Scene::constructScene()
 
     Vector3 topRotate(-Common::PI / 2, 0, 0);
     Vector3 topPosition(0, -c, 0);
-    Plane *topPlane = new Plane(topRotate, topPosition, r, &lambMtrlBlue);
+    Plane *topPlane = new Plane(topRotate, topPosition, r, &lambMtrlPurple);
 
     Vector3 bottomRotate(Common::PI / 2, 0, 0);
     Vector3 bottomPosition(0, c, 0);
@@ -129,20 +124,56 @@ void Scene::constructScene()
 
     light->setTag(Common::TAG_LIGHT);
 
+    // glassBall->setTag(100);
+    // glassPlane->setTag(101);
+
+    // mirrorBall->setTag(200);
+
     m_pObjectPool->add(light);
+
+    // pool->add(triAngle);
+
+    // pool->add(redBall);
+    // pool->add(yellowBall);
+    // pool->add(aquaBall);
 
     m_pObjectPool->add(whiteBall);
 
-    // m_pObjectPool->add(frontPlane);
-    // m_pObjectPool->add(backPlane);
-    // m_pObjectPool->add(topPlane);
-    // m_pObjectPool->add(bottomPlane);
-    // m_pObjectPool->add(leftPlane);
-    // m_pObjectPool->add(rightPlane);
+    // pool->add(glassBall);
+    // pool->add(mirrorBall);
+    // pool->add(mixBall);
+
+    // pool->add(textureBall);
+
+    m_pObjectPool->add(frontPlane);
+    m_pObjectPool->add(backPlane);
+    m_pObjectPool->add(topPlane);
+    m_pObjectPool->add(bottomPlane);
+    m_pObjectPool->add(leftPlane);
+    m_pObjectPool->add(rightPlane);
+
+    // pool->add(squarePlane);
+
+    // FishEyeCamera camera(pool);
+    // OrthographicCamera camera(pool);
+
+    m_pCamera->setPool(m_pObjectPool);
+    m_pCamera->build(Vector3(0, 0, 0), Vector3(0, 0, 0));
+    Transform t = m_pCamera->getTransform().getInverseTransform();
+    m_pObjectPool->applyTransfrom(t);
+
+
+    // m_pCamera->render();
+
+    // m_pCamera->saveToImage("img");
+
+    // m_pObjectPool->applyTransfrom(t.getInverseTransform());
 }
 
 void Scene::preRender()
 {
+    m_pCamera = new PinholeCamera();
+    m_pCamera->setPool(m_pObjectPool);
     m_pCamera->build(Vector3(0, 0, 0), Vector3(0, 0, 0));
 
     Transform t = m_pCamera->getTransform().getInverseTransform();

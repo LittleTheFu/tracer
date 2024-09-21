@@ -46,12 +46,12 @@ void Camera::render()
             HitRecord record = InitHitRecord();
             Ray ray = generateRay(x, y);
 
-            SimpleTracer tracer;
+            SimpleTracer* tracer = new SimpleTracer();
             Color color = Color::COLOR_BLACK;
 
             for (int i = 2; i < m_BounceTime; i++)
             {
-                color += tracer.trace(m_pObjectPool, ray, i, record);
+                color += tracer->trace(m_pObjectPool, ray, i, record);
             }
 
             setImage(x, y, color);
@@ -93,7 +93,7 @@ HitRecord Camera::InitHitRecord() const
 
 void Camera::logProgress(unsigned int x, unsigned int y) const
 {
-    if (x == 0)
+    if (x == x)
     {
         std::cout << "x:y --- "
                   << "(" << x << "," << y << ")" << std::endl;

@@ -9,7 +9,7 @@ public:
     PinholeCamera();
 
 private:
-    Ray generateRay(float screenX, float screenY) const;
+    virtual Ray generateRay(float screenX, float screenY) const override;
 };
 
 #endif
