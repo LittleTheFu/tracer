@@ -44,6 +44,9 @@ Color SimpleTracer::HandleLastBounce(const ObjectPool *pool, const Ray& ray, con
 
 void SimpleTracer::prepareSampleLight(const ObjectPool *pool, Ray &newRay, HitRecord &record) const
 {
+    if (record.isDelta)
+        return;
+
     Vector3 lightSurfacePoint = pool->m_pLight->sample(record.point, record.reflectPdf);
     Vector3 lightDir = lightSurfacePoint - record.point;
     lightDir.normalize();
