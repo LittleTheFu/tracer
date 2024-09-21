@@ -34,9 +34,10 @@ Scene::Scene()
 void Scene::run()
 {
     constructScene();
-    
-    m_pCamera->render();
-    m_pCamera->saveToImage("img");
+
+    preRender();
+    render();
+    postRender();
 }
 
 void Scene::constructScene()
@@ -153,28 +154,10 @@ void Scene::constructScene()
     m_pObjectPool->add(bottomPlane);
     m_pObjectPool->add(leftPlane);
     m_pObjectPool->add(rightPlane);
-
-    // pool->add(squarePlane);
-
-    // FishEyeCamera camera(pool);
-    // OrthographicCamera camera(pool);
-
-    m_pCamera->setPool(m_pObjectPool);
-    m_pCamera->build(Vector3(0, 0, 0), Vector3(0, 0, 0));
-    Transform t = m_pCamera->getTransform().getInverseTransform();
-    m_pObjectPool->applyTransfrom(t);
-
-
-    // m_pCamera->render();
-
-    // m_pCamera->saveToImage("img");
-
-    // m_pObjectPool->applyTransfrom(t.getInverseTransform());
 }
 
 void Scene::preRender()
 {
-    m_pCamera = new PinholeCamera();
     m_pCamera->setPool(m_pObjectPool);
     m_pCamera->build(Vector3(0, 0, 0), Vector3(0, 0, 0));
 
@@ -190,4 +173,5 @@ void Scene::render()
 void Scene::postRender()
 {
     m_pCamera->saveToImage("img");
+    // m_pObjectPool->applyTransfrom(t.getInverseTransform());
 }
