@@ -10,4 +10,6 @@ HitRecord::HitRecord()
 
     isMirror = false;
     isMistHit = false;
+
+    isDelta = false;
 }

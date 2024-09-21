@@ -35,6 +35,8 @@ public:
 
     bool isMirror;
     bool isMistHit;
+
+    bool isDelta;
 };
 
 #endif

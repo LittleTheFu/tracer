@@ -181,6 +181,7 @@ bool Ball::getHitParam(float t_min, float t_max, float &t_out) const
 void Ball::HandleMaterial(const Vector3 &localNormal, const Vector3 &localPoint, const Ray& newRay, HitRecord &record) const
 {
     record.mtrl = *m_pMtrl;
+    record.isDelta = m_pMtrl->isDelta();
 
     Frame frame(localNormal, dpdu(localPoint));
 
@@ -194,7 +195,7 @@ void Ball::HandleMaterial(const Vector3 &localNormal, const Vector3 &localPoint,
     record.reflect = m_transform.transformVector(localReflectVector);
     record.isMirror = m_pMtrl->isMirror();
 
-    if (record.isMirror)
+    if (record.isDelta)
     {
         record.dot = 1;
     }

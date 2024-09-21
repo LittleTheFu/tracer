@@ -72,13 +72,15 @@ bool Plane::hit(const Ray &ray, HitRecord &record, Light *pLight) const
 
 void Plane::HandleMaterial(const Ray &newRay, HitRecord &record) const
 {
+    record.isDelta = m_pMtrl->isDelta();
+
     Vector3 r;
     record.f = m_pMtrl->eval(record.u, record.v, -newRay.dir, r, record.reflectPdf);
     record.dot = Common::clamp(std::abs(r * Common::LOCAL_NORMAL), Common::FLOAT_SAMLL_NUMBER, 1.0f);
     record.reflect = m_transform.transformVector(r);
     record.isMirror = m_pMtrl->isMirror();
 
-    if (record.isMirror)
+    if (record.isDelta)
     {
         record.dot = 1;
     }
