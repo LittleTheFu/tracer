@@ -93,7 +93,7 @@ HitRecord Camera::InitHitRecord() const
 
 void Camera::logProgress(unsigned int x, unsigned int y) const
 {
-    if (x == x)
+    if (x == 0)
     {
         std::cout << "x:y --- "
                   << "(" << x << "," << y << ")" << std::endl;
