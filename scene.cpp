@@ -140,7 +140,7 @@ void Scene::constructScene()
     // pool->add(yellowBall);
     // pool->add(aquaBall);
 
-    m_pObjectPool->add(whiteBall);
+    // m_pObjectPool->add(whiteBall);
 
     m_pObjectPool->add(glassBall);
     // pool->add(mirrorBall);
