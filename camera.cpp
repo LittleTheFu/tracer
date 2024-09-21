@@ -12,6 +12,8 @@ Camera::Camera()
     m_Height = Common::default_screen_height * m_factor;
 
     m_BounceTime = 6;
+
+    m_pTracer = new SimpleTracer();
 }
 
 void Camera::setPool(const ObjectPool *pool)
@@ -46,12 +48,10 @@ void Camera::render()
             HitRecord record = InitHitRecord();
             Ray ray = generateRay(x, y);
 
-            SimpleTracer* tracer = new SimpleTracer();
             Color color = Color::COLOR_BLACK;
-
             for (int i = 2; i < m_BounceTime; i++)
             {
-                color += tracer->trace(m_pObjectPool, ray, i, record);
+                color += m_pTracer->trace(m_pObjectPool, ray, i, record);
             }
 
             setImage(x, y, color);

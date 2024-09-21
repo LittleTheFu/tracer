@@ -6,6 +6,7 @@
 #include "transform.h"
 #include <string>
 #include "ray.h"
+#include "tracer.h"
 
 class Camera
 {
@@ -32,6 +33,7 @@ private:
 
 private:
     const ObjectPool *m_pObjectPool;
+    const Tracer *m_pTracer;
     std::vector<unsigned char> m_Image;
 
     Transform m_transform;
