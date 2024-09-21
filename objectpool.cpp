@@ -60,12 +60,14 @@ bool ObjectPool::hitSceneWithLight(const Ray &ray, HitRecord &record, bool &out_
 
     float t;
     Vector3 normal;
-    float dot;
-    bool isLightHit = m_pLight->hit(ray, t, normal, dot);
+    float dotLight;
+    bool isLightHit = m_pLight->hit(ray, t, normal, dotLight);
     if( t < tMin)
     {
         out_isLightHit = true;
         hit = true;
+
+        record.dotLight = dotLight;
     }
 
     return hit;

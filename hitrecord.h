@@ -19,6 +19,7 @@ public:
     Vector3 reflect;
     float reflectPdf;
 
+    float dotLight;
     float dot;
     Color f;
 

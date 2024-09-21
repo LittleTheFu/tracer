@@ -12,4 +12,6 @@ HitRecord::HitRecord()
     isMistHit = false;
 
     isDelta = false;
+
+    dotLight = 1;
 }
