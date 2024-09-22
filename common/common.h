@@ -52,6 +52,7 @@ public:
     const static int TAG_LIGHT;
 
     const static int TAG_GLASS_BALL;
+    const static int TAG_MIRROR_BALL;
 
     const static unsigned int default_screen_width;
     const static unsigned int default_screen_height;

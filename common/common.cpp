@@ -31,6 +31,7 @@ const int Common::TAG_PLANE_BACK = 6;
 const int Common::TAG_LIGHT = 1001;
 
 const int Common::TAG_GLASS_BALL = 10001;
+const int Common::TAG_MIRROR_BALL = 20001;
 
 const  unsigned int Common::default_screen_width = 256;
 const  unsigned int Common::default_screen_height = 256;
