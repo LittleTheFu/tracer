@@ -36,9 +36,9 @@ SET (RAY_TRACER_SOURCE
     geometry/ball.cpp
     geometry/circle.cpp
     geometry/plane.cpp
-    geometry/trangle.cpp
+    geometry/triangle.cpp
     light/light.cpp
-    main/main.cpp
+    # main/main.cpp
     material/dummyMaterial.cpp
     material/glassMaterial.cpp
     material/lambertianMaterial.cpp
@@ -74,7 +74,7 @@ SET (RAY_TRACER_HEADER
     geometry/ball.h
     geometry/circle.h
     geometry/plane.h
-    geometry/trangle.h
+    geometry/triangle.h
     light/light.h
     material/dummyMaterial.h
     material/glassMaterial.h
@@ -91,9 +91,22 @@ SET (RAY_TRACER_HEADER
     media/mist.h
 )
 
-ADD_LIBRARY ( ray_tracer STATIC
-  ${RAY_TRACER_SOURCE}
-  ${RAY_TRACER_HEADER}
+# message(${RAY_TRACER_HEADER})
+
+
+add_library(libs STATIC ${RAY_TRACER_SOURCE} ${RAY_TRACER_HEADER})
+target_include_directories( libs
+    PUBLIC ${PROJECT_SOURCE_DIR}/include
 )
 
+# ADD_LIBRARY ( ray_tracer 
+#   ${RAY_TRACER_SOURCE}
+#   ${RAY_TRACER_HEADER}
+# )
+
+
 add_executable(ray_tracer main/main.cpp)
+
+
+target_link_libraries(ray_tracer PUBLIC libs)
+# target_include_directories(ray_tracer PUBLIC ${RAY_TRACER_HEADER})
