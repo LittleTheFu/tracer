@@ -1,7 +1,7 @@
 #include "light.h"
 #include "ball.h"
 #include "hitrecord.h"
-#include "common/common.h"
+#include "common.h"
 
 Light::Light(const Vector3 &position)
 {

@@ -1,5 +1,5 @@
 #include "ball.h"
-#include "common/common.h"
+#include "common.h"
 #include <cmath>
 #include <algorithm>
 #include "frame.h"

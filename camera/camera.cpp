@@ -1,6 +1,6 @@
 #include "camera.h"
 #include "lodepng.h"
-#include "common/common.h"
+#include "common.h"
 #include "simpleTracer.h"
 #include "randomTracer.h"
 

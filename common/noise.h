@@ -1,7 +1,7 @@
 #ifndef _NOISE_H_
 #define _NOISE_H_
 
-#include "../vector.h"
+#include "vector.h"
 
 class Noise
 {

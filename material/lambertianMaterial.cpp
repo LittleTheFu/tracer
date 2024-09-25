@@ -1,6 +1,6 @@
 #include "lambertianMaterial.h"
 #include "lambertian.h"
-#include "common/common.h"
+#include "common.h"
 
 LambertianMaterial::LambertianMaterial(const Texture *pTexture, float scale)
 {

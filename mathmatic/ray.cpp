@@ -1,7 +1,7 @@
 #include "ray.h"
 #include <limits>
 #include <cmath>
-#include "common/common.h"
+#include "common.h"
 #include "frame.h"
 
 Ray::Ray(const Vector3 &origin, const Vector3 &dir)
