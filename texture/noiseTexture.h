@@ -2,7 +2,7 @@
 #define _NOISE_TEXTURE_H_
 
 #include "texture.h"
-#include "common/noise.h"
+#include "noise.h"
 
 class NoiseTexture : public Texture
 {
