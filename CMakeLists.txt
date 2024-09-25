@@ -98,9 +98,9 @@ INCLUDE_DIRECTORIES(brdf camera common geometry light material
 mathmatic media resource scene texture tracer)
 
 add_library(libs STATIC ${RAY_TRACER_SOURCE} ${RAY_TRACER_HEADER})
-target_include_directories( libs
-    PUBLIC scene}
-)
+# target_include_directories( libs
+#     PUBLIC scene
+# )
 
 # ADD_LIBRARY ( ray_tracer 
 #   ${RAY_TRACER_SOURCE}
@@ -109,7 +109,10 @@ target_include_directories( libs
 
 
 add_executable(ray_tracer main/main.cpp)
+target_link_libraries(ray_tracer libs)
+# target_include_directories( ray_tracer
+#     PUBLIC scene
+# )
 
 
-target_link_libraries(ray_tracer PUBLIC libs)
 # target_include_directories(ray_tracer PUBLIC ${RAY_TRACER_HEADER})
