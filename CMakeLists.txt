@@ -2,21 +2,6 @@ cmake_minimum_required(VERSION 3.5)
 
 project (ray_tracer)
 
-
-# INCLUDE_DIRECTORIES (${CMAKE_CURRENT_BINARY_DIR}/brdf)
-# INCLUDE_DIRECTORIES (${CMAKE_CURRENT_BINARY_DIR}/camera)
-# INCLUDE_DIRECTORIES (${CMAKE_CURRENT_BINARY_DIR}/common)
-# INCLUDE_DIRECTORIES (${CMAKE_CURRENT_BINARY_DIR}/geometroy)
-# INCLUDE_DIRECTORIES (${CMAKE_CURRENT_BINARY_DIR}/light)
-# INCLUDE_DIRECTORIES (${CMAKE_CURRENT_BINARY_DIR}/main)
-# INCLUDE_DIRECTORIES (${CMAKE_CURRENT_BINARY_DIR}/material)
-# INCLUDE_DIRECTORIES (${CMAKE_CURRENT_BINARY_DIR}/math)
-# INCLUDE_DIRECTORIES (${CMAKE_CURRENT_BINARY_DIR}/media)
-# INCLUDE_DIRECTORIES (${CMAKE_CURRENT_BINARY_DIR}/resource)
-# INCLUDE_DIRECTORIES (${CMAKE_CURRENT_BINARY_DIR}/scene)
-# INCLUDE_DIRECTORIES (${CMAKE_CURRENT_BINARY_DIR}/texture)
-# INCLUDE_DIRECTORIES (${CMAKE_CURRENT_BINARY_DIR}/tracer)
-
 SET (RAY_TRACER_SOURCE
     brdf/brdf.cpp
     brdf/brdfMgr.cpp
@@ -92,27 +77,20 @@ SET (RAY_TRACER_HEADER
     media/mist.h
 )
 
-# message(${RAY_TRACER_HEADER})
-
-INCLUDE_DIRECTORIES(brdf camera common geometry light material
-mathmatic media resource scene texture tracer)
+INCLUDE_DIRECTORIES(brdf 
+                    camera
+                    common 
+                    geometry 
+                    light 
+                    material
+                    mathmatic 
+                    media
+                    resource 
+                    scene  
+                    texture 
+                    tracer)
 
 add_library(libs STATIC ${RAY_TRACER_SOURCE} ${RAY_TRACER_HEADER})
-# target_include_directories( libs
-#     PUBLIC scene
-# )
-
-# ADD_LIBRARY ( ray_tracer 
-#   ${RAY_TRACER_SOURCE}
-#   ${RAY_TRACER_HEADER}
-# )
-
 
 add_executable(ray_tracer main/main.cpp)
 target_link_libraries(ray_tracer libs)
-# target_include_directories( ray_tracer
-#     PUBLIC scene
-# )
-
-
-# target_include_directories(ray_tracer PUBLIC ${RAY_TRACER_HEADER})
