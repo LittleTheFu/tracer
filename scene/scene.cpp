@@ -73,7 +73,7 @@ void Scene::constructScene()
     Ball *yellowBall = new Ball(Vector3::ZERO, Vector3(60, 80, 225), 20, lambMtrlYellow);
     Ball *aquaBall = new Ball(Vector3::ZERO, Vector3(-50, -50, 300), 20, lambMtrlAqua);
     Ball *whiteBall = new Ball(Vector3::ZERO, Vector3(20, -20, 250), 20, lambMtrlWhite);
-    Ball *glassBall = new Ball(Vector3::ZERO, Vector3(0, 72, 300), 20, MtrlGlass);
+    Ball *glassBall = new Ball(Vector3::ZERO, Vector3(75, 72, 300), 20, MtrlGlass);
     // Ball *mirrorBall = new Ball(Vector3::ZERO, Vector3(25, 40, 225), 20, MtrlMirror);
     Ball *textureBall = new Ball(Vector3::ZERO, Vector3(-45, 40, 220), 20, lambMtrlChessboard);
     // Ball *mixBall = new Ball(Vector3::ZERO, Vector3(0, 0, 220), 20, MtrlMix);
