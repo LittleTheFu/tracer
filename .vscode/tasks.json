@@ -8,7 +8,7 @@
                 "/Zi",
                 "/EHsc",
                 "/nologo",
-                "/Fe${fileDirname}/render.exe",
+                "/Fe${fileDirname}/output/render.exe",
                 "/I${workspaceFolder}/brdf",
                 "/I${workspaceFolder}/camera",
                 "/I${workspaceFolder}/common",
