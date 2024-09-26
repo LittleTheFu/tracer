@@ -21,6 +21,7 @@ SET (RAY_TRACER_SOURCE
     common/spectrum.cpp
     geometry/ball.cpp
     geometry/circle.cpp
+    geometry/geometry.cpp
     geometry/plane.cpp
     geometry/triangle.cpp
     light/light.cpp
@@ -38,6 +39,17 @@ SET (RAY_TRACER_SOURCE
     mathmatic/vector.cpp
     media/media.cpp
     media/mist.cpp
+    scene/objectpool.cpp
+    scene/scene.cpp
+    texture/chessboardTexture.cpp
+    texture/constTexture.cpp
+    texture/imageTexture.cpp
+    texture/noiseTexture.cpp
+    texture/texture.cpp
+    texture/uvTexture.cpp
+    tracer/randomTracer.cpp
+    tracer/simpleTracer.cpp
+    tracer/tracer.cpp
 )
 
 SET (RAY_TRACER_HEADER
@@ -59,6 +71,7 @@ SET (RAY_TRACER_HEADER
     common/spectrum.h
     geometry/ball.h
     geometry/circle.h
+    geometry/geometry.cpp
     geometry/plane.h
     geometry/triangle.h
     light/light.h
@@ -75,6 +88,15 @@ SET (RAY_TRACER_HEADER
     mathmatic/vector.h
     media/media.h
     media/mist.h
+    texture/chessboardTexture.h
+    texture/constTexture.h
+    texture/imageTexture.h
+    texture/noiseTexture.h
+    texture/texture.h
+    texture/uvTexture.h
+    tracer/randomTracer.h
+    tracer/simpleTracer.h
+    tracer/tracer.h
 )
 
 INCLUDE_DIRECTORIES(brdf 
