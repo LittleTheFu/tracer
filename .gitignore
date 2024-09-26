@@ -4,3 +4,6 @@ main.exe
 render.exe
 img.png
 *.png
+*.obj
+*.ilk
+*.pdb
