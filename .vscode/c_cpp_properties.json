@@ -3,7 +3,19 @@
         {
             "name": "windows",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/brdf",
+                "${workspaceFolder}/camera",
+                "${workspaceFolder}/common",
+                "${workspaceFolder}/geometry",
+                "${workspaceFolder}/light",
+                "${workspaceFolder}/material",
+                "${workspaceFolder}/mathmatic",
+                "${workspaceFolder}/media",
+                "${workspaceFolder}/resource",
+                "${workspaceFolder}/scene",
+                "${workspaceFolder}/texture",
+                "${workspaceFolder}/tracer",
+                "${workspaceFolder}/assimp_lib/include/"
             ],
             "cStandard": "c17",
             "cppStandard": "c++17",
