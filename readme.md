@@ -36,7 +36,7 @@ MSBuild.exe .\ray_tracer.sln
 .\Debug\ray_tracer.exe
 `
 
-6 : an image is created in current folder("build" folder)
+6 : an image is created in Debug folder
 
 ~~g++ -o render *.cpp *.h .\common\*~~
 
