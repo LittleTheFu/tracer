@@ -66,8 +66,8 @@ void Scene::constructScene()
     TriAngleVertex vb = TriAngleVertex(0, -20, 0.5, 1);
     TriAngleVertex vc = TriAngleVertex(20, 20, 1, 0);
     TriAngle *triAngle = new TriAngle(va, vb, vc,
-                                      Vector3(0, -Common::PI / 4, 0), Vector3(-80, -50, 215),
-                                      lambMtrlLena);
+                                      Vector3(0, -Common::PI / 4, 0), Vector3(-50, 50, 300),
+                                      lambMtrlPurple);
 
     Ball *redBall = new Ball(Vector3::ZERO, Vector3(-55, 10, 240), 20, lambMtrlRed);
     Ball *yellowBall = new Ball(Vector3::ZERO, Vector3(60, 80, 225), 20, lambMtrlYellow);
@@ -134,7 +134,7 @@ void Scene::constructScene()
 
     m_pObjectPool->add(light);
 
-    // pool->add(triAngle);
+    m_pObjectPool->add(triAngle);
 
     // pool->add(redBall);
     // pool->add(yellowBall);
@@ -142,7 +142,7 @@ void Scene::constructScene()
 
     // m_pObjectPool->add(whiteBall);
 
-    m_pObjectPool->add(glassBall);
+    // m_pObjectPool->add(glassBall);
     // pool->add(mirrorBall);
     // pool->add(mixBall);
 
