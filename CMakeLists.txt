@@ -114,5 +114,10 @@ INCLUDE_DIRECTORIES(brdf
 
 add_library(libs STATIC ${RAY_TRACER_SOURCE} ${RAY_TRACER_HEADER})
 
+include_directories(${PROJECT_SOURCE_DIR}/assimp_lib/include)
+link_directories(${PROJECT_SOURCE_DIR}/assimp_lib/lib)
+
 add_executable(ray_tracer main/main.cpp)
+
 target_link_libraries(ray_tracer libs)
+target_link_libraries(ray_tracer assimp)
