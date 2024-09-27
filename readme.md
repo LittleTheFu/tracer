@@ -36,6 +36,8 @@ MSBuild.exe .\ray_tracer.sln
 .\Debug\ray_tracer.exe
 `
 
+6 : an image is created in current folder("build" folder)
+
 ~~g++ -o render *.cpp *.h .\common\*~~
 
 you can get detail of axis from axis.jpg
