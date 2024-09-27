@@ -1,4 +1,5 @@
 build/
+assimp_lib/
 main.exe
 render.exe
 img.png
