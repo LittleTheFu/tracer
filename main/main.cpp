@@ -1,4 +1,5 @@
 #include "scene.h"
+#include "assimp/config.h"
 
 int main()
 {
