@@ -20,6 +20,7 @@ const float Common::SIGMA_T = 0.1;
 const float Common::SIGMA_S = 0.2;
 
 const std::string Common::LENA = "../resource/lena.png";
+const std::string Common::BUNNY = "../resource/bunny.obj";
 
 const int Common::TAG_PLANE_LEFT = 1;
 const int Common::TAG_PLANE_RIGHT = 2;

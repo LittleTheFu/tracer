@@ -127,7 +127,7 @@ target_link_libraries(ray_tracer libs)
 target_link_libraries(ray_tracer assimp)
 
 # 添加资源文件
-set(RESOURCE_FILES resource/lena.png)
+set(RESOURCE_FILES resource/lena.png resource/bunny.obj)
 
 # 将资源文件复制到构建目录
 foreach(RESOURCE ${RESOURCE_FILES})
