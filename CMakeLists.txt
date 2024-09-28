@@ -22,6 +22,7 @@ SET (RAY_TRACER_SOURCE
     geometry/ball.cpp
     geometry/circle.cpp
     geometry/geometry.cpp
+    geometry/mesh.cpp
     geometry/plane.cpp
     geometry/triangle.cpp
     light/light.cpp
@@ -71,7 +72,8 @@ SET (RAY_TRACER_HEADER
     common/spectrum.h
     geometry/ball.h
     geometry/circle.h
-    geometry/geometry.cpp
+    geometry/geometry.h
+    geometry/mesh.h
     geometry/plane.h
     geometry/triangle.h
     light/light.h
