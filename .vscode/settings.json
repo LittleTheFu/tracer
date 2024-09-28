@@ -61,7 +61,8 @@
     "*.tcc": "cpp",
     "deque": "cpp",
     "string": "cpp",
-    "vector": "cpp"
+    "vector": "cpp",
+    "xutility": "cpp"
   },
   "C_Cpp.default.compilerPath": "cl.exe"
 }
