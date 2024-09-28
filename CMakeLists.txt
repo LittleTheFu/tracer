@@ -88,6 +88,8 @@ SET (RAY_TRACER_HEADER
     mathmatic/vector.h
     media/media.h
     media/mist.h
+    scene/objectpool.h
+    scene/scene.h
     texture/chessboardTexture.h
     texture/constTexture.h
     texture/imageTexture.h
