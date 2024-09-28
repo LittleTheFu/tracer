@@ -109,17 +109,25 @@ INCLUDE_DIRECTORIES(brdf
                     material
                     mathmatic 
                     media
-                    resource 
                     scene  
                     texture 
-                    tracer)
+                    tracer
+                    )
 
 add_library(libs STATIC ${RAY_TRACER_SOURCE} ${RAY_TRACER_HEADER})
 
 include_directories(${PROJECT_SOURCE_DIR}/assimp_lib/include)
 link_directories(${PROJECT_SOURCE_DIR}/assimp_lib/lib)
 
-add_executable(ray_tracer main/main.cpp)
+add_executable(ray_tracer main/main.cpp resource/lena.png)
 
 target_link_libraries(ray_tracer libs)
 target_link_libraries(ray_tracer assimp)
+
+# 添加资源文件
+set(RESOURCE_FILES resource/lena.png)
+
+# 将资源文件复制到构建目录
+foreach(RESOURCE ${RESOURCE_FILES})
+    configure_file(${RESOURCE} ${CMAKE_CURRENT_BINARY_DIR}/${RESOURCE} COPYONLY)
+endforeach()
