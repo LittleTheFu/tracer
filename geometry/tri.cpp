@@ -8,7 +8,11 @@ Tri::Tri()
     m_ca = m_a.pos - m_c.pos;
 }
 
-Tri::Tri(const TriVertex &a, const TriVertex &b, const TriVertex &c, Material *pMtrl)
+Tri::Tri(const TriVertex &a,
+         const TriVertex &b,
+         const TriVertex &c,
+         const Vector3 &pos,
+         Material *pMtrl)
 {
     m_a = a;
     m_b = b;
@@ -20,9 +24,7 @@ Tri::Tri(const TriVertex &a, const TriVertex &b, const TriVertex &c, Material *p
 
     this->m_pMtrl = pMtrl;
 
-    Vector3 pos(0,0,320);
-    Vector3 rot(0,0,0);
-    init(rot, pos);
+    init(Vector3::ZERO, pos);
 }
 
 bool Tri::hit(const Ray &ray, HitRecord &record, Light *pLight) const

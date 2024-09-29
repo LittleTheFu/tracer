@@ -17,7 +17,11 @@ class Tri : public Geometry
 {
 public:
     Tri();
-    Tri(const TriVertex &a, const TriVertex &b, const TriVertex &c, Material *pMtrl);
+    Tri(const TriVertex &a,
+        const TriVertex &b,
+        const TriVertex &c,
+        const Vector3 &pos,
+        Material *pMtrl);
 
     virtual bool hit(const Ray &ray, HitRecord &record, Light *pLight) const override;
 

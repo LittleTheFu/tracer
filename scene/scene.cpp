@@ -63,10 +63,10 @@ void Scene::constructScene()
 
     MixMaterial MtrlMix;
 
-    TriVertex v_a(0,0,0);
+    TriVertex v_a(0,0,50);
     TriVertex v_b(50,0,0);
     TriVertex v_c(0,50,0);
-    Tri *tri = new Tri(v_a, v_b, v_c, lambMtrlGreen);
+    Tri *tri = new Tri(v_a, v_b, v_c, Vector3(30,30,300), lambMtrlGreen);
 
     TriAngleVertex va = TriAngleVertex(-20, 20, 0, 0);
     TriAngleVertex vb = TriAngleVertex(0, -20, 0.5, 1);
