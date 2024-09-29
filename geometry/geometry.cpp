@@ -42,6 +42,11 @@ Transform Geometry::getTransform() const
     return m_transform;
 }
 
+void Geometry::setMaterial(const Material *pMtrl)
+{
+    m_pMtrl = pMtrl;
+}
+
 Vector3 Geometry::sampleFromPoint(const Vector3 &thatPoint, float &pdf) const
 {
     pdf = 1;

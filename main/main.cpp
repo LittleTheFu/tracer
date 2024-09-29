@@ -5,11 +5,11 @@
 
 int main()
 {
-    // std::cout << "starting..." << std::endl;
-    // Mesh* mesh = new Mesh(Common::BUNNY);
-    // std::cout << "ending..." << std::endl;
-    Scene scene;
-    scene.run();
+    std::cout << "starting..." << std::endl;
+    Mesh* mesh = new Mesh(Common::BUNNY);
+    std::cout << "ending..." << std::endl;
+    // Scene scene;
+    // scene.run();
 
     return 0;
 }

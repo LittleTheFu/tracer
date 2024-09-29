@@ -24,6 +24,8 @@ public:
     void setTransform(const Transform &t);
     Transform getTransform() const;
 
+    void setMaterial(const Material *pMtrl);
+
     void setTag(int tag);
     int getTag() const;
 
@@ -38,7 +40,7 @@ protected:
     Transform m_transform;
     int m_tag;
 
-    Material *m_pMtrl;
+    const Material *m_pMtrl;
 };
 
 #endif
