@@ -64,7 +64,7 @@ void Scene::constructScene()
 
     MixMaterial MtrlMix;
 
-    Mesh *bunny = new Mesh(Common::SIMPLE_BUNNY, lambMtrlAqua);
+    Mesh *bunny = new Mesh(Common::LOW_BUNNY, lambMtrlAqua);
 
     TriVertex v_a(0,0,50);
     TriVertex v_b(50,0,0);
