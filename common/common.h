@@ -37,6 +37,7 @@ public:
 
     const static std::string LENA;
     const static std::string BUNNY;
+    const static std::string SIMPLE_BUNNY;
 
     //for mist
     const static float SIGMA_T;
