@@ -38,7 +38,7 @@ Mesh::Mesh(const std::string fileName, Material *pMtrl)
         TriVertex vb(x_b * scale, y_b * scale, z_b * scale);
         TriVertex vc(x_c * scale, y_c * scale, z_c * scale);
 
-        Vector3 pos(20,20,270);
+        Vector3 pos(20,20,350);
         Tri *tri = new Tri(va, vb, vc, pos, pMtrl);
 
         m_tris.push_back(tri);

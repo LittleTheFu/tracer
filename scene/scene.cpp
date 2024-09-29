@@ -161,12 +161,12 @@ void Scene::constructScene()
     // pool->add(textureBall);
     bunny->addToPool(m_pObjectPool);
 
-    // m_pObjectPool->add(frontPlane);
-    // m_pObjectPool->add(backPlane);
-    // m_pObjectPool->add(topPlane);
-    // m_pObjectPool->add(bottomPlane);
-    // m_pObjectPool->add(leftPlane);
-    // m_pObjectPool->add(rightPlane);
+    m_pObjectPool->add(frontPlane);
+    m_pObjectPool->add(backPlane);
+    m_pObjectPool->add(topPlane);
+    m_pObjectPool->add(bottomPlane);
+    m_pObjectPool->add(leftPlane);
+    m_pObjectPool->add(rightPlane);
 }
 
 void Scene::preRender()
