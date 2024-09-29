@@ -70,6 +70,11 @@ Vector3 &Vector3::operator*=(float m)
     return *this;
 }
 
+Vector3 Vector3::operator/(float m) const
+{
+    return Vector3(x / m, y / m, z / m);
+}
+
 Vector3 &Vector3::operator/=(float m)
 {
     x /= m;
@@ -155,7 +160,7 @@ Vector3 Vector3::dir() const
         return v;
     }
 
-    v /= len;
+    v = this->operator/(len);
 
     return v;
 }

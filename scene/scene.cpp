@@ -63,9 +63,9 @@ void Scene::constructScene()
 
     MixMaterial MtrlMix;
 
-    TriVertex v_a(20,0,0);
-    TriVertex v_b(0,0,0);
-    TriVertex v_c(0,20,0);
+    TriVertex v_a(0,0,0);
+    TriVertex v_b(50,0,0);
+    TriVertex v_c(0,50,0);
     Tri *tri = new Tri(v_a, v_b, v_c, lambMtrlGreen);
 
     TriAngleVertex va = TriAngleVertex(-20, 20, 0, 0);
@@ -140,7 +140,7 @@ void Scene::constructScene()
 
     m_pObjectPool->add(light);
 
-    m_pObjectPool->add(aquaBall);
+    // m_pObjectPool->add(aquaBall);
     m_pObjectPool->add(tri);
 
     // m_pObjectPool->add(triAngle);

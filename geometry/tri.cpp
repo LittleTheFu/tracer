@@ -21,36 +21,42 @@ Tri::Tri(const TriVertex &a, const TriVertex &b, const TriVertex &c, Material *p
     this->m_pMtrl = pMtrl;
 
     Vector3 pos(0,0,320);
-    init(Vector3::ZERO, pos);
+    Vector3 rot(0,0,0);
+    init(rot, pos);
 }
 
 bool Tri::hit(const Ray &ray, HitRecord &record, Light *pLight) const
 {
     record.t = Common::FLOAT_MAX;
 
-    const Ray newRay = ray.genNewRay(m_transform);
+    Ray newRay = ray.genNewRay(m_transform);
+
+    // newRay.origin = Vector3(30,30, -300);
+    // newRay.dir = Vector3(0,0,1);
 
     bool reverse = false;
-    if (newRay.dir.isSameDir(getLocalNormal()))
+    const Vector3 nm = getLocalNormal(false);
+    if (newRay.dir.isSameDir(nm))
     {
         reverse = true;
     }
 
-    const float n = (-newRay.origin) * getLocalNormal(reverse);
-    const float d = newRay.dir * getLocalNormal(reverse);
+    const Vector3 trueNormal = getLocalNormal(reverse);
+    const float n = (m_a.pos - newRay.origin) * trueNormal;
+    const float d = newRay.dir * trueNormal;
 
     record.t = n / d;
     if (record.t < Common::FLOAT_SAMLL_NUMBER)
     {
         // std::cout << record.t << "," << n << "," << d << std::endl;
-        // std::cout<<"false"<<std::endl;
+        // std::cout<<"false1"<<std::endl;
         return false;
     }
 
     Vector3 localPoint = newRay.origin + record.t * newRay.dir;
     if (!isAllFacePositive(localPoint))
     {
-        // std::cout<<"false"<<std::endl;
+        // std::cout<<"false2"<<std::endl;
         return false;
     }
 
@@ -58,7 +64,7 @@ bool Tri::hit(const Ray &ray, HitRecord &record, Light *pLight) const
     record.transform = m_transform;
 
     record.point = m_transform.transformPoint(localPoint);
-    record.normal = m_transform.transformNormal(getLocalNormal(reverse));
+    record.normal = m_transform.transformNormal(trueNormal);
 
     // float w_a, w_b, w_c;
     // getWeight(ap_ab, ap_bc, ap_ca, w_a, w_b, w_c);

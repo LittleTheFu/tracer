@@ -11,7 +11,7 @@ Camera::Camera()
     m_Width = Common::default_screen_width * m_factor;
     m_Height = Common::default_screen_height * m_factor;
 
-    m_BounceTime = 6;
+    m_BounceTime = 3;
 
     m_pTracer = new SimpleTracer();
 }
