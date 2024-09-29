@@ -25,6 +25,7 @@ SET (RAY_TRACER_SOURCE
     geometry/mesh.cpp
     geometry/plane.cpp
     geometry/triangle.cpp
+    geometry/tri.cpp
     light/light.cpp
     # main/main.cpp
     material/dummyMaterial.cpp
@@ -75,6 +76,7 @@ SET (RAY_TRACER_HEADER
     geometry/geometry.h
     geometry/mesh.h
     geometry/plane.h
+    geometry/tri.h
     geometry/triangle.h
     light/light.h
     material/dummyMaterial.h

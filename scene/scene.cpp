@@ -24,6 +24,7 @@
 #include "noiseTexture.h"
 #include "triangle.h"
 #include "mixMaterial.h"
+#include "tri.h"
 
 Scene::Scene()
 {
@@ -61,6 +62,11 @@ void Scene::constructScene()
     GlassMaterial* MtrlGlass = new GlassMaterial();
 
     MixMaterial MtrlMix;
+
+    TriVertex v_a(20,0,0);
+    TriVertex v_b(0,0,0);
+    TriVertex v_c(0,20,0);
+    Tri *tri = new Tri(v_a, v_b, v_c, lambMtrlGreen);
 
     TriAngleVertex va = TriAngleVertex(-20, 20, 0, 0);
     TriAngleVertex vb = TriAngleVertex(0, -20, 0.5, 1);
@@ -118,12 +124,12 @@ void Scene::constructScene()
     Vector3 squarePosition(70, -25, 290);
     Plane *squarePlane = new Plane(squareRotate, squarePosition, 20, lambMtrlLena);
 
-    frontPlane->setTag(Common::TAG_PLANE_FRONT);
-    backPlane->setTag(Common::TAG_PLANE_BACK);
-    topPlane->setTag(Common::TAG_PLANE_TOP);
-    bottomPlane->setTag(Common::TAG_PLANE_BOTTOM);
-    leftPlane->setTag(Common::TAG_PLANE_LEFT);
-    rightPlane->setTag(Common::TAG_PLANE_RIGHT);
+    // frontPlane->setTag(Common::TAG_PLANE_FRONT);
+    // backPlane->setTag(Common::TAG_PLANE_BACK);
+    // topPlane->setTag(Common::TAG_PLANE_TOP);
+    // bottomPlane->setTag(Common::TAG_PLANE_BOTTOM);
+    // leftPlane->setTag(Common::TAG_PLANE_LEFT);
+    // rightPlane->setTag(Common::TAG_PLANE_RIGHT);
 
     light->setTag(Common::TAG_LIGHT);
 
@@ -134,7 +140,10 @@ void Scene::constructScene()
 
     m_pObjectPool->add(light);
 
-    m_pObjectPool->add(triAngle);
+    m_pObjectPool->add(aquaBall);
+    m_pObjectPool->add(tri);
+
+    // m_pObjectPool->add(triAngle);
 
     // pool->add(redBall);
     // pool->add(yellowBall);
@@ -148,12 +157,12 @@ void Scene::constructScene()
 
     // pool->add(textureBall);
 
-    m_pObjectPool->add(frontPlane);
-    m_pObjectPool->add(backPlane);
-    m_pObjectPool->add(topPlane);
-    m_pObjectPool->add(bottomPlane);
-    m_pObjectPool->add(leftPlane);
-    m_pObjectPool->add(rightPlane);
+    // m_pObjectPool->add(frontPlane);
+    // m_pObjectPool->add(backPlane);
+    // m_pObjectPool->add(topPlane);
+    // m_pObjectPool->add(bottomPlane);
+    // m_pObjectPool->add(leftPlane);
+    // m_pObjectPool->add(rightPlane);
 }
 
 void Scene::preRender()
