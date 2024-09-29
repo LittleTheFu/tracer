@@ -18,6 +18,8 @@ Mesh::Mesh(const std::string fileName, Material *pMtrl)
         aiFace face = scene->mMeshes[0]->mFaces[i];
         assert(face.mNumIndices == 3);
 
+        int scale = 500;
+
         float x_a = scene->mMeshes[0]->mVertices[face.mIndices[0]].x;
         float y_a = scene->mMeshes[0]->mVertices[face.mIndices[0]].y;
         float z_a = scene->mMeshes[0]->mVertices[face.mIndices[0]].z;
@@ -32,12 +34,12 @@ Mesh::Mesh(const std::string fileName, Material *pMtrl)
         float y_c = scene->mMeshes[0]->mVertices[face.mIndices[2]].y;
         float z_c = scene->mMeshes[0]->mVertices[face.mIndices[2]].z;
 
-        TriVertex va(x_a, y_a, z_a);
-        TriVertex vb(x_b, y_b, z_b);
-        TriVertex vc(x_c, y_c, z_c);
+        TriVertex va(x_a * scale, y_a * scale, z_a * scale);
+        TriVertex vb(x_b * scale, y_b * scale, z_b * scale);
+        TriVertex vc(x_c * scale, y_c * scale, z_c * scale);
 
-        Vector3 pos(0,0,330);
-        Tri tri(va, vb, vc, pos, pMtrl);
+        Vector3 pos(20,20,270);
+        Tri *tri = new Tri(va, vb, vc, pos, pMtrl);
 
         m_tris.push_back(tri);
     }
@@ -52,7 +54,7 @@ void Mesh::addToPool(ObjectPool *pool)
 {
     for(auto it = m_tris.begin(); it != m_tris.end(); it++)
     {
-        pool->add(&(*it));
+        pool->add(*it);
     }
 }
 

@@ -24,7 +24,7 @@ private:
     virtual float v(const Vector3 &point) const override;
 
 public:
-    std::vector<Tri> m_tris;
+    std::vector<Tri*> m_tris;
 };
 
 #endif

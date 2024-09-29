@@ -144,7 +144,7 @@ void Scene::constructScene()
     m_pObjectPool->add(light);
 
     // m_pObjectPool->add(aquaBall);
-    m_pObjectPool->add(tri);
+    // m_pObjectPool->add(tri);
 
     // m_pObjectPool->add(triAngle);
 
@@ -159,14 +159,14 @@ void Scene::constructScene()
     // pool->add(mixBall);
 
     // pool->add(textureBall);
-    // bunny->addToPool(m_pObjectPool);
+    bunny->addToPool(m_pObjectPool);
 
-    m_pObjectPool->add(frontPlane);
-    m_pObjectPool->add(backPlane);
-    m_pObjectPool->add(topPlane);
-    m_pObjectPool->add(bottomPlane);
-    m_pObjectPool->add(leftPlane);
-    m_pObjectPool->add(rightPlane);
+    // m_pObjectPool->add(frontPlane);
+    // m_pObjectPool->add(backPlane);
+    // m_pObjectPool->add(topPlane);
+    // m_pObjectPool->add(bottomPlane);
+    // m_pObjectPool->add(leftPlane);
+    // m_pObjectPool->add(rightPlane);
 }
 
 void Scene::preRender()
