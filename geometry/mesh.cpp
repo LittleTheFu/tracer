@@ -48,6 +48,14 @@ bool Mesh::hit(const Ray &ray, HitRecord &record, Light *pLight) const
     return false;
 }
 
+void Mesh::addToPool(ObjectPool *pool)
+{
+    for(auto it = m_tris.begin(); it != m_tris.end(); it++)
+    {
+        pool->add(&(*it));
+    }
+}
+
 Vector3 Mesh::dpdu(const Vector3 &point) const
 {
     return Vector3::ZERO;

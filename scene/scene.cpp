@@ -25,6 +25,7 @@
 #include "triangle.h"
 #include "mixMaterial.h"
 #include "tri.h"
+#include "mesh.h"
 
 Scene::Scene()
 {
@@ -62,6 +63,8 @@ void Scene::constructScene()
     GlassMaterial* MtrlGlass = new GlassMaterial();
 
     MixMaterial MtrlMix;
+
+    Mesh *bunny = new Mesh(Common::SIMPLE_BUNNY, lambMtrlAqua);
 
     TriVertex v_a(0,0,50);
     TriVertex v_b(50,0,0);
@@ -156,6 +159,7 @@ void Scene::constructScene()
     // pool->add(mixBall);
 
     // pool->add(textureBall);
+    // bunny->addToPool(m_pObjectPool);
 
     m_pObjectPool->add(frontPlane);
     m_pObjectPool->add(backPlane);
