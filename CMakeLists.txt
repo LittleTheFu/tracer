@@ -129,7 +129,11 @@ target_link_libraries(ray_tracer mylibs)
 target_link_libraries(ray_tracer assimp-vc143-mtd)
 
 # 添加资源文件
-set(RESOURCE_FILES resource/lena.png resource/bunny.obj resource/simple_bunny.obj)
+set(RESOURCE_FILES 
+        resource/lena.png 
+        resource/bunny.obj
+        resource/simple_bunny.obj
+        resource/low_bunny.obj)
 
 # 将资源文件复制到构建目录
 foreach(RESOURCE ${RESOURCE_FILES})
