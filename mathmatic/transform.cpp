@@ -68,8 +68,8 @@ Transform &Transform::translate(float tx, float ty, float tz)
     m_invMatrix = Matrix::Mul(m_invMatrix, inv_t);
     // m_invMatrix = Matrix::Mul(inv_t, m_invMatrix);
 
-    std::cout << m_matrix << std::endl;
-    std::cout << m_invMatrix << std::endl;
+    // std::cout << m_matrix << std::endl;
+    // std::cout << m_invMatrix << std::endl;
 
     return *this;
 }
@@ -89,10 +89,10 @@ Transform &Transform::rotateX(float theta)
     Matrix r = Matrix::getRotXMatrix(theta);
     Matrix inv_r = Matrix::getRotXMatrix(-theta);
 
-    std::cout << "r:" << std::endl
-              << r << std::endl;
-    std::cout << "inv_r:" << std::endl
-              << inv_r << std::endl;
+    // std::cout << "r:" << std::endl
+    //           << r << std::endl;
+    // std::cout << "inv_r:" << std::endl
+    //           << inv_r << std::endl;
 
     // m_matrix = Matrix::Mul(m_matrix, r);
     // m_invMatrix = Matrix::Mul(inv_r, m_invMatrix);
@@ -101,8 +101,8 @@ Transform &Transform::rotateX(float theta)
     m_invMatrix = Matrix::Mul(m_invMatrix, inv_r);
     // m_invMatrix = Matrix::Mul(inv_r, m_invMatrix);
 
-    std::cout << m_matrix << std::endl;
-    std::cout << m_invMatrix << std::endl;
+    // std::cout << m_matrix << std::endl;
+    // std::cout << m_invMatrix << std::endl;
 
     return *this;
 }
