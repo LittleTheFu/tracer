@@ -160,6 +160,13 @@ Vector3 Vector3::dir() const
     return v;
 }
 
+bool Vector3::isSameDir(const Vector3 & that) const
+{
+    float r = this->operator*(that);
+
+    return r > 0;
+}
+
 Vector3 Vector3::reflect(const Vector3 &normal) const
 {
     Vector3 n = normal;
