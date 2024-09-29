@@ -18,7 +18,9 @@ public:
     Vector3 operator*(float m) const;
     Vector3 &operator*=(float m);
     friend Vector3 operator*(const float s, const Vector3 &v);
+
     bool operator==(const Vector3 &that) const;
+    bool operator!=(const Vector3 &that) const;
 
     friend std::ostream &operator<<(std::ostream &os, const Vector3 &v);
 

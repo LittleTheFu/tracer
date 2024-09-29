@@ -79,6 +79,11 @@ bool Vector3::operator==(const Vector3 &that) const
     return (eqX && eqY && eqZ);
 }
 
+bool Vector3::operator!=(const Vector3 &that) const
+{
+    return !(this->operator==(that));
+}
+
 std::ostream &operator<<(std::ostream &os, const Vector3 &v)
 {
     os << "( " << v.x << ", " << v.y << ", " << v.z << " )";
