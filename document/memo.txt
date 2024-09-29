@@ -1,0 +1,7 @@
+The cross product of vectors follows the right hand rule.
+
+test code:
+    Vector3 v_x(1,0,0);
+    Vector3 v_y(0,1,0);
+    Vector3 v = v_x.cross(v_y);
+    std::cout << v << std::endl;
