@@ -70,6 +70,15 @@ Vector3 &Vector3::operator*=(float m)
     return *this;
 }
 
+Vector3 &Vector3::operator/=(float m)
+{
+    x /= m;
+    y /= m;
+    z /= m;
+
+    return *this;
+}
+
 bool Vector3::operator==(const Vector3 &that) const
 {
     bool eqX = Common::is_float_equal(this->x, that.x);
@@ -134,6 +143,23 @@ void Vector3::normalize()
     x /= len;
     y /= len;
     z /= len;
+}
+
+Vector3 Vector3::dir() const
+{
+    float len = length();
+    Vector3 v(0,0,0);
+
+    if (len <= 0)
+    {
+        return v;
+    }
+
+    v /= len;
+    v.y /= len;
+    v.z /= len;
+
+    return v;
 }
 
 Vector3 Vector3::reflect(const Vector3 &normal) const

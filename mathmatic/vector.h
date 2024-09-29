@@ -17,6 +17,7 @@ public:
     float operator*(const Vector3 &that) const;
     Vector3 operator*(float m) const;
     Vector3 &operator*=(float m);
+    Vector3 &operator/=(float m);
     friend Vector3 operator*(const float s, const Vector3 &v);
 
     bool operator==(const Vector3 &that) const;
@@ -30,6 +31,7 @@ public:
     float length() const;
     float lenthSqr() const;
     void normalize();
+    Vector3 dir() const;
 
     Vector3 reflect(const Vector3 &normal) const;
     Vector3 refract(const Vector3 &normal, float etaOutside, float etaInside, bool &totalReflect) const;
