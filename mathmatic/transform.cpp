@@ -56,10 +56,10 @@ Transform &Transform::translate(float tx, float ty, float tz)
     Matrix t = Matrix::getTranslateMatrix(tx, ty, tz);
     Matrix inv_t = Matrix::getTranslateMatrix(-tx, -ty, -tz);
 
-    std::cout << "t:" << std::endl
-              << t << std::endl;
-    std::cout << "inv_t:" << std::endl
-              << inv_t << std::endl;
+    // std::cout << "t:" << std::endl
+    //           << t << std::endl;
+    // std::cout << "inv_t:" << std::endl
+    //           << inv_t << std::endl;
 
     // m_matrix = Matrix::Mul(m_matrix, t);
     // m_invMatrix = Matrix::Mul(inv_t, m_invMatrix);
