@@ -136,6 +136,8 @@ endforeach()
 
 # set(MY_OUTPUT_DIR "${CMAKE_CURRENT_BINARY_DIR}/bin")
 
+install(TARGETS ray_tracer RUNTIME DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/bin)  # 输出到 bin 目录
+
 install(TARGETS libs
         EXPORT libs_export
         ARCHIVE DESTINATION  ${CMAKE_CURRENT_BINARY_DIR}/lib
@@ -143,6 +145,5 @@ install(TARGETS libs
         RUNTIME DESTINATION  ${CMAKE_CURRENT_BINARY_DIR}/bin)
 
 # install(TARGETS libs RUNTIME DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/bin)  # 输出到 bin 目录
-install(TARGETS ray_tracer RUNTIME DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/bin)  # 输出到 bin 目录
 
 install(FILES ${PROJECT_SOURCE_DIR}/assimp_lib/lib/assimp.lib DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/bin)  # 输出到 bin 目录
