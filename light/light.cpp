@@ -5,7 +5,7 @@
 
 Light::Light(const Vector3 &position)
 {
-    m_pGeometry = new Ball(Vector3::ZERO, position, 5, nullptr);
+    m_pGeometry = new Ball(Vector3::ZERO, position, 25, nullptr);
 }
 
 void Light::applyTransform(const Transform &t)
