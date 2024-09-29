@@ -39,6 +39,7 @@ public:
     const static std::string BUNNY;
     const static std::string SIMPLE_BUNNY;
     const static std::string LOW_BUNNY;
+    const static std::string LOW_LOW_BUNNY;
 
     //for mist
     const static float SIGMA_T;

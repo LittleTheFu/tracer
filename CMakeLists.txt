@@ -133,7 +133,8 @@ set(RESOURCE_FILES
         resource/lena.png 
         resource/bunny.obj
         resource/simple_bunny.obj
-        resource/low_bunny.obj)
+        resource/low_bunny.obj
+        resource/low_low_bunny.obj)
 
 # 将资源文件复制到构建目录
 foreach(RESOURCE ${RESOURCE_FILES})
