@@ -18,7 +18,7 @@ Mesh::Mesh(const std::string fileName, Material *pMtrl)
         aiFace face = scene->mMeshes[0]->mFaces[i];
         assert(face.mNumIndices == 3);
 
-        int scale = 500;
+        int scale = 300;
 
         float x_a = scene->mMeshes[0]->mVertices[face.mIndices[0]].x;
         float y_a = scene->mMeshes[0]->mVertices[face.mIndices[0]].y;
