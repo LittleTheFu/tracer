@@ -116,15 +116,15 @@ INCLUDE_DIRECTORIES(brdf
                     tracer
                     )
 
-add_library(libs STATIC ${RAY_TRACER_SOURCE} ${RAY_TRACER_HEADER})
+add_library(mylibs STATIC ${RAY_TRACER_SOURCE} ${RAY_TRACER_HEADER})
 
 include_directories(${PROJECT_SOURCE_DIR}/assimp_lib/include)
 link_directories(${PROJECT_SOURCE_DIR}/assimp_lib/lib)
 
 add_executable(ray_tracer main/main.cpp resource/lena.png)
 
-target_link_libraries(ray_tracer libs)
-target_link_libraries(ray_tracer assimp)
+target_link_libraries(ray_tracer mylibs)
+target_link_libraries(ray_tracer assimp-vc143-mtd)
 
 # 添加资源文件
 set(RESOURCE_FILES resource/lena.png resource/bunny.obj)
@@ -136,14 +136,15 @@ endforeach()
 
 # set(MY_OUTPUT_DIR "${CMAKE_CURRENT_BINARY_DIR}/bin")
 
-install(TARGETS ray_tracer RUNTIME DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/bin)  # 输出到 bin 目录
+# install(TARGETS ray_tracer RUNTIME DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/bin)  # 输出到 bin 目录
 
-install(TARGETS libs
-        EXPORT libs_export
-        ARCHIVE DESTINATION  ${CMAKE_CURRENT_BINARY_DIR}/lib
-        LIBRARY DESTINATION  ${CMAKE_CURRENT_BINARY_DIR}/lib
-        RUNTIME DESTINATION  ${CMAKE_CURRENT_BINARY_DIR}/bin)
+# install(TARGETS libs
+#         EXPORT libs_export
+#         ARCHIVE DESTINATION  ${CMAKE_CURRENT_BINARY_DIR}/lib
+#         LIBRARY DESTINATION  ${CMAKE_CURRENT_BINARY_DIR}/lib
+#         LIBRARY DESTINATION  ${CMAKE_CURRENT_BINARY_DIR}/bin)
 
 # install(TARGETS libs RUNTIME DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/bin)  # 输出到 bin 目录
 
-install(FILES ${PROJECT_SOURCE_DIR}/assimp_lib/lib/assimp.lib DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/bin)  # 输出到 bin 目录
+install(FILES ${PROJECT_SOURCE_DIR}/assimp_lib/lib/assimp-vc143-mtd.lib DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Debug)  # 输出到 bin 目录
+install(FILES ${PROJECT_SOURCE_DIR}/assimp_lib/lib/assimp-vc143-mtd.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Debug)  # 输出到 bin 目录
