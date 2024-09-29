@@ -156,8 +156,6 @@ Vector3 Vector3::dir() const
     }
 
     v /= len;
-    v.y /= len;
-    v.z /= len;
 
     return v;
 }
