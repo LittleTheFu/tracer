@@ -23,7 +23,7 @@ const std::string Common::LENA = "../resource/lena.png";
 const std::string Common::BUNNY = "../resource/bunny.obj";
 const std::string Common::SIMPLE_BUNNY = "../resource/simple_bunny.obj";
 const std::string Common::LOW_BUNNY = "../resource/low_bunny.obj";
-const std::string Common::LOW_BUNNY = "../resource/low_low_bunny.obj";
+const std::string Common::LOW_LOW_BUNNY = "../resource/low_low_bunny.obj";
 
 const int Common::TAG_PLANE_LEFT = 1;
 const int Common::TAG_PLANE_RIGHT = 2;
