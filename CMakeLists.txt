@@ -126,7 +126,7 @@ link_directories(${PROJECT_SOURCE_DIR}/assimp_lib/lib)
 add_executable(ray_tracer main/main.cpp resource/lena.png)
 
 target_link_libraries(ray_tracer mylibs)
-target_link_libraries(ray_tracer assimp-vc143-mtd)
+target_link_libraries(ray_tracer assimp)
 
 # 添加资源文件
 set(RESOURCE_FILES 
