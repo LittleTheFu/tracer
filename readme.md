@@ -6,37 +6,37 @@ Suppose you are in the root directory of this project.
 
 Then:
 
-1 : make a new folder named "build":
+1.make a new folder named "build":
 
 `
 mkdir build
 `
 
-2 : enter this folder:
+2.enter this folder:
 
 `
 cd build
 `
 
-3 : generate the project with cmake
+3.generate the project with cmake
 
 `
 cmake ..
 `
 
-4 : build the project with MSBuild.exe
+4.build the project with MSBuild.exe
 
 `
 MSBuild.exe .\ray_tracer.sln
 `
 
-5 : run the exe file
+5.run the exe file
 
 `
 .\Debug\ray_tracer.exe
 `
 
-6 : an image is created in Debug folder
+6.an image is created in Debug folder
 
 ~~g++ -o render *.cpp *.h .\common\*~~
 
