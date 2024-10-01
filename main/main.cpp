@@ -1,10 +1,13 @@
 #include "scene.h"
 #include "mesh.h"
 #include "common.h"
-#include "vector.h"
+#include "tester.h"
 
 int main()
 {
+    Tester tester;
+    tester.run();
+    
     Scene scene;
     scene.run();
 
