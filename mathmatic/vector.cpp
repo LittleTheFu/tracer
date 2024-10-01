@@ -184,6 +184,26 @@ Vector3 Vector3::reflect(const Vector3 &normal) const
     return 2 * m * n + (*this);
 }
 
+Vector3 Vector3::_refract(const Vector3 &normal, float etaOutside, float etaInside, bool &totalReflect) const
+{
+    assert((normal != Vector3::ZERO && "Vector3::_refract"));
+    assert((etaInside != 0) && "Vector3::_refract");
+    assert((etaOutside != 0) && "Vector3::_refract");
+    assert(!isSameDir(normal) && "Vector3::_refract");
+
+    float dot = this->operator*(normal);
+
+    float eta_t = etaInside;
+    float eta_i = etaOutside;
+
+
+    totalReflect = false;
+
+
+    return Vector3::ZERO;
+}
+
+//WARNING : this one will be deleted soon
 Vector3 Vector3::refract(const Vector3 &normal, float etaOutside, float etaInside, bool &totalReflect) const
 {
     // this->x = 1;
