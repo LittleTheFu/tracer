@@ -62,7 +62,7 @@ void Scene::constructScene()
     MirrorMaterial MtrlMirror;
     GlassMaterial* MtrlGlass = new GlassMaterial();
 
-    MixMaterial MtrlMix;
+    MixMaterial* MtrlMix = new MixMaterial();
 
     Mesh *bunny = new Mesh(Common::LOW_BUNNY, lambMtrlAqua);
 
@@ -85,7 +85,7 @@ void Scene::constructScene()
     Ball *glassBall = new Ball(Vector3::ZERO, Vector3(75, 72, 300), 20, MtrlGlass);
     // Ball *mirrorBall = new Ball(Vector3::ZERO, Vector3(25, 40, 225), 20, MtrlMirror);
     Ball *textureBall = new Ball(Vector3::ZERO, Vector3(-45, 40, 220), 20, lambMtrlChessboard);
-    // Ball *mixBall = new Ball(Vector3::ZERO, Vector3(0, 0, 220), 20, MtrlMix);
+    Ball *mixBall = new Ball(Vector3::ZERO, Vector3(0, 0, 220), 20, MtrlMix);
 
     Light *light = new Light(Vector3(0, -70, 300));
 
@@ -150,13 +150,13 @@ void Scene::constructScene()
 
     // pool->add(redBall);
     // pool->add(yellowBall);
-    m_pObjectPool->add(aquaBall);
+    // m_pObjectPool->add(aquaBall);
 
     // m_pObjectPool->add(whiteBall);
 
     // m_pObjectPool->add(glassBall);
     // pool->add(mirrorBall);
-    // pool->add(mixBall);
+    // m_pObjectPool->add(mixBall);
 
     // pool->add(textureBall);
     // bunny->addToPool(m_pObjectPool);
