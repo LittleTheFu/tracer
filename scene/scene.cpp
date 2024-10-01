@@ -80,14 +80,14 @@ void Scene::constructScene()
 
     Ball *redBall = new Ball(Vector3::ZERO, Vector3(-55, 10, 240), 20, lambMtrlRed);
     Ball *yellowBall = new Ball(Vector3::ZERO, Vector3(60, 80, 225), 20, lambMtrlYellow);
-    Ball *aquaBall = new Ball(Vector3::ZERO, Vector3(-50, -50, 300), 20, lambMtrlAqua);
+    Ball *aquaBall = new Ball(Vector3::ZERO, Vector3(-50, 70, 370), 20, lambMtrlAqua);
     Ball *whiteBall = new Ball(Vector3::ZERO, Vector3(20, -20, 250), 20, lambMtrlWhite);
     Ball *glassBall = new Ball(Vector3::ZERO, Vector3(75, 72, 300), 20, MtrlGlass);
     // Ball *mirrorBall = new Ball(Vector3::ZERO, Vector3(25, 40, 225), 20, MtrlMirror);
     Ball *textureBall = new Ball(Vector3::ZERO, Vector3(-45, 40, 220), 20, lambMtrlChessboard);
     // Ball *mixBall = new Ball(Vector3::ZERO, Vector3(0, 0, 220), 20, MtrlMix);
 
-    Light *light = new Light(Vector3(0, 0, 300));
+    Light *light = new Light(Vector3(0, -70, 300));
 
     const float c = 100;
     const float r = 5 * c;
@@ -150,7 +150,7 @@ void Scene::constructScene()
 
     // pool->add(redBall);
     // pool->add(yellowBall);
-    // pool->add(aquaBall);
+    m_pObjectPool->add(aquaBall);
 
     // m_pObjectPool->add(whiteBall);
 
@@ -159,7 +159,7 @@ void Scene::constructScene()
     // pool->add(mixBall);
 
     // pool->add(textureBall);
-    bunny->addToPool(m_pObjectPool);
+    // bunny->addToPool(m_pObjectPool);
 
     m_pObjectPool->add(frontPlane);
     m_pObjectPool->add(backPlane);
