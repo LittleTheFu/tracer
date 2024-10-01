@@ -174,15 +174,12 @@ bool Vector3::isSameDir(const Vector3 & that) const
 
 Vector3 Vector3::reflect(const Vector3 &normal) const
 {
-    Vector3 n = normal;
-    n.normalize();
+    assert((normal != Vector3::ZERO) && "Vector3::reflect()");
+    assert(!isSameDir(normal) && "Vector3::reflect()");
 
+    Vector3 n = normal.dir();
+    n.normalize();
     float m = -this->operator*(n);
-    // if (m < 0)
-    // {
-    //     n = -n;
-    //     m = -m;
-    // }
 
     return 2 * m * n + (*this);
 }
