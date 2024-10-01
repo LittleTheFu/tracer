@@ -43,6 +43,7 @@ SET (RAY_TRACER_SOURCE
     media/mist.cpp
     scene/objectpool.cpp
     scene/scene.cpp
+    test/tester.cpp
     texture/chessboardTexture.cpp
     texture/constTexture.cpp
     texture/imageTexture.cpp
@@ -94,6 +95,7 @@ SET (RAY_TRACER_HEADER
     media/mist.h
     scene/objectpool.h
     scene/scene.h
+    test/tester.h
     texture/chessboardTexture.h
     texture/constTexture.h
     texture/imageTexture.h
@@ -114,6 +116,7 @@ INCLUDE_DIRECTORIES(brdf
                     mathmatic 
                     media
                     scene  
+                    test
                     texture 
                     tracer
                     )
