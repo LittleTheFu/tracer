@@ -142,7 +142,8 @@
     "xmemory": "cpp",
     "xstring": "cpp",
     "xtr1common": "cpp",
-    "xtree": "cpp"
+    "xtree": "cpp",
+    "cassert": "cpp"
   },
   "C_Cpp.default.compilerPath": "cl.exe"
 }
