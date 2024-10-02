@@ -149,7 +149,7 @@ void Scene::buildRoom()
 
 void Scene::buildLight()
 {
-    Light *light = new Light(Vector3(0, 0, 300), 50);
+    Light *light = new Light(Vector3(0, 0, 300), 40);
     light->setTag(Common::TAG_LIGHT);
 
     m_pObjectPool->add(light);
@@ -209,12 +209,12 @@ void Scene::buildSceneWithDefaultConfig()
 
 void Scene::buildRedBall()
 {
-    Ball *redBall = new Ball(Vector3::ZERO, Vector3(25, 70, 250), 20, lambMtrlRed);
+    Ball *redBall = new Ball(Vector3::ZERO, Vector3(25, 70, 350), 20, lambMtrlRed);
     m_pObjectPool->add(redBall);
 }
 
 void Scene::buildMixBall()
 {
-    Ball *mixBall = new Ball(Vector3::ZERO, Vector3(-28, 72, 250), 20, MtrlMix);
+    Ball *mixBall = new Ball(Vector3::ZERO, Vector3(-28, 72, 350), 20, MtrlMix);
     m_pObjectPool->add(mixBall);
 }
