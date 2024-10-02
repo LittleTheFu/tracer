@@ -33,6 +33,8 @@ private:
 
     void buildSceneWithDefaultConfig();
 
+    void buildMixBall();
+
 private:
     ObjectPool* m_pObjectPool;
     Camera* m_pCamera;

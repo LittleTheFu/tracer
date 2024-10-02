@@ -53,7 +53,7 @@ void Scene::constructScene()
     buildRoom();
     buildLight();
 
-    buildSceneWithDefaultConfig();
+    // buildMixBall();
 }
 
 void Scene::preRender()
@@ -78,7 +78,7 @@ void Scene::postRender()
 
 void Scene::createMaterials()
 {
-    rho = 0.4;
+    rho = 0.4f;
 
     lambMtrlLena = new LambertianMaterial(new ImageTexture(Common::LENA), rho);
     lambMtrlChessboard = new LambertianMaterial(new ChessboardTexture(), rho);
@@ -177,7 +177,6 @@ void Scene::buildSceneWithDefaultConfig()
     Ball *glassBall = new Ball(Vector3::ZERO, Vector3(75, 72, 300), 20, MtrlGlass);
     // Ball *mirrorBall = new Ball(Vector3::ZERO, Vector3(25, 40, 225), 20, MtrlMirror);
     Ball *textureBall = new Ball(Vector3::ZERO, Vector3(-45, 40, 220), 20, lambMtrlChessboard);
-    Ball *mixBall = new Ball(Vector3::ZERO, Vector3(0, 0, 220), 20, MtrlMix);
 
     Vector3 squareRotate(Common::PI, -Common::PI / 4, Common::PI);
     Vector3 squarePosition(70, -25, 290);
@@ -205,4 +204,10 @@ void Scene::buildSceneWithDefaultConfig()
 
     // pool->add(textureBall);
     // bunny->addToPool(m_pObjectPool);
+}
+
+void Scene::buildMixBall()
+{
+    Ball *mixBall = new Ball(Vector3::ZERO, Vector3(0, 0, 220), 20, MtrlMix);
+    m_pObjectPool->add(mixBall);
 }
