@@ -87,7 +87,7 @@ void Scene::constructScene()
     Ball *textureBall = new Ball(Vector3::ZERO, Vector3(-45, 40, 220), 20, lambMtrlChessboard);
     Ball *mixBall = new Ball(Vector3::ZERO, Vector3(0, 0, 220), 20, MtrlMix);
 
-    Light *light = new Light(Vector3(0, -70, 300));
+    Light *light = new Light(Vector3(0, 0, 300), 50);
 
     const float c = 100;
     const float r = 5 * c;

@@ -3,9 +3,9 @@
 #include "hitrecord.h"
 #include "common.h"
 
-Light::Light(const Vector3 &position)
+Light::Light(const Vector3 &position, float r)
 {
-    m_pGeometry = new Ball(Vector3::ZERO, position, 10, nullptr);
+    m_pGeometry = new Ball(Vector3::ZERO, position, r, nullptr);
 }
 
 void Light::applyTransform(const Transform &t)

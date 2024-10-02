@@ -11,7 +11,7 @@ class Geometry;
 class Light
 {
 public:
-    Light(const Vector3 &position);
+    Light(const Vector3 &position, float r);
 
     void applyTransform(const Transform &t);
     Vector3 sample(const Vector3 &thatPoint, float &pdf) const;
