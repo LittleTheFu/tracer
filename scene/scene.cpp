@@ -150,7 +150,7 @@ void Scene::buildRoom()
 
 void Scene::buildLight()
 {
-    Light *light = new Light(Vector3(0, 0, 300), 10);
+    Light *light = new Light(Vector3(0, 0, 300), 50);
     light->setTag(Common::TAG_LIGHT);
 
     m_pObjectPool->add(light);
