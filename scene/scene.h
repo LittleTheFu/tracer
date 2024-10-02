@@ -21,6 +21,9 @@ private:
     void postRender();
 
 private:
+    void buildSceneWithDefaultConfig();
+
+private:
     ObjectPool* m_pObjectPool;
     Camera* m_pCamera;
 };

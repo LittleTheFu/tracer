@@ -44,6 +44,31 @@ void Scene::run()
 
 void Scene::constructScene()
 {
+    buildSceneWithDefaultConfig();
+}
+
+void Scene::preRender()
+{
+    m_pCamera->setPool(m_pObjectPool);
+    m_pCamera->build(Vector3(0, 0, 0), Vector3(0, 0, 0));
+
+    Transform t = m_pCamera->getTransform().getInverseTransform();
+    m_pObjectPool->applyTransfrom(t);
+}
+
+void Scene::render()
+{
+    m_pCamera->render();
+}
+
+void Scene::postRender()
+{
+    m_pCamera->saveToImage("img");
+    // m_pObjectPool->applyTransfrom(t.getInverseTransform());
+}
+
+void Scene::buildSceneWithDefaultConfig()
+{
     float rho = 0.4;
 
     LambertianMaterial *lambMtrlLena = new LambertianMaterial(new ImageTexture(Common::LENA), rho);
@@ -60,16 +85,16 @@ void Scene::constructScene()
     LambertianMaterial *lambMtrlWhite = new LambertianMaterial(new ConstTexture(Color::COLOR_WHITE), rho);
 
     MirrorMaterial MtrlMirror;
-    GlassMaterial* MtrlGlass = new GlassMaterial();
+    GlassMaterial *MtrlGlass = new GlassMaterial();
 
-    MixMaterial* MtrlMix = new MixMaterial();
+    MixMaterial *MtrlMix = new MixMaterial();
 
     Mesh *bunny = new Mesh(Common::LOW_BUNNY, lambMtrlAqua);
 
-    TriVertex v_a(0,0,50);
-    TriVertex v_b(50,0,0);
-    TriVertex v_c(0,50,0);
-    Tri *tri = new Tri(v_a, v_b, v_c, Vector3(30,30,300), lambMtrlGreen);
+    TriVertex v_a(0, 0, 50);
+    TriVertex v_b(50, 0, 0);
+    TriVertex v_c(0, 50, 0);
+    Tri *tri = new Tri(v_a, v_b, v_c, Vector3(30, 30, 300), lambMtrlGreen);
 
     TriAngleVertex va = TriAngleVertex(-20, 20, 0, 0);
     TriAngleVertex vb = TriAngleVertex(0, -20, 0.5, 1);
@@ -167,24 +192,4 @@ void Scene::constructScene()
     m_pObjectPool->add(bottomPlane);
     m_pObjectPool->add(leftPlane);
     m_pObjectPool->add(rightPlane);
-}
-
-void Scene::preRender()
-{
-    m_pCamera->setPool(m_pObjectPool);
-    m_pCamera->build(Vector3(0, 0, 0), Vector3(0, 0, 0));
-
-    Transform t = m_pCamera->getTransform().getInverseTransform();
-    m_pObjectPool->applyTransfrom(t);
-}
-
-void Scene::render()
-{
-    m_pCamera->render();
-}
-
-void Scene::postRender()
-{
-    m_pCamera->saveToImage("img");
-    // m_pObjectPool->applyTransfrom(t.getInverseTransform());
 }
