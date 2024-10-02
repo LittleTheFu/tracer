@@ -35,6 +35,7 @@ Scene::Scene()
 
 void Scene::run()
 {
+    preConstructScene();
     constructScene();
 
     preRender();
@@ -42,8 +43,16 @@ void Scene::run()
     postRender();
 }
 
+void Scene::preConstructScene()
+{
+    createMaterials();
+}
+
 void Scene::constructScene()
 {
+    buildRoom();
+    buildLight();
+
     buildSceneWithDefaultConfig();
 }
 
@@ -67,53 +76,31 @@ void Scene::postRender()
     // m_pObjectPool->applyTransfrom(t.getInverseTransform());
 }
 
-void Scene::buildSceneWithDefaultConfig()
+void Scene::createMaterials()
 {
-    float rho = 0.4;
+    rho = 0.4;
 
-    LambertianMaterial *lambMtrlLena = new LambertianMaterial(new ImageTexture(Common::LENA), rho);
-    LambertianMaterial *lambMtrlChessboard = new LambertianMaterial(new ChessboardTexture(), rho);
-    LambertianMaterial *lambUV = new LambertianMaterial(new UvTexture(), 1);
-    LambertianMaterial *lambNoise = new LambertianMaterial(new NoiseTexture(Color::COLOR_WHITE), rho);
+    lambMtrlLena = new LambertianMaterial(new ImageTexture(Common::LENA), rho);
+    lambMtrlChessboard = new LambertianMaterial(new ChessboardTexture(), rho);
+    lambUV = new LambertianMaterial(new UvTexture(), 1);
+    lambNoise = new LambertianMaterial(new NoiseTexture(Color::COLOR_WHITE), rho);
 
-    LambertianMaterial *lambMtrlRed = new LambertianMaterial(new ConstTexture(Color::COLOR_RED), rho);
-    LambertianMaterial *lambMtrlYellow = new LambertianMaterial(new ConstTexture(Color::COLOR_YELLOW), rho);
-    LambertianMaterial *lambMtrlAqua = new LambertianMaterial(new ConstTexture(Color::COLOR_AQUA), rho);
-    LambertianMaterial *lambMtrlPurple = new LambertianMaterial(new ConstTexture(Color::COLOR_PURPLE), rho);
-    LambertianMaterial *lambMtrlGreen = new LambertianMaterial(new ConstTexture(Color::COLOR_GREEN), rho);
-    LambertianMaterial *lambMtrlBlue = new LambertianMaterial(new ConstTexture(Color::COLOR_BLUE), rho);
-    LambertianMaterial *lambMtrlWhite = new LambertianMaterial(new ConstTexture(Color::COLOR_WHITE), rho);
+    lambMtrlRed = new LambertianMaterial(new ConstTexture(Color::COLOR_RED), rho);
+    lambMtrlYellow = new LambertianMaterial(new ConstTexture(Color::COLOR_YELLOW), rho);
+    lambMtrlAqua = new LambertianMaterial(new ConstTexture(Color::COLOR_AQUA), rho);
+    lambMtrlPurple = new LambertianMaterial(new ConstTexture(Color::COLOR_PURPLE), rho);
+    lambMtrlGreen = new LambertianMaterial(new ConstTexture(Color::COLOR_GREEN), rho);
+    lambMtrlBlue = new LambertianMaterial(new ConstTexture(Color::COLOR_BLUE), rho);
+    lambMtrlWhite = new LambertianMaterial(new ConstTexture(Color::COLOR_WHITE), rho);
 
-    MirrorMaterial MtrlMirror;
-    GlassMaterial *MtrlGlass = new GlassMaterial();
+    MtrlMirror = new MirrorMaterial();
+    MtrlGlass = new GlassMaterial();
 
-    MixMaterial *MtrlMix = new MixMaterial();
+    MtrlMix = new MixMaterial();
+}
 
-    Mesh *bunny = new Mesh(Common::LOW_BUNNY, lambMtrlAqua);
-
-    TriVertex v_a(0, 0, 50);
-    TriVertex v_b(50, 0, 0);
-    TriVertex v_c(0, 50, 0);
-    Tri *tri = new Tri(v_a, v_b, v_c, Vector3(30, 30, 300), lambMtrlGreen);
-
-    TriAngleVertex va = TriAngleVertex(-20, 20, 0, 0);
-    TriAngleVertex vb = TriAngleVertex(0, -20, 0.5, 1);
-    TriAngleVertex vc = TriAngleVertex(20, 20, 1, 0);
-    TriAngle *triAngle = new TriAngle(va, vb, vc,
-                                      Vector3(0, -Common::PI / 4, 0), Vector3(-50, 50, 300),
-                                      lambMtrlLena);
-
-    Ball *redBall = new Ball(Vector3::ZERO, Vector3(-55, 10, 240), 20, lambMtrlRed);
-    Ball *yellowBall = new Ball(Vector3::ZERO, Vector3(60, 80, 225), 20, lambMtrlYellow);
-    Ball *aquaBall = new Ball(Vector3::ZERO, Vector3(-50, 70, 370), 20, lambMtrlAqua);
-    Ball *whiteBall = new Ball(Vector3::ZERO, Vector3(20, -20, 250), 20, lambMtrlWhite);
-    Ball *glassBall = new Ball(Vector3::ZERO, Vector3(75, 72, 300), 20, MtrlGlass);
-    // Ball *mirrorBall = new Ball(Vector3::ZERO, Vector3(25, 40, 225), 20, MtrlMirror);
-    Ball *textureBall = new Ball(Vector3::ZERO, Vector3(-45, 40, 220), 20, lambMtrlChessboard);
-    Ball *mixBall = new Ball(Vector3::ZERO, Vector3(0, 0, 220), 20, MtrlMix);
-
-    Light *light = new Light(Vector3(0, 0, 300), 50);
-
+void Scene::buildRoom()
+{
     const float c = 100;
     const float r = 5 * c;
 
@@ -144,14 +131,6 @@ void Scene::buildSceneWithDefaultConfig()
     Vector3 backPosition(0, 0, -3 * c);
     Plane *backPlane = new Plane(backRotate, backPosition, 100, lambMtrlRed);
 
-    Vector3 glassRotate(-Common::PI / 2, 0, 0);
-    Vector3 glassPosition(0, 0, -c * 0.5);
-    // Plane *glassPlane = new Plane(glassRotate, glassPosition, r, MtrlGlass);
-
-    Vector3 squareRotate(Common::PI, -Common::PI / 4, Common::PI);
-    Vector3 squarePosition(70, -25, 290);
-    Plane *squarePlane = new Plane(squareRotate, squarePosition, 20, lambMtrlLena);
-
     // frontPlane->setTag(Common::TAG_PLANE_FRONT);
     // backPlane->setTag(Common::TAG_PLANE_BACK);
     // topPlane->setTag(Common::TAG_PLANE_TOP);
@@ -159,14 +138,55 @@ void Scene::buildSceneWithDefaultConfig()
     // leftPlane->setTag(Common::TAG_PLANE_LEFT);
     // rightPlane->setTag(Common::TAG_PLANE_RIGHT);
 
+    m_pObjectPool->add(frontPlane);
+    m_pObjectPool->add(backPlane);
+    m_pObjectPool->add(topPlane);
+    m_pObjectPool->add(bottomPlane);
+    m_pObjectPool->add(leftPlane);
+    m_pObjectPool->add(rightPlane);
+}
+
+void Scene::buildLight()
+{
+    Light *light = new Light(Vector3(0, 0, 300), 50);
     light->setTag(Common::TAG_LIGHT);
+
+    m_pObjectPool->add(light);
+}
+
+void Scene::buildSceneWithDefaultConfig()
+{
+    Mesh *bunny = new Mesh(Common::LOW_BUNNY, lambMtrlAqua);
+
+    TriVertex v_a(0, 0, 50);
+    TriVertex v_b(50, 0, 0);
+    TriVertex v_c(0, 50, 0);
+    Tri *tri = new Tri(v_a, v_b, v_c, Vector3(30, 30, 300), lambMtrlGreen);
+
+    TriAngleVertex va = TriAngleVertex(-20, 20, 0, 0);
+    TriAngleVertex vb = TriAngleVertex(0, -20, 0.5, 1);
+    TriAngleVertex vc = TriAngleVertex(20, 20, 1, 0);
+    TriAngle *triAngle = new TriAngle(va, vb, vc,
+                                      Vector3(0, -Common::PI / 4, 0), Vector3(-50, 50, 300),
+                                      lambMtrlLena);
+
+    Ball *redBall = new Ball(Vector3::ZERO, Vector3(-55, 10, 240), 20, lambMtrlRed);
+    Ball *yellowBall = new Ball(Vector3::ZERO, Vector3(60, 80, 225), 20, lambMtrlYellow);
+    Ball *aquaBall = new Ball(Vector3::ZERO, Vector3(-50, 70, 370), 20, lambMtrlAqua);
+    Ball *whiteBall = new Ball(Vector3::ZERO, Vector3(20, -20, 250), 20, lambMtrlWhite);
+    Ball *glassBall = new Ball(Vector3::ZERO, Vector3(75, 72, 300), 20, MtrlGlass);
+    // Ball *mirrorBall = new Ball(Vector3::ZERO, Vector3(25, 40, 225), 20, MtrlMirror);
+    Ball *textureBall = new Ball(Vector3::ZERO, Vector3(-45, 40, 220), 20, lambMtrlChessboard);
+    Ball *mixBall = new Ball(Vector3::ZERO, Vector3(0, 0, 220), 20, MtrlMix);
+
+    Vector3 squareRotate(Common::PI, -Common::PI / 4, Common::PI);
+    Vector3 squarePosition(70, -25, 290);
+    Plane *squarePlane = new Plane(squareRotate, squarePosition, 20, lambMtrlLena);
 
     glassBall->setTag(Common::TAG_GLASS_BALL);
     // glassPlane->setTag(101);
 
     // mirrorBall->setTag(200);
-
-    m_pObjectPool->add(light);
 
     // m_pObjectPool->add(aquaBall);
     // m_pObjectPool->add(tri);
@@ -185,11 +205,4 @@ void Scene::buildSceneWithDefaultConfig()
 
     // pool->add(textureBall);
     // bunny->addToPool(m_pObjectPool);
-
-    m_pObjectPool->add(frontPlane);
-    m_pObjectPool->add(backPlane);
-    m_pObjectPool->add(topPlane);
-    m_pObjectPool->add(bottomPlane);
-    m_pObjectPool->add(leftPlane);
-    m_pObjectPool->add(rightPlane);
 }

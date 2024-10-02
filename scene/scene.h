@@ -4,6 +4,10 @@
 #include "camera.h"
 #include "objectpool.h"
 #include "pinholeCamera.h"
+#include "lambertianMaterial.h"
+#include "mirrorMaterial.h"
+#include "glassMaterial.h"
+#include "mixMaterial.h"
 
 class Scene
 {
@@ -14,6 +18,7 @@ public:
     void run();
 
 private:
+    void preConstructScene();
     void constructScene();
 
     void preRender();
@@ -21,11 +26,37 @@ private:
     void postRender();
 
 private:
+    void createMaterials();
+
+    void buildRoom();
+    void buildLight();
+
     void buildSceneWithDefaultConfig();
 
 private:
     ObjectPool* m_pObjectPool;
     Camera* m_pCamera;
+
+private:
+    float rho;
+
+    LambertianMaterial *lambMtrlLena;
+    LambertianMaterial *lambMtrlChessboard;
+    LambertianMaterial *lambUV;
+    LambertianMaterial *lambNoise;
+
+    LambertianMaterial *lambMtrlRed;
+    LambertianMaterial *lambMtrlYellow;
+    LambertianMaterial *lambMtrlAqua;
+    LambertianMaterial *lambMtrlPurple;
+    LambertianMaterial *lambMtrlGreen;
+    LambertianMaterial *lambMtrlBlue;
+    LambertianMaterial *lambMtrlWhite;
+
+    MirrorMaterial *MtrlMirror;
+    GlassMaterial *MtrlGlass;
+
+    MixMaterial *MtrlMix;
 };
 
 #endif
