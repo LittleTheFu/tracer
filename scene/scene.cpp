@@ -154,7 +154,7 @@ void Scene::constructScene()
 
     // m_pObjectPool->add(whiteBall);
 
-    // m_pObjectPool->add(glassBall);
+    m_pObjectPool->add(glassBall);
     // pool->add(mirrorBall);
     // m_pObjectPool->add(mixBall);
 
