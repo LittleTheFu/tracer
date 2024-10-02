@@ -52,12 +52,12 @@ Color MixMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float 
 
     if (rnd < F)
     {
-        color = m_pMirrorBrdf->sample_f(wo, wi, pdf) * F;
+        color = m_pMirrorBrdf->sample_f(wo, wi, pdf);
         pdf = F;
     }
     else
     {
-        color = m_pGlassBrdf->sample_f(wo, wi, pdf) * ( 1 - F );
+        color = m_pGlassBrdf->sample_f(wo, wi, pdf);
         pdf = 1 - F;
     }
 
