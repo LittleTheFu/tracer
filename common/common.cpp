@@ -40,6 +40,31 @@ const int Common::TAG_MIRROR_BALL = 11001;
 const  unsigned int Common::default_screen_width = 256;
 const  unsigned int Common::default_screen_height = 256;
 
+const bool Common::is_in_range(float value, float low, float high, bool equalLow, bool equalHigh)
+{
+    if(equalLow && equalHigh)
+    {
+        return value >= low && value <= high;
+    }
+    
+    if(!equalLow && equalHigh)
+    {
+        return value > low && value <= high;
+    }
+
+    if(equalLow && !equalHigh)
+    {
+        return value >= low && value < high;
+    }
+
+    if(!equalLow && !equalHigh)
+    {
+        return value > low && value < high;
+    }
+
+    return false;
+}
+
 const bool Common::is_float_equal(float x, float y)
 {
     float diff = std::abs(x - y);

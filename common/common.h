@@ -13,6 +13,8 @@ public:
     const static float INV_PI;
     const static float INV_TWO_PI;
 
+    const static bool is_in_range(float value, float low, float high, bool equalLow, bool equalHigh);
+
     const static bool is_float_equal(float x, float y);
     const static bool is_float_zero(float x);
     const static float clamp(float v, float min, float max);
