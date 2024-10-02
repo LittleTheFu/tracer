@@ -38,7 +38,11 @@ public:
 
     Vector3 reflect(const Vector3 &normal) const;
     Vector3 refract(const Vector3 &normal, float etaInputSide, float etaOutputSide, bool &totalReflect) const;
-    Vector3 _refract(const Vector3 &normal, float etaOutside, float etaInside, bool &totalReflect) const;
+    Vector3 _refract(const Vector3 &normal,
+                     float etaOutside,
+                     float etaInside,
+                     bool &totalReflect,
+                     float &fresnel) const;
     bool isInSameSide(const Vector3 &that) const;
 
     static Vector3 getRandomVector();

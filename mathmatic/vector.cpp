@@ -184,7 +184,11 @@ Vector3 Vector3::reflect(const Vector3 &normal) const
     return 2 * m * n + (*this);
 }
 
-Vector3 Vector3::_refract(const Vector3 &normal, float etaInputSide, float etaOutputSide, bool &totalReflect) const
+Vector3 Vector3::_refract(const Vector3 &normal,
+                          float etaInputSide,
+                          float etaOutputSide,
+                          bool &totalReflect,
+                          float &fresnel) const
 {
     assert((normal != Vector3::ZERO && "Vector3::_refract"));
     assert((etaInputSide != 0) && "Vector3::_refract");
@@ -206,6 +210,7 @@ Vector3 Vector3::_refract(const Vector3 &normal, float etaInputSide, float etaOu
     if(sin_theta_out_sqr >= 1)
     {
         totalReflect = true;
+        fresnel = 1;
         return reflect(normal);
     }
 
@@ -223,6 +228,15 @@ Vector3 Vector3::_refract(const Vector3 &normal, float etaInputSide, float etaOu
     Vector3 out_n = cos_theta_out * this->length() * n;
 
     Vector3 out = out_p + out_n;
+
+    float cos_theta_in = dot;
+
+    float r_pa = (etaOutputSide * cos_theta_in - etaInputSide * cos_theta_out) /
+                 (etaOutputSide * cos_theta_in + etaInputSide * cos_theta_out);
+    float r_per = (etaInputSide * cos_theta_in - etaOutputSide * cos_theta_out) /
+                  (etaInputSide * cos_theta_in + etaOutputSide * cos_theta_out);
+
+    fresnel = 0.5 * (r_pa * r_pa + r_per * r_per);
 
     return out;
 }

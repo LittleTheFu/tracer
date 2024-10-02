@@ -33,18 +33,12 @@ Color MixMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float 
 
     bool totalReflect = false;
     Vector3 inputVector = -wo;
-    Vector3 refractVector = inputVector.refract(normal, etaOutside, etaInside, totalReflect);
+    float fresnel;
+    Vector3 refractVector = inputVector._refract(normal, etaOutside, etaInside, totalReflect, fresnel);
     float F = 1;
     if (!totalReflect)
     {
-        float sinOut = std::sqrt(1 - cosOut * cosOut);
-        float sinIn = sinOut * etaOutside / etaInside;
-        float cosIn = std::sqrt(1 - sinIn * sinIn);
-
-        float r_pa = (etaInside * cosOut - etaOutside * cosIn) / (etaInside * cosOut + etaOutside * cosIn);
-        float r_per = (etaOutside * cosOut - etaInside * cosIn) / (etaOutside * cosOut + etaInside * cosIn);
-
-        F = 0.5 * (r_pa * r_pa + r_per * r_per);
+        F = fresnel;
     }
 
     float rnd = Common::genRandomDecimal();
@@ -53,12 +47,12 @@ Color MixMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float 
 
     if (rnd < F)
     {
-        color = m_pMirrorBrdf->sample_f(wo, wi, pdf) * F;
+        color = m_pMirrorBrdf->sample_f(wo, wi, pdf);
         pdf = F;
     }
     else
     {
-        color = m_pGlassBrdf->sample_f(wo, wi, pdf) * (1 - F);
+        color = m_pGlassBrdf->sample_f(wo, wi, pdf);
         pdf = 1 - F;
     }
 

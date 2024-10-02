@@ -53,6 +53,7 @@ void Scene::constructScene()
     buildRoom();
     buildLight();
 
+    buildRedBall();
     buildMixBall();
 }
 
@@ -206,8 +207,14 @@ void Scene::buildSceneWithDefaultConfig()
     // bunny->addToPool(m_pObjectPool);
 }
 
+void Scene::buildRedBall()
+{
+    Ball *redBall = new Ball(Vector3::ZERO, Vector3(25, 70, 250), 20, lambMtrlRed);
+    m_pObjectPool->add(redBall);
+}
+
 void Scene::buildMixBall()
 {
-    Ball *mixBall = new Ball(Vector3::ZERO, Vector3(75, 72, 300), 20, MtrlMix);
+    Ball *mixBall = new Ball(Vector3::ZERO, Vector3(-28, 72, 250), 20, MtrlMix);
     m_pObjectPool->add(mixBall);
 }
