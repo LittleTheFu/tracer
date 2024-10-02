@@ -32,7 +32,8 @@ private:
     void buildLight();
 
     void buildSceneWithDefaultConfig();
-    
+
+    void buildMirrorBall();   
     void buildRedBall();
     void buildMixBall();
 

@@ -6,7 +6,7 @@
 
 Camera::Camera()
 {
-    m_factor = 2;
+    m_factor = 30;
 
     m_Width = Common::default_screen_width * m_factor;
     m_Height = Common::default_screen_height * m_factor;

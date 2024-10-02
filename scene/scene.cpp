@@ -53,6 +53,7 @@ void Scene::constructScene()
     buildRoom();
     buildLight();
 
+    buildMirrorBall();
     buildRedBall();
     buildMixBall();
 }
@@ -207,9 +208,15 @@ void Scene::buildSceneWithDefaultConfig()
     // bunny->addToPool(m_pObjectPool);
 }
 
+void Scene::buildMirrorBall()
+{
+    Ball *mirrorBall = new Ball(Vector3::ZERO, Vector3(25, 70, 350), 20, MtrlMirror);
+    m_pObjectPool->add(mirrorBall);
+}
+
 void Scene::buildRedBall()
 {
-    Ball *redBall = new Ball(Vector3::ZERO, Vector3(25, 70, 350), 20, lambMtrlRed);
+    Ball *redBall = new Ball(Vector3::ZERO, Vector3(70, 70, 350), 20, lambMtrlRed);
     m_pObjectPool->add(redBall);
 }
 
