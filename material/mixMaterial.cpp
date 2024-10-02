@@ -18,15 +18,15 @@ bool MixMaterial::isMirror() const
 
 Color MixMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf) const
 {
-    float etaOutside = m_etaOutside;
-    float etaInside = m_etaInside;
+    float etaInputSide = m_etaOutside;
+    float etaOutputSide = m_etaInside;
     Vector3 normal = Brdf::LOCAL_NORMAL;
 
     float cosOut = wo * normal;
 
     if (cosOut < 0)
     {
-        std::swap(etaInside, etaOutside);
+        std::swap(etaInputSide, etaOutputSide);
         cosOut = -cosOut;
         normal = -normal;
     }
@@ -34,7 +34,7 @@ Color MixMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float 
     bool totalReflect = false;
     Vector3 inputVector = -wo;
     float fresnel;
-    Vector3 refractVector = inputVector._refract(normal, etaOutside, etaInside, totalReflect, fresnel);
+    Vector3 refractVector = inputVector._refract(normal, etaInputSide, etaOutputSide, totalReflect, fresnel);
     float F = 1;
     if (!totalReflect)
     {
