@@ -8,7 +8,14 @@ Mirror::Mirror()
 Color Mirror::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf) const
 {
     const Vector3 local_wo = -wo;
-    wi = local_wo.reflect(LOCAL_NORMAL);
+    
+    Vector3 n = LOCAL_NORMAL;
+    if(local_wo.isSameDir(n))
+    {
+        n = -n;
+    }
+
+    wi = local_wo.reflect(n);
 
     pdf = 1;
 

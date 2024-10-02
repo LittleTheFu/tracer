@@ -53,7 +53,7 @@ void Scene::constructScene()
     buildRoom();
     buildLight();
 
-    // buildMixBall();
+    buildMixBall();
 }
 
 void Scene::preRender()
@@ -208,6 +208,6 @@ void Scene::buildSceneWithDefaultConfig()
 
 void Scene::buildMixBall()
 {
-    Ball *mixBall = new Ball(Vector3::ZERO, Vector3(0, 0, 220), 20, MtrlMix);
+    Ball *mixBall = new Ball(Vector3::ZERO, Vector3(75, 72, 300), 20, MtrlMix);
     m_pObjectPool->add(mixBall);
 }
