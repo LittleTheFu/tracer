@@ -184,23 +184,47 @@ Vector3 Vector3::reflect(const Vector3 &normal) const
     return 2 * m * n + (*this);
 }
 
-Vector3 Vector3::_refract(const Vector3 &normal, float etaOutside, float etaInside, bool &totalReflect) const
+Vector3 Vector3::_refract(const Vector3 &normal, float etaInputSide, float etaOutputSide, bool &totalReflect) const
 {
     assert((normal != Vector3::ZERO && "Vector3::_refract"));
-    assert((etaInside != 0) && "Vector3::_refract");
-    assert((etaOutside != 0) && "Vector3::_refract");
+    assert((etaInputSide != 0) && "Vector3::_refract");
+    assert((etaOutputSide != 0) && "Vector3::_refract");
     assert(!isSameDir(normal) && "Vector3::_refract");
 
-    float dot = this->operator*(normal);
+    float eta = etaOutputSide / etaInputSide;
 
-    float eta_t = etaInside;
-    float eta_i = etaOutside;
+    Vector3 n = -normal;
+    float nLen = n.length();
+    float dot = this->operator*(n);
 
+    float cos_theta_in_sqr = dot * dot;
+    float sin_theta_in_sqr = 1 - cos_theta_in_sqr;
+    bool is_sin_theta_sqr_in_range = Common::is_in_range(sin_theta_in_sqr, 0, 1, true, true);
+    assert(is_sin_theta_sqr_in_range && "Vector3::_refract");
 
-    totalReflect = false;
+    float sin_theta_out_sqr = sin_theta_in_sqr / (eta * eta);
+    if(sin_theta_out_sqr >= 1)
+    {
+        totalReflect = true;
+        return reflect(normal);
+    }
 
+    bool is_sin_theta_out_sqr_in_range = Common::is_in_range(sin_theta_out_sqr, 0, 1, true, false);
+    assert(is_sin_theta_out_sqr_in_range && "Vector3::_refract");
 
-    return Vector3::ZERO;
+    float cos_theta_out_sqr = 1 - sin_theta_out_sqr;
+    bool is_cos_theta_out_sqr = Common::is_in_range(cos_theta_out_sqr, 0, 1, true, true);
+    float cos_theta_out = sqrt(cos_theta_out_sqr);
+   
+
+    Vector3 in_n = (this->operator*(n)) * n;
+    Vector3 in_p = this->operator-(in_n);
+    Vector3 out_p = in_p / eta;
+    Vector3 out_n = cos_theta_out * this->length() * n;
+
+    Vector3 out = out_p + out_n;
+
+    return out;
 }
 
 //WARNING : this one will be deleted soon
