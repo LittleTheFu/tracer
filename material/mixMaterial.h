@@ -9,7 +9,8 @@ class MixMaterial : public Material
 {
 public:
     MixMaterial();
-    bool isMirror() const;
+    virtual bool isMirror() const override;
+    virtual bool isDelta() const override;
 
     Color eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf) const;
 

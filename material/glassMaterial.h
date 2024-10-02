@@ -8,7 +8,7 @@ class GlassMaterial : public Material
 {
 public:
     GlassMaterial();
-    bool isMirror() const;
+    virtual bool isMirror() const override;
 
     virtual bool isDelta() const override;
 
