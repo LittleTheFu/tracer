@@ -3,17 +3,18 @@
 #include "common.h"
 #include "simpleTracer.h"
 #include "randomTracer.h"
+#include <iomanip>
 
 Camera::Camera()
 {
-    m_factor = 30;
+    m_factor = 5;
 
     m_Width = Common::default_screen_width * m_factor;
     m_Height = Common::default_screen_height * m_factor;
 
     m_BounceTime = 6;
 
-    m_pTracer = new SimpleTracer();
+    m_pTracer = new RandomTracer();
 }
 
 void Camera::setPool(const ObjectPool *pool)
@@ -95,7 +96,10 @@ void Camera::logProgress(unsigned int x, unsigned int y) const
 {
     if (x == 0)
     {
+        float percent = (float(y) / m_Height) * 100;
         std::cout << "x:y --- "
-                  << "(" << x << "," << y << ")" << std::endl;
+                  << "(" << x << "," << y << ")  ~~" 
+                  << std::fixed << std::setprecision(2) << percent << "%~~"
+                  << std::endl;
     }
 }
