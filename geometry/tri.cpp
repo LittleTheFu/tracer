@@ -94,7 +94,10 @@ bool Tri::hit(const Ray &ray, HitRecord &record, Light *pLight) const
 
 Vector3 Tri::getLocalNormal(bool reverse) const
 {
-    Vector3 n = m_ab.cross(-m_ca);
+    Vector3 n = m_a.normal + m_b.normal + m_c.normal;
+    n.normalize();
+    
+    // Vector3 n = m_ab.cross(-m_ca);
 
     if(reverse)
     {

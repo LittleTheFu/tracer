@@ -9,8 +9,10 @@ class TriVertex
 public:
     TriVertex() {};
     TriVertex(float x, float y, float z) : pos(x, y, z) {};
+    TriVertex(float x, float y, float z, float nx, float ny, float nz) : pos(x, y, z), normal(nx, ny, nz) {}
 
     Vector3 pos;
+    Vector3 normal;
 };
 
 class Tri : public Geometry
