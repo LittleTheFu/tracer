@@ -157,6 +157,13 @@ endforeach()
 #         LIBRARY DESTINATION  ${CMAKE_CURRENT_BINARY_DIR}/bin)
 
 # install(TARGETS libs RUNTIME DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/bin)  # 输出到 bin 目录
+configure_file(${PROJECT_SOURCE_DIR}/assimp_lib/lib/assimp-vc143-mtd.lib
+                ${CMAKE_CURRENT_BINARY_DIR}/Debug
+                COPYONLY)
 
-install(FILES ${PROJECT_SOURCE_DIR}/assimp_lib/lib/assimp-vc143-mtd.lib DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Debug)  # 输出到 bin 目录
-install(FILES ${PROJECT_SOURCE_DIR}/assimp_lib/lib/assimp-vc143-mtd.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Debug)  # 输出到 bin 目录
+configure_file(${PROJECT_SOURCE_DIR}/assimp_lib/lib/assimp-vc143-mtd.dll
+                ${CMAKE_CURRENT_BINARY_DIR}/Debug
+                COPYONLY)
+
+# install(FILES ${PROJECT_SOURCE_DIR}/assimp_lib/lib/assimp-vc143-mtd.lib DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Debug)  # 输出到 bin 目录
+# install(FILES ${PROJECT_SOURCE_DIR}/assimp_lib/lib/assimp-vc143-mtd.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Debug)  # 输出到 bin 目录
