@@ -43,6 +43,7 @@ SET (RAY_TRACER_SOURCE
     media/mist.cpp
     scene/objectpool.cpp
     scene/scene.cpp
+    scene/sceneBuilder.cpp
     test/tester.cpp
     texture/chessboardTexture.cpp
     texture/constTexture.cpp
@@ -95,6 +96,7 @@ SET (RAY_TRACER_HEADER
     media/mist.h
     scene/objectpool.h
     scene/scene.h
+    scene/sceneBuilder.h
     test/tester.h
     texture/chessboardTexture.h
     texture/constTexture.h
