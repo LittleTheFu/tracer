@@ -342,9 +342,8 @@ Vector3 Vector3::getRandomVector()
 
 Vector3 Vector3::sampleUniformFromHemisphere()
 {
-    const float max = (float)RAND_MAX;
-    const float u = std::rand() / max;
-    const float v = std::rand() / max;
+    const float u = Common::genRandomDecimal();
+    const float v = Common::genRandomDecimal();
 
     const float cosTheta = u;
     const float sinTheta = std::sqrt(1 - cosTheta * cosTheta);
@@ -369,8 +368,8 @@ Vector3 Vector3::sampleUniformFromSphere()
 {
     const float max = (float)RAND_MAX;
 
-    const float u = 1 - 2 * (std::rand() / max);
-    const float v = std::rand() / max;
+    const float u = Common::genRamdomSignDecimal();
+    const float v = Common::genRandomDecimal();
 
     const float cosTheta = u;
     const float sinTheta = std::sqrt(1 - cosTheta * cosTheta);
