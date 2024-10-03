@@ -121,7 +121,7 @@ void Scene::buildRoom()
 
     Vector3 bottomRotate(Common::PI / 2, 0, 0);
     Vector3 bottomPosition(0, c, 0);
-    Plane *bottomPlane = new Plane(bottomRotate, bottomPosition, r, lambMtrlGreen);
+    Plane *bottomPlane = new Plane(bottomRotate, bottomPosition, r, lambMtrlWhite);
 
     Vector3 frontRotate(Common::PI, 0, 0);
     Vector3 frontPosition(0, 0, 5 * c);
