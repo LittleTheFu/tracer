@@ -4,8 +4,10 @@
 #include <assimp/postprocess.h> // Post processing flags
 #include <cassert>
 
-Mesh::Mesh(const std::string fileName, Material *pMtrl)
+Mesh::Mesh(const std::string fileName, const Vector3 pos, float scale, Material *pMtrl)
 {
+    assert(scale > 0);
+
     std::cout << "starting importer..." << std::endl;
     Assimp::Importer importer;
     std::cout << "starting importer...1" << std::endl;
@@ -18,17 +20,13 @@ Mesh::Mesh(const std::string fileName, Material *pMtrl)
         aiFace face = scene->mMeshes[0]->mFaces[i];
         assert(face.mNumIndices == 3);
 
-        int scale = 300;
-
         float x_a = scene->mMeshes[0]->mVertices[face.mIndices[0]].x;
         float y_a = scene->mMeshes[0]->mVertices[face.mIndices[0]].y;
         float z_a = scene->mMeshes[0]->mVertices[face.mIndices[0]].z;
 
-
         float x_b = scene->mMeshes[0]->mVertices[face.mIndices[1]].x;
         float y_b = scene->mMeshes[0]->mVertices[face.mIndices[1]].y;
         float z_b = scene->mMeshes[0]->mVertices[face.mIndices[1]].z;
-
 
         float x_c = scene->mMeshes[0]->mVertices[face.mIndices[2]].x;
         float y_c = scene->mMeshes[0]->mVertices[face.mIndices[2]].y;
@@ -38,7 +36,6 @@ Mesh::Mesh(const std::string fileName, Material *pMtrl)
         TriVertex vb(x_b * scale, y_b * scale, z_b * scale);
         TriVertex vc(x_c * scale, y_c * scale, z_c * scale);
 
-        Vector3 pos(20,20,350);
         Tri *tri = new Tri(va, vb, vc, pos, pMtrl);
 
         m_tris.push_back(tri);

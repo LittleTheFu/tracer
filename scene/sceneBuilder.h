@@ -25,6 +25,8 @@ private:
     void buildRedBall();
     void buildMixBall();
 
+    void buildBunny();
+
 private:
     ObjectPool* m_pObjectPool;
 

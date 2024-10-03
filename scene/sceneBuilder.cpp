@@ -23,9 +23,10 @@ void SceneBuilder::build()
     buildRoom();
     buildLight();
 
-    buildMirrorBall();
-    buildRedBall();
-    buildMixBall();
+    // buildMirrorBall();
+    // buildRedBall();
+    // buildMixBall();
+    buildBunny();
 }
 
 void SceneBuilder::createMaterials()
@@ -108,7 +109,7 @@ void SceneBuilder::buildLight()
 
 void SceneBuilder::buildSceneWithDefaultConfig()
 {
-    Mesh *bunny = new Mesh(Common::LOW_BUNNY, lambMtrlAqua);
+    Mesh *bunny = new Mesh(Common::LOW_BUNNY, Vector3::ZERO, 300, lambMtrlAqua);
 
     TriVertex v_a(0, 0, 50);
     TriVertex v_b(50, 0, 0);
@@ -174,4 +175,13 @@ void SceneBuilder::buildMixBall()
 {
     Ball *mixBall = new Ball(Vector3::ZERO, Vector3(-28, 72, 350), 20, MtrlMix);
     m_pObjectPool->add(mixBall);
+}
+
+void SceneBuilder::buildBunny()
+{
+    Vector3 pos(60, 60, 350);
+    float scale = 300;
+
+    Mesh *bunny = new Mesh(Common::LOW_LOW_BUNNY, pos, scale, lambMtrlAqua);
+    bunny->addToPool(m_pObjectPool);
 }
