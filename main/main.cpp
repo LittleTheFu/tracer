@@ -2,13 +2,16 @@
 #include "mesh.h"
 #include "common.h"
 #include "tester.h"
+#include "sceneBuilder.h"
 
 int main()
 {
-    Tester tester;
-    tester.run();
+   
+    // Tester tester;
+    // tester.run();
     
-    Scene scene;
+    SceneBuilder* builder = new SceneBuilder();
+    Scene scene(builder);
     scene.run();
 
     return 0;

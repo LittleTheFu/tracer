@@ -8,11 +8,12 @@
 #include "mirrorMaterial.h"
 #include "glassMaterial.h"
 #include "mixMaterial.h"
+#include "sceneBuilder.h"
 
 class Scene
 {
 public:
-    Scene(bool useSimpleTracer = true);
+    Scene(SceneBuilder *pBuilder, bool useSimpleTracer = true);
 
 public:
     void run();
@@ -25,42 +26,12 @@ private:
     void render();
     void postRender();
 
-private:
-    void createMaterials();
 
-    void buildRoom();
-    void buildLight();
-
-    void buildSceneWithDefaultConfig();
-
-    void buildMirrorBall();   
-    void buildRedBall();
-    void buildMixBall();
 
 private:
     ObjectPool* m_pObjectPool;
     Camera* m_pCamera;
-
-private:
-    float rho;
-
-    LambertianMaterial *lambMtrlLena;
-    LambertianMaterial *lambMtrlChessboard;
-    LambertianMaterial *lambUV;
-    LambertianMaterial *lambNoise;
-
-    LambertianMaterial *lambMtrlRed;
-    LambertianMaterial *lambMtrlYellow;
-    LambertianMaterial *lambMtrlAqua;
-    LambertianMaterial *lambMtrlPurple;
-    LambertianMaterial *lambMtrlGreen;
-    LambertianMaterial *lambMtrlBlue;
-    LambertianMaterial *lambMtrlWhite;
-
-    MirrorMaterial *MtrlMirror;
-    GlassMaterial *MtrlGlass;
-
-    MixMaterial *MtrlMix;
+    SceneBuilder* m_pBuilder;
 };
 
 #endif
