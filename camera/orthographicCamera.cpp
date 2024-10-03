@@ -1,6 +1,6 @@
 #include "orthographicCamera.h"
 
-OrthographicCamera::OrthographicCamera() : Camera()
+OrthographicCamera::OrthographicCamera(Tracer* tracer) : Camera(tracer)
 {
 }
 

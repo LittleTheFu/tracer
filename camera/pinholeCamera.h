@@ -6,7 +6,7 @@
 class PinholeCamera : public Camera
 {
 public:
-    PinholeCamera();
+    PinholeCamera(Tracer* tracer);
 
 private:
     virtual Ray generateRay(float screenX, float screenY) const override;

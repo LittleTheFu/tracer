@@ -7,7 +7,7 @@
 class FishEyeCamera : public Camera
 {
 public:
-    FishEyeCamera();
+    FishEyeCamera(Tracer* tracer);
 
 private:
     Ray generateRay(float screenX, float screenY) const;

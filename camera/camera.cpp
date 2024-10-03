@@ -5,7 +5,7 @@
 #include "randomTracer.h"
 #include <iomanip>
 
-Camera::Camera()
+Camera::Camera(Tracer* tracer)
 {
     m_factor = 5;
 
@@ -14,7 +14,7 @@ Camera::Camera()
 
     m_BounceTime = 6;
 
-    m_pTracer = new RandomTracer();
+    m_pTracer = tracer;
 }
 
 void Camera::setPool(const ObjectPool *pool)

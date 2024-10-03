@@ -12,7 +12,7 @@
 class Scene
 {
 public:
-    Scene();
+    Scene(bool useSimpleTracer = true);
 
 public:
     void run();

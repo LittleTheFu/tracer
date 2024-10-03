@@ -6,7 +6,7 @@
 class OrthographicCamera : public Camera
 {
 public:
-    OrthographicCamera();
+    OrthographicCamera(Tracer* tracer);
 
 private:
     Ray generateRay(float screenX, float screenY) const;

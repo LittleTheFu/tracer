@@ -26,11 +26,20 @@
 #include "mixMaterial.h"
 #include "tri.h"
 #include "mesh.h"
+#include "simpleTracer.h"
+#include "randomTracer.h"
 
-Scene::Scene()
+Scene::Scene(bool useSimpleTracer)
 {
     m_pObjectPool = new ObjectPool();
-    m_pCamera = new PinholeCamera();
+
+    Tracer *tracer = nullptr;
+    if (useSimpleTracer)
+        tracer = new SimpleTracer();
+    else
+        tracer = new RandomTracer();
+
+    m_pCamera = new PinholeCamera(tracer);
 }
 
 void Scene::run()

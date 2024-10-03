@@ -1,7 +1,7 @@
 #include "fishEyeCamera.h"
 #include "ball.h"
 
-FishEyeCamera::FishEyeCamera() : Camera()
+FishEyeCamera::FishEyeCamera(Tracer* tracer) : Camera(tracer)
 {
 }
 

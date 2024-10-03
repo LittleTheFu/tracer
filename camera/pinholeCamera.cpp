@@ -1,6 +1,6 @@
 #include "pinholeCamera.h"
 
-PinholeCamera::PinholeCamera() : Camera()
+PinholeCamera::PinholeCamera(Tracer* tracer) : Camera(tracer)
 {
 }
 

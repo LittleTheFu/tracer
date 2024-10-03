@@ -11,7 +11,7 @@
 class Camera
 {
 public:
-    Camera();
+    Camera(Tracer* tracer);
 
     void setPool(const ObjectPool *pool);
 
