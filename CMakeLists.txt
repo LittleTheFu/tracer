@@ -42,6 +42,7 @@ SET (RAY_TRACER_SOURCE
     media/media.cpp
     media/mist.cpp
     scene/alphaSceneBuilder.cpp
+    scene/betaSceneBuilder.cpp
     scene/objectpool.cpp
     scene/scene.cpp
     scene/sceneBuilder.cpp
@@ -96,6 +97,7 @@ SET (RAY_TRACER_HEADER
     media/media.h
     media/mist.h
     scene/alphaSceneBuilder.h
+    scene/betaSceneBuilder.h
     scene/objectpool.h
     scene/scene.h
     scene/sceneBuilder.h

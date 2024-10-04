@@ -3,6 +3,7 @@
 #include "common.h"
 #include "tester.h"
 #include "alphaSceneBuilder.h"
+#include "betaSceneBuilder.h"
 
 int main()
 {
@@ -10,7 +11,7 @@ int main()
     // Tester tester;
     // tester.run();
     
-    SceneBuilder* builder = new AlphaSceneBuilder();
+    SceneBuilder* builder = new BetaSceneBuilder();
     Scene scene(builder);
     scene.run();
 
