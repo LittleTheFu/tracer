@@ -191,9 +191,9 @@ void SceneBuilder::buildRedTri(const Vector3 &pos)
 
 void SceneBuilder::buildGreenTri(const Vector3 &pos)
 {
-    TriVertex a(0, 0, 0, 0, 0, -1);
-    TriVertex b(40, 0, 0, 0, 0, -1);
-    TriVertex c(0, 40, 0, 0, 0, -1);
+    TriVertex a(0, 0, 0, 0, 0, 1);
+    TriVertex b(40, 0, 0, 0, 0, 1);
+    TriVertex c(0, 40, 0, 0, 0, 1);
 
     Tri *tri = new Tri(a, b, c, pos, lambMtrlGreen);
     m_pObjectPool->add(tri);
