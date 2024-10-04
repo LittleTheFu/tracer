@@ -11,26 +11,27 @@ class SceneBuilder
 {
 public:
     void init(ObjectPool *pool);
-    void build();
+    virtual void build() = 0;
+
+protected:
+    void buildRoom();
+    void buildLight(const Vector3& pos, float r);
+
+    void buildSceneWithDefaultConfig();
+
+    void buildMirrorBall(const Vector3& pos, float r);
+    void buildRedBall(const Vector3& pos, float r);
+    void buildMixBall(const Vector3& pos, float r);
+
+    void buildBunny(const Vector3& pos, float scale);
 
 private:
     void createMaterials();
 
-    void buildRoom();
-    void buildLight();
-
-    void buildSceneWithDefaultConfig();
-
-    void buildMirrorBall();
-    void buildRedBall();
-    void buildMixBall();
-
-    void buildBunny();
-
-private:
+protected:
     ObjectPool* m_pObjectPool;
 
-private:
+protected:
     float rho;
 
     LambertianMaterial *lambMtrlLena;

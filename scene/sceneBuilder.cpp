@@ -18,17 +18,6 @@ void SceneBuilder::init(ObjectPool *pool)
      createMaterials();
 }
 
-void SceneBuilder::build()
-{
-    buildRoom();
-    buildLight();
-
-    // buildMirrorBall();
-    // buildRedBall();
-    // buildMixBall();
-    buildBunny();
-}
-
 void SceneBuilder::createMaterials()
 {
     rho = 0.4f;
@@ -99,9 +88,10 @@ void SceneBuilder::buildRoom()
     m_pObjectPool->add(rightPlane);
 }
 
-void SceneBuilder::buildLight()
+void SceneBuilder::buildLight(const Vector3& pos, float r)
 {
-    Light *light = new Light(Vector3(0, 0, 300), 50);
+    // Light *light = new Light(Vector3(0, 0, 300), 50);
+    Light *light = new Light(pos, r);
     light->setTag(Common::TAG_LIGHT);
 
     m_pObjectPool->add(light);
@@ -159,28 +149,31 @@ void SceneBuilder::buildSceneWithDefaultConfig()
     // bunny->addToPool(m_pObjectPool);
 }
 
-void SceneBuilder::buildMirrorBall()
+void SceneBuilder::buildMirrorBall(const Vector3& pos, float r)
 {
-    Ball *mirrorBall = new Ball(Vector3::ZERO, Vector3(25, 70, 350), 20, MtrlMirror);
+    // Ball *mirrorBall = new Ball(Vector3::ZERO, Vector3(25, 70, 350), 20, MtrlMirror);
+    Ball *mirrorBall = new Ball(Vector3::ZERO, pos, r, MtrlMirror);
     m_pObjectPool->add(mirrorBall);
 }
 
-void SceneBuilder::buildRedBall()
+void SceneBuilder::buildRedBall(const Vector3& pos, float r)
 {
-    Ball *redBall = new Ball(Vector3::ZERO, Vector3(70, 70, 350), 20, lambMtrlRed);
+    // Ball *redBall = new Ball(Vector3::ZERO, Vector3(70, 70, 350), 20, lambMtrlRed);
+    Ball *redBall = new Ball(Vector3::ZERO, pos, r, lambMtrlRed);
     m_pObjectPool->add(redBall);
 }
 
-void SceneBuilder::buildMixBall()
+void SceneBuilder::buildMixBall(const Vector3& pos, float r)
 {
-    Ball *mixBall = new Ball(Vector3::ZERO, Vector3(-28, 72, 350), 20, MtrlMix);
+    // Ball *mixBall = new Ball(Vector3::ZERO, Vector3(-28, 72, 350), 20, MtrlMix);
+    Ball *mixBall = new Ball(Vector3::ZERO, pos, r, MtrlMix);
     m_pObjectPool->add(mixBall);
 }
 
-void SceneBuilder::buildBunny()
+void SceneBuilder::buildBunny(const Vector3& pos, float scale)
 {
-    Vector3 pos(60, 60, 350);
-    float scale = 300;
+    // Vector3 pos(60, 60, 350);
+    // float scale = 300;
 
     Mesh *bunny = new Mesh(Common::LOW_LOW_BUNNY, pos, scale, lambMtrlAqua);
     bunny->addToPool(m_pObjectPool);

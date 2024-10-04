@@ -5,7 +5,8 @@
 
 class AlphaSceneBuilder : public SceneBuilder
 {
-
+public:
+    virtual void build() override;
 };
 
 #endif
