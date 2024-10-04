@@ -37,13 +37,17 @@ bool Tri::hit(const Ray &ray, HitRecord &record, Light *pLight) const
     // newRay.dir = Vector3(0,0,1);
 
     bool reverse = false;
-    const Vector3 nm = getLocalNormal(false);
-    if (newRay.dir.isSameDir(nm))
+    // const Vector3 nm = getLocalNormal(false);
+    const Vector3 trueNormal = getLocalNormal(false);
+    if (newRay.dir.isSameDir(trueNormal))
     {
         reverse = true;
     }
+    else{
+        reverse = false;
+    }
 
-    const Vector3 trueNormal = getLocalNormal(reverse);
+    // const Vector3 trueNormal = getLocalNormal(false);
     const float n = (m_a.pos - newRay.origin) * trueNormal;
     const float d = newRay.dir * trueNormal;
 
@@ -78,7 +82,7 @@ bool Tri::hit(const Ray &ray, HitRecord &record, Light *pLight) const
     {
         Vector3 r;
         record.f = m_pMtrl->eval(record.u, record.v, -newRay.dir, r, record.reflectPdf);
-        record.dot = Common::clamp(std::abs(r * Common::LOCAL_NORMAL), Common::FLOAT_SAMLL_NUMBER, 1.0f);
+        record.dot = Common::clamp(std::abs(r * trueNormal), Common::FLOAT_SAMLL_NUMBER, 1.0f);
         record.reflect = m_transform.transformVector(r);
         record.isMirror = m_pMtrl->isMirror();
 
