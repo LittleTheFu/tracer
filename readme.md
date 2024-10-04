@@ -6,13 +6,13 @@ Suppose you are in the root directory of this project.
 
 Then:
 
-1.make a new folder named "build":
+1.make a new folder named "build"
 
 `
 mkdir build
 `
 
-2.enter this folder:
+2.enter this folder
 
 `
 cd build
@@ -38,7 +38,6 @@ MSBuild.exe .\ray_tracer.sln
 
 6.an image is created in Debug folder
 
-~~g++ -o render *.cpp *.h .\common\*~~
 
 you can get detail of axis from axis.jpg
 
