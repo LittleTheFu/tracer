@@ -5,3 +5,6 @@ test code:
     Vector3 v_y(0,1,0);
     Vector3 v = v_x.cross(v_y);
     std::cout << v << std::endl;
+
+三角形法线满足右手螺旋定则
+The normal of a triangle follows the right-hand screw rule.  
