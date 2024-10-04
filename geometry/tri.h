@@ -10,6 +10,7 @@ public:
     TriVertex() {};
     TriVertex(float x, float y, float z) : pos(x, y, z) {};
     TriVertex(float x, float y, float z, float nx, float ny, float nz) : pos(x, y, z), normal(nx, ny, nz) {}
+    TriVertex(const Vector3 &_pos, const Vector3 &_normal):pos(_pos),normal(_normal){}
 
     Vector3 pos;
     Vector3 normal;
