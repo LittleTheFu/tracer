@@ -25,6 +25,9 @@ protected:
 
     void buildBunny(const Vector3& pos, float scale);
 
+    void buildRedTri(const Vector3& pos);
+    void buildGreenTri(const Vector3& pos);
+
 private:
     void createMaterials();
 

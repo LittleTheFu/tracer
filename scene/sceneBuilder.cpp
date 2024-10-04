@@ -178,3 +178,24 @@ void SceneBuilder::buildBunny(const Vector3& pos, float scale)
     Mesh *bunny = new Mesh(Common::LOW_LOW_BUNNY, pos, scale, lambMtrlAqua);
     bunny->addToPool(m_pObjectPool);
 }
+
+void SceneBuilder::buildRedTri(const Vector3 &pos)
+{
+    TriVertex a(0, 0, 0, 0, 0, -1);
+    TriVertex b(40, 0, 0, 0, 0, -1);
+    TriVertex c(0, 40, 0, 0, 0, -1);
+
+    Tri *tri = new Tri(a, b, c, pos, lambMtrlRed);
+    m_pObjectPool->add(tri);
+}
+
+void SceneBuilder::buildGreenTri(const Vector3 &pos)
+{
+    TriVertex a(0, 0, 0, 0, 0, -1);
+    TriVertex b(40, 0, 0, 0, 0, -1);
+    TriVertex c(0, 40, 0, 0, 0, -1);
+
+    Tri *tri = new Tri(a, b, c, pos, lambMtrlGreen);
+    m_pObjectPool->add(tri);
+}
+
