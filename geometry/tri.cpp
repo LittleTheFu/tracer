@@ -1,12 +1,12 @@
 #include "tri.h"
 #include "common.h"
 
-Tri::Tri()
-{
-    m_ab = m_b.pos - m_a.pos;
-    m_bc = m_c.pos - m_b.pos;
-    m_ca = m_a.pos - m_c.pos;
-}
+// Tri::Tri()
+// {
+//     m_ab = m_b.pos - m_a.pos;
+//     m_bc = m_c.pos - m_b.pos;
+//     m_ca = m_a.pos - m_c.pos;
+// }
 
 Tri::Tri(const TriVertex &a,
          const TriVertex &b,
@@ -21,6 +21,8 @@ Tri::Tri(const TriVertex &a,
     m_ab = m_b.pos - m_a.pos;
     m_bc = m_c.pos - m_b.pos;
     m_ca = m_a.pos - m_c.pos;
+
+    initNormal();
 
     this->m_pMtrl = pMtrl;
 
@@ -98,6 +100,8 @@ bool Tri::hit(const Ray &ray, HitRecord &record, Light *pLight) const
 
 Vector3 Tri::getLocalNormal(bool reverse) const
 {
+    return m_normal;
+    
     Vector3 n = m_a.normal + m_b.normal + m_c.normal;
     n.normalize();
     
@@ -126,6 +130,12 @@ bool Tri::isAllFacePositive(const Vector3 &p) const
     if(ab_ap != bc_bp) return false;
     
     return true;
+}
+
+void Tri::initNormal()
+{
+    m_normal = m_a.normal + m_b.normal + m_c.normal;
+    m_normal.normalize();
 }
 
 Vector3 Tri::dpdu(const Vector3 &point) const

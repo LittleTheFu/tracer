@@ -19,7 +19,7 @@ public:
 class Tri : public Geometry
 {
 public:
-    Tri();
+    // Tri();
     Tri(const TriVertex &a,
         const TriVertex &b,
         const TriVertex &c,
@@ -32,6 +32,7 @@ public:
 
 private:
     bool isAllFacePositive(const Vector3 &p) const;
+    void initNormal();
 
 private:
     virtual Vector3 dpdu(const Vector3 &point) const override;
@@ -48,6 +49,8 @@ private:
     Vector3 m_ab;
     Vector3 m_bc;
     Vector3 m_ca;
+
+    Vector3 m_normal;
 };
 
 #endif
