@@ -102,17 +102,17 @@ Vector3 Tri::getLocalNormal(bool reverse) const
 {
     return m_normal;
     
-    Vector3 n = m_a.normal + m_b.normal + m_c.normal;
-    n.normalize();
+    // Vector3 n = m_a.normal + m_b.normal + m_c.normal;
+    // n.normalize();
     
     // Vector3 n = m_ab.cross(-m_ca);
 
-    if(reverse)
-    {
-        n *= -1;
-    }
+    // if(reverse)
+    // {
+    //     n *= -1;
+    // }
 
-    return n;
+    // return n;
 }
 
 bool Tri::isAllFacePositive(const Vector3 &p) const
