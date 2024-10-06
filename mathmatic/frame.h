@@ -11,9 +11,9 @@ public:
     Vector3 toLocal(const Vector3 &point) const;
     Vector3 toWorld(const Vector3 &point) const;
 
-    Vector3 x;
-    Vector3 y;
-    Vector3 z;
+    Vector3 x_axis;
+    Vector3 y_axis;
+    Vector3 z_axis;
 };
 
 #endif
