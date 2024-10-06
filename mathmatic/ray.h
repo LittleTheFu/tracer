@@ -3,6 +3,7 @@
 
 #include "vector.h"
 #include "transform.h"
+#include "frame.h"
 
 class Ray
 {
@@ -14,6 +15,8 @@ public:
     float t;
 
     Ray genNewRay(const Transform &transform) const;
+    Ray genNewRay(const Frame &frame) const;
+
     static float getT(const Ray &ray, const Vector3 &thatPoint);
 
     friend std::ostream &operator<<(std::ostream &os, const Ray &ray);

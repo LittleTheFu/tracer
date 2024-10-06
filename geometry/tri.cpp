@@ -29,29 +29,32 @@ Tri::Tri(const TriVertex &a,
     init(Vector3::ZERO, pos);
 }
 
+//transform twice
+//1.to object frame
+//2.then to tri frame
 bool Tri::hit(const Ray &ray, HitRecord &record, Light *pLight) const
 {
     record.t = Common::FLOAT_MAX;
 
+    // Ray testRay(Vector3(1,1,0), Vector3(0,0,1));
+
     Ray newRay = ray.genNewRay(m_transform);
 
-    // newRay.origin = Vector3(30,30, -300);
-    // newRay.dir = Vector3(0,0,1);
+    Frame frame(m_normal, -m_ab, m_a.pos);
+    Ray localRay = newRay.genNewRay(frame);
 
-    bool reverse = false;
-    // const Vector3 nm = getLocalNormal(false);
+    // bool reverse = false;
     const Vector3 trueNormal = getLocalNormal(false);
-    if (newRay.dir.isSameDir(trueNormal))
-    {
-        reverse = true;
-    }
-    else{
-        reverse = false;
-    }
+    // if (newRay.dir.isSameDir(trueNormal))
+    // {
+    //     reverse = true;
+    // }
+    // else{
+    //     reverse = false;
+    // }
 
-    // const Vector3 trueNormal = getLocalNormal(false);
-    const float n = (m_a.pos - newRay.origin) * trueNormal;
-    const float d = newRay.dir * trueNormal;
+    const float n = (-localRay.origin) * Common::LOCAL_NORMAL;
+    const float d = localRay.dir * Common::LOCAL_NORMAL;
 
     record.t = n / d;
     if (record.t < Common::FLOAT_SAMLL_NUMBER)
@@ -61,8 +64,9 @@ bool Tri::hit(const Ray &ray, HitRecord &record, Light *pLight) const
         return false;
     }
 
-    Vector3 localPoint = newRay.origin + record.t * newRay.dir;
-    if (!isAllFacePositive(localPoint))
+    Vector3 localPoint = localRay.origin + record.t * localRay.dir;
+    Vector3 _objPoint = frame.toWorld(localPoint);
+    if (!isAllFacePositive(_objPoint))
     {
         // std::cout<<"false2"<<std::endl;
         return false;
@@ -71,8 +75,8 @@ bool Tri::hit(const Ray &ray, HitRecord &record, Light *pLight) const
     record.mtrl = *m_pMtrl;
     record.transform = m_transform;
 
-    record.point = m_transform.transformPoint(localPoint);
-    record.normal = m_transform.transformNormal(trueNormal);
+    record.point = m_transform.transformPoint(_objPoint);
+    record.normal = m_transform.transformNormal(frame.toWorld(Common::LOCAL_NORMAL));
 
     // float w_a, w_b, w_c;
     // getWeight(ap_ab, ap_bc, ap_ca, w_a, w_b, w_c);
@@ -83,9 +87,11 @@ bool Tri::hit(const Ray &ray, HitRecord &record, Light *pLight) const
     if (m_pMtrl)
     {
         Vector3 r;
-        record.f = m_pMtrl->eval(record.u, record.v, -newRay.dir, r, record.reflectPdf);
-        record.dot = Common::clamp(std::abs(r * trueNormal), Common::FLOAT_SAMLL_NUMBER, 1.0f);
-        record.reflect = m_transform.transformVector(r);
+        record.f = m_pMtrl->eval(record.u, record.v, -localRay.dir, r, record.reflectPdf);
+
+
+        record.dot = Common::clamp(std::abs(r * Common::LOCAL_NORMAL), Common::FLOAT_SAMLL_NUMBER, 1.0f);
+        record.reflect = m_transform.transformVector(frame.toWorld(r));
         record.isMirror = m_pMtrl->isMirror();
 
         if (record.isMirror)

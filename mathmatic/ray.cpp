@@ -19,6 +19,14 @@ Ray Ray::genNewRay(const Transform &transform) const
     return Ray(o, d);
 }
 
+Ray Ray::genNewRay(const Frame &frame) const
+{
+    const Vector3 o = frame.toLocal(origin);
+    const Vector3 d = frame.toLocal(dir);
+
+    return Ray(o, d);
+}
+
 float Ray::getT(const Ray &ray, const Vector3 &thatPoint)
 {
     Vector3 d = thatPoint - ray.origin;
