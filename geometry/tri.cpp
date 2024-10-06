@@ -36,11 +36,11 @@ bool Tri::hit(const Ray &ray, HitRecord &record, Light *pLight) const
 {
     record.t = Common::FLOAT_MAX;
 
-    // Ray testRay(Vector3(1,1,0), Vector3(0,0,1));
+    Ray testRay(Vector3(0,0,0), Vector3(0,0,1));
 
     Ray newRay = ray.genNewRay(m_transform);
 
-    Frame frame(m_normal, -m_ab, m_a.pos);
+    Frame frame(m_normal, m_ab, m_a.pos);
     Ray localRay = newRay.genNewRay(frame);
 
     // bool reverse = false;
@@ -65,10 +65,9 @@ bool Tri::hit(const Ray &ray, HitRecord &record, Light *pLight) const
     }
 
     Vector3 localPoint = localRay.origin + record.t * localRay.dir;
-    Vector3 _objPoint = frame.toWorld(localPoint);
+    Vector3 _objPoint = frame.pointToWorld(localPoint);
     if (!isAllFacePositive(_objPoint))
     {
-        // std::cout<<"false2"<<std::endl;
         return false;
     }
 
@@ -76,7 +75,7 @@ bool Tri::hit(const Ray &ray, HitRecord &record, Light *pLight) const
     record.transform = m_transform;
 
     record.point = m_transform.transformPoint(_objPoint);
-    record.normal = m_transform.transformNormal(frame.toWorld(Common::LOCAL_NORMAL));
+    record.normal = m_transform.transformNormal(frame.vectorToWorld(Common::LOCAL_NORMAL));
 
     // float w_a, w_b, w_c;
     // getWeight(ap_ab, ap_bc, ap_ca, w_a, w_b, w_c);
@@ -91,7 +90,7 @@ bool Tri::hit(const Ray &ray, HitRecord &record, Light *pLight) const
 
 
         record.dot = Common::clamp(std::abs(r * Common::LOCAL_NORMAL), Common::FLOAT_SAMLL_NUMBER, 1.0f);
-        record.reflect = m_transform.transformVector(frame.toWorld(r));
+        record.reflect = m_transform.transformVector(frame.vectorToWorld(r));
         record.isMirror = m_pMtrl->isMirror();
 
         if (record.isMirror)
@@ -140,8 +139,11 @@ bool Tri::isAllFacePositive(const Vector3 &p) const
 
 void Tri::initNormal()
 {
-    m_normal = m_a.normal + m_b.normal + m_c.normal;
+    // m_normal = m_a.normal + m_b.normal + m_c.normal;
+    m_normal = m_ab.cross(m_bc);
     m_normal.normalize();
+
+    // m_normal = Vector3(0,0,-1);
 }
 
 Vector3 Tri::dpdu(const Vector3 &point) const

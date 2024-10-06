@@ -8,8 +8,11 @@ class Frame
 public:
     Frame(const Vector3 &normal, const Vector3 &tangent, const Vector3 &_origin = Vector3::ZERO);
 
-    Vector3 toLocal(const Vector3 &point) const;
-    Vector3 toWorld(const Vector3 &point) const;
+    Vector3 pointToLocal(const Vector3 &point) const;
+    Vector3 pointToWorld(const Vector3 &point) const;
+
+    Vector3 vectorToLocal(const Vector3 &vector) const;
+    Vector3 vectorToWorld(const Vector3 &vector) const;
 
     Vector3 x_axis;
     Vector3 y_axis;

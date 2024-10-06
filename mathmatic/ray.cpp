@@ -21,8 +21,8 @@ Ray Ray::genNewRay(const Transform &transform) const
 
 Ray Ray::genNewRay(const Frame &frame) const
 {
-    const Vector3 o = frame.toLocal(origin);
-    const Vector3 d = frame.toLocal(dir);
+    const Vector3 o = frame.pointToLocal(origin);
+    const Vector3 d = frame.vectorToLocal(dir);
 
     return Ray(o, d);
 }

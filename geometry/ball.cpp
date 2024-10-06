@@ -86,7 +86,7 @@ Vector3 Ball::sampleFromPoint(const Vector3 &thatPoint, float &pdf) const
     Vector3 localNormal = getLocalNormal(localPoint);
 
     Frame frame(localNormal, dpdu(thatPoint));
-    Vector3 framePoint = frame.toLocal(localPoint);
+    Vector3 framePoint = frame.pointToLocal(localPoint);
 
     float d = framePoint.z;
     float alpha = std::asin(r / d);
@@ -96,7 +96,7 @@ Vector3 Ball::sampleFromPoint(const Vector3 &thatPoint, float &pdf) const
     Vector3 sampledFramePoint = r * dir;
     sampledFramePoint *= Common::SAMPLE_LIGHTR_CORRECT_FACTOR;
 
-    Vector3 localSampledPoint = frame.toWorld(sampledFramePoint);
+    Vector3 localSampledPoint = frame.pointToWorld(sampledFramePoint);
 
     Vector3 worldSampledPoint = m_transform.transformPoint(localSampledPoint);
 
@@ -185,12 +185,12 @@ void Ball::HandleMaterial(const Vector3 &localNormal, const Vector3 &localPoint,
 
     Frame frame(localNormal, dpdu(localPoint));
 
-    const Vector3 local_wo = frame.toLocal(-newRay.dir);
+    const Vector3 local_wo = frame.pointToLocal(-newRay.dir);
     Vector3 r;
     record.f = m_pMtrl->eval(record.u, record.v, local_wo, r, record.reflectPdf);
     record.dot = Common::clamp(std::abs(r * Common::LOCAL_NORMAL), Common::FLOAT_SAMLL_NUMBER, 1.0f);
 
-    Vector3 localReflectVector = frame.toWorld(r);
+    Vector3 localReflectVector = frame.pointToWorld(r);
     localReflectVector.normalize();
     record.reflect = m_transform.transformVector(localReflectVector);
     record.isMirror = m_pMtrl->isMirror();

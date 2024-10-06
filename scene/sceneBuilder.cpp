@@ -66,7 +66,7 @@ void SceneBuilder::buildRoom()
     Vector3 frontRotate(Common::PI, 0, 0);
     Vector3 frontPosition(0, 0, 5 * c);
     // CPlane *frontPlane = new CPlane(frontRotate, frontPosition, r, &MtrlMirror);
-    Plane *frontPlane = new Plane(frontRotate, frontPosition, 100, lambMtrlRed);
+    Plane *frontPlane = new Plane(frontRotate, frontPosition, 100, lambMtrlWhite);
 
     // Vector3 backRotate(0, -Common::PI, 0);
     Vector3 backRotate(0, 0, 0);
@@ -181,9 +181,9 @@ void SceneBuilder::buildBunny(const Vector3& pos, float scale)
 
 void SceneBuilder::buildRedTri(const Vector3 &pos)
 {
-    TriVertex a(0, 0, 0, 0, 0, -1);
-    TriVertex b(40, 0, 0, 0, 0, -1);
-    TriVertex c(0, 40, 0, 0, 0, -1);
+    TriVertex a(-40, -10, 0, 0, 0, -1);
+    TriVertex b(20, 40, 30, 0, 0, -1);
+    TriVertex c(40, -10, 0, 0, 0, -1);
 
     Tri *tri = new Tri(a, b, c, pos, lambMtrlRed);
     m_pObjectPool->add(tri);
@@ -191,9 +191,9 @@ void SceneBuilder::buildRedTri(const Vector3 &pos)
 
 void SceneBuilder::buildGreenTri(const Vector3 &pos)
 {
-    TriVertex a(0, 0, 0, 0, 0, 1);
-    TriVertex b(40, 0, 0, 0, 0, 1);
-    TriVertex c(0, 40, 0, 0, 0, 1);
+    TriVertex a(0, 10, 0, 0, 0, 1);
+    TriVertex c(40, 0, 10, 0, 0, 1);
+    TriVertex b(0, 40, 0, 0, 0, 1);
 
     Tri *tri = new Tri(a, b, c, pos, lambMtrlGreen);
     m_pObjectPool->add(tri);
