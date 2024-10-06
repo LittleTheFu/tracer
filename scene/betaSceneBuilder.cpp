@@ -7,8 +7,8 @@ void BetaSceneBuilder::build()
 
     // buildRedBall(Vector3(70, 70, 350), 20);
     
-    buildRedTri(Vector3(0,0,360));
-    buildGreenTri(Vector3(50,-60,360));
+    // buildRedTri(Vector3(0,0,360));
+    // buildGreenTri(Vector3(50,-60,360));
 
-    // buildBunny(Vector3(70, 70, 350), 1000);
+    buildBunny(Vector3(10, 10, 350), 500);
 }

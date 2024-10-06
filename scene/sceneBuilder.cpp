@@ -61,12 +61,12 @@ void SceneBuilder::buildRoom()
 
     Vector3 bottomRotate(Common::PI / 2, 0, 0);
     Vector3 bottomPosition(0, c, 0);
-    Plane *bottomPlane = new Plane(bottomRotate, bottomPosition, r, lambMtrlWhite);
+    Plane *bottomPlane = new Plane(bottomRotate, bottomPosition, r, lambMtrlYellow);
 
     Vector3 frontRotate(Common::PI, 0, 0);
     Vector3 frontPosition(0, 0, 5 * c);
     // CPlane *frontPlane = new CPlane(frontRotate, frontPosition, r, &MtrlMirror);
-    Plane *frontPlane = new Plane(frontRotate, frontPosition, 100, lambMtrlWhite);
+    Plane *frontPlane = new Plane(frontRotate, frontPosition, 100, lambMtrlGreen);
 
     // Vector3 backRotate(0, -Common::PI, 0);
     Vector3 backRotate(0, 0, 0);
@@ -175,7 +175,7 @@ void SceneBuilder::buildBunny(const Vector3& pos, float scale)
     // Vector3 pos(60, 60, 350);
     // float scale = 300;
 
-    Mesh *bunny = new Mesh(Common::LOW_LOW_BUNNY, pos, scale, lambMtrlAqua);
+    Mesh *bunny = new Mesh(Common::LOW_LOW_BUNNY, pos, scale, MtrlMirror);
     bunny->addToPool(m_pObjectPool);
 }
 
