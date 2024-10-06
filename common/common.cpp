@@ -2,6 +2,7 @@
 #include <cmath>
 #include <limits>
 #include <cstdlib>
+#include <chrono>
 
 const float Common::PI = 3.14159274101257324219f;
 const float Common::TWO_PI = 2 * Common::PI;
@@ -140,4 +141,18 @@ const float Common::genRamdomSignDecimal()
     float v = 2 * (genRandomDecimal() - 0.5);
 
     return v;
+}
+
+const void Common::printCurrentTime()
+{
+    std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
+
+    // 转换为时间戳类型
+    std::time_t time = std::chrono::system_clock::to_time_t(now);
+
+    // 转换为本地时间
+    char *timeStr = std::ctime(&time);
+
+    // 打印当前时间
+    std::cout << "now is : " << timeStr << std::endl;
 }

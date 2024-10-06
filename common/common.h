@@ -28,6 +28,8 @@ public:
 
     const static float genRandomDecimal();
     const static float genRamdomSignDecimal();
+
+    const static void printCurrentTime();
     
     const static float FLOAT_SAMLL_NUMBER;
     const static float FLOAT_MAX;

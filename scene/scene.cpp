@@ -1,6 +1,7 @@
 #include "scene.h"
 #include "simpleTracer.h"
 #include "randomTracer.h"
+#include "common.h"
 
 Scene::Scene(SceneBuilder *pBuilder, bool useSimpleTracer)
 {
@@ -57,5 +58,5 @@ void Scene::render()
 void Scene::postRender()
 {
     m_pCamera->saveToImage("img");
-    // m_pObjectPool->applyTransfrom(t.getInverseTransform());
+    Common::printCurrentTime();
 }
