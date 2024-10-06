@@ -1,7 +1,7 @@
 #include "frame.h"
 #include <cassert>
 
-Frame::Frame(const Vector3 &normal, const Vector3 &tangent)
+Frame::Frame(const Vector3 &normal, const Vector3 &tangent, const Vector3 &_origin)
 {
     if (normal.isZero())
     {
@@ -26,13 +26,15 @@ Frame::Frame(const Vector3 &normal, const Vector3 &tangent)
 
     y_axis = z_axis.cross(x_axis);
     y_axis.normalize();
+
+    origin = _origin;
 }
 
 Vector3 Frame::toLocal(const Vector3 &point) const
 {
-    float xProj = point * x_axis;
-    float yProj = point * y_axis;
-    float zProj = point * z_axis;
+    float xProj = (point - origin) * x_axis;
+    float yProj = (point - origin) * y_axis;
+    float zProj = (point - origin) * z_axis;
 
     return Vector3(xProj, yProj, zProj);
 }
@@ -43,5 +45,5 @@ Vector3 Frame::toWorld(const Vector3 &point) const
     Vector3 resultY = point.y * y_axis;
     Vector3 resultZ = point.z * z_axis;
     
-    return resultX + resultY + resultZ;
+    return resultX + resultY + resultZ + origin;
 }

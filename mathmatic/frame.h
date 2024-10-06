@@ -6,7 +6,7 @@
 class Frame
 {
 public:
-    Frame(const Vector3 &normal, const Vector3 &tangent);
+    Frame(const Vector3 &normal, const Vector3 &tangent, const Vector3 &_origin = Vector3::ZERO);
 
     Vector3 toLocal(const Vector3 &point) const;
     Vector3 toWorld(const Vector3 &point) const;
@@ -14,6 +14,8 @@ public:
     Vector3 x_axis;
     Vector3 y_axis;
     Vector3 z_axis;
+
+    Vector3 origin;
 };
 
 #endif
