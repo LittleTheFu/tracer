@@ -49,7 +49,7 @@ void SceneBuilder::buildRoom()
     Vector3 leftRotate(0, Common::PI / 2, 0);
     Vector3 leftPosition(-c, 0, 0);
     // CPlane *leftPlane = new CPlane(leftRotate, leftPosition, r, &MtrlMirror);
-    Plane *leftPlane = new Plane(leftRotate, leftPosition, r, lambMtrlYellow);
+    Plane *leftPlane = new Plane(leftRotate, leftPosition, r, lambMtrlRed);
 
     Vector3 rightRotate(0, -Common::PI / 2, 0);
     Vector3 rightPosition(c, 0, 0);
