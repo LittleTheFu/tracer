@@ -23,27 +23,31 @@ Mesh::Mesh(const std::string fileName, const Vector3 pos, float scale, Material 
         float x_a = scene->mMeshes[0]->mVertices[face.mIndices[0]].x;
         float y_a = scene->mMeshes[0]->mVertices[face.mIndices[0]].y;
         float z_a = scene->mMeshes[0]->mVertices[face.mIndices[0]].z;
-        float n_x_a = scene->mMeshes[0]->mNormals[face.mIndices[0]].x;
-        float n_y_a = scene->mMeshes[0]->mNormals[face.mIndices[0]].y;
-        float n_z_a = scene->mMeshes[0]->mNormals[face.mIndices[0]].z;
+        // float n_x_a = scene->mMeshes[0]->mNormals[face.mIndices[0]].x;
+        // float n_y_a = scene->mMeshes[0]->mNormals[face.mIndices[0]].y;
+        // float n_z_a = scene->mMeshes[0]->mNormals[face.mIndices[0]].z;
 
         float x_b = scene->mMeshes[0]->mVertices[face.mIndices[1]].x;
         float y_b = scene->mMeshes[0]->mVertices[face.mIndices[1]].y;
         float z_b = scene->mMeshes[0]->mVertices[face.mIndices[1]].z;
-        float n_x_b = scene->mMeshes[0]->mNormals[face.mIndices[1]].x;
-        float n_y_b = scene->mMeshes[0]->mNormals[face.mIndices[1]].y;
-        float n_z_b = scene->mMeshes[0]->mNormals[face.mIndices[1]].z;
+        // float n_x_b = scene->mMeshes[0]->mNormals[face.mIndices[1]].x;
+        // float n_y_b = scene->mMeshes[0]->mNormals[face.mIndices[1]].y;
+        // float n_z_b = scene->mMeshes[0]->mNormals[face.mIndices[1]].z;
 
         float x_c = scene->mMeshes[0]->mVertices[face.mIndices[2]].x;
         float y_c = scene->mMeshes[0]->mVertices[face.mIndices[2]].y;
         float z_c = scene->mMeshes[0]->mVertices[face.mIndices[2]].z;
-        float n_x_c = scene->mMeshes[0]->mNormals[face.mIndices[2]].x;
-        float n_y_c = scene->mMeshes[0]->mNormals[face.mIndices[2]].y;
-        float n_z_c = scene->mMeshes[0]->mNormals[face.mIndices[2]].z;
+        // float n_x_c = scene->mMeshes[0]->mNormals[face.mIndices[2]].x;
+        // float n_y_c = scene->mMeshes[0]->mNormals[face.mIndices[2]].y;
+        // float n_z_c = scene->mMeshes[0]->mNormals[face.mIndices[2]].z;
 
-        TriVertex va(x_a * scale, y_a * scale, z_a * scale, n_x_a, n_y_a, n_z_a);
-        TriVertex vb(x_b * scale, y_b * scale, z_b * scale, n_x_b, n_y_b, n_z_b);
-        TriVertex vc(x_c * scale, y_c * scale, z_c * scale, n_x_c, n_y_c, n_z_c);
+        // TriVertex va(x_a * scale, y_a * scale, z_a * scale, n_x_a, n_y_a, n_z_a);
+        // TriVertex vb(x_b * scale, y_b * scale, z_b * scale, n_x_b, n_y_b, n_z_b);
+        // TriVertex vc(x_c * scale, y_c * scale, z_c * scale, n_x_c, n_y_c, n_z_c);
+
+        TriVertex va(x_a * scale, y_a * scale, z_a * scale);
+        TriVertex vb(x_b * scale, y_b * scale, z_b * scale);
+        TriVertex vc(x_c * scale, y_c * scale, z_c * scale);
 
         Tri *tri = new Tri(va, vb, vc, pos, pMtrl);
 
