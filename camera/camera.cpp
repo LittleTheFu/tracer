@@ -7,12 +7,12 @@
 
 Camera::Camera(Tracer* tracer)
 {
-    m_factor = 1;
+    m_factor = 4;
 
     m_Width = Common::default_screen_width * m_factor;
     m_Height = Common::default_screen_height * m_factor;
 
-    m_BounceTime = 4;
+    m_BounceTime = 6;
 
     m_pTracer = tracer;
 }
