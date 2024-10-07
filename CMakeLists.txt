@@ -135,7 +135,12 @@ link_directories(${PROJECT_SOURCE_DIR}/assimp_lib/lib)
 add_executable(ray_tracer main/main.cpp resource/lena.png)
 
 target_link_libraries(ray_tracer mylibs)
-target_link_libraries(ray_tracer assimp-vc143-mtd)
+
+if(WIN32)
+    target_link_libraries(ray_tracer assimp-vc143-mtd.lib)
+else()
+    target_link_libraries(ray_tracer assimp)
+endif()
 
 # 添加资源文件
 set(RESOURCE_FILES 
@@ -160,13 +165,15 @@ endforeach()
 #         LIBRARY DESTINATION  ${CMAKE_CURRENT_BINARY_DIR}/lib
 #         LIBRARY DESTINATION  ${CMAKE_CURRENT_BINARY_DIR}/bin)
 
+# 创建 Debug 目录
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/Debug)
 # install(TARGETS libs RUNTIME DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/bin)  # 输出到 bin 目录
 configure_file(${PROJECT_SOURCE_DIR}/assimp_lib/lib/assimp-vc143-mtd.lib
-                ${CMAKE_CURRENT_BINARY_DIR}/Debug
+                ${CMAKE_CURRENT_BINARY_DIR}/Debug/
                 COPYONLY)
 
 configure_file(${PROJECT_SOURCE_DIR}/assimp_lib/lib/assimp-vc143-mtd.dll
-                ${CMAKE_CURRENT_BINARY_DIR}/Debug
+                ${CMAKE_CURRENT_BINARY_DIR}/Debug/
                 COPYONLY)
 
 # install(FILES ${PROJECT_SOURCE_DIR}/assimp_lib/lib/assimp-vc143-mtd.lib DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Debug)  # 输出到 bin 目录
