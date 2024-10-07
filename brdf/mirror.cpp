@@ -12,6 +12,10 @@ Color Mirror::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf) const
     Vector3 n = LOCAL_NORMAL;
     if(local_wo.isSameDir(n))
     {
+        wi = Vector3::ZERO;
+        pdf = 1;
+        return Color::COLOR_BLACK;
+        
         n = -n;
     }
 
