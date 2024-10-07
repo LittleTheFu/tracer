@@ -149,7 +149,13 @@ void SceneBuilder::buildSceneWithDefaultConfig()
     // bunny->addToPool(m_pObjectPool);
 }
 
-void SceneBuilder::buildMirrorBall(const Vector3& pos, float r)
+void SceneBuilder::buildGlassBall(const Vector3 &pos, float r)
+{
+    // Ball *redBall = new Ball(Vector3::ZERO, Vector3(70, 70, 350), 20, lambMtrlRed);
+    Ball *glassBall = new Ball(Vector3::ZERO, pos, r, MtrlGlass);
+    m_pObjectPool->add(glassBall);
+}
+void SceneBuilder::buildMirrorBall(const Vector3 &pos, float r)
 {
     // Ball *mirrorBall = new Ball(Vector3::ZERO, Vector3(25, 70, 350), 20, MtrlMirror);
     Ball *mirrorBall = new Ball(Vector3::ZERO, pos, r, MtrlMirror);
@@ -181,9 +187,9 @@ void SceneBuilder::buildBunny(const Vector3& pos, float scale)
 
 void SceneBuilder::buildRedTri(const Vector3 &pos)
 {
-    TriVertex a(-100, -50, -20);
-    TriVertex b(-80, 40, 0);
-    TriVertex c(40, -30, -10);
+    TriVertex a(-50, -30, -20);
+    TriVertex b(-40, 30, 0);
+    TriVertex c(20, -20, -10);
 
     Tri *tri = new Tri(a, b, c, pos, lambMtrlRed);
     m_pObjectPool->add(tri);

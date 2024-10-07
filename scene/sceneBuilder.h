@@ -19,6 +19,7 @@ protected:
 
     void buildSceneWithDefaultConfig();
 
+    void buildGlassBall(const Vector3& pos, float r);
     void buildMirrorBall(const Vector3& pos, float r);
     void buildRedBall(const Vector3& pos, float r);
     void buildMixBall(const Vector3& pos, float r);

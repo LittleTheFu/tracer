@@ -3,10 +3,11 @@
 void BetaSceneBuilder::build()
 {
     buildRoom();
-    buildLight(Vector3(0, 70, 300), 50);
+    buildLight(Vector3(0, 70, 300), 10);
 
     buildRedBall(Vector3(70, 70, 350), 20);
     buildMirrorBall(Vector3(-50, 70, 350), 20);
+    buildGlassBall(Vector3(70, 30, 350), 20);
     
     buildRedTri(Vector3(60,35,370));
     buildGreenTri(Vector3(50,-60,350));
