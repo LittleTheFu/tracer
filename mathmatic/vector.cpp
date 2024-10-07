@@ -169,7 +169,7 @@ bool Vector3::isSameDir(const Vector3 & that) const
 {
     float r = this->operator*(that);
 
-    return r >= 0;
+    return r > 0;
 }
 
 Vector3 Vector3::reflect(const Vector3 &normal) const
