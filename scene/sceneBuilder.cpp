@@ -181,11 +181,11 @@ void SceneBuilder::buildBunny(const Vector3& pos, float scale)
 
 void SceneBuilder::buildRedTri(const Vector3 &pos)
 {
-    TriVertex a(-40, -10, -20);
-    TriVertex b(20, 40, 0);
-    TriVertex c(40, -10, -10);
+    TriVertex a(-100, -50, -20);
+    TriVertex b(-80, 40, 0);
+    TriVertex c(40, -30, -10);
 
-    Tri *tri = new Tri(a, b, c, pos, MtrlMirror);
+    Tri *tri = new Tri(a, b, c, pos, lambMtrlRed);
     m_pObjectPool->add(tri);
 }
 
@@ -195,7 +195,16 @@ void SceneBuilder::buildGreenTri(const Vector3 &pos)
     TriVertex c(40, 0, 10);
     TriVertex b(-170, 40, 50);
 
-    Tri *tri = new Tri(a, b, c, pos, MtrlMirror);
+    Tri *tri = new Tri(a, b, c, pos, lambMtrlGreen);
     m_pObjectPool->add(tri);
 }
 
+void SceneBuilder::buildGlassTri(const Vector3 &pos)
+{
+    TriVertex a(-100, -100, -20);
+    TriVertex b(-80, 90, 0);
+    TriVertex c(40, -90, -10);
+
+    Tri *tri = new Tri(a, b, c, pos, MtrlGlass);
+    m_pObjectPool->add(tri);
+}

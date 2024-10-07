@@ -28,6 +28,8 @@ protected:
     void buildRedTri(const Vector3& pos);
     void buildGreenTri(const Vector3& pos);
 
+    void buildGlassTri(const Vector3& pos);
+
 private:
     void createMaterials();
 
