@@ -185,17 +185,17 @@ void SceneBuilder::buildRedTri(const Vector3 &pos)
     TriVertex b(20, 40, 0);
     TriVertex c(40, -10, -10);
 
-    Tri *tri = new Tri(a, b, c, pos, lambMtrlRed);
+    Tri *tri = new Tri(a, b, c, pos, MtrlMirror);
     m_pObjectPool->add(tri);
 }
 
 void SceneBuilder::buildGreenTri(const Vector3 &pos)
 {
     TriVertex a(-150, 10, 30);
-    TriVertex b(40, 0, 10);
-    TriVertex c(-170, 40, 50);
+    TriVertex c(40, 0, 10);
+    TriVertex b(-170, 40, 50);
 
-    Tri *tri = new Tri(a, b, c, pos, lambMtrlGreen);
+    Tri *tri = new Tri(a, b, c, pos, MtrlMirror);
     m_pObjectPool->add(tri);
 }
 
