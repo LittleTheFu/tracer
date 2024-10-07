@@ -124,17 +124,17 @@ Color &Color::operator/=(const float m)
 
 bool Color::operator==(const Color that) const
 {
-    if (!Common::is_float_equal(this->r, r))
+    if (!Common::is_float_equal(this->r, that.r))
     {
         return false;
     }
 
-    if (!Common::is_float_equal(this->g, g))
+    if (!Common::is_float_equal(this->g, that.g))
     {
         return false;
     }
 
-    if (!Common::is_float_equal(this->b, b))
+    if (!Common::is_float_equal(this->b, that.b))
     {
         return false;
     }
@@ -144,5 +144,5 @@ bool Color::operator==(const Color that) const
 
 bool Color::operator!=(const Color that) const
 {
-    return !this->operator==(that);
+    return !(this->operator==(that));
 }
