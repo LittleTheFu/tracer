@@ -7,10 +7,12 @@ public:
     Color();
     Color(float r, float g, float b);
     // Color(unsigned char r, unsigned char g, unsigned char b);
-
+    bool isValid() const;
     void getConvertedValue(unsigned char &r, unsigned char &g, unsigned char &b) const;
 
     float r, g, b;
+
+    Color &clamp();
 
     Color &operator+=(const Color &that);
     Color &operator*=(const Color &that);

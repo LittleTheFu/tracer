@@ -1,5 +1,6 @@
 #include "tri.h"
 #include "common.h"
+#include <cassert>
 
 // Tri::Tri()
 // {
@@ -87,8 +88,12 @@ bool Tri::hit(const Ray &ray, HitRecord &record, Light *pLight) const
     {
         Vector3 r;
         record.f = m_pMtrl->eval(record.u, record.v, -localRay.dir, r, record.reflectPdf);
-
-
+        assert(record.f.isValid());
+        // float f_dot = r * Common::LOCAL_NORMAL;
+        // if(f_dot < 0)
+        // {
+        //     return false;
+        // }
         record.dot = Common::clamp(std::abs(r * Common::LOCAL_NORMAL), Common::FLOAT_SAMLL_NUMBER, 1.0f);
         record.reflect = m_transform.transformVector(frame.vectorToWorld(r));
         record.isMirror = m_pMtrl->isMirror();

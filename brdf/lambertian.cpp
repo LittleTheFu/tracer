@@ -21,6 +21,13 @@ Color Lambertian::get_f(const Vector3 &wo, const Vector3 &wi) const
 
 Color Lambertian::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf) const
 {
+    float z = wo.z;
+    if(z < 0)
+    {
+        wi = Vector3::ZERO;
+        pdf = 1;
+        return Color::COLOR_BLACK;
+    }
     wi = Vector3::sampleUniformFromHemisphere();
     pdf = Common::INV_TWO_PI;
 

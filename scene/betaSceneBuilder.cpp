@@ -5,7 +5,7 @@ void BetaSceneBuilder::build()
     buildRoom();
     buildLight(Vector3(0, 70, 250), 10);
 
-    // buildRedBall(Vector3(70, 70, 350), 20);
+    buildRedBall(Vector3(70, 70, 350), 20);
     
     buildRedTri(Vector3(30,35,300));
     buildGreenTri(Vector3(50,-60,300));

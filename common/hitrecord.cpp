@@ -14,4 +14,6 @@ HitRecord::HitRecord()
     isDelta = false;
 
     dotLight = 1;
+
+    f = Color::COLOR_BLACK;
 }

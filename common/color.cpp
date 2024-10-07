@@ -34,6 +34,18 @@ Color::Color(float r, float g, float b)
 //     this->b = r / MAX;
 // }
 
+bool Color::isValid() const
+{
+    float low = 0.0f;
+    float high = 1.0f;
+
+    bool bR = Common::is_in_range(this->r, low, high, true, true);
+    bool bG = Common::is_in_range(this->g, low, high, true, true);
+    bool bB = Common::is_in_range(this->b, low, high, true, true);
+
+    return (bR && bG && bB);
+}
+
 void Color::getConvertedValue(unsigned char &r, unsigned char &g, unsigned char &b) const
 {
     const unsigned char MAX = 255;
@@ -45,6 +57,15 @@ void Color::getConvertedValue(unsigned char &r, unsigned char &g, unsigned char 
     r = rr * MAX;
     g = gg * MAX;
     b = bb * MAX;
+}
+
+Color &Color::clamp()
+{
+    r = Common::clamp(r, 0, 1);
+    g = Common::clamp(g, 0, 1);
+    b = Common::clamp(b, 0, 1);
+
+    return *this;
 }
 
 Color &Color::operator+=(const Color &that)

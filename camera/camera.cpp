@@ -7,12 +7,12 @@
 
 Camera::Camera(Tracer* tracer)
 {
-    m_factor = 4;
+    m_factor = 3;
 
     m_Width = Common::default_screen_width * m_factor;
     m_Height = Common::default_screen_height * m_factor;
 
-    m_BounceTime = 6;
+    m_BounceTime = 4;
 
     m_pTracer = tracer;
 }
@@ -52,6 +52,12 @@ void Camera::render()
             Color color = Color::COLOR_BLACK;
             for (int i = 2; i < m_BounceTime; i++)
             {
+                // if (y==236 && x==599 && i==2)
+                if (y==0 && x==21 && i==3)
+                {
+                    int aaa = 333;
+                }
+                
                 color += m_pTracer->trace(m_pObjectPool, ray, i, record);
             }
 

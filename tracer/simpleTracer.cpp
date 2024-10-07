@@ -27,9 +27,15 @@ Color SimpleTracer::trace(const ObjectPool *pool, Ray &ray, int bounceNum, const
         prepareSampleLight(pool, newRay, record);
     }
 
-    Color inputColor = trace(pool, newRay, bounceNum - 1, record);
+    if(record.f != Color::COLOR_BLACK)
+    {
+        int a = 3;
+    }
 
+    Color inputColor = trace(pool, newRay, bounceNum - 1, record);
+    assert(inputColor.isValid());
     assert(currentState.reflectPdf > 0);
+
     Color ccolor = currentState.f * inputColor * currentState.dot / currentState.reflectPdf;
 
     return ccolor;
@@ -37,12 +43,22 @@ Color SimpleTracer::trace(const ObjectPool *pool, Ray &ray, int bounceNum, const
 
 Color SimpleTracer::HandleLastBounce(const ObjectPool *pool, const Ray& ray, const HitRecord &currentState) const
 {
+    //if sample from inside of a surface, 
+    //then we shouldn't consider it as a success sample event
+    if( currentState.dot == 0)
+    {
+        return Color::COLOR_BLACK;
+    }
+    
     Color lightColor = pool->getColorFromLight(ray);
 
     // is this line needed?
     lightColor = lightColor * currentState.dot;
 
     Color retColor = lightColor * currentState.f / currentState.reflectPdf;
+
+    //warning: We'll look into the reason for the bug(maybe?) later.
+    retColor.clamp();
 
     return retColor;
 }
@@ -59,6 +75,10 @@ void SimpleTracer::prepareSampleLight(const ObjectPool *pool, Ray &newRay, HitRe
     record.reflect = lightDir;
     record.dot = record.normal * lightDir; // dot less than 0
     // record.dot = 1;
+    if(record.dot < 0)
+    {
+        record.dot = 0;
+    }
 
     newRay.dir = lightDir;
 }
