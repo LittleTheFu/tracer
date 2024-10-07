@@ -187,9 +187,9 @@ void SceneBuilder::buildBunny(const Vector3& pos, float scale)
 
 void SceneBuilder::buildRedTri(const Vector3 &pos)
 {
-    TriVertex a(-50, -30, -20);
-    TriVertex b(-40, 30, 0);
-    TriVertex c(20, -20, -10);
+    TriVertex a(-30, -30, -20);
+    TriVertex b(-30, 30, 0);
+    TriVertex c(10, -20, -10);
 
     Tri *tri = new Tri(a, b, c, pos, lambMtrlRed);
     m_pObjectPool->add(tri);
