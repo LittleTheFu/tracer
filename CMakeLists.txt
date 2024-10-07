@@ -166,7 +166,9 @@ endforeach()
 #         LIBRARY DESTINATION  ${CMAKE_CURRENT_BINARY_DIR}/bin)
 
 # 创建 Debug 目录
-file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/Debug)
+if(NOT EXISTS ${CMAKE_CURRENT_BINARY_DIR}/Debug)
+    file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/Debug)
+endif()
 # install(TARGETS libs RUNTIME DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/bin)  # 输出到 bin 目录
 configure_file(${PROJECT_SOURCE_DIR}/assimp_lib/lib/assimp-vc143-mtd.lib
                 ${CMAKE_CURRENT_BINARY_DIR}/Debug/
