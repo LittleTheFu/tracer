@@ -176,4 +176,10 @@ else()
     configure_file(${PROJECT_SOURCE_DIR}/assimp_lib/lib/libassimp.so
         ${CMAKE_CURRENT_BINARY_DIR}/bin/
         COPYONLY)
+    configure_file(${PROJECT_SOURCE_DIR}/assimp_lib/lib/libassimp.so.5
+        ${CMAKE_CURRENT_BINARY_DIR}/bin/
+        COPYONLY)
+    configure_file(${PROJECT_SOURCE_DIR}/assimp_lib/lib/libassimp.so.5.4.3
+        ${CMAKE_CURRENT_BINARY_DIR}/bin/
+        COPYONLY)
 endif()
