@@ -99,10 +99,10 @@ bool Tri::hit(const Ray &ray, HitRecord &record, Light *pLight) const
         record.isMirror = m_pMtrl->isMirror();
         record.isDelta = m_pMtrl->isDelta();
 
-        if (record.isMirror)
-        {
-            record.dot = 1;
-        }
+        // if (record.isMirror)
+        // {
+        //     record.dot = 1;
+        // }
     }
 
     // std::cout<<"true"<<std::endl;
