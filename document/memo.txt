@@ -8,3 +8,13 @@ test code:
 
 三角形法线满足右手螺旋定则
 The normal of a triangle follows the right-hand screw rule.  
+
+
+SimpleTracer::trace
+// assert(inputColor.isValid());
+
+Ball::sampleFromPoint
+if(pdf < 0.08)
+{
+    int sss= 3;
+}
