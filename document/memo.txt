@@ -24,3 +24,6 @@ SimpleTracer::HandleLastBounce
 
 有时候tracer返回的颜色不在范围内，是精度误差？
 还是说brdf不应该界定在0到1之间
+
+Color::getConvertedValue，
+可以在这里加一些assert来看看color是不是过多或者溢出了。。。。
