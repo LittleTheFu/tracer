@@ -155,28 +155,25 @@ foreach(RESOURCE ${RESOURCE_FILES})
     configure_file(${RESOURCE} ${CMAKE_CURRENT_BINARY_DIR}/${RESOURCE} COPYONLY)
 endforeach()
 
-# set(MY_OUTPUT_DIR "${CMAKE_CURRENT_BINARY_DIR}/bin")
 
-# install(TARGETS ray_tracer RUNTIME DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/bin)  # 输出到 bin 目录
+if(win32)
+    if(NOT EXISTS ${CMAKE_CURRENT_BINARY_DIR}/Debug)
+        file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/Debug)
+    endif()
 
-# install(TARGETS libs
-#         EXPORT libs_export
-#         ARCHIVE DESTINATION  ${CMAKE_CURRENT_BINARY_DIR}/lib
-#         LIBRARY DESTINATION  ${CMAKE_CURRENT_BINARY_DIR}/lib
-#         LIBRARY DESTINATION  ${CMAKE_CURRENT_BINARY_DIR}/bin)
+    configure_file(${PROJECT_SOURCE_DIR}/assimp_lib/lib/assimp-vc143-mtd.lib
+                    ${CMAKE_CURRENT_BINARY_DIR}/Debug/
+                    COPYONLY)
 
-# 创建 Debug 目录
-if(NOT EXISTS ${CMAKE_CURRENT_BINARY_DIR}/Debug)
-    file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/Debug)
+    configure_file(${PROJECT_SOURCE_DIR}/assimp_lib/lib/assimp-vc143-mtd.dll
+                    ${CMAKE_CURRENT_BINARY_DIR}/Debug/
+                    COPYONLY)
+else()
+    if(NOT EXISTS ${CMAKE_CURRENT_BINARY_DIR}/bin)
+        file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
+    endif()
+
+    configure_file(${PROJECT_SOURCE_DIR}/assimp_lib/lib/libassimp.so
+        ${CMAKE_CURRENT_BINARY_DIR}/bin/
+        COPYONLY)
 endif()
-# install(TARGETS libs RUNTIME DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/bin)  # 输出到 bin 目录
-configure_file(${PROJECT_SOURCE_DIR}/assimp_lib/lib/assimp-vc143-mtd.lib
-                ${CMAKE_CURRENT_BINARY_DIR}/Debug/
-                COPYONLY)
-
-configure_file(${PROJECT_SOURCE_DIR}/assimp_lib/lib/assimp-vc143-mtd.dll
-                ${CMAKE_CURRENT_BINARY_DIR}/Debug/
-                COPYONLY)
-
-# install(FILES ${PROJECT_SOURCE_DIR}/assimp_lib/lib/assimp-vc143-mtd.lib DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Debug)  # 输出到 bin 目录
-# install(FILES ${PROJECT_SOURCE_DIR}/assimp_lib/lib/assimp-vc143-mtd.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Debug)  # 输出到 bin 目录
