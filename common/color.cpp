@@ -50,6 +50,8 @@ void Color::getConvertedValue(unsigned char &r, unsigned char &g, unsigned char 
 {
     const unsigned char MAX = 255;
 
+    //is assert needed here? think about it later...
+
     float rr = Common::clamp(this->r, 0, 1);
     float gg = Common::clamp(this->g, 0, 1);
     float bb = Common::clamp(this->b, 0, 1);
