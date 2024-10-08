@@ -64,6 +64,7 @@ Color MixMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float 
     if(pdf == 0)
     {
         pdf = Common::FLOAT_SAMLL_NUMBER;
+        // return Color::COLOR_BLACK;
     }
 
     return color;
