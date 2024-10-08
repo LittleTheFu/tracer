@@ -19,5 +19,8 @@ if(pdf < 0.08)
     int sss= 3;
 }
 
+SimpleTracer::HandleLastBounce
+// retColor.clamp();
+
 有时候tracer返回的颜色不在范围内，是精度误差？
 还是说brdf不应该界定在0到1之间
