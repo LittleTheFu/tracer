@@ -7,12 +7,12 @@
 
 Camera::Camera(Tracer* tracer)
 {
-    m_factor = 8;
+    m_factor = 4;
 
     m_Width = Common::default_screen_width * m_factor;
     m_Height = Common::default_screen_height * m_factor;
 
-    m_BounceTime = 8;
+    m_BounceTime = 6;
 
     m_pTracer = tracer;
 }
@@ -29,7 +29,7 @@ void Camera::build(const Vector3 &position, const Vector3 &direction, const Vect
 
 void Camera::build(const Vector3 &position, const Vector3 &theta)
 {
-    m_transform.set(theta, position);
+    m_transform.set(theta, position).scale(-1, -1, 1);
 }
 
 Transform Camera::getTransform() const
