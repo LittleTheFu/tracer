@@ -117,6 +117,21 @@ float Tri::surfaceArea() const
     return ab * ac * 0.5f;
 }
 
+void Tri::buildBoundBox()
+{
+    Vector3 a = m_transform.transformPoint(m_a.pos);
+    Vector3 b = m_transform.transformNormal(m_b.pos);
+    Vector3 c = m_transform.transformNormal(m_c.pos);
+
+    Vector3 min = a.min_component_wise(b);
+    Vector3 max = a.min_component_wise(b);
+
+    min = min.min_component_wise(c);
+    max = max.max_component_wise(c);
+
+    m_boundBox.set(min, max);
+}
+
 Vector3 Tri::getLocalNormal(bool reverse) const
 {
     return m_normal;
