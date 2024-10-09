@@ -20,6 +20,10 @@ public:
     const static bool is_float_zero(float x);
     const static float clamp(float v, float min, float max);
 
+    //一维空间中如果两个线段重叠，那么取它们的重叠部分
+    //第一条线段为t0相关,第二条线段端点为t1相关
+    const static bool getOverlap(float t0_min, float t0_max, float t1_min, float t1_max, float &tMin, float &tMax);
+
     //a*x*x + b*x + c = 0
     const static float delta(float a, float b, float c);
     const static bool solveLinerEquation(float a, float b, float c, float &r_min, float &r_max);
@@ -34,6 +38,8 @@ public:
     
     const static float FLOAT_SAMLL_NUMBER;
     const static float FLOAT_MAX;
+    const static float FLOAT_POSITIVE_INFINITY;
+    const static float FLOAT_NEGETIVE_INFINITY;
 
     const static Vector3 LOCAL_NORMAL;
     const static Color LIGHT_COLOR;

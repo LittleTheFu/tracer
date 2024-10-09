@@ -12,6 +12,8 @@ const float Common::INV_TWO_PI = 1 / Common::TWO_PI;
 
 const float Common::FLOAT_SAMLL_NUMBER = 0.0001f;
 const float Common::FLOAT_MAX = std::numeric_limits<float>::max();
+const float FLOAT_POSITIVE_INFINITY = std::numeric_limits<float>::infinity();
+const float FLOAT_NEGETIVE_INFINITY = -std::numeric_limits<float>::infinity();
 
 const Vector3 Common::LOCAL_NORMAL = Vector3(0, 0, 1);
 const Color Common::LIGHT_COLOR = Color::COLOR_WHITE;
@@ -88,6 +90,24 @@ const float Common::clamp(float v, float min, float max)
         return max;
 
     return v;
+}
+
+const bool Common::getOverlap(float t0_min, float t0_max, float t1_min, float t1_max, float &tMin, float &tMax)
+{
+    //可以交换两个线段，但是要保证t0_min是最小的左端点
+    if(t0_min > t1_min)
+    {
+        std::swap(t0_min, t1_min);
+        std::swap(t0_max, t1_max);
+    }
+
+    if(t0_max <= t1_min)
+        return false;
+    
+    tMin = t1_min;
+    tMax = std::min(t0_max, t1_max);
+
+    return true;
 }
 
 const float Common::delta(float a, float b, float c)
