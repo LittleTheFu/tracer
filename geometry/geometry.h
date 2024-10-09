@@ -24,7 +24,7 @@ public:
     
     virtual float surfaceArea() const;
     
-    //假设我们要得到的仅仅是变换后的boundBox
+    //what we need is the boundBox built from tranformed points
     virtual void buildBoundBox() const;
     BoundBox getBoundBox();
 
