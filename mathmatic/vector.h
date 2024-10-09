@@ -18,9 +18,12 @@ public:
     Vector3 operator*(float m) const;
     Vector3 &operator*=(float m);
     Vector3 operator/(float m) const;
-    Vector3 div_component_wise(const Vector3 &that) const;
     Vector3 &operator/=(float m);
     friend Vector3 operator*(const float s, const Vector3 &v);
+
+    Vector3 div_component_wise(const Vector3 &that) const;
+    Vector3 max_component_wise(const Vector3 &that) const;
+    Vector3 min_component_wise(const Vector3 &that) const;
 
     bool operator==(const Vector3 &that) const;
     bool operator!=(const Vector3 &that) const;
