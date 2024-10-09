@@ -6,6 +6,7 @@
 #include "vector.h"
 #include "transform.h"
 #include "light.h"
+#include "boundBox.h"
 
 class Light;
 
@@ -20,7 +21,12 @@ public:
     virtual bool hit(const Ray &ray, HitRecord &record, Light *pLight) const = 0;
     virtual Vector3 sampleFromPoint(const Vector3 &thatPoint, float &pdf) const;
     virtual Color get_f(const Vector3 &wo, const Vector3 &wi, const Vector3 &point, const Vector3 &normal) const;
+    
     virtual float surfaceArea() const;
+    
+    //假设我们要得到的仅仅是变换后的boundBox
+    virtual void buildBoundBox() const;
+    BoundBox getBoundBox();
 
     void applyTransform(const Transform &t);
     void setTransform(const Transform &t);
@@ -41,6 +47,8 @@ private:
 protected:
     Transform m_transform;
     int m_tag;
+
+    BoundBox m_boundBox;
 
     const Material *m_pMtrl;
 };

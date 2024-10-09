@@ -70,3 +70,12 @@ float Geometry::surfaceArea() const
 {
     return 0.0f;
 }
+
+void Geometry::buildBoundBox() const
+{
+}
+
+BoundBox Geometry::getBoundBox()
+{
+    return m_boundBox;
+}

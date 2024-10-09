@@ -20,8 +20,6 @@ public:
     const static bool is_float_zero(float x);
     const static float clamp(float v, float min, float max);
 
-    //一维空间中如果两个线段重叠，那么取它们的重叠部分
-    //第一条线段为t0相关,第二条线段端点为t1相关
     const static bool getOverlap(float t0_min, float t0_max, float t1_min, float t1_max, float &tMin, float &tMax);
 
     //a*x*x + b*x + c = 0

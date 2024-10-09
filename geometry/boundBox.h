@@ -7,8 +7,11 @@
 class BoundBox
 {
 public:
+    BoundBox();
     BoundBox(const Vector3 &p1, const Vector3 &p2);
 
+    void set(const Vector3 &p1, const Vector3 &p2);
+    
     bool isInBox(const Vector3 &point) const;
     bool hit(const Ray &ray, float &tMin, float &tMax) const;
 

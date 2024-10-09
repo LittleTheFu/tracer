@@ -2,7 +2,21 @@
 #include <algorithm>
 #include "common.h"
 
+BoundBox::BoundBox()
+{
+    float negInf = Common::FLOAT_NEGETIVE_INFINITY;
+    float posInf = Common::FLOAT_POSITIVE_INFINITY;
+
+    minPoint = Vector3(posInf, posInf, posInf);
+    maxPoint = Vector3(negInf, negInf, negInf);
+}
+
 BoundBox::BoundBox(const Vector3 &p1, const Vector3 &p2)
+{
+    set(p1, p2);
+}
+
+void BoundBox::set(const Vector3 &p1, const Vector3 &p2)
 {
     float x_min = std::min(p1.x, p2.x);
     float y_min = std::min(p1.y, p2.y);

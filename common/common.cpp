@@ -3,6 +3,7 @@
 #include <limits>
 #include <cstdlib>
 #include <chrono>
+#include <time.h>
 
 const float Common::PI = 3.14159274101257324219f;
 const float Common::TWO_PI = 2 * Common::PI;
@@ -12,16 +13,16 @@ const float Common::INV_TWO_PI = 1 / Common::TWO_PI;
 
 const float Common::FLOAT_SAMLL_NUMBER = 0.0001f;
 const float Common::FLOAT_MAX = std::numeric_limits<float>::max();
-const float FLOAT_POSITIVE_INFINITY = std::numeric_limits<float>::infinity();
-const float FLOAT_NEGETIVE_INFINITY = -std::numeric_limits<float>::infinity();
+const float Common::FLOAT_POSITIVE_INFINITY = std::numeric_limits<float>::infinity();
+const float Common::FLOAT_NEGETIVE_INFINITY = -std::numeric_limits<float>::infinity();
 
 const Vector3 Common::LOCAL_NORMAL = Vector3(0, 0, 1);
 const Color Common::LIGHT_COLOR = Color::COLOR_WHITE;
 
-const float Common::SAMPLE_LIGHTR_CORRECT_FACTOR = 0.96;
+const float Common::SAMPLE_LIGHTR_CORRECT_FACTOR = 0.96f;
 
-const float Common::SIGMA_T = 0.1;
-const float Common::SIGMA_S = 0.2;
+const float Common::SIGMA_T = 0.1f;
+const float Common::SIGMA_S = 0.2f;
 
 const std::string Common::LENA = "../resource/lena.png";
 const std::string Common::BUNNY = "../resource/bunny.obj";
@@ -94,7 +95,7 @@ const float Common::clamp(float v, float min, float max)
 
 const bool Common::getOverlap(float t0_min, float t0_max, float t1_min, float t1_max, float &tMin, float &tMax)
 {
-    //可以交换两个线段，但是要保证t0_min是最小的左端点
+    //swap the two lines to keep t0_min is the smaller min
     if(t0_min > t1_min)
     {
         std::swap(t0_min, t1_min);
@@ -159,7 +160,7 @@ const float Common::genRandomDecimal()
 
 const float Common::genRamdomSignDecimal()
 {
-    float v = 2 * (genRandomDecimal() - 0.5);
+    float v = 2.0f * (genRandomDecimal() - 0.5f);
 
     return v;
 }
@@ -167,13 +168,9 @@ const float Common::genRamdomSignDecimal()
 const void Common::printCurrentTime()
 {
     std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
-
-    // 转换为时间戳类型
     std::time_t time = std::chrono::system_clock::to_time_t(now);
+    char timeStr[128];
+    int error = ctime_s(timeStr, 128, &time);
 
-    // 转换为本地时间
-    char *timeStr = std::ctime(&time);
-
-    // 打印当前时间
     std::cout << "now is : " << timeStr << std::endl;
 }
