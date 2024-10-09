@@ -25,8 +25,8 @@ public:
     virtual float surfaceArea() const;
     
     //what we need is the boundBox built from tranformed points
-    virtual void buildBoundBox() const;
-    BoundBox getBoundBox();
+    virtual void buildBoundBox();
+    BoundBox getBoundBox() const;
 
     void applyTransform(const Transform &t);
     void setTransform(const Transform &t);

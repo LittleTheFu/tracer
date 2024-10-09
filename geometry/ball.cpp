@@ -48,7 +48,7 @@ float Ball::surfaceArea() const
     return Common::FOUR_PI * r * r;
 }
 
-void Ball::buildBoundBox() const
+void Ball::buildBoundBox()
 {
     Vector3 pos = m_transform.transformPoint(Vector3::ZERO);
     Vector3 R(r, r, r);
@@ -56,7 +56,7 @@ void Ball::buildBoundBox() const
     const Vector3 min = pos - R;
     const Vector3 max = pos + R;
 
-    // m_boundBox.set(min, max);
+    m_boundBox.set(min, max);
 }
 
 bool Ball::hit(const Ray &ray, HitRecord &record, Light *pLight) const
