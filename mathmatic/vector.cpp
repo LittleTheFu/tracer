@@ -75,6 +75,15 @@ Vector3 Vector3::operator/(float m) const
     return Vector3(x / m, y / m, z / m);
 }
 
+Vector3 Vector3::div_component_wise(const Vector3 &that) const
+{
+    float x = this->x / that.x;
+    float y = this->y / that.y;
+    float z = this->z / that.z;
+
+    return Vector3(x, y, z);
+}
+
 Vector3 &Vector3::operator/=(float m)
 {
     x /= m;
