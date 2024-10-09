@@ -70,6 +70,12 @@ bool Plane::hit(const Ray &ray, HitRecord &record, Light *pLight) const
     return true;
 }
 
+float Plane::surfaceArea() const
+{
+    float length = half_length * 2;
+    return length * length;
+}
+
 void Plane::HandleMaterial(const Ray &newRay, HitRecord &record) const
 {
     record.isDelta = m_pMtrl->isDelta();

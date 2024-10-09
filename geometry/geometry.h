@@ -16,9 +16,11 @@ public:
     
     void init(const Vector3 &rotate, const Vector3 &position);
     void setPosition(const Vector3 &position);
+
     virtual bool hit(const Ray &ray, HitRecord &record, Light *pLight) const = 0;
     virtual Vector3 sampleFromPoint(const Vector3 &thatPoint, float &pdf) const;
     virtual Color get_f(const Vector3 &wo, const Vector3 &wi, const Vector3 &point, const Vector3 &normal) const;
+    virtual float surfaceArea() const;
 
     void applyTransform(const Transform &t);
     void setTransform(const Transform &t);

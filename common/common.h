@@ -10,6 +10,7 @@ class Common
 public:
     const static float PI;
     const static float TWO_PI;
+    const static float FOUR_PI;
     const static float INV_PI;
     const static float INV_TWO_PI;
 

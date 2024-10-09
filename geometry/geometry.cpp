@@ -65,3 +65,8 @@ Color Geometry::get_f(const Vector3 &wo, const Vector3 &wi, const Vector3 &point
 
     return Color::COLOR_WHITE;
 }
+
+float Geometry::surfaceArea() const
+{
+    return 0.0f;
+}

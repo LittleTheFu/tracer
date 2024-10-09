@@ -43,6 +43,11 @@ Color Ball::get_f(const Vector3 &wo, const Vector3 &wi, const Vector3 &point, co
     return Color::COLOR_WHITE;
 }
 
+float Ball::surfaceArea() const
+{
+    return Common::FOUR_PI * r * r;
+}
+
 bool Ball::hit(const Ray &ray, HitRecord &record, Light *pLight) const
 {
     // record.t = Common::FLOAT_MAX;

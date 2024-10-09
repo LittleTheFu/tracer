@@ -15,6 +15,7 @@ public:
     Vector3 getLocalDirection(float u, float v) const;
 
     virtual Color get_f(const Vector3 &wo, const Vector3 &wi,const Vector3 &point, const Vector3 &normal) const;
+    virtual float surfaceArea() const override;
 
 
     float r;

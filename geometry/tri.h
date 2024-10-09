@@ -27,6 +27,7 @@ public:
         Material *pMtrl);
 
     virtual bool hit(const Ray &ray, HitRecord &record, Light *pLight) const override;
+    virtual float surfaceArea() const override;
 
     Vector3 getLocalNormal(bool reverse = false) const;
 

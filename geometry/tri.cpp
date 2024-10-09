@@ -109,6 +109,14 @@ bool Tri::hit(const Ray &ray, HitRecord &record, Light *pLight) const
     return true;
 }
 
+float Tri::surfaceArea() const
+{
+    float ab = m_ab.length();
+    float ac = m_ca.length();
+
+    return ab * ac * 0.5f;
+}
+
 Vector3 Tri::getLocalNormal(bool reverse) const
 {
     return m_normal;

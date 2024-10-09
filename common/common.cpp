@@ -6,6 +6,7 @@
 
 const float Common::PI = 3.14159274101257324219f;
 const float Common::TWO_PI = 2 * Common::PI;
+const float Common::FOUR_PI = 4 * Common::PI;
 const float Common::INV_PI = 1 / Common::PI;
 const float Common::INV_TWO_PI = 1 / Common::TWO_PI;
 
