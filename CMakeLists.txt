@@ -20,6 +20,7 @@ SET (RAY_TRACER_SOURCE
     common/noise.cpp
     common/spectrum.cpp
     geometry/ball.cpp
+    geometry/boundBox.cpp
     geometry/circle.cpp
     geometry/geometry.cpp
     geometry/mesh.cpp
@@ -76,6 +77,7 @@ SET (RAY_TRACER_HEADER
     common/noise.h
     common/spectrum.h
     geometry/ball.h
+    geometry/boundBox.h
     geometry/circle.h
     geometry/geometry.h
     geometry/mesh.h
