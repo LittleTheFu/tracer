@@ -21,6 +21,8 @@ public:
     Vector3 &operator/=(float m);
     friend Vector3 operator*(const float s, const Vector3 &v);
 
+    Vector3 abs() const;
+
     Vector3 div_component_wise(const Vector3 &that) const;
     Vector3 max_component_wise(const Vector3 &that) const;
     Vector3 min_component_wise(const Vector3 &that) const;

@@ -16,10 +16,39 @@ BoundBox::BoundBox(const Vector3 &p1, const Vector3 &p2)
     set(p1, p2);
 }
 
+Vector3 BoundBox::getCenter() const
+{
+    Vector3 center = ( minPoint + maxPoint ) / 2;
+
+    return center;
+}
+
+float BoundBox::getExtent(BoundBox::Axis axis) const
+{
+    Vector3 extent = (maxPoint - minPoint).abs();
+
+    if (axis == BoundBox::Axis::X)
+        return extent.x;
+
+    if (axis == BoundBox::Axis::Y)
+        return extent.y;
+
+    if (axis == BoundBox::Axis::Z)
+        return extent.z;
+
+    return 0;
+}
+
 void BoundBox::update(const Vector3 &p)
 {
     minPoint = minPoint.min_component_wise(p);
     maxPoint = maxPoint.max_component_wise(p);
+}
+
+void BoundBox::update(const BoundBox &b)
+{
+    this->update(b.minPoint);
+    this->update(b.maxPoint);
 }
 
 void BoundBox::set(const Vector3 &p1, const Vector3 &p2)
@@ -83,6 +112,30 @@ bool BoundBox::hit(const Ray &ray, float &tMin, float &tMax) const
     // std::cout << "hit : ( " << tMin << ", " << tMax << " )" << std::endl;
 
     return true;
+}
+
+BoundBox::Axis BoundBox::getMainAxis() const
+{
+    Vector3 extent = (maxPoint - minPoint).abs();
+
+    float x = extent.x;
+    float y = extent.y;
+    float z = extent.z;
+
+    if (x > y)
+    {
+        if (x > z)
+            return BoundBox::Axis::X;
+        else
+            return BoundBox::Axis::Z;
+    }
+    else
+    {
+        if (y > z)
+            return BoundBox::Axis::Y;
+        else
+            return BoundBox::Axis::Z;
+    }
 }
 
 std::ostream &operator<<(std::ostream &os, const BoundBox &boundBox)

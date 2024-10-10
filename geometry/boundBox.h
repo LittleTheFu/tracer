@@ -7,13 +7,27 @@
 class BoundBox
 {
 public:
+    enum class Axis
+    {
+        X = 0,
+        Y,
+        Z,
+    };
+
+public:
     BoundBox();
     BoundBox(const Vector3 &p1, const Vector3 &p2);
 
+    Vector3 getCenter() const;
+    float getExtent(BoundBox::Axis axis) const;
+
     void update(const Vector3 &p);
+    void update(const BoundBox &b);
     
     bool isInBox(const Vector3 &point) const;
     bool hit(const Ray &ray, float &tMin, float &tMax) const;
+
+    BoundBox::Axis getMainAxis() const;
 
     friend std::ostream &operator<<(std::ostream &os, const BoundBox &boundBox);
 
