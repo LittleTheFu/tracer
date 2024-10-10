@@ -5,6 +5,7 @@
 
 Scene::Scene(SceneBuilder *pBuilder, bool useSimpleTracer)
 {
+    m_pBvh = new BVH();
     m_pObjectPool = new ObjectPool();
 
     m_pBuilder = pBuilder;
@@ -49,7 +50,8 @@ void Scene::preRender()
     Transform t = m_pCamera->getTransform().getInverseTransform();
     m_pObjectPool->applyTransfrom(t);
 
-    m_pObjectPool->buildBoundBox();
+    m_pBvh->init(m_pObjectPool->getObjects());
+    // m_pObjectPool->buildBoundBox();
 }
 
 void Scene::render()

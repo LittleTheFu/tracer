@@ -147,3 +147,8 @@ Color ObjectPool::getColorFromLight(const Ray &ray) const
 
     return Color::COLOR_BLACK;
 }
+
+std::vector<Geometry *> ObjectPool::getObjects() const
+{
+    return m_objects;
+}

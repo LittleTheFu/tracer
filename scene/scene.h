@@ -9,6 +9,7 @@
 #include "glassMaterial.h"
 #include "mixMaterial.h"
 #include "sceneBuilder.h"
+#include "bvh.h"
 
 class Scene
 {
@@ -32,6 +33,7 @@ private:
     ObjectPool* m_pObjectPool;
     Camera* m_pCamera;
     SceneBuilder* m_pBuilder;
+    BVH*    m_pBvh;
 };
 
 #endif

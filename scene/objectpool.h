@@ -27,6 +27,8 @@ public:
 
     Color getColorFromLight(const Ray &ray) const;
 
+    std::vector<Geometry *> getObjects() const;
+
     Light *m_pLight;
 
 private:
