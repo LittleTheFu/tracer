@@ -39,6 +39,24 @@ float BoundBox::getExtent(BoundBox::Axis axis) const
     return 0;
 }
 
+bool BoundBox::isOverlapped(const BoundBox &that) const
+{
+    float tMinDummy, tMaxDummy;
+
+    bool bX = Common::getOverlap(minPoint.x, maxPoint.x,
+                                 that.minPoint.x, that.maxPoint.x,
+                                 tMinDummy, tMaxDummy);
+
+    bool bY = Common::getOverlap(minPoint.y, maxPoint.y,
+                                 that.minPoint.y, that.maxPoint.y,
+                                 tMinDummy, tMaxDummy);
+
+    bool bZ = Common::getOverlap(minPoint.z, maxPoint.z,
+                                 that.minPoint.z, that.maxPoint.z,
+                                 tMinDummy, tMaxDummy);
+    return bX && bY && bZ;
+}
+
 void BoundBox::update(const Vector3 &p)
 {
     minPoint = minPoint.min_component_wise(p);
