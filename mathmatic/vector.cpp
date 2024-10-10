@@ -86,18 +86,18 @@ Vector3 Vector3::div_component_wise(const Vector3 &that) const
 
 Vector3 Vector3::max_component_wise(const Vector3 &that) const
 {
-    float x = std::min(this->x, that.x);
-    float y = std::min(this->y, that.y);
-    float z = std::min(this->z, that.z);
+    float x = std::max(this->x, that.x);
+    float y = std::max(this->y, that.y);
+    float z = std::max(this->z, that.z);
 
     return Vector3(x, y, z);
 }
 
 Vector3 Vector3::min_component_wise(const Vector3 &that) const
 {
-    float x = std::max(this->x, that.x);
-    float y = std::max(this->y, that.y);
-    float z = std::max(this->z, that.z);
+    float x = std::min(this->x, that.x);
+    float y = std::min(this->y, that.y);
+    float z = std::min(this->z, that.z);
 
     return Vector3(x, y, z);
 }
