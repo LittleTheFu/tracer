@@ -27,6 +27,11 @@ int Geometry::getTag() const
     return m_tag;
 }
 
+std::string Geometry::getClassName() const
+{
+    return typeid(*this).name();
+}
+
 void Geometry::applyTransform(const Transform &t)
 {
     m_transform.applyTransform(t);

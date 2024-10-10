@@ -34,8 +34,12 @@ public:
 
     void setMaterial(const Material *pMtrl);
 
+//for development
+public:
     void setTag(int tag);
     int getTag() const;
+
+    std::string getClassName() const;
 
 private:
     virtual Vector3 dpdu(const Vector3 &point) const = 0;
