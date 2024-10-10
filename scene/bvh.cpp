@@ -52,7 +52,7 @@ BVHNode* BVH::generateTree(const std::vector<Geometry *> &objects,
 
     // 3.split objects into two children
     std::vector<Geometry *> leftObjects, rightObjects;
-    for(auto it = m_objects.begin(); it != m_objects.end(); it++)
+    for(auto it = objects.begin(); it != objects.end(); it++)
     {
         BoundBox bbx = (*it)->getBoundBox();
         if(bbx.isOverlapped(leftChildBoundBox))
