@@ -162,7 +162,7 @@ foreach(RESOURCE ${RESOURCE_FILES})
 endforeach()
 
 
-if(win32)
+if(WIN32)
     if(NOT EXISTS ${CMAKE_CURRENT_BINARY_DIR}/Debug)
         file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/Debug)
     endif()
