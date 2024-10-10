@@ -6,6 +6,9 @@
 class BVHNode
 {
 public:
+    BVHNode();
+    
+public:
     BVHNode *leftChild;
     BVHNode *rightChild;
 

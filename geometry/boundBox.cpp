@@ -4,16 +4,21 @@
 
 BoundBox::BoundBox()
 {
-    float negInf = Common::FLOAT_NEGETIVE_INFINITY;
-    float posInf = Common::FLOAT_POSITIVE_INFINITY;
-
-    minPoint = Vector3(posInf, posInf, posInf);
-    maxPoint = Vector3(negInf, negInf, negInf);
+    reset();
 }
 
 BoundBox::BoundBox(const Vector3 &p1, const Vector3 &p2)
 {
     set(p1, p2);
+}
+
+void BoundBox::reset()
+{
+    float negInf = Common::FLOAT_NEGETIVE_INFINITY;
+    float posInf = Common::FLOAT_POSITIVE_INFINITY;
+
+    minPoint = Vector3(posInf, posInf, posInf);
+    maxPoint = Vector3(negInf, negInf, negInf);
 }
 
 Vector3 BoundBox::getCenter() const
@@ -55,6 +60,51 @@ bool BoundBox::isOverlapped(const BoundBox &that) const
                                  that.minPoint.z, that.maxPoint.z,
                                  tMinDummy, tMaxDummy);
     return bX && bY && bZ;
+}
+
+void BoundBox::split(BoundBox::Axis axis, BoundBox &outBox1, BoundBox &outBox2) const
+{
+    BoundBox b1, b2;
+    Vector3 minP1, minP2, maxP1, maxP2;
+    Vector3 e = (maxPoint - minPoint).abs() / 2;//extent / 2
+    Vector3 d;
+
+    //refactor later...
+    if(axis == BoundBox::Axis::X)
+    {
+        d = Vector3(e.x, 0, 0);
+
+        minP1 = minPoint;
+        maxP1 = maxPoint - d;
+        minP2 = minPoint + d;
+        maxP2 = maxPoint;
+    }
+    else if(axis == BoundBox::Axis::Y)
+    {
+        d = Vector3(0, e.y, 0);
+
+        minP1 = minPoint;
+        maxP1 = maxPoint - d;
+        minP2 = minPoint + d;
+        maxP2 = maxPoint;
+    }
+    else
+    {
+        d = Vector3(0, 0, e.z);
+
+        minP1 = minPoint;
+        maxP1 = maxPoint - d;
+        minP2 = minPoint + d;
+        maxP2 = maxPoint;
+    }
+
+    outBox1.reset();
+    outBox1.update(minP1);
+    outBox1.update(maxP1);
+
+    outBox2.reset();
+    outBox2.update(minP2);
+    outBox2.update(maxP2);
 }
 
 void BoundBox::update(const Vector3 &p)

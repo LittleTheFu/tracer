@@ -102,7 +102,7 @@ const bool Common::getOverlap(float t0_min, float t0_max, float t1_min, float t1
         std::swap(t0_max, t1_max);
     }
 
-    if(t0_max <= t1_min)
+    if(t0_max < t1_min)
         return false;
     
     tMin = t1_min;

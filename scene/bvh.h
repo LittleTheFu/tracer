@@ -12,7 +12,9 @@ public:
 
 private:
     void build();
-    void generateTree();
+    BVHNode* generateTree(const std::vector<Geometry *> &objects,
+                      const BoundBox &boundBox,
+                      const BoundBox &centerBox);
 
 private:
     std::vector<Geometry *> m_objects;
