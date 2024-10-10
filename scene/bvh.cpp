@@ -73,14 +73,14 @@ BVHNode* BVH::generateTree(const std::vector<Geometry *> &objects,
     BoundBox leftBoundBox, leftCenterBox;
     for(auto it = leftObjects.begin(); it != leftObjects.end(); it++)
     {
-        leftBoundBox.update((*it)->getBoundBox());
+        leftChildBoundBox.update((*it)->getBoundBox());
         leftCenterBox.update((*it)->getBoundBox().getCenter());
     }
 
     BoundBox rightBoundBox, rightCenterBox;
     for(auto it = rightObjects.begin(); it != rightObjects.end(); it++)
     {
-        rightBoundBox.update((*it)->getBoundBox());
+        rightChildBoundBox.update((*it)->getBoundBox());
         rightCenterBox.update((*it)->getBoundBox().getCenter());
     }
 
@@ -88,8 +88,8 @@ BVHNode* BVH::generateTree(const std::vector<Geometry *> &objects,
 
 
     // 5.child->genrateTree()
-    node->leftChild = generateTree(leftObjects, leftBoundBox, leftCenterBox);
-    node->rightChild = generateTree(rightObjects, rightBoundBox, rightCenterBox);
+    node->leftChild = generateTree(leftObjects, leftChildBoundBox, leftCenterBox);
+    node->rightChild = generateTree(rightObjects, rightChildBoundBox, rightCenterBox);
 
     return node;
 }
