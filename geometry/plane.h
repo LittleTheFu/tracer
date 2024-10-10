@@ -9,8 +9,11 @@ class Plane : public Geometry
 public:
     Plane(const Vector3 &rotate, const Vector3 &position, float length, Material *pMtrl);
     virtual bool hit(const Ray &ray, HitRecord &record, Light *pLight) const;
-    virtual float surfaceArea() const override;
 
+    virtual float surfaceArea() const override;
+    virtual void buildBoundBox() override;
+
+public:
     float half_length;
 
 private:

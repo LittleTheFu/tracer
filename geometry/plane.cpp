@@ -76,6 +76,24 @@ float Plane::surfaceArea() const
     return length * length;
 }
 
+void Plane::buildBoundBox()
+{
+    Vector3 localPa(-half_length, -half_length, 0);
+    Vector3 localPb(-half_length, half_length, 0);
+    Vector3 localPc(half_length, -half_length, 0);
+    Vector3 localPd(half_length, half_length, 0);
+
+    Vector3 pa = m_transform.transformPoint(localPa);
+    Vector3 pb = m_transform.transformPoint(localPb);
+    Vector3 pc = m_transform.transformPoint(localPc);
+    Vector3 pd = m_transform.transformPoint(localPd);
+
+    m_boundBox.update(pa);
+    m_boundBox.update(pb);
+    m_boundBox.update(pc);
+    m_boundBox.update(pd);
+}
+
 void Plane::HandleMaterial(const Ray &newRay, HitRecord &record) const
 {
     record.isDelta = m_pMtrl->isDelta();

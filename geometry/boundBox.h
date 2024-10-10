@@ -10,10 +10,14 @@ public:
     BoundBox();
     BoundBox(const Vector3 &p1, const Vector3 &p2);
 
-    void set(const Vector3 &p1, const Vector3 &p2);
+    void update(const Vector3 &p);
     
     bool isInBox(const Vector3 &point) const;
     bool hit(const Ray &ray, float &tMin, float &tMax) const;
+
+private:
+    //use update function only!!!
+    void set(const Vector3 &p1, const Vector3 &p2);
 
 public:
     Vector3 minPoint;

@@ -56,7 +56,8 @@ void Ball::buildBoundBox()
     const Vector3 min = pos - R;
     const Vector3 max = pos + R;
 
-    m_boundBox.set(min, max);
+    m_boundBox.update(min);
+    m_boundBox.update(max);
 }
 
 bool Ball::hit(const Ray &ray, HitRecord &record, Light *pLight) const

@@ -16,6 +16,12 @@ BoundBox::BoundBox(const Vector3 &p1, const Vector3 &p2)
     set(p1, p2);
 }
 
+void BoundBox::update(const Vector3 &p)
+{
+    minPoint = minPoint.min_component_wise(p);
+    maxPoint = maxPoint.max_component_wise(p);
+}
+
 void BoundBox::set(const Vector3 &p1, const Vector3 &p2)
 {
     float x_min = std::min(p1.x, p2.x);

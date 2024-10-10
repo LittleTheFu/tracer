@@ -123,13 +123,17 @@ void Tri::buildBoundBox()
     Vector3 b = m_transform.transformNormal(m_b.pos);
     Vector3 c = m_transform.transformNormal(m_c.pos);
 
-    Vector3 min = a.min_component_wise(b);
-    Vector3 max = a.min_component_wise(b);
+    m_boundBox.update(a);
+    m_boundBox.update(b);
+    m_boundBox.update(c);
 
-    min = min.min_component_wise(c);
-    max = max.max_component_wise(c);
+    // Vector3 min = a.min_component_wise(b);
+    // Vector3 max = a.min_component_wise(b);
 
-    m_boundBox.set(min, max);
+    // min = min.min_component_wise(c);
+    // max = max.max_component_wise(c);
+
+    // m_boundBox.set(min, max);
 }
 
 Vector3 Tri::getLocalNormal(bool reverse) const
