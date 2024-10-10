@@ -42,7 +42,15 @@ bool BoundBox::isInBox(const Vector3 &point) const
     bool bY = Common::is_in_range(point.y, minPoint.y, maxPoint.y, true, true);
     bool bZ = Common::is_in_range(point.z, minPoint.z, maxPoint.z, true, true);
 
-    return bX && bY && bZ;
+    bool isIn = bX && bY && bZ;
+
+    if(isIn)
+    {
+        std::cout << "in boundBox" <<std::endl;
+        std::cout << *this << std::endl;
+    }
+
+    return isIn;
 }
 
 bool BoundBox::hit(const Ray &ray, float &tMin, float &tMax) const
@@ -70,7 +78,9 @@ bool BoundBox::hit(const Ray &ray, float &tMin, float &tMax) const
         return false;
 
     tMin = tMinXYZ;
-    tMax = tMaxXY;
+    tMax = tMaxXYZ;
+
+    // std::cout << "hit : ( " << tMin << ", " << tMax << " )" << std::endl;
 
     return true;
 }
