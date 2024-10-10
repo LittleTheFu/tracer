@@ -48,6 +48,8 @@ void Scene::preRender()
 
     Transform t = m_pCamera->getTransform().getInverseTransform();
     m_pObjectPool->applyTransfrom(t);
+
+    m_pObjectPool->buildBoundBox();
 }
 
 void Scene::render()

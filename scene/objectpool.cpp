@@ -36,6 +36,15 @@ void ObjectPool::applyTransfrom(Transform t)
     m_pLight->applyTransform(t);
 }
 
+void ObjectPool::buildBoundBox()
+{
+    for (std::vector<Geometry *>::const_iterator it = m_objects.begin(); it != m_objects.end(); it++)
+    {
+        (*it)->buildBoundBox();
+        std::cout << (*it)->getBoundBox() << std::endl;
+    }
+}
+
 bool ObjectPool::hitSceneWithLight(const Ray &ray, HitRecord &record, bool &out_isLightHit) const
 {
     out_isLightHit = false;

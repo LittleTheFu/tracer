@@ -20,6 +20,7 @@ public:
     void add(Mist *pMist);
 
     void applyTransfrom(Transform t);
+    void buildBoundBox();
 
     bool hitScene(const Ray &ray, HitRecord &record, bool mist = false, Light *pLight = nullptr) const;
     bool hitSceneWithLight(const Ray &ray, HitRecord &record, bool &out_isLightHit) const;

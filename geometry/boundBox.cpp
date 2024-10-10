@@ -77,10 +77,10 @@ bool BoundBox::hit(const Ray &ray, float &tMin, float &tMax) const
 
 std::ostream &operator<<(std::ostream &os, const BoundBox &boundBox)
 {
-    os << "---------boundBox-------";
-    os << "min: " << boundBox.minPoint <<std::endl;
-    os << "max: " << boundBox.maxPoint <<std::endl;
-    os << "end------boundBox-------" <<std::endl;
+    os << "---------boundBox-------" << std::endl;
+    os << "min: " << boundBox.minPoint << std::endl;
+    os << "max: " << boundBox.maxPoint << std::endl;
+    os << "end------boundBox-------" << std::endl;
 
     return os;
 }

@@ -15,7 +15,7 @@ public:
     bool isInBox(const Vector3 &point) const;
     bool hit(const Ray &ray, float &tMin, float &tMax) const;
 
-    friend std::ostream &operator<<(std::ostream &os, const Matrix &matrix);
+    friend std::ostream &operator<<(std::ostream &os, const BoundBox &boundBox);
 
 private:
     //use update function only!!!
