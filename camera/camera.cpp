@@ -4,10 +4,11 @@
 #include "simpleTracer.h"
 #include "randomTracer.h"
 #include <iomanip>
+#include <timeRecorder.h>
 
 Camera::Camera(Tracer* tracer)
 {
-    m_factor = 3;
+    m_factor = 4;
 
     m_Width = Common::default_screen_width * m_factor;
     m_Height = Common::default_screen_height * m_factor;
@@ -43,6 +44,10 @@ void Camera::render()
     m_Image.resize(m_Width * m_Height * 4);
 
     for (unsigned y = 0; y < m_Height; y++)
+    {
+        // TimeRecorder rec;
+        // rec.start();
+
         for (unsigned x = 0; x < m_Width; x++)
         {
             logProgress(x,y);
@@ -63,7 +68,11 @@ void Camera::render()
             }
 
             setImage(x, y, color);
+
         }
+        // rec.end();
+
+    }
 }
 
 bool Camera::saveToImage(const std::string &name) const
