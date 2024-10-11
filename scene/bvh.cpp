@@ -25,20 +25,26 @@ void BVH::build()
     // std::cout << rootBox << std::endl;
     // std::cout << centerBox << std::endl;
 
-    m_rootNode = generateTree(m_objects, rootBox, rootCenterBox);
+    m_rootNode = generateTree(m_objects, rootBox, rootCenterBox, 100000, 0);
 
     std::cout << "after generateTree" << std::endl;
+    printNode(m_rootNode,"");
 }
 
 BVHNode* BVH::generateTree(const std::vector<Geometry *> &objects,
                        const BoundBox &boundBox,
-                       const BoundBox &centerBox)
+                       const BoundBox &centerBox,
+                       int parentSize,
+                       int depth)
 {
+    int num = objects.size();
+    parentSize = num;
+    std::cout << "[" << num << "]" << ":" << depth << std::endl;
     BVHNode *node = new BVHNode();
 
-    if(objects.size() == 1)
+    if(objects.size() <= 200 || depth > 10)
     {
-        node->geometry = objects.at(0);
+        node->m_objects = objects;
         return node;
     }
 
@@ -73,23 +79,55 @@ BVHNode* BVH::generateTree(const std::vector<Geometry *> &objects,
     BoundBox leftBoundBox, leftCenterBox;
     for(auto it = leftObjects.begin(); it != leftObjects.end(); it++)
     {
-        leftChildBoundBox.update((*it)->getBoundBox());
+        leftBoundBox.update((*it)->getBoundBox());
         leftCenterBox.update((*it)->getBoundBox().getCenter());
     }
 
     BoundBox rightBoundBox, rightCenterBox;
     for(auto it = rightObjects.begin(); it != rightObjects.end(); it++)
     {
-        rightChildBoundBox.update((*it)->getBoundBox());
+        rightBoundBox.update((*it)->getBoundBox());
         rightCenterBox.update((*it)->getBoundBox().getCenter());
     }
 
     // 4.stop if needed
 
-
     // 5.child->genrateTree()
-    node->leftChild = generateTree(leftObjects, leftChildBoundBox, leftCenterBox);
-    node->rightChild = generateTree(rightObjects, rightChildBoundBox, rightCenterBox);
+    int l_size = leftObjects.size();
+    if(l_size == parentSize)
+    {
+        node->m_objects = objects;
+        return node;
+    }
+
+    if (l_size > 0)
+    {
+        std::cout << " L: ";
+        node->leftChild = generateTree(leftObjects, leftBoundBox, leftCenterBox, parentSize, depth + 1);
+    }
+
+    int r_size = rightObjects.size();
+    if (r_size == parentSize)
+    {
+        node->m_objects = objects;
+        return node;
+    }
+    if (r_size > 0)
+    {
+        std::cout << " R: ";
+        node->rightChild = generateTree(rightObjects, rightBoundBox, rightCenterBox, parentSize, depth + 1);
+    }
 
     return node;
+}
+
+void BVH::printNode(BVHNode *node, const std::string &prefix)
+{
+    node->print(prefix);
+
+    if (node->leftChild)
+        printNode(node->leftChild, prefix + "~~");
+
+    if (node->rightChild)
+        printNode(node->rightChild, prefix + "~~");
 }

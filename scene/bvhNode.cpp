@@ -5,5 +5,14 @@ BVHNode::BVHNode()
     leftChild = nullptr;
     rightChild = nullptr;
 
-    geometry = nullptr;
+    // geometry = nullptr;
+}
+
+void BVHNode::print(const std::string &prefix) const
+{
+    std::string l = leftChild ? " L " : " N ";
+    std::string r = rightChild ? " R " : " N ";
+    int num = m_objects.size();
+    
+    std::cout << prefix << "|" << l << r << num << std::endl;
 }

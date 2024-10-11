@@ -14,7 +14,11 @@ private:
     void build();
     BVHNode* generateTree(const std::vector<Geometry *> &objects,
                       const BoundBox &boundBox,
-                      const BoundBox &centerBox);
+                      const BoundBox &centerBox,
+                      int parentSize,
+                      int depth);
+
+    void printNode(BVHNode *node, const std::string &prefix);
 
 private:
     std::vector<Geometry *> m_objects;
