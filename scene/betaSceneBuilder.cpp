@@ -14,5 +14,5 @@ void BetaSceneBuilder::build()
     // buildGreenTri(Vector3(50,-60,350));
     // buildGlassTri(Vector3(20,35,230));
 
-    // buildBunny(Vector3(10, 10, 370), 300);
+    // buildBunny(Vector3(10, -50, 300), 400);
 }

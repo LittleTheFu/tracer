@@ -2,6 +2,7 @@
 #include "simpleTracer.h"
 #include "randomTracer.h"
 #include "common.h"
+#include "timeRecorder.h"
 
 Scene::Scene(SceneBuilder *pBuilder, bool useSimpleTracer)
 {
@@ -22,12 +23,17 @@ Scene::Scene(SceneBuilder *pBuilder, bool useSimpleTracer)
 
 void Scene::run()
 {
+    TimeRecorder t;
+    t.start();
+    
     preConstructScene();
     constructScene();
 
     preRender();
     render();
     postRender();
+
+    t.end();
 }
 
 void Scene::preConstructScene()
