@@ -197,7 +197,7 @@ bool BVH::hit(BVHNode *node,
             }
             else
             {
-                hit(l, ray, r_record);
+                hit(r, ray, r_record);
             }
         }
 
