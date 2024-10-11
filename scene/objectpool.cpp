@@ -66,21 +66,6 @@ bool ObjectPool::hitSceneWithLight(const Ray &ray, HitRecord &record, bool &out_
                 hit = true;
             }
         }
-
-        //debug
-        float t_b_min,t_b_max;
-        if ((*it)->getBoundBox().hit(ray, t_b_min, t_b_max))
-        {
-            // bool isIn = (*it)->getBoundBox().isInBox(ray.origin);
-
-            // std::cout << (*it)->getClassName() << std::endl;
-            // std::cout << "hit bound box" << std::endl;
-            // std::cout << "ray : " << ray << std::endl;
-            // std::cout << "ray origin in the box : " << isIn << std::endl;
-            // std::cout << "tMin : " << t_b_min << std::endl;
-            // std::cout << "tMax : " << t_b_max << std::endl;
-            // std::cout << (*it)->getBoundBox() << std::endl;
-        }
     }
 
     float t;
