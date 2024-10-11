@@ -141,11 +141,11 @@ bool BoundBox::isInBox(const Vector3 &point) const
 
     bool isIn = bX && bY && bZ;
 
-    if(isIn)
-    {
-        std::cout << "in boundBox" <<std::endl;
-        std::cout << *this << std::endl;
-    }
+    // if(isIn)
+    // {
+    //     std::cout << "in boundBox" <<std::endl;
+    //     std::cout << *this << std::endl;
+    // }
 
     return isIn;
 }

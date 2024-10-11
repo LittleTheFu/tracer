@@ -27,27 +27,36 @@ void BVH::build()
     // std::cout << rootBox << std::endl;
     // std::cout << centerBox << std::endl;
 
-    m_rootNode = generateTree(m_objects, rootBox, rootCenterBox, 100000, 0);
+    m_rootNode = generateTree(m_objects, 100000, 0);
 
     std::cout << "after generateTree" << std::endl;
     printNode(m_rootNode,"");
 }
 
-BVHNode* BVH::generateTree(const std::vector<Geometry *> &objects,
-                       const BoundBox &boundBox,
-                       const BoundBox &centerBox,
-                       int parentSize,
-                       int depth)
+BVHNode *BVH::generateTree(const std::vector<Geometry *> &objects,
+                           int parentSize,
+                           int depth)
 {
+    BoundBox parentBoundBox;
+    BoundBox centerBox;
+
+    for (auto it = objects.begin(); it != objects.end(); it++)
+    {
+        parentBoundBox.update((*it)->getBoundBox());
+        centerBox.update((*it)->getBoundBox().getCenter());
+    }
+
     int num = objects.size();
     parentSize = num;
     std::cout << "[" << num << "]" << ":" << depth << std::endl;
+
     BVHNode *node = new BVHNode();
+    node->boundBox = parentBoundBox;
 
     if( depth > 20)
     {
         node->objects = objects;
-        node->boundBox = boundBox;
+        node->boundBox = parentBoundBox;
 
         return node;
     }
@@ -58,7 +67,7 @@ BVHNode* BVH::generateTree(const std::vector<Geometry *> &objects,
     // 2.get the position to split along the axis
     //split bound box
     BoundBox leftChildBoundBox, rightChildBoundBox;
-    boundBox.split(axis, leftChildBoundBox, rightChildBoundBox);
+    parentBoundBox.split(axis, leftChildBoundBox, rightChildBoundBox);
 
     // 3.split objects into two children
     std::vector<Geometry *> leftObjects, rightObjects;
@@ -101,7 +110,7 @@ BVHNode* BVH::generateTree(const std::vector<Geometry *> &objects,
     if(l_size == parentSize)
     {
         node->objects = objects;
-        node->boundBox = boundBox;
+        node->boundBox = leftBoundBox;
 
         return node;
     }
@@ -109,21 +118,21 @@ BVHNode* BVH::generateTree(const std::vector<Geometry *> &objects,
     if (l_size > 0)
     {
         std::cout << " L: ";
-        node->leftChild = generateTree(leftObjects, leftBoundBox, leftCenterBox, parentSize, depth + 1);
+        node->leftChild = generateTree(leftObjects, parentSize, depth + 1);
     }
 
     int r_size = rightObjects.size();
     if (r_size == parentSize)
     {
         node->objects = objects;
-        node->boundBox = boundBox;
+        node->boundBox = rightBoundBox;
         
         return node;
     }
     if (r_size > 0)
     {
         std::cout << " R: ";
-        node->rightChild = generateTree(rightObjects, rightBoundBox, rightCenterBox, parentSize, depth + 1);
+        node->rightChild = generateTree(rightObjects, parentSize, depth + 1);
     }
 
     return node;
@@ -157,7 +166,10 @@ bool BVH::hit(BVHNode *node,
     bool b_l_leaf_hit = false;
     bool b_r_leaf_hit = false;
 
-    if (box.isInBox(ray.origin) || box.hit(ray, t))
+    bool is_in = box.isInBox(ray.origin);
+    bool is_hit = box.hit(ray, t);
+
+    if ( is_in || is_hit)
     {
         if (l)
         {
@@ -209,6 +221,11 @@ bool BVH::hitSceneWithLight(const Ray &ray,
     float tMin = Common::FLOAT_MAX;
 
     isHit = hit(m_rootNode, ray, record);
+
+    if(isHit)
+    {
+        int a = 333;
+    }
 
     float t;
     Vector3 normal;

@@ -13,8 +13,6 @@ public:
 
     void build();
     BVHNode* generateTree(const std::vector<Geometry *> &objects,
-                      const BoundBox &boundBox,
-                      const BoundBox &centerBox,
                       int parentSize,
                       int depth);
 
