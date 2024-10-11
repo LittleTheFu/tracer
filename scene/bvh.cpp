@@ -135,6 +135,7 @@ BVHNode *BVH::generateTree(const std::vector<Geometry *> &objects,
         node->rightChild = generateTree(rightObjects, parentSize, depth + 1);
     }
 
+    node->objects = objects;
     return node;
 }
 
@@ -153,6 +154,11 @@ bool BVH::hit(BVHNode *node,
               const Ray &ray,
               HitRecord &record) const
 {
+    if(node->isLeaf())
+    {
+        return hitLeaf(ray, node->objects,record);
+    }
+
     BoundBox box = node->boundBox;
 
     float t;
