@@ -150,8 +150,11 @@ bool BoundBox::isInBox(const Vector3 &point) const
     return isIn;
 }
 
-bool BoundBox::hit(const Ray &ray, float &tMin, float &tMax) const
+bool BoundBox::hit(const Ray &ray, float &t) const
 {
+    float tMin = Common::FLOAT_POSITIVE_INFINITY;
+    float tMax = Common::FLOAT_NEGETIVE_INFINITY;
+
     Vector3 vecToMin = minPoint - ray.origin;
     Vector3 vecToMax = maxPoint - ray.origin;
 
@@ -176,6 +179,13 @@ bool BoundBox::hit(const Ray &ray, float &tMin, float &tMax) const
 
     tMin = tMinXYZ;
     tMax = tMaxXYZ;
+
+    if(tMaxXYZ < 0)
+        return false;
+    if(tMin >= 0)
+        t = tMin;
+
+    t = tMaxXYZ;
 
     // std::cout << "hit : ( " << tMin << ", " << tMax << " )" << std::endl;
 

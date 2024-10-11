@@ -187,7 +187,7 @@ void SceneBuilder::buildBunny(const Vector3& pos, float scale)
     // Vector3 pos(60, 60, 350);
     // float scale = 300;
 
-    Mesh *bunny = new Mesh(Common::SIMPLE_BUNNY, pos, scale, MtrlMirror);
+    Mesh *bunny = new Mesh(Common::LOW_LOW_BUNNY, pos, scale, MtrlMirror);
     bunny->addToPool(m_pObjectPool);
 }
 

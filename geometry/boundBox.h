@@ -29,7 +29,7 @@ public:
     void update(const BoundBox &b);
     
     bool isInBox(const Vector3 &point) const;
-    bool hit(const Ray &ray, float &tMin, float &tMax) const;
+    bool hit(const Ray &ray, float &t) const;
 
     BoundBox::Axis getMainAxis() const;
 

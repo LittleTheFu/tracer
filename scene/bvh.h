@@ -8,9 +8,9 @@
 class BVH
 {
 public:
-    void init(const std::vector<Geometry *> objects);
+    void init(const std::vector<Geometry *> objects, const Light *light);
+    const Light *m_pLight;
 
-private:
     void build();
     BVHNode* generateTree(const std::vector<Geometry *> &objects,
                       const BoundBox &boundBox,
@@ -19,6 +19,23 @@ private:
                       int depth);
 
     void printNode(BVHNode *node, const std::string &prefix);
+    bool hit(BVHNode *node,
+             const Ray &ray,
+             HitRecord &record) const;
+
+    bool hitSceneWithLight(const Ray &ray,
+                           HitRecord &record,
+                           bool &out_isLightHit) const;
+
+    bool hitLeaf(const Ray &ray,
+                 const std::vector<Geometry *> objects,
+                 HitRecord &record) const;
+
+    Color getColorFromLight(const Ray &ray) const;
+    // bool hitScene(const Ray &ray,
+    //               HitRecord &record,
+    //               bool mist = false,
+    //               Light *pLight = nullptr) const;
 
 private:
     std::vector<Geometry *> m_objects;

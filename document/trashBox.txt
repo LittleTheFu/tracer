@@ -7,3 +7,46 @@
             // std::cout << "tMin : " << t_b_min << std::endl;
             // std::cout << "tMax : " << t_b_max << std::endl;
             // std::cout << (*it)->getBoundBox() << std::endl;
+
+
+
+            bool BVH::hitSceneWithLight(const Ray &ray,
+                            const std::vector<Geometry *> objects,
+                            HitRecord &record,
+                            bool &out_isLightHit,
+                            Light *light) const
+{
+    out_isLightHit = false;
+
+    bool hit = false;
+    float tMin = Common::FLOAT_MAX;
+
+    for (std::vector<Geometry *>::const_iterator it = objects.begin(); it != objects.end(); it++)
+    {
+        HitRecord tempRecord;
+
+        if ((*it)->hit(ray, tempRecord, nullptr))
+        {
+            if (tempRecord.t < tMin)
+            {
+                tMin = tempRecord.t;
+                record = tempRecord;
+                hit = true;
+            }
+        }
+    }
+
+    float t;
+    Vector3 normal;
+    float dotLight;
+    bool isLightHit = light->hit(ray, t, normal, dotLight);
+    if (t < tMin)
+    {
+        out_isLightHit = true;
+        hit = true;
+
+        record.dotLight = dotLight;
+    }
+
+    return hit;
+}

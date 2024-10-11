@@ -10,12 +10,15 @@ public:
     BVHNode();
 
     void print(const std::string &prefix) const;
+    bool isLeaf() const;
     
 public:
+    BoundBox boundBox;
+
     BVHNode *leftChild;
     BVHNode *rightChild;
 
-    std::vector<Geometry*> m_objects;
+    std::vector<Geometry*> objects;
 
     // Geometry *geometry;
 };

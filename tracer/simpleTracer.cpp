@@ -1,17 +1,27 @@
 #include "simpleTracer.h"
 #include <cassert>
 
-Color SimpleTracer::trace(const ObjectPool *pool, Ray &ray, int bounceNum, const HitRecord &currentState) const
+#define _USE_POOL_ (1)
+
+Color SimpleTracer::trace(const ObjectPool *pool,
+                          const BVH *bvh,
+                          Ray &ray,
+                          int bounceNum,
+                          const HitRecord &currentState) const
 {
     if (bounceNum == 1)
     {
-       return HandleLastBounce(pool, ray, currentState);
+       return HandleLastBounce(pool, bvh, ray, currentState);
     }
 
     HitRecord record;
 
     bool isLightHit = false;
+#if(_USE_POOL_)
     if (!pool->hitSceneWithLight(ray, record, isLightHit))
+#else
+    if (!bvh->hitSceneWithLight(ray, record, isLightHit))
+#endif()
     {
         return Color::COLOR_BLACK;
     }
@@ -24,7 +34,7 @@ Color SimpleTracer::trace(const ObjectPool *pool, Ray &ray, int bounceNum, const
     Ray newRay(record.point, record.reflect);
     if (bounceNum == 2)
     {
-        prepareSampleLight(pool, newRay, record);
+        prepareSampleLight(pool, bvh, newRay, record);
     }
 
     if(record.f != Color::COLOR_BLACK)
@@ -32,7 +42,7 @@ Color SimpleTracer::trace(const ObjectPool *pool, Ray &ray, int bounceNum, const
         int a = 3;
     }
 
-    Color inputColor = trace(pool, newRay, bounceNum - 1, record);
+    Color inputColor = trace(pool, bvh, newRay, bounceNum - 1, record);
     assert(inputColor.isValid());
     assert(currentState.reflectPdf > 0);
 
@@ -41,7 +51,10 @@ Color SimpleTracer::trace(const ObjectPool *pool, Ray &ray, int bounceNum, const
     return ccolor;
 }
 
-Color SimpleTracer::HandleLastBounce(const ObjectPool *pool, const Ray& ray, const HitRecord &currentState) const
+Color SimpleTracer::HandleLastBounce(const ObjectPool *pool,
+                                     const BVH *bvh,
+                                     const Ray &ray,
+                                     const HitRecord &currentState) const
 {
     //if sample from inside of a surface, 
     //then we shouldn't consider it as a success sample event
@@ -50,7 +63,11 @@ Color SimpleTracer::HandleLastBounce(const ObjectPool *pool, const Ray& ray, con
         return Color::COLOR_BLACK;
     }
     
+#if(_USE_POOL_)
     Color lightColor = pool->getColorFromLight(ray);
+#else
+    Color lightColor = bvh->getColorFromLight(ray);
+#endif()
 
     // is this line needed?
     lightColor = lightColor * currentState.dot;
@@ -63,12 +80,19 @@ Color SimpleTracer::HandleLastBounce(const ObjectPool *pool, const Ray& ray, con
     return retColor;
 }
 
-void SimpleTracer::prepareSampleLight(const ObjectPool *pool, Ray &newRay, HitRecord &record) const
+void SimpleTracer::prepareSampleLight(const ObjectPool *pool,
+                                      const BVH *bvh,
+                                      Ray &newRay,
+                                      HitRecord &record) const
 {
     if (record.isDelta)
         return;
 
+#if(_USE_POOL_)
     Vector3 lightSurfacePoint = pool->m_pLight->sample(record.point, record.reflectPdf);
+#else
+    Vector3 lightSurfacePoint = bvh->m_pLight->sample(record.point, record.reflectPdf);
+#endif()
     Vector3 lightDir = lightSurfacePoint - record.point;
     lightDir.normalize();
 

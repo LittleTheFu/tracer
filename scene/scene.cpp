@@ -44,13 +44,13 @@ void Scene::constructScene()
 
 void Scene::preRender()
 {
-    m_pCamera->setPool(m_pObjectPool);
+    m_pCamera->setPool(m_pObjectPool, m_pBvh);
     m_pCamera->build(Vector3(0, 0, 0), Vector3(0, 0, 0));
 
     Transform t = m_pCamera->getTransform().getInverseTransform();
     m_pObjectPool->applyTransfrom(t);
 
-    m_pBvh->init(m_pObjectPool->getObjects());
+    m_pBvh->init(m_pObjectPool->getObjects(), m_pObjectPool->m_pLight);
     // m_pObjectPool->buildBoundBox();
 }
 

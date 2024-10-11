@@ -13,7 +13,7 @@ class Camera
 public:
     Camera(Tracer* tracer);
 
-    void setPool(const ObjectPool *pool);
+    void setPool(const ObjectPool *pool, const BVH *bvh);
 
     void build(const Vector3 &position, const Vector3 &direction, const Vector3 &up);
     void build(const Vector3 &position, const Vector3 &theta);
@@ -33,6 +33,7 @@ private:
 
 private:
     const ObjectPool *m_pObjectPool;
+    const BVH *m_pBVH;
     const Tracer *m_pTracer;
     std::vector<unsigned char> m_Image;
 

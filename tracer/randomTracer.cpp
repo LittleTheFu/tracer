@@ -1,7 +1,11 @@
 #include "randomTracer.h"
 #include <cassert>
 
-Color RandomTracer::trace(const ObjectPool *pool, Ray &ray, int bounceNum, const HitRecord &currentState) const
+Color RandomTracer::trace(const ObjectPool *pool,
+                          const BVH *bvh,
+                          Ray &ray,
+                          int bounceNum,
+                          const HitRecord &currentState) const
 {
     HitRecord record;
 
@@ -24,7 +28,7 @@ Color RandomTracer::trace(const ObjectPool *pool, Ray &ray, int bounceNum, const
 
     Ray newRay(record.point, record.reflect);
 
-    Color inputColor = trace(pool, newRay, bounceNum - 1, record);
+    Color inputColor = trace(pool, bvh, newRay, bounceNum - 1, record);
 
     assert(currentState.reflectPdf > 0);
     Color ccolor = currentState.f * inputColor * currentState.dot / currentState.reflectPdf;

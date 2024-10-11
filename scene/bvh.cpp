@@ -1,10 +1,12 @@
 #include "bvh.h"
 #include "boundBox.h"
+#include "common.h"
 #include <cassert>
 
-void BVH::init(const std::vector<Geometry *> objects)
+void BVH::init(const std::vector<Geometry *> objects, const Light *light)
 {
     m_objects = objects;
+    m_pLight = light;
 
     build();
 }
@@ -42,9 +44,11 @@ BVHNode* BVH::generateTree(const std::vector<Geometry *> &objects,
     std::cout << "[" << num << "]" << ":" << depth << std::endl;
     BVHNode *node = new BVHNode();
 
-    if(objects.size() <= 200 || depth > 10)
+    if( depth > 20)
     {
-        node->m_objects = objects;
+        node->objects = objects;
+        node->boundBox = boundBox;
+
         return node;
     }
 
@@ -96,7 +100,9 @@ BVHNode* BVH::generateTree(const std::vector<Geometry *> &objects,
     int l_size = leftObjects.size();
     if(l_size == parentSize)
     {
-        node->m_objects = objects;
+        node->objects = objects;
+        node->boundBox = boundBox;
+
         return node;
     }
 
@@ -109,7 +115,9 @@ BVHNode* BVH::generateTree(const std::vector<Geometry *> &objects,
     int r_size = rightObjects.size();
     if (r_size == parentSize)
     {
-        node->m_objects = objects;
+        node->objects = objects;
+        node->boundBox = boundBox;
+        
         return node;
     }
     if (r_size > 0)
@@ -130,4 +138,139 @@ void BVH::printNode(BVHNode *node, const std::string &prefix)
 
     if (node->rightChild)
         printNode(node->rightChild, prefix + "~~");
+}
+
+bool BVH::hit(BVHNode *node,
+              const Ray &ray,
+              HitRecord &record) const
+{
+    BoundBox box = node->boundBox;
+
+    float t;
+
+    BVHNode *l = node->leftChild;
+    BVHNode *r = node->rightChild;
+
+    HitRecord l_record;
+    HitRecord r_record;
+
+    bool b_l_leaf_hit = false;
+    bool b_r_leaf_hit = false;
+
+    if (box.isInBox(ray.origin) || box.hit(ray, t))
+    {
+        if (l)
+        {
+            if (l->isLeaf())
+            {
+               b_l_leaf_hit = hitLeaf(ray, l->objects, l_record);
+            }
+            else
+            {
+                hit(l, ray, l_record);
+            }
+        }
+
+        if (r)
+        {
+            if (r->isLeaf())
+            {
+                b_r_leaf_hit = hitLeaf(ray, r->objects, r_record);
+            }
+            else
+            {
+                hit(l, ray, r_record);
+            }
+        }
+
+        if(l_record.t < r_record.t)
+        {
+            record = l_record;
+        }
+        else
+        {
+            record = r_record;
+        }
+
+        bool is_hit = b_l_leaf_hit || b_r_leaf_hit;
+        return is_hit;
+    }
+
+    return false;
+}
+
+bool BVH::hitSceneWithLight(const Ray &ray,
+                            HitRecord &record,
+                            bool &out_isLightHit) const
+{
+    out_isLightHit = false;
+
+    bool isHit = false;
+    float tMin = Common::FLOAT_MAX;
+
+    isHit = hit(m_rootNode, ray, record);
+
+    float t;
+    Vector3 normal;
+    float dotLight;
+    bool isLightHit = m_pLight->hit(ray, t, normal, dotLight);
+    if (t < tMin)
+    {
+        out_isLightHit = true;
+        isHit = true;
+
+        record.dotLight = dotLight;
+    }
+
+    return isHit;
+}
+
+bool BVH::hitLeaf(const Ray &ray, const std::vector<Geometry *> objects, HitRecord &record) const
+{
+    bool hit = false;
+    float tMin = Common::FLOAT_MAX;
+
+    for (std::vector<Geometry *>::const_iterator it = objects.begin(); it != objects.end(); it++)
+    {
+        HitRecord tempRecord;
+
+        if ((*it)->hit(ray, tempRecord, nullptr))
+        {
+            if (tempRecord.t < tMin)
+            {
+                tMin = tempRecord.t;
+                record = tempRecord;
+                hit = true;
+            }
+        }
+    }
+
+    return hit;
+}
+
+Color BVH::getColorFromLight(const Ray &ray) const
+{
+    float t;
+    Vector3 normal;
+    float dot;
+    if (!m_pLight->hit(ray, t, normal, dot))
+    {
+        // m_pLight->hit(ray, t, normal, dot);
+        return Color::COLOR_BLACK;
+    }
+
+    Color color = Color::COLOR_WHITE;
+
+    HitRecord record;
+    if (!hit(m_rootNode, ray, record))
+    {
+        return color * dot;
+    }
+
+    if (t < record.t)
+    {
+        return color * dot;
+    }
+
+    return Color::COLOR_BLACK;
 }
