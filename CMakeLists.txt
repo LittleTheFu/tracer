@@ -19,6 +19,7 @@ SET (RAY_TRACER_SOURCE
     common/lodepng.cpp
     common/noise.cpp
     common/spectrum.cpp
+    common/timeRecorder.cpp
     geometry/ball.cpp
     geometry/boundBox.cpp
     geometry/circle.cpp
@@ -78,6 +79,7 @@ SET (RAY_TRACER_HEADER
     common/lodepng.h
     common/noise.h
     common/spectrum.h
+    common/timeRecorder.h
     geometry/ball.h
     geometry/boundBox.h
     geometry/circle.h
