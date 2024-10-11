@@ -169,6 +169,12 @@ void SceneBuilder::buildRedBall(const Vector3& pos, float r)
     m_pObjectPool->add(redBall);
 }
 
+void SceneBuilder::buildAquaBall(const Vector3 &pos, float r)
+{
+    Ball *aquaBall = new Ball(Vector3::ZERO, pos, r, lambMtrlAqua);
+    m_pObjectPool->add(aquaBall);
+}
+
 void SceneBuilder::buildMixBall(const Vector3& pos, float r)
 {
     // Ball *mixBall = new Ball(Vector3::ZERO, Vector3(-28, 72, 350), 20, MtrlMix);
