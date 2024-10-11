@@ -115,27 +115,30 @@ BVHNode *BVH::generateTree(const std::vector<Geometry *> &objects,
         return node;
     }
 
-    if (l_size > 0)
-    {
-        std::cout << " L: ";
-        node->leftChild = generateTree(leftObjects, parentSize, depth + 1);
-    }
-
     int r_size = rightObjects.size();
     if (r_size == parentSize)
     {
         node->objects = objects;
         node->boundBox = rightBoundBox;
-        
+
         return node;
     }
+
+    if (l_size > 0)
+    {
+        std::cout << " L: ";
+        node->leftChild = generateTree(leftObjects, l_size, depth + 1);
+    }
+  
     if (r_size > 0)
     {
         std::cout << " R: ";
-        node->rightChild = generateTree(rightObjects, parentSize, depth + 1);
+        node->rightChild = generateTree(rightObjects, r_size, depth + 1);
     }
 
-    node->objects = objects;
+    if(!node->leftChild && !node->rightChild)
+        node->objects = objects;
+
     return node;
 }
 
