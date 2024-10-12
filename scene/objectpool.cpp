@@ -9,6 +9,7 @@
 
 ObjectPool::ObjectPool()
 {
+    m_pHitter = new Hitter();
 }
 
 void ObjectPool::add(Geometry *pGeometry)
@@ -43,89 +44,17 @@ void ObjectPool::buildBoundBox()
 
 bool ObjectPool::hitSceneWithLight(const Ray &ray, HitRecord &record, bool &out_isLightHit) const
 {
-    out_isLightHit = false;
-
-    bool hit = false;
-    float tMin = Common::FLOAT_MAX;
-
-    for (std::vector<Geometry *>::const_iterator it = m_objects.begin(); it != m_objects.end(); it++)
-    {
-        HitRecord tempRecord;
-
-        if ((*it)->hit(ray, tempRecord))
-        {
-            if (tempRecord.t < tMin)
-            {
-                tMin = tempRecord.t;
-                record = tempRecord;
-                hit = true;
-            }
-        }
-    }
-
-    float t;
-    Vector3 normal;
-    float dotLight;
-    bool isLightHit = m_pLight->hit(ray, t, normal, dotLight);
-    if( t < tMin)
-    {
-        out_isLightHit = true;
-        hit = true;
-
-        record.dotLight = dotLight;
-    }
-
-    return hit;
+    return m_pHitter->hitSceneWithLight(m_objects, m_pLight, ray, record, out_isLightHit);
 }
 
 bool ObjectPool::hitScene(const Ray &ray, HitRecord &record) const
 {
-    bool hit = false;
-    float tMin = Common::FLOAT_MAX;
-
-    for (std::vector<Geometry *>::const_iterator it = m_objects.begin(); it != m_objects.end(); it++)
-    {
-        HitRecord tempRecord;
-
-        if ((*it)->hit(ray, tempRecord))
-        {
-            if (tempRecord.t < tMin)
-            {
-                tMin = tempRecord.t;
-                record = tempRecord;
-                hit = true;
-            }
-        }
-    }
-
-    return hit;
+    return m_pHitter->hitScene(m_objects, ray, record);
 }
 
 Color ObjectPool::getColorFromLight(const Ray &ray) const
 {
-    float t;
-    Vector3 normal;
-    float dot;
-    if (!m_pLight->hit(ray, t, normal, dot))
-    {
-        // m_pLight->hit(ray, t, normal, dot);
-        return Color::COLOR_BLACK;
-    }
-
-    Color color = Color::COLOR_WHITE;
-
-    HitRecord record;
-    if (!hitScene(ray, record))
-    {
-        return color * dot;
-    }
-
-    if (t < record.t)
-    {
-        return color * dot;
-    }
-
-    return Color::COLOR_BLACK;
+    return m_pHitter->getColorFromLight(m_objects, m_pLight, ray);
 }
 
 std::vector<Geometry *> ObjectPool::getObjects() const
