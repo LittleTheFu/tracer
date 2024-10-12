@@ -55,7 +55,7 @@ Mesh::Mesh(const std::string fileName, const Vector3 pos, float scale, Material 
     }
 }
 
-bool Mesh::hit(const Ray &ray, HitRecord &record, Light *pLight) const
+bool Mesh::hit(const Ray &ray, HitRecord &record) const
 {
     return false;
 }

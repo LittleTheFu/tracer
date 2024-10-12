@@ -22,7 +22,7 @@ bool Light::hit(const Ray &ray, float &t, Vector3 &normal, float &dot) const
 {
     HitRecord record;
 
-    bool isHit = m_pGeometry->hit(ray, record, nullptr);
+    bool isHit = m_pGeometry->hit(ray, record);
 
     t = record.t;
     normal = record.normal;

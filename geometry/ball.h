@@ -10,7 +10,7 @@ public:
     Ball();
     Ball(const Vector3 &rotate, const Vector3 &position, float r, Material *pMtrl);
 
-    virtual bool hit(const Ray &ray, HitRecord &record, Light *pLight) const;
+    virtual bool hit(const Ray &ray, HitRecord &record) const;
     virtual Vector3 sampleFromPoint(const Vector3 &thatPoint, float &pdf) const;
     Vector3 getLocalDirection(float u, float v) const;
 

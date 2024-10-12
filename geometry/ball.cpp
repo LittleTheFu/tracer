@@ -60,7 +60,7 @@ void Ball::buildBoundBox()
     m_boundBox.update(max);
 }
 
-bool Ball::hit(const Ray &ray, HitRecord &record, Light *pLight) const
+bool Ball::hit(const Ray &ray, HitRecord &record) const
 {
     // record.t = Common::FLOAT_MAX;
 

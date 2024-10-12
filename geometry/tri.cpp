@@ -33,7 +33,7 @@ Tri::Tri(const TriVertex &a,
 //transform twice
 //1.to object frame
 //2.then to tri frame
-bool Tri::hit(const Ray &ray, HitRecord &record, Light *pLight) const
+bool Tri::hit(const Ray &ray, HitRecord &record) const
 {
     record.t = Common::FLOAT_MAX;
 

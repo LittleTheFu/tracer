@@ -26,7 +26,7 @@ public:
         const Vector3 &pos,
         Material *pMtrl);
 
-    virtual bool hit(const Ray &ray, HitRecord &record, Light *pLight) const override;
+    virtual bool hit(const Ray &ray, HitRecord &record) const override;
     
     virtual float surfaceArea() const override;
     virtual void buildBoundBox() override;

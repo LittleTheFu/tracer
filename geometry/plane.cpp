@@ -23,7 +23,7 @@ Vector3 Plane::getLocalNormal(bool reverse = false) const
     return Vector3(0, 0, 1);
 }
 
-bool Plane::hit(const Ray &ray, HitRecord &record, Light *pLight) const
+bool Plane::hit(const Ray &ray, HitRecord &record) const
 {
     record.t = Common::FLOAT_MAX;
 

@@ -260,7 +260,7 @@ bool BVH::hitLeaf(const Ray &ray, const std::vector<Geometry *> objects, HitReco
     {
         HitRecord tempRecord;
 
-        if ((*it)->hit(ray, tempRecord, nullptr))
+        if ((*it)->hit(ray, tempRecord))
         {
             if (tempRecord.t < tMin)
             {

@@ -22,7 +22,7 @@ public:
     void applyTransfrom(Transform t);
     void buildBoundBox();
 
-    bool hitScene(const Ray &ray, HitRecord &record, bool mist = false, Light *pLight = nullptr) const;
+    bool hitScene(const Ray &ray, HitRecord &record, bool mist = false) const;
     bool hitSceneWithLight(const Ray &ray, HitRecord &record, bool &out_isLightHit) const;
 
     Color getColorFromLight(const Ray &ray) const;
