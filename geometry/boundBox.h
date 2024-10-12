@@ -21,7 +21,7 @@ public:
     void reset();
 
     Vector3 getCenter() const;
-    float getExtent(BoundBox::Axis axis) const;
+    float getExtentByAxis(BoundBox::Axis axis) const;
 
     bool isOverlapped(const BoundBox &that) const;
     void split(BoundBox::Axis axis, BoundBox &outBox1, BoundBox &outBox2) const;

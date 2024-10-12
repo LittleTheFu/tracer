@@ -28,7 +28,7 @@ Vector3 BoundBox::getCenter() const
     return center;
 }
 
-float BoundBox::getExtent(BoundBox::Axis axis) const
+float BoundBox::getExtentByAxis(BoundBox::Axis axis) const
 {
     Vector3 extent = (maxPoint - minPoint).abs();
 
