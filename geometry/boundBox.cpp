@@ -30,7 +30,7 @@ Vector3 BoundBox::getCenter() const
 
 float BoundBox::getExtentByAxis(BoundBox::Axis axis) const
 {
-    Vector3 extent = (maxPoint - minPoint).abs();
+    Vector3 extent = getExtend();
 
     if (axis == BoundBox::Axis::X)
         return extent.x;
@@ -42,6 +42,13 @@ float BoundBox::getExtentByAxis(BoundBox::Axis axis) const
         return extent.z;
 
     return 0;
+}
+
+Vector3 BoundBox::getExtend() const
+{
+    Vector3 extent = (maxPoint - minPoint).abs();
+
+    return extent;
 }
 
 bool BoundBox::isOverlapped(const BoundBox &that) const
@@ -66,13 +73,13 @@ void BoundBox::split(BoundBox::Axis axis, BoundBox &outBox1, BoundBox &outBox2) 
 {
     BoundBox b1, b2;
     Vector3 minP1, minP2, maxP1, maxP2;
-    Vector3 e = (maxPoint - minPoint).abs() / 2;//extent / 2
+    Vector3 e_div_2 = getExtend() / 2;//extent / 2
     Vector3 d;
 
     //refactor later...
     if(axis == BoundBox::Axis::X)
     {
-        d = Vector3(e.x, 0, 0);
+        d = Vector3(e_div_2.x, 0, 0);
 
         minP1 = minPoint;
         maxP1 = maxPoint - d;
@@ -81,7 +88,7 @@ void BoundBox::split(BoundBox::Axis axis, BoundBox &outBox1, BoundBox &outBox2) 
     }
     else if(axis == BoundBox::Axis::Y)
     {
-        d = Vector3(0, e.y, 0);
+        d = Vector3(0, e_div_2.y, 0);
 
         minP1 = minPoint;
         maxP1 = maxPoint - d;
@@ -90,7 +97,7 @@ void BoundBox::split(BoundBox::Axis axis, BoundBox &outBox1, BoundBox &outBox2) 
     }
     else
     {
-        d = Vector3(0, 0, e.z);
+        d = Vector3(0, 0, e_div_2.z);
 
         minP1 = minPoint;
         maxP1 = maxPoint - d;
@@ -121,16 +128,8 @@ void BoundBox::update(const BoundBox &b)
 
 void BoundBox::set(const Vector3 &p1, const Vector3 &p2)
 {
-    float x_min = std::min(p1.x, p2.x);
-    float y_min = std::min(p1.y, p2.y);
-    float z_min = std::min(p1.z, p2.z);
-
-    float x_max = std::max(p1.x, p2.x);
-    float y_max = std::max(p1.y, p2.y);
-    float z_max = std::max(p1.z, p2.z);
-
-    minPoint = Vector3(x_min, y_min, z_min);
-    maxPoint = Vector3(x_max, y_max, z_max);
+    minPoint = p1.min_component_wise(p2);
+    maxPoint = p1.max_component_wise(p2);
 }
 
 bool BoundBox::isInBox(const Vector3 &point) const
@@ -194,7 +193,7 @@ bool BoundBox::hit(const Ray &ray, float &t) const
 
 BoundBox::Axis BoundBox::getMainAxis() const
 {
-    Vector3 extent = (maxPoint - minPoint).abs();
+    Vector3 extent = getExtend();
 
     float x = extent.x;
     float y = extent.y;
