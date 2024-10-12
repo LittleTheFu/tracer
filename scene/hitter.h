@@ -10,10 +10,6 @@
 class Hitter
 {
 public:
-    bool hitScene(const std::vector<Geometry *> objects,
-                  const Ray &ray,
-                  HitRecord &record) const;
-
     bool hitSceneWithLight(
         const std::vector<Geometry *> objects,
         const Light *light,
@@ -24,6 +20,16 @@ public:
     Color getColorFromLight(const std::vector<Geometry *> objects,
                             const Light *light,
                             const Ray &ray) const;
+
+    bool hitGeometryObject(const std::vector<Geometry *> objects,
+                           const Ray &ray,
+                           HitRecord &record) const;
+
+    bool hitLightOnly(const Ray &ray,
+                      const Light *pLight,
+                      float &t,
+                      Vector3 &normal,
+                      float &dot) const;
 };
 
 #endif

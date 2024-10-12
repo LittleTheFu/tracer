@@ -1,31 +1,6 @@
 #include "hitter.h"
 #include "common.h"
 
-bool Hitter::hitScene(const std::vector<Geometry *> objects,
-                      const Ray &ray,
-                      HitRecord &record) const
-{
-    bool hit = false;
-    float tMin = Common::FLOAT_MAX;
-
-    for (std::vector<Geometry *>::const_iterator it = objects.begin(); it != objects.end(); it++)
-    {
-        HitRecord tempRecord;
-
-        if ((*it)->hit(ray, tempRecord))
-        {
-            if (tempRecord.t < tMin)
-            {
-                tMin = tempRecord.t;
-                record = tempRecord;
-                hit = true;
-            }
-        }
-    }
-
-    return hit;
-}
-
 bool Hitter::hitSceneWithLight(
     const std::vector<Geometry *> objects,
     const Light *light,
@@ -35,28 +10,13 @@ bool Hitter::hitSceneWithLight(
 {
     out_isLightHit = false;
 
-    bool hit = false;
-    float tMin = Common::FLOAT_MAX;
-
-    for (std::vector<Geometry *>::const_iterator it = objects.begin(); it != objects.end(); it++)
-    {
-        HitRecord tempRecord;
-
-        if ((*it)->hit(ray, tempRecord))
-        {
-            if (tempRecord.t < tMin)
-            {
-                tMin = tempRecord.t;
-                record = tempRecord;
-                hit = true;
-            }
-        }
-    }
+    bool hit = hitGeometryObject(objects, ray, record);
+    float tMin = record.t;
 
     float t;
     Vector3 normal;
     float dotLight;
-    bool isLightHit = light->hit(ray, t, normal, dotLight);
+    bool isLightHit = hitLightOnly(ray, light, t, normal, dotLight);
     if (t < tMin)
     {
         out_isLightHit = true;
@@ -76,16 +36,16 @@ Color Hitter::getColorFromLight(
     float t;
     Vector3 normal;
     float dot;
-    if (!light->hit(ray, t, normal, dot))
+
+    if (!hitLightOnly(ray, light, t, normal, dot))
     {
-        // m_pLight->hit(ray, t, normal, dot);
         return Color::COLOR_BLACK;
     }
 
     Color color = Color::COLOR_WHITE;
 
     HitRecord record;
-    if (!hitScene(objects, ray, record))
+    if (!hitGeometryObject(objects, ray, record))
     {
         return color * dot;
     }
@@ -96,4 +56,37 @@ Color Hitter::getColorFromLight(
     }
 
     return Color::COLOR_BLACK;
+}
+
+bool Hitter::hitGeometryObject(const std::vector<Geometry *> objects, const Ray &ray, HitRecord &record) const
+{
+    bool hit = false;
+    float tMin = Common::FLOAT_MAX;
+
+    for (std::vector<Geometry *>::const_iterator it = objects.begin(); it != objects.end(); it++)
+    {
+        HitRecord tempRecord;
+
+        if ((*it)->hit(ray, tempRecord))
+        {
+            if (tempRecord.t < tMin)
+            {
+                tMin = tempRecord.t;
+                record = tempRecord;
+                hit = true;
+            }
+        }
+    }
+
+    return hit;
+}
+
+bool Hitter::hitLightOnly(const Ray &ray,
+                          const Light *pLight,
+                          float &t,
+                          Vector3 &normal,
+                          float &dot) const
+{
+    bool hit = pLight->hit(ray, t, normal, dot);
+    return hit;
 }
