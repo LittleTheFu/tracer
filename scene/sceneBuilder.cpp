@@ -65,12 +65,12 @@ void SceneBuilder::buildRoom()
     Vector3 frontRotate(Common::PI, 0, 0);
     Vector3 frontPosition(0, 0, 5 * c);
     // CPlane *frontPlane = new CPlane(frontRotate, frontPosition, r, &MtrlMirror);
-    Plane *frontPlane = new Plane(frontRotate, frontPosition, 100, lambMtrlAqua);
+    Plane *frontPlane = new Plane(frontRotate, frontPosition, r, lambMtrlAqua);
 
     // Vector3 backRotate(0, -Common::PI, 0);
     Vector3 backRotate(0, 0, 0);
     Vector3 backPosition(0, 0, -3 * c);
-    Plane *backPlane = new Plane(backRotate, backPosition, 100, lambMtrlRed);
+    Plane *backPlane = new Plane(backRotate, backPosition, r, lambMtrlRed);
 
     // frontPlane->setTag(Common::TAG_PLANE_FRONT);
     // backPlane->setTag(Common::TAG_PLANE_BACK);
@@ -80,10 +80,10 @@ void SceneBuilder::buildRoom()
     // rightPlane->setTag(Common::TAG_PLANE_RIGHT);
 
     m_pObjectPool->add(frontPlane);
-    m_pObjectPool->add(backPlane);
-    m_pObjectPool->add(topPlane);
-    m_pObjectPool->add(bottomPlane);
-    m_pObjectPool->add(leftPlane);
+    // m_pObjectPool->add(backPlane);
+    // m_pObjectPool->add(topPlane);
+    // m_pObjectPool->add(bottomPlane);
+    // m_pObjectPool->add(leftPlane);
     m_pObjectPool->add(rightPlane);
 }
 

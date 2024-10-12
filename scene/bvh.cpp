@@ -13,20 +13,6 @@ void BVH::init(const std::vector<Geometry *> objects, const Light *light)
 
 void BVH::build()
 {
-    BoundBox rootBox;
-    BoundBox rootCenterBox;
-
-    for (std::vector<Geometry *>::const_iterator it = m_objects.begin(); it != m_objects.end(); it++)
-    {
-        (*it)->buildBoundBox();
-
-        rootBox.update((*it)->getBoundBox());
-        rootCenterBox.update((*it)->getBoundBox().getCenter());
-    }
-
-    // std::cout << rootBox << std::endl;
-    // std::cout << centerBox << std::endl;
-
     m_rootNode = generateTree(m_objects, 100000, 0);
 
     std::cout << "after generateTree" << std::endl;
@@ -269,6 +255,11 @@ bool BVH::hitLeaf(const Ray &ray, const std::vector<Geometry *> objects, HitReco
                 hit = true;
             }
         }
+    }
+
+    if(!hit)
+    {
+        int a = 3434;
     }
 
     return hit;

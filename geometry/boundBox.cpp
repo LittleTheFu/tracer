@@ -154,11 +154,49 @@ bool BoundBox::hit(const Ray &ray, float &t) const
     float tMin = Common::FLOAT_POSITIVE_INFINITY;
     float tMax = Common::FLOAT_NEGETIVE_INFINITY;
 
+    
+
     Vector3 vecToMin = minPoint - ray.origin;
     Vector3 vecToMax = maxPoint - ray.origin;
 
-    Vector3 resultToMin = vecToMin.div_component_wise(ray.dir);
-    Vector3 resultToMax = vecToMax.div_component_wise(ray.dir);
+    Vector3 localMin, localMax;
+    if(ray.dir.x > 0)
+    {
+        localMin.x = std::min(vecToMin.x, vecToMax.x);
+        localMax.x = std::max(vecToMin.x, vecToMax.x);
+    }
+    else
+    {
+        localMin.x = std::max(vecToMin.x, vecToMax.x);
+        localMax.x = std::min(vecToMin.x, vecToMax.x);
+    }
+
+    if(ray.dir.y > 0)
+    {
+        localMin.y = std::min(vecToMin.y, vecToMax.y);
+        localMax.y = std::max(vecToMin.y, vecToMax.y);
+    }
+    else
+    {
+        localMin.y = std::max(vecToMin.y, vecToMax.y);
+        localMax.y = std::min(vecToMin.y, vecToMax.y);
+    }
+
+    if(ray.dir.z > 0)
+    {
+        localMin.z = std::min(vecToMin.z, vecToMax.z);
+        localMax.z = std::max(vecToMin.z, vecToMax.z);
+    }
+    else
+    {
+        localMin.z = std::max(vecToMin.z, vecToMax.z);
+        localMax.z = std::min(vecToMin.z, vecToMax.z);
+    }
+
+    Vector3 resultToMin = localMin.div_component_wise(ray.dir);
+    Vector3 resultToMax = localMax.div_component_wise(ray.dir);
+    // Vector3 resultToMin = vecToMin.div_component_wise(ray.dir);
+    // Vector3 resultToMax = vecToMax.div_component_wise(ray.dir);
 
     float tMinXY = Common::FLOAT_POSITIVE_INFINITY;
     float tMaxXY = Common::FLOAT_NEGETIVE_INFINITY;

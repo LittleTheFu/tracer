@@ -1,52 +1,54 @@
-            // bool isIn = (*it)->getBoundBox().isInBox(ray.origin);
+------------------------------------------------------------------------------
+You may only use the C/C++ Extension for Visual Studio Code with Visual Studio
+Code, Visual Studio or Visual Studio for Mac software to help you develop and
+test your applications.
+------------------------------------------------------------------------------
+Breakpoint warning: No executable code of the debugger’s target code type is associated with this line.
+Possible causes include: conditional compilation, compiler optimizations, or the target architecture of this line is not supported by the current debugger code type. - h:\pbrt\scene\objectpool.h:23
+Loaded 'H:\pbrt\build\Debug\ray_tracer.exe'. Symbols loaded.
+Loaded 'C:\Windows\System32\ntdll.dll'.
+Loaded 'C:\Windows\System32\kernel32.dll'.
+Loaded 'C:\Windows\System32\KernelBase.dll'.
+Loaded 'C:\Windows\System32\vcruntime140d.dll'.
+Loaded 'C:\Windows\System32\vcruntime140_1d.dll'.
+Loaded 'C:\Windows\System32\msvcp140d.dll'.
+Loaded 'H:\pbrt\build\Debug\assimp-vc143-mtd.dll'. Symbols loaded.
+Loaded 'C:\Windows\System32\ucrtbased.dll'.
+Unloaded 'C:\Windows\System32\ucrtbased.dll'.
+Loaded 'C:\Windows\System32\ucrtbased.dll'. 
+Loaded 'C:\Windows\System32\ucrtbased.dll'.
+Unloaded 'C:\Windows\System32\ucrtbased.dll'.
+class Plane
+---------boundBox-------
+min: ( -500, -500, 500 )
+max: ( 500, 500, 500 )
+end------boundBox-------
 
-            // std::cout << (*it)->getClassName() << std::endl;
-            // std::cout << "hit bound box" << std::endl;
-            // std::cout << "ray : " << ray << std::endl;
-            // std::cout << "ray origin in the box : " << isIn << std::endl;
-            // std::cout << "tMin : " << t_b_min << std::endl;
-            // std::cout << "tMax : " << t_b_max << std::endl;
-            // std::cout << (*it)->getBoundBox() << std::endl;
+class Ball
+---------boundBox-------
+min: ( -20, -20, 330 )
+max: ( 20, 20, 370 )
+end------boundBox-------
 
+[2]:0
+ L: [1]:1
+ R: [1]:1
+after generateTree
+| L  R 0
+---------boundBox-------
+min: ( -500, -500, 330 )
+max: ( 500, 500, 500 )
+end------boundBox-------
 
+~~| N  N 1
+---------boundBox-------
+min: ( -20, -20, 330 )
+max: ( 20, 20, 370 )
+end------boundBox-------
 
-            bool BVH::hitSceneWithLight(const Ray &ray,
-                            const std::vector<Geometry *> objects,
-                            HitRecord &record,
-                            bool &out_isLightHit,
-                            Light *light) const
-{
-    out_isLightHit = false;
+~~| N  N 1
+---------boundBox-------
+min: ( -500, -500, 500 )
+max: ( 500, 500, 500 )
+end------boundBox-------
 
-    bool hit = false;
-    float tMin = Common::FLOAT_MAX;
-
-    for (std::vector<Geometry *>::const_iterator it = objects.begin(); it != objects.end(); it++)
-    {
-        HitRecord tempRecord;
-
-        if ((*it)->hit(ray, tempRecord, nullptr))
-        {
-            if (tempRecord.t < tMin)
-            {
-                tMin = tempRecord.t;
-                record = tempRecord;
-                hit = true;
-            }
-        }
-    }
-
-    float t;
-    Vector3 normal;
-    float dotLight;
-    bool isLightHit = light->hit(ray, t, normal, dotLight);
-    if (t < tMin)
-    {
-        out_isLightHit = true;
-        hit = true;
-
-        record.dotLight = dotLight;
-    }
-
-    return hit;
-}

@@ -56,8 +56,8 @@ void Scene::preRender()
     Transform t = m_pCamera->getTransform().getInverseTransform();
     m_pObjectPool->applyTransfrom(t);
 
+    m_pObjectPool->buildBoundBox();
     m_pBvh->init(m_pObjectPool->getObjects(), m_pObjectPool->m_pLight);
-    // m_pObjectPool->buildBoundBox();
 }
 
 void Scene::render()
