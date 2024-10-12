@@ -8,7 +8,7 @@
 
 Camera::Camera(Tracer* tracer)
 {
-    m_factor = 4;
+    m_factor = 3;
 
     m_Width = Common::default_screen_width * m_factor;
     m_Height = Common::default_screen_height * m_factor;
