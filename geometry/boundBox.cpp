@@ -220,7 +220,10 @@ bool BoundBox::hit(const Ray &ray, float &t) const
     if(tMaxXYZ < 0)
         return false;
     if(tMin >= 0)
+    {
         t = tMin;
+        return true;
+    }
 
     t = tMaxXYZ;
 
