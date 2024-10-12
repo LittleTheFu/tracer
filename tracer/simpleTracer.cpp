@@ -1,7 +1,7 @@
 #include "simpleTracer.h"
 #include <cassert>
 
-#define _USE_POOL_ (1)
+#define _USE_POOL_ (0)
 
 Color SimpleTracer::trace(const ObjectPool *pool,
                           const BVH *bvh,
