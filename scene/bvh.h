@@ -30,10 +30,6 @@ public:
                  HitRecord &record) const;
 
     Color getColorFromLight(const Ray &ray) const;
-    // bool hitScene(const Ray &ray,
-    //               HitRecord &record,
-    //               bool mist = false,
-    //               Light *pLight = nullptr) const;
 
 private:
     std::vector<Geometry *> m_objects;

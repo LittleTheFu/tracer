@@ -8,7 +8,6 @@
 #include "color.h"
 #include "light.h"
 #include "transform.h"
-#include "mist.h"
 
 class ObjectPool
 {
@@ -17,12 +16,11 @@ public:
 
     void add(Geometry *pGeometry);
     void add(Light *pLight);
-    void add(Mist *pMist);
 
     void applyTransfrom(Transform t);
     void buildBoundBox();
 
-    bool hitScene(const Ray &ray, HitRecord &record, bool mist = false) const;
+    bool hitScene(const Ray &ray, HitRecord &record) const;
     bool hitSceneWithLight(const Ray &ray, HitRecord &record, bool &out_isLightHit) const;
 
     Color getColorFromLight(const Ray &ray) const;
@@ -33,7 +31,6 @@ public:
 
 private:
     std::vector<Geometry *> m_objects;
-    Mist *m_pMist;
 };
 
 #endif
