@@ -50,6 +50,7 @@ SET (RAY_TRACER_SOURCE
     scene/betaSceneBuilder.cpp
     scene/bvh.cpp
     scene/bvhNode.cpp
+    scene/hitter.cpp
     scene/objectpool.cpp
     scene/scene.cpp
     scene/sceneBuilder.cpp
@@ -109,6 +110,7 @@ SET (RAY_TRACER_HEADER
     scene/betaSceneBuilder.h
     scene/bvh.h
     scene/bvhNode.h
+    scene/hitter.h
     scene/objectpool.h
     scene/scene.h
     scene/sceneBuilder.h
