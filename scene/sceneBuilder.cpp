@@ -2,7 +2,6 @@
 #include "plane.h"
 #include "common.h"
 #include "mesh.h"
-#include "triangle.h"
 #include "ball.h"
 #include "imageTexture.h"
 #include "lambertianMaterial.h"
@@ -106,13 +105,6 @@ void SceneBuilder::buildSceneWithDefaultConfig()
     TriVertex v_c(0, 50, 0);
     Tri *tri = new Tri(v_a, v_b, v_c, Vector3(30, 30, 300), lambMtrlGreen);
 
-    TriAngleVertex va = TriAngleVertex(-20, 20, 0, 0);
-    TriAngleVertex vb = TriAngleVertex(0, -20, 0.5, 1);
-    TriAngleVertex vc = TriAngleVertex(20, 20, 1, 0);
-    TriAngle *triAngle = new TriAngle(va, vb, vc,
-                                      Vector3(0, -Common::PI / 4, 0), Vector3(-50, 50, 300),
-                                      lambMtrlLena);
-
     Ball *redBall = new Ball(Vector3::ZERO, Vector3(-55, 10, 240), 20, lambMtrlRed);
     Ball *yellowBall = new Ball(Vector3::ZERO, Vector3(60, 80, 225), 20, lambMtrlYellow);
     Ball *aquaBall = new Ball(Vector3::ZERO, Vector3(-50, 70, 370), 20, lambMtrlAqua);
@@ -132,8 +124,6 @@ void SceneBuilder::buildSceneWithDefaultConfig()
 
     // m_pObjectPool->add(aquaBall);
     // m_pObjectPool->add(tri);
-
-    // m_pObjectPool->add(triAngle);
 
     // pool->add(redBall);
     // pool->add(yellowBall);
