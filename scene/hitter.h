@@ -21,7 +21,7 @@ public:
                             const Light *light,
                             const Ray &ray) const;
 
-    bool hitGeometryObject(const std::vector<Geometry *> objects,
+    bool hitGeometryObjectOnly(const std::vector<Geometry *> objects,
                            const Ray &ray,
                            HitRecord &record) const;
 

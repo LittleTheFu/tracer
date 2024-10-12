@@ -49,7 +49,7 @@ bool ObjectPool::hitSceneWithLight(const Ray &ray, HitRecord &record, bool &out_
 
 bool ObjectPool::hitScene(const Ray &ray, HitRecord &record) const
 {
-    return m_pHitter->hitGeometryObject(m_objects, ray, record);
+    return m_pHitter->hitGeometryObjectOnly(m_objects, ray, record);
 }
 
 Color ObjectPool::getColorFromLight(const Ray &ray) const
