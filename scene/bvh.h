@@ -35,8 +35,6 @@ private:
                       std::vector<Geometry *> &outRightObjects) const;
 
 private:
-    std::vector<Geometry *> m_objects;
-
     BVHNode *m_rootNode;
 };
 

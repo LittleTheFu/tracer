@@ -11,8 +11,8 @@
 
 ObjectPool::ObjectPool()
 {
-    m_pHitter = new Hitter();
-    // m_pHitter = new BVH();
+    // m_pHitter = new Hitter();
+    m_pHitter = new BVH();
 }
 
 void ObjectPool::initHitter()
