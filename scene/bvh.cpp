@@ -137,9 +137,9 @@ bool BVH::hitSceneWithLight(const Ray &ray,
     out_isLightHit = false;
 
     bool isHit = false;
-    float tMin = Common::FLOAT_MAX;
 
     isHit = hit(m_rootNode, ray, record);
+    float tMin = record.t;
 
     float t;
     Vector3 normal;
