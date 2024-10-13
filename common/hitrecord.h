@@ -10,6 +10,7 @@ class HitRecord
 {
 public:
     HitRecord();
+    HitRecord getCloserOne(const HitRecord &that) const;
     
     Transform transform;
     Material mtrl;

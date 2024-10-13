@@ -58,12 +58,7 @@ void Camera::render()
             Color color = Color::COLOR_BLACK;
             for (int i = 2; i < m_BounceTime; i++)
             {
-                // if (y==236 && x==599 && i==2)
-                if (y==0 && x==21 && i==3)
-                {
-                    int aaa = 333;
-                }
-                
+                // if (y==0 && x==21 && i==3)
                 color += m_pTracer->trace(m_pObjectPool, m_pBVH, ray, i, record);
             }
 
@@ -71,7 +66,6 @@ void Camera::render()
 
         }
         // rec.end();
-
     }
 }
 

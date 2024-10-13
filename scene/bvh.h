@@ -8,26 +8,31 @@
 class BVH
 {
 public:
-    void init(const std::vector<Geometry *> objects, const Light *light);
     const Light *m_pLight;
 
-    void build();
-    BVHNode *generateTree(const std::vector<Geometry *> &objects, int depth);
+public:
+    void init(const std::vector<Geometry *> objects, const Light *light);
 
-    void printNode(BVHNode *node, const std::string &prefix);
-    bool hit(BVHNode *node,
-             const Ray &ray,
-             HitRecord &record) const;
-
-    bool hitSceneWithLight(const Ray &ray,
-                           HitRecord &record,
-                           bool &out_isLightHit) const;
-
-    bool hitLeaf(const Ray &ray,
-                 const std::vector<Geometry *> objects,
-                 HitRecord &record) const;
-
+    bool hit(BVHNode *node, const Ray &ray, HitRecord &record) const;
+    bool hitSceneWithLight(const Ray &ray, HitRecord &record, bool &out_isLightHit) const;
     Color getColorFromLight(const Ray &ray) const;
+
+private:
+    void build();
+
+    BVHNode *generateTree(const std::vector<Geometry *> &objects, int depth);
+    void printNode(BVHNode *node, const std::string &prefix);
+
+    bool hitLeaf(const Ray &ray, const std::vector<Geometry *> objects, HitRecord &record) const;
+
+    BoundBox getBoundBox(const std::vector<Geometry*> &objects) const;
+    BoundBox getCentroidBox(const std::vector<Geometry*> &objects) const;
+
+    void splitObjects(const std::vector<Geometry *> &objects,
+                      const BoundBox &leftBox,
+                      const BoundBox &rightBox,
+                      std::vector<Geometry *> &outLeftObjects,
+                      std::vector<Geometry *> &outRightObjects) const;
 
 private:
     std::vector<Geometry *> m_objects;

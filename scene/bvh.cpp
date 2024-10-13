@@ -21,17 +21,11 @@ void BVH::build()
 
 BVHNode *BVH::generateTree(const std::vector<Geometry *> &objects, int depth)
 {
-    BoundBox objectsBoundBox;
-    BoundBox centerBox;
-
-    for (auto it = objects.begin(); it != objects.end(); it++)
-    {
-        objectsBoundBox.update((*it)->getBoundBox());
-        centerBox.update((*it)->getBoundBox().getCenter());
-    }
-
+    BoundBox objectsBoundBox = getBoundBox(objects);
+    BoundBox centerBox = getCentroidBox(objects);
     int objectNum = objects.size();
-    std::cout << "[" << objectNum << "]" << ":" << depth << std::endl;
+
+    // std::cout << "[" << objectNum << "]" << ":" << depth << std::endl;
 
     BVHNode *node = new BVHNode();
     node->boundBox = objectsBoundBox;
@@ -54,43 +48,15 @@ BVHNode *BVH::generateTree(const std::vector<Geometry *> &objects, int depth)
 
     // 3.split objects into two children
     std::vector<Geometry *> leftObjects, rightObjects;
-    for(auto it = objects.begin(); it != objects.end(); it++)
-    {
-        BoundBox bbx = (*it)->getBoundBox();
-        if(bbx.isOverlapped(leftChildBoundBox))
-        {
-            leftObjects.push_back(*it);
-        }
-
-        if(bbx.isOverlapped(rightChildBoundBox))
-        {
-            rightObjects.push_back(*it);
-        }
-    }
-    assert(leftObjects.size() + rightObjects.size() >= objects.size());
-
-    //4.caculate new boundBox of children's
-    BoundBox leftBoundBox;
-    for(auto it = leftObjects.begin(); it != leftObjects.end(); it++)
-    {
-        leftBoundBox.update((*it)->getBoundBox());
-    }
-
-    BoundBox rightBoundBox;
-    for(auto it = rightObjects.begin(); it != rightObjects.end(); it++)
-    {
-        rightBoundBox.update((*it)->getBoundBox());
-    }
+    splitObjects(objects, leftChildBoundBox, rightChildBoundBox, leftObjects, rightObjects);
 
     // 4.stop if needed
 
     // 5.child->genrateTree()
     int l_size = leftObjects.size();
-    if(l_size == objectNum)
+    if(leftObjects.size() == objectNum)
     {
         node->objects = objects;
-        node->boundBox = leftBoundBox;
-
         return node;
     }
 
@@ -98,22 +64,14 @@ BVHNode *BVH::generateTree(const std::vector<Geometry *> &objects, int depth)
     if (r_size == objectNum)
     {
         node->objects = objects;
-        node->boundBox = rightBoundBox;
-
         return node;
     }
 
     if (l_size > 0)
-    {
-        std::cout << " L: ";
         node->leftChild = generateTree(leftObjects, depth + 1);
-    }
   
     if (r_size > 0)
-    {
-        std::cout << " R: ";
         node->rightChild = generateTree(rightObjects, depth + 1);
-    }
 
     if(!node->leftChild && !node->rightChild)
         node->objects = objects;
@@ -136,63 +94,36 @@ bool BVH::hit(BVHNode *node,
               const Ray &ray,
               HitRecord &record) const
 {
-    if(node->isLeaf())
-    {
-        return hitLeaf(ray, node->objects,record);
-    }
+    if (node->isLeaf())
+        return hitLeaf(ray, node->objects, record);
 
     BoundBox box = node->boundBox;
 
+    BVHNode *leftChild = node->leftChild;
+    BVHNode *rightChild = node->rightChild;
+
+    HitRecord leftRecord;
+    HitRecord rightRecord;
+
+    bool isLeftChildHit = false;
+    bool isRightChildHit = false;
+
     float t;
 
-    BVHNode *l = node->leftChild;
-    BVHNode *r = node->rightChild;
+    bool isIn = box.isInBox(ray.origin);
+    bool isHit = box.hit(ray, t);
 
-    HitRecord l_record;
-    HitRecord r_record;
-
-    bool b_l_leaf_hit = false;
-    bool b_r_leaf_hit = false;
-
-    bool is_in = box.isInBox(ray.origin);
-    bool is_hit = box.hit(ray, t);
-
-    if ( is_in || is_hit)
+    if (isIn || isHit)
     {
-        if (l)
-        {
-            if (l->isLeaf())
-            {
-               b_l_leaf_hit = hitLeaf(ray, l->objects, l_record);
-            }
-            else
-            {
-                hit(l, ray, l_record);
-            }
-        }
+        if (leftChild)
+            isLeftChildHit = hit(leftChild, ray, leftRecord);
 
-        if (r)
-        {
-            if (r->isLeaf())
-            {
-                b_r_leaf_hit = hitLeaf(ray, r->objects, r_record);
-            }
-            else
-            {
-                hit(r, ray, r_record);
-            }
-        }
+        if (rightChild)
+            isRightChildHit = hit(rightChild, ray, rightRecord);
 
-        if(l_record.t < r_record.t)
-        {
-            record = l_record;
-        }
-        else
-        {
-            record = r_record;
-        }
+        record = leftRecord.getCloserOne(rightRecord);
 
-        bool is_hit = b_l_leaf_hit || b_r_leaf_hit;
+        bool is_hit = isLeftChildHit || isRightChildHit;
         return is_hit;
     }
 
@@ -209,11 +140,6 @@ bool BVH::hitSceneWithLight(const Ray &ray,
     float tMin = Common::FLOAT_MAX;
 
     isHit = hit(m_rootNode, ray, record);
-
-    if(isHit)
-    {
-        int a = 333;
-    }
 
     float t;
     Vector3 normal;
@@ -250,11 +176,6 @@ bool BVH::hitLeaf(const Ray &ray, const std::vector<Geometry *> objects, HitReco
         }
     }
 
-    if(!hit)
-    {
-        int a = 3434;
-    }
-
     return hit;
 }
 
@@ -283,4 +204,47 @@ Color BVH::getColorFromLight(const Ray &ray) const
     }
 
     return Color::COLOR_BLACK;
+}
+
+BoundBox BVH::getBoundBox(const std::vector<Geometry *> &objects) const
+{
+    BoundBox objectsBoundBox;
+
+    for (auto it = objects.begin(); it != objects.end(); it++)
+    {
+        objectsBoundBox.update((*it)->getBoundBox());
+    }
+
+    return objectsBoundBox;
+}
+
+BoundBox BVH::getCentroidBox(const std::vector<Geometry *> &objects) const
+{
+    BoundBox centerBox;
+
+    for (auto it = objects.begin(); it != objects.end(); it++)
+    {
+        centerBox.update((*it)->getBoundBox().getCenter());
+    }
+
+    return centerBox;
+}
+
+void BVH::splitObjects(const std::vector<Geometry *> &objects, const BoundBox &leftBox, const BoundBox &rightBox, std::vector<Geometry *> &outLeftObjects, std::vector<Geometry *> &outRightObjects) const
+{
+     for(auto it = objects.begin(); it != objects.end(); it++)
+    {
+        BoundBox bbx = (*it)->getBoundBox();
+        if(bbx.isOverlapped(leftBox))
+        {
+            outLeftObjects.push_back(*it);
+        }
+
+        if(bbx.isOverlapped(rightBox))
+        {
+            outRightObjects.push_back(*it);
+        }
+    }
+
+    assert(outLeftObjects.size() + outRightObjects.size() >= objects.size());
 }

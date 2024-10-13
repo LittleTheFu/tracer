@@ -17,3 +17,11 @@ HitRecord::HitRecord()
 
     f = Color::COLOR_BLACK;
 }
+
+HitRecord HitRecord::getCloserOne(const HitRecord &that) const
+{
+    if(t< that.t)
+        return HitRecord(that);
+
+    return *this;
+}
