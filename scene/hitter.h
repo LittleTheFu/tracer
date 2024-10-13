@@ -6,25 +6,27 @@
 #include "color.h"
 #include <vector>
 #include "geometry.h"
+#include "hitterInterface.h"
 
-class Hitter
+class Hitter : public HitterInterface
 {
 public:
-    bool hitSceneWithLight(
+    virtual bool hitSceneWithLight(
         const std::vector<Geometry *> objects,
         const Light *light,
         const Ray &ray,
         HitRecord &record,
-        bool &out_isLightHit) const;
+        bool &out_isLightHit) const override;
 
-    Color getColorFromLight(const std::vector<Geometry *> objects,
+    virtual Color getColorFromLight(const std::vector<Geometry *> objects,
                             const Light *light,
-                            const Ray &ray) const;
+                            const Ray &ray) const override;
 
-    bool hitGeometryObjectOnly(const std::vector<Geometry *> objects,
+    virtual bool hitGeometryObjectOnly(const std::vector<Geometry *> objects,
                            const Ray &ray,
-                           HitRecord &record) const;
+                           HitRecord &record) const override;
 
+private:
     bool hitLightOnly(const Ray &ray,
                       const Light *pLight,
                       float &t,

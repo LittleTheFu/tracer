@@ -4,6 +4,7 @@
 #include "common.h"
 #include <algorithm>
 #include <cassert>
+#include "hitter.h"
 
 // #define _OBJECT_POOL_DEBUG_PRINT_
 

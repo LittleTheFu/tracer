@@ -8,7 +8,7 @@
 #include "color.h"
 #include "light.h"
 #include "transform.h"
-#include "hitter.h"
+#include "hitterInterface.h"
 
 class ObjectPool
 {
@@ -32,7 +32,7 @@ public:
 
 private:
     std::vector<Geometry *> m_objects;
-    Hitter *m_pHitter;
+    HitterInterface *m_pHitter;
 };
 
 #endif
