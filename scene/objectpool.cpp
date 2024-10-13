@@ -13,6 +13,11 @@ ObjectPool::ObjectPool()
     m_pHitter = new Hitter();
 }
 
+void ObjectPool::initHitter()
+{
+    m_pHitter->init(m_objects, m_pLight);
+}
+
 void ObjectPool::add(Geometry *pGeometry)
 {
     m_objects.push_back(pGeometry);
@@ -45,17 +50,17 @@ void ObjectPool::buildBoundBox()
 
 bool ObjectPool::hitSceneWithLight(const Ray &ray, HitRecord &record, bool &out_isLightHit) const
 {
-    return m_pHitter->hitSceneWithLight(m_objects, m_pLight, ray, record, out_isLightHit);
+    return m_pHitter->hitSceneWithLight(ray, record, out_isLightHit);
 }
 
 bool ObjectPool::hitScene(const Ray &ray, HitRecord &record) const
 {
-    return m_pHitter->hitGeometryObjectOnly(m_objects, ray, record);
+    return m_pHitter->hitGeometryObjectOnly(ray, record);
 }
 
 Color ObjectPool::getColorFromLight(const Ray &ray) const
 {
-    return m_pHitter->getColorFromLight(m_objects, m_pLight, ray);
+    return m_pHitter->getColorFromLight(ray);
 }
 
 std::vector<Geometry *> ObjectPool::getObjects() const

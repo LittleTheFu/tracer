@@ -10,20 +10,23 @@
 class HitterInterface
 {
 public:
+    virtual void init(const std::vector<Geometry *> &objects, const Light *light);
+
+public:
     virtual bool hitSceneWithLight(
-        const std::vector<Geometry *> objects,
-        const Light *light,
         const Ray &ray,
         HitRecord &record,
         bool &out_isLightHit) const;
 
-    virtual Color getColorFromLight(const std::vector<Geometry *> objects,
-                            const Light *light,
-                            const Ray &ray) const;
+    virtual Color getColorFromLight(const Ray &ray) const;
 
-    virtual bool hitGeometryObjectOnly(const std::vector<Geometry *> objects,
-                               const Ray &ray,
-                               HitRecord &record) const;
+    virtual bool hitGeometryObjectOnly(
+        const Ray &ray,
+        HitRecord &record) const;
+
+protected:
+    std::vector<Geometry *> m_objects;
+    const Light *m_pLight;
 };
 
 #endif

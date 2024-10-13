@@ -15,6 +15,8 @@ class ObjectPool
 public:
     ObjectPool();
 
+    void initHitter();
+
     void add(Geometry *pGeometry);
     void add(Light *pLight);
 

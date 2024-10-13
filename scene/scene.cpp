@@ -57,6 +57,7 @@ void Scene::preRender()
     m_pObjectPool->applyTransfrom(t);
 
     m_pObjectPool->buildBoundBox();
+    m_pObjectPool->initHitter();
     m_pBvh->init(m_pObjectPool->getObjects(), m_pObjectPool->m_pLight);
 }
 

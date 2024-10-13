@@ -11,27 +11,12 @@
 class Hitter : public HitterInterface
 {
 public:
-    virtual bool hitSceneWithLight(
-        const std::vector<Geometry *> objects,
-        const Light *light,
-        const Ray &ray,
-        HitRecord &record,
-        bool &out_isLightHit) const override;
-
-    virtual Color getColorFromLight(const std::vector<Geometry *> objects,
-                            const Light *light,
-                            const Ray &ray) const override;
-
-    virtual bool hitGeometryObjectOnly(const std::vector<Geometry *> objects,
-                           const Ray &ray,
-                           HitRecord &record) const override;
+    virtual bool hitSceneWithLight(const Ray &ray, HitRecord &record, bool &out_isLightHit) const override;
+    virtual Color getColorFromLight(const Ray &ray) const override;
+    virtual bool hitGeometryObjectOnly(const Ray &ray, HitRecord &record) const override;
 
 private:
-    bool hitLightOnly(const Ray &ray,
-                      const Light *pLight,
-                      float &t,
-                      Vector3 &normal,
-                      float &dot) const;
+    bool hitLightOnly(const Ray &ray, float &t, Vector3 &normal, float &dot) const;
 };
 
 #endif
