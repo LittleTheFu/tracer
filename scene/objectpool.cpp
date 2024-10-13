@@ -37,8 +37,8 @@ void ObjectPool::buildBoundBox()
     for (std::vector<Geometry *>::const_iterator it = m_objects.begin(); it != m_objects.end(); it++)
     {
         (*it)->buildBoundBox();
-        std::cout << (*it)->getClassName() << std::endl;
-        std::cout << (*it)->getBoundBox() << std::endl;
+        // std::cout << (*it)->getClassName() << std::endl;
+        // std::cout << (*it)->getBoundBox() << std::endl;
     }
 }
 

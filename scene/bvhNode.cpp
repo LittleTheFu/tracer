@@ -15,7 +15,7 @@ void BVHNode::print(const std::string &prefix) const
     int num = objects.size();
 
     std::cout << prefix << "|" << l << r << num << std::endl;
-    std::cout << boundBox << std::endl;
+    // std::cout << boundBox << std::endl;
     // for(auto it = objects.begin(); it != objects.end(); it++)
     // {
     //     std::cout <<(*it)->getClassName() << "  ";
