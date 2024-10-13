@@ -26,6 +26,7 @@ public:
     Vector3 div_component_wise(const Vector3 &that) const;
     Vector3 max_component_wise(const Vector3 &that) const;
     Vector3 min_component_wise(const Vector3 &that) const;
+    bool less_or_equal_component_wise(const Vector3 &that) const;
 
     bool operator==(const Vector3 &that) const;
     bool operator!=(const Vector3 &that) const;

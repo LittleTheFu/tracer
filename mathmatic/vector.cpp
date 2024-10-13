@@ -107,6 +107,15 @@ Vector3 Vector3::min_component_wise(const Vector3 &that) const
     return Vector3(x, y, z);
 }
 
+bool Vector3::less_or_equal_component_wise(const Vector3 &that) const
+{
+    bool bX = (x <= that.x);
+    bool bY = (y <= that.y);
+    bool bZ = (z <= that.z);
+
+    return bX && bY && bZ;
+}
+
 Vector3 &Vector3::operator/=(float m)
 {
     x /= m;

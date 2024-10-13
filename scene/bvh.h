@@ -12,9 +12,7 @@ public:
     const Light *m_pLight;
 
     void build();
-    BVHNode* generateTree(const std::vector<Geometry *> &objects,
-                      int parentSize,
-                      int depth);
+    BVHNode *generateTree(const std::vector<Geometry *> &objects, int depth);
 
     void printNode(BVHNode *node, const std::string &prefix);
     bool hit(BVHNode *node,

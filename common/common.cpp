@@ -93,13 +93,18 @@ const float Common::clamp(float v, float min, float max)
     return v;
 }
 
-const bool Common::getOverlap(float t0_min, float t0_max, float t1_min, float t1_max, float &tMin, float &tMax)
+const bool Common::getOverlap(float t00, float t01, float t10, float t11, float &tMin, float &tMax)
 {
-    // if(t0_min > t0_max)
-    //     std::swap(t0_min, t0_max);
+    float t0_min = t00;
+    float t0_max = t01;
+    float t1_min = t10;
+    float t1_max = t11;
+    
+    if(t0_min > t0_max)
+        std::swap(t0_min, t0_max);
 
-    // if(t1_min > t1_max)
-    //     std::swap(t1_min, t1_max);
+    if(t1_min > t1_max)
+        std::swap(t1_min, t1_max);
 
     //swap the two lines to keep t0_min is the smaller min
     if(t0_min > t1_min)

@@ -80,10 +80,10 @@ void SceneBuilder::buildRoom()
     // rightPlane->setTag(Common::TAG_PLANE_RIGHT);
 
     m_pObjectPool->add(frontPlane);
-    // m_pObjectPool->add(backPlane);
-    // m_pObjectPool->add(topPlane);
-    // m_pObjectPool->add(bottomPlane);
-    // m_pObjectPool->add(leftPlane);
+    m_pObjectPool->add(backPlane);
+    m_pObjectPool->add(topPlane);
+    m_pObjectPool->add(bottomPlane);
+    m_pObjectPool->add(leftPlane);
     m_pObjectPool->add(rightPlane);
 }
 

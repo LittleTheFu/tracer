@@ -13,36 +13,33 @@ void BVH::init(const std::vector<Geometry *> objects, const Light *light)
 
 void BVH::build()
 {
-    m_rootNode = generateTree(m_objects, 100000, 0);
+    m_rootNode = generateTree(m_objects, 0);
 
     std::cout << "after generateTree" << std::endl;
     printNode(m_rootNode,"");
 }
 
-BVHNode *BVH::generateTree(const std::vector<Geometry *> &objects,
-                           int parentSize,
-                           int depth)
+BVHNode *BVH::generateTree(const std::vector<Geometry *> &objects, int depth)
 {
-    BoundBox parentBoundBox;
+    BoundBox objectsBoundBox;
     BoundBox centerBox;
 
     for (auto it = objects.begin(); it != objects.end(); it++)
     {
-        parentBoundBox.update((*it)->getBoundBox());
+        objectsBoundBox.update((*it)->getBoundBox());
         centerBox.update((*it)->getBoundBox().getCenter());
     }
 
-    int num = objects.size();
-    parentSize = num;
-    std::cout << "[" << num << "]" << ":" << depth << std::endl;
+    int objectNum = objects.size();
+    std::cout << "[" << objectNum << "]" << ":" << depth << std::endl;
 
     BVHNode *node = new BVHNode();
-    node->boundBox = parentBoundBox;
+    node->boundBox = objectsBoundBox;
 
     if( depth > 20)
     {
         node->objects = objects;
-        node->boundBox = parentBoundBox;
+        node->boundBox = objectsBoundBox;
 
         return node;
     }
@@ -53,7 +50,7 @@ BVHNode *BVH::generateTree(const std::vector<Geometry *> &objects,
     // 2.get the position to split along the axis
     //split bound box
     BoundBox leftChildBoundBox, rightChildBoundBox;
-    parentBoundBox.split(axis, leftChildBoundBox, rightChildBoundBox);
+    objectsBoundBox.split(axis, leftChildBoundBox, rightChildBoundBox);
 
     // 3.split objects into two children
     std::vector<Geometry *> leftObjects, rightObjects;
@@ -64,36 +61,32 @@ BVHNode *BVH::generateTree(const std::vector<Geometry *> &objects,
         {
             leftObjects.push_back(*it);
         }
-        else if(bbx.isOverlapped(rightChildBoundBox))
+
+        if(bbx.isOverlapped(rightChildBoundBox))
         {
             rightObjects.push_back(*it);
         }
-        else
-        {
-            assert(0);
-        }
     }
+    assert(leftObjects.size() + rightObjects.size() >= objects.size());
 
     //4.caculate new boundBox of children's
-    BoundBox leftBoundBox, leftCenterBox;
+    BoundBox leftBoundBox;
     for(auto it = leftObjects.begin(); it != leftObjects.end(); it++)
     {
         leftBoundBox.update((*it)->getBoundBox());
-        leftCenterBox.update((*it)->getBoundBox().getCenter());
     }
 
-    BoundBox rightBoundBox, rightCenterBox;
+    BoundBox rightBoundBox;
     for(auto it = rightObjects.begin(); it != rightObjects.end(); it++)
     {
         rightBoundBox.update((*it)->getBoundBox());
-        rightCenterBox.update((*it)->getBoundBox().getCenter());
     }
 
     // 4.stop if needed
 
     // 5.child->genrateTree()
     int l_size = leftObjects.size();
-    if(l_size == parentSize)
+    if(l_size == objectNum)
     {
         node->objects = objects;
         node->boundBox = leftBoundBox;
@@ -102,7 +95,7 @@ BVHNode *BVH::generateTree(const std::vector<Geometry *> &objects,
     }
 
     int r_size = rightObjects.size();
-    if (r_size == parentSize)
+    if (r_size == objectNum)
     {
         node->objects = objects;
         node->boundBox = rightBoundBox;
@@ -113,13 +106,13 @@ BVHNode *BVH::generateTree(const std::vector<Geometry *> &objects,
     if (l_size > 0)
     {
         std::cout << " L: ";
-        node->leftChild = generateTree(leftObjects, l_size, depth + 1);
+        node->leftChild = generateTree(leftObjects, depth + 1);
     }
   
     if (r_size > 0)
     {
         std::cout << " R: ";
-        node->rightChild = generateTree(rightObjects, r_size, depth + 1);
+        node->rightChild = generateTree(rightObjects, depth + 1);
     }
 
     if(!node->leftChild && !node->rightChild)

@@ -20,7 +20,7 @@ public:
     const static bool is_float_zero(float x);
     const static float clamp(float v, float min, float max);
 
-    const static bool getOverlap(float t0_min, float t0_max, float t1_min, float t1_max, float &tMin, float &tMax);
+    const static bool getOverlap(float t00, float t01, float t10, float t11, float &tMin, float &tMax);
 
     //a*x*x + b*x + c = 0
     const static float delta(float a, float b, float c);
