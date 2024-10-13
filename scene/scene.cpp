@@ -58,7 +58,7 @@ void Scene::preRender()
 
     m_pObjectPool->buildBoundBox();
     m_pObjectPool->initHitter();
-    m_pBvh->init(m_pObjectPool->getObjects(), m_pObjectPool->m_pLight);
+    // m_pBvh->init(m_pObjectPool->getObjects(), m_pObjectPool->m_pLight);
 }
 
 void Scene::render()

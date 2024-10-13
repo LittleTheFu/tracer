@@ -3,10 +3,9 @@
 #include "common.h"
 #include <cassert>
 
-void BVH::init(const std::vector<Geometry *> objects, const Light *light)
+void BVH::init(const std::vector<Geometry *> &objects, const Light *light)
 {
-    m_objects = objects;
-    m_pLight = light;
+    HitterInterface::init(objects, light);
 
     build();
 }
@@ -90,7 +89,7 @@ void BVH::printNode(BVHNode *node, const std::string &prefix)
         printNode(node->rightChild, prefix + "~~");
 }
 
-bool BVH::hit(BVHNode *node,
+bool BVH::_hitGeometryObjectOnly(BVHNode *node,
               const Ray &ray,
               HitRecord &record) const
 {
@@ -116,10 +115,10 @@ bool BVH::hit(BVHNode *node,
     if (isIn || isHit)
     {
         if (leftChild)
-            isLeftChildHit = hit(leftChild, ray, leftRecord);
+            isLeftChildHit = _hitGeometryObjectOnly(leftChild, ray, leftRecord);
 
         if (rightChild)
-            isRightChildHit = hit(rightChild, ray, rightRecord);
+            isRightChildHit = _hitGeometryObjectOnly(rightChild, ray, rightRecord);
 
         record = leftRecord.getCloserOne(rightRecord);
 
@@ -130,6 +129,11 @@ bool BVH::hit(BVHNode *node,
     return false;
 }
 
+bool BVH::hitGeometryObjectOnly(const Ray &ray, HitRecord &record) const
+{
+    return _hitGeometryObjectOnly(m_rootNode, ray, record);
+}
+
 bool BVH::hitSceneWithLight(const Ray &ray,
                             HitRecord &record,
                             bool &out_isLightHit) const
@@ -138,7 +142,7 @@ bool BVH::hitSceneWithLight(const Ray &ray,
 
     bool isHit = false;
 
-    isHit = hit(m_rootNode, ray, record);
+    isHit = _hitGeometryObjectOnly(m_rootNode, ray, record);
     float tMin = record.t;
 
     float t;
@@ -193,7 +197,7 @@ Color BVH::getColorFromLight(const Ray &ray) const
     Color color = Color::COLOR_WHITE;
 
     HitRecord record;
-    if (!hit(m_rootNode, ray, record))
+    if (!_hitGeometryObjectOnly(m_rootNode, ray, record))
     {
         return color * dot;
     }

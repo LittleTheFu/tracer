@@ -4,20 +4,20 @@
 #include <vector>
 #include "geometry.h"
 #include "bvhNode.h"
+#include "hitterInterface.h"
 
-class BVH
+class BVH : public HitterInterface
 {
 public:
-    const Light *m_pLight;
+    virtual void init(const std::vector<Geometry *> &objects, const Light *light) override;
 
-public:
-    void init(const std::vector<Geometry *> objects, const Light *light);
-
-    bool hit(BVHNode *node, const Ray &ray, HitRecord &record) const;
-    bool hitSceneWithLight(const Ray &ray, HitRecord &record, bool &out_isLightHit) const;
-    Color getColorFromLight(const Ray &ray) const;
+    virtual bool hitGeometryObjectOnly(const Ray &ray, HitRecord &record) const override;
+    virtual bool hitSceneWithLight(const Ray &ray, HitRecord &record, bool &out_isLightHit) const override;
+    virtual Color getColorFromLight(const Ray &ray) const override;
 
 private:
+    bool _hitGeometryObjectOnly(BVHNode *node, const Ray &ray, HitRecord &record) const;
+
     void build();
 
     BVHNode *generateTree(const std::vector<Geometry *> &objects, int depth);

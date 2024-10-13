@@ -5,12 +5,14 @@
 #include <algorithm>
 #include <cassert>
 #include "hitter.h"
+#include "bvh.h"
 
 // #define _OBJECT_POOL_DEBUG_PRINT_
 
 ObjectPool::ObjectPool()
 {
     m_pHitter = new Hitter();
+    // m_pHitter = new BVH();
 }
 
 void ObjectPool::initHitter()
