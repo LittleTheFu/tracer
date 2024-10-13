@@ -20,8 +20,8 @@ HitRecord::HitRecord()
 
 HitRecord HitRecord::getCloserOne(const HitRecord &that) const
 {
-    if(t< that.t)
-        return HitRecord(that);
+    if (t < that.t)
+        return *this;
 
-    return *this;
+    return HitRecord(that);
 }
