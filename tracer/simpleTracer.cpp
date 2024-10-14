@@ -1,8 +1,6 @@
 #include "simpleTracer.h"
 #include <cassert>
 
-#define _USE_POOL_ (1)
-
 Color SimpleTracer::trace(const ObjectPool *pool,
                           const BVH *bvh,
                           Ray &ray,
@@ -17,11 +15,7 @@ Color SimpleTracer::trace(const ObjectPool *pool,
     HitRecord record;
 
     bool isLightHit = false;
-#if(_USE_POOL_)
     if (!pool->hitSceneWithLight(ray, record, isLightHit))
-#else
-    if (!bvh->hitSceneWithLight(ray, record, isLightHit))
-#endif()
     {
         return Color::COLOR_BLACK;
     }
@@ -60,11 +54,7 @@ Color SimpleTracer::HandleLastBounce(const ObjectPool *pool,
         return Color::COLOR_BLACK;
     }
     
-#if(_USE_POOL_)
     Color lightColor = pool->getColorFromLight(ray);
-#else
-    Color lightColor = bvh->getColorFromLight(ray);
-#endif()
 
     // is this line needed?
     lightColor = lightColor * currentState.dot;
@@ -85,11 +75,7 @@ void SimpleTracer::prepareSampleLight(const ObjectPool *pool,
     if (record.isDelta)
         return;
 
-#if(_USE_POOL_)
     Vector3 lightSurfacePoint = pool->m_pLight->sample(record.point, record.reflectPdf);
-#else
-    Vector3 lightSurfacePoint = bvh->m_pLight->sample(record.point, record.reflectPdf);
-#endif()
     Vector3 lightDir = lightSurfacePoint - record.point;
     lightDir.normalize();
 
