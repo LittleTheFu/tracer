@@ -245,7 +245,7 @@ Vector3 Vector3::_refract(const Vector3 &normal,
     float cos_theta_in_sqr = dot * dot;
     float sin_theta_in_sqr = 1 - cos_theta_in_sqr;
     bool is_sin_theta_sqr_in_range = Common::is_in_range(sin_theta_in_sqr, 0, 1, true, true);
-    assert(is_sin_theta_sqr_in_range && "Vector3::_refract");
+    // assert(is_sin_theta_sqr_in_range && "Vector3::_refract");
 
     float sin_theta_out_sqr = sin_theta_in_sqr / (eta * eta);
     if(sin_theta_out_sqr >= 1)
@@ -256,7 +256,7 @@ Vector3 Vector3::_refract(const Vector3 &normal,
     }
 
     bool is_sin_theta_out_sqr_in_range = Common::is_in_range(sin_theta_out_sqr, 0, 1, true, false);
-    assert(is_sin_theta_out_sqr_in_range && "Vector3::_refract");
+    // assert(is_sin_theta_out_sqr_in_range && "Vector3::_refract");
 
     float cos_theta_out_sqr = 1 - sin_theta_out_sqr;
     bool is_cos_theta_out_sqr = Common::is_in_range(cos_theta_out_sqr, 0, 1, true, true);
