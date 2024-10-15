@@ -43,8 +43,8 @@ BVHNode *BVH::generateTree(const std::vector<Geometry *> &objects, int depth)
     // 2.get the position to split along the axis
     //split bound box
     BoundBox leftChildBoundBox, rightChildBoundBox;
-    // objectsBoundBox.split(axis, 0.5, leftChildBoundBox, rightChildBoundBox);
-    calcBestSplit(objects, leftChildBoundBox, rightChildBoundBox);
+    objectsBoundBox.split(axis, 0.5, leftChildBoundBox, rightChildBoundBox);
+    // calcBestSplit(objects, leftChildBoundBox, rightChildBoundBox);
 
     // 3.split objects into two children
     std::vector<Geometry *> leftObjects, rightObjects;
@@ -239,19 +239,19 @@ void BVH::splitObjects(const std::vector<Geometry *> &objects, const BoundBox &l
 {
      for(auto it = objects.begin(); it != objects.end(); it++)
     {
-        BoundBox bbx = (*it)->getBoundBox();
-        if(bbx.isOverlapped(leftBox))
+        Vector3 centroid = (*it)->getBoundBox().getCenter();
+        if(leftBox.isInBox(centroid))
         {
             outLeftObjects.push_back(*it);
         }
 
-        if(bbx.isOverlapped(rightBox))
+        if(rightBox.isInBox(centroid))
         {
             outRightObjects.push_back(*it);
         }
     }
 
-    assert(outLeftObjects.size() + outRightObjects.size() >= objects.size());
+    // assert(outLeftObjects.size() + outRightObjects.size() >= objects.size());
 }
 
 void BVH::calcBestSplit(const std::vector<Geometry *> &objects, BoundBox &outLeftBox, BoundBox &outRightBox) const
@@ -328,4 +328,6 @@ void BVH::calcBestSplit(const std::vector<Geometry *> &objects, BoundBox &outLef
 
     float splitPercent = percent * (splitIndex + 1);
     assert(Common::is_in_range(splitPercent, 0, 1, true, true));
+
+    boundBox.split(axis, splitPercent, outLeftBox, outRightBox);
 }
