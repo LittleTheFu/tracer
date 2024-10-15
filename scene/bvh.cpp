@@ -43,7 +43,8 @@ BVHNode *BVH::generateTree(const std::vector<Geometry *> &objects, int depth)
     // 2.get the position to split along the axis
     //split bound box
     BoundBox leftChildBoundBox, rightChildBoundBox;
-    objectsBoundBox.split(axis, leftChildBoundBox, rightChildBoundBox);
+    // objectsBoundBox.split(axis, 0.5, leftChildBoundBox, rightChildBoundBox);
+    calcBestSplit(objects, leftChildBoundBox, rightChildBoundBox);
 
     // 3.split objects into two children
     std::vector<Geometry *> leftObjects, rightObjects;
@@ -253,6 +254,78 @@ void BVH::splitObjects(const std::vector<Geometry *> &objects, const BoundBox &l
     assert(outLeftObjects.size() + outRightObjects.size() >= objects.size());
 }
 
-void BVH::calcBestSplit(const std::vector<Geometry *> &objects) const
+void BVH::calcBestSplit(const std::vector<Geometry *> &objects, BoundBox &outLeftBox, BoundBox &outRightBox) const
 {
+    //1.get main axis
+    BoundBox centerBox = getCentroidBox(objects);
+    Common::Axis axis = centerBox.getMainAxis();
+
+    BoundBox boundBox = getBoundBox(objects);
+    
+    //2.create buckets
+    const int BUCKET_NUM = 12;
+    Bucket buckets[BUCKET_NUM];
+
+    float percent = 1.0f / BUCKET_NUM;
+    for(int i = 0; i < BUCKET_NUM; i++)
+    {
+        float startPercent = i * percent;
+        float endPercent = (i + 1) * percent;
+
+        buckets[i].originBoundBox = boundBox.createSubBox(axis, startPercent, endPercent);
+        buckets[i].updatedBoundBox.update(buckets[i].originBoundBox.getCenter());
+    }
+
+    //3.do calc in each bucket
+    for(auto it = objects.begin(); it != objects.end(); it++)
+    {
+        for(int i = 0; i < BUCKET_NUM; i++)
+        {
+            Vector3 centroid = (*it)->getBoundBox().getCenter();
+            if(buckets[i].originBoundBox.isInBox(centroid))
+            {
+                BoundBox box = (*it)->getBoundBox();
+                buckets[i].num++;
+                buckets[i].updatedBoundBox.update(box);
+            }
+        }
+    }
+
+    //4.get the spilt with smallest cost
+    float cost[BUCKET_NUM];
+    std::fill_n(cost, BUCKET_NUM, 0);
+
+    BoundBox boundBelow;
+    int countBelow = 0;
+    for(int i = 0; i < BUCKET_NUM; i++)
+    {
+        boundBelow.update(buckets[i].updatedBoundBox);
+        countBelow += buckets[i].num;
+        cost[i] += countBelow * boundBelow.surfaceArea();
+    }
+
+    BoundBox boundAbove;
+    int countAbove = 0;
+    for(int i = BUCKET_NUM - 1; i >= 0; i--)
+    {
+        boundAbove.update(buckets[i].updatedBoundBox);
+        countAbove += buckets[i].num;
+        cost[i] += countAbove * boundAbove.surfaceArea();
+    }
+
+    float minCost = Common::FLOAT_MAX;
+    int splitIndex = -1;
+    for(int i = 0; i < BUCKET_NUM; i++)
+    {
+        if(cost[i] < minCost)
+        {
+            minCost = cost[i];
+            splitIndex = i;
+        }
+    }
+
+    assert(splitIndex != -1);
+
+    float splitPercent = percent * (splitIndex + 1);
+    assert(Common::is_in_range(splitPercent, 0, 1, true, true));
 }

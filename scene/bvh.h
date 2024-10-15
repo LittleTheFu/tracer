@@ -34,7 +34,17 @@ private:
                       std::vector<Geometry *> &outLeftObjects,
                       std::vector<Geometry *> &outRightObjects) const;
 
-    void calcBestSplit(const std::vector<Geometry *> &objects) const;
+    class Bucket
+    {
+    public:
+        Bucket() : num(0){};
+
+        int num;
+        BoundBox originBoundBox;
+        BoundBox updatedBoundBox;
+    };
+
+    void calcBestSplit(const std::vector<Geometry *> &objects, BoundBox &outLeftBox, BoundBox &outRightBox) const;
 
 private:
     BVHNode *m_rootNode;

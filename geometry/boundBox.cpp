@@ -61,6 +61,39 @@ float BoundBox::surfaceArea() const
     return area;
 }
 
+BoundBox BoundBox::createSubBox(Common::Axis axis, float startPercent, float endPercent) const
+{
+    assert(startPercent < endPercent);
+    assert(Common::is_in_range(startPercent, 0, 1, true, true));
+    assert(Common::is_in_range(endPercent, 0, 1, true, true));
+
+    Vector3 e = maxPoint - minPoint;
+    Vector3 min = minPoint;
+    Vector3 max = maxPoint;
+
+    if(axis == Common::Axis::X)
+    {
+        min.x = min.x + e.x * startPercent;
+        max.x = min.x + e.x * endPercent;
+    }
+    else if(axis == Common::Axis::Y)
+    {
+        min.y = min.y + e.y * startPercent;
+        max.y = min.y + e.y * endPercent;
+    }
+    else
+    {
+        min.z = min.z + e.z * startPercent;
+        max.z = min.z + e.z * endPercent;
+    }
+
+    BoundBox box;
+    box.update(min);
+    box.update(max);
+
+    return box;
+}
+
 bool BoundBox::isOverlapped(const BoundBox &that) const
 {
     float tMinDummy, tMaxDummy;
@@ -79,39 +112,46 @@ bool BoundBox::isOverlapped(const BoundBox &that) const
     return bX && bY && bZ;
 }
 
-void BoundBox::split(Common::Axis axis, BoundBox &outBox1, BoundBox &outBox2) const
+void BoundBox::split(Common::Axis axis, float percent, BoundBox &outBox1, BoundBox &outBox2) const
 {
+    assert(Common::is_in_range(percent, 0, 1, true, true));
+
     BoundBox b1, b2;
     Vector3 minP1, minP2, maxP1, maxP2;
-    Vector3 e_div_2 = getExtend() / 2;//extent / 2
-    Vector3 d;
+    Vector3 e = getExtend() * percent;
+    Vector3 f = getExtend() * (1 - percent);
+    Vector3 toMin;
+    Vector3 toMax;
 
     //refactor later...
     if(axis == Common::Axis::X)
     {
-        d = Vector3(e_div_2.x, 0, 0);
+        toMin = Vector3(e.x, 0, 0);
+        toMax = Vector3(f.x, 0, 0);
 
         minP1 = minPoint;
-        maxP1 = maxPoint - d;
-        minP2 = minPoint + d;
+        maxP1 = maxPoint - toMax;
+        minP2 = minPoint + toMin;
         maxP2 = maxPoint;
     }
     else if(axis == Common::Axis::Y)
     {
-        d = Vector3(0, e_div_2.y, 0);
+        toMin = Vector3(0, e.y, 0);
+        toMax = Vector3(0, f.y, 0);
 
         minP1 = minPoint;
-        maxP1 = maxPoint - d;
-        minP2 = minPoint + d;
+        maxP1 = maxPoint - toMax;
+        minP2 = minPoint + toMin;
         maxP2 = maxPoint;
     }
     else
     {
-        d = Vector3(0, 0, e_div_2.z);
+        toMin = Vector3(0, 0, e.z);
+        toMax = Vector3(0, 0, f.z);
 
         minP1 = minPoint;
-        maxP1 = maxPoint - d;
-        minP2 = minPoint + d;
+        maxP1 = maxPoint - toMax;
+        minP2 = minPoint + toMin;
         maxP2 = maxPoint;
     }
 

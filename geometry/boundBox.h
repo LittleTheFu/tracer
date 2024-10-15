@@ -19,8 +19,10 @@ public:
 
     float surfaceArea() const;
 
+    BoundBox createSubBox(Common::Axis axis, float startPercent, float endPercent) const;
+
     bool isOverlapped(const BoundBox &that) const;
-    void split(Common::Axis axis, BoundBox &outBox1, BoundBox &outBox2) const;
+    void split(Common::Axis axis, float percent, BoundBox &outBox1, BoundBox &outBox2) const;
     void update(const Vector3 &p);
     void update(const BoundBox &b);
     
