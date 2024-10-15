@@ -38,7 +38,7 @@ BVHNode *BVH::generateTree(const std::vector<Geometry *> &objects, int depth)
     }
 
     // 1.get the main axis
-    BoundBox::Axis axis = centerBox.getMainAxis();
+    Common::Axis axis = centerBox.getMainAxis();
 
     // 2.get the position to split along the axis
     //split bound box

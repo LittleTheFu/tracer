@@ -8,6 +8,14 @@
 class Common
 {
 public:
+    enum class Axis
+    {
+        X = 0,
+        Y,
+        Z,
+    };
+
+public:
     const static float PI;
     const static float TWO_PI;
     const static float FOUR_PI;

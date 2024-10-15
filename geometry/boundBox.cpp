@@ -1,6 +1,5 @@
 #include "boundBox.h"
 #include <algorithm>
-#include "common.h"
 #include <cassert>
 
 BoundBox::BoundBox()
@@ -31,17 +30,17 @@ Vector3 BoundBox::getCenter() const
     return center;
 }
 
-float BoundBox::getExtentByAxis(BoundBox::Axis axis) const
+float BoundBox::getExtentByAxis(Common::Axis axis) const
 {
     Vector3 extent = getExtend();
 
-    if (axis == BoundBox::Axis::X)
+    if (axis == Common::Axis::X)
         return extent.x;
 
-    if (axis == BoundBox::Axis::Y)
+    if (axis == Common::Axis::Y)
         return extent.y;
 
-    if (axis == BoundBox::Axis::Z)
+    if (axis == Common::Axis::Z)
         return extent.z;
 
     return 0;
@@ -80,7 +79,7 @@ bool BoundBox::isOverlapped(const BoundBox &that) const
     return bX && bY && bZ;
 }
 
-void BoundBox::split(BoundBox::Axis axis, BoundBox &outBox1, BoundBox &outBox2) const
+void BoundBox::split(Common::Axis axis, BoundBox &outBox1, BoundBox &outBox2) const
 {
     BoundBox b1, b2;
     Vector3 minP1, minP2, maxP1, maxP2;
@@ -88,7 +87,7 @@ void BoundBox::split(BoundBox::Axis axis, BoundBox &outBox1, BoundBox &outBox2) 
     Vector3 d;
 
     //refactor later...
-    if(axis == BoundBox::Axis::X)
+    if(axis == Common::Axis::X)
     {
         d = Vector3(e_div_2.x, 0, 0);
 
@@ -97,7 +96,7 @@ void BoundBox::split(BoundBox::Axis axis, BoundBox &outBox1, BoundBox &outBox2) 
         minP2 = minPoint + d;
         maxP2 = maxPoint;
     }
-    else if(axis == BoundBox::Axis::Y)
+    else if(axis == Common::Axis::Y)
     {
         d = Vector3(0, e_div_2.y, 0);
 
@@ -217,7 +216,7 @@ bool BoundBox::hit(const Ray &ray, float &t) const
     return true;
 }
 
-BoundBox::Axis BoundBox::getMainAxis() const
+Common::Axis BoundBox::getMainAxis() const
 {
     Vector3 extent = getExtend();
 
@@ -228,16 +227,16 @@ BoundBox::Axis BoundBox::getMainAxis() const
     if (x > y)
     {
         if (x > z)
-            return BoundBox::Axis::X;
+            return Common::Axis::X;
         else
-            return BoundBox::Axis::Z;
+            return Common::Axis::Z;
     }
     else
     {
         if (y > z)
-            return BoundBox::Axis::Y;
+            return Common::Axis::Y;
         else
-            return BoundBox::Axis::Z;
+            return Common::Axis::Z;
     }
 }
 
