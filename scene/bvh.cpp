@@ -252,3 +252,7 @@ void BVH::splitObjects(const std::vector<Geometry *> &objects, const BoundBox &l
 
     assert(outLeftObjects.size() + outRightObjects.size() >= objects.size());
 }
+
+void BVH::calcBestSplit(const std::vector<Geometry *> &objects) const
+{
+}

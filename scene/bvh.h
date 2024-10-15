@@ -34,6 +34,8 @@ private:
                       std::vector<Geometry *> &outLeftObjects,
                       std::vector<Geometry *> &outRightObjects) const;
 
+    void calcBestSplit(const std::vector<Geometry *> &objects) const;
+
 private:
     BVHNode *m_rootNode;
 };
