@@ -237,18 +237,40 @@ BoundBox BVH::getCentroidBox(const std::vector<Geometry *> &objects) const
 
 void BVH::splitObjects(const std::vector<Geometry *> &objects, const BoundBox &leftBox, const BoundBox &rightBox, std::vector<Geometry *> &outLeftObjects, std::vector<Geometry *> &outRightObjects) const
 {
+    BoundBox localLeftBox = leftBox;
+    localLeftBox *= 1.05f;
+    BoundBox localRightBox = rightBox;
+    localRightBox *= 1.05f;
+
      for(auto it = objects.begin(); it != objects.end(); it++)
     {
+        bool b_l = false;
+        bool b_r = false;
         Vector3 centroid = (*it)->getBoundBox().getCenter();
-        if(leftBox.isInBox(centroid))
+        if(localLeftBox.isInBox(centroid))
         {
             outLeftObjects.push_back(*it);
+
+            b_l = true;
         }
 
-        if(rightBox.isInBox(centroid))
+        if(localRightBox.isInBox(centroid))
         {
             outRightObjects.push_back(*it);
+
+            b_r = true;
         }
+
+        if(!b_l && !b_r)
+        {
+            int asa = 22;
+        }
+    }
+
+    bool aaa = outLeftObjects.size() + outRightObjects.size() >= objects.size();
+    if(!aaa)
+    {
+        int bbb = 333;
     }
 
     // assert(outLeftObjects.size() + outRightObjects.size() >= objects.size());

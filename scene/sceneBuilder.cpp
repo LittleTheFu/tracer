@@ -43,7 +43,7 @@ void SceneBuilder::createMaterials()
 void SceneBuilder::buildRoom()
 {
     const float c = 100;
-    const float r = 5 * c;
+    const float r = 2.5 * c;
 
     Vector3 leftRotate(0, Common::PI / 2, 0);
     Vector3 leftPosition(-c, 0, 0);
@@ -177,7 +177,7 @@ void SceneBuilder::buildBunny(const Vector3& pos, float scale)
     // Vector3 pos(60, 60, 350);
     // float scale = 300;
 
-    Mesh *bunny = new Mesh(Common::SIMPLE_BUNNY, pos, scale, lambMtrlRed);
+    Mesh *bunny = new Mesh(Common::LOW_LOW_BUNNY, pos, scale, lambMtrlYellow);
     bunny->addToPool(m_pObjectPool);
 }
 
