@@ -11,6 +11,8 @@ public:
 
     void print(const std::string &prefix) const;
     bool isLeaf() const;
+
+    int getSize() const;
     
 public:
     BoundBox boundBox;

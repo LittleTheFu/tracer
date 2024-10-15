@@ -12,7 +12,7 @@ void BVHNode::print(const std::string &prefix) const
 {
     std::string l = leftChild ? " L " : " N ";
     std::string r = rightChild ? " R " : " N ";
-    int num = objects.size();
+    int num = getSize();
 
     std::cout << prefix << "|" << l << r << num << std::endl;
     // std::cout << boundBox << std::endl;
@@ -26,4 +26,20 @@ void BVHNode::print(const std::string &prefix) const
 bool BVHNode::isLeaf() const
 {
     return !leftChild && !rightChild;
+}
+
+int BVHNode::getSize() const
+{
+    if (isLeaf())
+        return objects.size();
+
+    int leftNum = 0;
+    if (leftChild)
+        leftNum = leftChild->getSize();
+
+    int rightNum = 0;
+    if (rightChild)
+        rightNum = rightChild->getSize();
+
+    return leftNum + rightNum;
 }
