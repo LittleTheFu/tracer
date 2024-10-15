@@ -256,6 +256,17 @@ bool BoundBox::hit(const Ray &ray, float &t) const
     return true;
 }
 
+BoundBox &BoundBox::operator*=(float m)
+{
+    Vector3 min = minPoint * m;
+    Vector3 max= maxPoint * m;
+
+    update(min);
+    update(max);
+
+    return *this;
+}
+
 Common::Axis BoundBox::getMainAxis() const
 {
     Vector3 extent = getExtend();

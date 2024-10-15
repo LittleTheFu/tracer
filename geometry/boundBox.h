@@ -29,6 +29,8 @@ public:
     bool isInBox(const Vector3 &point) const;
     bool hit(const Ray &ray, float &t) const;
 
+    BoundBox &operator*=(float m);
+
     Common::Axis getMainAxis() const;
 
     friend std::ostream &operator<<(std::ostream &os, const BoundBox &boundBox);
