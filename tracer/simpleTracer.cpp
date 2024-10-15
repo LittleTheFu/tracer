@@ -17,7 +17,7 @@ Color SimpleTracer::trace(const ObjectPool *pool,
     bool isLightHit = false;
     if (!pool->hitSceneWithLight(ray, record, isLightHit))
     {
-        return Color::COLOR_YELLOW;
+        return Color::COLOR_BLACK;
     }
 
     if(isLightHit)
