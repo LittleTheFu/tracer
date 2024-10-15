@@ -54,6 +54,14 @@ Vector3 BoundBox::getExtend() const
     return extent;
 }
 
+float BoundBox::surfaceArea() const
+{
+    Vector3 e = getExtend();
+    float area = 2 * ( e.x * e.y + e.y * e.z + e.z * e.x );
+
+    return area;
+}
+
 bool BoundBox::isOverlapped(const BoundBox &that) const
 {
     float tMinDummy, tMaxDummy;

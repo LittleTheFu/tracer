@@ -24,6 +24,8 @@ public:
     float getExtentByAxis(BoundBox::Axis axis) const;
     Vector3 getExtend() const;
 
+    float surfaceArea() const;
+
     bool isOverlapped(const BoundBox &that) const;
     void split(BoundBox::Axis axis, BoundBox &outBox1, BoundBox &outBox2) const;
     void update(const Vector3 &p);
