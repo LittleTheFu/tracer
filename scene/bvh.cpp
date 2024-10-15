@@ -238,9 +238,9 @@ BoundBox BVH::getCentroidBox(const std::vector<Geometry *> &objects) const
 void BVH::splitObjects(const std::vector<Geometry *> &objects, const BoundBox &leftBox, const BoundBox &rightBox, std::vector<Geometry *> &outLeftObjects, std::vector<Geometry *> &outRightObjects) const
 {
     BoundBox localLeftBox = leftBox;
-    localLeftBox *= 1.05f;
+    localLeftBox *= 1.005f;
     BoundBox localRightBox = rightBox;
-    localRightBox *= 1.05f;
+    localRightBox *= 1.005f;
 
      for(auto it = objects.begin(); it != objects.end(); it++)
     {
