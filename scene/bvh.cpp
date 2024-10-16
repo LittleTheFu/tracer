@@ -380,7 +380,7 @@ void BVH::calcBestSplit(const std::vector<Geometry *> &objects, BoundBox &outLef
 
     //4.get the spilt with smallest cost
     float cost[BUCKET_NUM];
-    std::fill_n(cost, BUCKET_NUM, 0);
+    std::fill_n(cost, BUCKET_NUM, 0.0f);
 
     BoundBox boundBelow;
     int countBelow = 0;
