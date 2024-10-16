@@ -9,6 +9,11 @@
 class BVH : public HitterInterface
 {
 public:
+    //for debug
+    bool search(Geometry *geometry) const;
+    bool _search(BVHNode *node, Geometry *geometry) const;
+
+public:
     virtual void init(const std::vector<Geometry *> &objects, const Light *light) override;
 
     virtual bool hitGeometryObjectOnly(const Ray &ray, HitRecord &record) const override;

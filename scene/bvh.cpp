@@ -3,6 +3,38 @@
 #include "common.h"
 #include <cassert>
 
+bool BVH::search(Geometry *geometry) const
+{
+    if(!m_rootNode)
+        return false;
+
+    return _search(m_rootNode, geometry);
+}
+
+bool BVH::_search(BVHNode *node, Geometry *geometry) const
+{
+    if(!node)
+        return false;
+
+    if (node->isLeaf())
+    {
+        auto it = std::find(node->objects.begin(), node->objects.end(), geometry);
+
+        if (it != node->objects.end())
+            return true;
+        else
+            return false;
+    }
+
+    if(node->leftChild && _search(node->leftChild, geometry))
+        return true;
+
+    if(node->rightChild && _search(node->rightChild, geometry))
+        return true;
+
+    return false;
+}
+
 void BVH::init(const std::vector<Geometry *> &objects, const Light *light)
 {
     HitterInterface::init(objects, light);
@@ -29,7 +61,7 @@ BVHNode *BVH::generateTree(const std::vector<Geometry *> &objects, int depth)
     BVHNode *node = new BVHNode();
     node->boundBox = objectsBoundBox;
 
-    if( depth > 20)
+    if( depth > 8 || objectNum <= 1)
     {
         node->objects = objects;
         node->boundBox = objectsBoundBox;
@@ -46,6 +78,11 @@ BVHNode *BVH::generateTree(const std::vector<Geometry *> &objects, int depth)
     objectsBoundBox.split(axis, 0.5, leftChildBoundBox, rightChildBoundBox);
     // calcBestSplit(objects, leftChildBoundBox, rightChildBoundBox);
 
+
+    // BoundBox bb;
+    // bb.update(leftChildBoundBox);
+    // bb.update(rightChildBoundBox);
+
     // 3.split objects into two children
     std::vector<Geometry *> leftObjects, rightObjects;
     splitObjects(objects, leftChildBoundBox, rightChildBoundBox, leftObjects, rightObjects);
@@ -54,17 +91,26 @@ BVHNode *BVH::generateTree(const std::vector<Geometry *> &objects, int depth)
 
     // 5.child->genrateTree()
     int l_size = leftObjects.size();
-    if(leftObjects.size() == objectNum)
-    {
-        node->objects = objects;
-        return node;
-    }
+    // if(leftObjects.size() == objectNum)
+    // {
+    //     node->objects = objects;
+    //     return node;
+    // }
 
     int r_size = rightObjects.size();
-    if (r_size == objectNum)
+    // if (r_size == objectNum)
+    // {
+    //     node->objects = objects;
+    //     return node;
+    // }
+    if(l_size > 0 && r_size == 0)
     {
-        node->objects = objects;
-        return node;
+        int bs=0;
+    }
+
+    if(l_size == 0 && r_size > 0)
+    {
+        int cs = 0;
     }
 
     if (l_size > 0)
@@ -75,6 +121,11 @@ BVHNode *BVH::generateTree(const std::vector<Geometry *> &objects, int depth)
 
     if(!node->leftChild && !node->rightChild)
         node->objects = objects;
+
+    // BoundBox l_bx = getBoundBox(leftObjects);
+    // BoundBox r_bx = getBoundBox(rightObjects);
+    // l_bx.update(r_bx);
+    // node->boundBox = l_bx;
 
     return node;
 }
@@ -163,6 +214,7 @@ bool BVH::hitSceneWithLight(const Ray &ray,
 
 bool BVH::hitLeaf(const Ray &ray, const std::vector<Geometry *> objects, HitRecord &record) const
 {
+    assert(objects.size() > 0);
     bool hit = false;
     float tMin = Common::FLOAT_MAX;
 
@@ -213,6 +265,7 @@ Color BVH::getColorFromLight(const Ray &ray) const
 
 BoundBox BVH::getBoundBox(const std::vector<Geometry *> &objects) const
 {
+    // assert(objects.size() > 0);
     BoundBox objectsBoundBox;
 
     for (auto it = objects.begin(); it != objects.end(); it++)
@@ -220,11 +273,14 @@ BoundBox BVH::getBoundBox(const std::vector<Geometry *> &objects) const
         objectsBoundBox.update((*it)->getBoundBox());
     }
 
+    assert(!objectsBoundBox.hasInfiniteComponent());
+
     return objectsBoundBox;
 }
 
 BoundBox BVH::getCentroidBox(const std::vector<Geometry *> &objects) const
 {
+    assert(objects.size() > 0);
     BoundBox centerBox;
 
     for (auto it = objects.begin(); it != objects.end(); it++)
@@ -232,15 +288,19 @@ BoundBox BVH::getCentroidBox(const std::vector<Geometry *> &objects) const
         centerBox.update((*it)->getBoundBox().getCenter());
     }
 
+    assert(!centerBox.hasInfiniteComponent());
     return centerBox;
 }
 
 void BVH::splitObjects(const std::vector<Geometry *> &objects, const BoundBox &leftBox, const BoundBox &rightBox, std::vector<Geometry *> &outLeftObjects, std::vector<Geometry *> &outRightObjects) const
 {
+    assert(!leftBox.hasInfiniteComponent());
+    assert(!rightBox.hasInfiniteComponent());
+    assert(objects.size() > 0);
     BoundBox localLeftBox = leftBox;
-    localLeftBox *= 1.005f;
+    localLeftBox *= 1;
     BoundBox localRightBox = rightBox;
-    localRightBox *= 1.005f;
+    localRightBox *= 1;
 
      for(auto it = objects.begin(); it != objects.end(); it++)
     {
@@ -268,16 +328,21 @@ void BVH::splitObjects(const std::vector<Geometry *> &objects, const BoundBox &l
     }
 
     bool aaa = outLeftObjects.size() + outRightObjects.size() >= objects.size();
+    static int cnt = 0;
     if(!aaa)
     {
+        cnt++;
+        std::cout<<cnt<<std::endl;
         int bbb = 333;
     }
 
-    // assert(outLeftObjects.size() + outRightObjects.size() >= objects.size());
+    assert(outLeftObjects.size() + outRightObjects.size() >= objects.size());
 }
 
 void BVH::calcBestSplit(const std::vector<Geometry *> &objects, BoundBox &outLeftBox, BoundBox &outRightBox) const
 {
+    assert(objects.size() > 0);
+
     //1.get main axis
     BoundBox centerBox = getCentroidBox(objects);
     Common::Axis axis = centerBox.getMainAxis();

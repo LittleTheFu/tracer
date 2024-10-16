@@ -30,6 +30,8 @@ public:
 
     std::vector<Geometry *> getObjects() const;
 
+    bool validBVH() const;
+
     Light *m_pLight;
 
 private:

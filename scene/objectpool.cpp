@@ -69,3 +69,26 @@ std::vector<Geometry *> ObjectPool::getObjects() const
 {
     return m_objects;
 }
+
+bool ObjectPool::validBVH() const
+{
+    BVH *bvh = (BVH*)m_pHitter;
+    bool allFound = true;
+
+    for(auto it = m_objects.begin(); it != m_objects.end(); it++)
+    {
+        if(bvh->search(*it))
+        {
+            std::cout << "found" <<std::endl;
+        }
+        else
+        {
+            allFound = false;
+            std::cout << "not found" <<std::endl;
+        }
+    }
+
+    std::cout << "VALID ALL FOUND: " << allFound << "   &&&&&" << std::endl;
+
+    return true;
+}
