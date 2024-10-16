@@ -120,8 +120,8 @@ float Tri::surfaceArea() const
 void Tri::buildBoundBox()
 {
     Vector3 a = m_transform.transformPoint(m_a.pos);
-    Vector3 b = m_transform.transformNormal(m_b.pos);
-    Vector3 c = m_transform.transformNormal(m_c.pos);
+    Vector3 b = m_transform.transformPoint(m_b.pos);
+    Vector3 c = m_transform.transformPoint(m_c.pos);
 
     m_boundBox.update(a);
     m_boundBox.update(b);
