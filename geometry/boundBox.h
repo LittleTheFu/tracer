@@ -28,6 +28,7 @@ public:
     
     bool isInBox(const Vector3 &point) const;
     bool hit(const Ray &ray, float &t) const;
+    bool hasInfiniteComponent() const;
 
     BoundBox &operator*=(float m);
 

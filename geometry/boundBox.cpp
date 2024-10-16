@@ -114,6 +114,7 @@ bool BoundBox::isOverlapped(const BoundBox &that) const
 
 void BoundBox::split(Common::Axis axis, float percent, BoundBox &outBox1, BoundBox &outBox2) const
 {
+    assert(!hasInfiniteComponent());
     assert(Common::is_in_range(percent, 0, 1, true, true));
 
     BoundBox b1, b2;
@@ -173,6 +174,7 @@ void BoundBox::update(const Vector3 &p)
     minPoint = minPoint.min_component_wise(p);
     maxPoint = maxPoint.max_component_wise(p);
 
+    assert(!hasInfiniteComponent());
     assert(minPoint.less_or_equal_component_wise(maxPoint));
 }
 
@@ -187,6 +189,7 @@ void BoundBox::set(const Vector3 &p1, const Vector3 &p2)
     minPoint = p1.min_component_wise(p2);
     maxPoint = p1.max_component_wise(p2);
 
+    assert(!hasInfiniteComponent());
     assert(minPoint.less_or_equal_component_wise(maxPoint));
 }
 
@@ -263,9 +266,32 @@ bool BoundBox::hit(const Ray &ray, float &t) const
     return true;
 }
 
+bool BoundBox::hasInfiniteComponent() const
+{
+    if(minPoint.x == Common::FLOAT_NEGETIVE_INFINITY)   return true;
+    if(minPoint.x == Common::FLOAT_POSITIVE_INFINITY)   return true;
+
+    if(minPoint.y == Common::FLOAT_NEGETIVE_INFINITY)   return true;
+    if(minPoint.y == Common::FLOAT_POSITIVE_INFINITY)   return true;
+
+    if(minPoint.z == Common::FLOAT_NEGETIVE_INFINITY)   return true;
+    if(minPoint.z == Common::FLOAT_POSITIVE_INFINITY)   return true;
+
+    if(maxPoint.x == Common::FLOAT_NEGETIVE_INFINITY)   return true;
+    if(maxPoint.x == Common::FLOAT_POSITIVE_INFINITY)   return true;
+
+    if(maxPoint.y == Common::FLOAT_NEGETIVE_INFINITY)   return true;
+    if(maxPoint.y == Common::FLOAT_POSITIVE_INFINITY)   return true;
+
+    if(maxPoint.z == Common::FLOAT_NEGETIVE_INFINITY)   return true;
+    if(maxPoint.z == Common::FLOAT_POSITIVE_INFINITY)   return true;
+
+    return false;
+}
+
 BoundBox &BoundBox::operator*=(float m)
 {
-    Vector3 ext = getExtend() * (m - 1);
+    Vector3 ext = (maxPoint - minPoint) * (m - 1);
     Vector3 min = minPoint - ext;
     Vector3 max= maxPoint + ext;
 
