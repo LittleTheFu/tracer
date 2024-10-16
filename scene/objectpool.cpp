@@ -90,5 +90,5 @@ bool ObjectPool::validBVH() const
 
     std::cout << "VALID ALL FOUND: " << allFound << "   &&&&&" << std::endl;
 
-    return true;
+    return allFound;
 }
