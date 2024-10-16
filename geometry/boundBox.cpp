@@ -117,56 +117,38 @@ void BoundBox::split(Common::Axis axis, float percent, BoundBox &outBox1, BoundB
     assert(!hasInfiniteComponent());
     assert(Common::is_in_range(percent, 0, 1, true, true));
 
-    BoundBox b1, b2;
     Vector3 minP1 = minPoint;
     Vector3 maxP1 = maxPoint;
     Vector3 minP2 = minPoint;
     Vector3 maxP2 = maxPoint;
 
     Vector3 e = (maxPoint - minPoint) * percent;
-    Vector3 f = getExtend() * (1 - percent);
-    Vector3 toMin;
-    Vector3 toMax;
 
-    //refactor later...
     if(axis == Common::Axis::X)
     {
-        toMin = Vector3(e.x, 0, 0);
-        toMax = Vector3(f.x, 0, 0);
-
-        // minP1 = minPoint;
         maxP1.x = minPoint.x + e.x;
         minP2.x = minPoint.x + e.x;
-        // maxP2 = maxPoint;
     }
     else if(axis == Common::Axis::Y)
     {
-        toMin = Vector3(0, e.y, 0);
-        toMax = Vector3(0, f.y, 0);
-
-        // minP1 = minPoint;
         maxP1.y = minPoint.y + e.y;
         minP2.y = minPoint.y + e.y;
-        // maxP2 = maxPoint;
     }
     else
     {
-        toMin = Vector3(0, 0, e.z);
-        toMax = Vector3(0, 0, f.z);
-
-        // minP1 = minPoint;
         maxP1.z = minPoint.z + e.z;
         minP2.z = minPoint.z + e.z;
-        // maxP2 = maxPoint;
     }
 
     outBox1.reset();
     outBox1.update(minP1);
     outBox1.update(maxP1);
+    assert(!outBox1.hasInfiniteComponent());
 
     outBox2.reset();
     outBox2.update(minP2);
     outBox2.update(maxP2);
+    assert(!outBox2.hasInfiniteComponent());
 }
 
 void BoundBox::update(const Vector3 &p)
