@@ -55,6 +55,7 @@ Vector3 BoundBox::getExtend() const
 
 float BoundBox::surfaceArea() const
 {
+    assert(!hasInfiniteComponent());
     Vector3 e = getExtend();
     float area = 2 * ( e.x * e.y + e.y * e.z + e.z * e.x );
 
@@ -149,6 +150,11 @@ void BoundBox::split(Common::Axis axis, float percent, BoundBox &outBox1, BoundB
     outBox2.update(minP2);
     outBox2.update(maxP2);
     assert(!outBox2.hasInfiniteComponent());
+
+    BoundBox bb1 = outBox1;
+    BoundBox bb2 = outBox2;
+    bb1.update(bb2);
+    assert(this->operator==(bb1));
 }
 
 void BoundBox::update(const Vector3 &p)
@@ -196,6 +202,7 @@ bool BoundBox::isInBox(const Vector3 &point) const
 
 bool BoundBox::hit(const Ray &ray, float &t) const
 {
+    assert(!hasInfiniteComponent());
     if(ray.dir == Vector3::ZERO)
         return false;
         
@@ -283,6 +290,14 @@ BoundBox &BoundBox::operator*=(float m)
     update(max);
 
     return *this;
+}
+
+bool BoundBox::operator==(const BoundBox &that) const
+{
+    bool bMinEq = ( minPoint == that.minPoint );
+    bool bMaxEq = ( maxPoint == that.maxPoint );
+
+    return bMinEq && bMaxEq;
 }
 
 Common::Axis BoundBox::getMainAxis() const

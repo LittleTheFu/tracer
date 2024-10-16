@@ -31,6 +31,7 @@ public:
     bool hasInfiniteComponent() const;
 
     BoundBox &operator*=(float m);
+    bool operator==(const BoundBox &that) const; 
 
     Common::Axis getMainAxis() const;
 
