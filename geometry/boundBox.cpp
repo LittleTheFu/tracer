@@ -164,6 +164,8 @@ void BoundBox::update(const BoundBox &b)
 {
     this->update(b.minPoint);
     this->update(b.maxPoint);
+
+    assert(!hasInfiniteComponent());
 }
 
 void BoundBox::set(const Vector3 &p1, const Vector3 &p2)
