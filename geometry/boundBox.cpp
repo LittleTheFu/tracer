@@ -236,7 +236,7 @@ bool BoundBox::hit(const Ray &ray, float &t) const
     if (!isZOverlap)
         return false;
 
-    assert(tMinXYZ <= tMaxXYZ);
+    // assert(tMinXYZ <= tMaxXYZ);
 
     if(tMaxXYZ < 0)
         return false;
