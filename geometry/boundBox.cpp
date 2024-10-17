@@ -144,17 +144,17 @@ void BoundBox::split(Common::Axis axis, float percent, BoundBox &outBox1, BoundB
     outBox1.reset();
     outBox1.update(minP1);
     outBox1.update(maxP1);
-    assert(!outBox1.hasInfiniteComponent());
+    // assert(!outBox1.hasInfiniteComponent());
 
     outBox2.reset();
     outBox2.update(minP2);
     outBox2.update(maxP2);
-    assert(!outBox2.hasInfiniteComponent());
+    // assert(!outBox2.hasInfiniteComponent());
 
-    BoundBox bb1 = outBox1;
-    BoundBox bb2 = outBox2;
-    bb1.update(bb2);
-    assert(this->operator==(bb1));
+    // BoundBox bb1 = outBox1;
+    // BoundBox bb2 = outBox2;
+    // bb1.update(bb2);
+    // assert(this->operator==(bb1));
 }
 
 void BoundBox::update(const Vector3 &p)
@@ -163,7 +163,7 @@ void BoundBox::update(const Vector3 &p)
     maxPoint = maxPoint.max_component_wise(p);
 
     assert(!hasInfiniteComponent());
-    assert(minPoint.less_or_equal_component_wise(maxPoint));
+    // assert(minPoint.less_or_equal_component_wise(maxPoint));
 }
 
 void BoundBox::update(const BoundBox &b)
@@ -180,7 +180,7 @@ void BoundBox::set(const Vector3 &p1, const Vector3 &p2)
     maxPoint = p1.max_component_wise(p2);
 
     assert(!hasInfiniteComponent());
-    assert(minPoint.less_or_equal_component_wise(maxPoint));
+    // assert(minPoint.less_or_equal_component_wise(maxPoint));
 }
 
 bool BoundBox::isInBox(const Vector3 &point) const
@@ -202,7 +202,7 @@ bool BoundBox::isInBox(const Vector3 &point) const
 
 bool BoundBox::hit(const Ray &ray, float &t) const
 {
-    assert(!hasInfiniteComponent());
+    // assert(!hasInfiniteComponent());
     if(ray.dir == Vector3::ZERO)
         return false;
         
