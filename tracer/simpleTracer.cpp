@@ -2,14 +2,13 @@
 #include <cassert>
 
 Color SimpleTracer::trace(const ObjectPool *pool,
-                          const BVH *bvh,
                           Ray &ray,
                           int bounceNum,
                           const HitRecord &currentState) const
 {
     if (bounceNum == 1)
     {
-       return HandleLastBounce(pool, bvh, ray, currentState);
+       return HandleLastBounce(pool, ray, currentState);
     }
 
     HitRecord record;
@@ -28,10 +27,10 @@ Color SimpleTracer::trace(const ObjectPool *pool,
     Ray newRay(record.point, record.reflect);
     if (bounceNum == 2)
     {
-        prepareSampleLight(pool, bvh, newRay, record);
+        prepareSampleLight(pool, newRay, record);
     }
 
-    Color inputColor = trace(pool, bvh, newRay, bounceNum - 1, record);
+    Color inputColor = trace(pool, newRay, bounceNum - 1, record);
 
     //fix later
     // assert(inputColor.isValid());
@@ -43,7 +42,6 @@ Color SimpleTracer::trace(const ObjectPool *pool,
 }
 
 Color SimpleTracer::HandleLastBounce(const ObjectPool *pool,
-                                     const BVH *bvh,
                                      const Ray &ray,
                                      const HitRecord &currentState) const
 {
@@ -68,7 +66,6 @@ Color SimpleTracer::HandleLastBounce(const ObjectPool *pool,
 }
 
 void SimpleTracer::prepareSampleLight(const ObjectPool *pool,
-                                      const BVH *bvh,
                                       Ray &newRay,
                                       HitRecord &record) const
 {

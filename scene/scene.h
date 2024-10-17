@@ -31,10 +31,8 @@ private:
 
 private:
     ObjectPool* m_pObjectPool;
-    BVH* m_pBVH;
     Camera* m_pCamera;
     SceneBuilder* m_pBuilder;
-    BVH*    m_pBvh;
 };
 
 #endif

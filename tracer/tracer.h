@@ -5,13 +5,11 @@
 #include "ray.h"
 #include "hitrecord.h"
 #include "color.h"
-#include "bvh.h"
 
 class Tracer
 {
 public:
     virtual Color trace(const ObjectPool *pool,
-                        const BVH *bvh,
                         Ray &ray,
                         int bounceNum,
                         const HitRecord &currentState) const;

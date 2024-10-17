@@ -38,7 +38,6 @@ bool BVH::_search(BVHNode *node, Geometry *geometry) const
 void BVH::init(const std::vector<Geometry *> &objects, const Light *light)
 {
     HitterInterface::init(objects, light);
-
     build();
 }
 

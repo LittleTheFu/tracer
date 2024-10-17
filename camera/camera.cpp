@@ -8,20 +8,19 @@
 
 Camera::Camera(Tracer* tracer)
 {
-    m_factor = 1;
+    m_factor = 6;
 
     m_Width = Common::default_screen_width * m_factor;
     m_Height = Common::default_screen_height * m_factor;
 
-    m_BounceTime = 4;
+    m_BounceTime = 6;
 
     m_pTracer = tracer;
 }
 
-void Camera::setPool(const ObjectPool *pool, const BVH *bvh)
+void Camera::setPool(const ObjectPool *pool)
 {
     m_pObjectPool = pool;
-    m_pBVH = bvh;
 }
 
 void Camera::build(const Vector3 &position, const Vector3 &direction, const Vector3 &worldUp)
@@ -59,7 +58,7 @@ void Camera::render()
             for (int i = 2; i < m_BounceTime; i++)
             {
                 // if (y==0 && x==21 && i==3)
-                color += m_pTracer->trace(m_pObjectPool, m_pBVH, ray, i, record);
+                color += m_pTracer->trace(m_pObjectPool, ray, i, record);
             }
 
             setImage(x, y, color);
