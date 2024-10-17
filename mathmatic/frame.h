@@ -14,6 +14,10 @@ public:
     Vector3 vectorToLocal(const Vector3 &vector) const;
     Vector3 vectorToWorld(const Vector3 &vector) const;
 
+    //normal version needed?
+    //normal to world?
+    //normal to local?
+
     Vector3 x_axis;
     Vector3 y_axis;
     Vector3 z_axis;
