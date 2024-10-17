@@ -61,7 +61,7 @@ BVHNode *BVH::generateTree(const std::vector<Geometry *> &objects, int depth)
     BVHNode *node = new BVHNode();
     node->boundBox = objectsBoundBox;
 
-    if( depth > 8 || objectNum <= 1)
+    if( depth > 18 || objectNum <= 1)
     {
         node->objects = objects;
         node->boundBox = objectsBoundBox;
