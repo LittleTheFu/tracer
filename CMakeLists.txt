@@ -142,18 +142,24 @@ INCLUDE_DIRECTORIES(brdf
 
 add_library(mylibs STATIC ${RAY_TRACER_SOURCE} ${RAY_TRACER_HEADER})
 
-include_directories(${PROJECT_SOURCE_DIR}/assimp_lib/include)
-link_directories(${PROJECT_SOURCE_DIR}/assimp_lib/lib)
+# include_directories(${PROJECT_SOURCE_DIR}/assimp_lib/include)
+# link_directories(${PROJECT_SOURCE_DIR}/assimp_lib/lib)
+add_subdirectory(${PROJECT_SOURCE_DIR}/third/assimp/)
+include_directories(${PROJECT_SOURCE_DIR}/third/assimp/include)
+include_directories(${CMAKE_CURRENT_BINARY_DIR}/third/assimp/include)
 
 add_executable(ray_tracer main/main.cpp resource/lena.png)
 
 target_link_libraries(ray_tracer mylibs)
+target_link_libraries(ray_tracer assimp)
 
-if(WIN32)
-    target_link_libraries(ray_tracer assimp-vc143-mtd.lib)
-else()
-    target_link_libraries(ray_tracer assimp)
-endif()
+
+
+# if(WIN32)
+#     target_link_libraries(ray_tracer assimp-vc143-mtd.lib)
+# else()
+#     target_link_libraries(ray_tracer assimp)
+# endif()
 
 # 添加资源文件
 set(RESOURCE_FILES 
@@ -169,30 +175,30 @@ foreach(RESOURCE ${RESOURCE_FILES})
 endforeach()
 
 
-if(WIN32)
-    if(NOT EXISTS ${CMAKE_CURRENT_BINARY_DIR}/Debug)
-        file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/Debug)
-    endif()
+# if(WIN32)
+#     if(NOT EXISTS ${CMAKE_CURRENT_BINARY_DIR}/Debug)
+#         file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/Debug)
+#     endif()
 
-    configure_file(${PROJECT_SOURCE_DIR}/assimp_lib/lib/assimp-vc143-mtd.lib
-                    ${CMAKE_CURRENT_BINARY_DIR}/Debug/
-                    COPYONLY)
+#     configure_file(${PROJECT_SOURCE_DIR}/assimp_lib/lib/assimp-vc143-mtd.lib
+#                     ${CMAKE_CURRENT_BINARY_DIR}/Debug/
+#                     COPYONLY)
 
-    configure_file(${PROJECT_SOURCE_DIR}/assimp_lib/lib/assimp-vc143-mtd.dll
-                    ${CMAKE_CURRENT_BINARY_DIR}/Debug/
-                    COPYONLY)
-else()
-    if(NOT EXISTS ${CMAKE_CURRENT_BINARY_DIR}/bin)
-        file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
-    endif()
+#     configure_file(${PROJECT_SOURCE_DIR}/assimp_lib/lib/assimp-vc143-mtd.dll
+#                     ${CMAKE_CURRENT_BINARY_DIR}/Debug/
+#                     COPYONLY)
+# else()
+#     if(NOT EXISTS ${CMAKE_CURRENT_BINARY_DIR}/bin)
+#         file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
+#     endif()
 
-    configure_file(${PROJECT_SOURCE_DIR}/assimp_lib/lib/libassimp.so
-        ${CMAKE_CURRENT_BINARY_DIR}/bin/
-        COPYONLY)
-    configure_file(${PROJECT_SOURCE_DIR}/assimp_lib/lib/libassimp.so.5
-        ${CMAKE_CURRENT_BINARY_DIR}/bin/
-        COPYONLY)
-    configure_file(${PROJECT_SOURCE_DIR}/assimp_lib/lib/libassimp.so.5.4.3
-        ${CMAKE_CURRENT_BINARY_DIR}/bin/
-        COPYONLY)
-endif()
+#     configure_file(${PROJECT_SOURCE_DIR}/assimp_lib/lib/libassimp.so
+#         ${CMAKE_CURRENT_BINARY_DIR}/bin/
+#         COPYONLY)
+#     configure_file(${PROJECT_SOURCE_DIR}/assimp_lib/lib/libassimp.so.5
+#         ${CMAKE_CURRENT_BINARY_DIR}/bin/
+#         COPYONLY)
+#     configure_file(${PROJECT_SOURCE_DIR}/assimp_lib/lib/libassimp.so.5.4.3
+#         ${CMAKE_CURRENT_BINARY_DIR}/bin/
+#         COPYONLY)
+# endif()
