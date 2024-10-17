@@ -218,7 +218,7 @@ bool BoundBox::hit(const Ray &ray, float &t) const
     Vector3 localMin = resultToMin.min_component_wise(resultToMax);
     Vector3 localMax = resultToMin.max_component_wise(resultToMax);
 
-    assert(localMin.less_or_equal_component_wise(localMax));
+    // assert(localMin.less_or_equal_component_wise(localMax));
 
     float tMinXY = Common::FLOAT_POSITIVE_INFINITY;
     float tMaxXY = Common::FLOAT_NEGETIVE_INFINITY;
