@@ -139,11 +139,9 @@ INCLUDE_DIRECTORIES(brdf
                     texture 
                     tracer
                     )
-# set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS on)
+                    
 add_library(mylibs STATIC ${RAY_TRACER_SOURCE} ${RAY_TRACER_HEADER})
 
-# include_directories(${PROJECT_SOURCE_DIR}/assimp_lib/include)
-# link_directories(${PROJECT_SOURCE_DIR}/assimp_lib/lib)
 add_subdirectory(${PROJECT_SOURCE_DIR}/third/assimp/)
 include_directories(${PROJECT_SOURCE_DIR}/third/assimp/include)
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/third/assimp/include)
@@ -151,59 +149,12 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR}/third/assimp/include)
 add_executable(ray_tracer main/main.cpp)
 
 target_link_libraries(ray_tracer mylibs)
-
-
-LINK_DIRECTORIES(
-  ${Assimp_BINARY_DIR}
-  ${Assimp_BINARY_DIR}/lib
-)
 target_link_libraries(ray_tracer assimp)
 
+set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/install" CACHE PATH "Install path" FORCE)
 
+# 安装整个资源目录
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/resource/ DESTINATION ${CMAKE_BINARY_DIR}/resource
+        FILES_MATCHING PATTERN "*")  # 安装所有文件
 
-# if(WIN32)
-#     target_link_libraries(ray_tracer assimp-vc143-mtd.lib)
-# else()
-#     target_link_libraries(ray_tracer assimp)
-# endif()
-
-# 添加资源文件
-set(RESOURCE_FILES 
-        resource/lena.png 
-        resource/bunny.obj
-        resource/simple_bunny.obj
-        resource/low_bunny.obj
-        resource/low_low_bunny.obj)
-
-# 将资源文件复制到构建目录
-foreach(RESOURCE ${RESOURCE_FILES})
-    configure_file(${RESOURCE} ${CMAKE_CURRENT_BINARY_DIR}/${RESOURCE} COPYONLY)
-endforeach()
-
-
-if(WIN32)
-    # if(NOT EXISTS ${CMAKE_CURRENT_BINARY_DIR}/Debug)
-    #     file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/Debug)
-    # endif()
-
-    # configure_file(${PROJECT_SOURCE_DIR}/assimp_lib/lib/assimp-vc143-mtd.lib
-    #                 ${CMAKE_CURRENT_BINARY_DIR}/Debug/
-    #                 COPYONLY)
-    configure_file(${Assimp_BINARY_DIR}/bin/Debug/assimp-vc143-mtd.dll
-                    ${CMAKE_CURRENT_BINARY_DIR}/Debug/
-                    COPYONLY)
-else()
-    # if(NOT EXISTS ${CMAKE_CURRENT_BINARY_DIR}/bin)
-    #     file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
-    # endif()
-
-    # configure_file(${PROJECT_SOURCE_DIR}/assimp_lib/lib/libassimp.so
-    #     ${CMAKE_CURRENT_BINARY_DIR}/bin/
-    #     COPYONLY)
-    # configure_file(${PROJECT_SOURCE_DIR}/assimp_lib/lib/libassimp.so.5
-    #     ${CMAKE_CURRENT_BINARY_DIR}/bin/
-    #     COPYONLY)
-    # configure_file(${PROJECT_SOURCE_DIR}/assimp_lib/lib/libassimp.so.5.4.3
-    #     ${CMAKE_CURRENT_BINARY_DIR}/bin/
-    #     COPYONLY)
-endif()
+install(TARGETS ray_tracer  mylibs assimp RUNTIME DESTINATION ${CMAKE_BINARY_DIR}/bin)
