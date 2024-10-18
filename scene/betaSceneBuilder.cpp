@@ -2,7 +2,7 @@
 
 void BetaSceneBuilder::build()
 {
-    buildRoom();
+    // buildRoom();
     buildLight(Vector3(0, 72, 250), 30);
 
     // buildRedBall(Vector3(-50, 0, 350), 20);
