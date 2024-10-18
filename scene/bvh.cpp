@@ -2,6 +2,7 @@
 #include "boundBox.h"
 #include "common.h"
 #include <cassert>
+#include <algorithm>
 
 bool BVH::search(Geometry *geometry) const
 {
