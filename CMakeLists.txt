@@ -37,6 +37,7 @@ SET (RAY_TRACER_SOURCE
     material/glassMaterial.cpp
     material/lambertianMaterial.cpp
     material/material.cpp
+    material/materialManager.cpp
     material/mirrorMaterial.cpp
     material/mixMaterial.cpp
     mathmatic/frame.cpp
@@ -98,6 +99,7 @@ SET (RAY_TRACER_HEADER
     material/glassMaterial.h
     material/lambertianMaterial.h
     material/material.h
+    material/materialManager.h
     material/mirrorMaterial.h
     material/mixMaterial.h
     mathmatic/frame.h
