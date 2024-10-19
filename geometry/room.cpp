@@ -5,6 +5,14 @@
 Room::Room()
 {
     init();
+    refine();
+    refine();
+    refine();
+    refine();
+    refine();
+    refine();
+    refine();
+    refine();
 }
 
 std::vector<Geometry *> Room::getTris() const
@@ -99,16 +107,12 @@ void Room::init()
     Tri *tri_tf = new Tri(a_tf, b_tf, c_tf, Vector3(0,0,0), MaterialManager::getInstance()->get(MATERIAL_TYPE::M_BLUE));
     m_tris.push_back(tri_tf);
 
-
-
-
      //back left
     TriVertex a_bl(hw, hw, -depth);
     TriVertex b_bl(-hw, hw, -depth);
     TriVertex c_bl(hw, -hw, -depth);
     
     Tri *tri_bl = new Tri(a_bl, b_bl, c_bl, Vector3(0,0,0), MaterialManager::getInstance()->get(MATERIAL_TYPE::M_WHITE));
-
     m_tris.push_back(tri_bl);
 
     //back right
@@ -118,4 +122,27 @@ void Room::init()
 
     Tri *tri_br = new Tri(a_br, b_br, c_br, Vector3(0,0,0), MaterialManager::getInstance()->get(MATERIAL_TYPE::M_WHITE));
     m_tris.push_back(tri_br);
+}
+
+void Room::refine()
+{
+    std::vector<Geometry*> v;
+
+    for(auto it = m_tris.begin(); it != m_tris.end(); it++)
+    {
+        Tri* a = new Tri();
+        Tri *b = new Tri();
+        Tri *c = new Tri();
+
+        ((Tri*)(*it))->getSplitChildren(a,b,c);
+
+        v.push_back(a);
+        v.push_back(b);
+        v.push_back(c);
+
+        delete (*it);
+    }
+
+    m_tris.clear();
+    m_tris = v;
 }

@@ -19,12 +19,20 @@ public:
 class Tri : public Geometry
 {
 public:
-    // Tri();
+    Tri();
     Tri(const TriVertex &a,
         const TriVertex &b,
         const TriVertex &c,
         const Vector3 &pos,
         const Material *pMtrl);
+
+    void set(const TriVertex &a,
+                const TriVertex &b,
+                const TriVertex &c,
+                const Vector3 &pos,
+                const Material *pMtrl);
+
+    void getSplitChildren(Tri *outTri_1, Tri *outTri_2, Tri *outTri_3) const;
 
     virtual bool hit(const Ray &ray, HitRecord &record) const override;
     
@@ -54,6 +62,7 @@ private:
     Vector3 m_ca;
 
     Vector3 m_normal;
+    Vector3 m_pos;
 };
 
 #endif

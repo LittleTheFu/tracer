@@ -9,6 +9,10 @@
 //     m_ca = m_a.pos - m_c.pos;
 // }
 
+Tri::Tri()
+{
+}
+
 Tri::Tri(const TriVertex &a,
          const TriVertex &b,
          const TriVertex &c,
@@ -26,8 +30,36 @@ Tri::Tri(const TriVertex &a,
     initNormal();
 
     this->m_pMtrl = pMtrl;
+    this->m_pos = pos;
 
     init(Vector3::ZERO, pos);
+}
+
+void Tri::set(const TriVertex &a, const TriVertex &b, const TriVertex &c, const Vector3 &pos, const Material *pMtrl)
+{
+    m_a = a;
+    m_b = b;
+    m_c = c;
+
+    m_ab = m_b.pos - m_a.pos;
+    m_bc = m_c.pos - m_b.pos;
+    m_ca = m_a.pos - m_c.pos;
+
+    initNormal();
+
+    this->m_pMtrl = pMtrl;
+
+    init(Vector3::ZERO, pos);
+}
+
+void Tri::getSplitChildren(Tri *outTri_1, Tri *outTri_2, Tri *outTri_3) const
+{
+    Vector3 centroid = (m_a.pos + m_b.pos + m_c.pos) / 3;
+    TriVertex d(centroid, Vector3::ZERO);
+
+    outTri_1->set(m_a, m_b, d, m_pos, m_pMtrl);
+    outTri_2->set(m_b, m_c, d, m_pos, m_pMtrl);
+    outTri_3->set(m_c, m_a, d, m_pos, m_pMtrl);
 }
 
 //transform twice

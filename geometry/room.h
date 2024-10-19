@@ -15,6 +15,7 @@ public:
 
 private:
     void init();
+    void refine();
 
 private:
     std::vector<Geometry*> m_tris;
