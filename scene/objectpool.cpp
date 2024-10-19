@@ -20,6 +20,14 @@ void ObjectPool::initHitter()
     m_pHitter->init(m_objects, m_pLight);
 }
 
+void ObjectPool::add(std::vector<Geometry *> objects)
+{
+    for(auto it = objects.begin(); it != objects.end(); it++)
+    {
+        m_objects.push_back(*it);
+    }
+}
+
 void ObjectPool::add(Geometry *pGeometry)
 {
     m_objects.push_back(pGeometry);
