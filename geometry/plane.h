@@ -8,7 +8,7 @@ class Plane : public Geometry
 {
 public:
     Plane(const Vector3 &rotate, const Vector3 &position, float length, Material *pMtrl);
-    virtual bool hit(const Ray &ray, HitRecord &record) const;
+    virtual bool hit(const Ray &ray, HitRecord &record) const override;
 
     virtual float surfaceArea() const override;
     virtual void buildBoundBox() override;
@@ -17,11 +17,11 @@ public:
     float half_length;
 
 private:
-    virtual Vector3 dpdu(const Vector3 &point) const;
-    virtual Vector3 dpdv(const Vector3 &point) const;
+    virtual Vector3 dpdu(const Vector3 &point) const override;
+    virtual Vector3 dpdv(const Vector3 &point) const override;
 
-    virtual float u(const Vector3 &point) const;
-    virtual float v(const Vector3 &point) const;
+    virtual float u(const Vector3 &point) const override;
+    virtual float v(const Vector3 &point) const override;
 
     Vector3 getLocalNormal(bool reverse) const;
     bool isLocalIn(const Vector3 &p) const;
