@@ -3,7 +3,8 @@
 #include <limits>
 #include <cstdlib>
 #include <chrono>
-#include <time.h>
+#include <sstream> 
+#include <iomanip>
 
 const float Common::PI = 3.14159274101257324219f;
 const float Common::TWO_PI = 2 * Common::PI;
@@ -178,10 +179,10 @@ const float Common::genRamdomSignDecimal()
 
 const void Common::printCurrentTime()
 {
-    std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
-    std::time_t time = std::chrono::system_clock::to_time_t(now);
-    char timeStr[128];
-    int error = ctime_s(timeStr, 128, &time);
+    std::time_t time = std::time(nullptr);
+    std::tm *localTime = std::localtime(&time);
 
-    std::cout << "now is : " << timeStr << std::endl;
+    std::stringstream timeStream;
+    timeStream << std::put_time(localTime, "%Y-%m-%d %H:%M:%S");
+    std::cout << "now is: " << timeStream.str() << std::endl;
 }
