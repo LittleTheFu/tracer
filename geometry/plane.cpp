@@ -3,7 +3,7 @@
 #include <cmath>
 #include <iostream>
 
-Plane::Plane(const Vector3 &rotate, const Vector3 &position, float length, Material *pMtrl)
+Plane::Plane(const Vector3 &rotate, const Vector3 &position, float length, const Material *pMtrl)
 {
     init(rotate, position);
 

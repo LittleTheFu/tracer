@@ -24,7 +24,7 @@ public:
         const TriVertex &b,
         const TriVertex &c,
         const Vector3 &pos,
-        Material *pMtrl);
+        const Material *pMtrl);
 
     virtual bool hit(const Ray &ray, HitRecord &record) const override;
     

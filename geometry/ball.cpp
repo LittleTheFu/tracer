@@ -10,7 +10,7 @@ Ball::Ball()
     this->m_pMtrl = nullptr;
 }
 
-Ball::Ball(const Vector3 &rotate, const Vector3 &position, float r, Material *pMtrl)
+Ball::Ball(const Vector3 &rotate, const Vector3 &position, float r, const Material *pMtrl)
 {
     init(rotate, position);
 

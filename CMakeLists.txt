@@ -99,6 +99,7 @@ SET (RAY_TRACER_HEADER
     material/glassMaterial.h
     material/lambertianMaterial.h
     material/material.h
+    material/materialDef.h
     material/materialManager.h
     material/mirrorMaterial.h
     material/mixMaterial.h

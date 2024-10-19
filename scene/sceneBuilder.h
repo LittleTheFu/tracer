@@ -33,32 +33,8 @@ protected:
 
     void buildGlassTri(const Vector3& pos);
 
-private:
-    void createMaterials();
-
 protected:
     ObjectPool* m_pObjectPool;
-
-protected:
-    float rho;
-
-    LambertianMaterial *lambMtrlLena;
-    LambertianMaterial *lambMtrlChessboard;
-    LambertianMaterial *lambUV;
-    LambertianMaterial *lambNoise;
-
-    LambertianMaterial *lambMtrlRed;
-    LambertianMaterial *lambMtrlYellow;
-    LambertianMaterial *lambMtrlAqua;
-    LambertianMaterial *lambMtrlPurple;
-    LambertianMaterial *lambMtrlGreen;
-    LambertianMaterial *lambMtrlBlue;
-    LambertianMaterial *lambMtrlWhite;
-
-    MirrorMaterial *MtrlMirror;
-    GlassMaterial *MtrlGlass;
-
-    MixMaterial *MtrlMix;
 };
 
 #endif

@@ -13,7 +13,7 @@ Tri::Tri(const TriVertex &a,
          const TriVertex &b,
          const TriVertex &c,
          const Vector3 &pos,
-         Material *pMtrl)
+         const Material *pMtrl)
 {
     m_a = a;
     m_b = b;
