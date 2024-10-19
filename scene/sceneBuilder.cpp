@@ -13,7 +13,7 @@ void SceneBuilder::init(ObjectPool *pool)
 void SceneBuilder::buildRoom()
 {
     const float c = 100;
-    const float r = 2.5 * c;
+    const float r = 5 * c;
 
     Vector3 leftRotate(0, Common::PI / 2, 0);
     Vector3 leftPosition(-c, 0, 0);
