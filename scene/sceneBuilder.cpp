@@ -4,6 +4,7 @@
 #include "mesh.h"
 #include "ball.h"
 #include "materialManager.h"
+#include "room.h"
 
 void SceneBuilder::init(ObjectPool *pool)
 {
@@ -54,7 +55,13 @@ void SceneBuilder::buildRoom()
     m_pObjectPool->add(topPlane);
     m_pObjectPool->add(bottomPlane);
     m_pObjectPool->add(leftPlane);
-    m_pObjectPool->add(rightPlane);
+    m_pObjectPool->add(rightPlane);    
+}
+
+void SceneBuilder::buildMeshRoom()
+{
+    Room *room = new Room();
+    m_pObjectPool->add(room->getTris());
 }
 
 void SceneBuilder::buildLight(const Vector3& pos, float r)
