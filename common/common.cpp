@@ -179,10 +179,10 @@ const float Common::genRamdomSignDecimal()
 
 const void Common::printCurrentTime()
 {
-    std::time_t time = std::time(nullptr);
-    std::tm *localTime = std::localtime(&time);
+    std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
 
-    std::stringstream timeStream;
-    timeStream << std::put_time(localTime, "%Y-%m-%d %H:%M:%S");
-    std::cout << "now is: " << timeStream.str() << std::endl;
+    std::time_t now_time_t = std::chrono::system_clock::to_time_t(now);
+    std::tm local_tm = *std::localtime(&now_time_t);
+
+    std::cout << "Current time: " << std::put_time(&local_tm, "%H:%M:%S") << std::endl;
 }
