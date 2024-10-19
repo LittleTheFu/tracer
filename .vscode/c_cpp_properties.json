@@ -16,7 +16,7 @@
                 "${workspaceFolder}/test",
                 "${workspaceFolder}/texture",
                 "${workspaceFolder}/tracer",
-                "${workspaceFolder}/assimp_lib/include/"
+                "${workspaceFolder}/third/assimp/include"
             ],
             "cStandard": "c17",
             "cppStandard": "c++17",
