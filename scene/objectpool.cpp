@@ -11,13 +11,19 @@
 
 ObjectPool::ObjectPool()
 {
-    m_pHitter = new Hitter();
-    // m_pHitter = new BVH();
+    // m_pHitter = new Hitter();
+    m_pHitter = new BVH();
 }
 
 void ObjectPool::initHitter()
 {
     m_pHitter->init(m_objects, m_pLight);
+}
+
+void ObjectPool::log()
+{
+    int num = m_objects.size();
+    std::cout << "pool size : " << num << std::endl;
 }
 
 void ObjectPool::add(std::vector<Geometry *> objects)

@@ -5,14 +5,14 @@
 Room::Room()
 {
     init();
-    refine();
-    refine();
-    refine();
-    refine();
-    refine();
-    refine();
-    refine();
-    refine();
+    // refine();
+    // refine();
+    // refine();
+    // refine();
+    // refine();
+    // refine();
+    // refine();
+    // refine();
 }
 
 std::vector<Geometry *> Room::getTris() const

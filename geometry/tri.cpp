@@ -19,20 +19,7 @@ Tri::Tri(const TriVertex &a,
          const Vector3 &pos,
          const Material *pMtrl)
 {
-    m_a = a;
-    m_b = b;
-    m_c = c;
-
-    m_ab = m_b.pos - m_a.pos;
-    m_bc = m_c.pos - m_b.pos;
-    m_ca = m_a.pos - m_c.pos;
-
-    initNormal();
-
-    this->m_pMtrl = pMtrl;
-    this->m_pos = pos;
-
-    init(Vector3::ZERO, pos);
+    set(a, b, c, pos, pMtrl);
 }
 
 void Tri::set(const TriVertex &a, const TriVertex &b, const TriVertex &c, const Vector3 &pos, const Material *pMtrl)
@@ -47,6 +34,7 @@ void Tri::set(const TriVertex &a, const TriVertex &b, const TriVertex &c, const 
 
     initNormal();
 
+    m_localCentroid = (a.pos + b.pos + c.pos) / 3;
     this->m_pMtrl = pMtrl;
 
     init(Vector3::ZERO, pos);
@@ -57,8 +45,13 @@ void Tri::getSplitChildren(Tri *outTri_1, Tri *outTri_2, Tri *outTri_3) const
     Vector3 centroid = (m_a.pos + m_b.pos + m_c.pos) / 3;
     TriVertex d(centroid, Vector3::ZERO);
 
+    outTri_1->setTransform(m_transform);
     outTri_1->set(m_a, m_b, d, m_pos, m_pMtrl);
+
+    outTri_2->setTransform(m_transform);
     outTri_2->set(m_b, m_c, d, m_pos, m_pMtrl);
+
+    outTri_3->setTransform(m_transform);
     outTri_3->set(m_c, m_a, d, m_pos, m_pMtrl);
 }
 
@@ -139,6 +132,11 @@ bool Tri::hit(const Ray &ray, HitRecord &record) const
 
     // std::cout<<"true"<<std::endl;
     return true;
+}
+
+Vector3 Tri::getCentroid() const
+{
+    return m_transform.transformPoint(m_localCentroid);
 }
 
 float Tri::surfaceArea() const

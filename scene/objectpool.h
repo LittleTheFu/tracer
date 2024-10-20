@@ -17,6 +17,8 @@ public:
 
     void initHitter();
 
+    void log();
+
     void add(std::vector<Geometry*> objects);
     void add(Geometry *pGeometry);
     void add(Light *pLight);

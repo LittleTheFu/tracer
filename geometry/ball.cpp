@@ -43,6 +43,11 @@ Color Ball::get_f(const Vector3 &wo, const Vector3 &wi, const Vector3 &point, co
     return Color::COLOR_WHITE;
 }
 
+Vector3 Ball::getCentroid() const
+{
+    return m_transform.transformPoint(Vector3::ZERO);
+}
+
 float Ball::surfaceArea() const
 {
     return Common::FOUR_PI * r * r;

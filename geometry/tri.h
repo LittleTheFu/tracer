@@ -36,6 +36,7 @@ public:
 
     virtual bool hit(const Ray &ray, HitRecord &record) const override;
     
+    virtual Vector3 getCentroid() const;
     virtual float surfaceArea() const override;
     virtual void buildBoundBox() override;
 
@@ -56,6 +57,8 @@ private:
     TriVertex m_a;
     TriVertex m_b;
     TriVertex m_c;
+
+    Vector3 m_localCentroid;
 
     Vector3 m_ab;
     Vector3 m_bc;

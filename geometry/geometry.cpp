@@ -71,6 +71,11 @@ Color Geometry::get_f(const Vector3 &wo, const Vector3 &wi, const Vector3 &point
     return Color::COLOR_WHITE;
 }
 
+Vector3 Geometry::getCentroid() const
+{
+    return Vector3::ZERO;
+}
+
 float Geometry::surfaceArea() const
 {
     return 0.0f;

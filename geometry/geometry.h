@@ -22,6 +22,7 @@ public:
     virtual Vector3 sampleFromPoint(const Vector3 &thatPoint, float &pdf) const;
     virtual Color get_f(const Vector3 &wo, const Vector3 &wi, const Vector3 &point, const Vector3 &normal) const;
     
+    virtual Vector3 getCentroid() const;
     virtual float surfaceArea() const;
     
     //what we need is the boundBox built from tranformed points

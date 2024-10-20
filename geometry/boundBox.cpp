@@ -251,10 +251,15 @@ bool BoundBox::hit(const Ray &ray, float &t) const
         t = tMaxXYZ;
     }
 
-    assert(t >= 0);
+    if(t >= 0)
+    {
+        return true;
+    }
+    //nan needed to be handle,later....
+    // assert(t >= 0);
     // std::cout << "hit : ( " << tMin << ", " << tMax << " )" << std::endl;
 
-    return true;
+    return false;
 }
 
 bool BoundBox::hasInfiniteComponent() const

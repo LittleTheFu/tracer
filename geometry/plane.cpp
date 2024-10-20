@@ -70,6 +70,11 @@ bool Plane::hit(const Ray &ray, HitRecord &record) const
     return true;
 }
 
+Vector3 Plane::getCentroid() const
+{
+    return m_transform.transformPoint(Vector3::ZERO);
+}
+
 float Plane::surfaceArea() const
 {
     float length = half_length * 2;
