@@ -47,5 +47,9 @@ cmake --install .
 
 运行 cmake --install： 在执行 cmake 之后，运行 cmake --install . 可以将所有内容安装到 ${CMAKE_BINARY_DIR}/install 目录中。
 
+Vector3 v(0,123,456);
+Vector3 dir(0,34,54);
+v/dir = (nan , a ,b);
+//nan needed to be handled
 
 
