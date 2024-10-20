@@ -6,39 +6,31 @@ Suppose you are in the root directory of this project.
 
 Then:
 
-1.make a new folder named "build"
+1.make a new folder named "build".
 
 `
 mkdir build
 `
 
-2.enter this folder
+2.enter this folder.
 
 `
 cd build
 `
 
-3.generate the project with cmake
+3.generate the project with cmake.
 
-`
+```
 cmake ..
-`
+cmake --build .
+cmake --install .
+```
 
-4.build the project with MSBuild.exe
+4.then a .exe file named ray_tracer.exe will be generated in the bin folder.
 
-`
-MSBuild.exe .\ray_tracer.sln
-`
-
-5.run the exe file
-
-`
-.\Debug\ray_tracer.exe
-`
-
-6.an image is created in Debug folder
+5.after running the program, an image named "img.png" will be created which represents the rendering result.
 
 
-you can get detail of axis from axis.jpg
+you can get some details in the document folder.(in progressing...)
 
 ![img](sample.bmp)
