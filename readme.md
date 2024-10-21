@@ -26,7 +26,7 @@ cmake --build .
 cmake --install .
 ```
 
-4.then a .exe file named ray_tracer.exe will be generated in the bin folder.
+4.then an .exe file named ray_tracer.exe will be generated in the bin folder.
 
 5.after running the program, an image named "img.png" will be created which represents the rendering result.
 
