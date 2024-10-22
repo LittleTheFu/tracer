@@ -1,6 +1,6 @@
 RayTracer
 
-Since I'm using windows 10/11 with Visual Studio 2022 installed, this project has only been tested on those systems.The same goes for the following commands.
+~~Since I'm using windows 10/11 with Visual Studio 2022 installed, this project has only been tested on those systems.The same goes for the following commands.~~
 
 Suppose you are in the root directory of this project.
 
