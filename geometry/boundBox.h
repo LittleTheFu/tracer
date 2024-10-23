@@ -3,7 +3,7 @@
 
 #include "vector.h"
 #include <ray.h>
-#include "common.h"
+#include "axisDef.h"
 
 class BoundBox
 {
@@ -14,15 +14,15 @@ public:
     void reset();
 
     Vector3 getCenter() const;
-    float getExtentByAxis(Common::Axis axis) const;
+    float getExtentByAxis(Axis axis) const;
     Vector3 getExtend() const;
 
     float surfaceArea() const;
 
-    BoundBox createSubBox(Common::Axis axis, float startPercent, float endPercent) const;
+    BoundBox createSubBox(Axis axis, float startPercent, float endPercent) const;
 
     bool isOverlapped(const BoundBox &that) const;
-    void split(Common::Axis axis, float percent, BoundBox &outBox1, BoundBox &outBox2) const;
+    void split(Axis axis, float percent, BoundBox &outBox1, BoundBox &outBox2) const;
     void update(const Vector3 &p);
     void update(const BoundBox &b);
     
@@ -33,7 +33,7 @@ public:
     BoundBox &operator*=(float m);
     bool operator==(const BoundBox &that) const; 
 
-    Common::Axis getMainAxis() const;
+    Axis getMainAxis() const;
 
     friend std::ostream &operator<<(std::ostream &os, const BoundBox &boundBox);
 

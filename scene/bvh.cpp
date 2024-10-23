@@ -65,7 +65,7 @@ BVHNode *BVH::generateTree(const std::vector<Geometry *> &objects, int depth)
 
     // 1.get the main axis
     BoundBox centroidBox = getCentroidBox(objects);
-    Common::Axis axis = centroidBox.getMainAxis();
+    Axis axis = centroidBox.getMainAxis();
 
     // 2.get the position to split along the axis
     //split bound box
@@ -290,7 +290,7 @@ void BVH::calcBestSplit(const std::vector<Geometry *> &objects, BoundBox &outLef
 
     //1.get main axis
     BoundBox centerBox = getCentroidBox(objects);
-    Common::Axis axis = centerBox.getMainAxis();
+    Axis axis = centerBox.getMainAxis();
 
     BoundBox boundBox = getBoundBox(objects);
     

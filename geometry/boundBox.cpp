@@ -1,4 +1,5 @@
 #include "boundBox.h"
+#include "common.h"
 #include <algorithm>
 #include <cassert>
 
@@ -30,17 +31,17 @@ Vector3 BoundBox::getCenter() const
     return center;
 }
 
-float BoundBox::getExtentByAxis(Common::Axis axis) const
+float BoundBox::getExtentByAxis(Axis axis) const
 {
     Vector3 extent = getExtend();
 
-    if (axis == Common::Axis::X)
+    if (axis == Axis::X)
         return extent.x;
 
-    if (axis == Common::Axis::Y)
+    if (axis == Axis::Y)
         return extent.y;
 
-    if (axis == Common::Axis::Z)
+    if (axis == Axis::Z)
         return extent.z;
 
     return 0;
@@ -62,7 +63,7 @@ float BoundBox::surfaceArea() const
     return area;
 }
 
-BoundBox BoundBox::createSubBox(Common::Axis axis, float startPercent, float endPercent) const
+BoundBox BoundBox::createSubBox(Axis axis, float startPercent, float endPercent) const
 {
     assert(startPercent < endPercent);
     assert(Common::is_in_range(startPercent, 0, 1, true, true));
@@ -72,12 +73,12 @@ BoundBox BoundBox::createSubBox(Common::Axis axis, float startPercent, float end
     Vector3 min = minPoint;
     Vector3 max = maxPoint;
 
-    if(axis == Common::Axis::X)
+    if(axis == Axis::X)
     {
         min.x = min.x + e.x * startPercent;
         max.x = min.x + e.x * endPercent;
     }
-    else if(axis == Common::Axis::Y)
+    else if(axis == Axis::Y)
     {
         min.y = min.y + e.y * startPercent;
         max.y = min.y + e.y * endPercent;
@@ -113,7 +114,7 @@ bool BoundBox::isOverlapped(const BoundBox &that) const
     return bX && bY && bZ;
 }
 
-void BoundBox::split(Common::Axis axis, float percent, BoundBox &outBox1, BoundBox &outBox2) const
+void BoundBox::split(Axis axis, float percent, BoundBox &outBox1, BoundBox &outBox2) const
 {
     assert(!hasInfiniteComponent());
     assert(Common::is_in_range(percent, 0, 1, true, true));
@@ -125,12 +126,12 @@ void BoundBox::split(Common::Axis axis, float percent, BoundBox &outBox1, BoundB
 
     Vector3 e = (maxPoint - minPoint) * percent;
 
-    if(axis == Common::Axis::X)
+    if(axis == Axis::X)
     {
         maxP1.x = minPoint.x + e.x;
         minP2.x = minPoint.x + e.x;
     }
-    else if(axis == Common::Axis::Y)
+    else if(axis == Axis::Y)
     {
         maxP1.y = minPoint.y + e.y;
         minP2.y = minPoint.y + e.y;
@@ -305,7 +306,7 @@ bool BoundBox::operator==(const BoundBox &that) const
     return bMinEq && bMaxEq;
 }
 
-Common::Axis BoundBox::getMainAxis() const
+Axis BoundBox::getMainAxis() const
 {
     Vector3 extent = getExtend();
 
@@ -316,16 +317,16 @@ Common::Axis BoundBox::getMainAxis() const
     if (x > y)
     {
         if (x > z)
-            return Common::Axis::X;
+            return Axis::X;
         else
-            return Common::Axis::Z;
+            return Axis::Z;
     }
     else
     {
         if (y > z)
-            return Common::Axis::Y;
+            return Axis::Y;
         else
-            return Common::Axis::Z;
+            return Axis::Z;
     }
 }
 

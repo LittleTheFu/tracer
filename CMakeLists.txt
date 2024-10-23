@@ -79,6 +79,7 @@ SET (RAY_TRACER_HEADER
     camera/fishEyeCamera.h
     camera/orthographicCamera.h
     camera/pinholeCamera.h
+    common/axisDef.h
     common/color.h
     common/common.h
     common/hitrecord.h
