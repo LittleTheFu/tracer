@@ -86,6 +86,7 @@ SET (RAY_TRACER_HEADER
     common/lodepng.h
     common/noise.h
     common/spectrum.h
+    common/tagDef.h
     common/timeRecorder.h
     geometry/ball.h
     geometry/boundBox.h

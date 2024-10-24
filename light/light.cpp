@@ -13,7 +13,7 @@ void Light::applyTransform(const Transform &t)
     m_pGeometry->applyTransform(t);
 }
 
-void Light::setTag(int tag)
+void Light::setTag(Tag tag)
 {
     m_pGeometry->setTag(tag);
 }

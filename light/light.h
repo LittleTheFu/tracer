@@ -5,6 +5,7 @@
 #include "ray.h"
 #include "vector.h"
 #include "transform.h"
+#include "tagDef.h"
 
 class Geometry;
 
@@ -16,7 +17,7 @@ public:
     void applyTransform(const Transform &t);
     Vector3 sample(const Vector3 &thatPoint, float &pdf) const;
     bool hit(const Ray &ray, float &t, Vector3 &normal, float &dot) const;
-    void setTag(int tag);
+    void setTag(Tag tag);
 
     const Geometry *getGeometry() const;
 

@@ -17,12 +17,12 @@ void Geometry::setPosition(const Vector3 &position)
     m_transform.translate(position);
 }
 
-void Geometry::setTag(int tag)
+void Geometry::setTag(Tag tag)
 {
     m_tag = tag;
 }
 
-int Geometry::getTag() const
+Tag Geometry::getTag() const
 {
     return m_tag;
 }

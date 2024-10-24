@@ -5,6 +5,7 @@
 #include "ball.h"
 #include "materialManager.h"
 #include "room.h"
+#include "tagDef.h"
 
 void SceneBuilder::init(ObjectPool *pool)
 {
@@ -68,7 +69,7 @@ void SceneBuilder::buildLight(const Vector3& pos, float r)
 {
     // Light *light = new Light(Vector3(0, 0, 300), 50);
     Light *light = new Light(pos, r);
-    light->setTag(Common::TAG_LIGHT);
+    light->setTag(Tag::TAG_LIGHT);
 
     m_pObjectPool->add(light);
 }

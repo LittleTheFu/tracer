@@ -7,6 +7,7 @@
 #include "transform.h"
 #include "light.h"
 #include "boundBox.h"
+#include "tagDef.h"
 
 class Light;
 
@@ -37,8 +38,8 @@ public:
 
 //for development
 public:
-    void setTag(int tag);
-    int getTag() const;
+    void setTag(Tag tag);
+    Tag getTag() const;
 
     std::string getClassName() const;
 
@@ -51,7 +52,7 @@ private:
 
 protected:
     Transform m_transform;
-    int m_tag;
+    Tag m_tag;
 
     BoundBox m_boundBox;
 
