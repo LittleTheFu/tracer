@@ -2,7 +2,7 @@
 #define _BOUND_BOX_H_
 
 #include "vector.h"
-#include <ray.h>
+#include "ray.h"
 #include "axisDef.h"
 
 class BoundBox
