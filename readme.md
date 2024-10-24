@@ -12,15 +12,15 @@ Then:
 
 1.make a new folder named "build".
 
-`
+```
 mkdir build
-`
+```
 
 2.enter this folder.
 
-`
+```
 cd build
-`
+```
 
 3.generate the project with cmake.
 
