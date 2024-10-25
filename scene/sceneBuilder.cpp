@@ -1,5 +1,6 @@
 #include "sceneBuilder.h"
 #include "plane.h"
+#include "mathConstantDef.h"
 #include "common.h"
 #include "mesh.h"
 #include "ball.h"
@@ -17,29 +18,29 @@ void SceneBuilder::buildRoom()
     const float c = 100;
     const float r = 5 * c;
 
-    Vector3 leftRotate(0, Common::PI / 2, 0);
+    Vector3 leftRotate(0, MathConstant::PI / 2, 0);
     Vector3 leftPosition(-c, 0, 0);
     // CPlane *leftPlane = new CPlane(leftRotate, leftPosition, r, &MtrlMirror);
     Plane *leftPlane = new Plane(leftRotate, leftPosition, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_RED));
 
-    Vector3 rightRotate(0, -Common::PI / 2, 0);
+    Vector3 rightRotate(0, -MathConstant::PI / 2, 0);
     Vector3 rightPosition(c, 0, 0);
     Plane *rightPlane = new Plane(rightRotate, rightPosition, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_BLUE));
 
-    Vector3 topRotate(-Common::PI / 2, 0, 0);
+    Vector3 topRotate(-MathConstant::PI / 2, 0, 0);
     Vector3 topPosition(0, -c, 0);
     Plane *topPlane = new Plane(topRotate, topPosition, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_PURPLE));
 
-    Vector3 bottomRotate(Common::PI / 2, 0, 0);
+    Vector3 bottomRotate(MathConstant::PI / 2, 0, 0);
     Vector3 bottomPosition(0, c, 0);
     Plane *bottomPlane = new Plane(bottomRotate, bottomPosition, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_YELLOW));
 
-    Vector3 frontRotate(Common::PI, 0, 0);
+    Vector3 frontRotate(MathConstant::PI, 0, 0);
     Vector3 frontPosition(0, 0, 5 * c);
     // CPlane *frontPlane = new CPlane(frontRotate, frontPosition, r, &MtrlMirror);
     Plane *frontPlane = new Plane(frontRotate, frontPosition, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_AQUA));
 
-    // Vector3 backRotate(0, -Common::PI, 0);
+    // Vector3 backRotate(0, -MathConstant::PI, 0);
     Vector3 backRotate(0, 0, 0);
     Vector3 backPosition(0, 0, -3 * c);
     Plane *backPlane = new Plane(backRotate, backPosition, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_RED));

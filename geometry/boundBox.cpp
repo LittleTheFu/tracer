@@ -2,6 +2,7 @@
 #include "common.h"
 #include <algorithm>
 #include <cassert>
+#include "mathConstantDef.h"
 
 BoundBox::BoundBox()
 {
@@ -15,8 +16,8 @@ BoundBox::BoundBox(const Vector3 &p1, const Vector3 &p2)
 
 void BoundBox::reset()
 {
-    float negInf = Common::FLOAT_NEGETIVE_INFINITY;
-    float posInf = Common::FLOAT_POSITIVE_INFINITY;
+    float negInf = MathConstant::FLOAT_NEGETIVE_INFINITY;
+    float posInf = MathConstant::FLOAT_POSITIVE_INFINITY;
 
     minPoint = Vector3(posInf, posInf, posInf);
     maxPoint = Vector3(negInf, negInf, negInf);
@@ -207,8 +208,8 @@ bool BoundBox::hit(const Ray &ray, float &t) const
     if(ray.dir == Vector3::ZERO)
         return false;
         
-    float tMin = Common::FLOAT_POSITIVE_INFINITY;
-    float tMax = Common::FLOAT_NEGETIVE_INFINITY;
+    float tMin = MathConstant::FLOAT_POSITIVE_INFINITY;
+    float tMax = MathConstant::FLOAT_NEGETIVE_INFINITY;
 
     Vector3 vecToMin = minPoint - ray.origin;
     Vector3 vecToMax = maxPoint - ray.origin;
@@ -221,16 +222,16 @@ bool BoundBox::hit(const Ray &ray, float &t) const
 
     // assert(localMin.less_or_equal_component_wise(localMax));
 
-    float tMinXY = Common::FLOAT_POSITIVE_INFINITY;
-    float tMaxXY = Common::FLOAT_NEGETIVE_INFINITY;
+    float tMinXY = MathConstant::FLOAT_POSITIVE_INFINITY;
+    float tMaxXY = MathConstant::FLOAT_NEGETIVE_INFINITY;
     bool isXYOverlap = Common::getOverlap(localMin.x, localMax.x,
                                           localMin.y, localMax.y,
                                           tMinXY, tMaxXY);
     if(!isXYOverlap)
         return false;
 
-    float tMinXYZ = Common::FLOAT_POSITIVE_INFINITY;
-    float tMaxXYZ = Common::FLOAT_NEGETIVE_INFINITY;
+    float tMinXYZ = MathConstant::FLOAT_POSITIVE_INFINITY;
+    float tMaxXYZ = MathConstant::FLOAT_NEGETIVE_INFINITY;
     bool isZOverlap = Common::getOverlap(tMinXY, tMaxXY,
                                          localMin.z, localMax.z,
                                          tMinXYZ, tMaxXYZ);
@@ -265,23 +266,23 @@ bool BoundBox::hit(const Ray &ray, float &t) const
 
 bool BoundBox::hasInfiniteComponent() const
 {
-    if(minPoint.x == Common::FLOAT_NEGETIVE_INFINITY)   return true;
-    if(minPoint.x == Common::FLOAT_POSITIVE_INFINITY)   return true;
+    if(minPoint.x == MathConstant::FLOAT_NEGETIVE_INFINITY)   return true;
+    if(minPoint.x == MathConstant::FLOAT_POSITIVE_INFINITY)   return true;
 
-    if(minPoint.y == Common::FLOAT_NEGETIVE_INFINITY)   return true;
-    if(minPoint.y == Common::FLOAT_POSITIVE_INFINITY)   return true;
+    if(minPoint.y == MathConstant::FLOAT_NEGETIVE_INFINITY)   return true;
+    if(minPoint.y == MathConstant::FLOAT_POSITIVE_INFINITY)   return true;
 
-    if(minPoint.z == Common::FLOAT_NEGETIVE_INFINITY)   return true;
-    if(minPoint.z == Common::FLOAT_POSITIVE_INFINITY)   return true;
+    if(minPoint.z == MathConstant::FLOAT_NEGETIVE_INFINITY)   return true;
+    if(minPoint.z == MathConstant::FLOAT_POSITIVE_INFINITY)   return true;
 
-    if(maxPoint.x == Common::FLOAT_NEGETIVE_INFINITY)   return true;
-    if(maxPoint.x == Common::FLOAT_POSITIVE_INFINITY)   return true;
+    if(maxPoint.x == MathConstant::FLOAT_NEGETIVE_INFINITY)   return true;
+    if(maxPoint.x == MathConstant::FLOAT_POSITIVE_INFINITY)   return true;
 
-    if(maxPoint.y == Common::FLOAT_NEGETIVE_INFINITY)   return true;
-    if(maxPoint.y == Common::FLOAT_POSITIVE_INFINITY)   return true;
+    if(maxPoint.y == MathConstant::FLOAT_NEGETIVE_INFINITY)   return true;
+    if(maxPoint.y == MathConstant::FLOAT_POSITIVE_INFINITY)   return true;
 
-    if(maxPoint.z == Common::FLOAT_NEGETIVE_INFINITY)   return true;
-    if(maxPoint.z == Common::FLOAT_POSITIVE_INFINITY)   return true;
+    if(maxPoint.z == MathConstant::FLOAT_NEGETIVE_INFINITY)   return true;
+    if(maxPoint.z == MathConstant::FLOAT_POSITIVE_INFINITY)   return true;
 
     return false;
 }

@@ -8,12 +8,6 @@
 class Common
 {
 public:
-    const static float PI;
-    const static float TWO_PI;
-    const static float FOUR_PI;
-    const static float INV_PI;
-    const static float INV_TWO_PI;
-
     const static bool is_in_range(float value, float low, float high, bool equalLow, bool equalHigh);
 
     const static bool is_float_equal(float x, float y);
@@ -33,11 +27,6 @@ public:
     const static float genRamdomSignDecimal();
 
     const static void printCurrentTime();
-    
-    const static float FLOAT_SAMLL_NUMBER;
-    const static float FLOAT_MAX;
-    const static float FLOAT_POSITIVE_INFINITY;
-    const static float FLOAT_NEGETIVE_INFINITY;
 
     const static Vector3 LOCAL_NORMAL;
     const static Color LIGHT_COLOR;

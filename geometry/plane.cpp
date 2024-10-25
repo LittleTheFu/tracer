@@ -1,5 +1,6 @@
 #include "plane.h"
 #include "common.h"
+#include "mathConstantDef.h"
 #include <cmath>
 #include <iostream>
 
@@ -25,7 +26,7 @@ Vector3 Plane::getLocalNormal(bool reverse = false) const
 
 bool Plane::hit(const Ray &ray, HitRecord &record) const
 {
-    record.t = Common::FLOAT_MAX;
+    record.t = MathConstant::FLOAT_MAX;
 
     const Ray newRay = ray.genNewRay(m_transform);
 
@@ -40,7 +41,7 @@ bool Plane::hit(const Ray &ray, HitRecord &record) const
     const float d = newRay.dir * getLocalNormal(reverse);
 
     record.t = n / d;
-    if (record.t < Common::FLOAT_SAMLL_NUMBER)
+    if (record.t < MathConstant::FLOAT_SAMLL_NUMBER)
     {
         // std::cout << record.t << "," << n << "," << d << std::endl;
         return false;
@@ -105,7 +106,7 @@ void Plane::HandleMaterial(const Ray &newRay, HitRecord &record) const
 
     Vector3 r;
     record.f = m_pMtrl->eval(record.u, record.v, -newRay.dir, r, record.reflectPdf);
-    record.dot = Common::clamp(std::abs(r * Common::LOCAL_NORMAL), Common::FLOAT_SAMLL_NUMBER, 1.0f);
+    record.dot = Common::clamp(std::abs(r * Common::LOCAL_NORMAL), MathConstant::FLOAT_SAMLL_NUMBER, 1.0f);
     record.reflect = m_transform.transformVector(r);
     record.isMirror = m_pMtrl->isMirror();
 

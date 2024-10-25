@@ -1,4 +1,5 @@
 #include "ball.h"
+#include "mathConstantDef.h"
 #include "common.h"
 #include <cmath>
 #include <algorithm>
@@ -28,8 +29,8 @@ Vector3 Ball::getLocalNormal(const Vector3 &thatPoint) const
 
 Vector3 Ball::getLocalDirection(float u, float v) const
 {
-    const float phi = u * Common::TWO_PI;
-    const float theta = v * Common::PI;
+    const float phi = u * MathConstant::TWO_PI;
+    const float theta = v * MathConstant::PI;
 
     const float x = std::sin(theta) * std::cos(phi);
     const float y = std::sin(theta) * std::sin(phi);
@@ -50,7 +51,7 @@ Vector3 Ball::getCentroid() const
 
 float Ball::surfaceArea() const
 {
-    return Common::FOUR_PI * r * r;
+    return MathConstant::FOUR_PI * r * r;
 }
 
 void Ball::buildBoundBox()
@@ -67,7 +68,7 @@ void Ball::buildBoundBox()
 
 bool Ball::hit(const Ray &ray, HitRecord &record) const
 {
-    // record.t = Common::FLOAT_MAX;
+    // record.t = MathConstant::FLOAT_MAX;
 
     const Ray newRay = ray.genNewRay(m_transform);
 
@@ -113,7 +114,7 @@ Vector3 Ball::sampleFromPoint(const Vector3 &thatPoint, float &pdf) const
     float d = framePoint.z;
     float alpha = std::asin(r / d);
 
-    float thetaMax = Common::PI - alpha;
+    float thetaMax = MathConstant::PI - alpha;
     Vector3 dir = Vector3::sampleUniformFromCone(thetaMax);
     Vector3 sampledFramePoint = r * dir;
     sampledFramePoint *= Common::SAMPLE_LIGHTR_CORRECT_FACTOR;
@@ -122,7 +123,7 @@ Vector3 Ball::sampleFromPoint(const Vector3 &thatPoint, float &pdf) const
 
     Vector3 worldSampledPoint = m_transform.transformPoint(localSampledPoint);
 
-    pdf = (1 / (1 - std::cos(thetaMax))) * Common::INV_TWO_PI;
+    pdf = (1 / (1 - std::cos(thetaMax))) * MathConstant::INV_TWO_PI;
     //WARNNING: for debug
     if(pdf < 0.08)
     {
@@ -133,7 +134,7 @@ Vector3 Ball::sampleFromPoint(const Vector3 &thatPoint, float &pdf) const
 
 Vector3 Ball::dpdu(const Vector3 &point) const
 {
-    const float phi_max = Common::PI * 2;
+    const float phi_max = MathConstant::PI * 2;
 
     const float x = -point.y * phi_max;
     const float y = point.x * phi_max;
@@ -148,7 +149,7 @@ Vector3 Ball::dpdu(const Vector3 &point) const
 Vector3 Ball::dpdv(const Vector3 &point) const
 {
     const float phi = getPhi(point);
-    const float theta_range = Common::PI;
+    const float theta_range = MathConstant::PI;
 
     const float theta = getTheta(point);
 
@@ -167,7 +168,7 @@ float Ball::getPhi(const Vector3 &point) const
     float phi = std::atan2(point.y, point.x);
     if (phi < 0)
     {
-        phi += Common::PI * 2;
+        phi += MathConstant::PI * 2;
     }
 
     return phi;
@@ -188,14 +189,14 @@ float Ball::getTheta(const Vector3 &point) const
 
 bool Ball::getHitParam(float t_min, float t_max, float &t_out) const
 {
-    bool hit = t_min > Common::FLOAT_SAMLL_NUMBER;
+    bool hit = t_min > MathConstant::FLOAT_SAMLL_NUMBER;
     if (hit)
     {
         t_out = t_min;
     }
     else
     {
-        hit = t_max > Common::FLOAT_SAMLL_NUMBER;
+        hit = t_max > MathConstant::FLOAT_SAMLL_NUMBER;
         if (hit)
         {
             t_out = t_max;
@@ -215,7 +216,7 @@ void Ball::HandleMaterial(const Vector3 &localNormal, const Vector3 &localPoint,
     const Vector3 local_wo = frame.pointToLocal(-newRay.dir);
     Vector3 r;
     record.f = m_pMtrl->eval(record.u, record.v, local_wo, r, record.reflectPdf);
-    record.dot = Common::clamp(std::abs(r * Common::LOCAL_NORMAL), Common::FLOAT_SAMLL_NUMBER, 1.0f);
+    record.dot = Common::clamp(std::abs(r * Common::LOCAL_NORMAL), MathConstant::FLOAT_SAMLL_NUMBER, 1.0f);
 
     Vector3 localReflectVector = frame.pointToWorld(r);
     localReflectVector.normalize();
@@ -238,7 +239,7 @@ void Ball::genRayHitParam(const Ray &ray, float &a_out, float &b_out, float &c_o
 float Ball::u(const Vector3 &point) const
 {
     float theta = getTheta(point);
-    float uu = theta * Common::INV_PI;
+    float uu = theta * MathConstant::INV_PI;
 
     return uu;
 }
@@ -246,7 +247,7 @@ float Ball::u(const Vector3 &point) const
 float Ball::v(const Vector3 &point) const
 {
     float phi = getPhi(point);
-    float vv = phi * Common::INV_TWO_PI;
+    float vv = phi * MathConstant::INV_TWO_PI;
 
     return vv;
 }

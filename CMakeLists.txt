@@ -20,6 +20,7 @@ SET (RAY_TRACER_SOURCE
     common/common.cpp
     common/hitrecord.cpp
     common/lodepng.cpp
+    common/mathConstantDef.cpp
     common/noise.cpp
     common/spectrum.cpp
     common/timeRecorder.cpp
@@ -84,6 +85,7 @@ SET (RAY_TRACER_HEADER
     common/common.h
     common/hitrecord.h
     common/lodepng.h
+    common/mathConstantDef.h
     common/noise.h
     common/spectrum.h
     common/tagDef.h

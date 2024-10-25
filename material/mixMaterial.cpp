@@ -1,5 +1,6 @@
 #include "mixMaterial.h"
 #include "common.h"
+#include "mathConstantDef.h"
 #include <cmath>
 
 MixMaterial::MixMaterial()
@@ -63,7 +64,7 @@ Color MixMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float 
 
     if(pdf == 0)
     {
-        pdf = Common::FLOAT_SAMLL_NUMBER;
+        pdf = MathConstant::FLOAT_SAMLL_NUMBER;
         // return Color::COLOR_BLACK;
     }
 

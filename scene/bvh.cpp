@@ -1,6 +1,7 @@
 #include "bvh.h"
 #include "boundBox.h"
 #include "common.h"
+#include "mathConstantDef.h"
 #include <cassert>
 #include <algorithm>
 
@@ -187,7 +188,7 @@ bool BVH::hitLeaf(const Ray &ray, const std::vector<Geometry *> objects, HitReco
 {
     assert(objects.size() > 0);
     bool hit = false;
-    float tMin = Common::FLOAT_MAX;
+    float tMin = MathConstant::FLOAT_MAX;
 
     for (std::vector<Geometry *>::const_iterator it = objects.begin(); it != objects.end(); it++)
     {
@@ -345,7 +346,7 @@ void BVH::calcBestSplit(const std::vector<Geometry *> &objects, BoundBox &outLef
         cost[i] += countAbove * boundAbove.surfaceArea();
     }
 
-    float minCost = Common::FLOAT_MAX;
+    float minCost = MathConstant::FLOAT_MAX;
     int splitIndex = -1;
     for(int i = 0; i < BUCKET_NUM; i++)
     {

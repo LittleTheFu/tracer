@@ -1,21 +1,10 @@
 #include "common.h"
 #include <cmath>
-#include <limits>
 #include <cstdlib>
 #include <chrono>
 #include <sstream> 
 #include <iomanip>
-
-const float Common::PI = 3.14159274101257324219f;
-const float Common::TWO_PI = 2 * Common::PI;
-const float Common::FOUR_PI = 4 * Common::PI;
-const float Common::INV_PI = 1 / Common::PI;
-const float Common::INV_TWO_PI = 1 / Common::TWO_PI;
-
-const float Common::FLOAT_SAMLL_NUMBER = 0.0001f;
-const float Common::FLOAT_MAX = std::numeric_limits<float>::max();
-const float Common::FLOAT_POSITIVE_INFINITY = std::numeric_limits<float>::infinity();
-const float Common::FLOAT_NEGETIVE_INFINITY = -std::numeric_limits<float>::infinity();
+#include "mathConstantDef.h"
 
 const Vector3 Common::LOCAL_NORMAL = Vector3(0, 0, 1);
 const Color Common::LIGHT_COLOR = Color::COLOR_WHITE;
@@ -63,12 +52,12 @@ const bool Common::is_float_equal(float x, float y)
 {
     float diff = std::abs(x - y);
 
-    return diff < FLOAT_SAMLL_NUMBER;
+    return diff < MathConstant::FLOAT_SAMLL_NUMBER;
 }
 
 const bool Common::is_float_zero(float x)
 {
-    return is_float_equal(x, FLOAT_SAMLL_NUMBER);
+    return is_float_equal(x, MathConstant::FLOAT_SAMLL_NUMBER);
 }
 
 const float Common::clamp(float v, float min, float max)

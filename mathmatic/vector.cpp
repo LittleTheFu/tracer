@@ -2,6 +2,7 @@
 #include <tgmath.h>
 #include <algorithm>
 #include "common.h"
+#include "mathConstantDef.h"
 #include <cassert>
 
 Vector3 const Vector3::ZERO = Vector3(0, 0, 0);
@@ -343,9 +344,9 @@ bool Vector3::isPerpendicular(const Vector3 &that) const
 {
     const Vector3 r = this->cross(that);
 
-    bool isX = std::abs(r.x) < Common::FLOAT_SAMLL_NUMBER;
-    bool isY = std::abs(r.y) < Common::FLOAT_SAMLL_NUMBER;
-    bool isZ = std::abs(r.z) < Common::FLOAT_SAMLL_NUMBER;
+    bool isX = std::abs(r.x) < MathConstant::FLOAT_SAMLL_NUMBER;
+    bool isY = std::abs(r.y) < MathConstant::FLOAT_SAMLL_NUMBER;
+    bool isZ = std::abs(r.z) < MathConstant::FLOAT_SAMLL_NUMBER;
 
     return isX && isY && isZ;
 }
@@ -388,7 +389,7 @@ Vector3 Vector3::sampleUniformFromHemisphere()
 
     const float cosTheta = u;
     const float sinTheta = std::sqrt(1 - cosTheta * cosTheta);
-    const float phi = 2 * Common::PI * v;
+    const float phi = 2 * MathConstant::PI * v;
 
     const float x = sinTheta * std::cos(phi);
     const float y = sinTheta * std::sin(phi);
@@ -397,7 +398,7 @@ Vector3 Vector3::sampleUniformFromHemisphere()
     const Vector3 vec(x, y, z);
     const float lenthSqr = vec.lenthSqr();
     const float diff = lenthSqr - 1.0f;
-    if (std::abs(diff) > Common::FLOAT_SAMLL_NUMBER)
+    if (std::abs(diff) > MathConstant::FLOAT_SAMLL_NUMBER)
     {
         // assert("vector is not normalized!");
     }
@@ -414,7 +415,7 @@ Vector3 Vector3::sampleUniformFromSphere()
 
     const float cosTheta = u;
     const float sinTheta = std::sqrt(1 - cosTheta * cosTheta);
-    const float phi = 2 * Common::PI * v;
+    const float phi = 2 * MathConstant::PI * v;
 
     const float x = sinTheta * std::cos(phi);
     const float y = sinTheta * std::sin(phi);
@@ -432,7 +433,7 @@ Vector3 Vector3::sampleUniformFromCone(float thetaMax)
     float sinTheta = std::sqrt(1 - cosTheta * cosTheta);
 
     float v = Common::genRandomDecimal();
-    float phi = v * Common::TWO_PI;
+    float phi = v * MathConstant::TWO_PI;
 
     float x = sinTheta * std::cos(phi);
     float y = sinTheta * std::sin(phi);

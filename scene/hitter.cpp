@@ -1,5 +1,5 @@
 #include "hitter.h"
-#include "common.h"
+#include "mathConstantDef.h"
 
 bool Hitter::hitSceneWithLight(const Ray &ray, HitRecord &record, bool &out_isLightHit) const
 {
@@ -53,7 +53,7 @@ Color Hitter::getColorFromLight(const Ray &ray) const
 bool Hitter::hitGeometryObjectOnly(const Ray &ray, HitRecord &record) const
 {
     bool hit = false;
-    float tMin = Common::FLOAT_MAX;
+    float tMin = MathConstant::FLOAT_MAX;
 
     for (std::vector<Geometry *>::const_iterator it = m_objects.begin(); it != m_objects.end(); it++)
     {

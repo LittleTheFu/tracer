@@ -1,5 +1,6 @@
 #include "tri.h"
 #include "common.h"
+#include "mathConstantDef.h"
 #include <cassert>
 
 // Tri::Tri()
@@ -60,7 +61,7 @@ void Tri::getSplitChildren(Tri *outTri_1, Tri *outTri_2, Tri *outTri_3) const
 //2.then to tri frame
 bool Tri::hit(const Ray &ray, HitRecord &record) const
 {
-    record.t = Common::FLOAT_MAX;
+    record.t = MathConstant::FLOAT_MAX;
 
     Ray testRay(Vector3(0,0,0), Vector3(0,0,1));
 
@@ -83,7 +84,7 @@ bool Tri::hit(const Ray &ray, HitRecord &record) const
     const float d = localRay.dir * Common::LOCAL_NORMAL;
 
     record.t = n / d;
-    if (record.t < Common::FLOAT_SAMLL_NUMBER)
+    if (record.t < MathConstant::FLOAT_SAMLL_NUMBER)
     {
         // std::cout << record.t << "," << n << "," << d << std::endl;
         // std::cout<<"false1"<<std::endl;
@@ -119,7 +120,7 @@ bool Tri::hit(const Ray &ray, HitRecord &record) const
         // {
         //     return false;
         // }
-        record.dot = Common::clamp(std::abs(r * Common::LOCAL_NORMAL), Common::FLOAT_SAMLL_NUMBER, 1.0f);
+        record.dot = Common::clamp(std::abs(r * Common::LOCAL_NORMAL), MathConstant::FLOAT_SAMLL_NUMBER, 1.0f);
         record.reflect = m_transform.transformVector(frame.vectorToWorld(r));
         record.isMirror = m_pMtrl->isMirror();
         record.isDelta = m_pMtrl->isDelta();
