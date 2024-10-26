@@ -1,5 +1,5 @@
 #include "mixMaterial.h"
-#include "common.h"
+#include "mathUtility.h"
 #include "mathConstantDef.h"
 #include <cmath>
 
@@ -47,7 +47,7 @@ Color MixMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float 
         F = fresnel;
     }
 
-    float rnd = Common::genRandomDecimal();
+    float rnd = MathUtility::genRandomDecimal();
 
     Color color;
 

@@ -1,6 +1,7 @@
 #include "color.h"
 #include <cassert>
 #include "common.h"
+#include "mathUtility.h"
 
 const Color Color::COLOR_BLACK = Color(0, 0, 0);
 const Color Color::COLOR_WHITE = Color(1, 1, 1);
@@ -39,9 +40,9 @@ bool Color::isValid() const
     float low = 0.0f;
     float high = 1.0f;
 
-    bool bR = Common::is_in_range(this->r, low, high, true, true);
-    bool bG = Common::is_in_range(this->g, low, high, true, true);
-    bool bB = Common::is_in_range(this->b, low, high, true, true);
+    bool bR = MathUtility::is_in_range(this->r, low, high, true, true);
+    bool bG = MathUtility::is_in_range(this->g, low, high, true, true);
+    bool bB = MathUtility::is_in_range(this->b, low, high, true, true);
 
     return (bR && bG && bB);
 }
@@ -52,9 +53,9 @@ void Color::getConvertedValue(unsigned char &r, unsigned char &g, unsigned char 
 
     //is assert needed here? think about it later...
 
-    float rr = Common::clamp(this->r, 0, 1);
-    float gg = Common::clamp(this->g, 0, 1);
-    float bb = Common::clamp(this->b, 0, 1);
+    float rr = MathUtility::clamp(this->r, 0, 1);
+    float gg = MathUtility::clamp(this->g, 0, 1);
+    float bb = MathUtility::clamp(this->b, 0, 1);
 
     r = rr * MAX;
     g = gg * MAX;
@@ -63,9 +64,9 @@ void Color::getConvertedValue(unsigned char &r, unsigned char &g, unsigned char 
 
 Color &Color::clamp()
 {
-    r = Common::clamp(r, 0, 1);
-    g = Common::clamp(g, 0, 1);
-    b = Common::clamp(b, 0, 1);
+    r = MathUtility::clamp(r, 0, 1);
+    g = MathUtility::clamp(g, 0, 1);
+    b = MathUtility::clamp(b, 0, 1);
 
     return *this;
 }
@@ -80,9 +81,9 @@ Color &Color::operator+=(const Color &that)
     g += that.g;
     b += that.b;
 
-    // Common::clamp(r, 0, 1);
-    // Common::clamp(g, 0, 1);
-    // Common::clamp(b, 0, 1);
+    // MathUtility::clamp(r, 0, 1);
+    // MathUtility::clamp(g, 0, 1);
+    // MathUtility::clamp(b, 0, 1);
 
     return *this;
 }
@@ -115,9 +116,9 @@ Color Color::operator*(const Color &that) const
     float g = this->g * that.g;
     float b = this->b * that.b;
 
-    // float r = Common::clamp(this->r * that.r, 0, 1);
-    // float g = Common::clamp(this->g * that.g, 0, 1);
-    // float b = Common::clamp(this->b * that.b, 0, 1);
+    // float r = MathUtility::clamp(this->r * that.r, 0, 1);
+    // float g = MathUtility::clamp(this->g * that.g, 0, 1);
+    // float b = MathUtility::clamp(this->b * that.b, 0, 1);
 
     return Color(r, g, b);
 }
@@ -126,9 +127,9 @@ Color Color::operator/(const float m) const
 {
     // assert(m > 0);
 
-    // float r = Common::clamp(this->r / m, 0, 1);
-    // float g = Common::clamp(this->g / m, 0, 1);
-    // float b = Common::clamp(this->b / m, 0, 1);
+    // float r = MathUtility::clamp(this->r / m, 0, 1);
+    // float g = MathUtility::clamp(this->g / m, 0, 1);
+    // float b = MathUtility::clamp(this->b / m, 0, 1);
     float r = this->r / m;
     float g = this->g / m;
     float b = this->b / m;
@@ -147,17 +148,17 @@ Color &Color::operator/=(const float m)
 
 bool Color::operator==(const Color that) const
 {
-    if (!Common::is_float_equal(this->r, that.r))
+    if (!MathUtility::is_float_equal(this->r, that.r))
     {
         return false;
     }
 
-    if (!Common::is_float_equal(this->g, that.g))
+    if (!MathUtility::is_float_equal(this->g, that.g))
     {
         return false;
     }
 
-    if (!Common::is_float_equal(this->b, that.b))
+    if (!MathUtility::is_float_equal(this->b, that.b))
     {
         return false;
     }

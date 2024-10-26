@@ -1,5 +1,6 @@
 #include "plane.h"
 #include "common.h"
+#include "mathUtility.h"
 #include "mathConstantDef.h"
 #include <cmath>
 #include <iostream>
@@ -106,7 +107,7 @@ void Plane::HandleMaterial(const Ray &newRay, HitRecord &record) const
 
     Vector3 r;
     record.f = m_pMtrl->eval(record.u, record.v, -newRay.dir, r, record.reflectPdf);
-    record.dot = Common::clamp(std::abs(r * Common::LOCAL_NORMAL), MathConstant::FLOAT_SAMLL_NUMBER, 1.0f);
+    record.dot = MathUtility::clamp(std::abs(r * Common::LOCAL_NORMAL), MathConstant::FLOAT_SAMLL_NUMBER, 1.0f);
     record.reflect = m_transform.transformVector(r);
     record.isMirror = m_pMtrl->isMirror();
 
@@ -136,7 +137,7 @@ float Plane::u(const Vector3 &point) const
     float length = half_length * 2;
     float uu = x / length;
 
-    return Common::clamp(std::abs(uu), 0, 1);
+    return MathUtility::clamp(std::abs(uu), 0, 1);
 }
 
 float Plane::v(const Vector3 &point) const
@@ -149,12 +150,12 @@ float Plane::v(const Vector3 &point) const
     float length = half_length * 2;
     float vv = y / length;
 
-    return Common::clamp(std::abs(vv), 0, 1);
+    return MathUtility::clamp(std::abs(vv), 0, 1);
 }
 
 bool Plane::isLocalIn(const Vector3 &p) const
 {
-    if (!Common::is_float_equal(p.z, 0))
+    if (!MathUtility::is_float_equal(p.z, 0))
     {
         return false;
     }

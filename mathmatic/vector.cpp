@@ -1,7 +1,7 @@
 #include "vector.h"
 #include <tgmath.h>
 #include <algorithm>
-#include "common.h"
+#include "mathUtility.h"
 #include "mathConstantDef.h"
 #include <cassert>
 
@@ -128,9 +128,9 @@ Vector3 &Vector3::operator/=(float m)
 
 bool Vector3::operator==(const Vector3 &that) const
 {
-    bool eqX = Common::is_float_equal(this->x, that.x);
-    bool eqY = Common::is_float_equal(this->y, that.y);
-    bool eqZ = Common::is_float_equal(this->z, that.z);
+    bool eqX = MathUtility::is_float_equal(this->x, that.x);
+    bool eqY = MathUtility::is_float_equal(this->y, that.y);
+    bool eqZ = MathUtility::is_float_equal(this->z, that.z);
 
     return (eqX && eqY && eqZ);
 }
@@ -245,7 +245,7 @@ Vector3 Vector3::_refract(const Vector3 &normal,
 
     float cos_theta_in_sqr = dot * dot;
     float sin_theta_in_sqr = 1 - cos_theta_in_sqr;
-    bool is_sin_theta_sqr_in_range = Common::is_in_range(sin_theta_in_sqr, 0, 1, true, true);
+    bool is_sin_theta_sqr_in_range = MathUtility::is_in_range(sin_theta_in_sqr, 0, 1, true, true);
     // assert(is_sin_theta_sqr_in_range && "Vector3::_refract");
 
     float sin_theta_out_sqr = sin_theta_in_sqr / (eta * eta);
@@ -256,11 +256,11 @@ Vector3 Vector3::_refract(const Vector3 &normal,
         return reflect(normal);
     }
 
-    bool is_sin_theta_out_sqr_in_range = Common::is_in_range(sin_theta_out_sqr, 0, 1, true, false);
+    bool is_sin_theta_out_sqr_in_range = MathUtility::is_in_range(sin_theta_out_sqr, 0, 1, true, false);
     // assert(is_sin_theta_out_sqr_in_range && "Vector3::_refract");
 
     float cos_theta_out_sqr = 1 - sin_theta_out_sqr;
-    bool is_cos_theta_out_sqr = Common::is_in_range(cos_theta_out_sqr, 0, 1, true, true);
+    bool is_cos_theta_out_sqr = MathUtility::is_in_range(cos_theta_out_sqr, 0, 1, true, true);
     float cos_theta_out = sqrt(cos_theta_out_sqr);
    
 
@@ -384,8 +384,8 @@ Vector3 Vector3::getRandomVector()
 
 Vector3 Vector3::sampleUniformFromHemisphere()
 {
-    const float u = Common::genRandomDecimal();
-    const float v = Common::genRandomDecimal();
+    const float u = MathUtility::genRandomDecimal();
+    const float v = MathUtility::genRandomDecimal();
 
     const float cosTheta = u;
     const float sinTheta = std::sqrt(1 - cosTheta * cosTheta);
@@ -410,8 +410,8 @@ Vector3 Vector3::sampleUniformFromSphere()
 {
     const float max = (float)RAND_MAX;
 
-    const float u = Common::genRamdomSignDecimal();
-    const float v = Common::genRandomDecimal();
+    const float u = MathUtility::genRamdomSignDecimal();
+    const float v = MathUtility::genRandomDecimal();
 
     const float cosTheta = u;
     const float sinTheta = std::sqrt(1 - cosTheta * cosTheta);
@@ -428,11 +428,11 @@ Vector3 Vector3::sampleUniformFromSphere()
 
 Vector3 Vector3::sampleUniformFromCone(float thetaMax)
 {
-    float u = Common::genRandomDecimal();
+    float u = MathUtility::genRandomDecimal();
     float cosTheta = 1 - u + u * std::cos(thetaMax);
     float sinTheta = std::sqrt(1 - cosTheta * cosTheta);
 
-    float v = Common::genRandomDecimal();
+    float v = MathUtility::genRandomDecimal();
     float phi = v * MathConstant::TWO_PI;
 
     float x = sinTheta * std::cos(phi);

@@ -1,6 +1,7 @@
 #include "ball.h"
 #include "mathConstantDef.h"
 #include "common.h"
+#include "mathUtility.h"
 #include <cmath>
 #include <algorithm>
 #include "frame.h"
@@ -76,7 +77,7 @@ bool Ball::hit(const Ray &ray, HitRecord &record) const
     genRayHitParam(newRay, a, b, c);
 
     float t0, t1;
-    if (!Common::solveLinerEquation(a, b, c, t0, t1))
+    if (!MathUtility::solveLinerEquation(a, b, c, t0, t1))
         return false;
 
     bool hit = getHitParam(t0, t1, record.t);
@@ -216,7 +217,7 @@ void Ball::HandleMaterial(const Vector3 &localNormal, const Vector3 &localPoint,
     const Vector3 local_wo = frame.pointToLocal(-newRay.dir);
     Vector3 r;
     record.f = m_pMtrl->eval(record.u, record.v, local_wo, r, record.reflectPdf);
-    record.dot = Common::clamp(std::abs(r * Common::LOCAL_NORMAL), MathConstant::FLOAT_SAMLL_NUMBER, 1.0f);
+    record.dot = MathUtility::clamp(std::abs(r * Common::LOCAL_NORMAL), MathConstant::FLOAT_SAMLL_NUMBER, 1.0f);
 
     Vector3 localReflectVector = frame.pointToWorld(r);
     localReflectVector.normalize();

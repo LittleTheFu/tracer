@@ -1,5 +1,5 @@
 #include "transform.h"
-#include "common.h"
+#include "mathUtility.h"
 #include <iostream>
 
 Transform::Transform()
@@ -61,7 +61,7 @@ Transform &Transform::rotate(const Vector3 &v)
 
 Transform &Transform::rotateX(float theta)
 {
-    if (Common::is_float_zero(theta))
+    if (MathUtility::is_float_zero(theta))
     {
         return *this;
     }
@@ -77,7 +77,7 @@ Transform &Transform::rotateX(float theta)
 
 Transform &Transform::rotateY(float theta)
 {
-    if (Common::is_float_zero(theta))
+    if (MathUtility::is_float_zero(theta))
     {
         return *this;
     }
@@ -93,7 +93,7 @@ Transform &Transform::rotateY(float theta)
 
 Transform &Transform::rotateZ(float theta)
 {
-    if (Common::is_float_zero(theta))
+    if (MathUtility::is_float_zero(theta))
     {
         return *this;
     }

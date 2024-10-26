@@ -1,5 +1,5 @@
 #include "noise.h"
-#include "common.h"
+#include "mathUtility.h"
 #include <cmath>
 
 Noise::Noise()
@@ -8,7 +8,7 @@ Noise::Noise()
         for (int j = 0; j < NUM; j++)
             for (int k = 0; k < NUM; k++)
             {
-                m_data[i][j][k] = Common::genRamdomSignDecimal();
+                m_data[i][j][k] = MathUtility::genRamdomSignDecimal();
             }
 }
 
@@ -40,15 +40,15 @@ float Noise::getValue(const Vector3 &v) const
     //     std::swap(iZ, iiZ);
     // }
 
-    float v00 = Common::interpolate(m_data[iX][iY][iZ], m_data[iiX][iY][iZ], fX);
-    float v01 = Common::interpolate(m_data[iX][iiY][iZ], m_data[iiX][iiY][iZ], fX);
-    float v10 = Common::interpolate(m_data[iX][iY][iiZ], m_data[iiX][iY][iiZ], fX);
-    float v11 = Common::interpolate(m_data[iX][iiY][iiZ], m_data[iiX][iiY][iiZ], fX);
+    float v00 = MathUtility::interpolate(m_data[iX][iY][iZ], m_data[iiX][iY][iZ], fX);
+    float v01 = MathUtility::interpolate(m_data[iX][iiY][iZ], m_data[iiX][iiY][iZ], fX);
+    float v10 = MathUtility::interpolate(m_data[iX][iY][iiZ], m_data[iiX][iY][iiZ], fX);
+    float v11 = MathUtility::interpolate(m_data[iX][iiY][iiZ], m_data[iiX][iiY][iiZ], fX);
 
-    float u0 = Common::interpolate(v00, v01, fY);
-    float u1 = Common::interpolate(v10, v11, fY);
+    float u0 = MathUtility::interpolate(v00, v01, fY);
+    float u1 = MathUtility::interpolate(v10, v11, fY);
 
-    float w = Common::interpolate(u0, u1, fZ);
+    float w = MathUtility::interpolate(u0, u1, fZ);
 
     return w;
 }

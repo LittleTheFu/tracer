@@ -1,7 +1,7 @@
 #include "light.h"
 #include "ball.h"
 #include "hitrecord.h"
-#include "common.h"
+#include "mathUtility.h"
 
 Light::Light(const Vector3 &position, float r)
 {
@@ -26,7 +26,7 @@ bool Light::hit(const Ray &ray, float &t, Vector3 &normal, float &dot) const
 
     t = record.t;
     normal = record.normal;
-    dot = Common::clamp((-ray.dir) * normal, 0, 1);
+    dot = MathUtility::clamp((-ray.dir) * normal, 0, 1);
 
     return isHit;
 }

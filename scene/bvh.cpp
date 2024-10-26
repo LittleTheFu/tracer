@@ -1,6 +1,6 @@
 #include "bvh.h"
 #include "boundBox.h"
-#include "common.h"
+#include "mathUtility.h"
 #include "mathConstantDef.h"
 #include <cassert>
 #include <algorithm>
@@ -360,7 +360,7 @@ void BVH::calcBestSplit(const std::vector<Geometry *> &objects, BoundBox &outLef
     assert(splitIndex != -1);
 
     float splitPercent = percent * (splitIndex + 1);
-    assert(Common::is_in_range(splitPercent, 0, 1, true, true));
+    assert(MathUtility::is_in_range(splitPercent, 0, 1, true, true));
 
     boundBox.split(axis, splitPercent, outLeftBox, outRightBox);
 }

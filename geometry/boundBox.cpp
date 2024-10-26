@@ -1,5 +1,5 @@
 #include "boundBox.h"
-#include "common.h"
+#include "mathUtility.h"
 #include <algorithm>
 #include <cassert>
 #include "mathConstantDef.h"
@@ -67,8 +67,8 @@ float BoundBox::surfaceArea() const
 BoundBox BoundBox::createSubBox(Axis axis, float startPercent, float endPercent) const
 {
     assert(startPercent < endPercent);
-    assert(Common::is_in_range(startPercent, 0, 1, true, true));
-    assert(Common::is_in_range(endPercent, 0, 1, true, true));
+    assert(MathUtility::is_in_range(startPercent, 0, 1, true, true));
+    assert(MathUtility::is_in_range(endPercent, 0, 1, true, true));
 
     Vector3 e = maxPoint - minPoint;
     Vector3 min = minPoint;
@@ -101,15 +101,15 @@ bool BoundBox::isOverlapped(const BoundBox &that) const
 {
     float tMinDummy, tMaxDummy;
 
-    bool bX = Common::getOverlap(minPoint.x, maxPoint.x,
+    bool bX = MathUtility::getOverlap(minPoint.x, maxPoint.x,
                                  that.minPoint.x, that.maxPoint.x,
                                  tMinDummy, tMaxDummy);
 
-    bool bY = Common::getOverlap(minPoint.y, maxPoint.y,
+    bool bY = MathUtility::getOverlap(minPoint.y, maxPoint.y,
                                  that.minPoint.y, that.maxPoint.y,
                                  tMinDummy, tMaxDummy);
 
-    bool bZ = Common::getOverlap(minPoint.z, maxPoint.z,
+    bool bZ = MathUtility::getOverlap(minPoint.z, maxPoint.z,
                                  that.minPoint.z, that.maxPoint.z,
                                  tMinDummy, tMaxDummy);
     return bX && bY && bZ;
@@ -118,7 +118,7 @@ bool BoundBox::isOverlapped(const BoundBox &that) const
 void BoundBox::split(Axis axis, float percent, BoundBox &outBox1, BoundBox &outBox2) const
 {
     assert(!hasInfiniteComponent());
-    assert(Common::is_in_range(percent, 0, 1, true, true));
+    assert(MathUtility::is_in_range(percent, 0, 1, true, true));
 
     Vector3 minP1 = minPoint;
     Vector3 maxP1 = maxPoint;
@@ -187,9 +187,9 @@ void BoundBox::set(const Vector3 &p1, const Vector3 &p2)
 
 bool BoundBox::isInBox(const Vector3 &point) const
 {
-    bool bX = Common::is_in_range(point.x, minPoint.x, maxPoint.x, true, true);
-    bool bY = Common::is_in_range(point.y, minPoint.y, maxPoint.y, true, true);
-    bool bZ = Common::is_in_range(point.z, minPoint.z, maxPoint.z, true, true);
+    bool bX = MathUtility::is_in_range(point.x, minPoint.x, maxPoint.x, true, true);
+    bool bY = MathUtility::is_in_range(point.y, minPoint.y, maxPoint.y, true, true);
+    bool bZ = MathUtility::is_in_range(point.z, minPoint.z, maxPoint.z, true, true);
 
     bool isIn = bX && bY && bZ;
 
@@ -224,7 +224,7 @@ bool BoundBox::hit(const Ray &ray, float &t) const
 
     float tMinXY = MathConstant::FLOAT_POSITIVE_INFINITY;
     float tMaxXY = MathConstant::FLOAT_NEGETIVE_INFINITY;
-    bool isXYOverlap = Common::getOverlap(localMin.x, localMax.x,
+    bool isXYOverlap = MathUtility::getOverlap(localMin.x, localMax.x,
                                           localMin.y, localMax.y,
                                           tMinXY, tMaxXY);
     if(!isXYOverlap)
@@ -232,7 +232,7 @@ bool BoundBox::hit(const Ray &ray, float &t) const
 
     float tMinXYZ = MathConstant::FLOAT_POSITIVE_INFINITY;
     float tMaxXYZ = MathConstant::FLOAT_NEGETIVE_INFINITY;
-    bool isZOverlap = Common::getOverlap(tMinXY, tMaxXY,
+    bool isZOverlap = MathUtility::getOverlap(tMinXY, tMaxXY,
                                          localMin.z, localMax.z,
                                          tMinXYZ, tMaxXYZ);
     if (!isZOverlap)
