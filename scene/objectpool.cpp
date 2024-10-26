@@ -6,13 +6,14 @@
 #include <cassert>
 #include "hitter.h"
 #include "bvh.h"
-
-// #define _OBJECT_POOL_DEBUG_PRINT_
+#include "config.h"
 
 ObjectPool::ObjectPool()
 {
-    m_pHitter = new Hitter();
-    // m_pHitter = new BVH();
+    if (configUseBVH)
+        m_pHitter = new BVH();
+    else
+        m_pHitter = new Hitter();
 }
 
 void ObjectPool::initHitter()

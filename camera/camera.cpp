@@ -4,16 +4,17 @@
 #include "simpleTracer.h"
 #include "randomTracer.h"
 #include <iomanip>
-#include <timeRecorder.h>
+#include "timeRecorder.h"
+#include "config.h"
 
 Camera::Camera(Tracer* tracer)
 {
-    m_factor = 6;
+    m_factor = configCameraFactor;
 
     m_Width = Common::default_screen_width * m_factor;
     m_Height = Common::default_screen_height * m_factor;
 
-    m_BounceTime = 6;
+    m_BounceTime = configBounceTime;
 
     m_pTracer = tracer;
 }

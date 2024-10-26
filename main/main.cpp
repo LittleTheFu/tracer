@@ -4,13 +4,12 @@
 #include "tester.h"
 #include "alphaSceneBuilder.h"
 #include "betaSceneBuilder.h"
+#include "config.h"
 
 int main()
 {
-    int scene_id = 1;
-
     SceneBuilder *builder = nullptr;
-    if (scene_id == 0)
+    if (configUseAlphaScene)
         builder = new AlphaSceneBuilder();
     else
         builder = new BetaSceneBuilder();

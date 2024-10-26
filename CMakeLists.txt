@@ -18,6 +18,7 @@ SET (RAY_TRACER_SOURCE
     camera/pinholeCamera.cpp
     common/color.cpp
     common/common.cpp
+    common/config.cpp
     common/hitrecord.cpp
     common/lodepng.cpp
     common/mathConstantDef.cpp
@@ -85,6 +86,7 @@ SET (RAY_TRACER_HEADER
     common/axisDef.h
     common/color.h
     common/common.h
+    common/config.h
     common/hitrecord.h
     common/lodepng.h
     common/mathConstantDef.h
