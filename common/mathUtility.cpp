@@ -1,6 +1,7 @@
 #include "mathUtility.h"
 #include "mathConstantDef.h"
 #include <algorithm>
+#include <cmath>
 
 const bool MathUtility::is_in_range(float value, float low, float high, bool equalLow, bool equalHigh)
 {
@@ -92,8 +93,8 @@ const bool MathUtility::solveLinerEquation(float a, float b, float c, float &r_m
     if (delta < 0.0f)
         return false;
 
-    r_min = (-b + sqrt(delta)) / (2 * a);
-    r_max = (-b - sqrt(delta)) / (2 * a);
+    r_min = (-b + std::sqrt(delta)) / (2 * a);
+    r_max = (-b - std::sqrt(delta)) / (2 * a);
 
     if (r_min > r_max)
     {
