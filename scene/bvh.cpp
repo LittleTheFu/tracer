@@ -272,9 +272,8 @@ void BVH::splitObjects(const std::vector<Geometry *> &objects, const BoundBox &l
 
     for(auto it = objects.begin(); it != objects.end(); it++)
     {
-        bool b_l = false;
-        bool b_r = false;
         Vector3 centroid = (*it)->getCentroid();
+        
         if(leftBox.isInBox(centroid))
             outLeftObjects.push_back(*it);
 
