@@ -33,12 +33,6 @@ public:
 
     const static float SAMPLE_LIGHTR_CORRECT_FACTOR;
 
-    const static std::string LENA;
-    const static std::string BUNNY;
-    const static std::string SIMPLE_BUNNY;
-    const static std::string LOW_BUNNY;
-    const static std::string LOW_LOW_BUNNY;
-
     //for mist
     const static float SIGMA_T;
     const static float SIGMA_S;

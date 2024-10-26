@@ -14,12 +14,6 @@ const float Common::SAMPLE_LIGHTR_CORRECT_FACTOR = 0.96f;
 const float Common::SIGMA_T = 0.1f;
 const float Common::SIGMA_S = 0.2f;
 
-const std::string Common::LENA = "../resource/lena.png";
-const std::string Common::BUNNY = "../resource/bunny.obj";
-const std::string Common::SIMPLE_BUNNY = "../resource/simple_bunny.obj";
-const std::string Common::LOW_BUNNY = "../resource/low_bunny.obj";
-const std::string Common::LOW_LOW_BUNNY = "../resource/low_low_bunny.obj";
-
 const  unsigned int Common::default_screen_width = 256;
 const  unsigned int Common::default_screen_height = 256;
 

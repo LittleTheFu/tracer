@@ -1,8 +1,8 @@
 #include "sceneBuilder.h"
 #include "plane.h"
 #include "mathConstantDef.h"
-#include "common.h"
 #include "mesh.h"
+#include "resourceDef.h"
 #include "ball.h"
 #include "materialManager.h"
 #include "room.h"
@@ -117,7 +117,7 @@ void SceneBuilder::buildBunny(const Vector3& pos, float scale)
     // Vector3 pos(60, 60, 350);
     // float scale = 300;
 
-    Mesh *bunny = new Mesh(Common::LOW_LOW_BUNNY, pos, scale, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_YELLOW));
+    Mesh *bunny = new Mesh(ResourceDef::LOW_LOW_BUNNY, pos, scale, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_YELLOW));
     bunny->addToPool(m_pObjectPool);
 }
 
