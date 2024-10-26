@@ -7,11 +7,14 @@
 
 int main()
 {
-   
-    // Tester tester;
-    // tester.run();
-    
-    SceneBuilder* builder = new BetaSceneBuilder();
+    int scene_id = 1;
+
+    SceneBuilder *builder = nullptr;
+    if (scene_id == 0)
+        builder = new AlphaSceneBuilder();
+    else
+        builder = new BetaSceneBuilder();
+
     Scene scene(builder);
     scene.run();
 
