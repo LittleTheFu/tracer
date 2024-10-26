@@ -103,12 +103,13 @@ HitRecord Camera::InitHitRecord() const
 
 void Camera::logProgress(unsigned int x, unsigned int y) const
 {
+    unsigned int total = m_Height * m_Width;
     if (x == 0)
     {
-        float percent = (float(y) / m_Height) * 100;
+        float percent = (float(y * m_Width + x) / total) * 100;
         std::cout << "x:y --- "
                   << "(" << x << "," << y << ")  ~~" 
-                  << std::fixed << std::setprecision(2) << percent << "%~~"
+                  << std::fixed << std::setprecision(10) << percent << "%~~"
                   << std::endl;
     }
 }
