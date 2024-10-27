@@ -49,17 +49,17 @@ bool Color::isValid() const
 
 void Color::getConvertedValue(unsigned char &r, unsigned char &g, unsigned char &b) const
 {
-    const unsigned char MAX = 255;
+    const float MAX = 255;
 
-    //is assert needed here? think about it later...
+    //does assert needed here? think about it later...
 
     float rr = MathUtility::clamp(this->r, 0, 1);
     float gg = MathUtility::clamp(this->g, 0, 1);
     float bb = MathUtility::clamp(this->b, 0, 1);
 
-    r = rr * MAX;
-    g = gg * MAX;
-    b = bb * MAX;
+    r = static_cast<unsigned char>(rr * MAX);
+    g = static_cast<unsigned char>(gg * MAX);
+    b = static_cast<unsigned char>(bb * MAX);
 }
 
 Color &Color::clamp()
