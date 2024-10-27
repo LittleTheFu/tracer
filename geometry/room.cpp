@@ -42,7 +42,7 @@ void Room::init()
 
     Tri *tri_fr = new Tri(a_fr, b_fr, c_fr, Vector3(0,0,0), MaterialManager::getInstance()->get(MATERIAL_TYPE::M_RED));
     m_tris.push_back(tri_fr);
-/*
+
     //left near
     TriVertex a_ln(hw, -hw, -depth);
     TriVertex b_ln(hw, -hw, depth);
@@ -121,7 +121,7 @@ void Room::init()
     TriVertex c_br(-hw, hw, -depth);
 
     Tri *tri_br = new Tri(a_br, b_br, c_br, Vector3(0,0,0), MaterialManager::getInstance()->get(MATERIAL_TYPE::M_WHITE));
-    m_tris.push_back(tri_br);*/
+    m_tris.push_back(tri_br);
 }
 
 void Room::refine()
