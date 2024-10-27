@@ -1,5 +1,5 @@
 RayTracer
-==================================
+---
 
 ![CMake](https://img.shields.io/badge/CMake-v3.16-green)
 ![C++](https://img.shields.io/badge/C++-11-green)
@@ -37,4 +37,9 @@ cmake --install .
 
 you can get some details in the document folder.(in progressing...)
 
-![img](sample.bmp)
+
+---
+![img](document/sample_0.gif)
+---
+![img](document/sample_1.gif)
+---
