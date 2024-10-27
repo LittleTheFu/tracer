@@ -3,7 +3,6 @@
 
 #include "vector.h"
 #include "color.h"
-#include <string>
 
 class Common
 {
