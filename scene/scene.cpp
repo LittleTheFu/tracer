@@ -3,6 +3,7 @@
 #include "randomTracer.h"
 #include "common.h"
 #include "timeRecorder.h"
+#include "pinholeCamera.h"
 
 Scene::Scene(SceneBuilder *pBuilder, bool useSimpleTracer)
 {

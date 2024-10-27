@@ -3,13 +3,7 @@
 
 #include "camera.h"
 #include "objectpool.h"
-#include "pinholeCamera.h"
-#include "lambertianMaterial.h"
-#include "mirrorMaterial.h"
-#include "glassMaterial.h"
-#include "mixMaterial.h"
 #include "sceneBuilder.h"
-#include "bvh.h"
 
 class Scene
 {
