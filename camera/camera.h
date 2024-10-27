@@ -40,6 +40,10 @@ private:
     unsigned m_factor;
     int m_BounceTime;
 
+private:
+    const static int default_screen_width;
+    const static int default_screen_height;
+
 protected:
     unsigned m_Width;
     unsigned m_Height;

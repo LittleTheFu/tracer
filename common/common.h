@@ -18,9 +18,6 @@ public:
     // for mist
     const static float SIGMA_T;
     const static float SIGMA_S;
-
-    const static unsigned int default_screen_width;
-    const static unsigned int default_screen_height;
 };
 
 #endif

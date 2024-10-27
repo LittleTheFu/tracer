@@ -14,9 +14,6 @@ const float Common::SAMPLE_LIGHTR_CORRECT_FACTOR = 0.96f;
 const float Common::SIGMA_T = 0.1f;
 const float Common::SIGMA_S = 0.2f;
 
-const  unsigned int Common::default_screen_width = 256;
-const  unsigned int Common::default_screen_height = 256;
-
 const void Common::printCurrentTime()
 {
     std::chrono::system_clock::time_point now = std::chrono::system_clock::now();

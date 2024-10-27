@@ -7,12 +7,15 @@
 #include "timeRecorder.h"
 #include "config.h"
 
+const int Camera::default_screen_width = 256;
+const int Camera::default_screen_height = 256;
+
 Camera::Camera(Tracer* tracer)
 {
     m_factor = configCameraFactor;
 
-    m_Width = Common::default_screen_width * m_factor;
-    m_Height = Common::default_screen_height * m_factor;
+    m_Width = default_screen_width * m_factor;
+    m_Height = default_screen_height * m_factor;
 
     m_BounceTime = configBounceTime;
 
