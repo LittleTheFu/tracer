@@ -10,7 +10,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # - name: Run configure
-      #   run: |
-      #     chmod +x ./configure
-      #     ./configure
+      - name: Run configure
+        run: |
+          chmod +x ./configure
+          ./configure
