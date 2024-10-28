@@ -1,7 +1,6 @@
 #include "objectpool.h"
 #include <limits>
 #include <iostream>
-#include "common.h"
 #include <algorithm>
 #include <cassert>
 #include "hitter.h"
