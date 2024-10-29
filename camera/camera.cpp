@@ -56,7 +56,7 @@ void Camera::render()
             logProgress(x,y);
 
             HitRecord record = InitHitRecord();
-            Ray ray = generateRay(x, y);
+            Ray ray = generateRay(static_cast<float>(x), static_cast<float>(y));
 
             Color color = Color::COLOR_BLACK;
             for (int i = 2; i < m_BounceTime; i++)
