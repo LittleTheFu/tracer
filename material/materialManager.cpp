@@ -30,8 +30,8 @@ void MaterialManager::init()
     lambMtrlBlue = new LambertianMaterial(new ConstTexture(Color::COLOR_BLUE), rho);
     lambMtrlWhite = new LambertianMaterial(new ConstTexture(Color::COLOR_WHITE), rho);
 
-    MtrlMirror = new MirrorMaterial();
-    MtrlGlass = new GlassMaterial();
+    mirrorMtrl = new MirrorMaterial();
+    glassMtrl = new GlassMaterial();
 
     m_map.insert(std::make_pair(MATERIAL_TYPE::M_RED, lambMtrlRed));
     m_map.insert(std::make_pair(MATERIAL_TYPE::M_YELLOW, lambMtrlYellow));
@@ -40,8 +40,8 @@ void MaterialManager::init()
     m_map.insert(std::make_pair(MATERIAL_TYPE::M_GREEN, lambMtrlGreen));
     m_map.insert(std::make_pair(MATERIAL_TYPE::M_BLUE, lambMtrlBlue));
     m_map.insert(std::make_pair(MATERIAL_TYPE::M_WHITE, lambMtrlWhite));
-    m_map.insert(std::make_pair(MATERIAL_TYPE::M_MIRROR, MtrlMirror));
-    m_map.insert(std::make_pair(MATERIAL_TYPE::M_GLASS, MtrlGlass));
+    m_map.insert(std::make_pair(MATERIAL_TYPE::M_MIRROR, mirrorMtrl));
+    m_map.insert(std::make_pair(MATERIAL_TYPE::M_GLASS, glassMtrl));
 }
 
 const Material *MaterialManager::get(MATERIAL_TYPE type) const
