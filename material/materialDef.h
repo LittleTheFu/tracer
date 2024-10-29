@@ -12,6 +12,8 @@ enum class MATERIAL_TYPE
     M_BLUE,
     M_WHITE,
 
+    M_LENA,
+
     M_MIRROR,
     M_GLASS,
 };

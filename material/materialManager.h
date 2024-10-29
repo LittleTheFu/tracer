@@ -32,6 +32,8 @@ private:
     const Material *lambMtrlBlue;
     const Material *lambMtrlWhite;
 
+    const Material *lambMtrlTexLena;
+
     const Material *mirrorMtrl;
     const Material *glassMtrl;
 };
