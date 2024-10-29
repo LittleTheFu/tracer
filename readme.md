@@ -4,8 +4,6 @@ RayTracer
 ![CMake](https://img.shields.io/badge/CMake-v3.16-green)
 ![C++](https://img.shields.io/badge/C++-11-green)
 
-~~Since I'm using windows 10/11 with Visual Studio 2022 installed, this project has only been tested on those systems.The same goes for the following commands.~~
-
 Suppose you are in the root directory of this project.
 
 Then:
