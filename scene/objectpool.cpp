@@ -22,7 +22,7 @@ void ObjectPool::initHitter()
 
 void ObjectPool::log()
 {
-    int num = m_objects.size();
+    size_t num = m_objects.size();
     std::cout << "pool size : " << num << std::endl;
 }
 
