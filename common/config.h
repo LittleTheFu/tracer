@@ -8,4 +8,14 @@ extern bool configUseBVH;
 extern int configCameraFactor;
 extern int configBounceTime;
 
+enum class BUNNY_TYPE
+{
+    LOW_LOW = 0,
+    LOW,
+    SIMPLE,
+    ORIGIN,
+};
+
+extern BUNNY_TYPE bunnyType;
+
 #endif

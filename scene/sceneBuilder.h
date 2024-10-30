@@ -27,6 +27,9 @@ protected:
     void buildRedBall(const Vector3& pos, float r);
     void buildAquaBall(const Vector3& pos, float r);
 
+    void buildLowLowBunny(const Vector3& pos, float scale);
+    void buildLowBunny(const Vector3& pos, float scale);
+    void buildSimpleBunny(const Vector3& pos, float scale);
     void buildBunny(const Vector3& pos, float scale);
 
     void buildRedTri(const Vector3& pos);

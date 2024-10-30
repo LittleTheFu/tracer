@@ -98,11 +98,30 @@ void SceneBuilder::buildMixBall(const Vector3& pos, float r)
     // m_pObjectPool->add(mixBall);
 }
 
-void SceneBuilder::buildBunny(const Vector3& pos, float scale)
+void SceneBuilder::buildLowLowBunny(const Vector3& pos, float scale)
 {
     Mesh *bunny = new Mesh(ResourceDef::LOW_LOW_BUNNY, pos, scale, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_YELLOW));
     bunny->addToPool(m_pObjectPool);
 }
+
+void SceneBuilder::buildLowBunny(const Vector3& pos, float scale)
+{
+    Mesh *bunny = new Mesh(ResourceDef::LOW_BUNNY, pos, scale, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_YELLOW));
+    bunny->addToPool(m_pObjectPool);
+}
+
+void SceneBuilder::buildSimpleBunny(const Vector3& pos, float scale)
+{
+    Mesh *bunny = new Mesh(ResourceDef::SIMPLE_BUNNY, pos, scale, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_YELLOW));
+    bunny->addToPool(m_pObjectPool);
+}
+
+void SceneBuilder::buildBunny(const Vector3& pos, float scale)
+{
+    Mesh *bunny = new Mesh(ResourceDef::BUNNY, pos, scale, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_YELLOW));
+    bunny->addToPool(m_pObjectPool);
+}
+
 
 void SceneBuilder::buildRedTri(const Vector3 &pos)
 {
