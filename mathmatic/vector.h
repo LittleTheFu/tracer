@@ -44,7 +44,6 @@ public:
     bool isSameDir(const Vector3 & that) const;
 
     Vector3 reflect(const Vector3 &normal) const;
-    Vector3 refract(const Vector3 &normal, float etaInputSide, float etaOutputSide, bool &totalReflect) const;
     Vector3 _refract(const Vector3 &normal,
                      float etaOutside,
                      float etaInside,

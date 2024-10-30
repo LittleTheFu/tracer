@@ -283,51 +283,6 @@ Vector3 Vector3::_refract(const Vector3 &normal,
     return out;
 }
 
-//WARNING : this one will be deleted soon
-Vector3 Vector3::refract(const Vector3 &normal, float etaOutside, float etaInside, bool &totalReflect) const
-{
-    // this->x = 1;
-    // this->y = 1;
-    // this->z = -1;
-    // this->normalize();
-    totalReflect = false;
-
-    assert(etaInside != 0);
-    assert(etaOutside != 0);
-
-    float dot = this->operator*(normal);
-    if (dot > 0)
-    {
-        int b = 3;
-    }
-    assert(dot <= 0);
-
-    if (dot == 0)
-    {
-        return *this;
-    }
-
-    float cosTheta = -dot;
-    float eta = etaOutside / etaInside;
-
-    float m = 1 - eta * eta * (1 - cosTheta * cosTheta);
-    if (m < 0)
-    {
-        totalReflect = true;
-        return reflect(normal);
-    }
-    else
-    {
-        int a = 1;
-    }
-
-    float k = std::sqrt(m);
-    Vector3 v = normal * (eta * cosTheta - k) + this->operator*(eta);
-    // v.normalize();
-
-    return v;
-}
-
 bool Vector3::isInSameSide(const Vector3 &that) const
 {
     const float result = this->operator*(that);
