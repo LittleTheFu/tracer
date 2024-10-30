@@ -16,6 +16,6 @@ enum class BUNNY_TYPE
     ORIGIN,
 };
 
-extern BUNNY_TYPE bunnyType;
+extern BUNNY_TYPE configBunnyType;
 
 #endif
