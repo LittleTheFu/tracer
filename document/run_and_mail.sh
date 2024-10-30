@@ -11,4 +11,4 @@ else
 fi
 
 # 发送电子邮件
-echo "$BODY" | mail -s "$SUBJECT" lttlstpdl@live.com
+echo "$BODY" | mail -s "$SUBJECT" xxx@live.com
