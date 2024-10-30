@@ -133,3 +133,19 @@ const float MathUtility::genRamdomSignDecimal()
 
     return v;
 }
+
+const int MathUtility::getMaxIndex(float a0, float a1, float a2)
+{
+    if (a0 >= a1 && a0 >= a2)
+    {
+        return 0;
+    }
+    else if (a1 >= a0 && a1 >= a2)
+    {
+        return 1;
+    }
+    else
+    {
+        return 2;
+    }
+}

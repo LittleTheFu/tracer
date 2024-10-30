@@ -22,6 +22,7 @@ public:
     const static float genRandomDecimal();
     const static float genRamdomSignDecimal();
 
+    const static int getMaxIndex( float a0, float a1, float a2);
 };
 
 #endif

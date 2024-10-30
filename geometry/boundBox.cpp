@@ -315,20 +315,14 @@ Axis BoundBox::getMainAxis() const
     float y = extent.y;
     float z = extent.z;
 
-    if (x > y)
-    {
-        if (x > z)
-            return Axis::X;
-        else
-            return Axis::Z;
-    }
+    int idx = MathUtility::getMaxIndex(x, y, z);
+
+    if (idx == 0)
+        return Axis::X;
+    else if (idx == 1)
+        return Axis::Y;
     else
-    {
-        if (y > z)
-            return Axis::Y;
-        else
-            return Axis::Z;
-    }
+        return Axis::Z;
 }
 
 std::ostream &operator<<(std::ostream &os, const BoundBox &boundBox)

@@ -3,6 +3,7 @@
 #include <cmath>
 #include "common.h"
 #include "frame.h"
+#include "mathUtility.h"
 
 Ray::Ray(const Vector3 &origin, const Vector3 &dir)
 {
@@ -30,30 +31,14 @@ Ray Ray::genNewRay(const Frame &frame) const
 float Ray::getT(const Ray &ray, const Vector3 &thatPoint)
 {
     Vector3 d = thatPoint - ray.origin;
-    if (ray.dir.x > ray.dir.y)
-    {
-        if (ray.dir.x > ray.dir.z)
-        {
-            return d.x / ray.dir.x;
-        }
-        else
-        {
-            return d.z / ray.dir.z;
-        }
-    }
-    else
-    {
-        if (ray.dir.y > ray.dir.z)
-        {
-            return d.y / ray.dir.y;
-        }
-        else
-        {
-            return d.z / ray.dir.z;
-        }
-    }
+    int index = MathUtility::getMaxIndex(ray.dir.x, ray.dir.y, ray.dir.z);
 
-    return 0;
+    if (index == 0)
+        return d.x / ray.dir.x;
+    else if (index == 1)
+        return d.y / ray.dir.y;
+    else
+        return d.z / ray.dir.z;
 }
 
 std::ostream &operator<<(std::ostream &os, const Ray &ray)
