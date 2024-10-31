@@ -1,7 +1,7 @@
 #include "config.h"
 
 //alpha scene is a bunny in the room
-bool configUseAlphaScene = false;
+bool configUseBunnyScene = false;
 bool configUseBVH = false;
 
 int configCameraFactor = 6;

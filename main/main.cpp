@@ -2,15 +2,15 @@
 #include "mesh.h"
 #include "common.h"
 #include "tester.h"
-#include "alphaSceneBuilder.h"
+#include "bunnySceneBuilder.h"
 #include "betaSceneBuilder.h"
 #include "config.h"
 
 int main()
 {
     SceneBuilder *builder = nullptr;
-    if (configUseAlphaScene)
-        builder = new AlphaSceneBuilder();
+    if (configUseBunnyScene)
+        builder = new BunnySceneBuilder();
     else
         builder = new BetaSceneBuilder();
 

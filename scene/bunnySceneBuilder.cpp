@@ -1,7 +1,7 @@
-#include "alphaSceneBuilder.h"
+#include "bunnySceneBuilder.h"
 #include "config.h"
 
-void AlphaSceneBuilder::build()
+void BunnySceneBuilder::build()
 {
     buildRoom();
     buildLight(Vector3(0, 72, 250), 30);

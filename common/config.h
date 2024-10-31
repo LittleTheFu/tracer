@@ -1,7 +1,7 @@
 #ifndef _CONFIG_H_
 #define _CONFIG_H_
 
-extern bool configUseAlphaScene;
+extern bool configUseBunnyScene;
 
 extern bool configUseBVH;
 
