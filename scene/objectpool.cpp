@@ -86,7 +86,10 @@ std::vector<Geometry *> ObjectPool::getObjects() const
 
 bool ObjectPool::validBVH() const
 {
-    BVH *bvh = (BVH*)m_pHitter;
+    BVH *bvh = dynamic_cast<BVH*>(m_pHitter);
+    if(!bvh)
+        return false;
+        
     bool allFound = true;
 
     for(auto it = m_objects.begin(); it != m_objects.end(); it++)
