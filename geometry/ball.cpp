@@ -125,11 +125,7 @@ Vector3 Ball::sampleFromPoint(const Vector3 &thatPoint, float &pdf) const
     Vector3 worldSampledPoint = m_transform.transformPoint(localSampledPoint);
 
     pdf = (1 / (1 - std::cos(thetaMax))) * MathConstant::INV_TWO_PI;
-    //WARNNING: for debug
-    if(pdf < 0.08)
-    {
-        int sss= 3;
-    }
+ 
     return worldSampledPoint;
 }
 
