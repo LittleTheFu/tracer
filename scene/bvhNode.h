@@ -12,7 +12,7 @@ public:
     void print(const std::string &prefix) const;
     bool isLeaf() const;
 
-    int getSize() const;
+    std::size_t getSize() const;
     
 public:
     BoundBox boundBox;

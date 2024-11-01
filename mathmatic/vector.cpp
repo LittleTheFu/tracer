@@ -278,7 +278,7 @@ Vector3 Vector3::_refract(const Vector3 &normal,
     float r_per = (etaInputSide * cos_theta_in - etaOutputSide * cos_theta_out) /
                   (etaInputSide * cos_theta_in + etaOutputSide * cos_theta_out);
 
-    fresnel = 0.5 * (r_pa * r_pa + r_per * r_per);
+    fresnel = 0.5f * (r_pa * r_pa + r_per * r_per);
 
     return out;
 }
@@ -319,22 +319,23 @@ float Vector3::length() const
 
 Vector3 Vector3::getRandomVector()
 {
-    int x = std::rand() % 113 + 1;
-    int y = std::rand() % 113 + 1;
-    int z = std::rand() % 113 + 1;
+    // int x = std::rand() % 113 + 1;
+    // int y = std::rand() % 113 + 1;
+    // int z = std::rand() % 113 + 1;
 
-    int a = std::rand() % 2;
-    if (a != 0)
-        x = -x;
+    // int a = std::rand() % 2;
+    // if (a != 0)
+    //     x = -x;
 
-    int b = std::rand() % 2;
-    if (b != 0)
-        y = -y;
+    // int b = std::rand() % 2;
+    // if (b != 0)
+    //     y = -y;
 
-    Vector3 v = Vector3(x, y, z);
-    v.normalize();
+    // Vector3 v = Vector3(x, y, z);
+    // v.normalize();
 
-    return v;
+    // return v;
+    return Vector3();
 }
 
 Vector3 Vector3::sampleUniformFromHemisphere()
