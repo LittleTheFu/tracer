@@ -53,3 +53,29 @@ v/dir = (nan , a ,b);
 //nan needed to be handled
 
 
+
+
+Vector3 Ball::sampleFromPoint(const Vector3 &thatPoint, float &pdf) const
+{
+    Vector3 localPoint = m_transform.invTransformPoint(thatPoint);
+    Vector3 localNormal = getLocalNormal(localPoint);
+
+    Frame frame(localNormal, dpdu(thatPoint));
+    Vector3 framePoint = frame.pointToLocal(localPoint);
+
+    float d = framePoint.z;
+    float alpha = std::asin(r / d);
+
+    float thetaMax = MathConstant::PI - alpha;
+    Vector3 dir = Vector3::sampleUniformFromCone(thetaMax);
+    Vector3 sampledFramePoint = r * dir;
+    sampledFramePoint *= Common::SAMPLE_LIGHTR_CORRECT_FACTOR;
+
+    Vector3 localSampledPoint = frame.pointToWorld(sampledFramePoint);
+
+    Vector3 worldSampledPoint = m_transform.transformPoint(localSampledPoint);
+
+    pdf = (1 / (1 - std::cos(thetaMax))) * MathConstant::INV_TWO_PI;
+ 
+    return worldSampledPoint;
+}
