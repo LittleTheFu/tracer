@@ -6,6 +6,7 @@
 #include "glassMaterial.h"
 #include "mixMaterial.h"
 #include "objectpool.h"
+#include "materialDef.h"
 
 class SceneBuilder
 {
@@ -31,6 +32,8 @@ protected:
     void buildLowBunny(const Vector3& pos, float scale);
     void buildSimpleBunny(const Vector3& pos, float scale);
     void buildBunny(const Vector3& pos, float scale);
+
+    void buildRealBunny(const Vector3& pos, float scale, const std::string& res, MATERIAL_TYPE materialType);
 
     void buildRedTri(const Vector3& pos);
     void buildGreenTri(const Vector3& pos);

@@ -122,6 +122,11 @@ void SceneBuilder::buildBunny(const Vector3& pos, float scale)
     bunny->addToPool(m_pObjectPool);
 }
 
+void SceneBuilder::buildRealBunny(const Vector3 &pos, float scale, const std::string &res, MATERIAL_TYPE materialType)
+{
+    Mesh *bunny = new Mesh(res, pos, scale, MaterialManager::getInstance()->get(materialType));
+    bunny->addToPool(m_pObjectPool);
+}
 
 void SceneBuilder::buildRedTri(const Vector3 &pos)
 {

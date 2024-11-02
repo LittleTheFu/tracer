@@ -1,10 +1,11 @@
 #include "config.h"
 
 //alpha scene is a bunny in the room
-bool configUseBunnyScene = false;
-bool configUseBVH = false;
+bool configUseBunnyScene = true;
+bool configUseBVH = true;
 
 int configCameraFactor = 6;
 int configBounceTime = 6;
 
-BUNNY_TYPE configBunnyType = BUNNY_TYPE::SIMPLE;
+std::string configBunnyRes = ResourceDef::SIMPLE_BUNNY;
+MATERIAL_TYPE configBunnyMaterial = MATERIAL_TYPE::M_GLASS;
