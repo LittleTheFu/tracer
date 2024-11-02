@@ -107,18 +107,22 @@ bool Ball::hit(const Ray &ray, HitRecord &record) const
 Vector3 Ball::sampleFromPoint(const Vector3 &thatPoint, float &pdf) const
 {
     Vector3 localPoint = m_transform.invTransformPoint(thatPoint);
-    Vector3 localNormal = getLocalNormal(localPoint);
+    // Vector3 localNormal = getLocalNormal(localPoint);
 
-    Frame frame(localNormal, dpdu(thatPoint));
-    Vector3 framePoint = frame.pointToLocal(localPoint);
+    Vector3 zAxisVector = -localPoint;
 
-    float d = framePoint.z;
+    Frame frame(zAxisVector, localPoint);
+    // Vector3 framePoint = frame.pointToLocal(localPoint);
+    Vector3 framePoint = Vector3::ZERO;
+
+    // float d = framePoint.z;
+    float d = localPoint.length();
     float alpha = std::asin(r / d);
 
     float thetaMax = MathConstant::PI - alpha;
     Vector3 dir = Vector3::sampleUniformFromCone(thetaMax);
     Vector3 sampledFramePoint = r * dir;
-    sampledFramePoint *= Common::SAMPLE_LIGHTR_CORRECT_FACTOR;
+    // sampledFramePoint *= Common::SAMPLE_LIGHTR_CORRECT_FACTOR;
 
     Vector3 localSampledPoint = frame.pointToWorld(sampledFramePoint);
 
@@ -208,7 +212,7 @@ void Ball::HandleMaterial(const Vector3 &localNormal, const Vector3 &localPoint,
     record.mtrl = *m_pMtrl;
     record.isDelta = m_pMtrl->isDelta();
 
-    Frame frame(localNormal, dpdu(localPoint));
+    Frame frame(localNormal, dpdu(localPoint), Vector3::ZERO);
 
     const Vector3 local_wo = frame.pointToLocal(-newRay.dir);
     Vector3 r;

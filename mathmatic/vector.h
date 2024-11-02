@@ -31,10 +31,15 @@ public:
     bool operator==(const Vector3 &that) const;
     bool operator!=(const Vector3 &that) const;
 
+    float operator[](int i) const;
+    float &operator[](int i);
+
     friend std::ostream &operator<<(std::ostream &os, const Vector3 &v);
 
     bool isZero() const;
     bool isPerpendicular(const Vector3 &that) const;
+
+    Vector3 getTangentVector() const;
 
     float length() const;
     float lenthSqr() const;

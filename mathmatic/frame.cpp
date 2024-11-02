@@ -30,6 +30,22 @@ Frame::Frame(const Vector3 &normal, const Vector3 &tangent, const Vector3 &_orig
     origin = _origin;
 }
 
+Frame::Frame(const Vector3 &normal, const Vector3 &_origin)
+{
+    Vector3 tangent = normal.getTangentVector();
+
+    z_axis = normal;
+    z_axis.normalize();
+
+    x_axis = tangent;
+    x_axis.normalize();
+
+    y_axis = z_axis.cross(x_axis);
+    y_axis.normalize();
+
+    origin = _origin;
+}
+
 Vector3 Frame::pointToLocal(const Vector3 &point) const
 {
     float xProj = (point - origin) * x_axis;

@@ -140,6 +140,30 @@ bool Vector3::operator!=(const Vector3 &that) const
     return !(this->operator==(that));
 }
 
+float Vector3::operator[](int i) const
+{
+    if (i == 0)
+        return x;
+    if (i == 1)
+        return y;
+    if (i == 2)
+        return z;
+
+    assert(0);
+}
+
+float &Vector3::operator[](int i)
+{
+    if (i == 0)
+        return x;
+    if (i == 1)
+        return y;
+    if (i == 2)
+        return z;
+
+    assert(0);
+}
+
 std::ostream &operator<<(std::ostream &os, const Vector3 &v)
 {
     os << "( " << v.x << ", " << v.y << ", " << v.z << " )";
@@ -304,6 +328,36 @@ bool Vector3::isPerpendicular(const Vector3 &that) const
     bool isZ = std::abs(r.z) < MathConstant::FLOAT_SAMLL_NUMBER;
 
     return isX && isY && isZ;
+}
+
+Vector3 Vector3::getTangentVector() const
+{
+    Vector3 r;
+
+    int idx[3] = { -1, -1, -1};
+
+    int j = 0;
+    for(int i = 0; i < 3 ;i ++)
+    {
+        if(this->operator[](i) != 0.0f)
+        {
+            idx[j++] = i; 
+        }
+    }
+
+    if(j == 0)
+        return r;
+
+    if (j == 1)
+    {
+        r[(idx[1] + 1) % 3] = this->operator[](idx[1]); 
+        return r;
+    }
+
+    r[idx[0]] = -this->operator[](idx[1]);
+    r[idx[1]] = this->operator[](idx[0]);
+    
+    return r;
 }
 
 float Vector3::length() const

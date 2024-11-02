@@ -6,7 +6,8 @@
 class Frame
 {
 public:
-    Frame(const Vector3 &normal, const Vector3 &tangent, const Vector3 &_origin = Vector3::ZERO);
+    Frame(const Vector3 &normal, const Vector3 &tangent, const Vector3 &_origin);
+    Frame(const Vector3 &normal, const Vector3 &_origin);
 
     Vector3 pointToLocal(const Vector3 &point) const;
     Vector3 pointToWorld(const Vector3 &point) const;

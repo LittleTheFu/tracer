@@ -22,7 +22,7 @@ const MaterialManager *MaterialManager::getInstance()
 
 void MaterialManager::init()
 {
-    float rho = 0.4f;
+    float rho = 1.0f;
 
     lambMtrlRed = new LambertianMaterial(new ConstTexture(Color::COLOR_RED), rho);
     lambMtrlYellow = new LambertianMaterial(new ConstTexture(Color::COLOR_YELLOW), rho);
