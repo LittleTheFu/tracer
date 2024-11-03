@@ -1,8 +1,8 @@
 #include "config.h"
 
 //alpha scene is a bunny in the room
-bool configUseBunnyScene = true;
-bool configUseBVH = true;
+bool configUseBunnyScene = false;
+bool configUseBVH = false;
 
 bool configUseSimpleTracer = true;
 
