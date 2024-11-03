@@ -174,6 +174,8 @@ install(DIRECTORY ${CMAKE_SOURCE_DIR}/resource/ DESTINATION ${CMAKE_BINARY_DIR}/
 
 install(TARGETS ray_tracer  mylibs assimp RUNTIME DESTINATION ${CMAKE_BINARY_DIR}/bin)
 
+configure_file( ${CMAKE_SOURCE_DIR}/document/run_and_mail.sh ${CMAKE_BINARY_DIR} COPYONLY)
+
 # install(TARGETS ray_tracer mylibs assimp
 # RUNTIME DESTINATION ${CMAKE_BINARY_DIR}/bin
 # LIBRARY DESTINATION ${CMAKE_BINARY_DIR}/lib
