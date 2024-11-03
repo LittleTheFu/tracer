@@ -19,8 +19,8 @@ Color ImageTexture::getColor(float u, float v) const
     float uu = u - (int)u;
     float vv = v - (int)v;
 
-    float uPixel = (unsigned)(uu * m_width);
-    float vPixel = (unsigned)(vv * m_height);
+    unsigned uPixel = (static_cast<unsigned>(uu) * m_width);
+    unsigned vPixel = (static_cast<unsigned>(vv) * m_height);
 
     unsigned index = vPixel * m_width + uPixel;
 

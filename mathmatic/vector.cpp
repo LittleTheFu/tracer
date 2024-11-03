@@ -150,6 +150,8 @@ float Vector3::operator[](int i) const
         return z;
 
     assert(0);
+
+    return x;
 }
 
 float &Vector3::operator[](int i)
@@ -162,6 +164,8 @@ float &Vector3::operator[](int i)
         return z;
 
     assert(0);
+
+    return x;
 }
 
 std::ostream &operator<<(std::ostream &os, const Vector3 &v)
