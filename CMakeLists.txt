@@ -166,7 +166,9 @@ add_executable(ray_tracer main/main.cpp)
 target_link_libraries(ray_tracer mylibs)
 target_link_libraries(ray_tracer assimp)
 
-set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/install" CACHE PATH "Install path" FORCE)
+if( NOT WIN32)
+    set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/install" CACHE PATH "Install path" FORCE)
+endif()
 
 # 安装整个资源目录
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/resource/ DESTINATION ${CMAKE_BINARY_DIR}/resource
