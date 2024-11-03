@@ -5,8 +5,9 @@
 #include "materialDef.h"
 
 extern bool configUseBunnyScene;
-
 extern bool configUseBVH;
+
+extern bool configUseSimpleTracer;
 
 extern int configCameraFactor;
 extern int configBounceTime;

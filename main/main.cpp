@@ -14,7 +14,7 @@ int main()
     else
         builder = new BetaSceneBuilder();
 
-    Scene scene(builder);
+    Scene scene(builder, configUseSimpleTracer);
     scene.run();
 
     return 0;
