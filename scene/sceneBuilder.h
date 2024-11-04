@@ -28,12 +28,7 @@ protected:
     void buildRedBall(const Vector3& pos, float r);
     void buildAquaBall(const Vector3& pos, float r);
 
-    void buildLowLowBunny(const Vector3& pos, float scale);
-    void buildLowBunny(const Vector3& pos, float scale);
-    void buildSimpleBunny(const Vector3& pos, float scale);
-    void buildBunny(const Vector3& pos, float scale);
-
-    void buildRealBunny(const Vector3& pos, float scale, const std::string& res, MATERIAL_TYPE materialType);
+    void buildBunny(const Vector3& pos, float scale, const std::string& res, MATERIAL_TYPE materialType);
 
     void buildRedTri(const Vector3& pos);
     void buildGreenTri(const Vector3& pos);
