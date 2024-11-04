@@ -166,9 +166,7 @@ add_executable(ray_tracer main/main.cpp)
 target_link_libraries(ray_tracer mylibs)
 target_link_libraries(ray_tracer assimp)
 
-if( NOT WIN32)
-    set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/install" CACHE PATH "Install path" FORCE)
-endif()
+set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/install" CACHE PATH "Install path" FORCE)
 
 # 安装整个资源目录
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/resource/ DESTINATION ${CMAKE_BINARY_DIR}/resource
@@ -176,7 +174,10 @@ install(DIRECTORY ${CMAKE_SOURCE_DIR}/resource/ DESTINATION ${CMAKE_BINARY_DIR}/
 
 install(TARGETS ray_tracer  mylibs assimp RUNTIME DESTINATION ${CMAKE_BINARY_DIR}/bin)
 
-configure_file( ${CMAKE_SOURCE_DIR}/document/run_and_mail.sh ${CMAKE_BINARY_DIR} COPYONLY)
+
+if( NOT WIN32)
+    configure_file( ${CMAKE_SOURCE_DIR}/document/run_and_mail.sh ${CMAKE_BINARY_DIR} COPYONLY)
+endif()
 
 # install(TARGETS ray_tracer mylibs assimp
 # RUNTIME DESTINATION ${CMAKE_BINARY_DIR}/bin
