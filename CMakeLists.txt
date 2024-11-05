@@ -24,7 +24,6 @@ SET (RAY_TRACER_SOURCE
     common/mathConstantDef.cpp
     common/mathUtility.cpp
     common/noise.cpp
-    common/resourceDef.cpp
     common/spectrum.cpp
     common/timeRecorder.cpp
     geometry/ball.cpp
