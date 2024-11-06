@@ -107,12 +107,16 @@ bool Ball::hit(const Ray &ray, HitRecord &record) const
 Vector3 Ball::sampleFromPoint(const Vector3 &thatPoint, float &pdf) const
 {
     Vector3 localPoint = m_transform.invTransformPoint(thatPoint);
-    Vector3 localNormal = getLocalNormal(localPoint);
+    // Vector3 localNormal = getLocalNormal(localPoint);
 
-    Frame frame(localNormal, dpdu(thatPoint), Vector3::ZERO);
-    Vector3 framePoint = frame.pointToLocal(localPoint);
+    Vector3 zAxisVector = -localPoint;
 
-    float d = framePoint.z;
+    Frame frame(zAxisVector, localPoint);
+    // Vector3 framePoint = frame.pointToLocal(localPoint);
+    Vector3 framePoint = Vector3::ZERO;
+
+    // float d = framePoint.z;
+    float d = localPoint.length();
     float alpha = std::asin(r / d);
 
     float thetaMax = MathConstant::PI - alpha;
