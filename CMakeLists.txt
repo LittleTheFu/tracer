@@ -21,7 +21,6 @@ SET (RAY_TRACER_SOURCE
     common/config.cpp
     common/hitrecord.cpp
     common/lodepng.cpp
-    common/mathConstantDef.cpp
     common/mathUtility.cpp
     common/noise.cpp
     common/spectrum.cpp
