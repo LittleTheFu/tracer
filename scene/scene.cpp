@@ -40,7 +40,7 @@ void Scene::run()
         render();
         postRender();
         configBounceTime++;
-        if (configBounceTime > 20)
+        if (configBounceTime > 4)
             break;
     }
 

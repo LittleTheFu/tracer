@@ -33,7 +33,7 @@ Color SimpleTracer::trace(const ObjectPool *pool,
     Color inputColor = trace(pool, newRay, bounceNum - 1, record);
 
     if(bounceNum == 2)
-        return Color::COLOR_WHITE * inputColor;
+        return inputColor;
     //fix later
     // assert(inputColor.isValid());
     assert(currentState.reflectPdf > 0);
