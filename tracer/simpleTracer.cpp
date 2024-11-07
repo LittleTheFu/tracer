@@ -32,6 +32,8 @@ Color SimpleTracer::trace(const ObjectPool *pool,
 
     Color inputColor = trace(pool, newRay, bounceNum - 1, record);
 
+    if(bounceNum == 2)
+        return Color::COLOR_WHITE * inputColor;
     //fix later
     // assert(inputColor.isValid());
     assert(currentState.reflectPdf > 0);
@@ -77,11 +79,12 @@ void SimpleTracer::prepareSampleLight(const ObjectPool *pool,
     lightDir.normalize();
 
     record.reflect = lightDir;
-    record.dot = record.normal * lightDir; // dot less than 0
+    Vector3 lightNormal = pool->m_pLight->getNormal(lightSurfacePoint);
+    record.dot = lightNormal * lightDir; // dot less than 0
     // record.dot = 1;
     if(record.dot < 0)
     {
-        record.dot = 0;
+        record.dot *= -1;
     }
 
     newRay.dir = lightDir;

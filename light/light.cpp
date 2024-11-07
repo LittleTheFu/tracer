@@ -36,6 +36,15 @@ Vector3 Light::sample(const Vector3 &thatPoint, float &pdf) const
     return m_pGeometry->sampleFromPoint(thatPoint, pdf);
 }
 
+Vector3 Light::getNormal(const Vector3 point) const
+{
+    Vector3 center = m_pGeometry->getTransform().transformPoint(Vector3::ZERO);
+    Vector3 normal = point - center;
+    normal.normalize();
+
+    return normal;
+}
+
 const Geometry *Light::getGeometry() const
 {
     return m_pGeometry;
