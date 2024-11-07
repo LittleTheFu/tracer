@@ -15,4 +15,6 @@ extern int configBounceTime;
 extern std::string configBunnyRes;
 extern MATERIAL_TYPE configBunnyMaterial;
 
+extern std::string configOutputImageName;
+
 #endif

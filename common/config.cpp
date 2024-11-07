@@ -6,8 +6,10 @@ bool configUseBVH = false;
 
 bool configUseSimpleTracer = true;
 
-int configCameraFactor = 6;
-int configBounceTime = 8;
+int configCameraFactor = 4;
+int configBounceTime = 3;
 
 std::string configBunnyRes = ResourceDef::SIMPLE_BUNNY;
 MATERIAL_TYPE configBunnyMaterial = MATERIAL_TYPE::M_GLASS;
+
+std::string configOutputImageName = "img";

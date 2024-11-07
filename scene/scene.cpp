@@ -4,6 +4,7 @@
 #include "common.h"
 #include "timeRecorder.h"
 #include "pinholeCamera.h"
+#include "config.h"
 
 Scene::Scene(SceneBuilder *pBuilder, bool useSimpleTracer)
 {
@@ -30,8 +31,18 @@ void Scene::run()
     constructScene();
 
     preRender();
-    render();
-    postRender();
+
+    while (true)
+    {
+        configOutputImageName = std::to_string(configBounceTime);
+        m_pCamera->setBounceTime(configBounceTime);
+
+        render();
+        postRender();
+        configBounceTime++;
+        if (configBounceTime > 20)
+            break;
+    }
 
     t.end();
 }
@@ -69,6 +80,6 @@ void Scene::render()
 
 void Scene::postRender()
 {
-    m_pCamera->saveToImage("img");
+    m_pCamera->saveToImage(configOutputImageName);
     Common::printCurrentTime();
 }

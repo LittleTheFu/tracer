@@ -42,6 +42,11 @@ Transform Camera::getTransform() const
     return m_transform;
 }
 
+void Camera::setBounceTime(int bounceTime)
+{
+    m_BounceTime = bounceTime;
+}
+
 void Camera::render()
 {
     m_Image.resize(m_Width * m_Height * 4);

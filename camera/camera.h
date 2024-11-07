@@ -20,6 +20,8 @@ public:
 
     Transform getTransform() const;
 
+    void setBounceTime(int bounceTime);
+
     void render();
     bool saveToImage(const std::string &name) const;
 
