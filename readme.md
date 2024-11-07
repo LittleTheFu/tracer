@@ -2,7 +2,7 @@ RayTracer
 ---
 
 ![CMake](https://img.shields.io/badge/CMake-v3.16-green)
-![C++](https://img.shields.io/badge/C++-11-green)
+![C++](https://img.shields.io/badge/C++-17-green)
 
 Suppose you are in the root directory of this project.
 
