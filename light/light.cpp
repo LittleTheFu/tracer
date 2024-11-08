@@ -36,6 +36,17 @@ Vector3 Light::sample(const Vector3 &thatPoint, float &pdf) const
     return m_pGeometry->sampleFromPoint(thatPoint, pdf);
 }
 
+Vector3 Light::getSurfacePoint(const Vector3 &thatPoint) const
+{
+    Ball *pBall = (Ball*)m_pGeometry;
+    Vector3 center = pBall->getPosition();
+    Vector3 dir = thatPoint - center;
+    dir.normalize();
+    dir *= pBall->r;
+
+    return center + dir;
+}
+
 Vector3 Light::getNormal(const Vector3 point) const
 {
     Vector3 center = m_pGeometry->getTransform().transformPoint(Vector3::ZERO);

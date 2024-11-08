@@ -32,6 +32,7 @@ private:
     virtual float v(const Vector3 &point) const override;
 
     Vector3 getLocalNormal(const Vector3 &point) const;
+    Vector3 getLocalPoint(float theta, float phi) const;
 
     float getPhi(const Vector3 &point) const;
     float getTheta(const Vector3 &point) const;

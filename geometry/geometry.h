@@ -18,6 +18,7 @@ public:
     
     void init(const Vector3 &rotate, const Vector3 &position);
     void setPosition(const Vector3 &position);
+    Vector3 getPosition() const;
 
     virtual bool hit(const Ray &ray, HitRecord &record) const = 0;
     virtual Vector3 sampleFromPoint(const Vector3 &thatPoint, float &pdf) const;

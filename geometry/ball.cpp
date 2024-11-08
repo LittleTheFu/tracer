@@ -28,6 +28,21 @@ Vector3 Ball::getLocalNormal(const Vector3 &thatPoint) const
     return normal;
 }
 
+Vector3 Ball::getLocalPoint(float theta, float phi) const
+{
+    float sinTheta = std::sin(theta);
+    float cosTheta = std::cos(theta);
+
+    float x = sinTheta * std::cos(phi);
+    float y = sinTheta * std::sin(phi);
+    float z = cosTheta;
+
+    Vector3 v(x, y, z);
+    v *= r;
+
+    return v;
+}
+
 Vector3 Ball::getLocalDirection(float u, float v) const
 {
     const float phi = u * MathConstant::TWO_PI;
@@ -117,18 +132,30 @@ Vector3 Ball::sampleFromPoint(const Vector3 &thatPoint, float &pdf) const
 
     // float d = framePoint.z;
     float d = localPoint.length();
-    float alpha = std::asin(r / d);
 
-    float thetaMax = MathConstant::PI - alpha;
-    Vector3 dir = Vector3::sampleUniformFromCone(thetaMax);
-    Vector3 sampledFramePoint = r * dir;
+    float thetaMax = std::asin(r / d);
+    float theta = MathUtility::genRandomDecimal() * thetaMax;
+
+    float gamma = MathConstant::PI - d / r * std::sin(theta);
+
+    float alpha = MathConstant::PI - gamma - theta;
+    float phi = MathUtility::genRandomDecimal() * MathConstant::TWO_PI;
+
+    // float thetaMax = MathConstant::PI - alpha;
+    // Vector3 dir = Vector3::sampleUniformFromCone(thetaMax);
+    // Vector3 sampledFramePoint = r * dir;
     // sampledFramePoint *= Common::SAMPLE_LIGHTR_CORRECT_FACTOR;
 
-    Vector3 localSampledPoint = frame.pointToWorld(sampledFramePoint);
+    // Vector3 localSampledPoint = frame.pointToWorld(sampledFramePoint);
 
-    Vector3 worldSampledPoint = m_transform.transformPoint(localSampledPoint);
+    // Vector3 worldSampledPoint = m_transform.transformPoint(localSampledPoint);
+    Vector3 sampledBallPoint = getLocalPoint(theta, phi);
+    Vector3 worldSampledPoint = m_transform.transformPoint(sampledBallPoint);
 
-    pdf = (1 / (1 - std::cos(thetaMax))) * MathConstant::INV_TWO_PI;
+    float cosThetaMax =  std::cos(thetaMax);
+    float oneMinus = 1 - cosThetaMax;
+    float div = 1 /oneMinus;
+    pdf = div * MathConstant::INV_TWO_PI;
  
     return worldSampledPoint;
 }

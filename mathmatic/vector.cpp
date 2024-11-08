@@ -354,7 +354,8 @@ Vector3 Vector3::getTangentVector() const
 
     if (j == 1)
     {
-        r[(idx[1] + 1) % 3] = this->operator[](idx[1]); 
+        r[idx[0]] = 0;
+        r[(idx[0] + 1) % 3] = this->operator[](idx[0]); 
         return r;
     }
 

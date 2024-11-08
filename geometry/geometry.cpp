@@ -17,6 +17,12 @@ void Geometry::setPosition(const Vector3 &position)
     m_transform.translate(position);
 }
 
+Vector3 Geometry::getPosition() const
+{
+    Vector3 p = m_transform.transformPoint(Vector3::ZERO);
+    return p;
+}
+
 void Geometry::setTag(Tag tag)
 {
     m_tag = tag;

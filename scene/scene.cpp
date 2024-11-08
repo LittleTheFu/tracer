@@ -21,7 +21,7 @@ Scene::Scene(SceneBuilder *pBuilder, bool useSimpleTracer)
 
     m_pCamera = new PinholeCamera(tracer);
 
-    m_MaxBounces = configMaxBounces;
+    m_MaxBounces = configBatchEndBounces;
 }
 
 void Scene::run()
@@ -50,7 +50,7 @@ void Scene::batchRun()
 
     preRender();
 
-    int bounce = 2;
+    int bounce = configBatchStartBounce;
 
     while (true)
     {
@@ -85,8 +85,8 @@ void Scene::preRender()
     m_pCamera->setPool(m_pObjectPool);
     m_pCamera->build(Vector3(0, 0, 0), Vector3(0, 0, 0));
 
-    Transform t = m_pCamera->getTransform().getInverseTransform();
-    m_pObjectPool->applyTransfrom(t);
+    // Transform t = m_pCamera->getTransform().getInverseTransform();
+    // m_pObjectPool->applyTransfrom(t);
     m_pObjectPool->log();
 
     m_pObjectPool->buildBoundBox();

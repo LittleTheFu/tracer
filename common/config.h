@@ -17,7 +17,8 @@ extern MATERIAL_TYPE configBunnyMaterial;
 
 extern std::string configOutputImageName;
 
-extern int configMaxBounces;
+extern int configBatchStartBounce;
+extern int configBatchEndBounces;
 extern bool configUseBatchRun;
 
 #endif

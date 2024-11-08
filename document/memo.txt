@@ -79,3 +79,6 @@ Vector3 Ball::sampleFromPoint(const Vector3 &thatPoint, float &pdf) const
  
     return worldSampledPoint;
 }
+
+bug?see this later...
+Vector3 Vector3::sampleUniformFromCone(float thetaMax)
