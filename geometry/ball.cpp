@@ -134,7 +134,11 @@ Vector3 Ball::sampleFromPoint(const Vector3 &thatPoint, float &pdf) const
     float d = localPoint.length();
 
     float thetaMax = std::asin(r / d);
-    float theta = MathUtility::genRandomDecimal() * thetaMax;
+    float cosThetaMax =  std::cos(thetaMax);
+    float rnd = MathUtility::genRandomDecimal();
+    float sampleCosTheta =   1 - rnd + rnd * cosThetaMax;
+    // float theta = MathUtility::genRandomDecimal() * thetaMax;
+    float theta = std::acos(sampleCosTheta);
 
     float gamma = MathConstant::PI - d / r * std::sin(theta);
 
@@ -152,7 +156,7 @@ Vector3 Ball::sampleFromPoint(const Vector3 &thatPoint, float &pdf) const
     Vector3 sampledBallPoint = getLocalPoint(theta, phi);
     Vector3 worldSampledPoint = m_transform.transformPoint(sampledBallPoint);
 
-    float cosThetaMax =  std::cos(thetaMax);
+    
     float oneMinus = 1 - cosThetaMax;
     float div = 1 /oneMinus;
     pdf = div * MathConstant::INV_TWO_PI;
