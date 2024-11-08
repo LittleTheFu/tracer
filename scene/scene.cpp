@@ -20,9 +20,27 @@ Scene::Scene(SceneBuilder *pBuilder, bool useSimpleTracer)
         tracer = new RandomTracer();
 
     m_pCamera = new PinholeCamera(tracer);
+
+    m_MaxBounces = configMaxBounces;
 }
 
 void Scene::run()
+{
+    TimeRecorder t;
+    t.start();
+
+    preConstructScene();
+    constructScene();
+
+    preRender();
+
+    render();
+    postRender();
+
+    t.end();
+}
+
+void Scene::batchRun()
 {
     TimeRecorder t;
     t.start();
@@ -32,15 +50,18 @@ void Scene::run()
 
     preRender();
 
+    int bounce = 2;
+
     while (true)
     {
-        configOutputImageName = std::to_string(configBounceTime);
-        m_pCamera->setBounceTime(configBounceTime);
+        configOutputImageName = std::to_string(bounce);
+        m_pCamera->setBounceTime(bounce);
 
         render();
         postRender();
-        configBounceTime++;
-        if (configBounceTime > 60)
+
+        bounce++;
+        if (bounce > m_MaxBounces)
             break;
     }
 

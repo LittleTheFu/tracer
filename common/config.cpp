@@ -13,3 +13,6 @@ std::string configBunnyRes = ResourceDef::SIMPLE_BUNNY;
 MATERIAL_TYPE configBunnyMaterial = MATERIAL_TYPE::M_GLASS;
 
 std::string configOutputImageName = "img";
+
+int configMaxBounces = 20;
+bool configUseBatchRun = true;

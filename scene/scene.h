@@ -12,6 +12,7 @@ public:
 
 public:
     void run();
+    void batchRun();
 
 private:
     void preConstructScene();
@@ -21,12 +22,12 @@ private:
     void render();
     void postRender();
 
-
-
 private:
     ObjectPool* m_pObjectPool;
     Camera* m_pCamera;
     SceneBuilder* m_pBuilder;
+
+    int m_MaxBounces;
 };
 
 #endif

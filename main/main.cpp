@@ -16,7 +16,10 @@ int main()
 
     Scene scene(builder, configUseSimpleTracer);
 
-    scene.run();
+    if (configUseBatchRun)
+        scene.batchRun();
+    else
+        scene.run();
 
     return 0;
 }
