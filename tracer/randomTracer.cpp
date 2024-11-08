@@ -28,6 +28,8 @@ Color RandomTracer::trace(const ObjectPool *pool,
     Ray newRay(record.point, record.reflect);
 
     Color inputColor = trace(pool, newRay, bounceNum - 1, record);
+    if(bounceNum == 2)
+        return inputColor;
 
     assert(currentState.reflectPdf > 0);
     Color ccolor = currentState.f * inputColor * currentState.dot / currentState.reflectPdf;

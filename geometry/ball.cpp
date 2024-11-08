@@ -122,7 +122,7 @@ Vector3 Ball::sampleFromPoint(const Vector3 &thatPoint, float &pdf) const
     float thetaMax = MathConstant::PI - alpha;
     Vector3 dir = Vector3::sampleUniformFromCone(thetaMax);
     Vector3 sampledFramePoint = r * dir;
-    sampledFramePoint *= Common::SAMPLE_LIGHTR_CORRECT_FACTOR;
+    // sampledFramePoint *= Common::SAMPLE_LIGHTR_CORRECT_FACTOR;
 
     Vector3 localSampledPoint = frame.pointToWorld(sampledFramePoint);
 
