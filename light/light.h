@@ -1,11 +1,11 @@
 #ifndef _LIGHT_H_
 #define _LIGHT_H_
 
-#include "geometry.h"
 #include "ray.h"
 #include "vector.h"
 #include "transform.h"
 #include "tagDef.h"
+#include "ball.h"
 
 class Geometry;
 
@@ -24,8 +24,10 @@ public:
 
     const Geometry *getGeometry() const;
 
+    bool isIn(const Vector3 &point) const;
+
 private:
-    Geometry *m_pGeometry;
+    Ball *m_pBall;
 };
 
 #endif

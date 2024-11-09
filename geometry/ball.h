@@ -21,6 +21,8 @@ public:
 
     virtual void buildBoundBox() override;
 
+    bool isIn(const Vector3 &point) const;
+    
 public:
     float r;
     

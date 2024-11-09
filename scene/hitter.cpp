@@ -25,6 +25,11 @@ bool Hitter::hitSceneWithLight(const Ray &ray, HitRecord &record, bool &out_isLi
 
 Color Hitter::getColorFromLight(const Ray &ray) const
 {
+    if(m_pLight->isIn(ray.origin))
+    {
+        return Color::COLOR_WHITE;
+    }
+
     float t;
     Vector3 normal;
     float dot;

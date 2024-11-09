@@ -5,24 +5,24 @@
 
 Light::Light(const Vector3 &position, float r)
 {
-    m_pGeometry = new Ball(Vector3::ZERO, position, r, nullptr);
+    m_pBall = new Ball(Vector3::ZERO, position, r, nullptr);
 }
 
 void Light::applyTransform(const Transform &t)
 {
-    m_pGeometry->applyTransform(t);
+    m_pBall->applyTransform(t);
 }
 
 void Light::setTag(Tag tag)
 {
-    m_pGeometry->setTag(tag);
+    m_pBall->setTag(tag);
 }
 
 bool Light::hit(const Ray &ray, float &t, Vector3 &normal, float &dot) const
 {
     HitRecord record;
 
-    bool isHit = m_pGeometry->hit(ray, record);
+    bool isHit = m_pBall->hit(ray, record);
 
     t = record.t;
     normal = record.normal;
@@ -33,12 +33,12 @@ bool Light::hit(const Ray &ray, float &t, Vector3 &normal, float &dot) const
 
 Vector3 Light::sample(const Vector3 &thatPoint, float &pdf) const
 {
-    return m_pGeometry->sampleFromPoint(thatPoint, pdf);
+    return m_pBall->sampleFromPoint(thatPoint, pdf);
 }
 
 Vector3 Light::getSurfacePoint(const Vector3 &thatPoint) const
 {
-    Ball *pBall = (Ball*)m_pGeometry;
+    Ball *pBall = (Ball*)m_pBall;
     Vector3 center = pBall->getPosition();
     Vector3 dir = thatPoint - center;
     dir.normalize();
@@ -49,7 +49,7 @@ Vector3 Light::getSurfacePoint(const Vector3 &thatPoint) const
 
 Vector3 Light::getNormal(const Vector3 point) const
 {
-    Vector3 center = m_pGeometry->getTransform().transformPoint(Vector3::ZERO);
+    Vector3 center = m_pBall->getTransform().transformPoint(Vector3::ZERO);
     Vector3 normal = point - center;
     normal.normalize();
 
@@ -58,5 +58,10 @@ Vector3 Light::getNormal(const Vector3 point) const
 
 const Geometry *Light::getGeometry() const
 {
-    return m_pGeometry;
+    return m_pBall;
+}
+
+bool Light::isIn(const Vector3 &point) const
+{
+    return m_pBall->isIn(point);
 }

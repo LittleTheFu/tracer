@@ -5,9 +5,9 @@ void BetaSceneBuilder::build()
 {
     // buildMeshRoom();
     buildRoom();
-    buildLight(Vector3(0, 0, 250), configLightRadius);
+    buildLight(Vector3(0, 0, 300), configLightRadius);
 
-    buildRedBall(Vector3(-50, 0, 350), 20);
+    buildRedBall(Vector3(-80, 0, 350), 20);
     buildAquaBall(Vector3(-70, 70, 250), 20);
     // buildMirrorBall(Vector3(-50, 70, 350), 20);
     // buildGlassBall(Vector3(45, 30, 300), 40);

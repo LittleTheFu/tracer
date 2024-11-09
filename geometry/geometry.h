@@ -5,11 +5,8 @@
 #include "hitrecord.h"
 #include "vector.h"
 #include "transform.h"
-#include "light.h"
 #include "boundBox.h"
 #include "tagDef.h"
-
-class Light;
 
 class Geometry
 {

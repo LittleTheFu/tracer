@@ -82,6 +82,19 @@ void Ball::buildBoundBox()
     m_boundBox.update(max);
 }
 
+bool Ball::isIn(const Vector3 &point) const
+{
+    Vector3 center = m_transform.transformPoint(Vector3::ZERO);
+    Vector3 diff = point - center;
+
+    if (diff.lenthSqr() <= r * r)
+    {
+        return true;
+    }
+
+    return false;
+}
+
 bool Ball::hit(const Ray &ray, HitRecord &record) const
 {
     // record.t = MathConstant::FLOAT_MAX;
