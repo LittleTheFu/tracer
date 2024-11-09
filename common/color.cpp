@@ -62,6 +62,17 @@ void Color::getConvertedValue(unsigned char &r, unsigned char &g, unsigned char 
     b = static_cast<unsigned char>(bb * MAX);
 }
 
+int Color::validOverflow(float m) const
+{
+    int result = 0;
+
+    if( r > m) result |= 1;
+    if( g > m) result |= 2;
+    if( b > m) result |= 4;
+
+    return result;
+}
+
 Color &Color::clamp()
 {
     r = MathUtility::clamp(r, 0, 1);
