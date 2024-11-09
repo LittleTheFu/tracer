@@ -11,6 +11,21 @@ const Color Color::COLOR_BLUE = Color(0, 0, 1);
 const Color Color::COLOR_AQUA = Color(0, 1, 1);
 const Color Color::COLOR_YELLOW = Color(1, 1, 0);
 const Color Color::COLOR_PURPLE = Color(0.5, 0, 0.5);
+const Color Color::COLOR_CYAN = Color(0, 1, 1);
+const Color Color::COLOR_MAGENTA = Color(1, 0, 1);
+const Color Color::COLOR_ORANGE = Color(1, 0.5, 0);
+const Color Color::COLOR_GRAY = Color(0.5, 0.5, 0.5);
+const Color Color::COLOR_LIGHT_GRAY = Color(0.75, 0.75, 0.75);
+const Color Color::COLOR_DARK_GRAY = Color(0.25, 0.25, 0.25);
+const Color Color::COLOR_BROWN = Color(0.647, 0.165, 0.165);
+const Color Color::COLOR_PINK = Color(1, 0.753, 0.796);
+const Color Color::COLOR_LIME = Color(0, 1, 0);
+const Color Color::COLOR_TEAL = Color(0, 0.5, 0.5);
+const Color Color::COLOR_NAVY = Color(0, 0, 0.5);
+const Color Color::COLOR_SILVER = Color(0.753, 0.753, 0.753);
+const Color Color::COLOR_GOLD = Color(1, 0.843, 0);
+const Color Color::COLOR_INDIGO = Color(0.294, 0, 0.509);
+const Color Color::COLOR_TURQUOISE = Color(0.251, 0.878, 0.816);
 
 Color::Color()
 {
