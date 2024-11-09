@@ -153,7 +153,7 @@ Vector3 Ball::sampleFromPoint(const Vector3 &thatPoint, float &pdf) const
     // Vector3 localSampledPoint = frame.pointToWorld(sampledFramePoint);
 
     // Vector3 worldSampledPoint = m_transform.transformPoint(localSampledPoint);
-    Vector3 sampledBallPoint = getLocalPoint(theta, phi);
+    Vector3 sampledBallPoint = getLocalPoint(alpha, phi);
     Vector3 worldSampledPoint = m_transform.transformPoint(sampledBallPoint);
 
     
