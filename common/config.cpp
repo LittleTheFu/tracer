@@ -5,9 +5,10 @@ bool configUseBunnyScene = false;
 bool configUseBVH = false;
 
 bool configUseSimpleTracer = true;
+bool configShowLightInSimperTracer = true;
 
 int configCameraFactor = 4;
-int configBounceTime = 10;
+int configBounceTime = 20;
 
 std::string configBunnyRes = ResourceDef::SIMPLE_BUNNY;
 MATERIAL_TYPE configBunnyMaterial = MATERIAL_TYPE::M_GLASS;
@@ -18,6 +19,6 @@ int configBatchStartBounce = 3;
 int configBatchEndBounces = 200;
 bool configUseBatchRun = false;
 
-bool configLogProgress = false;
+bool configLogProgress = true;
 
-float configLightRadius = 10.0f;
+float configLightRadius = 50.0f;

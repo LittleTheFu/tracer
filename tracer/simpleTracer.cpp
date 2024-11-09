@@ -1,5 +1,6 @@
 #include "simpleTracer.h"
 #include <cassert>
+#include "config.h"
 
 Color SimpleTracer::trace(const ObjectPool *pool,
                           Ray &ray,
@@ -13,15 +14,23 @@ Color SimpleTracer::trace(const ObjectPool *pool,
 
     HitRecord record;
 
-    bool isLightHit = false;
-    if (!pool->hitSceneWithLight(ray, record, isLightHit))
+    if (configShowLightInSimperTracer)
     {
-        return Color::COLOR_BLACK;
-    }
+        bool isLightHit = false;
+        if (!pool->hitSceneWithLight(ray, record, isLightHit))
+        {
+            return Color::COLOR_BLACK;
+        }
 
-    if(isLightHit)
+        if (isLightHit)
+        {
+            return Color::COLOR_WHITE * record.dotLight;
+        }
+    }
+    else
     {
-        return Color::COLOR_WHITE * record.dotLight;
+        if (!pool->hitScene(ray, record))
+            return Color::COLOR_BLACK;
     }
 
     Ray newRay(record.point, record.reflect);
@@ -40,11 +49,11 @@ Color SimpleTracer::trace(const ObjectPool *pool,
 
     Color ccolor = currentState.f * inputColor * currentState.dot / currentState.reflectPdf;
 
-    if(ccolor.validOverflow() != 0)
-    {
-        std::cout << ccolor << std::endl;
-    }
-    
+    // if(ccolor.validOverflow(0.98f) != 0)
+    // {
+    //     std::cout << ccolor << std::endl;
+    // }
+
     return ccolor;
 }
 
@@ -64,10 +73,11 @@ Color SimpleTracer::HandleLastBounce(const ObjectPool *pool,
     // is this line needed?
     lightColor = lightColor * currentState.dot;
 
-    Color retColor = lightColor * currentState.f / currentState.reflectPdf;
+    Color retColor = lightColor * currentState.f;
+    // Color retColor = lightColor * currentState.f / currentState.reflectPdf;
 
     //warning: We'll look into the reason for the bug(maybe?) later.
-    retColor.clamp();
+    // retColor.clamp();
 
     return retColor;
 }

@@ -8,6 +8,7 @@ extern bool configUseBunnyScene;
 extern bool configUseBVH;
 
 extern bool configUseSimpleTracer;
+extern bool configShowLightInSimperTracer;
 
 extern int configCameraFactor;
 extern int configBounceTime;
