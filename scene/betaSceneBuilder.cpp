@@ -1,10 +1,11 @@
 #include "betaSceneBuilder.h"
+#include "config.h"
 
 void BetaSceneBuilder::build()
 {
     // buildMeshRoom();
     buildRoom();
-    buildLight(Vector3(0, 0, 250), 10);
+    buildLight(Vector3(0, 0, 250), configLightRadius);
 
     buildRedBall(Vector3(-50, 0, 350), 20);
     buildAquaBall(Vector3(-70, 70, 250), 20);

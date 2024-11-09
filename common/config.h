@@ -23,4 +23,6 @@ extern bool configUseBatchRun;
 
 extern bool configLogProgress;
 
+extern float configLightRadius;
+
 #endif
