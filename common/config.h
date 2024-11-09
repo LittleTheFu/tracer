@@ -21,4 +21,6 @@ extern int configBatchStartBounce;
 extern int configBatchEndBounces;
 extern bool configUseBatchRun;
 
+extern bool configLogProgress;
+
 #endif

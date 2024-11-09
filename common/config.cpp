@@ -17,3 +17,5 @@ std::string configOutputImageName = "img";
 int configBatchStartBounce = 3;
 int configBatchEndBounces = 200;
 bool configUseBatchRun = true;
+
+bool configLogProgress = false;

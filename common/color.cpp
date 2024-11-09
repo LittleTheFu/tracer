@@ -181,3 +181,10 @@ bool Color::operator!=(const Color that) const
 {
     return !(this->operator==(that));
 }
+
+std::ostream &operator<<(std::ostream &os, const Color &color)
+{
+    os << "( " << color.r << ", " << color.g << ", " << color.b << " )";
+
+    return os;
+}

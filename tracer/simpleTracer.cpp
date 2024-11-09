@@ -40,6 +40,11 @@ Color SimpleTracer::trace(const ObjectPool *pool,
 
     Color ccolor = currentState.f * inputColor * currentState.dot / currentState.reflectPdf;
 
+    if(ccolor.validOverflow() != 0)
+    {
+        std::cout << ccolor << std::endl;
+    }
+    
     return ccolor;
 }
 

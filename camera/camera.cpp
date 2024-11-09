@@ -58,7 +58,8 @@ void Camera::render()
 
         for (unsigned x = 0; x < m_Width; x++)
         {
-            logProgress(x,y);
+            if (configLogProgress)
+                logProgress(x, y);
 
             HitRecord record = InitHitRecord();
             Ray ray = generateRay(static_cast<float>(x), static_cast<float>(y));

@@ -1,6 +1,8 @@
 #ifndef _COLOR_H_
 #define _COLOR_H_
 
+#include <iostream>
+
 class Color
 {
 public:
@@ -25,6 +27,8 @@ public:
 
     bool operator==(const Color that) const;
     bool operator!=(const Color that) const;
+
+    friend std::ostream &operator<<(std::ostream &os, const Color &color);
 
     const static Color COLOR_BLACK;
     const static Color COLOR_WHITE;
