@@ -21,4 +21,4 @@ bool configUseBatchRun = false;
 
 bool configLogProgress = true;
 
-float configLightRadius =200.0f;
+float configLightRadius = 70.0f;
