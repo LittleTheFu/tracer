@@ -73,8 +73,8 @@ Color SimpleTracer::HandleLastBounce(const ObjectPool *pool,
     // is this line needed?
     lightColor = lightColor * currentState.dot;
 
-    Color retColor = lightColor * currentState.f;
-    // Color retColor = lightColor * currentState.f / currentState.reflectPdf;
+    // Color retColor = lightColor * currentState.f;
+    Color retColor = lightColor * currentState.f / currentState.reflectPdf;
 
     //warning: We'll look into the reason for the bug(maybe?) later.
     // retColor.clamp();
