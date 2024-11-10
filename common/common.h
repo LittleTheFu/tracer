@@ -6,6 +6,10 @@
 
 class Common
 {
+//for test bug
+public:
+    static Vector3 getNormal(const Vector3 &from, const Vector3 &to);
+
 public:
     const static void printCurrentTime();
 

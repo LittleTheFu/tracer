@@ -56,6 +56,13 @@ Vector3 Light::getNormal(const Vector3 point) const
     return normal;
 }
 
+Vector3 Light::getCenter() const
+{
+    Vector3 center = m_pBall->getTransform().transformPoint(Vector3::ZERO);
+
+    return center;
+}
+
 const Geometry *Light::getGeometry() const
 {
     return m_pBall;

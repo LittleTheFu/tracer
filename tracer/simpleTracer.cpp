@@ -105,6 +105,10 @@ void SimpleTracer::prepareSampleLight(const ObjectPool *pool,
     {
         record.dot *= -1;
     }
+    else
+    {
+        int f = 4;
+    }
 
     newRay.dir = lightDir;
 }

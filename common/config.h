@@ -3,6 +3,7 @@
 
 #include "resourceDef.h"
 #include "materialDef.h"
+#include "vector.h"
 
 extern bool configUseBunnyScene;
 extern bool configUseBVH;
@@ -25,5 +26,6 @@ extern bool configUseBatchRun;
 extern bool configLogProgress;
 
 extern float configLightRadius;
+extern Vector3 configLightPos;
 
 #endif

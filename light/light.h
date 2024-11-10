@@ -18,6 +18,7 @@ public:
     Vector3 sample(const Vector3 &thatPoint, float &pdf) const;
     Vector3 getSurfacePoint(const Vector3 &thatPoint) const;
     Vector3 getNormal(const Vector3 point) const;
+    Vector3 getCenter() const;
     
     bool hit(const Ray &ray, float &t, Vector3 &normal, float &dot) const;
     void setTag(Tag tag);

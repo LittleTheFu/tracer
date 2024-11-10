@@ -14,6 +14,14 @@ const float Common::SAMPLE_LIGHTR_CORRECT_FACTOR = 0.96f;
 const float Common::SIGMA_T = 0.1f;
 const float Common::SIGMA_S = 0.2f;
 
+Vector3 Common::getNormal(const Vector3 &from, const Vector3 &to)
+{
+    Vector3 r = to - from;
+    r.normalize();
+
+    return r;
+}
+
 const void Common::printCurrentTime()
 {
     std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
