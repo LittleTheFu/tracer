@@ -28,4 +28,6 @@ extern bool configLogProgress;
 extern float configLightRadius;
 extern Vector3 configLightPos;
 
+extern float configLambdaScale;
+
 #endif

@@ -2,6 +2,7 @@
 #include "constTexture.h"
 #include "imageTexture.h"
 #include "resourceDef.h"
+#include "config.h"
 
 MaterialManager* MaterialManager::instance = nullptr;
 
@@ -22,7 +23,7 @@ const MaterialManager *MaterialManager::getInstance()
 
 void MaterialManager::init()
 {
-    float rho = 0.5f;
+    float rho = configLambdaScale;
 
     lambMtrlRed = new LambertianMaterial(new ConstTexture(Color::COLOR_RED), rho);
     lambMtrlYellow = new LambertianMaterial(new ConstTexture(Color::COLOR_YELLOW), rho);
