@@ -30,7 +30,7 @@ public:
 
     friend std::ostream &operator<<(std::ostream &os, const Color &color);
 
-const static Color COLOR_BLACK;
+    const static Color COLOR_BLACK;
     const static Color COLOR_WHITE;
     const static Color COLOR_RED;
     const static Color COLOR_GREEN;
