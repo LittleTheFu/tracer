@@ -39,7 +39,7 @@ Color Hitter::getColorFromLight(const Ray &ray) const
         return Color::COLOR_BLACK;
     }
 
-    Color color = Color::COLOR_WHITE;
+    Color color = Color::COLOR_LIGHT;
 
     HitRecord record;
     if (!hitGeometryObjectOnly(ray, record))

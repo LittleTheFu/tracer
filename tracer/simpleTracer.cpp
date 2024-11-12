@@ -24,7 +24,7 @@ Color SimpleTracer::trace(const ObjectPool *pool,
 
         if (isLightHit)
         {
-            return Color::COLOR_WHITE * record.dotLight;
+            return Color::COLOR_LIGHT * record.dotLight;
         }
     }
     else
