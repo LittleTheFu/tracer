@@ -399,16 +399,16 @@ Vector3 Vector3::getRandomVector()
 
 Vector3 Vector3::sampleUniformFromHemisphere()
 {
-    const float u = MathUtility::genRandomDecimal();
-    const float v = MathUtility::genRandomDecimal();
+    const float r1 = MathUtility::genRandomDecimal();
+    const float r2 = MathUtility::genRandomDecimal();
 
-    const float cosTheta = u;
+    const float cosTheta = r1;
     const float sinTheta = std::sqrt(1 - cosTheta * cosTheta);
-    const float phi = 2 * MathConstant::PI * v;
+    const float phi = 2 * MathConstant::PI * r2;
 
     const float x = sinTheta * std::cos(phi);
     const float y = sinTheta * std::sin(phi);
-    const float z = u;
+    const float z = r1;
 
     const Vector3 vec(x, y, z);
 
