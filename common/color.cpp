@@ -27,7 +27,7 @@ const Color Color::COLOR_GOLD = Color(1, 0.843, 0);
 const Color Color::COLOR_INDIGO = Color(0.294, 0, 0.509);
 const Color Color::COLOR_TURQUOISE = Color(0.251, 0.878, 0.816);
 
-const static Color COLOR_LIGHT = Color(1, 1, 1);
+const static Color Color::COLOR_LIGHT = Color(1, 1, 1);
 
 
 Color::Color()
