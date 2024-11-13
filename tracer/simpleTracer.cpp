@@ -54,7 +54,7 @@ Color SimpleTracer::HandleLastBounce(const ObjectPool *pool,
     Color lightColor = pool->getColorFromLight(ray);
 
     // is this line needed?
-    lightColor = lightColor * currentState.dot;
+    // lightColor = lightColor * currentState.dot;
 
     // Color retColor = lightColor * currentState.f;
     Color retColor = lightColor * currentState.f / currentState.reflectPdf;
