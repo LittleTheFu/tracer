@@ -3,6 +3,8 @@
 #include "hitrecord.h"
 #include "mathUtility.h"
 
+const Color Light::COLOR_LIGHT = Color::COLOR_WHITE * 10;
+
 Light::Light(const Vector3 &position, float r)
 {
     m_pBall = new Ball(Vector3::ZERO, position, r, nullptr);

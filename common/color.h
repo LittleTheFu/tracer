@@ -53,8 +53,6 @@ public:
     const static Color COLOR_GOLD;
     const static Color COLOR_INDIGO;
     const static Color COLOR_TURQUOISE;
-
-    const static Color COLOR_LIGHT;
 };
 
 #endif
