@@ -83,13 +83,14 @@ void SimpleTracer::prepareSampleLight(const ObjectPool *pool,
     record.reflect = lightDir;
     Vector3 lightNormal = pool->m_pLight->getNormal(lightSurfacePoint);
     record.dot = lightNormal * lightDir; // dot less than 0
-    // record.dot = 1;
+    
     if(record.dot < 0)
     {
         record.dot *= -1;
     }
     else
     {
+        //debug for breakpoint
         int f = 4;
     }
 
