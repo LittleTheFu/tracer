@@ -98,6 +98,12 @@ void SceneBuilder::buildMixBall(const Vector3& pos, float r)
     // m_pObjectPool->add(mixBall);
 }
 
+void SceneBuilder::buildVolumeBall(const Vector3 &pos, float r)
+{
+    Ball *volumeBall = new Ball(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_GREEN));
+    m_pObjectPool->add(volumeBall);
+}
+
 void SceneBuilder::buildBunny(const Vector3 &pos, float scale, const std::string &res, MATERIAL_TYPE materialType)
 {
     Mesh *bunny = new Mesh(res, pos, scale, MaterialManager::getInstance()->get(materialType));

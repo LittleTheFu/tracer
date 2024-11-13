@@ -1,6 +1,6 @@
 #include "config.h"
 
-ConfigScene configScene = ConfigScene::ROOM_SIMPLE;
+ConfigScene configScene = ConfigScene::ROOM_VOLUME;
 
 bool configUseBVH = false;
 bool configUseSimpleTracer = true;

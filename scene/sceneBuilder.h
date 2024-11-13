@@ -25,6 +25,8 @@ protected:
     void buildMirrorBall(const Vector3& pos, float r);
     void buildMixBall(const Vector3& pos, float r);
 
+    void buildVolumeBall(const Vector3& pos, float r);
+
     void buildRedBall(const Vector3& pos, float r);
     void buildAquaBall(const Vector3& pos, float r);
 
