@@ -13,6 +13,8 @@ public:
                         Ray &ray,
                         int bounceNum,
                         const HitRecord &currentState) const;
+
+    virtual Color traceFirstBounce(const ObjectPool *pool, Ray &ray) const;
 };
 
 #endif

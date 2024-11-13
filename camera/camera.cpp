@@ -6,6 +6,7 @@
 #include <iomanip>
 #include "timeRecorder.h"
 #include "config.h"
+#include "mathConstantDef.h"
 
 const int Camera::default_screen_width = 256;
 const int Camera::default_screen_height = 256;
@@ -64,7 +65,7 @@ void Camera::render()
             HitRecord record = InitHitRecord();
             Ray ray = generateRay(static_cast<float>(x), static_cast<float>(y));
 
-            Color color = Color::COLOR_BLACK;
+            Color color = m_pTracer->traceFirstBounce(m_pObjectPool, ray);
             for (int i = 2; i < m_BounceTime; i++)
             {
                 // if (y==0 && x==21 && i==3)

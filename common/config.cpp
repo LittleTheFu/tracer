@@ -4,11 +4,11 @@
 bool configUseBunnyScene = false;
 bool configUseBVH = false;
 
-bool configUseSimpleTracer = true;
+bool configUseSimpleTracer = false;//don't change it to false right now
 bool configShowLightInSimperTracer = false;
 
-int configCameraFactor = 16;
-int configBounceTime = 20;
+int configCameraFactor = 3;
+int configBounceTime = 8;
 
 std::string configBunnyRes = ResourceDef::SIMPLE_BUNNY;
 MATERIAL_TYPE configBunnyMaterial = MATERIAL_TYPE::M_GLASS;
