@@ -4,17 +4,28 @@
 #include "tester.h"
 #include "bunnySceneBuilder.h"
 #include "betaSceneBuilder.h"
+#include "volumeSceneBuilder.h"
 #include "config.h"
 
-int main()
+SceneBuilder* createBuilder()
 {
     SceneBuilder *builder = nullptr;
-    if (configUseBunnyScene)
+    
+    if (configScene == ConfigScene::ROOM_BUNNY)
         builder = new BunnySceneBuilder();
+    else if (configScene == ConfigScene::ROOM_SIMPLE)
+        builder = new BetaSceneBuilder();
+    else if (configScene == ConfigScene::ROOM_VOLUME)
+        builder = new VolumeSceneBuilder();
     else
         builder = new BetaSceneBuilder();
 
-    Scene scene(builder, configUseSimpleTracer);
+    return builder;
+}
+
+int main()
+{
+    Scene scene(createBuilder(), configUseSimpleTracer);
 
     if (configUseBatchRun)
         scene.batchRun();

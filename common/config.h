@@ -5,7 +5,13 @@
 #include "materialDef.h"
 #include "vector.h"
 
-extern bool configUseBunnyScene;
+enum class ConfigScene {
+    ROOM_BUNNY,
+    ROOM_SIMPLE,
+    ROOM_VOLUME,
+};
+
+extern ConfigScene configScene;
 extern bool configUseBVH;
 
 extern bool configUseSimpleTracer;
@@ -27,7 +33,7 @@ extern bool configLogProgress;
 
 extern float configLightRadius;
 extern Vector3 configLightPos;
-extern int configLightIntensity;
+extern float configLightIntensity;
 
 extern float configLambdaScale;
 

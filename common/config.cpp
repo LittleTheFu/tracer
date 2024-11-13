@@ -1,8 +1,8 @@
 #include "config.h"
 
-bool configUseBunnyScene = false;
-bool configUseBVH = false;
+ConfigScene configScene = ConfigScene::ROOM_SIMPLE;
 
+bool configUseBVH = false;
 bool configUseSimpleTracer = true;
 
 int configCameraFactor = 3;
@@ -21,6 +21,6 @@ bool configLogProgress = true;
 
 float configLightRadius = 25;
 Vector3 configLightPos(0, 40, 300);
-int configLightIntensity = 16;
+float configLightIntensity = 16;
 
 float configLambdaScale = 0.5f;
