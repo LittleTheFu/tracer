@@ -100,7 +100,7 @@ void SceneBuilder::buildMixBall(const Vector3& pos, float r)
 
 void SceneBuilder::buildVolumeBall(const Vector3 &pos, float r)
 {
-    Ball *volumeBall = new Ball(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_GREEN));
+    Ball *volumeBall = new Ball(Vector3::ZERO, pos, r, nullptr);
     m_pObjectPool->add(volumeBall);
 }
 
