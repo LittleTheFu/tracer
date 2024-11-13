@@ -21,6 +21,6 @@ bool configLogProgress = true;
 
 float configLightRadius = 25;
 Vector3 configLightPos(0, 40, 300);
-float configLightIntensity = 16;//bug: init depedency
+float configLightIntensity = 16;
 
 float configLambdaScale = 0.5f;

@@ -26,12 +26,11 @@ public:
     const Geometry *getGeometry() const;
 
     bool isIn(const Vector3 &point) const;
-    
-public:    
-    const static Color COLOR_LIGHT;
+    Color getColor() const;
 
 private:
     Ball *m_pBall;
+    float m_intensity;
 };
 
 #endif

@@ -4,12 +4,10 @@
 #include "mathUtility.h"
 #include "config.h"
 
-// const Color Light::COLOR_LIGHT = Color::COLOR_WHITE * 16;
-const Color Light::COLOR_LIGHT = Color(16,16,16);
-
 Light::Light(const Vector3 &position, float r)
 {
     m_pBall = new Ball(Vector3::ZERO, position, r, nullptr);
+    m_intensity = configLightIntensity;
 }
 
 void Light::applyTransform(const Transform &t)
@@ -75,4 +73,9 @@ const Geometry *Light::getGeometry() const
 bool Light::isIn(const Vector3 &point) const
 {
     return m_pBall->isIn(point);
+}
+
+Color Light::getColor() const
+{
+    return Color::COLOR_WHITE * m_intensity;
 }
