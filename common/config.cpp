@@ -4,7 +4,7 @@
 bool configUseBunnyScene = false;
 bool configUseBVH = false;
 
-bool configUseSimpleTracer = false;//don't change it to false right now
+bool configUseSimpleTracer = false;
 bool configShowLightInSimperTracer = false;
 
 int configCameraFactor = 3;
