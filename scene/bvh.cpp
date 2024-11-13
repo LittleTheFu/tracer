@@ -158,32 +158,6 @@ bool BVH::hitGeometryObjectOnly(const Ray &ray, HitRecord &record) const
     return _hitGeometryObjectOnly(m_rootNode, ray, record);
 }
 
-bool BVH::hitSceneWithLight(const Ray &ray,
-                            HitRecord &record,
-                            bool &out_isLightHit) const
-{
-    out_isLightHit = false;
-
-    bool isHit = false;
-
-    isHit = _hitGeometryObjectOnly(m_rootNode, ray, record);
-    float tMin = record.t;
-
-    float t;
-    Vector3 normal;
-    float dotLight;
-    bool isLightHit = m_pLight->hit(ray, t, normal, dotLight);
-    if (t < tMin)
-    {
-        out_isLightHit = true;
-        isHit = true;
-
-        record.dotLight = dotLight;
-    }
-
-    return isHit;
-}
-
 bool BVH::hitLeaf(const Ray &ray, const std::vector<Geometry *> objects, HitRecord &record) const
 {
     assert(objects.size() > 0);

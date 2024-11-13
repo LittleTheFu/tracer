@@ -27,8 +27,8 @@ public:
     void buildBoundBox();
 
     bool hitScene(const Ray &ray, HitRecord &record) const;
-    bool hitSceneWithLight(const Ray &ray, HitRecord &record, bool &out_isLightHit) const;
-
+    
+public:
     Color getColorFromLight(const Ray &ray) const;
 
     std::vector<Geometry *> getObjects() const;

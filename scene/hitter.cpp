@@ -1,28 +1,6 @@
 #include "hitter.h"
 #include "mathConstantDef.h"
 
-bool Hitter::hitSceneWithLight(const Ray &ray, HitRecord &record, bool &out_isLightHit) const
-{
-    out_isLightHit = false;
-
-    bool hit = hitGeometryObjectOnly(ray, record);
-    float tMin = record.t;
-
-    float t;
-    Vector3 normal;
-    float dotLight;
-    bool isLightHit = hitLightOnly(ray, t, normal, dotLight);
-    if (t < tMin)
-    {
-        out_isLightHit = true;
-        hit = true;
-
-        record.dotLight = dotLight;
-    }
-
-    return hit;
-}
-
 Color Hitter::getColorFromLight(const Ray &ray) const
 {
     // if(m_pLight->isIn(ray.origin))

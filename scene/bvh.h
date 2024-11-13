@@ -15,9 +15,9 @@ public:
 
 public:
     virtual void init(const std::vector<Geometry *> &objects, const Light *light) override;
-
     virtual bool hitGeometryObjectOnly(const Ray &ray, HitRecord &record) const override;
-    virtual bool hitSceneWithLight(const Ray &ray, HitRecord &record, bool &out_isLightHit) const override;
+    
+public:
     virtual Color getColorFromLight(const Ray &ray) const override;
 
 private:

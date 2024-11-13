@@ -11,13 +11,6 @@ class HitterInterface
 {
 public:
     virtual void init(const std::vector<Geometry *> &objects, const Light *light);
-
-public:
-    virtual bool hitSceneWithLight(
-        const Ray &ray,
-        HitRecord &record,
-        bool &out_isLightHit) const;
-
     virtual Color getColorFromLight(const Ray &ray) const;
 
     virtual bool hitGeometryObjectOnly(

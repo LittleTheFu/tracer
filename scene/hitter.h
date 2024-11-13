@@ -11,7 +11,6 @@
 class Hitter : public HitterInterface
 {
 public:
-    virtual bool hitSceneWithLight(const Ray &ray, HitRecord &record, bool &out_isLightHit) const override;
     virtual Color getColorFromLight(const Ray &ray) const override;
     virtual bool hitGeometryObjectOnly(const Ray &ray, HitRecord &record) const override;
 
