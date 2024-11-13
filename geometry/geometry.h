@@ -33,6 +33,7 @@ public:
     Transform getTransform() const;
 
     void setMaterial(const Material *pMtrl);
+    bool isVolume() const;
 
 //for development
 public:

@@ -6,7 +6,7 @@ bool configUseBVH = false;
 bool configUseSimpleTracer = true;
 
 int configCameraFactor = 3;
-int configBounceTime = 8;
+int configBounceTime = 6;
 
 std::string configBunnyRes = ResourceDef::SIMPLE_BUNNY;
 MATERIAL_TYPE configBunnyMaterial = MATERIAL_TYPE::M_RED;
@@ -21,6 +21,6 @@ bool configLogProgress = true;
 
 float configLightRadius = 25;
 Vector3 configLightPos(0, 40, 300);
-float configLightIntensity = 16;
+float configLightIntensity = 16;//bug: init depedency
 
 float configLambdaScale = 0.5f;

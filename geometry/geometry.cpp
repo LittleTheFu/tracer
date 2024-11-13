@@ -58,6 +58,11 @@ void Geometry::setMaterial(const Material *pMtrl)
     m_pMtrl = pMtrl;
 }
 
+bool Geometry::isVolume() const
+{
+   return m_pMtrl == nullptr;
+}
+
 Vector3 Geometry::sampleFromPoint(const Vector3 &thatPoint, float &pdf) const
 {
     pdf = 1;

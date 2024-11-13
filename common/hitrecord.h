@@ -5,6 +5,7 @@
 #include "material.h"
 #include "transform.h"
 #include "color.h"
+#include <vector>
 
 class HitRecord
 {
