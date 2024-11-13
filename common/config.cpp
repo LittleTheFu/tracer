@@ -9,7 +9,7 @@ int configCameraFactor = 3;
 int configBounceTime = 8;
 
 std::string configBunnyRes = ResourceDef::SIMPLE_BUNNY;
-MATERIAL_TYPE configBunnyMaterial = MATERIAL_TYPE::M_GLASS;
+MATERIAL_TYPE configBunnyMaterial = MATERIAL_TYPE::M_RED;
 
 std::string configOutputImageName = "img";
 
