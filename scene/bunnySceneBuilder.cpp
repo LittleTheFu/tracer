@@ -4,7 +4,7 @@
 void BunnySceneBuilder::build()
 {
     buildRoom();
-    buildLight(Vector3(0, 72, 250), 30);
+    buildLight(configLightPos, configLightRadius);
     
     buildBunny(Vector3(10, -50, 250), 400, configBunnyRes, configBunnyMaterial);
 }
