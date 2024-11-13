@@ -40,8 +40,8 @@ bool Hitter::hitGeometryObjectOnly(const Ray &ray, HitRecord &record) const
 
     for (std::vector<Geometry *>::const_iterator it = m_objects.begin(); it != m_objects.end(); it++)
     {
-        // if ((*it)->isVolume())
-        //     continue;
+        if ((*it)->isVolume())
+            continue;
 
         HitRecord tempRecord;
 
