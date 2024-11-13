@@ -19,7 +19,8 @@ bool configUseBatchRun = false;
 
 bool configLogProgress = true;
 
-float configLightRadius = 30;
-Vector3 configLightPos(0, -60, 300);
+float configLightRadius = 20;
+Vector3 configLightPos(0, 40, 300);
+int configLightIntensity = 15;
 
 float configLambdaScale = 0.8f;

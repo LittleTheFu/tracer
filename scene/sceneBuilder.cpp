@@ -108,7 +108,7 @@ void SceneBuilder::buildRedTri(const Vector3 &pos)
 {
     TriVertex a(-30, -30, -20);
     TriVertex b(-30, 30, 0);
-    TriVertex c(10, -20, -10);
+    TriVertex c(20, -20, -10);
 
     Tri *tri = new Tri(a, b, c, pos, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_RED));
     m_pObjectPool->add(tri);

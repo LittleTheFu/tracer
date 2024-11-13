@@ -2,8 +2,9 @@
 #include "ball.h"
 #include "hitrecord.h"
 #include "mathUtility.h"
+#include "config.h"
 
-const Color Light::COLOR_LIGHT = Color::COLOR_WHITE * 10;
+const Color Light::COLOR_LIGHT = Color::COLOR_WHITE * configLightIntensity;
 
 Light::Light(const Vector3 &position, float r)
 {
