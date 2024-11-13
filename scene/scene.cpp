@@ -85,8 +85,8 @@ void Scene::preRender()
     m_pCamera->setPool(m_pObjectPool);
     m_pCamera->build(Vector3(0, 0, 0), Vector3(0, 0, 0));
 
-    // Transform t = m_pCamera->getTransform().getInverseTransform();
-    // m_pObjectPool->applyTransfrom(t);
+    Transform t = m_pCamera->getTransform().getInverseTransform();
+    m_pObjectPool->applyTransfrom(t);
     m_pObjectPool->log();
 
     m_pObjectPool->buildBoundBox();
