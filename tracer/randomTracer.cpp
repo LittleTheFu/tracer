@@ -18,12 +18,10 @@ Color RandomTracer::trace(const ObjectPool *pool,
     bool hit = false;
     bool isLightHit = false;
 
-    hit = pool->hitSceneWithLight(ray, record, isLightHit);
+    hit = pool->hitScene(ray, record);
 
     if (!hit)
         return Color::COLOR_BLACK;
-    if (isLightHit)
-        return Color::COLOR_WHITE;
 
     Ray newRay(record.point, record.reflect);
 
