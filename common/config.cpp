@@ -5,7 +5,6 @@ bool configUseBunnyScene = false;
 bool configUseBVH = false;
 
 bool configUseSimpleTracer = false;
-bool configShowLightInSimperTracer = false;
 
 int configCameraFactor = 3;
 int configBounceTime = 8;
