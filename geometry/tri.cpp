@@ -4,6 +4,8 @@
 #include "mathConstantDef.h"
 #include <cassert>
 
+#define _NORMAL_DEBUG_ (0)
+
 // Tri::Tri()
 // {
 //     m_ab = m_b.pos - m_a.pos;
@@ -81,6 +83,7 @@ bool Tri::hit(const Ray &ray, HitRecord &record) const
     //     reverse = false;
     // }
 
+
     const float n = (-localRay.origin) * Common::LOCAL_NORMAL;
     const float d = localRay.dir * Common::LOCAL_NORMAL;
 
@@ -103,7 +106,12 @@ bool Tri::hit(const Ray &ray, HitRecord &record) const
     record.transform = m_transform;
 
     record.point = m_transform.transformPoint(_objPoint);
+
+#if _NORMAL_DEBUG_
+    record.normal = m_transform.transformVector(frame.vectorToWorld(Common::LOCAL_NORMAL));
+#else
     record.normal = m_transform.transformNormal(frame.vectorToWorld(Common::LOCAL_NORMAL));
+#endif
 
     // float w_a, w_b, w_c;
     // getWeight(ap_ab, ap_bc, ap_ca, w_a, w_b, w_c);
