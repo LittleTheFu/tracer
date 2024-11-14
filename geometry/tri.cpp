@@ -34,7 +34,7 @@ void Tri::set(const TriVertex &a, const TriVertex &b, const TriVertex &c, const 
     m_bc = m_c.pos - m_b.pos;
     m_ca = m_a.pos - m_c.pos;
 
-    initNormal();
+    calcNormal();
 
     m_localCentroid = (a.pos + b.pos + c.pos) / 3;
     this->m_pMtrl = pMtrl;
@@ -202,7 +202,7 @@ bool Tri::isAllFacePositive(const Vector3 &p) const
     return true;
 }
 
-void Tri::initNormal()
+void Tri::calcNormal()
 {
     // m_normal = m_a.normal + m_b.normal + m_c.normal;
     m_normal = m_ab.cross(m_bc);

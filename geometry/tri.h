@@ -54,7 +54,7 @@ public:
 
 private:
     bool isAllFacePositive(const Vector3 &p) const;
-    void initNormal();
+    void calcNormal();
 
 private:
     virtual Vector3 dpdu(const Vector3 &point) const override;
