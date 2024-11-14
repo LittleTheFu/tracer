@@ -5,11 +5,11 @@ ConfigScene configScene = ConfigScene::ROOM_VOLUME;
 bool configUseBVH = false;
 bool configUseSimpleTracer = true;
 
-int configCameraFactor = 3;
-int configBounceTime = 6;
+int configCameraFactor = 50;
+int configBounceTime = 8;
 
-std::string configBunnyRes = ResourceDef::SIMPLE_BUNNY;
-MATERIAL_TYPE configBunnyMaterial = MATERIAL_TYPE::M_RED;
+std::string configBunnyRes = ResourceDef::BUNNY;
+MATERIAL_TYPE configBunnyMaterial = MATERIAL_TYPE::M_MIRROR;
 
 std::string configOutputImageName = "img";
 
