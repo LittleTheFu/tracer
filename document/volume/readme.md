@@ -25,3 +25,5 @@
 ---
 ![img](albedo.PNG)
 ---
+![img](optical_thickness.PNG)
+---
