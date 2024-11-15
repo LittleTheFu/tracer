@@ -20,6 +20,7 @@ extern bool configShowLightInSimperTracer;
 extern int configCameraFactor;
 extern int configBounceTime;
 
+extern float configBnuuyScale;
 extern std::string configBunnyRes;
 extern MATERIAL_TYPE configBunnyMaterial;
 

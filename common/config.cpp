@@ -1,13 +1,14 @@
 #include "config.h"
 
-ConfigScene configScene = ConfigScene::ROOM_VOLUME;
+ConfigScene configScene = ConfigScene::ROOM_BUNNY;
 
-bool configUseBVH = false;
+bool configUseBVH = true;
 bool configUseSimpleTracer = true;
 
-int configCameraFactor = 3;
+int configCameraFactor = 4;
 int configBounceTime = 6;
 
+float configBnuuyScale = 500;
 std::string configBunnyRes = ResourceDef::SIMPLE_BUNNY;
 MATERIAL_TYPE configBunnyMaterial = MATERIAL_TYPE::M_RED;
 
