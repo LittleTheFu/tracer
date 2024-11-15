@@ -6,8 +6,9 @@ bool configUseBVH = false;
 bool configUseSimpleTracer = true;
 
 int configCameraFactor = 50;
-int configBounceTime = 8;
+int configBounceTime = 6;
 
+float configBnuuyScale = 30;
 std::string configBunnyRes = ResourceDef::BUNNY;
 MATERIAL_TYPE configBunnyMaterial = MATERIAL_TYPE::M_MIRROR;
 
