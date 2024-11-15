@@ -1,8 +1,8 @@
 #include "config.h"
 
-ConfigScene configScene = ConfigScene::ROOM_VOLUME;
+ConfigScene configScene = ConfigScene::ROOM_BUNNY;
 
-bool configUseBVH = false;
+bool configUseBVH = true;
 bool configUseSimpleTracer = true;
 
 int configCameraFactor = 50;
