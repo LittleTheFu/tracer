@@ -5,7 +5,7 @@ ConfigScene configScene = ConfigScene::ROOM_BUNNY;
 bool configUseBVH = true;
 bool configUseSimpleTracer = true;
 
-int configCameraFactor = 50;
+int configCameraFactor = 100;
 int configBounceTime = 10;
 
 float configBnuuyScale = 40;
@@ -22,6 +22,6 @@ bool configLogProgress = true;
 
 float configLightRadius = 25;
 Vector3 configLightPos(0, 40, 300);
-float configLightIntensity = 32;
+float configLightIntensity = 50;
 
 float configLambdaScale = 0.5f;
