@@ -3,7 +3,7 @@
 ConfigScene configScene = ConfigScene::ROOM_SIMPLE;
 
 bool configUseBVH = false;
-bool configUseSimpleTracer = false;
+bool configUseSimpleTracer = true;
 
 int configCameraFactor = 10;
 int configBounceTime = 10;
