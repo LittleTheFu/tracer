@@ -1,11 +1,11 @@
 #include "config.h"
 
-ConfigScene configScene = ConfigScene::ROOM_BUNNY;
+ConfigScene configScene = ConfigScene::ROOM_SIMPLE;
 
-bool configUseBVH = true;
-bool configUseSimpleTracer = true;
+bool configUseBVH = false;
+bool configUseSimpleTracer = false;
 
-int configCameraFactor = 100;
+int configCameraFactor = 10;
 int configBounceTime = 10;
 
 float configBnuuyScale = 40;
