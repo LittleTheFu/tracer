@@ -69,6 +69,7 @@ SET (RAY_TRACER_SOURCE
     tracer/randomTracer.cpp
     tracer/simpleTracer.cpp
     tracer/tracer.cpp
+    tracer/volTracer.cpp
 )
 
 SET (RAY_TRACER_HEADER
@@ -139,6 +140,7 @@ SET (RAY_TRACER_HEADER
     tracer/randomTracer.h
     tracer/simpleTracer.h
     tracer/tracer.h
+    tracer/volTracer.h
 )
 
 INCLUDE_DIRECTORIES(brdf 
