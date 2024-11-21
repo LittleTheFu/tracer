@@ -1,5 +1,5 @@
 #include "imageTexture.h"
-#include "lodepng.h"
+#include <lodepng/lodepng.h>
 #include <iostream>
 
 ImageTexture::ImageTexture(const std::string fileName) : m_width(0), m_height(0)

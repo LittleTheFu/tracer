@@ -17,7 +17,8 @@
                 "${workspaceFolder}/texture",
                 "${workspaceFolder}/tracer",
                 "${workspaceFolder}/third/assimp/include",
-                "${workspaceFolder}/build/third/assimp/include"
+                "${workspaceFolder}/build/third/assimp/include",
+                "${workspaceFolder}/third/lodepng/include"
             ],
             "cStandard": "c17",
             "cppStandard": "c++17",

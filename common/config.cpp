@@ -5,7 +5,7 @@ ConfigScene configScene = ConfigScene::ROOM_SIMPLE;
 bool configUseBVH = false;
 bool configUseSimpleTracer = true;
 
-int configCameraFactor = 10;
+int configCameraFactor = 2;
 int configBounceTime = 10;
 
 float configBnuuyScale = 40;

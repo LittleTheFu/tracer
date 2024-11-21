@@ -20,7 +20,7 @@ SET (RAY_TRACER_SOURCE
     common/common.cpp
     common/config.cpp
     common/hitrecord.cpp
-    common/lodepng.cpp
+    # common/lodepng.cpp
     common/mathUtility.cpp
     common/noise.cpp
     common/spectrum.cpp
@@ -87,7 +87,7 @@ SET (RAY_TRACER_HEADER
     common/common.h
     common/config.h
     common/hitrecord.h
-    common/lodepng.h
+    # common/lodepng.h
     common/mathConstantDef.h
     common/mathUtility.h
     common/noise.h
@@ -161,10 +161,14 @@ add_subdirectory(${PROJECT_SOURCE_DIR}/third/assimp/)
 include_directories(${PROJECT_SOURCE_DIR}/third/assimp/include)
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/third/assimp/include)
 
+add_subdirectory(${PROJECT_SOURCE_DIR}/third/lodepng/)
+include_directories(${PROJECT_SOURCE_DIR}/third/lodepng/include)
+
 add_executable(ray_tracer main/main.cpp)
 
 target_link_libraries(ray_tracer mylibs)
 target_link_libraries(ray_tracer assimp)
+target_link_libraries(ray_tracer lodepng)
 
 set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/install" CACHE PATH "Install path" FORCE)
 
@@ -172,7 +176,7 @@ set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/install" CACHE PATH "Install path"
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/resource/ DESTINATION ${CMAKE_BINARY_DIR}/resource
         FILES_MATCHING PATTERN "*")  # 安装所有文件
 
-install(TARGETS ray_tracer  mylibs assimp RUNTIME DESTINATION ${CMAKE_BINARY_DIR}/bin)
+install(TARGETS ray_tracer  mylibs assimp lodepng RUNTIME DESTINATION ${CMAKE_BINARY_DIR}/bin)
 
 
 if( NOT WIN32)

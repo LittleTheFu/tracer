@@ -1,5 +1,5 @@
 #include "camera.h"
-#include "lodepng.h"
+#include <lodepng/lodepng.h>
 #include "common.h"
 #include "simpleTracer.h"
 #include "randomTracer.h"
