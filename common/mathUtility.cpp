@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <cmath>
 
-const bool MathUtility::is_in_range(float value, float low, float high, bool equalLow, bool equalHigh)
+bool MathUtility::is_in_range(float value, float low, float high, bool equalLow, bool equalHigh)
 {
     if(equalLow && equalHigh)
     {
@@ -28,19 +28,19 @@ const bool MathUtility::is_in_range(float value, float low, float high, bool equ
     return false;
 }
 
-const bool MathUtility::is_float_equal(float x, float y)
+bool MathUtility::is_float_equal(float x, float y)
 {
     float diff = std::abs(x - y);
 
     return diff < MathConstant::FLOAT_SAMLL_NUMBER;
 }
 
-const bool MathUtility::is_float_zero(float x)
+bool MathUtility::is_float_zero(float x)
 {
     return is_float_equal(x, MathConstant::FLOAT_SAMLL_NUMBER);
 }
 
-const float MathUtility::clamp(float v, float min, float max)
+float MathUtility::clamp(float v, float min, float max)
 {
     if (v < min)
         return min;
@@ -51,7 +51,7 @@ const float MathUtility::clamp(float v, float min, float max)
     return v;
 }
 
-const bool MathUtility::getOverlap(float t00, float t01, float t10, float t11, float &tMin, float &tMax)
+bool MathUtility::getOverlap(float t00, float t01, float t10, float t11, float &tMin, float &tMax)
 {
     float t0_min = t00;
     float t0_max = t01;
@@ -80,12 +80,12 @@ const bool MathUtility::getOverlap(float t00, float t01, float t10, float t11, f
     return true;
 }
 
-const float MathUtility::delta(float a, float b, float c)
+float MathUtility::delta(float a, float b, float c)
 {
     return b * b - 4 * a * c;
 }
 
-const bool MathUtility::solveLinerEquation(float a, float b, float c, float &r_min, float &r_max)
+bool MathUtility::solveLinerEquation(float a, float b, float c, float &r_min, float &r_max)
 {
     // check a == 0(not done)
 
@@ -104,7 +104,7 @@ const bool MathUtility::solveLinerEquation(float a, float b, float c, float &r_m
     return true;
 }
 
-const float MathUtility::interpolate(float a, float b, float t)
+float MathUtility::interpolate(float a, float b, float t)
 {
     if (t <= 0)
     {
@@ -119,7 +119,7 @@ const float MathUtility::interpolate(float a, float b, float t)
     return a * (1 - t) + b * t;
 }
 
-const float MathUtility::genRandomDecimal()
+float MathUtility::genRandomDecimal()
 {
     const float max = (float)RAND_MAX;
     const float u = std::rand() / max;
@@ -127,14 +127,14 @@ const float MathUtility::genRandomDecimal()
     return u;
 }
 
-const float MathUtility::genRamdomSignDecimal()
+float MathUtility::genRamdomSignDecimal()
 {
     float v = 2.0f * (genRandomDecimal() - 0.5f);
 
     return v;
 }
 
-const int MathUtility::getMaxIndex(float a0, float a1, float a2)
+int MathUtility::getMaxIndex(float a0, float a1, float a2)
 {
     if (a0 >= a1 && a0 >= a2)
     {
