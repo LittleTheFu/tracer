@@ -18,7 +18,8 @@
                 "${workspaceFolder}/tracer",
                 "${workspaceFolder}/third/assimp/include",
                 "${workspaceFolder}/build/third/assimp/include",
-                "${workspaceFolder}/third/lodepng/include"
+                "${workspaceFolder}/third/lodepng/include",
+                "${workspaceFolder}/build/_deps/googletest-src/googletest/include"
             ],
             "cStandard": "c17",
             "cppStandard": "c++17",
