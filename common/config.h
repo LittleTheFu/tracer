@@ -3,6 +3,7 @@
 
 #include "resourceDef.h"
 #include "materialDef.h"
+#include "tracerDef.h"
 #include "vector.h"
 
 enum class ConfigScene {
@@ -14,7 +15,7 @@ enum class ConfigScene {
 extern ConfigScene configScene;
 extern bool configUseBVH;
 
-extern bool configUseSimpleTracer;
+extern TracerType configTracerType;
 extern bool configShowLightInSimperTracer;
 
 extern int configCameraFactor;

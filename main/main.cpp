@@ -25,7 +25,7 @@ SceneBuilder* createBuilder()
 
 int main()
 {
-    Scene scene(createBuilder(), configUseSimpleTracer);
+    Scene scene(createBuilder(), configTracerType);
 
     if (configUseBatchRun)
         scene.batchRun();

@@ -1,12 +1,13 @@
 #include "scene.h"
 #include "simpleTracer.h"
 #include "randomTracer.h"
+#include "volTracer.h"
 #include "common.h"
 #include "timeRecorder.h"
 #include "pinholeCamera.h"
 #include "config.h"
 
-Scene::Scene(SceneBuilder *pBuilder, bool useSimpleTracer)
+Scene::Scene(SceneBuilder *pBuilder, TracerType tracerType)
 {
     m_pObjectPool = new ObjectPool();
 
@@ -14,10 +15,12 @@ Scene::Scene(SceneBuilder *pBuilder, bool useSimpleTracer)
     m_pBuilder->init(m_pObjectPool);
 
     Tracer *tracer = nullptr;
-    if (useSimpleTracer)
+    if (tracerType == TracerType::SIMPLE)
         tracer = new SimpleTracer();
-    else
+    else if (tracerType == TracerType::RANDOM)
         tracer = new RandomTracer();
+    else
+        tracer = new VolTracer();
 
     m_pCamera = new PinholeCamera(tracer);
 

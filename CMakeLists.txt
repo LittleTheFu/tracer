@@ -96,6 +96,7 @@ SET (RAY_TRACER_HEADER
     common/spectrum.h
     common/tagDef.h
     common/timeRecorder.h
+    common/tracerDef.h
     geometry/ball.h
     geometry/boundBox.h
     geometry/circle.h
