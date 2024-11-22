@@ -1,9 +1,9 @@
 #include "config.h"
 
-ConfigScene configScene = ConfigScene::ROOM_SIMPLE;
+ConfigScene configScene = ConfigScene::ROOM_VOLUME;
 
 bool configUseBVH = false;
-TracerType configTracerType = TracerType::SIMPLE;
+TracerType configTracerType = TracerType::VOLUME;
 
 int configCameraFactor = 2;
 int configBounceTime = 7;
