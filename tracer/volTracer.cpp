@@ -35,6 +35,11 @@ Color VolTracer::trace(const ObjectPool *pool, Ray &ray, int bounceNum, const Hi
         }
     }
 
+    if (isHit)
+    {
+       return Color::COLOR_RED;
+    }
+    
     return Color::COLOR_NAVY;
 }
 

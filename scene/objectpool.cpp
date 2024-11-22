@@ -7,7 +7,7 @@
 #include "bvh.h"
 #include "config.h"
 
-ObjectPool::ObjectPool()
+ObjectPool::ObjectPool() : m_pLight(nullptr)
 {
     if (configUseBVH)
         m_pHitter = new BVH();
@@ -51,7 +51,8 @@ void ObjectPool::applyTransfrom(Transform t)
         (*it)->applyTransform(t);
     }
 
-    m_pLight->applyTransform(t);
+    if(m_pLight)
+        m_pLight->applyTransform(t);
 }
 
 void ObjectPool::buildBoundBox()
