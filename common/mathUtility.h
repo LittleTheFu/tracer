@@ -22,6 +22,9 @@ public:
     static float genRandomDecimal();
     static float genRamdomSignDecimal();
 
+    //sample e^(-lambda*t)
+    static float sampleExponential(float lambda);
+
     static int getMaxIndex( float a0, float a1, float a2);
 };
 

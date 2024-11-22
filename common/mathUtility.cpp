@@ -134,6 +134,11 @@ float MathUtility::genRamdomSignDecimal()
     return v;
 }
 
+float MathUtility::sampleExponential(float lambda)
+{
+  return -std::log(1.0f - genRandomDecimal()) / lambda;
+}
+
 int MathUtility::getMaxIndex(float a0, float a1, float a2)
 {
     if (a0 >= a1 && a0 >= a2)
