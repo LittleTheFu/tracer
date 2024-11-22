@@ -26,7 +26,7 @@ public:
 
     //sample e^(-lambda*t)
     static float sampleExponential(float lambda);
-    static int sampleFromWeights(std::initializer_list<int> weights);
+    static int sampleFromWeights(std::initializer_list<float> weights);
 
     static int getMaxIndex( float a0, float a1, float a2);
 };

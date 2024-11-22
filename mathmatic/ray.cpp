@@ -28,6 +28,11 @@ Ray Ray::genNewRay(const Frame &frame) const
     return Ray(o, d);
 }
 
+Vector3 Ray::getPosition(float t) const
+{
+    return origin + dir * t;
+}
+
 float Ray::getT(const Ray &ray, const Vector3 &thatPoint)
 {
     Vector3 d = thatPoint - ray.origin;
