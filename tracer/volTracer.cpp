@@ -22,12 +22,13 @@ Color VolTracer::trace(const ObjectPool *pool, Ray &ray, int bounceNum, const Hi
         }
         else if(index == 1)
         {
+            bounceNum--;
             if(bounceNum == 1)
                 break;
             //scattering
             Vector3 dir = Vector3::sampleUniformFromSphere();
             Ray newRay(ray.getPosition(t), dir);
-            return trace(pool, newRay, bounceNum - 1, record);
+            return trace(pool, newRay, bounceNum, record);
         }
         else
         {
@@ -35,9 +36,14 @@ Color VolTracer::trace(const ObjectPool *pool, Ray &ray, int bounceNum, const Hi
         }
     }
 
+    if (bounceNum == 1)
+        return Color::COLOR_NAVY;
+        
     if (isHit)
     {
-       return Color::COLOR_RED;
+        Ray new_ray(ray.getPosition(t) + ray.dir * 0.00001f, ray.dir);
+        trace(pool, new_ray, bounceNum, record);
+        return Color::COLOR_RED;
     }
     
     return Color::COLOR_NAVY;

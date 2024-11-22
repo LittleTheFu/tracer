@@ -165,7 +165,8 @@ int MathUtility::sampleFromWeights(std::initializer_list<float> weights)
         cumulateWeight += *it;
         if(r <= cumulateWeight)
         {
-            index = std::distance(weights.begin(), it) - 1;
+            index = std::distance(weights.begin(), it);
+            break;
         }
     }
 

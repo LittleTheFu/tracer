@@ -12,7 +12,7 @@ public:
         sigma_major = sigma_s + sigma_a + sigma_n;
     }
 
-    Media():Media(0.6f,0.4f,Color::COLOR_WHITE) {}
+    Media():Media(0.6f,0.4f,Color::COLOR_YELLOW) {}
 
 public:
     float sigma_a;
