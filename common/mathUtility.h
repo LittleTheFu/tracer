@@ -1,6 +1,8 @@
 #ifndef _MATH_UTILITY_H_
 #define _MATH_UTILITY_H_
 
+#include <initializer_list>
+
 class MathUtility
 {
 public:
@@ -24,6 +26,7 @@ public:
 
     //sample e^(-lambda*t)
     static float sampleExponential(float lambda);
+    static int sampleFromWeights(std::initializer_list<int> weights);
 
     static int getMaxIndex( float a0, float a1, float a2);
 };

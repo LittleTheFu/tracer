@@ -2,6 +2,7 @@
 #include "mathConstantDef.h"
 #include <algorithm>
 #include <cmath>
+#include <cassert>
 
 bool MathUtility::is_in_range(float value, float low, float high, bool equalLow, bool equalHigh)
 {
@@ -137,6 +138,32 @@ float MathUtility::genRamdomSignDecimal()
 float MathUtility::sampleExponential(float lambda)
 {
   return -std::log(1.0f - genRandomDecimal()) / lambda;
+}
+
+int MathUtility::sampleFromWeights(std::initializer_list<int> weights)
+{
+    if(weights.size() == 0)
+        assert(false);
+    
+    float totalWeight = 0.0f;
+    for(auto w : weights)
+    {
+        totalWeight += w;
+    }
+    
+    float r = genRandomDecimal() * totalWeight;
+    float cumulateWeight = 0.0f;
+    int index  = 0;
+    for(auto it = weights.begin(); it != weights.end(); it++)
+    {
+        cumulateWeight += *it;
+        if(r <= cumulateWeight)
+        {
+            index = std::distance(weights.begin(), it) - 1;
+        }
+    }
+
+    return index;
 }
 
 int MathUtility::getMaxIndex(float a0, float a1, float a2)
