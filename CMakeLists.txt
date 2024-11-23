@@ -13,6 +13,15 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
+# FetchContent_Declare(
+#     matplotlibcpp
+#     GIT_REPOSITORY https://github.com/lava/matplotlib-cpp.git
+#     GIT_TAG master
+# )
+
+# # 下载和配置 Matplotlib-cpp
+# FetchContent_MakeAvailable(matplotlibcpp)
+
 project (ray_tracer)
 
 SET (RAY_TRACER_SOURCE
@@ -182,6 +191,13 @@ add_executable(ray_tracer main/main.cpp )
 target_link_libraries(ray_tracer mylibs)
 target_link_libraries(ray_tracer assimp)
 target_link_libraries(ray_tracer lodepng)
+
+# 链接 Python 库
+# target_link_libraries(ray_tracer PRIVATE Python3::Python)
+
+# 包含 Matplotlib-cpp 头文件
+# target_include_directories(ray_tracer PRIVATE ${matplotlibcpp_SOURCE_DIR})
+
 
 enable_testing()
 
