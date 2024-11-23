@@ -7,6 +7,6 @@ void VolumeSceneBuilder::build()
     // buildLight(configLightPos, configLightRadius);
 
     // buildVolumeBall(Vector3(0, 0, 320), 80);
-    buildBunny(Vector3(10, -90, 350), 500, ResourceDef::LOW_LOW_BUNNY, MATERIAL_TYPE::M_NULL);
+    buildBunny(Vector3(10, -90, 350), 800, ResourceDef::LOW_LOW_BUNNY, MATERIAL_TYPE::M_NULL);
 
 }
