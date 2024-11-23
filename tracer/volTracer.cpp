@@ -45,7 +45,7 @@ Color VolTracer::trace(const ObjectPool *pool, Ray &ray, int bounceNum, const Hi
         return trace(pool, new_ray, bounceNum, record);
     }
     
-    return Color::COLOR_NAVY;
+    return Color::COLOR_BLACK;
 }
 
 Color VolTracer::traceFirstBounce(const ObjectPool *pool, Ray &ray) const
