@@ -24,7 +24,7 @@ Color VolTracer::trace(const ObjectPool *pool, Ray &ray, int bounceNum, const Hi
         {
             bounceNum--;
             if(bounceNum == 1)
-                return Color::COLOR_NAVY;
+                return Color::COLOR_BLACK;
                 //  return ray.media.emitColor;
             //scattering
             Vector3 dir = Vector3::sampleUniformFromSphere();
