@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <cmath>
 #include <cassert>
+#include <iostream>
 
 bool MathUtility::is_in_range(float value, float low, float high, bool equalLow, bool equalHigh)
 {
@@ -137,7 +138,9 @@ float MathUtility::genRamdomSignDecimal()
 
 float MathUtility::sampleExponential(float lambda)
 {
-  return -std::log(1.0f - genRandomDecimal()) / lambda;
+    float r = -std::log(1.0f - genRandomDecimal()) / lambda;
+    // std::cout << r << std::endl;
+    return r;
 }
 
 int MathUtility::sampleFromWeights(std::initializer_list<float> weights)
@@ -147,7 +150,7 @@ int MathUtility::sampleFromWeights(std::initializer_list<float> weights)
 
     for(auto w : weights)
     {
-        if(w <= 0)
+        if(w < 0)
             assert(false);
     }
     

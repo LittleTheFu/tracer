@@ -128,6 +128,10 @@ bool Ball::hit(const Ray &ray, HitRecord &record) const
     {
         HandleMaterial(localNormal, localPoint, newRay, record);
     }
+    else
+    {
+        record.insideMedia.emitColor = Color::COLOR_RED;
+    }
 
     return true;
 }

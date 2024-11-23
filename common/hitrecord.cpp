@@ -25,3 +25,12 @@ HitRecord HitRecord::getCloserOne(const HitRecord &that) const
 
     return HitRecord(that);
 }
+
+Media HitRecord::getMeida(const Vector3 &dir) const
+{
+    float dot = normal * dir;
+    if (dot >= 0)
+        return outsideMedia;
+
+    return insideMedia;
+}

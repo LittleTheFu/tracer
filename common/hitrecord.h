@@ -6,12 +6,18 @@
 #include "transform.h"
 #include "color.h"
 #include <vector>
+#include "media.h"
 
 class HitRecord
 {
 public:
     HitRecord();
     HitRecord getCloserOne(const HitRecord &that) const;
+
+    Media getMeida(const Vector3 &dir) const;
+
+    Media outsideMedia;
+    Media insideMedia;
     
     Transform transform;
     Material mtrl;

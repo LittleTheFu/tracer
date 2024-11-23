@@ -6,13 +6,8 @@
 class Media
 {
 public:
-    Media(float a, float s, Color e)
-    : sigma_a(a), sigma_s(s), sigma_n(0.2f), emitColor(e)
-    {
-        sigma_major = sigma_s + sigma_a + sigma_n;
-    }
-
-    Media():Media(0.6f,0.4f,Color::COLOR_YELLOW) {}
+    Media(float a, float s, Color e);
+    Media();
 
 public:
     float sigma_a;
