@@ -7,9 +7,14 @@
 #include "transform.h"
 #include "boundBox.h"
 #include "tagDef.h"
+#include "media.h"
 
 class Geometry
 {
+public:
+    Media m_outsideMedia;
+    Media m_insideMedia;  
+      
 public:
     Geometry();
     

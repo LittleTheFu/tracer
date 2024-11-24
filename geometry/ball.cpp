@@ -98,6 +98,7 @@ bool Ball::isIn(const Vector3 &point) const
 bool Ball::hit(const Ray &ray, HitRecord &record) const
 {
     // record.t = MathConstant::FLOAT_MAX;
+    // float dot = 0.0f;
 
     const Ray newRay = ray.genNewRay(m_transform);
 
@@ -121,6 +122,8 @@ bool Ball::hit(const Ray &ray, HitRecord &record) const
     const Vector3 localNormal = getLocalNormal(localPoint);
     record.normal = m_transform.transformNormal(localNormal);
 
+    // dot = localNormal * newRay.dir;
+
     record.u = u(localPoint);
     record.v = v(localPoint);
 
@@ -130,7 +133,8 @@ bool Ball::hit(const Ray &ray, HitRecord &record) const
     }
     else
     {
-        record.insideMedia.emitColor = Color::COLOR_RED;
+        record.insideMedia = m_insideMedia;
+        record.outsideMedia = m_outsideMedia;
     }
 
     return true;

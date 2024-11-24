@@ -6,6 +6,7 @@
 #include "betaSceneBuilder.h"
 #include "volumeSceneBuilder.h"
 #include "config.h"
+#include "mathUtility.h"
 
 SceneBuilder* createBuilder()
 {
@@ -23,8 +24,19 @@ SceneBuilder* createBuilder()
     return builder;
 }
 
+void testSample()
+{
+    for(int i = 0; i < 100; i++)
+    {
+        std::cout << MathUtility::sampleExponential(2) << std::endl;
+    }
+}
+
 int main()
 {
+    // testSample();
+    // return 0;
+
     Scene scene(createBuilder(), configTracerType);
 
     if (configUseBatchRun)

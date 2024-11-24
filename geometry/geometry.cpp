@@ -3,6 +3,9 @@
 Geometry::Geometry()
 {
     m_pMtrl = nullptr;
+
+    m_outsideMedia.clear();
+    m_insideMedia.set(1,1,1,Color::COLOR_NAVY);
 }
 
 void Geometry::init(const Vector3 &rotate, const Vector3 &position)

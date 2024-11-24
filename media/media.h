@@ -9,6 +9,9 @@ public:
     Media(float a, float s, Color e);
     Media();
 
+    void set(float a, float s, float n, Color e);
+    void clear();
+
 public:
     float sigma_a;
     float sigma_s;
