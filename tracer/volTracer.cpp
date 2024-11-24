@@ -19,12 +19,14 @@ Color VolTracer::trace(const ObjectPool *pool, Ray &ray, int bounceNum, const Hi
         float sigma_n = ray.media.sigma_n;
 
         Vector3 pt = ray.getPosition(t);
-        Vector3 org(0,0,320);
+        Vector3 org(50,0,320);
         float lenSqr = (pt - org).lenthSqr();
 
         if (ray.media.emitColor == Color::COLOR_NAVY)
         {
-            sigma_a = (6400 - lenSqr) / 6400;
+            sigma_a = (12000 - lenSqr) / 12000;
+            sigma_a *= sigma_a;
+            // sigma_a = 1 - sigma_a;
             // if(sigma_a > 20)
             //     sigma_a = 20;
 
@@ -70,7 +72,7 @@ Color VolTracer::trace(const ObjectPool *pool, Ray &ray, int bounceNum, const Hi
         
     if (isHit)
     {
-        Ray new_ray(ray.getPosition(tMax) + ray.dir * 0.001f, ray.dir);
+        Ray new_ray(ray.getPosition(tMax) + ray.dir * 0.01f, ray.dir);
         new_ray.media = record.getMeida(ray.dir);
 
         return trace(pool, new_ray, bounceNum, record);

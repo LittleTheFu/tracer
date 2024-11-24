@@ -141,7 +141,8 @@ bool Tri::hit(const Ray &ray, HitRecord &record) const
     }
     else
     {
-        record.insideMedia.emitColor = Color::COLOR_RED;
+        record.insideMedia = m_insideMedia;
+        record.outsideMedia = m_outsideMedia;
     }
 
     // std::cout<<"true"<<std::endl;

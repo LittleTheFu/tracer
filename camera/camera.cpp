@@ -74,7 +74,7 @@ void Camera::render()
                     color += m_pTracer->trace(m_pObjectPool, ray, i, record);
                 }
             }
-            color /= (6 );
+            color /= (6);
 
             setImage(x, y, color);
 
