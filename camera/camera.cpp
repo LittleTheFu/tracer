@@ -66,11 +66,15 @@ void Camera::render()
             Ray ray = generateRay(static_cast<float>(x), static_cast<float>(y));
 
             Color color = m_pTracer->traceFirstBounce(m_pObjectPool, ray);
-            for (int i = 2; i < m_BounceTime; i++)
+            for (int time = 0; time < 6; time++)
             {
-                // if (y==0 && x==21 && i==3)
-                color += m_pTracer->trace(m_pObjectPool, ray, i, record);
+                for (int i = 2; i < m_BounceTime; i++)
+                {
+                    // if (y==0 && x==21 && i==3)
+                    color += m_pTracer->trace(m_pObjectPool, ray, i, record);
+                }
             }
+            color /= (6 );
 
             setImage(x, y, color);
 
