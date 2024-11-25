@@ -201,7 +201,7 @@ target_link_libraries(ray_tracer lodepng)
 
 enable_testing()
 
-add_executable(hello_test  main/test.cpp)
+add_executable(hello_test  test/test.cpp)
 target_link_libraries(hello_test GTest::gtest_main)
 
 include(GoogleTest)
