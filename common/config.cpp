@@ -8,7 +8,7 @@ TracerType configTracerType = TracerType::VOLUME;
 int configCameraFactor = 4;
 int configBounceTime = 10;
 
-float configBnuuyScale = 40;
+float configBnuuyScale = 6;
 std::string configBunnyRes = ResourceDef::BUNNY;
 MATERIAL_TYPE configBunnyMaterial = MATERIAL_TYPE::M_GLASS;
 

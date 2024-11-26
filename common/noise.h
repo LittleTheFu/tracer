@@ -15,7 +15,7 @@ private:
     void getComponent(float a, int &i, float &f) const;
     
     const static int NUM = 64;
-    float m_data[NUM][NUM][NUM];
+    Vector3 m_data[NUM][NUM][NUM];
 };
 
 #endif

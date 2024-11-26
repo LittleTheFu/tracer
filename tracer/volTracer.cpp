@@ -46,9 +46,8 @@ Color VolTracer::trace(const ObjectPool *pool, Ray &ray, int bounceNum, const Hi
         // sigma_a = MathUtility::genRandomDecimal();
         // float xx = pt.x + 80;
         // sigma_a = xx / 500.0f;
-        sigma_a = (m_noise.getValue(pt) + 1)/2.8f;
-        sigma_a /= 2;
-        // sigma_a = 20.0f;
+        sigma_a = (m_noise.getValue(pt) + 1)/2.0f;
+        sigma_a /= 20;
         if(sigma_a < 0)
             sigma_a = 0;
 
@@ -71,7 +70,7 @@ Color VolTracer::trace(const ObjectPool *pool, Ray &ray, int bounceNum, const Hi
         }
         else
         {
-            t += 100 * MathUtility::sampleExponential(ray.media.sigma_major);
+            t += 2 * MathUtility::sampleExponential(ray.media.sigma_major);
         }
     }
         
