@@ -378,23 +378,10 @@ float Vector3::length() const
 
 Vector3 Vector3::getRandomVector()
 {
-    // int x = std::rand() % 113 + 1;
-    // int y = std::rand() % 113 + 1;
-    // int z = std::rand() % 113 + 1;
+    Vector3 vec(MathUtility::genRandomDecimal(), MathUtility::genRandomDecimal(), MathUtility::genRandomDecimal());
+    vec.normalize();
 
-    // int a = std::rand() % 2;
-    // if (a != 0)
-    //     x = -x;
-
-    // int b = std::rand() % 2;
-    // if (b != 0)
-    //     y = -y;
-
-    // Vector3 v = Vector3(x, y, z);
-    // v.normalize();
-
-    // return v;
-    return Vector3();
+    return vec;
 }
 
 Vector3 Vector3::sampleUniformFromHemisphere()
