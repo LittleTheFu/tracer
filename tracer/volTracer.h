@@ -2,6 +2,7 @@
 #define _VOL_TRACER_H_
 
 #include "tracer.h"
+#include "noise.h"
 
 class VolTracer : public Tracer
 {
@@ -12,6 +13,9 @@ public:
                 const HitRecord &currentState) const override;
 
     Color traceFirstBounce(const ObjectPool *pool, Ray &ray) const override;
+
+private:
+    Noise m_noise;
 };
 
 #endif

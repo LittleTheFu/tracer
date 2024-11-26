@@ -17,6 +17,8 @@ float Noise::getValue(const Vector3 &v) const
     int iX, iY, iZ;
     float fX, fY, fZ;
 
+    float factor = 2;
+
     getComponent(v.x, iX, fX);
     getComponent(v.y, iY, fY);
     getComponent(v.z, iZ, fZ);
@@ -39,6 +41,10 @@ float Noise::getValue(const Vector3 &v) const
     // {
     //     std::swap(iZ, iiZ);
     // }
+
+    fX = MathUtility::smooth(fX);
+    fY = MathUtility::smooth(fY);
+    fZ = MathUtility::smooth(fZ);
 
     float v00 = MathUtility::interpolate(m_data[iX][iY][iZ], m_data[iiX][iY][iZ], fX);
     float v01 = MathUtility::interpolate(m_data[iX][iiY][iZ], m_data[iiX][iiY][iZ], fX);

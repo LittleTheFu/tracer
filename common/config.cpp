@@ -5,7 +5,7 @@ ConfigScene configScene = ConfigScene::ROOM_VOLUME;
 bool configUseBVH = true;
 TracerType configTracerType = TracerType::VOLUME;
 
-int configCameraFactor = 1;
+int configCameraFactor = 4;
 int configBounceTime = 10;
 
 float configBnuuyScale = 40;

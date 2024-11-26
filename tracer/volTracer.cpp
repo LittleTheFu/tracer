@@ -22,27 +22,32 @@ Color VolTracer::trace(const ObjectPool *pool, Ray &ray, int bounceNum, const Hi
         Vector3 org(50,0,320);
         float lenSqr = (pt - org).lenthSqr();
 
-        if (ray.media.emitColor == Color::COLOR_NAVY)
-        {
-            sigma_a = (12000 - lenSqr) / 12000;
-            sigma_a *= sigma_a;
-            // sigma_a = 1 - sigma_a;
-            // if(sigma_a > 20)
-            //     sigma_a = 20;
+        // if (ray.media.emitColor == Color::COLOR_NAVY)
+        // {
+        //     sigma_a = (12000 - lenSqr) / 12000;
+        //     sigma_a *= sigma_a;
+        //     // sigma_a = 1 - sigma_a;
+        //     // if(sigma_a > 20)
+        //     //     sigma_a = 20;
 
-            int kkk = 333;
+        //     int kkk = 333;
 
-            if(sigma_a < 0.2)
-            {
-                kkk = 999;
-            }
+        //     if(sigma_a < 0.2)
+        //     {
+        //         kkk = 999;
+        //     }
 
-            if(sigma_a > 10)
-            {
-                kkk = 98;
-            }
-        }
+        //     if(sigma_a > 10)
+        //     {
+        //         kkk = 98;
+        //     }
+        // }
 
+        // sigma_a = MathUtility::genRandomDecimal();
+        // float xx = pt.x + 80;
+        // sigma_a = xx / 500.0f;
+        sigma_a = (m_noise.getValue(pt) + 1)/2.8f;
+        sigma_a /= 2;
         // sigma_a = 20.0f;
         if(sigma_a < 0)
             sigma_a = 0;

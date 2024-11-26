@@ -191,3 +191,8 @@ int MathUtility::getMaxIndex(float a0, float a1, float a2)
         return 2;
     }
 }
+
+float MathUtility::smooth(float t)
+{
+   return t * t * (3 - 2 * t);
+}

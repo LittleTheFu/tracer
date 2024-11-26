@@ -29,6 +29,8 @@ public:
     static int sampleFromWeights(std::initializer_list<float> weights);
 
     static int getMaxIndex( float a0, float a1, float a2);
+
+    static float smooth(float t);
 };
 
 #endif
