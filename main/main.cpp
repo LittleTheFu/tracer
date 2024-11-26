@@ -1,7 +1,6 @@
 #include "scene.h"
 #include "mesh.h"
 #include "common.h"
-#include "tester.h"
 #include "bunnySceneBuilder.h"
 #include "betaSceneBuilder.h"
 #include "volumeSceneBuilder.h"

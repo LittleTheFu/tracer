@@ -78,7 +78,6 @@ SET (RAY_TRACER_SOURCE
     scene/scene.cpp
     scene/sceneBuilder.cpp
     scene/volumeSceneBuilder.cpp
-    test/tester.cpp
     texture/chessboardTexture.cpp
     texture/constTexture.cpp
     texture/imageTexture.cpp
@@ -150,7 +149,6 @@ SET (RAY_TRACER_HEADER
     scene/scene.h
     scene/sceneBuilder.h
     scene/volumeSceneBuilder.h
-    test/tester.h
     texture/chessboardTexture.h
     texture/constTexture.h
     texture/imageTexture.h
