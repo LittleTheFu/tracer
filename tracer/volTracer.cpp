@@ -48,9 +48,12 @@ Color VolTracer::trace(const ObjectPool *pool, Ray &ray, int bounceNum, const Hi
         // sigma_a = xx / 500.0f;
         // sigma_a = (m_noise.getValue(pt) + 1)/2.0f;
         // sigma_a /= 20;
-        sigma_a = m_vox.get(pt.x, pt.y, pt.z);
+        Vector3 fake_pt(pt * 1);
+        sigma_a = m_vox.get(fake_pt.x, fake_pt.y, fake_pt.z);
         if(sigma_a > 0)
         {
+            // std::cout << "sigma_a: " << sigma_a << std::endl;
+            sigma_a *= 10;
             int pss= 23;
         }
         if(sigma_a < 0)
@@ -66,7 +69,7 @@ Color VolTracer::trace(const ObjectPool *pool, Ray &ray, int bounceNum, const Hi
         {
             bounceNum--;
             if(bounceNum == 1)
-                return Color::COLOR_BLACK;
+                return Color::COLOR_RED;
                 //  return ray.media.emitColor;
             //scattering
             Vector3 dir = Vector3::sampleUniformFromSphere();
@@ -75,7 +78,8 @@ Color VolTracer::trace(const ObjectPool *pool, Ray &ray, int bounceNum, const Hi
         }
         else
         {
-            t += 2 * MathUtility::sampleExponential(ray.media.sigma_major);
+            t += 50 * MathUtility::sampleExponential(ray.media.sigma_major);
+            // t += 20;
         }
     }
         
