@@ -39,5 +39,7 @@ extern float configLightIntensity;
 
 extern float configLambdaScale;
 
+extern std::string configVox;
+
 
 #endif

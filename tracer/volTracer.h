@@ -15,7 +15,7 @@ public:
 
     Color traceFirstBounce(const ObjectPool *pool, Ray &ray) const override;
 
-private:
+public:
     Noise m_noise;
     Vox m_vox;
 };

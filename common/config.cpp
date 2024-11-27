@@ -16,7 +16,7 @@ std::string configOutputImageName = "img";
 
 int configBatchStartBounce = 3;
 int configBatchEndBounces = 200;
-bool configUseBatchRun = false;
+bool configUseBatchRun = true;
 
 bool configLogProgress = true;
 
@@ -25,3 +25,5 @@ Vector3 configLightPos(0, 40, 300);
 float configLightIntensity = 30;
 
 float configLambdaScale = 0.5f;
+
+std::string configVox = "";

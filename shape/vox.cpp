@@ -15,6 +15,14 @@ Vox::Vox()
     //     std::cout << m_data[i] << std::endl;
 }
 
+void Vox::init(const std::string& fileName)
+{
+    std::ifstream ifs(fileName, std::ios::binary);
+
+    ifs.read((char*)m_data.get(), sizeof(float) * NUM * NUM * NUM);
+    ifs.close();
+}
+
 float Vox::get(int x, int y, int z) const
 {
     // if (x >= NUM)

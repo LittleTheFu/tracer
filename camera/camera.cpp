@@ -7,6 +7,7 @@
 #include "timeRecorder.h"
 #include "config.h"
 #include "mathConstantDef.h"
+#include "volTracer.h"
 
 const int Camera::default_screen_width = 256;
 const int Camera::default_screen_height = 256;
@@ -65,6 +66,7 @@ void Camera::render()
             HitRecord record = InitHitRecord();
             Ray ray = generateRay(static_cast<float>(x), static_cast<float>(y));
 
+            ((VolTracer*)m_pTracer)->m_vox.init(configVox);
             Color color = m_pTracer->traceFirstBounce(m_pObjectPool, ray);
             for (int time = 0; time < 6; time++)
             {

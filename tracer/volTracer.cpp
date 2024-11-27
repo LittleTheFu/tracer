@@ -1,5 +1,6 @@
 #include "volTracer.h"
 #include "mathUtility.h"
+#include "config.h"
 Color VolTracer::trace(const ObjectPool *pool, Ray &ray, int bounceNum, const HitRecord &currentState) const
 {
     HitRecord record;

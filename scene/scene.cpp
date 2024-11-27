@@ -54,17 +54,21 @@ void Scene::batchRun()
     preRender();
 
     int bounce = configBatchStartBounce;
+    int idx = 0;
+
+    configVox = "";
 
     while (true)
     {
-        configOutputImageName = std::to_string(bounce);
-        m_pCamera->setBounceTime(bounce);
+        configOutputImageName = std::to_string(idx);
+        configVox = "../resource/grid" + std::to_string(idx) + ".bin";
+        // m_pCamera->setBounceTime(bounce);
 
         render();
         postRender();
 
-        bounce++;
-        if (bounce > m_MaxBounces)
+        idx++;
+        if (idx > 119)
             break;
     }
 
