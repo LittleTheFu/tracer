@@ -6,7 +6,7 @@ bool configUseBVH = true;
 TracerType configTracerType = TracerType::VOLUME;
 
 int configCameraFactor = 1;
-int configBounceTime = 20;
+int configBounceTime = 10;
 
 float configBnuuyScale = 6;
 std::string configBunnyRes = ResourceDef::BUNNY;

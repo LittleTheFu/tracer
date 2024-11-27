@@ -6,7 +6,7 @@ Vox::Vox()
 {
     m_data = std::make_unique<float[]>(NUM * NUM * NUM);
 
-    std::ifstream ifs("../resource/grid.88.bin", std::ios::binary);
+    std::ifstream ifs("../resource/grid.12.bin", std::ios::binary);
 
     ifs.read((char*)m_data.get(), sizeof(float) * NUM * NUM * NUM);
     ifs.close();
@@ -17,6 +17,8 @@ Vox::Vox()
 
 void Vox::init(const std::string& fileName)
 {
+    m_data = nullptr;
+    m_data = std::make_unique<float[]>(NUM * NUM * NUM);
     std::ifstream ifs(fileName, std::ios::binary);
 
     ifs.read((char*)m_data.get(), sizeof(float) * NUM * NUM * NUM);

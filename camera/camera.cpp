@@ -52,6 +52,8 @@ void Camera::setBounceTime(int bounceTime)
 void Camera::render()
 {
     m_Image.resize(m_Width * m_Height * 4);
+    ((VolTracer*)m_pTracer)->m_vox.init(configVox);
+
 
     for (unsigned y = 0; y < m_Height; y++)
     {
@@ -66,7 +68,6 @@ void Camera::render()
             HitRecord record = InitHitRecord();
             Ray ray = generateRay(static_cast<float>(x), static_cast<float>(y));
 
-            ((VolTracer*)m_pTracer)->m_vox.init(configVox);
             Color color = m_pTracer->traceFirstBounce(m_pObjectPool, ray);
             for (int time = 0; time < 6; time++)
             {

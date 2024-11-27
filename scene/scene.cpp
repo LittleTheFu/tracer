@@ -61,7 +61,7 @@ void Scene::batchRun()
     while (true)
     {
         configOutputImageName = std::to_string(idx);
-        configVox = "../resource/grid" + std::to_string(idx) + ".bin";
+        configVox = "../resource/grid." + std::to_string(idx) + ".bin";
         // m_pCamera->setBounceTime(bounce);
 
         render();
