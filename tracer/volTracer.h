@@ -3,6 +3,7 @@
 
 #include "tracer.h"
 #include "noise.h"
+#include "vox.h"
 
 class VolTracer : public Tracer
 {
@@ -16,6 +17,7 @@ public:
 
 private:
     Noise m_noise;
+    Vox m_vox;
 };
 
 #endif

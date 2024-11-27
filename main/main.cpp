@@ -6,7 +6,7 @@
 #include "volumeSceneBuilder.h"
 #include "config.h"
 #include "mathUtility.h"
-
+#include "vox.h"
 SceneBuilder* createBuilder()
 {
     SceneBuilder *builder = nullptr;
@@ -35,6 +35,7 @@ int main()
 {
     // testSample();
     // return 0;
+    // Vox vox;
 
     Scene scene(createBuilder(), configTracerType);
 

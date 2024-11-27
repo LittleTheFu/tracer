@@ -46,8 +46,13 @@ Color VolTracer::trace(const ObjectPool *pool, Ray &ray, int bounceNum, const Hi
         // sigma_a = MathUtility::genRandomDecimal();
         // float xx = pt.x + 80;
         // sigma_a = xx / 500.0f;
-        sigma_a = (m_noise.getValue(pt) + 1)/2.0f;
-        sigma_a /= 20;
+        // sigma_a = (m_noise.getValue(pt) + 1)/2.0f;
+        // sigma_a /= 20;
+        sigma_a = m_vox.get(pt.x, pt.y, pt.z);
+        if(sigma_a > 0)
+        {
+            int pss= 23;
+        }
         if(sigma_a < 0)
             sigma_a = 0;
 
