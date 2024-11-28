@@ -33,10 +33,6 @@ void testSample()
 
 int main()
 {
-    // testSample();
-    // return 0;
-    // Vox vox;
-
     Scene scene(createBuilder(), configTracerType);
 
     if (configUseBatchRun)
