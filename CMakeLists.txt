@@ -193,13 +193,6 @@ target_link_libraries(ray_tracer mylibs)
 target_link_libraries(ray_tracer assimp)
 target_link_libraries(ray_tracer lodepng)
 
-# 链接 Python 库
-# target_link_libraries(ray_tracer PRIVATE Python3::Python)
-
-# 包含 Matplotlib-cpp 头文件
-# target_include_directories(ray_tracer PRIVATE ${matplotlibcpp_SOURCE_DIR})
-
-
 enable_testing()
 
 add_executable(hello_test  test/test.cpp)
