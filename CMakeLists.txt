@@ -13,15 +13,6 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
-# FetchContent_Declare(
-#     matplotlibcpp
-#     GIT_REPOSITORY https://github.com/lava/matplotlib-cpp.git
-#     GIT_TAG master
-# )
-
-# # 下载和配置 Matplotlib-cpp
-# FetchContent_MakeAvailable(matplotlibcpp)
-
 project (ray_tracer)
 
 SET (RAY_TRACER_SOURCE
