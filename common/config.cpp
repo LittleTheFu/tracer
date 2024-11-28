@@ -1,15 +1,19 @@
 #include "config.h"
 
-ConfigScene configScene = ConfigScene::ROOM_VOLUME;
+//don't use ROOM_VOLUME right now
+ConfigScene configScene = ConfigScene::ROOM_SIMPLE;
 
-bool configUseBVH = true;
-TracerType configTracerType = TracerType::VOLUME;
+bool configUseBVH = false;
 
-int configCameraFactor = 1;
-int configBounceTime = 20;
+//don't modify this because others are not done yet
+TracerType configTracerType = TracerType::SIMPLE;
 
-float configBnuuyScale = 6;
-std::string configBunnyRes = ResourceDef::BUNNY;
+int configCameraFactor = 4;
+int configBounceTime = 7;
+int configSamplersPerPixel = 6;
+
+float configBnuuyScale = 500;
+std::string configBunnyRes = ResourceDef::SIMPLE_BUNNY;
 MATERIAL_TYPE configBunnyMaterial = MATERIAL_TYPE::M_GLASS;
 
 std::string configOutputImageName = "img";

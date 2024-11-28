@@ -20,6 +20,8 @@ extern bool configShowLightInSimperTracer;
 
 extern int configCameraFactor;
 extern int configBounceTime;
+extern int configSamplersPerPixel;
+
 
 extern float configBnuuyScale;
 extern std::string configBunnyRes;
