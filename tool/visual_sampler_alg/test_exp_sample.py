@@ -8,7 +8,7 @@ def sample_exponential(lambda_):
 
 # 测试函数
 def test_sample_exponential():
-    lambda_ = 1.0  # 可以根据需要调整lambda值
+    lambda_ = 4000.0  # 可以根据需要调整lambda值
     num_samples = 1000  # 生成样本的数量
 
     samples = [sample_exponential(lambda_) for _ in range(num_samples)]
