@@ -1,19 +1,32 @@
+import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
-import numpy as np
 
-# 创建数据
-x = np.linspace(-5, 5, 100)
-y = np.linspace(-5, 5, 100)
-x, y = np.meshgrid(x, y)
-z = np.sin(np.sqrt(x**2 + y**2))
+def sample_exponential(lambda_):
+    r = -np.log(1.0 - np.random.rand()) / lambda_
+    return r
 
-# 创建图形
-fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
+# 测试函数
+def test_sample_exponential():
+    lambda_ = 1.0  # 可以根据需要调整lambda值
+    num_samples = 1000  # 生成样本的数量
 
-# 绘制三维曲面
-ax.plot_surface(x, y, z, cmap='viridis')
+    samples = [sample_exponential(lambda_) for _ in range(num_samples)]
 
-# 显示图形
-plt.show()
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+
+    # 为了可视化3D效果，我们假设这些样本分布在x-y平面上
+    x = np.random.rand(num_samples)
+    y = np.random.rand(num_samples)
+    z = samples
+
+    ax.scatter(x, y, z, c='r', marker='o')
+    ax.set_xlabel('X Label')
+    ax.set_ylabel('Y Label')
+    ax.set_zlabel('Z Label')
+
+    plt.show()
+
+if __name__ == "__main__":
+    test_sample_exponential()
