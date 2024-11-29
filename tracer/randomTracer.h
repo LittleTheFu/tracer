@@ -6,7 +6,7 @@
 class RandomTracer : public Tracer
 {
 public:
-    virtual Color trace(const ObjectPool *pool,
+    virtual Color trace(std::shared_ptr<const ObjectPool> pool,
                         Ray &ray,
                         int bounceNum,
                         const HitRecord &currentState) const;

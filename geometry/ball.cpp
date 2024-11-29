@@ -132,8 +132,8 @@ bool Ball::hit(const Ray &ray, HitRecord &record) const
     }
     else
     {
-        record.insideMedia = m_insideMedia;
-        record.outsideMedia = m_outsideMedia;
+        // record.insideMedia = m_insideMedia;
+        // record.outsideMedia = m_outsideMedia;
     }
 
     return true;

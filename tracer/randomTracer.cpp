@@ -1,7 +1,7 @@
 #include "randomTracer.h"
 #include <cassert>
 
-Color RandomTracer::trace(const ObjectPool *pool,
+Color RandomTracer::trace(std::shared_ptr<const ObjectPool> pool,
                           Ray &ray,
                           int bounceNum,
                           const HitRecord &currentState) const

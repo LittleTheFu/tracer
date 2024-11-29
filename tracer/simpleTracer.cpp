@@ -2,7 +2,7 @@
 #include <cassert>
 #include "config.h"
 
-Color SimpleTracer::trace(const ObjectPool *pool,
+Color SimpleTracer::trace(std::shared_ptr<const ObjectPool> pool,
                           Ray &ray,
                           int bounceNum,
                           const HitRecord &currentState) const
@@ -40,7 +40,7 @@ Color SimpleTracer::trace(const ObjectPool *pool,
     return ccolor;
 }
 
-Color SimpleTracer::HandleLastBounce(const ObjectPool *pool,
+Color SimpleTracer::HandleLastBounce(std::shared_ptr<const ObjectPool> pool,
                                      const Ray &ray,
                                      const HitRecord &currentState) const
 {
@@ -65,7 +65,7 @@ Color SimpleTracer::HandleLastBounce(const ObjectPool *pool,
     return retColor;
 }
 
-void SimpleTracer::prepareSampleLight(const ObjectPool *pool,
+void SimpleTracer::prepareSampleLight(std::shared_ptr<const ObjectPool> pool,
                                       Ray &newRay,
                                       HitRecord &record) const
 {
