@@ -38,16 +38,16 @@ void MaterialManager::init()
     mirrorMtrl = std::make_shared<MirrorMaterial>();
     glassMtrl = std::make_shared<GlassMaterial>();
 
-    m_map[MATERIAL_TYPE::M_RED] = std::move(lambMtrlRed);
-    m_map[MATERIAL_TYPE::M_YELLOW] = std::move(lambMtrlYellow);
-    m_map[MATERIAL_TYPE::M_AQUA] = std::move(lambMtrlAqua);
-    m_map[MATERIAL_TYPE::M_PURPLE] = std::move(lambMtrlPurple);
-    m_map[MATERIAL_TYPE::M_GREEN] = std::move(lambMtrlGreen);
-    m_map[MATERIAL_TYPE::M_BLUE] = std::move(lambMtrlBlue);
-    m_map[MATERIAL_TYPE::M_WHITE] = std::move(lambMtrlWhite);
-    m_map[MATERIAL_TYPE::M_LENA] = std::move(lambMtrlTexLena);
-    m_map[MATERIAL_TYPE::M_MIRROR] = std::move(mirrorMtrl);
-    m_map[MATERIAL_TYPE::M_GLASS] = std::move(glassMtrl);
+    m_map[MATERIAL_TYPE::M_RED] = (lambMtrlRed);
+    m_map[MATERIAL_TYPE::M_YELLOW] = (lambMtrlYellow);
+    m_map[MATERIAL_TYPE::M_AQUA] = (lambMtrlAqua);
+    m_map[MATERIAL_TYPE::M_PURPLE] = (lambMtrlPurple);
+    m_map[MATERIAL_TYPE::M_GREEN] = (lambMtrlGreen);
+    m_map[MATERIAL_TYPE::M_BLUE] = (lambMtrlBlue);
+    m_map[MATERIAL_TYPE::M_WHITE] = (lambMtrlWhite);
+    m_map[MATERIAL_TYPE::M_LENA] = (lambMtrlTexLena);
+    m_map[MATERIAL_TYPE::M_MIRROR] = (mirrorMtrl);
+    m_map[MATERIAL_TYPE::M_GLASS] = (glassMtrl);
 }
 
 std::shared_ptr<const Material> MaterialManager::get(MATERIAL_TYPE type) const
