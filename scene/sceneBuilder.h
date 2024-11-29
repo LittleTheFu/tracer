@@ -7,11 +7,12 @@
 #include "mixMaterial.h"
 #include "objectpool.h"
 #include "materialDef.h"
+#include <memory>
 
 class SceneBuilder
 {
 public:
-    void init(ObjectPool *pool);
+    void init(std::shared_ptr<ObjectPool> pool);
     virtual void build() = 0;
 
 protected:
@@ -38,7 +39,7 @@ protected:
     void buildGlassTri(const Vector3& pos);
 
 protected:
-    ObjectPool* m_pObjectPool;
+    std::shared_ptr<ObjectPool> m_pObjectPool;
 };
 
 #endif

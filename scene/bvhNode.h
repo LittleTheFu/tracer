@@ -3,6 +3,7 @@
 
 #include "geometry.h"
 #include <vector>
+#include <memory>
 
 class BVHNode
 {
@@ -17,10 +18,10 @@ public:
 public:
     BoundBox boundBox;
 
-    BVHNode *leftChild;
-    BVHNode *rightChild;
+    std::shared_ptr<BVHNode> leftChild;
+    std::shared_ptr<BVHNode> rightChild;
 
-    std::vector<Geometry*> objects;
+    std::vector<std::shared_ptr<Geometry>> objects;
 
     // Geometry *geometry;
 };

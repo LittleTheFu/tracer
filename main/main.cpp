@@ -7,18 +7,19 @@
 #include "config.h"
 #include "mathUtility.h"
 #include "vox.h"
-SceneBuilder* createBuilder()
+#include <memory>
+std::shared_ptr<SceneBuilder> createBuilder()
 {
-    SceneBuilder *builder = nullptr;
+    std::shared_ptr<SceneBuilder> builder = nullptr;
     
     if (configScene == ConfigScene::ROOM_BUNNY)
-        builder = new BunnySceneBuilder();
+        builder = std::make_shared<BunnySceneBuilder>();
     else if (configScene == ConfigScene::ROOM_SIMPLE)
-        builder = new BetaSceneBuilder();
+        builder = std::make_shared<BetaSceneBuilder>();
     else if (configScene == ConfigScene::ROOM_VOLUME)
-        builder = new VolumeSceneBuilder();
+        builder = std::make_shared<VolumeSceneBuilder>();
     else
-        builder = new BetaSceneBuilder();
+        builder = std::make_shared<BetaSceneBuilder>();
 
     return builder;
 }

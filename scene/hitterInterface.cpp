@@ -1,6 +1,6 @@
 #include "hitterInterface.h"
 
-void HitterInterface::init(const std::vector<Geometry *> &objects, const Light *light)
+void HitterInterface::init(const std::vector<std::shared_ptr<Geometry>> &objects, std::shared_ptr<const Light> light)
 {
     m_objects = objects;
     m_pLight = light;

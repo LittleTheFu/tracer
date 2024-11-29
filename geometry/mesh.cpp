@@ -4,7 +4,7 @@
 #include <assimp/postprocess.h> // Post processing flags
 #include <cassert>
 
-Mesh::Mesh(const std::string fileName, const Vector3 pos, float scale, const Material *pMtrl)
+Mesh::Mesh(const std::string fileName, const Vector3 pos, float scale, std::shared_ptr<const Material> pMtrl)
 {
     assert(scale > 0);
 
@@ -49,7 +49,7 @@ Mesh::Mesh(const std::string fileName, const Vector3 pos, float scale, const Mat
         TriVertex vb(x_b * scale, y_b * scale, z_b * scale);
         TriVertex vc(x_c * scale, y_c * scale, z_c * scale);
 
-        Tri *tri = new Tri(va, vb, vc, pos, pMtrl);
+        auto tri = std::make_shared<Tri>(va, vb, vc, pos, pMtrl);
 
         m_tris.push_back(tri);
     }
@@ -60,7 +60,7 @@ bool Mesh::hit(const Ray &ray, HitRecord &record) const
     return false;
 }
 
-void Mesh::addToPool(ObjectPool *pool)
+void Mesh::addToPool(std::shared_ptr<ObjectPool> pool)
 {
     for(auto it = m_tris.begin(); it != m_tris.end(); it++)
     {

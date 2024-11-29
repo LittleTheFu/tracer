@@ -7,22 +7,22 @@
 #include "pinholeCamera.h"
 #include "config.h"
 
-Scene::Scene(SceneBuilder *pBuilder, TracerType tracerType)
+Scene::Scene(std::shared_ptr<SceneBuilder> pBuilder, TracerType tracerType)
 {
-    m_pObjectPool = new ObjectPool();
+    m_pObjectPool = std::make_shared<ObjectPool>();
 
     m_pBuilder = pBuilder;
     m_pBuilder->init(m_pObjectPool);
 
-    Tracer *tracer = nullptr;
+    std::shared_ptr<Tracer> tracer = nullptr;
     if (tracerType == TracerType::SIMPLE)
-        tracer = new SimpleTracer();
+        tracer = std::make_shared<SimpleTracer>();
     else if (tracerType == TracerType::RANDOM)
-        tracer = new RandomTracer();
+        tracer = std::make_shared<RandomTracer>();
     else
-        tracer = new VolTracer();
+        tracer = std::make_shared<VolTracer>();
 
-    m_pCamera = new PinholeCamera(tracer);
+    m_pCamera = std::make_shared<PinholeCamera>(tracer);
 
     m_MaxBounces = configBatchEndBounces;
 }

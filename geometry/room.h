@@ -3,6 +3,7 @@
 
 #include "geometry.h"
 #include <vector>
+#include <memory>
 
 class Room
 {
@@ -11,14 +12,14 @@ public:
 
     //auto ptr, maybe? or I will implement a singleton
     //consider it later,maybe.(maybe not,perhaps)
-    std::vector<Geometry *> getTris() const;
+    std::vector<std::shared_ptr<Geometry>> getTris() const;
 
 private:
     void init();
     void refine();
 
 private:
-    std::vector<Geometry*> m_tris;
+    std::vector<std::shared_ptr<Geometry>> m_tris;
 };
 
-#endif
+#endif // _ROOM_H_

@@ -21,12 +21,12 @@ Tri::Tri(const TriVertex &a,
          const TriVertex &b,
          const TriVertex &c,
          const Vector3 &pos,
-         const Material *pMtrl)
+         const std::shared_ptr<const Material>& material)
 {
-    set(a, b, c, pos, pMtrl);
+    set(a, b, c, pos, material);
 }
 
-void Tri::set(const TriVertex &a, const TriVertex &b, const TriVertex &c, const Vector3 &pos, const Material *pMtrl)
+void Tri::set(const TriVertex &a, const TriVertex &b, const TriVertex &c, const Vector3 &pos, const std::shared_ptr<const Material>& material)
 {
     m_a = a;
     m_b = b;
@@ -39,7 +39,7 @@ void Tri::set(const TriVertex &a, const TriVertex &b, const TriVertex &c, const 
     calcNormal();
 
     m_localCentroid = (a.pos + b.pos + c.pos) / 3;
-    this->m_pMtrl = pMtrl;
+    this->m_pMtrl = material;
 
     init(Vector3::ZERO, pos);
 }
@@ -102,7 +102,7 @@ bool Tri::hit(const Ray &ray, HitRecord &record) const
         return false;
     }
 
-    record.mtrl = *m_pMtrl;
+    record.mtrl = m_pMtrl;
     record.transform = m_transform;
 
     record.point = m_transform.transformPoint(_objPoint);

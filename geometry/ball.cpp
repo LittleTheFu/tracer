@@ -9,10 +9,9 @@
 Ball::Ball()
 {
     this->r = 1;
-    this->m_pMtrl = nullptr;
 }
 
-Ball::Ball(const Vector3 &rotate, const Vector3 &position, float r, const Material *pMtrl)
+Ball::Ball(const Vector3 &rotate, const Vector3 &position, float r, std::shared_ptr<const Material> pMtrl)
 {
     init(rotate, position);
 
@@ -266,7 +265,7 @@ bool Ball::getHitParam(float t_min, float t_max, float &t_out) const
 
 void Ball::HandleMaterial(const Vector3 &localNormal, const Vector3 &localPoint, const Ray& newRay, HitRecord &record) const
 {
-    record.mtrl = *m_pMtrl;
+    record.mtrl = m_pMtrl;
     record.isDelta = m_pMtrl->isDelta();
 
     Frame frame(localNormal, dpdu(localPoint), Vector3::ZERO);

@@ -20,7 +20,7 @@ public:
     Media insideMedia;
     
     Transform transform;
-    Material mtrl;
+    std::shared_ptr<const Material> mtrl;
 
     Vector3 point;
     Vector3 normal;

@@ -6,16 +6,17 @@
 #include <vector>
 #include "material.h"
 #include "objectpool.h"
+#include <memory>
 
 class Mesh : public Geometry
 {
 public:
-    Mesh(const std::string fileName, const Vector3 pos, float scale, const Material *pMtrl);
+    Mesh(const std::string fileName, const Vector3 pos, float scale, std::shared_ptr<const Material> pMtrl);
 
     virtual bool hit(const Ray &ray, HitRecord &record) const override;
 
 public:
-    void addToPool(ObjectPool *pool);
+    void addToPool(std::shared_ptr<ObjectPool> pool);
 private:
     virtual Vector3 dpdu(const Vector3 &point) const override;
     virtual Vector3 dpdv(const Vector3 &point) const override;
@@ -24,7 +25,7 @@ private:
     virtual float v(const Vector3 &point) const override;
 
 public:
-    std::vector<Tri*> m_tris;
+    std::vector<std::shared_ptr<Tri>> m_tris;
 };
 
 #endif

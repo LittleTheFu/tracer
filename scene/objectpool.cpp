@@ -26,7 +26,7 @@ void ObjectPool::log()
     std::cout << "pool size : " << num << std::endl;
 }
 
-void ObjectPool::add(std::vector<Geometry *> objects)
+void ObjectPool::add(std::vector<std::shared_ptr<Geometry>> objects)
 {
     for(auto it = objects.begin(); it != objects.end(); it++)
     {
@@ -34,19 +34,19 @@ void ObjectPool::add(std::vector<Geometry *> objects)
     }
 }
 
-void ObjectPool::add(Geometry *pGeometry)
+void ObjectPool::add(std::shared_ptr<Geometry> pGeometry)
 {
     m_objects.push_back(pGeometry);
 }
 
-void ObjectPool::add(Light *pLight)
+void ObjectPool::add(std::shared_ptr<Light> pLight)
 {
     m_pLight = pLight;
 }
 
 void ObjectPool::applyTransfrom(Transform t)
 {
-    for (std::vector<Geometry *>::iterator it = m_objects.begin(); it != m_objects.end(); it++)
+    for (auto it = m_objects.begin(); it != m_objects.end(); it++)
     {
         (*it)->applyTransform(t);
     }
@@ -57,7 +57,7 @@ void ObjectPool::applyTransfrom(Transform t)
 
 void ObjectPool::buildBoundBox()
 {
-    for (std::vector<Geometry *>::const_iterator it = m_objects.begin(); it != m_objects.end(); it++)
+    for (auto it = m_objects.begin(); it != m_objects.end(); it++)
     {
         (*it)->buildBoundBox();
         // std::cout << (*it)->getClassName() << std::endl;
@@ -75,7 +75,7 @@ Color ObjectPool::getColorFromLight(const Ray &ray) const
     return m_pHitter->getColorFromLight(ray);
 }
 
-std::vector<Geometry *> ObjectPool::getObjects() const
+std::vector<std::shared_ptr<Geometry>> ObjectPool::getObjects() const
 {
     return m_objects;
 }

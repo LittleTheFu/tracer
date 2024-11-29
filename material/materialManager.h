@@ -6,13 +6,14 @@
 #include "glassMaterial.h"
 #include "materialDef.h"
 #include <map>
+#include <memory>
 
 class MaterialManager
 {
 public:
     MaterialManager();
     const static MaterialManager *getInstance();
-    const Material *get(MATERIAL_TYPE type) const;
+    std::shared_ptr<const Material> get(MATERIAL_TYPE type) const;
 
 private:
     void init();
@@ -21,21 +22,21 @@ private:
     static MaterialManager *instance;
 
 private:
-    std::map<MATERIAL_TYPE, const Material *> m_map;
+    std::map<MATERIAL_TYPE, std::shared_ptr<const Material>> m_map;
 
 private:
-    const Material *lambMtrlRed;
-    const Material *lambMtrlYellow;
-    const Material *lambMtrlAqua;
-    const Material *lambMtrlPurple;
-    const Material *lambMtrlGreen;
-    const Material *lambMtrlBlue;
-    const Material *lambMtrlWhite;
+    std::shared_ptr<const Material> lambMtrlRed;
+    std::shared_ptr<const Material> lambMtrlYellow;
+    std::shared_ptr<const Material> lambMtrlAqua;
+    std::shared_ptr<const Material> lambMtrlPurple;
+    std::shared_ptr<const Material> lambMtrlGreen;
+    std::shared_ptr<const Material> lambMtrlBlue;
+    std::shared_ptr<const Material> lambMtrlWhite;
 
-    const Material *lambMtrlTexLena;
+    std::shared_ptr<const Material> lambMtrlTexLena;
 
-    const Material *mirrorMtrl;
-    const Material *glassMtrl;
+    std::shared_ptr<const Material> mirrorMtrl;
+    std::shared_ptr<const Material> glassMtrl;
 };
 
 #endif

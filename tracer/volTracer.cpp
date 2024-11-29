@@ -1,6 +1,6 @@
 #include "volTracer.h"
 #include "mathUtility.h"
-Color VolTracer::trace(const ObjectPool *pool, Ray &ray, int bounceNum, const HitRecord &currentState) const
+Color VolTracer::trace(std::shared_ptr<const ObjectPool> pool, Ray &ray, int bounceNum, const HitRecord &currentState) const
 {
     HitRecord record;
     bool isHit = pool->hitScene(ray, record);
@@ -94,7 +94,7 @@ Color VolTracer::trace(const ObjectPool *pool, Ray &ray, int bounceNum, const Hi
     return Color::COLOR_BLACK;
 }
 
-Color VolTracer::traceFirstBounce(const ObjectPool *pool, Ray &ray) const
+Color VolTracer::traceFirstBounce(std::shared_ptr<const ObjectPool> pool, Ray &ray) const
 {
     return Color::COLOR_BLACK;
 }

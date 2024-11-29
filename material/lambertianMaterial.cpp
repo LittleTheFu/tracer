@@ -2,9 +2,9 @@
 #include "lambertian.h"
 #include "common.h"
 
-LambertianMaterial::LambertianMaterial(const Texture *pTexture, float scale)
+LambertianMaterial::LambertianMaterial(std::shared_ptr<const Texture> pTexture, float scale)
 {
-    m_pLambertianBrdf = new Lambertian(scale);
+    m_pLambertianBrdf = std::make_shared<Lambertian>(scale);
     m_pTexture = pTexture;
 }
 

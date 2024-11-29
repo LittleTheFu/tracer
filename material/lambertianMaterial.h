@@ -6,18 +6,19 @@
 // #include "brdf.h"
 #include "lambertian.h"
 #include "texture.h"
+#include <memory>
 
 class LambertianMaterial : public Material
 {
 public:
-    LambertianMaterial(const Texture *pTexture, float scale);
+    LambertianMaterial(std::shared_ptr<const Texture> pTexture, float scale);
 
     Color get_f(const Vector3 &wo, const Vector3 &wi) const;
     Color eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf) const;
 
 private:
-    Lambertian *m_pLambertianBrdf;
-    const Texture *m_pTexture;
+    std::shared_ptr<Lambertian> m_pLambertianBrdf;
+    std::shared_ptr<const Texture> m_pTexture;
 };
 
 #endif

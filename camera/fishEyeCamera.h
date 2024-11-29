@@ -7,7 +7,7 @@
 class FishEyeCamera : public Camera
 {
 public:
-    FishEyeCamera(Tracer* tracer);
+    FishEyeCamera(std::shared_ptr<Tracer> tracer);
 
 private:
     Ray generateRay(float screenX, float screenY) const;

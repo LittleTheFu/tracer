@@ -4,8 +4,7 @@
 #include "mathConstantDef.h"
 #include <cmath>
 #include <iostream>
-
-Plane::Plane(const Vector3 &rotate, const Vector3 &position, float length, const Material *pMtrl)
+Plane::Plane(const Vector3 &rotate, const Vector3 &position, float length, std::shared_ptr<const Material> &pMtrl)
 {
     init(rotate, position);
 
@@ -24,6 +23,7 @@ Vector3 Plane::getLocalNormal(bool reverse = false) const
 
     return Vector3(0, 0, 1);
 }
+
 
 bool Plane::hit(const Ray &ray, HitRecord &record) const
 {
@@ -55,7 +55,7 @@ bool Plane::hit(const Ray &ray, HitRecord &record) const
         return false;
     }
 
-    record.mtrl = *m_pMtrl;
+    record.mtrl = m_pMtrl;
     record.transform = m_transform;
 
     record.point = m_transform.transformPoint(localPoint);

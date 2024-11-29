@@ -56,7 +56,7 @@ Transform Geometry::getTransform() const
     return m_transform;
 }
 
-void Geometry::setMaterial(const Material *pMtrl)
+void Geometry::setMaterial(std::shared_ptr<const Material> pMtrl)
 {
     m_pMtrl = pMtrl;
 }

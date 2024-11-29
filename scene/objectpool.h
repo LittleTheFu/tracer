@@ -9,6 +9,7 @@
 #include "light.h"
 #include "transform.h"
 #include "hitterInterface.h"
+#include <memory>
 
 class ObjectPool
 {
@@ -19,9 +20,9 @@ public:
 
     void log();
 
-    void add(std::vector<Geometry*> objects);
-    void add(Geometry *pGeometry);
-    void add(Light *pLight);
+    void add(std::vector<std::shared_ptr<Geometry>> objects);
+    void add(std::shared_ptr<Geometry> pGeometry);
+    void add(std::shared_ptr<Light> pLight);
 
     void applyTransfrom(Transform t);
     void buildBoundBox();
@@ -31,14 +32,14 @@ public:
 public:
     Color getColorFromLight(const Ray &ray) const;
 
-    std::vector<Geometry *> getObjects() const;
+    std::vector<std::shared_ptr<Geometry>> getObjects() const;
 
     bool validBVH() const;
 
-    Light *m_pLight;
+    std::shared_ptr<Light> m_pLight;
 
 private:
-    std::vector<Geometry *> m_objects;
+    std::vector<std::shared_ptr<Geometry>> m_objects;
     HitterInterface *m_pHitter;
 };
 

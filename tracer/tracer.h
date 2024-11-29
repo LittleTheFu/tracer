@@ -5,16 +5,17 @@
 #include "ray.h"
 #include "hitrecord.h"
 #include "color.h"
+#include <memory>
 
 class Tracer
 {
 public:
-    virtual Color trace(const ObjectPool *pool,
+    virtual Color trace(std::shared_ptr<const ObjectPool> pool,
                         Ray &ray,
                         int bounceNum,
                         const HitRecord &currentState) const;
 
-    virtual Color traceFirstBounce(const ObjectPool *pool, Ray &ray) const;
+    virtual Color traceFirstBounce(std::shared_ptr<const ObjectPool> pool, Ray &ray) const;
 };
 
 #endif

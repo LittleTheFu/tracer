@@ -8,9 +8,9 @@
 #include "room.h"
 #include "tagDef.h"
 
-void SceneBuilder::init(ObjectPool *pool)
+void SceneBuilder::init(std::shared_ptr<ObjectPool> pool)
 {
-     m_pObjectPool = pool;
+    m_pObjectPool = pool;
 }
 
 void SceneBuilder::buildRoom()
@@ -20,45 +20,45 @@ void SceneBuilder::buildRoom()
 
     Vector3 leftRotate(0, MathConstant::PI / 2, 0);
     Vector3 leftPosition(-c, 0, 0);
-    Plane *leftPlane = new Plane(leftRotate, leftPosition, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_RED));
+    std::shared_ptr<Plane> leftPlane = std::make_shared<Plane>(leftRotate, leftPosition, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_RED));
 
     Vector3 rightRotate(0, -MathConstant::PI / 2, 0);
     Vector3 rightPosition(c, 0, 0);
-    Plane *rightPlane = new Plane(rightRotate, rightPosition, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_BLUE));
+    std::shared_ptr<Plane> rightPlane = std::make_shared<Plane>(rightRotate, rightPosition, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_BLUE));
 
     Vector3 topRotate(-MathConstant::PI / 2, 0, 0);
     Vector3 topPosition(0, -c, 0);
-    Plane *topPlane = new Plane(topRotate, topPosition, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_PURPLE));
+    std::shared_ptr<Plane> topPlane = std::make_shared<Plane>(topRotate, topPosition, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_PURPLE));
 
     Vector3 bottomRotate(MathConstant::PI / 2, 0, 0);
     Vector3 bottomPosition(0, c, 0);
-    Plane *bottomPlane = new Plane(bottomRotate, bottomPosition, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_YELLOW));
+    std::shared_ptr<Plane> bottomPlane = std::make_shared<Plane>(bottomRotate, bottomPosition, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_YELLOW));
 
     Vector3 frontRotate(MathConstant::PI, 0, 0);
     Vector3 frontPosition(0, 0, 5 * c);
-    Plane *frontPlane = new Plane(frontRotate, frontPosition, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_AQUA));
+    std::shared_ptr<Plane> frontPlane = std::make_shared<Plane>(frontRotate, frontPosition, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_AQUA));
 
     Vector3 backRotate(0, 0, 0);
     Vector3 backPosition(0, 0, -3 * c);
-    Plane *backPlane = new Plane(backRotate, backPosition, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_RED));
+    std::shared_ptr<Plane> backPlane = std::make_shared<Plane>(backRotate, backPosition, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_RED));
 
     m_pObjectPool->add(frontPlane);
     m_pObjectPool->add(backPlane);
     m_pObjectPool->add(topPlane);
     m_pObjectPool->add(bottomPlane);
     m_pObjectPool->add(leftPlane);
-    m_pObjectPool->add(rightPlane);    
+    m_pObjectPool->add(rightPlane);
 }
 
 void SceneBuilder::buildMeshRoom()
 {
-    Room *room = new Room();
+    std::shared_ptr<Room> room = std::make_shared<Room>();
     m_pObjectPool->add(room->getTris());
 }
 
 void SceneBuilder::buildLight(const Vector3& pos, float r)
 {
-    Light *light = new Light(pos, r);
+    std::shared_ptr<Light> light = std::make_shared<Light>(pos, r);
     light->setTag(Tag::TAG_LIGHT);
 
     m_pObjectPool->add(light);
@@ -70,43 +70,44 @@ void SceneBuilder::buildSceneWithDefaultConfig()
 
 void SceneBuilder::buildGlassBall(const Vector3 &pos, float r)
 {
-    Ball *glassBall = new Ball(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_GLASS));
+    std::shared_ptr<Ball> glassBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_GLASS));
     m_pObjectPool->add(glassBall);
 }
+
 void SceneBuilder::buildMirrorBall(const Vector3 &pos, float r)
 {
-    Ball *mirrorBall = new Ball(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_MIRROR));
+    std::shared_ptr<Ball> mirrorBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_MIRROR));
     m_pObjectPool->add(mirrorBall);
 }
 
 void SceneBuilder::buildRedBall(const Vector3& pos, float r)
 {
-    Ball *redBall = new Ball(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_RED));
+    std::shared_ptr<Ball> redBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_RED));
     m_pObjectPool->add(redBall);
 }
 
 void SceneBuilder::buildAquaBall(const Vector3 &pos, float r)
 {
-    Ball *aquaBall = new Ball(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_AQUA));
+    std::shared_ptr<Ball> aquaBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_AQUA));
     m_pObjectPool->add(aquaBall);
 }
 
 void SceneBuilder::buildMixBall(const Vector3& pos, float r)
 {
-    // Ball *mixBall = new Ball(Vector3::ZERO, Vector3(-28, 72, 350), 20, MtrlMix);
-    // Ball *mixBall = new Ball(Vector3::ZERO, pos, r, MtrlMix);
+    // std::shared_ptr<Ball> mixBall = std::make_shared<Ball>(Vector3::ZERO, Vector3(-28, 72, 350), 20, MtrlMix);
+    // std::shared_ptr<Ball> mixBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MtrlMix);
     // m_pObjectPool->add(mixBall);
 }
 
 void SceneBuilder::buildVolumeBall(const Vector3 &pos, float r)
 {
-    Ball *volumeBall = new Ball(Vector3::ZERO, pos, r, nullptr);
+    std::shared_ptr<Ball> volumeBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, nullptr);
     m_pObjectPool->add(volumeBall);
 }
 
 void SceneBuilder::buildBunny(const Vector3 &pos, float scale, const std::string &res, MATERIAL_TYPE materialType)
 {
-    Mesh *bunny = new Mesh(res, pos, scale, MaterialManager::getInstance()->get(materialType));
+    std::shared_ptr<Mesh> bunny = std::make_shared<Mesh>(res, pos, scale, MaterialManager::getInstance()->get(materialType));
     bunny->addToPool(m_pObjectPool);
 }
 
@@ -116,7 +117,7 @@ void SceneBuilder::buildRedTri(const Vector3 &pos)
     TriVertex b(-30, 30, 0);
     TriVertex c(20, -20, -10);
 
-    Tri *tri = new Tri(a, b, c, pos, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_RED));
+    std::shared_ptr<Tri> tri = std::make_shared<Tri>(a, b, c, pos, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_RED));
     m_pObjectPool->add(tri);
 }
 
@@ -126,7 +127,7 @@ void SceneBuilder::buildGreenTri(const Vector3 &pos)
     TriVertex c(40, 0, 10);
     TriVertex b(-170, 40, 50);
 
-    Tri *tri = new Tri(a, b, c, pos, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_GREEN));
+    std::shared_ptr<Tri> tri = std::make_shared<Tri>(a, b, c, pos, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_GREEN));
     m_pObjectPool->add(tri);
 }
 
@@ -136,6 +137,6 @@ void SceneBuilder::buildGlassTri(const Vector3 &pos)
     TriVertex b(-80, 90, 0);
     TriVertex c(40, -90, -10);
 
-    Tri *tri = new Tri(a, b, c, pos, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_GLASS));
+    std::shared_ptr<Tri> tri = std::make_shared<Tri>(a, b, c, pos, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_GLASS));
     m_pObjectPool->add(tri);
 }

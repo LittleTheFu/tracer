@@ -11,7 +11,7 @@
 const int Camera::default_screen_width = 256;
 const int Camera::default_screen_height = 256;
 
-Camera::Camera(Tracer* tracer)
+Camera::Camera(std::shared_ptr<Tracer> tracer)
 {
     m_factor = configCameraFactor;
 
@@ -23,7 +23,7 @@ Camera::Camera(Tracer* tracer)
     m_pTracer = tracer;
 }
 
-void Camera::setPool(const ObjectPool *pool)
+void Camera::setPool(std::shared_ptr<const ObjectPool> pool)
 {
     m_pObjectPool = pool;
 }

@@ -7,13 +7,14 @@
 #include <string>
 #include "ray.h"
 #include "tracer.h"
+#include <memory>
 
 class Camera
 {
 public:
-    Camera(Tracer* tracer);
+    Camera(std::shared_ptr<Tracer> tracer);
 
-    void setPool(const ObjectPool *pool);
+    void setPool(std::shared_ptr<const ObjectPool> pool);
 
     void build(const Vector3 &position, const Vector3 &direction, const Vector3 &up);
     void build(const Vector3 &position, const Vector3 &theta);
@@ -34,8 +35,8 @@ private:
     void logProgress(unsigned int x, unsigned int y) const;
 
 private:
-    const ObjectPool *m_pObjectPool;
-    const Tracer *m_pTracer;
+    std::shared_ptr<const ObjectPool> m_pObjectPool;
+    std::shared_ptr<const Tracer> m_pTracer;
     std::vector<unsigned char> m_Image;
 
     Transform m_transform;

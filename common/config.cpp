@@ -8,7 +8,7 @@ bool configUseBVH = false;
 //don't modify this because others are not done yet
 TracerType configTracerType = TracerType::SIMPLE;
 
-int configCameraFactor = 10;
+int configCameraFactor = 4;
 int configBounceTime = 10;
 int configSamplersPerPixel = 2;
 

@@ -6,7 +6,7 @@
 class PinholeCamera : public Camera
 {
 public:
-    PinholeCamera(Tracer* tracer);
+    PinholeCamera(std::shared_ptr<Tracer>);
 
 private:
     virtual Ray generateRay(float screenX, float screenY) const override;

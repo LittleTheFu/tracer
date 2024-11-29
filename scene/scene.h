@@ -5,11 +5,12 @@
 #include "objectpool.h"
 #include "sceneBuilder.h"
 #include "tracerDef.h"
+#include <memory>
 
 class Scene
 {
 public:
-    Scene(SceneBuilder *pBuilder, TracerType tracerType);
+    Scene(std::shared_ptr<SceneBuilder> pBuilder, TracerType tracerType);
 
 public:
     void run();
@@ -24,9 +25,9 @@ private:
     void postRender();
 
 private:
-    ObjectPool* m_pObjectPool;
-    Camera* m_pCamera;
-    SceneBuilder* m_pBuilder;
+    std::shared_ptr<ObjectPool> m_pObjectPool;
+    std::shared_ptr<Camera> m_pCamera;
+    std::shared_ptr<SceneBuilder> m_pBuilder;
 
     int m_MaxBounces;
 };

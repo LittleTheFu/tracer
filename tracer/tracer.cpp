@@ -1,6 +1,6 @@
 #include "tracer.h"
 
-Color Tracer::trace(const ObjectPool *pool,
+Color Tracer::trace(std::shared_ptr<const ObjectPool> pool,
                     Ray &ray,
                     int bounceNum,
                     const HitRecord &currentState) const
@@ -8,7 +8,7 @@ Color Tracer::trace(const ObjectPool *pool,
     return Color::COLOR_AQUA;
 }
 
-Color Tracer::traceFirstBounce(const ObjectPool *pool, Ray &ray) const
+Color Tracer::traceFirstBounce(std::shared_ptr<const ObjectPool> pool, Ray &ray) const
 {
     if(!pool)
         return Color::COLOR_BLACK;

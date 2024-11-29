@@ -5,7 +5,7 @@
 #include <cassert>
 #include <algorithm>
 
-bool BVH::search(Geometry *geometry) const
+bool BVH::search(std::shared_ptr<Geometry> geometry) const
 {
     if(!m_rootNode)
         return false;
@@ -13,7 +13,7 @@ bool BVH::search(Geometry *geometry) const
     return _search(m_rootNode, geometry);
 }
 
-bool BVH::_search(BVHNode *node, Geometry *geometry) const
+bool BVH::_search(std::shared_ptr<BVHNode> node, std::shared_ptr<Geometry> geometry) const
 {
     if(!node)
         return false;
@@ -37,7 +37,7 @@ bool BVH::_search(BVHNode *node, Geometry *geometry) const
     return false;
 }
 
-void BVH::init(const std::vector<Geometry *> &objects, const Light *light)
+void BVH::init(const std::vector<std::shared_ptr<Geometry>> &objects, std::shared_ptr<const Light> light)
 {
     HitterInterface::init(objects, light);
     build();
@@ -51,11 +51,11 @@ void BVH::build()
     printNode(m_rootNode,"");
 }
 
-BVHNode *BVH::generateTree(const std::vector<Geometry *> &objects, int depth)
+std::shared_ptr<BVHNode> BVH::generateTree(const std::vector<std::shared_ptr<Geometry>> &objects, int depth)
 {
     BoundBox objectsBoundBox = getBoundBox(objects);
 
-    BVHNode *node = new BVHNode();
+    std::shared_ptr<BVHNode> node = std::make_shared<BVHNode>();
     node->boundBox = objectsBoundBox;
 
     if( depth > 18 || objects.size() <= 1)
@@ -75,7 +75,7 @@ BVHNode *BVH::generateTree(const std::vector<Geometry *> &objects, int depth)
     calcBestSplit(objects, leftChildBoundBox, rightChildBoundBox);
 
     // 3.split objects into two children
-    std::vector<Geometry *> leftObjects, rightObjects;
+    std::vector<std::shared_ptr<Geometry>> leftObjects, rightObjects;
     splitObjects(objects, leftChildBoundBox, rightChildBoundBox, leftObjects, rightObjects);
 
     if(leftObjects.size() == objects.size())
@@ -102,7 +102,7 @@ BVHNode *BVH::generateTree(const std::vector<Geometry *> &objects, int depth)
     return node;
 }
 
-void BVH::printNode(BVHNode *node, const std::string &prefix)
+void BVH::printNode(std::shared_ptr<BVHNode> node, const std::string &prefix)
 {
     node->print(prefix);
 
@@ -113,7 +113,7 @@ void BVH::printNode(BVHNode *node, const std::string &prefix)
         printNode(node->rightChild, prefix + "~~");
 }
 
-bool BVH::_hitGeometryObjectOnly(BVHNode *node,
+bool BVH::_hitGeometryObjectOnly(std::shared_ptr<BVHNode> node,
               const Ray &ray,
               HitRecord &record) const
 {
@@ -122,8 +122,8 @@ bool BVH::_hitGeometryObjectOnly(BVHNode *node,
 
     BoundBox box = node->boundBox;
 
-    BVHNode *leftChild = node->leftChild;
-    BVHNode *rightChild = node->rightChild;
+    std::shared_ptr<BVHNode> leftChild = node->leftChild;
+    std::shared_ptr<BVHNode> rightChild = node->rightChild;
 
     HitRecord leftRecord;
     HitRecord rightRecord;
@@ -158,13 +158,13 @@ bool BVH::hitGeometryObjectOnly(const Ray &ray, HitRecord &record) const
     return _hitGeometryObjectOnly(m_rootNode, ray, record);
 }
 
-bool BVH::hitLeaf(const Ray &ray, const std::vector<Geometry *> objects, HitRecord &record) const
+bool BVH::hitLeaf(const Ray &ray, const std::vector<std::shared_ptr<Geometry>> objects, HitRecord &record) const
 {
     assert(objects.size() > 0);
     bool hit = false;
     float tMin = MathConstant::FLOAT_MAX;
 
-    for (std::vector<Geometry *>::const_iterator it = objects.begin(); it != objects.end(); it++)
+    for (auto it = objects.begin(); it != objects.end(); it++)
     {
         HitRecord tempRecord;
 
@@ -209,7 +209,7 @@ Color BVH::getColorFromLight(const Ray &ray) const
     return Color::COLOR_BLACK;
 }
 
-BoundBox BVH::getBoundBox(const std::vector<Geometry *> &objects) const
+BoundBox BVH::getBoundBox(const std::vector<std::shared_ptr<Geometry>> &objects) const
 {
     // assert(objects.size() > 0);
     BoundBox objectsBoundBox;
@@ -224,7 +224,7 @@ BoundBox BVH::getBoundBox(const std::vector<Geometry *> &objects) const
     return objectsBoundBox;
 }
 
-BoundBox BVH::getCentroidBox(const std::vector<Geometry *> &objects) const
+BoundBox BVH::getCentroidBox(const std::vector<std::shared_ptr<Geometry>> &objects) const
 {
     // assert(objects.size() > 0);
     BoundBox centerBox;
@@ -238,7 +238,11 @@ BoundBox BVH::getCentroidBox(const std::vector<Geometry *> &objects) const
     return centerBox;
 }
 
-void BVH::splitObjects(const std::vector<Geometry *> &objects, const BoundBox &leftBox, const BoundBox &rightBox, std::vector<Geometry *> &outLeftObjects, std::vector<Geometry *> &outRightObjects) const
+void BVH::splitObjects(const std::vector<std::shared_ptr<Geometry>> &objects,
+                         const BoundBox &leftBox,
+                         const BoundBox &rightBox,
+                         std::vector<std::shared_ptr<Geometry>> &outLeftObjects,
+                         std::vector<std::shared_ptr<Geometry>> &outRightObjects) const
 {
     // assert(!leftBox.hasInfiniteComponent());
     // assert(!rightBox.hasInfiniteComponent());
@@ -258,7 +262,7 @@ void BVH::splitObjects(const std::vector<Geometry *> &objects, const BoundBox &l
     // assert(outLeftObjects.size() + outRightObjects.size() >= objects.size());
 }
 
-void BVH::calcBestSplit(const std::vector<Geometry *> &objects, BoundBox &outLeftBox, BoundBox &outRightBox) const
+void BVH::calcBestSplit(const std::vector<std::shared_ptr<Geometry>> &objects, BoundBox &outLeftBox, BoundBox &outRightBox) const
 {
     // assert(objects.size() > 0);
 

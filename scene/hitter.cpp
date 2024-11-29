@@ -38,7 +38,7 @@ bool Hitter::hitGeometryObjectOnly(const Ray &ray, HitRecord &record) const
     bool hit = false;
     float tMin = MathConstant::FLOAT_MAX;
 
-    for (std::vector<Geometry *>::const_iterator it = m_objects.begin(); it != m_objects.end(); it++)
+    for (auto it = m_objects.begin(); it != m_objects.end(); it++)
     {
         HitRecord tempRecord;
 

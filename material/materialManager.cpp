@@ -12,7 +12,7 @@ MaterialManager::MaterialManager()
 
 const MaterialManager *MaterialManager::getInstance()
 {
-    if(!MaterialManager::instance)
+    if (!MaterialManager::instance)
     {
         MaterialManager::instance = new MaterialManager();
         MaterialManager::instance->init();
@@ -25,37 +25,37 @@ void MaterialManager::init()
 {
     float rho = configLambdaScale;
 
-    lambMtrlRed = new LambertianMaterial(new ConstTexture(Color::COLOR_RED), rho);
-    lambMtrlYellow = new LambertianMaterial(new ConstTexture(Color::COLOR_YELLOW), rho);
-    lambMtrlAqua = new LambertianMaterial(new ConstTexture(Color::COLOR_AQUA), rho);
-    lambMtrlPurple = new LambertianMaterial(new ConstTexture(Color::COLOR_PURPLE), rho);
-    lambMtrlGreen = new LambertianMaterial(new ConstTexture(Color::COLOR_GREEN), rho);
-    lambMtrlBlue = new LambertianMaterial(new ConstTexture(Color::COLOR_BLUE), rho);
-    lambMtrlWhite = new LambertianMaterial(new ConstTexture(Color::COLOR_WHITE), rho);
+    lambMtrlRed = std::make_shared<LambertianMaterial>(std::make_shared<ConstTexture>(Color::COLOR_RED), rho);
+    lambMtrlYellow = std::make_shared<LambertianMaterial>(std::make_shared<ConstTexture>(Color::COLOR_YELLOW), rho);
+    lambMtrlAqua = std::make_shared<LambertianMaterial>(std::make_shared<ConstTexture>(Color::COLOR_AQUA), rho);
+    lambMtrlPurple = std::make_shared<LambertianMaterial>(std::make_shared<ConstTexture>(Color::COLOR_PURPLE), rho);
+    lambMtrlGreen = std::make_shared<LambertianMaterial>(std::make_shared<ConstTexture>(Color::COLOR_GREEN), rho);
+    lambMtrlBlue = std::make_shared<LambertianMaterial>(std::make_shared<ConstTexture>(Color::COLOR_BLUE), rho);
+    lambMtrlWhite = std::make_shared<LambertianMaterial>(std::make_shared<ConstTexture>(Color::COLOR_WHITE), rho);
 
-    lambMtrlTexLena = new LambertianMaterial(new ImageTexture(ResourceDef::LENA), 1);
+    lambMtrlTexLena = std::make_shared<LambertianMaterial>(std::make_shared<ImageTexture>(ResourceDef::LENA), 1);
 
-    mirrorMtrl = new MirrorMaterial();
-    glassMtrl = new GlassMaterial();
+    mirrorMtrl = std::make_shared<MirrorMaterial>();
+    glassMtrl = std::make_shared<GlassMaterial>();
 
-    m_map.insert(std::make_pair(MATERIAL_TYPE::M_RED, lambMtrlRed));
-    m_map.insert(std::make_pair(MATERIAL_TYPE::M_YELLOW, lambMtrlYellow));
-    m_map.insert(std::make_pair(MATERIAL_TYPE::M_AQUA, lambMtrlAqua));
-    m_map.insert(std::make_pair(MATERIAL_TYPE::M_PURPLE, lambMtrlPurple));
-    m_map.insert(std::make_pair(MATERIAL_TYPE::M_GREEN, lambMtrlGreen));
-    m_map.insert(std::make_pair(MATERIAL_TYPE::M_BLUE, lambMtrlBlue));
-    m_map.insert(std::make_pair(MATERIAL_TYPE::M_WHITE, lambMtrlWhite));
-    m_map.insert(std::make_pair(MATERIAL_TYPE::M_LENA, lambMtrlTexLena));
-    m_map.insert(std::make_pair(MATERIAL_TYPE::M_MIRROR, mirrorMtrl));
-    m_map.insert(std::make_pair(MATERIAL_TYPE::M_GLASS, glassMtrl));
+    m_map[MATERIAL_TYPE::M_RED] = std::move(lambMtrlRed);
+    m_map[MATERIAL_TYPE::M_YELLOW] = std::move(lambMtrlYellow);
+    m_map[MATERIAL_TYPE::M_AQUA] = std::move(lambMtrlAqua);
+    m_map[MATERIAL_TYPE::M_PURPLE] = std::move(lambMtrlPurple);
+    m_map[MATERIAL_TYPE::M_GREEN] = std::move(lambMtrlGreen);
+    m_map[MATERIAL_TYPE::M_BLUE] = std::move(lambMtrlBlue);
+    m_map[MATERIAL_TYPE::M_WHITE] = std::move(lambMtrlWhite);
+    m_map[MATERIAL_TYPE::M_LENA] = std::move(lambMtrlTexLena);
+    m_map[MATERIAL_TYPE::M_MIRROR] = std::move(mirrorMtrl);
+    m_map[MATERIAL_TYPE::M_GLASS] = std::move(glassMtrl);
 }
 
-const Material *MaterialManager::get(MATERIAL_TYPE type) const
+std::shared_ptr<const Material> MaterialManager::get(MATERIAL_TYPE type) const
 {
     auto it = m_map.find(type);
 
-    if(it == m_map.end())
+    if (it == m_map.end())
         return nullptr;
-        
-    return it->second;
+
+    return std::shared_ptr<const Material>(it->second.get(), [](const Material*) {}); // 使用空删除器
 }
