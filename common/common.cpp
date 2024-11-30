@@ -7,12 +7,6 @@
 #include "mathConstantDef.h"
 
 const Vector3 Common::LOCAL_NORMAL = Vector3(0, 0, 1);
-const Color Common::LIGHT_COLOR = Color::COLOR_WHITE;
-
-const float Common::SAMPLE_LIGHTR_CORRECT_FACTOR = 0.96f;
-
-const float Common::SIGMA_T = 0.1f;
-const float Common::SIGMA_S = 0.2f;
 
 Vector3 Common::getNormal(const Vector3 &from, const Vector3 &to)
 {
