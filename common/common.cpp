@@ -22,7 +22,7 @@ Vector3 Common::getNormal(const Vector3 &from, const Vector3 &to)
     return r;
 }
 
-const void Common::printCurrentTime()
+void Common::printCurrentTime()
 {
     std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
 
