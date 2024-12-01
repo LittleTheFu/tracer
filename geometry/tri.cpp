@@ -6,13 +6,6 @@
 
 #define _NORMAL_DEBUG_ (0)
 
-// Tri::Tri()
-// {
-//     m_ab = m_b.pos - m_a.pos;
-//     m_bc = m_c.pos - m_b.pos;
-//     m_ca = m_a.pos - m_c.pos;
-// }
-
 Tri::Tri()
 {
 }
@@ -67,31 +60,18 @@ bool Tri::hit(const Ray &ray, HitRecord &record) const
     record.t = MathConstant::FLOAT_MAX;
 
     Ray testRay(Vector3(0,0,0), Vector3(0,0,1));
-
     Ray newRay = ray.genNewRay(m_transform);
 
     Frame frame(m_normal, m_ab, m_a.pos);
     Ray localRay = newRay.genNewRay(frame);
 
-    // bool reverse = false;
     const Vector3 trueNormal = getLocalNormal(false);
-    // if (newRay.dir.isSameDir(trueNormal))
-    // {
-    //     reverse = true;
-    // }
-    // else{
-    //     reverse = false;
-    // }
-
-
     const float n = (-localRay.origin) * Common::LOCAL_NORMAL;
     const float d = localRay.dir * Common::LOCAL_NORMAL;
 
     record.t = n / d;
     if (record.t < MathConstant::FLOAT_SAMLL_NUMBER)
     {
-        // std::cout << record.t << "," << n << "," << d << std::endl;
-        // std::cout<<"false1"<<std::endl;
         return false;
     }
 
@@ -124,11 +104,7 @@ bool Tri::hit(const Ray &ray, HitRecord &record) const
         Vector3 r;
         record.f = m_pMtrl->eval(record.u, record.v, -localRay.dir, r, record.reflectPdf);
         assert(record.f.isValid());
-        // float f_dot = r * Common::LOCAL_NORMAL;
-        // if(f_dot < 0)
-        // {
-        //     return false;
-        // }
+ 
         record.dot = MathUtility::clamp(std::abs(r * Common::LOCAL_NORMAL), MathConstant::FLOAT_SAMLL_NUMBER, 1.0f);
         record.reflect = m_transform.transformVector(frame.vectorToWorld(r));
         record.isMirror = m_pMtrl->isMirror();
@@ -171,31 +147,11 @@ void Tri::buildBoundBox()
     m_boundBox.update(a);
     m_boundBox.update(b);
     m_boundBox.update(c);
-
-    // Vector3 min = a.min_component_wise(b);
-    // Vector3 max = a.min_component_wise(b);
-
-    // min = min.min_component_wise(c);
-    // max = max.max_component_wise(c);
-
-    // m_boundBox.set(min, max);
 }
 
 Vector3 Tri::getLocalNormal(bool reverse) const
 {
     return m_normal;
-    
-    // Vector3 n = m_a.normal + m_b.normal + m_c.normal;
-    // n.normalize();
-    
-    // Vector3 n = m_ab.cross(-m_ca);
-
-    // if(reverse)
-    // {
-    //     n *= -1;
-    // }
-
-    // return n;
 }
 
 bool Tri::isAllFacePositive(const Vector3 &p) const
@@ -217,11 +173,8 @@ bool Tri::isAllFacePositive(const Vector3 &p) const
 
 void Tri::calcNormal()
 {
-    // m_normal = m_a.normal + m_b.normal + m_c.normal;
     m_normal = m_ab.cross(m_bc);
     m_normal.normalize();
-
-    // m_normal = Vector3(0,0,-1);
 }
 
 Vector3 Tri::dpdu(const Vector3 &point) const
