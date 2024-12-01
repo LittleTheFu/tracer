@@ -96,9 +96,6 @@ bool Ball::isIn(const Vector3 &point) const
 
 bool Ball::hit(const Ray &ray, HitRecord &record) const
 {
-    // record.t = MathConstant::FLOAT_MAX;
-    // float dot = 0.0f;
-
     const Ray newRay = ray.genNewRay(m_transform);
 
     float a, b, c;
@@ -121,8 +118,6 @@ bool Ball::hit(const Ray &ray, HitRecord &record) const
     const Vector3 localNormal = getLocalNormal(localPoint);
     record.normal = m_transform.transformNormal(localNormal);
 
-    // dot = localNormal * newRay.dir;
-
     record.u = u(localPoint);
     record.v = v(localPoint);
 
@@ -143,46 +138,33 @@ bool Ball::hit(const Ray &ray, HitRecord &record) const
 Vector3 Ball::sampleFromPoint(const Vector3 &thatPoint, float &pdf) const
 {
     Vector3 localPoint = m_transform.invTransformPoint(thatPoint);
-    // Vector3 localNormal = getLocalNormal(localPoint);
-
     Vector3 zAxisVector = -localPoint;
 
     Frame frame(zAxisVector, localPoint);
-    // Vector3 framePoint = frame.pointToLocal(localPoint);
     Vector3 framePoint = Vector3::ZERO;
 
-    // float d = framePoint.z;
     float d = localPoint.length();
-
     float thetaMax = std::asin(r / d);
     float cosThetaMax =  std::cos(thetaMax);
+
     float rnd = MathUtility::genRandomDecimal();
     float sampleCosTheta =   1 - rnd + rnd * cosThetaMax;
-    // float theta = MathUtility::genRandomDecimal() * thetaMax;
     float theta = std::acos(sampleCosTheta);
 
     float gamma = MathConstant::PI - d / r * std::sin(theta);
-
     float alpha = MathConstant::PI - gamma - theta;
     float phi = MathUtility::genRandomDecimal() * MathConstant::TWO_PI;
 
-    // float thetaMax = MathConstant::PI - alpha;
-    // Vector3 dir = Vector3::sampleUniformFromCone(thetaMax);
-    // Vector3 sampledFramePoint = r * dir;
-    // sampledFramePoint *= Common::SAMPLE_LIGHTR_CORRECT_FACTOR;
-
-    // Vector3 localSampledPoint = frame.pointToWorld(sampledFramePoint);
-
-    // Vector3 worldSampledPoint = m_transform.transformPoint(localSampledPoint);
     Vector3 sampleZAxis(0,0,-1);
     Vector3 sampleBallFrameOrigin(0,0,d);
     Frame sampleBallFrame(sampleZAxis, sampleBallFrameOrigin);
     Vector3 sampledBallPoint = getLocalPoint(alpha, phi);
+
     sampledBallPoint = sampleBallFrame.pointToWorld(sampledBallPoint);
     sampledBallPoint = frame.pointToWorld(sampledBallPoint);
+
     Vector3 worldSampledPoint = m_transform.transformPoint(sampledBallPoint);
 
-    
     float oneMinus = 1 - cosThetaMax;
     float div = 1 /oneMinus;
     pdf = div * MathConstant::INV_TWO_PI;
