@@ -18,5 +18,5 @@ void BetaSceneBuilder::build()
     buildGreenTri(Vector3(50,-60,350));
 
     //to be fixed : light power leak
-    // buildGlassTri(Vector3(20,35,230));
+    buildGlassTri(Vector3(20,35,230));
 }
