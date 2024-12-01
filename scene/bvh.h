@@ -54,6 +54,7 @@ private:
 
 private:
     std::shared_ptr<BVHNode> m_rootNode;
+    inline const static int DEPTH = 18;
 };
 
 #endif

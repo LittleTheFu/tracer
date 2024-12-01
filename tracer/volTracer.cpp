@@ -1,100 +1,68 @@
+// Copyright 2024 <fu>
 #include "volTracer.h"
 #include "mathUtility.h"
-Color VolTracer::trace(std::shared_ptr<const ObjectPool> pool, Ray &ray, int bounceNum, const HitRecord &currentState) const
-{
+
+#include <memory>
+Color VolTracer::trace(std::shared_ptr<const ObjectPool> pool,
+                        Ray &ray, int bounceNum,
+                        const HitRecord &currentState) const {
     HitRecord record;
     bool isHit = pool->hitScene(ray, record);
     float tMax = record.t;
-    
+
     float t;
-    if(ray.media.sigma_major == 0.0f)
+    if (ray.media.sigma_major == 0.0f)
         t = tMax;
     else
         t = MathUtility::sampleExponential(ray.media.sigma_major);
 
-    while(t < tMax)
-    {
+    while (t < tMax) {
         float sigma_a = ray.media.sigma_a;
         float sigma_s = ray.media.sigma_s;
         float sigma_n = ray.media.sigma_n;
 
         Vector3 pt = ray.getPosition(t);
-        Vector3 org(50,0,320);
+        Vector3 org(50, 0, 320);
         float lenSqr = (pt - org).lenthSqr();
 
-        // if (ray.media.emitColor == Color::COLOR_NAVY)
-        // {
-        //     sigma_a = (12000 - lenSqr) / 12000;
-        //     sigma_a *= sigma_a;
-        //     // sigma_a = 1 - sigma_a;
-        //     // if(sigma_a > 20)
-        //     //     sigma_a = 20;
-
-        //     int kkk = 333;
-
-        //     if(sigma_a < 0.2)
-        //     {
-        //         kkk = 999;
-        //     }
-
-        //     if(sigma_a > 10)
-        //     {
-        //         kkk = 98;
-        //     }
-        // }
-
-        // sigma_a = MathUtility::genRandomDecimal();
-        // float xx = pt.x + 80;
-        // sigma_a = xx / 500.0f;
-        // sigma_a = (m_noise.getValue(pt) + 1)/2.0f;
-        // sigma_a /= 20;
         Vector3 fake_pt(pt * 1);
         sigma_a = m_vox.get(fake_pt.x, fake_pt.y, fake_pt.z);
-        if(sigma_a > 0)
-        {
-            // std::cout << "sigma_a: " << sigma_a << std::endl;
+        if (sigma_a > 0) {
             sigma_a *= 10;
-            int pss= 23;
+            int pss = 23;
         }
-        if(sigma_a < 0)
+        if (sigma_a < 0)
             sigma_a = 0;
 
         int index = MathUtility::sampleFromWeights({sigma_a, sigma_s, sigma_n});
 
-        if (index == 0)
-        {
+        if (index == 0) {
             return ray.media.emitColor;
-        }
-        else if(index == 1)
-        {
+        } else if (index == 1) {
             bounceNum--;
-            if(bounceNum == 1)
+            if (bounceNum == 1)
                 return Color::COLOR_RED;
-                //  return ray.media.emitColor;
-            //scattering
+
+            // scattering
             Vector3 dir = Vector3::sampleUniformFromSphere();
             Ray newRay(ray.getPosition(t), dir);
             return trace(pool, newRay, bounceNum, record);
-        }
-        else
-        {
+        } else {
             t += 50 * MathUtility::sampleExponential(ray.media.sigma_major);
             // t += 20;
         }
     }
-        
-    if (isHit)
-    {
+
+    if (isHit) {
         Ray new_ray(ray.getPosition(tMax) + ray.dir * 0.01f, ray.dir);
         new_ray.media = record.getMeida(ray.dir);
 
         return trace(pool, new_ray, bounceNum, record);
     }
-    
+
     return Color::COLOR_BLACK;
 }
 
-Color VolTracer::traceFirstBounce(std::shared_ptr<const ObjectPool> pool, Ray &ray) const
-{
+Color VolTracer::traceFirstBounce(std::shared_ptr<const ObjectPool> pool, Ray &ray) const {
     return Color::COLOR_BLACK;
 }

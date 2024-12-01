@@ -152,11 +152,6 @@ void BoundBox::split(Axis axis, float percent, BoundBox &outBox1, BoundBox &outB
     outBox2.update(minP2);
     outBox2.update(maxP2);
     // assert(!outBox2.hasInfiniteComponent());
-
-    // BoundBox bb1 = outBox1;
-    // BoundBox bb2 = outBox2;
-    // bb1.update(bb2);
-    // assert(this->operator==(bb1));
 }
 
 void BoundBox::update(const Vector3 &p)
@@ -192,12 +187,6 @@ bool BoundBox::isInBox(const Vector3 &point) const
     bool bZ = MathUtility::is_in_range(point.z, minPoint.z, maxPoint.z, true, true);
 
     bool isIn = bX && bY && bZ;
-
-    // if(isIn)
-    // {
-    //     std::cout << "in boundBox" <<std::endl;
-    //     std::cout << *this << std::endl;
-    // }
 
     return isIn;
 }
@@ -257,7 +246,7 @@ bool BoundBox::hit(const Ray &ray, float &t) const
     {
         return true;
     }
-    //nan needed to be handle,later....
+    //nan needed to be handled,later....
     // assert(t >= 0);
     // std::cout << "hit : ( " << tMin << ", " << tMax << " )" << std::endl;
 

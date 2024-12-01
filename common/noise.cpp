@@ -27,21 +27,6 @@ float Noise::getValue(const Vector3 &v) const
     int iiY = modIndex(iY + 1);
     int iiZ = modIndex(iZ + 1);
 
-    // if(iiX < iX)
-    // {
-    //     std::swap(iX, iiX);
-    // }
-
-    // if(iiY < iY)
-    // {
-    //     std::swap(iY, iiY);
-    // }
-
-    // if(iiZ < iZ)
-    // {
-    //     std::swap(iZ, iiZ);
-    // }
-
     fX = MathUtility::smooth(fX);
     fY = MathUtility::smooth(fY);
     fZ = MathUtility::smooth(fZ);
@@ -64,14 +49,6 @@ float Noise::getValue(float u, float v) const
     float uu = u * NUM;
     float vv = v * NUM;
 
-    // int iU, iV;
-    // float fU, fV;
-
-    // getComponent(uu, iU, fU);
-    // getComponent(vv, iV, fV);
-
-    // int iDummy = 0;
-    // float fDummy = 0;
     const Vector3 fake_position(uu, vv, 0);
 
     return getValue(fake_position);

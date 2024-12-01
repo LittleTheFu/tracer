@@ -11,16 +11,9 @@ public:
     static Vector3 getNormal(const Vector3 &from, const Vector3 &to);
 
 public:
-    const static void printCurrentTime();
+    static void printCurrentTime();
 
     const static Vector3 LOCAL_NORMAL;
-    const static Color LIGHT_COLOR;
-
-    const static float SAMPLE_LIGHTR_CORRECT_FACTOR;
-
-    // for mist
-    const static float SIGMA_T;
-    const static float SIGMA_S;
 };
 
 #endif

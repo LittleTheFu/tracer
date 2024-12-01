@@ -8,9 +8,9 @@ bool configUseBVH = false;
 //don't modify this because others are not done yet
 TracerType configTracerType = TracerType::SIMPLE;
 
-int configCameraFactor = 3;
+int configCameraFactor = 16;
 int configBounceTime = 8;
-int configSamplersPerPixel = 1;
+int configSamplersPerPixel = 8;
 
 float configBnuuyScale = 500;
 std::string configBunnyRes = ResourceDef::SIMPLE_BUNNY;
@@ -24,7 +24,7 @@ bool configUseBatchRun = false;
 
 bool configLogProgress = true;
 
-float configLightRadius = 25;
+float configLightRadius = 16;
 Vector3 configLightPos(0, 40, 300);
 float configLightIntensity = 30;
 

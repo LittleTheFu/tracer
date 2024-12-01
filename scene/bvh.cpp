@@ -58,7 +58,7 @@ std::shared_ptr<BVHNode> BVH::generateTree(const std::vector<std::shared_ptr<Geo
     std::shared_ptr<BVHNode> node = std::make_shared<BVHNode>();
     node->boundBox = objectsBoundBox;
 
-    if( depth > 18 || objects.size() <= 1)
+    if( depth > DEPTH || objects.size() <= 1)
     {
         node->objects = objects;
         return node;
@@ -71,7 +71,6 @@ std::shared_ptr<BVHNode> BVH::generateTree(const std::vector<std::shared_ptr<Geo
     // 2.get the position to split along the axis
     //split bound box
     BoundBox leftChildBoundBox, rightChildBoundBox;
-    // objectsBoundBox.split(axis, 0.5, leftChildBoundBox, rightChildBoundBox);
     calcBestSplit(objects, leftChildBoundBox, rightChildBoundBox);
 
     // 3.split objects into two children
