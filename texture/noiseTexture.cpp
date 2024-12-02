@@ -11,7 +11,7 @@ Color NoiseTexture::getColor(float u, float v) const
     float f = 0;
     for (int i = 0; i < 5; i++)
     {
-        float k = std::pow(2, i);
+        float k = static_cast<float>(std::pow(2, i));
         f += m_noise.getValue(u * k, v * k) / k;
     }
 
