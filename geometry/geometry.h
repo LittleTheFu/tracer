@@ -8,6 +8,8 @@
 #include "boundBox.h"
 #include "tagDef.h"
 #include "media.h"
+#include <memory>
+
 
 class Geometry
 {

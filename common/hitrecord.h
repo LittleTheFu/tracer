@@ -7,6 +7,8 @@
 #include "color.h"
 #include <vector>
 #include "media.h"
+#include <memory>
+
 
 class HitRecord
 {
