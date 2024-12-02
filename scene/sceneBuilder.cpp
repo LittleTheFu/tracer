@@ -7,6 +7,7 @@
 #include "materialManager.h"
 #include "room.h"
 #include "tagDef.h"
+#include <memory>
 
 void SceneBuilder::init(std::shared_ptr<ObjectPool> pool)
 {
