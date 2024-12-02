@@ -62,7 +62,7 @@ bool Color::isValid() const
     return (bR && bG && bB);
 }
 
-void Color::getConvertedValue(unsigned char &r, unsigned char &g, unsigned char &b) const
+void Color::getConvertedValue(unsigned char r, unsigned char g, unsigned char b) const
 {
     const float MAX = 255;
 

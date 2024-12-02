@@ -13,7 +13,7 @@ public:
     Color(float r, float g, float b);
     // Color(unsigned char r, unsigned char g, unsigned char b);
     bool isValid() const;
-    void getConvertedValue(unsigned char &r, unsigned char &g, unsigned char &b) const;
+    void getConvertedValue(unsigned char r, unsigned char g, unsigned char b) const;
 
     int validOverflow(float m = 1.0f) const;
     Color &clamp();
