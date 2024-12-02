@@ -56,7 +56,7 @@ float Noise::getValue(float u, float v) const
 
 void Noise::getComponent(float a, int &i, float &f) const
 {
-    i = std::floor(a);
+    i = static_cast<int>(std::floor(a));
     f = a - i;
     i = modIndex(i);
 }

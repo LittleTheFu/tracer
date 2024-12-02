@@ -26,7 +26,11 @@ Color VolTracer::trace(std::shared_ptr<const ObjectPool> pool,
         float lenSqr = (pt - org).lenthSqr();
 
         Vector3 fake_pt(pt * 1);
-        sigma_a = m_vox.get(fake_pt.x, fake_pt.y, fake_pt.z);
+
+        int x = static_cast<int>(fake_pt.x);
+        int y = static_cast<int>(fake_pt.y);
+        int z = static_cast<int>(fake_pt.z);
+        sigma_a = m_vox.get(x, y, z);
         if (sigma_a > 0) {
             sigma_a *= 10;
             int pss = 23;
