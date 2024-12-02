@@ -3,6 +3,7 @@
 
 #include "geometry.h"
 #include "vector.h"
+#include <memory>
 
 class TriVertex
 {

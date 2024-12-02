@@ -3,6 +3,7 @@
 
 #include "geometry.h"
 #include "material.h"
+#include <memory>
 
 class Plane : public Geometry
 {
