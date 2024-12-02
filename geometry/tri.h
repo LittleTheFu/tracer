@@ -47,7 +47,7 @@ public:
 
     virtual bool hit(const Ray &ray, HitRecord &record) const override;
     
-    virtual Vector3 getCentroid() const;
+    virtual Vector3 getCentroid() const override;
     virtual float surfaceArea() const override;
     virtual void buildBoundBox() override;
 
