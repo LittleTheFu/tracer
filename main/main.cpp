@@ -35,11 +35,7 @@ void testSample()
 int main()
 {
     Scene scene(createBuilder(), configTracerType);
-
-    if (configUseBatchRun)
-        scene.batchRun();
-    else
-        scene.run();
+    scene.run();
 
     return 0;
 }
