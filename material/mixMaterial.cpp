@@ -40,7 +40,7 @@ Color MixMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float 
     bool totalReflect = false;
     Vector3 inputVector = -wo;
     float fresnel;
-    Vector3 refractVector = inputVector._refract(normal, etaInputSide, etaOutputSide, totalReflect, fresnel);
+    Vector3 refractVector = inputVector.refract(normal, etaInputSide, etaOutputSide, totalReflect, fresnel);
     float F = 1;
     if (!totalReflect)
     {
