@@ -254,7 +254,7 @@ Vector3 Vector3::reflect(const Vector3 &normal) const
     return 2 * m * n + (*this);
 }
 
-Vector3 Vector3::_refract(const Vector3 &normal,
+Vector3 Vector3::refract(const Vector3 &normal,
                           float etaInputSide,
                           float etaOutputSide,
                           bool &totalReflect,

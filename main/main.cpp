@@ -24,14 +24,6 @@ std::shared_ptr<SceneBuilder> createBuilder()
     return builder;
 }
 
-void testSample()
-{
-    for(int i = 0; i < 100; i++)
-    {
-        std::cout << MathUtility::sampleExponential(2) << std::endl;
-    }
-}
-
 int main()
 {
     Scene scene(createBuilder(), configTracerType);

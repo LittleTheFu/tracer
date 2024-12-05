@@ -49,7 +49,7 @@ public:
     bool isSameDir(const Vector3 & that) const;
 
     Vector3 reflect(const Vector3 &normal) const;
-    Vector3 _refract(const Vector3 &normal,
+    Vector3 refract(const Vector3 &normal,
                      float etaOutside,
                      float etaInside,
                      bool &totalReflect,
