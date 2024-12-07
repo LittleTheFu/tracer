@@ -75,6 +75,7 @@ SET (RAY_TRACER_SOURCE
     texture/noiseTexture.cpp
     texture/texture.cpp
     texture/uvTexture.cpp
+    tracer/neeTracer.cpp
     tracer/randomTracer.cpp
     tracer/simpleTracer.cpp
     tracer/tracer.cpp
@@ -146,6 +147,7 @@ SET (RAY_TRACER_HEADER
     texture/noiseTexture.h
     texture/texture.h
     texture/uvTexture.h
+    tracer/neeTracer.h
     tracer/randomTracer.h
     tracer/simpleTracer.h
     tracer/tracer.h
