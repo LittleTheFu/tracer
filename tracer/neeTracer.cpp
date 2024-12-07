@@ -1,5 +1,7 @@
 #include "neeTracer.h"
 #include "hitrecord.h"
+#include "mathUtility.h"
+
 
 NeeTracer::NeeTracer(int depth)
 {
@@ -60,7 +62,9 @@ Color NeeTracer::trace(std::shared_ptr<const ObjectPool> pool, Ray &ray) const
         beta *= (record.f * record.dot);
 
         //trace new ray
-        hitRay.origin = record.point;
+        // multiply by a 0.001f is a lazy way to avoid self intersection
+        float sign = MathUtility::getSign(record.normal * record.reflect);
+        hitRay.origin = record.point + sign * record.normal * 0.001f;
         hitRay.dir = record.reflect;
     }
 
