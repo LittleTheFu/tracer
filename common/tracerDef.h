@@ -5,6 +5,7 @@ enum class TracerType
 {
     RANDOM = 0,
     SIMPLE,
+    NEE,
     VOLUME,
 };
 

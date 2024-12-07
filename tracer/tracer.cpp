@@ -5,7 +5,12 @@ Color Tracer::trace(std::shared_ptr<const ObjectPool> pool,
                     int bounceNum,
                     const HitRecord &currentState) const
 {
-    return Color::COLOR_AQUA;
+    return Color::COLOR_RED;
+}
+
+Color Tracer::trace(std::shared_ptr<const ObjectPool> pool, Ray &ray) const
+{
+    return Color::COLOR_RED;
 }
 
 Color Tracer::traceFirstBounce(std::shared_ptr<const ObjectPool> pool, Ray &ray) const
