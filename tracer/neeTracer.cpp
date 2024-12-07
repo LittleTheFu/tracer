@@ -1,9 +1,10 @@
 #include "neeTracer.h"
 #include "hitrecord.h"
 
-NeeTracer::NeeTracer()
+NeeTracer::NeeTracer(int depth)
 {
-    m_depth = 10;
+    if(depth > 1)
+        m_depth = depth;
 }
 
 Color NeeTracer::trace(std::shared_ptr<const ObjectPool> pool, Ray &ray) const
