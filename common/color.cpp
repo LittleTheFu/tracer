@@ -117,8 +117,8 @@ Color &Color::operator+=(const Color &that)
 Color &Color::operator*=(const Color &that)
 {
     r *= that.r;
-    r *= that.g;
-    r *= that.b;
+    g *= that.g;
+    b *= that.b;
 
     return *this;
 }
