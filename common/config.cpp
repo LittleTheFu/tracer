@@ -8,9 +8,9 @@ bool configUseBVH = false;
 //don't modify this because others are not done yet
 TracerType configTracerType = TracerType::NEE;
 
-int configCameraFactor = 2;
+int configCameraFactor = 6;
 int configBounceTime = 8;
-int configSamplersPerPixel = 1;
+int configSamplersPerPixel = 6;
 
 float configBnuuyScale = 500;
 std::string configBunnyRes = ResourceDef::SIMPLE_BUNNY;
