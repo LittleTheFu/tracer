@@ -16,11 +16,11 @@ Color NeeTracer::trace(std::shared_ptr<const ObjectPool> pool, Ray &ray) const
 
     int depth = 0;
     Ray hitRay(ray);
+
     while (true)
     {
         if (depth > m_depth)
             break;
-
         depth++;
 
         HitRecord record;
@@ -45,10 +45,14 @@ Color NeeTracer::trace(std::shared_ptr<const ObjectPool> pool, Ray &ray) const
         beta *= (record.f * record.dot);
         hitRay = genNextRay(record);
 
-        //Russian Roulette test
-        float p = beta.getClampedMaxComponent();
+        // bug? why?
+        // to bright because of the lack of attenuation factor
+        // float p = 1.0f - beta.getClampedMaxComponent();
+        float p = MathUtility::genRandomDecimal();
         if(m_rouletter.evaluate(p))
+        {
             break;
+        }
         beta /= p;
     }
 

@@ -11,7 +11,7 @@
 class NeeTracer : public Tracer
 {
 public:
-    NeeTracer(int depth = 10);
+    NeeTracer(int depth = 20);
     Color trace(std::shared_ptr<const ObjectPool> pool, Ray &ray) const override;
 
 private:
