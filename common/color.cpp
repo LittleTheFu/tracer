@@ -44,10 +44,10 @@ Color::Color(float r, float g, float b)
 float Color::getClampedMaxComponent() const
 {
     if (r >= g && r >= b)
-        return r;
+        return MathUtility::clamp(r, 0, 1);
 
     if (g >= r && g >= b)
-        return g;
+        return MathUtility::clamp(g, 0, 1);
 
     return MathUtility::clamp(b, 0, 1);
 }
