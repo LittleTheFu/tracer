@@ -11,7 +11,9 @@ public:
 public:
     Color();
     Color(float r, float g, float b);
-    // Color(unsigned char r, unsigned char g, unsigned char b);
+
+    float getClampedMaxComponent() const;
+    
     bool isValid() const;
     void getConvertedValue(unsigned char &r, unsigned char &g, unsigned char &b) const;
 

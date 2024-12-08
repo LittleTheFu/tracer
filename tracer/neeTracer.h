@@ -5,6 +5,7 @@
 #include "objectPool.h"
 #include "ray.h"
 #include "color.h"
+#include "russianRouletter.h"
 #include <memory>
 
 class NeeTracer : public Tracer
@@ -26,6 +27,7 @@ private:
 
 private:
     int m_depth;
+    RussianRouletter m_rouletter;
 };
 
 #endif

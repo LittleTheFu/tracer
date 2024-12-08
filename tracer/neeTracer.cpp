@@ -46,6 +46,12 @@ Color NeeTracer::trace(std::shared_ptr<const ObjectPool> pool, Ray &ray) const
 
         // trace new ray
         hitRay = genNextRay(record);
+
+        //Russian Roulette test
+        float p = beta.getClampedMaxComponent();
+        if(m_rouletter.evaluate(p))
+            break;
+        beta /= p;
     }
 
     return color;
@@ -85,7 +91,7 @@ Color NeeTracer::sampleLightFromNormalMaterial(std::shared_ptr<const ObjectPool>
 Ray NeeTracer::genNextRay(const HitRecord &record) const
 {
     float sign = MathUtility::getSign(record.normal * record.reflect);
-    
+
     //  multiply by a 0.001f is a lazy way to avoid self intersection
     Vector3 origin = record.point + sign * record.normal * 0.001f;
 

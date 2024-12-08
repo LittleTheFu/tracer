@@ -41,6 +41,17 @@ Color::Color(float r, float g, float b)
     this->b = b;
 }
 
+float Color::getClampedMaxComponent() const
+{
+    if (r >= g && r >= b)
+        return r;
+
+    if (g >= r && g >= b)
+        return g;
+
+    return MathUtility::clamp(b, 0, 1);
+}
+
 // Color::Color(unsigned char r, unsigned char g, unsigned char b)
 // {
 //     const float MAX = 255;
