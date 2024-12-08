@@ -46,14 +46,14 @@ Color NeeTracer::trace(std::shared_ptr<const ObjectPool> pool, Ray &ray) const
         hitRay = genNextRay(record);
 
         // bug? why?
-        // to bright because of the lack of attenuation factor
+        // too bright due to the lack of attenuation factor
         // float p = 1.0f - beta.getClampedMaxComponent();
-        float p = MathUtility::genRandomDecimal();
-        if(m_rouletter.evaluate(p))
-        {
-            break;
-        }
-        beta /= p;
+        // float p = MathUtility::genRandomDecimal();
+        // if(m_rouletter.evaluate(p))
+        // {
+        //     break;
+        // }
+        // beta /= p;
     }
 
     return color;
