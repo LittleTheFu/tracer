@@ -37,6 +37,8 @@ private:
 
     std::shared_ptr<const Material> mirrorMtrl;
     std::shared_ptr<const Material> glassMtrl;
+
+    std::shared_ptr<const Material> mixMtrl;
 };
 
 #endif

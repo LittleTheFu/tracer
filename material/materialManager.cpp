@@ -3,6 +3,7 @@
 #include "imageTexture.h"
 #include "resourceDef.h"
 #include "config.h"
+#include "mixMaterial.h"
 
 MaterialManager* MaterialManager::instance = nullptr;
 
@@ -38,6 +39,8 @@ void MaterialManager::init()
     mirrorMtrl = std::make_shared<MirrorMaterial>();
     glassMtrl = std::make_shared<GlassMaterial>();
 
+    mixMtrl = std::make_shared<MixMaterial>();
+
     m_map[MATERIAL_TYPE::M_RED] = lambMtrlRed;
     m_map[MATERIAL_TYPE::M_YELLOW] = lambMtrlYellow;
     m_map[MATERIAL_TYPE::M_AQUA] = lambMtrlAqua;
@@ -48,6 +51,7 @@ void MaterialManager::init()
     m_map[MATERIAL_TYPE::M_LENA] = lambMtrlTexLena;
     m_map[MATERIAL_TYPE::M_MIRROR] = mirrorMtrl;
     m_map[MATERIAL_TYPE::M_GLASS] = glassMtrl;
+    m_map[MATERIAL_TYPE::M_MIX] = mixMtrl;
 }
 
 std::shared_ptr<const Material> MaterialManager::get(MATERIAL_TYPE type) const
