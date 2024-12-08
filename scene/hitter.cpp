@@ -27,10 +27,10 @@ Color Hitter::getColorFromLight(const Ray &ray) const
     }
 
     // hotfix for self intersection
-    if(record.t < 0.001f)
-    {
-        return color;
-    }
+    // if(record.t < 0.001f)
+    // {
+    //     return color;
+    // }
 
     if (t < record.t)
     {

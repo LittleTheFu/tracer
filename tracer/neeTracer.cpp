@@ -46,7 +46,8 @@ Color NeeTracer::trace(std::shared_ptr<const ObjectPool> pool, Ray &ray) const
             Vector3 lightDir = lightSurfacePoint - record.point;
             lightDir.normalize();
 
-            Ray sampleLightRay(record.point, lightDir);
+            //plus lightDir * 0.001f is a hotfix to avoid self intersection
+            Ray sampleLightRay(record.point + lightDir * 0.001f, lightDir);
             Color lightColor = pool->getColorFromLight(sampleLightRay);
           
             //to be fixed later : test visibility with light first?
