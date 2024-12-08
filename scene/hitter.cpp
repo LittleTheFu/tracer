@@ -26,6 +26,11 @@ Color Hitter::getColorFromLight(const Ray &ray) const
         return color;
     }
 
+    if(record.t < 0.001f)
+    {
+        return color;
+    }
+
     if (t < record.t)
     {
         // return color * dot;
