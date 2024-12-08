@@ -43,8 +43,6 @@ Color NeeTracer::trace(std::shared_ptr<const ObjectPool> pool, Ray &ray) const
         }
 
         beta *= (record.f * record.dot);
-
-        // trace new ray
         hitRay = genNextRay(record);
 
         //Russian Roulette test
