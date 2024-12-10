@@ -1,14 +1,14 @@
 #include "config.h"
 
 //don't use ROOM_VOLUME right now
-ConfigScene configScene = ConfigScene::ROOM_BUNNY;
+ConfigScene configScene = ConfigScene::ROOM_SIMPLE;
 
-bool configUseBVH = true;
+bool configUseBVH = false;
 
 //don't modify this because others are not done yet
 TracerType configTracerType = TracerType::NEE;
 
-int configCameraFactor = 4;
+int configCameraFactor = 5;
 int configBounceTime = 8;//this one will be deleted soon
 int configSamplersPerPixel = 5;
 int configNeeTracerDepth = 7;
