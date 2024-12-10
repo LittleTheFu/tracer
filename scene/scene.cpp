@@ -21,7 +21,7 @@ Scene::Scene(std::shared_ptr<SceneBuilder> pBuilder, TracerType tracerType)
     else if (tracerType == TracerType::RANDOM)
         tracer = std::make_shared<RandomTracer>();
     else if(tracerType == TracerType::NEE)
-        tracer = std::make_shared<NeeTracer>();
+        tracer = std::make_shared<NeeTracer>(configNeeTracerDepth);
     else
         tracer = std::make_shared<VolTracer>();
 
