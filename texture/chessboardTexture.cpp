@@ -1,9 +1,14 @@
 #include "chessboardTexture.h"
 
+ChessboardTexture::ChessboardTexture()
+{
+    m_factor = 0.02f;
+}
+
 Color ChessboardTexture::getColor(float u, float v) const
 {
-    int iU = (int)(u / 0.5);
-    int iV = (int)(v / 0.5);
+    auto iU = (static_cast<unsigned int>(u / m_factor)) % 2;
+    auto iV = (static_cast<unsigned int>(v / m_factor)) % 2;
 
     if (iU == 0 && iV == 0)
     {
@@ -15,5 +20,5 @@ Color ChessboardTexture::getColor(float u, float v) const
         return Color::COLOR_WHITE;
     }
 
-    return Color::COLOR_BLACK;
+    return Color::COLOR_LIGHT_GRAY;
 }

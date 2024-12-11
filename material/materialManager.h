@@ -34,6 +34,7 @@ private:
     std::shared_ptr<const Material> lambMtrlWhite;
 
     std::shared_ptr<const Material> lambMtrlTexLena;
+    std::shared_ptr<const Material> lambMtrlTexChessBoard;
 
     std::shared_ptr<const Material> mirrorMtrl;
     std::shared_ptr<const Material> glassMtrl;

@@ -13,6 +13,7 @@ enum class MATERIAL_TYPE
     M_WHITE,
 
     M_LENA,
+    M_CHESSBOARD,
 
     M_MIRROR,
     M_GLASS,

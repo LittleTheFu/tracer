@@ -4,6 +4,7 @@
 #include "resourceDef.h"
 #include "config.h"
 #include "mixMaterial.h"
+#include "chessboardTexture.h"
 
 MaterialManager* MaterialManager::instance = nullptr;
 
@@ -35,6 +36,7 @@ void MaterialManager::init()
     lambMtrlWhite = std::make_shared<LambertianMaterial>(std::make_shared<ConstTexture>(Color::COLOR_WHITE), rho);
 
     lambMtrlTexLena = std::make_shared<LambertianMaterial>(std::make_shared<ImageTexture>(ResourceDef::LENA), rho);
+    lambMtrlTexChessBoard = std::make_shared<LambertianMaterial>(std::make_shared<ChessboardTexture>(), 0.2f);
 
     mirrorMtrl = std::make_shared<MirrorMaterial>();
     glassMtrl = std::make_shared<GlassMaterial>();
@@ -49,6 +51,7 @@ void MaterialManager::init()
     m_map[MATERIAL_TYPE::M_BLUE] = lambMtrlBlue;
     m_map[MATERIAL_TYPE::M_WHITE] = lambMtrlWhite;
     m_map[MATERIAL_TYPE::M_LENA] = lambMtrlTexLena;
+    m_map[MATERIAL_TYPE::M_CHESSBOARD] = lambMtrlTexChessBoard;
     m_map[MATERIAL_TYPE::M_MIRROR] = mirrorMtrl;
     m_map[MATERIAL_TYPE::M_GLASS] = glassMtrl;
     m_map[MATERIAL_TYPE::M_MIX] = mixMtrl;
