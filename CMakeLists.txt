@@ -45,6 +45,7 @@ SET (RAY_TRACER_SOURCE
     geometry/tri.cpp
     light/light.cpp
     # main/main.cpp
+    material/combinedMaterial.cpp
     material/dummyMaterial.cpp
     material/glassMaterial.cpp
     material/lambertianMaterial.cpp
@@ -117,6 +118,7 @@ SET (RAY_TRACER_HEADER
     geometry/room.h
     geometry/tri.h
     light/light.h
+    material/combinedMaterial.h
     material/dummyMaterial.h
     material/glassMaterial.h
     material/lambertianMaterial.h
