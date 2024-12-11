@@ -3,7 +3,11 @@
 #include "imageTexture.h"
 #include "resourceDef.h"
 #include "config.h"
+#include "lambertianMaterial.h"
+#include "mirrorMaterial.h"
+#include "glassMaterial.h"
 #include "mixMaterial.h"
+#include "combinedMaterial.h"
 #include "chessboardTexture.h"
 
 MaterialManager* MaterialManager::instance = nullptr;
@@ -42,6 +46,8 @@ void MaterialManager::init()
     glassMtrl = std::make_shared<GlassMaterial>();
 
     mixMtrl = std::make_shared<MixMaterial>();
+
+    combinedMtrl = std::make_shared<CombinedMaterial>(lambMtrlTexChessBoard, mirrorMtrl);
 
     m_map[MATERIAL_TYPE::M_RED] = lambMtrlRed;
     m_map[MATERIAL_TYPE::M_YELLOW] = lambMtrlYellow;

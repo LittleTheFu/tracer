@@ -19,6 +19,7 @@ enum class MATERIAL_TYPE
     M_GLASS,
 
     M_MIX,
+    M_COMBINED,
 };
 
 #endif

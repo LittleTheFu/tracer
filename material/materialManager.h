@@ -1,9 +1,7 @@
 #ifndef _MATERIAL_MANAGER_H_
 #define _MATERIAL_MANAGER_H_
 
-#include "lambertianMaterial.h"
-#include "mirrorMaterial.h"
-#include "glassMaterial.h"
+#include "material.h"
 #include "materialDef.h"
 #include <map>
 #include <memory>
@@ -40,6 +38,7 @@ private:
     std::shared_ptr<const Material> glassMtrl;
 
     std::shared_ptr<const Material> mixMtrl;
+    std::shared_ptr<const Material> combinedMtrl;
 };
 
 #endif
