@@ -6,13 +6,9 @@ MirrorMaterial::MirrorMaterial()
     m_pMirrorBrdf = new Mirror();
 }
 
-bool MirrorMaterial::isDelta() const
+Color MirrorMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf, bool &isDelta) const
 {
-    return true;
-}
-
-Color MirrorMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf) const
-{
+    isDelta = true;
     Color color = m_pMirrorBrdf->sample_f(wo, wi, pdf);
 
     return color;

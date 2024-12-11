@@ -15,8 +15,9 @@ Color LambertianMaterial::get_f(const Vector3 &wo, const Vector3 &wi) const
     return f;
 }
 
-Color LambertianMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf) const
+Color LambertianMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf, bool &isDelta) const
 {
+    isDelta = false;
     Color textureColor = m_pTexture->getColor(u, v);
     m_pLambertianBrdf->setColor(textureColor);
 

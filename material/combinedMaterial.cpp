@@ -15,15 +15,7 @@ CombinedMaterial::CombinedMaterial(std::shared_ptr<const Material> first, std::s
     m_currentMaterial = m_FirstMaterial;
 }
 
-bool CombinedMaterial::isDelta() const
-{
-    if (m_currentMaterial)
-        return m_currentMaterial->isDelta();
-
-    return false;
-}
-
-Color CombinedMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf) const
+Color CombinedMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf, bool &isDelta) const
 {
     // if (MathUtility::genRandomDecimal() < m_factor)
     //     m_currentMaterial = m_FirstMaterial;

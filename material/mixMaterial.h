@@ -10,9 +10,8 @@ class MixMaterial : public Material
 {
 public:
     MixMaterial();
-    
-    virtual bool isDelta() const override;
-    virtual Color eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf) const override;
+
+    virtual Color eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf, bool &isDelta) const override;
 
 private:
     Glass *m_pGlassBrdf;

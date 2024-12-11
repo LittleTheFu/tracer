@@ -102,12 +102,11 @@ bool Tri::hit(const Ray &ray, HitRecord &record) const
     if (m_pMtrl)
     {
         Vector3 r;
-        record.f = m_pMtrl->eval(record.u, record.v, -localRay.dir, r, record.reflectPdf);
+        record.f = m_pMtrl->eval(record.u, record.v, -localRay.dir, r, record.reflectPdf, record.isDelta);
         assert(record.f.isValid());
  
         record.dot = MathUtility::clamp(std::abs(r * Common::LOCAL_NORMAL), MathConstant::FLOAT_SAMLL_NUMBER, 1.0f);
         record.reflect = m_transform.transformVector(frame.vectorToWorld(r));
-        record.isDelta = m_pMtrl->isDelta();
 
         if (record.isDelta)
         {

@@ -12,12 +12,7 @@ MixMaterial::MixMaterial()
     m_pMirrorBrdf = new Mirror();
 }
 
-bool MixMaterial::isDelta() const
-{
-    return true;
-}
-
-Color MixMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf) const
+Color MixMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf, bool &isDelta) const
 {
     float etaInputSide = m_etaOutside;
     float etaOutputSide = m_etaInside;
