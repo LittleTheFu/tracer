@@ -261,7 +261,7 @@ void Ball::HandleMaterial(const Vector3 &localNormal, const Vector3 &localPoint,
     Vector3 localReflectVector = frame.pointToWorld(r);
     localReflectVector.normalize();
     record.reflect = m_transform.transformVector(localReflectVector);
-    record.isMirror = m_pMtrl->isMirror();
+    record.isDelta = m_pMtrl->isDelta();
 
     if (record.isDelta)
     {

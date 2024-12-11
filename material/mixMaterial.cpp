@@ -12,11 +12,6 @@ MixMaterial::MixMaterial()
     m_pMirrorBrdf = new Mirror();
 }
 
-bool MixMaterial::isMirror() const
-{
-    return true;
-}
-
 bool MixMaterial::isDelta() const
 {
     return true;

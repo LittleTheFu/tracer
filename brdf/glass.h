@@ -10,7 +10,6 @@ public:
 
     Color sample_f(const Vector3 &wo, Vector3 &wi, float &pdf) const;
     bool isGlass() const;
-    bool isMirror() const;
 
 private:
     float m_etaOutside;

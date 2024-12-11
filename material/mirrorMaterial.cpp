@@ -6,11 +6,6 @@ MirrorMaterial::MirrorMaterial()
     m_pMirrorBrdf = new Mirror();
 }
 
-bool MirrorMaterial::isMirror() const
-{
-    return true;
-}
-
 bool MirrorMaterial::isDelta() const
 {
     return true;

@@ -14,11 +14,6 @@ Color Material::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pd
     return Color::COLOR_BLACK;
 }
 
-bool Material::isMirror() const
-{
-    return false;
-}
-
 bool Material::isDelta() const
 {
     return false;

@@ -107,7 +107,6 @@ bool Tri::hit(const Ray &ray, HitRecord &record) const
  
         record.dot = MathUtility::clamp(std::abs(r * Common::LOCAL_NORMAL), MathConstant::FLOAT_SAMLL_NUMBER, 1.0f);
         record.reflect = m_transform.transformVector(frame.vectorToWorld(r));
-        record.isMirror = m_pMtrl->isMirror();
         record.isDelta = m_pMtrl->isDelta();
 
         if (record.isDelta)

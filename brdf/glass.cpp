@@ -51,8 +51,3 @@ bool Glass::isGlass() const
 {
     return true;
 }
-
-bool Glass::isMirror() const
-{
-    return true;
-}

@@ -25,8 +25,3 @@ Color Mirror::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf) const
 
     return Color::COLOR_WHITE;
 }
-
-bool Mirror::isMirror() const
-{
-    return true;
-}

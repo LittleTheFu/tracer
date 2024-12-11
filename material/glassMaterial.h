@@ -8,10 +8,8 @@ class GlassMaterial : public Material
 {
 public:
     GlassMaterial();
-    virtual bool isMirror() const override;
 
     virtual bool isDelta() const override;
-
     virtual Color eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf) const override;
 
 private:

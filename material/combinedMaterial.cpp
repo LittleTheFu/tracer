@@ -15,14 +15,6 @@ CombinedMaterial::CombinedMaterial(std::shared_ptr<const Material> first, std::s
     m_currentMaterial = m_FirstMaterial;
 }
 
-bool CombinedMaterial::isMirror() const
-{
-    if (m_currentMaterial)
-        return m_currentMaterial->isMirror();
-
-    return false;
-}
-
 bool CombinedMaterial::isDelta() const
 {
     if (m_currentMaterial)

@@ -13,10 +13,10 @@ void BetaSceneBuilder::build()
 
     //to be fixed : light power leak
     // buildGlassBall(Vector3(60, 30, 300), 20);
-    // buildMixBall(Vector3(0, -50, 300), 40);
+    buildMixBall(Vector3(0, -50, 300), 40);
     
     // buildRedTri(Vector3(55,-20,370));
-    buildGreenTri(Vector3(50,-60,350));
+    // buildGreenTri(Vector3(50,-60,350));
 
     //to be fixed : light power leak
     // buildGlassTri(Vector3(20,35,230));

@@ -10,7 +10,6 @@ public:
     CombinedMaterial() = delete;
     CombinedMaterial(std::shared_ptr<const Material> first, std::shared_ptr<const Material> second);
 
-    virtual bool isMirror() const override;
     virtual bool isDelta() const override;
 
     virtual Color eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf) const override;
