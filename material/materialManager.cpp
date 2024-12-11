@@ -61,6 +61,7 @@ void MaterialManager::init()
     m_map[MATERIAL_TYPE::M_MIRROR] = mirrorMtrl;
     m_map[MATERIAL_TYPE::M_GLASS] = glassMtrl;
     m_map[MATERIAL_TYPE::M_MIX] = mixMtrl;
+    m_map[MATERIAL_TYPE::M_COMBINED] = combinedMtrl;
 }
 
 std::shared_ptr<const Material> MaterialManager::get(MATERIAL_TYPE type) const
