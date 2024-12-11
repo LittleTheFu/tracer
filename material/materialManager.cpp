@@ -34,7 +34,7 @@ void MaterialManager::init()
     lambMtrlBlue = std::make_shared<LambertianMaterial>(std::make_shared<ConstTexture>(Color::COLOR_BLUE), rho);
     lambMtrlWhite = std::make_shared<LambertianMaterial>(std::make_shared<ConstTexture>(Color::COLOR_WHITE), rho);
 
-    lambMtrlTexLena = std::make_shared<LambertianMaterial>(std::make_shared<ImageTexture>(ResourceDef::LENA), 1);
+    lambMtrlTexLena = std::make_shared<LambertianMaterial>(std::make_shared<ImageTexture>(ResourceDef::LENA), rho);
 
     mirrorMtrl = std::make_shared<MirrorMaterial>();
     glassMtrl = std::make_shared<GlassMaterial>();
