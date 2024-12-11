@@ -48,15 +48,15 @@ void Camera::setBounceTime(int bounceTime)
     m_BounceTime = bounceTime;
 }
 
+#include <thread>
+#include <vector>
+
 void Camera::render()
 {
     m_Image.resize(m_Width * m_Height * 4);
 
-    for (unsigned y = 0; y < m_Height; y++)
-    {
-        // TimeRecorder rec;
-        // rec.start();
-
+    // 定义一个函数来处理每一行的渲染
+    auto renderRow = [this](unsigned y) {
         for (unsigned x = 0; x < m_Width; x++)
         {
             if (configLogProgress)
@@ -65,18 +65,39 @@ void Camera::render()
             HitRecord record = InitHitRecord();
             Ray ray = generateRay(static_cast<float>(x), static_cast<float>(y));
 
-            // Color color = m_pTracer->traceFirstBounce(m_pObjectPool, ray);
             Color color = Color::COLOR_BLACK;
             for (int time = 0; time < configSamplersPerPixel; time++)
             {
                 color += m_pTracer->trace(m_pObjectPool, ray);
             }
             color /= static_cast<float>(configSamplersPerPixel);
-            
-            setImage(x, y, color);
 
+            setImage(x, y, color);
         }
-        // rec.end();
+    };
+
+    // 创建一个线程池
+    std::vector<std::thread> threads;
+    unsigned numThreads = std::thread::hardware_concurrency() - 1; // 获取硬件支持的最大线程数
+
+    for (unsigned y = 0; y < m_Height; y++)
+    {
+        threads.emplace_back(renderRow, y);
+        // 如果线程数达到硬件最大线程数，则等待所有线程完成
+        if (threads.size() == numThreads)
+        {
+            for (auto& thread : threads)
+            {
+                thread.join();
+            }
+            threads.clear();
+        }
+    }
+
+    // 等待剩余的线程完成
+    for (auto& thread : threads)
+    {
+        thread.join();
     }
 }
 
