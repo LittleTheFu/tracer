@@ -30,6 +30,9 @@ Color NeeTracer::trace(std::shared_ptr<const ObjectPool> pool, Ray &ray) const
             break;
         }
 
+        if(record.reflectPdf == 0.0f)
+            break;
+
         // sample light
         if (record.isDelta)
         {
