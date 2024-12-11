@@ -2,7 +2,7 @@
 #define _NEE_TRACER_H_
 
 #include "tracer.h"
-#include "objectPool.h"
+#include "objectpool.h"
 #include "ray.h"
 #include "color.h"
 #include "russianRouletter.h"
