@@ -17,16 +17,18 @@ CombinedMaterial::CombinedMaterial(std::shared_ptr<const Material> first, std::s
 
 Color CombinedMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf, bool &isDelta) const
 {
+    Color color;
+
     if (MathUtility::genRandomDecimal() < m_factor)
     {
-        m_FirstMaterial->eval(u, v, wo, wi, pdf, isDelta);
+        color = m_FirstMaterial->eval(u, v, wo, wi, pdf, isDelta);
         pdf *= m_factor;
     }
     else
     {
-        m_SecondMaterial->eval(u, v, wo, wi, pdf, isDelta);
+        color = m_SecondMaterial->eval(u, v, wo, wi, pdf, isDelta);
         pdf *= (1 - m_factor);
     }
 
-    return Color();
+    return color;
 }
