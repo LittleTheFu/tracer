@@ -5,6 +5,7 @@
 #include "glass.h"
 #include "mirror.h"
 
+//this class should be renamed to something like related to "glass"
 class MixMaterial : public Material
 {
 public:
