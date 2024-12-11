@@ -14,6 +14,7 @@ MixMaterial::MixMaterial()
 
 Color MixMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf, bool &isDelta) const
 {
+    isDelta = true;
     float etaInputSide = m_etaOutside;
     float etaOutputSide = m_etaInside;
     Vector3 normal = Brdf::LOCAL_NORMAL;
