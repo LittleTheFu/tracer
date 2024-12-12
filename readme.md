@@ -50,7 +50,7 @@ reference: https://pbr-book.org/4ed/contents
 ---
 ![img](document/sample_0.png)
 ---
-![img](document/sample_1.gif)
+![img](document/sample_1.png)
 ---
 ![img](document/sample_2.png)
 ---

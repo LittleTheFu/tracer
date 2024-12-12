@@ -10,5 +10,3 @@ not done yet
 ---
 ![img](vector_refract_calc.jpg)
 ---
-![img](random_tracer.gif)
----
