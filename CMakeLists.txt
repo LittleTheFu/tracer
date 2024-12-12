@@ -52,7 +52,7 @@ SET (RAY_TRACER_SOURCE
     material/material.cpp
     material/materialManager.cpp
     material/mirrorMaterial.cpp
-    material/mixMaterial.cpp
+    material/dielectricMaterial.cpp
     mathmatic/frame.cpp
     mathmatic/matrix.cpp
     mathmatic/ray.cpp
@@ -126,7 +126,7 @@ SET (RAY_TRACER_HEADER
     material/materialDef.h
     material/materialManager.h
     material/mirrorMaterial.h
-    material/mixMaterial.h
+    material/dielectricMaterial.h
     mathmatic/frame.h
     mathmatic/matrix.h
     mathmatic/ray.h

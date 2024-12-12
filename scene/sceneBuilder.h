@@ -4,7 +4,7 @@
 #include "lambertianMaterial.h"
 #include "mirrorMaterial.h"
 #include "glassMaterial.h"
-#include "mixMaterial.h"
+#include "dielectricMaterial.h"
 #include "objectpool.h"
 #include "materialDef.h"
 #include <memory>

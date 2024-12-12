@@ -6,10 +6,10 @@
 #include "mirror.h"
 
 //this class should be renamed to something like related to "glass"
-class MixMaterial : public Material
+class DielectricMaterial : public Material
 {
 public:
-    MixMaterial();
+    DielectricMaterial();
 
     virtual Color eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf, bool &isDelta) const override;
 

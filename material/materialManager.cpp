@@ -6,7 +6,7 @@
 #include "lambertianMaterial.h"
 #include "mirrorMaterial.h"
 #include "glassMaterial.h"
-#include "mixMaterial.h"
+#include "dielectricMaterial.h"
 #include "combinedMaterial.h"
 #include "chessboardTexture.h"
 
@@ -45,7 +45,7 @@ void MaterialManager::init()
     mirrorMtrl = std::make_shared<MirrorMaterial>();
     glassMtrl = std::make_shared<GlassMaterial>();
 
-    mixMtrl = std::make_shared<MixMaterial>();
+    mixMtrl = std::make_shared<DielectricMaterial>();
 
     combinedMtrl = std::make_shared<CombinedMaterial>(lambMtrlTexChessBoard, mirrorMtrl);
 

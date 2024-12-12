@@ -1,9 +1,9 @@
-#include "mixMaterial.h"
+#include "dielectricMaterial.h"
 #include "mathUtility.h"
 #include "mathConstantDef.h"
 #include <cmath>
 
-MixMaterial::MixMaterial()
+DielectricMaterial::DielectricMaterial()
 {
     m_etaOutside = 1;
     m_etaInside = 1.5;
@@ -12,7 +12,7 @@ MixMaterial::MixMaterial()
     m_pMirrorBrdf = new Mirror();
 }
 
-Color MixMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf, bool &isDelta) const
+Color DielectricMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf, bool &isDelta) const
 {
     isDelta = true;
     float etaInputSide = m_etaOutside;
