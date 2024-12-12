@@ -9,7 +9,6 @@ class Brdf
 public:
     virtual Color sample_f(const Vector3 &wo, Vector3 &wi, float &pdf) const = 0;
     virtual Color get_f(const Vector3 &wo, const Vector3 &wi) const;
-    virtual bool isGlass() const;
 
     virtual float pdf(const Vector3 &wo, const Vector3 &wi) const;
 
