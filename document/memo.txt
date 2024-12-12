@@ -84,3 +84,46 @@ bug?see this later...
 Vector3 Vector3::sampleUniformFromCone(float thetaMax)
 
 PBRT第四版公式14.8好像错了
+
+//使用了一种简单粗暴的方法防止自交(in neeTracer.cpp)
+hitRay.origin = record.point + sign * record.normal * 0.001f;
+
+
+//bug
+Color Hitter::getColorFromLight(const Ray &ray) const
+{
+    // if(m_pLight->isIn(ray.origin))
+    // {
+    //     return Color::COLOR_WHITE;
+    // }
+
+    float t;
+    Vector3 normal;
+    float dot;
+
+    if (!hitLightOnly(ray, t, normal, dot))
+    {
+        return Color::COLOR_BLACK;
+    }
+
+    Color color = m_pLight->getColor();
+
+    HitRecord record;
+    if (!hitGeometryObjectOnly(ray, record))
+    {
+        // return color * dot;
+        return color;
+    }
+
+    if (t < record.t)
+    {
+        // return color * dot;
+        return color;
+    }
+
+    return Color::COLOR_BLACK;
+}
+
+-----
+inputVector.refract(normal, etaInputSide, etaOutputSide, totalReflect, fresnel);
+totalReflect好像算错了

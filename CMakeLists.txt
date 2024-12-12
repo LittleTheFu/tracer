@@ -20,7 +20,7 @@ SET (RAY_TRACER_SOURCE
     brdf/brdfMgr.cpp
     brdf/DummyBrdf.cpp
     brdf/glass.cpp
-    brdf/lambertian.cpp
+    brdf/diffuseBrdf.cpp
     brdf/mirror.cpp
     camera/camera.cpp
     camera/fishEyeCamera.cpp
@@ -45,16 +45,18 @@ SET (RAY_TRACER_SOURCE
     geometry/tri.cpp
     light/light.cpp
     # main/main.cpp
+    material/combinedMaterial.cpp
     material/dummyMaterial.cpp
     material/glassMaterial.cpp
-    material/lambertianMaterial.cpp
+    material/diffuseMaterial.cpp
     material/material.cpp
     material/materialManager.cpp
     material/mirrorMaterial.cpp
-    material/mixMaterial.cpp
+    material/dielectricMaterial.cpp
     mathmatic/frame.cpp
     mathmatic/matrix.cpp
     mathmatic/ray.cpp
+    mathmatic/russianRouletter.cpp
     mathmatic/transform.cpp
     mathmatic/vector.cpp
     media/media.cpp
@@ -87,7 +89,7 @@ SET (RAY_TRACER_HEADER
     brdf/brdfMgr.h
     brdf/DummyBrdf.h
     brdf/glass.h
-    brdf/lambertian.h
+    brdf/diffuseBrdf.h
     brdf/mirror.h
     camera/camera.h
     camera/fishEyeCamera.h
@@ -116,17 +118,19 @@ SET (RAY_TRACER_HEADER
     geometry/room.h
     geometry/tri.h
     light/light.h
+    material/combinedMaterial.h
     material/dummyMaterial.h
     material/glassMaterial.h
-    material/lambertianMaterial.h
+    material/diffuseMaterial.h
     material/material.h
     material/materialDef.h
     material/materialManager.h
     material/mirrorMaterial.h
-    material/mixMaterial.h
+    material/dielectricMaterial.h
     mathmatic/frame.h
     mathmatic/matrix.h
     mathmatic/ray.h
+    mathmatic/russianRouletter.h
     mathmatic/transform.h
     mathmatic/vector.h
     media/media.h

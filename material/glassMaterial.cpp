@@ -6,18 +6,9 @@ GlassMaterial::GlassMaterial()
     m_pGlassBrdf = new Glass(1, 1.5);
 }
 
-bool GlassMaterial::isMirror() const
+Color GlassMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf, bool &isDelta) const
 {
-    return true;
-}
-
-bool GlassMaterial::isDelta() const
-{
-    return true;
-}
-
-Color GlassMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf) const
-{
+    isDelta = true;
     Color color = m_pGlassBrdf->sample_f(wo, wi, pdf);
 
     return color;

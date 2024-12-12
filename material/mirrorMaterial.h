@@ -7,10 +7,8 @@ class MirrorMaterial : public Material
 {
 public:
     MirrorMaterial();
-    virtual bool isMirror() const override;
 
-    virtual bool isDelta() const override;
-    Color eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf) const override;
+    virtual Color eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf, bool &isDelta) const override;
 
 private:
     Mirror *m_pMirrorBrdf;

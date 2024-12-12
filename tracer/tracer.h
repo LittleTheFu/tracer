@@ -15,6 +15,8 @@ public:
                         int bounceNum,
                         const HitRecord &currentState) const;
 
+    virtual Color trace(std::shared_ptr<const ObjectPool> pool,Ray &ray) const;
+
     virtual Color traceFirstBounce(std::shared_ptr<const ObjectPool> pool, Ray &ray) const;
 };
 

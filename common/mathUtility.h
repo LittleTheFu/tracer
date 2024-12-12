@@ -31,6 +31,7 @@ public:
     static int getMaxIndex( float a0, float a1, float a2);
 
     static float smooth(float t);
+    static float getSign(float x);
 };
 
 #endif

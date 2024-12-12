@@ -6,13 +6,14 @@ ConfigScene configScene = ConfigScene::ROOM_SIMPLE;
 bool configUseBVH = false;
 
 //don't modify this because others are not done yet
-TracerType configTracerType = TracerType::SIMPLE;
+TracerType configTracerType = TracerType::NEE;
 
-int configCameraFactor = 16;
-int configBounceTime = 8;
-int configSamplersPerPixel = 8;
+int configCameraFactor = 5;
+int configBounceTime = 8;//this one will be deleted soon
+int configSamplersPerPixel = 10;
+int configNeeTracerDepth = 10;
 
-float configBnuuyScale = 500;
+float configBnuuyScale = 700;
 std::string configBunnyRes = ResourceDef::SIMPLE_BUNNY;
 MATERIAL_TYPE configBunnyMaterial = MATERIAL_TYPE::M_GLASS;
 
@@ -26,6 +27,6 @@ bool configLogProgress = true;
 
 float configLightRadius = 16;
 Vector3 configLightPos(0, 40, 300);
-float configLightIntensity = 30;
+float configLightIntensity = 160;
 
-float configLambdaScale = 0.5f;
+float configLambdaScale = 0.3f;

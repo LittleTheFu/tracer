@@ -260,6 +260,8 @@ Vector3 Vector3::refract(const Vector3 &normal,
                           bool &totalReflect,
                           float &fresnel) const
 {
+    totalReflect = false;
+    
     assert((normal != Vector3::ZERO && "Vector3::_refract"));
     assert((etaInputSide != 0) && "Vector3::_refract");
     assert((etaOutputSide != 0) && "Vector3::_refract");

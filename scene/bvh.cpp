@@ -197,12 +197,14 @@ Color BVH::getColorFromLight(const Ray &ray) const
     HitRecord record;
     if (!_hitGeometryObjectOnly(m_rootNode, ray, record))
     {
-        return color * dot;
+        // return color * dot;
+        return color;
     }
 
     if (t < record.t)
     {
-        return color * dot;
+        // return color * dot;
+        return color;
     }
 
     return Color::COLOR_BLACK;

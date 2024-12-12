@@ -1,6 +1,7 @@
 #include "scene.h"
 #include "simpleTracer.h"
 #include "randomTracer.h"
+#include "neeTracer.h"
 #include "volTracer.h"
 #include "common.h"
 #include "timeRecorder.h"
@@ -19,6 +20,8 @@ Scene::Scene(std::shared_ptr<SceneBuilder> pBuilder, TracerType tracerType)
         tracer = std::make_shared<SimpleTracer>();
     else if (tracerType == TracerType::RANDOM)
         tracer = std::make_shared<RandomTracer>();
+    else if(tracerType == TracerType::NEE)
+        tracer = std::make_shared<NeeTracer>(configNeeTracerDepth);
     else
         tracer = std::make_shared<VolTracer>();
 

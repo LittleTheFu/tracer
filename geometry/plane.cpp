@@ -103,13 +103,10 @@ void Plane::buildBoundBox()
 
 void Plane::HandleMaterial(const Ray &newRay, HitRecord &record) const
 {
-    record.isDelta = m_pMtrl->isDelta();
-
     Vector3 r;
-    record.f = m_pMtrl->eval(record.u, record.v, -newRay.dir, r, record.reflectPdf);
+    record.f = m_pMtrl->eval(record.u, record.v, -newRay.dir, r, record.reflectPdf, record.isDelta);
     record.dot = MathUtility::clamp(std::abs(r * Common::LOCAL_NORMAL), MathConstant::FLOAT_SAMLL_NUMBER, 1.0f);
     record.reflect = m_transform.transformVector(r);
-    record.isMirror = m_pMtrl->isMirror();
 
     if (record.isDelta)
     {

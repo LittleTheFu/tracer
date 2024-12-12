@@ -44,7 +44,6 @@ public:
     float t0;
     float t1;
 
-    bool isMirror;
     bool isMistHit;
 
     bool isDelta;

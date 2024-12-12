@@ -34,15 +34,15 @@ Color Glass::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf) const
 
     pdf = 1;
 
+    //for debug
+    if(totalReflect)
+    {
+        return Color::COLOR_BLACK;
+    }
+    else
+    {
+        return Color::COLOR_WHITE;
+    }
+
     return Color::COLOR_WHITE;
-}
-
-bool Glass::isGlass() const
-{
-    return true;
-}
-
-bool Glass::isMirror() const
-{
-    return true;
 }

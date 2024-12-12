@@ -21,6 +21,7 @@ extern bool configShowLightInSimperTracer;
 extern int configCameraFactor;
 extern int configBounceTime;
 extern int configSamplersPerPixel;
+extern int configNeeTracerDepth;
 
 
 extern float configBnuuyScale;

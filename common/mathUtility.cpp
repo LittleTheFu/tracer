@@ -196,3 +196,10 @@ float MathUtility::smooth(float t)
 {
    return t * t * (3 - 2 * t);
 }
+
+float MathUtility::getSign(float x)
+{
+    if(x > 0.0f)    return 1.0f;
+    if(x < 0.0f)    return -1.0f;
+    return 0.0f;
+}

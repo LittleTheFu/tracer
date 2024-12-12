@@ -8,7 +8,6 @@ HitRecord::HitRecord()
 
     t = MathConstant::FLOAT_MAX;
 
-    isMirror = false;
     isMistHit = false;
 
     isDelta = false;

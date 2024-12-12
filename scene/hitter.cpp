@@ -22,12 +22,20 @@ Color Hitter::getColorFromLight(const Ray &ray) const
     HitRecord record;
     if (!hitGeometryObjectOnly(ray, record))
     {
-        return color * dot;
+        // return color * dot;
+        return color;
     }
+
+    // hotfix for self intersection
+    // if(record.t < 0.001f)
+    // {
+    //     return color;
+    // }
 
     if (t < record.t)
     {
-        return color * dot;
+        // return color * dot;
+        return color;
     }
 
     return Color::COLOR_BLACK;

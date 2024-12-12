@@ -1,0 +1,24 @@
+#ifndef _DIFFUSE_MATERIAL_H_
+#define _DIFFUSE_MATERIAL_H_
+
+#include "material.h"
+#include "color.h"
+// #include "brdf.h"
+#include "diffuseBrdf.h"
+#include "texture.h"
+#include <memory>
+
+class DiffuseMaterial : public Material
+{
+public:
+    DiffuseMaterial(std::shared_ptr<const Texture> pTexture, float scale);
+
+    Color get_f(const Vector3 &wo, const Vector3 &wi) const;
+    virtual Color eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf, bool &isDelta) const;
+
+private:
+    std::shared_ptr<DiffuseBrdf> m_pDiffuseBrdf;
+    std::shared_ptr<const Texture> m_pTexture;
+};
+
+#endif
