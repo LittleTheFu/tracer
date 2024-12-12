@@ -11,3 +11,8 @@ bool Brdf::isGlass() const
 {
     return false;
 }
+
+float Brdf::pdf(const Vector3 &wo, const Vector3 &wi) const
+{
+    return 1.0f;
+}
