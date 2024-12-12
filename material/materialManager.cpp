@@ -3,7 +3,7 @@
 #include "imageTexture.h"
 #include "resourceDef.h"
 #include "config.h"
-#include "lambertianMaterial.h"
+#include "diffuseMaterial.h"
 #include "mirrorMaterial.h"
 #include "glassMaterial.h"
 #include "dielectricMaterial.h"
@@ -31,33 +31,33 @@ void MaterialManager::init()
 {
     float rho = configLambdaScale;
 
-    lambMtrlRed = std::make_shared<LambertianMaterial>(std::make_shared<ConstTexture>(Color::COLOR_RED), rho);
-    lambMtrlYellow = std::make_shared<LambertianMaterial>(std::make_shared<ConstTexture>(Color::COLOR_YELLOW), rho);
-    lambMtrlAqua = std::make_shared<LambertianMaterial>(std::make_shared<ConstTexture>(Color::COLOR_AQUA), rho);
-    lambMtrlPurple = std::make_shared<LambertianMaterial>(std::make_shared<ConstTexture>(Color::COLOR_PURPLE), rho);
-    lambMtrlGreen = std::make_shared<LambertianMaterial>(std::make_shared<ConstTexture>(Color::COLOR_GREEN), rho);
-    lambMtrlBlue = std::make_shared<LambertianMaterial>(std::make_shared<ConstTexture>(Color::COLOR_BLUE), rho);
-    lambMtrlWhite = std::make_shared<LambertianMaterial>(std::make_shared<ConstTexture>(Color::COLOR_WHITE), rho);
+    diffuseMtrlRed = std::make_shared<DiffuseMaterial>(std::make_shared<ConstTexture>(Color::COLOR_RED), rho);
+    diffuseMtrlYellow = std::make_shared<DiffuseMaterial>(std::make_shared<ConstTexture>(Color::COLOR_YELLOW), rho);
+    diffuseMtrlAqua = std::make_shared<DiffuseMaterial>(std::make_shared<ConstTexture>(Color::COLOR_AQUA), rho);
+    diffuseMtrlPurple = std::make_shared<DiffuseMaterial>(std::make_shared<ConstTexture>(Color::COLOR_PURPLE), rho);
+    diffuseMtrlGreen = std::make_shared<DiffuseMaterial>(std::make_shared<ConstTexture>(Color::COLOR_GREEN), rho);
+    diffuseMtrlBlue = std::make_shared<DiffuseMaterial>(std::make_shared<ConstTexture>(Color::COLOR_BLUE), rho);
+    diffuseMtrlWhite = std::make_shared<DiffuseMaterial>(std::make_shared<ConstTexture>(Color::COLOR_WHITE), rho);
 
-    lambMtrlTexLena = std::make_shared<LambertianMaterial>(std::make_shared<ImageTexture>(ResourceDef::LENA), 0.2f);
-    lambMtrlTexChessBoard = std::make_shared<LambertianMaterial>(std::make_shared<ChessboardTexture>(), 0.2f);
+    diffuseMtrlTexLena = std::make_shared<DiffuseMaterial>(std::make_shared<ImageTexture>(ResourceDef::LENA), 0.2f);
+    diffuseMtrlTexChessBoard = std::make_shared<DiffuseMaterial>(std::make_shared<ChessboardTexture>(), 0.2f);
 
     mirrorMtrl = std::make_shared<MirrorMaterial>();
     glassMtrl = std::make_shared<GlassMaterial>();
 
     mixMtrl = std::make_shared<DielectricMaterial>();
 
-    combinedMtrl = std::make_shared<CombinedMaterial>(lambMtrlTexChessBoard, mirrorMtrl);
+    combinedMtrl = std::make_shared<CombinedMaterial>(diffuseMtrlTexChessBoard, mirrorMtrl);
 
-    m_map[MATERIAL_TYPE::M_RED] = lambMtrlRed;
-    m_map[MATERIAL_TYPE::M_YELLOW] = lambMtrlYellow;
-    m_map[MATERIAL_TYPE::M_AQUA] = lambMtrlAqua;
-    m_map[MATERIAL_TYPE::M_PURPLE] = lambMtrlPurple;
-    m_map[MATERIAL_TYPE::M_GREEN] = lambMtrlGreen;
-    m_map[MATERIAL_TYPE::M_BLUE] = lambMtrlBlue;
-    m_map[MATERIAL_TYPE::M_WHITE] = lambMtrlWhite;
-    m_map[MATERIAL_TYPE::M_LENA] = lambMtrlTexLena;
-    m_map[MATERIAL_TYPE::M_CHESSBOARD] = lambMtrlTexChessBoard;
+    m_map[MATERIAL_TYPE::M_RED] = diffuseMtrlRed;
+    m_map[MATERIAL_TYPE::M_YELLOW] = diffuseMtrlYellow;
+    m_map[MATERIAL_TYPE::M_AQUA] = diffuseMtrlAqua;
+    m_map[MATERIAL_TYPE::M_PURPLE] = diffuseMtrlPurple;
+    m_map[MATERIAL_TYPE::M_GREEN] = diffuseMtrlGreen;
+    m_map[MATERIAL_TYPE::M_BLUE] = diffuseMtrlBlue;
+    m_map[MATERIAL_TYPE::M_WHITE] = diffuseMtrlWhite;
+    m_map[MATERIAL_TYPE::M_LENA] = diffuseMtrlTexLena;
+    m_map[MATERIAL_TYPE::M_CHESSBOARD] = diffuseMtrlTexChessBoard;
     m_map[MATERIAL_TYPE::M_MIRROR] = mirrorMtrl;
     m_map[MATERIAL_TYPE::M_GLASS] = glassMtrl;
     m_map[MATERIAL_TYPE::M_MIX] = mixMtrl;

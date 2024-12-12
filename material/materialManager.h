@@ -23,16 +23,16 @@ private:
     std::map<MATERIAL_TYPE, std::shared_ptr<const Material>> m_map;
 
 private:
-    std::shared_ptr<const Material> lambMtrlRed;
-    std::shared_ptr<const Material> lambMtrlYellow;
-    std::shared_ptr<const Material> lambMtrlAqua;
-    std::shared_ptr<const Material> lambMtrlPurple;
-    std::shared_ptr<const Material> lambMtrlGreen;
-    std::shared_ptr<const Material> lambMtrlBlue;
-    std::shared_ptr<const Material> lambMtrlWhite;
+    std::shared_ptr<const Material> diffuseMtrlRed;
+    std::shared_ptr<const Material> diffuseMtrlYellow;
+    std::shared_ptr<const Material> diffuseMtrlAqua;
+    std::shared_ptr<const Material> diffuseMtrlPurple;
+    std::shared_ptr<const Material> diffuseMtrlGreen;
+    std::shared_ptr<const Material> diffuseMtrlBlue;
+    std::shared_ptr<const Material> diffuseMtrlWhite;
 
-    std::shared_ptr<const Material> lambMtrlTexLena;
-    std::shared_ptr<const Material> lambMtrlTexChessBoard;
+    std::shared_ptr<const Material> diffuseMtrlTexLena;
+    std::shared_ptr<const Material> diffuseMtrlTexChessBoard;
 
     std::shared_ptr<const Material> mirrorMtrl;
     std::shared_ptr<const Material> glassMtrl;

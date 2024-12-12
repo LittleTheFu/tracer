@@ -1,5 +1,5 @@
-#ifndef _LAMBERTIAN_MATERIAL_H_
-#define _LAMBERTIAN_MATERIAL_H_
+#ifndef _DIFFUSE_MATERIAL_H_
+#define _DIFFUSE_MATERIAL_H_
 
 #include "material.h"
 #include "color.h"
@@ -8,10 +8,10 @@
 #include "texture.h"
 #include <memory>
 
-class LambertianMaterial : public Material
+class DiffuseMaterial : public Material
 {
 public:
-    LambertianMaterial(std::shared_ptr<const Texture> pTexture, float scale);
+    DiffuseMaterial(std::shared_ptr<const Texture> pTexture, float scale);
 
     Color get_f(const Vector3 &wo, const Vector3 &wi) const;
     virtual Color eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf, bool &isDelta) const;

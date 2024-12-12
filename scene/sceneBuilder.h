@@ -1,7 +1,7 @@
 #ifndef _SCENE_BUILDER_H_
 #define _SCENE_BUILDER_H_
 
-#include "lambertianMaterial.h"
+#include "diffuseMaterial.h"
 #include "mirrorMaterial.h"
 #include "glassMaterial.h"
 #include "dielectricMaterial.h"
