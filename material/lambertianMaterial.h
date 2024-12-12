@@ -4,7 +4,7 @@
 #include "material.h"
 #include "color.h"
 // #include "brdf.h"
-#include "lambertian.h"
+#include "diffuseBrdf.h"
 #include "texture.h"
 #include <memory>
 
@@ -17,7 +17,7 @@ public:
     virtual Color eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf, bool &isDelta) const;
 
 private:
-    std::shared_ptr<Lambertian> m_pLambertianBrdf;
+    std::shared_ptr<DiffuseBrdf> m_pDiffuseBrdf;
     std::shared_ptr<const Texture> m_pTexture;
 };
 

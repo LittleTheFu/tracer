@@ -1,13 +1,13 @@
-#ifndef _LAMBERTIAN_H_
-#define _LAMBERTIAN_H_
+#ifndef _DIFFUSE_BRDF_H_
+#define _DIFFUSE_BRDF_H_
 
 #include "brdf.h"
 #include "color.h"
 
-class Lambertian : public Brdf
+class DiffuseBrdf : public Brdf
 {
 public:
-    Lambertian(float scale);
+    DiffuseBrdf(float scale);
 
     Color get_f(const Vector3 &wo, const Vector3 &wi) const;
 
