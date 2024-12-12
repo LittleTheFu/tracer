@@ -48,7 +48,7 @@ SET (RAY_TRACER_SOURCE
     material/combinedMaterial.cpp
     material/dummyMaterial.cpp
     material/glassMaterial.cpp
-    material/lambertianMaterial.cpp
+    material/diffuseMaterial.cpp
     material/material.cpp
     material/materialManager.cpp
     material/mirrorMaterial.cpp
@@ -121,7 +121,7 @@ SET (RAY_TRACER_HEADER
     material/combinedMaterial.h
     material/dummyMaterial.h
     material/glassMaterial.h
-    material/lambertianMaterial.h
+    material/diffuseMaterial.h
     material/material.h
     material/materialDef.h
     material/materialManager.h

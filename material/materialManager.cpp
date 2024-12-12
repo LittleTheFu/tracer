@@ -45,7 +45,7 @@ void MaterialManager::init()
     mirrorMtrl = std::make_shared<MirrorMaterial>();
     glassMtrl = std::make_shared<GlassMaterial>();
 
-    mixMtrl = std::make_shared<DielectricMaterial>();
+    dielectricMtrl = std::make_shared<DielectricMaterial>();
 
     combinedMtrl = std::make_shared<CombinedMaterial>(diffuseMtrlTexChessBoard, mirrorMtrl);
 
@@ -60,7 +60,7 @@ void MaterialManager::init()
     m_map[MATERIAL_TYPE::M_CHESSBOARD] = diffuseMtrlTexChessBoard;
     m_map[MATERIAL_TYPE::M_MIRROR] = mirrorMtrl;
     m_map[MATERIAL_TYPE::M_GLASS] = glassMtrl;
-    m_map[MATERIAL_TYPE::M_MIX] = mixMtrl;
+    m_map[MATERIAL_TYPE::M_DIELECTRIC] = dielectricMtrl;
     m_map[MATERIAL_TYPE::M_COMBINED] = combinedMtrl;
 }
 

@@ -96,7 +96,7 @@ void SceneBuilder::buildAquaBall(const Vector3 &pos, float r)
 void SceneBuilder::buildMixBall(const Vector3& pos, float r)
 {
     // std::shared_ptr<Ball> mixBall = std::make_shared<Ball>(Vector3::ZERO, Vector3(-28, 72, 350), 20, MtrlMix);
-    std::shared_ptr<Ball> mixBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_MIX));
+    std::shared_ptr<Ball> mixBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_DIELECTRIC));
     m_pObjectPool->add(mixBall);
 }
 

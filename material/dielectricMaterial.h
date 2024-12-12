@@ -1,5 +1,5 @@
-#ifndef _MIX_MATERIAL_H_
-#define _MIX_MATERIAL_H_
+#ifndef _DIELECTRIC_MATERIAL_H_
+#define _DIELECTRIC_MATERIAL_H_
 
 #include "material.h"
 #include "glass.h"

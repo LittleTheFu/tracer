@@ -18,7 +18,7 @@ enum class MATERIAL_TYPE
     M_MIRROR,
     M_GLASS,
 
-    M_MIX,
+    M_DIELECTRIC,
     M_COMBINED,
 };
 
