@@ -7,8 +7,9 @@
 #include "vector.h"
 
 enum class ConfigScene {
-    ROOM_BUNNY,
     ROOM_SIMPLE,
+    ROOM_BUNNY,
+    ROOM_TEAPOT,
     ROOM_VOLUME,
 };
 

@@ -11,6 +11,7 @@ public:
     inline const static std::string SIMPLE_BUNNY = "../resource/simple_bunny.obj";
     inline const static std::string LOW_BUNNY = "../resource/low_bunny.obj";
     inline const static std::string LOW_LOW_BUNNY = "../resource/low_low_bunny.obj";
+    inline const static std::string TEAPOT = "../resource/teapot.obj";
 };
 
 #endif

@@ -4,6 +4,7 @@
 #include "bunnySceneBuilder.h"
 #include "betaSceneBuilder.h"
 #include "volumeSceneBuilder.h"
+#include "teapotSceneBuilder.h"
 #include "config.h"
 #include "mathUtility.h"
 #include "vox.h"
@@ -18,6 +19,8 @@ std::shared_ptr<SceneBuilder> createBuilder()
         builder = std::make_shared<BetaSceneBuilder>();
     else if (configScene == ConfigScene::ROOM_VOLUME)
         builder = std::make_shared<VolumeSceneBuilder>();
+    else if (configScene == ConfigScene::ROOM_TEAPOT)
+        builder = std::make_shared<TeapotSceneBuilder>();
     else
         builder = std::make_shared<BetaSceneBuilder>();
 
