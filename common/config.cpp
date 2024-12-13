@@ -1,9 +1,9 @@
 #include "config.h"
 
 //don't use ROOM_VOLUME right now
-ConfigScene configScene = ConfigScene::ROOM_TEAPOT;
+ConfigScene configScene = ConfigScene::ROOM_SIMPLE;
 
-bool configUseBVH = true;
+bool configUseBVH = false;
 
 //don't modify this because others are not done yet
 TracerType configTracerType = TracerType::NEE;
@@ -19,6 +19,7 @@ MATERIAL_TYPE configBunnyMaterial = MATERIAL_TYPE::M_GLASS;
 
 std::string configOutputImageName = "img";
 
+//the three vars below to be deleted soon
 int configBatchStartBounce = 3;
 int configBatchEndBounces = 200;
 bool configUseBatchRun = false;
