@@ -48,35 +48,44 @@ void Camera::setBounceTime(int bounceTime)
     m_BounceTime = bounceTime;
 }
 
+#include <vector>
+#include <thread>
+#include <future>
+
 void Camera::render()
 {
     m_Image.resize(m_Width * m_Height * 4);
 
+    std::vector<std::future<void>> futures;
+    unsigned numThreads = std::thread::hardware_concurrency() - 1; // 获取硬件支持的最大线程数
+
     for (unsigned y = 0; y < m_Height; y++)
     {
-        // TimeRecorder rec;
-        // rec.start();
-
-        for (unsigned x = 0; x < m_Width; x++)
-        {
-            if (configLogProgress)
-                logProgress(x, y);
-
-            HitRecord record = InitHitRecord();
-            Ray ray = generateRay(static_cast<float>(x), static_cast<float>(y));
-
-            // Color color = m_pTracer->traceFirstBounce(m_pObjectPool, ray);
-            Color color = Color::COLOR_BLACK;
-            for (int time = 0; time < configSamplersPerPixel; time++)
+        futures.emplace_back(std::async(std::launch::async, [this, y]() {
+            for (unsigned x = 0; x < m_Width; x++)
             {
-                color += m_pTracer->trace(m_pObjectPool, ray);
-            }
-            color /= static_cast<float>(configSamplersPerPixel);
-            
-            setImage(x, y, color);
+                if (configLogProgress)
+                    logProgress(x, y);
 
-        }
-        // rec.end();
+                HitRecord record = InitHitRecord();
+                Ray ray = generateRay(static_cast<float>(x), static_cast<float>(y));
+
+                Color color = Color::COLOR_BLACK;
+                for (int time = 0; time < configSamplersPerPixel; time++)
+                {
+                    color += m_pTracer->trace(m_pObjectPool, ray);
+                }
+                color /= static_cast<float>(configSamplersPerPixel);
+
+                setImage(x, y, color);
+            }
+        }));
+    }
+
+    // 等待所有线程完成
+    for (auto& future : futures)
+    {
+        future.get();
     }
 }
 
