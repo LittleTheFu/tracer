@@ -1,7 +1,7 @@
 #include "config.h"
 
 //don't use ROOM_VOLUME right now
-ConfigScene configScene = ConfigScene::ROOM_TEAPOT;
+ConfigScene configScene = ConfigScene::ROOM_BUNNY;
 
 bool configUseBVH = true;
 
@@ -15,11 +15,11 @@ int configNeeTracerDepth = 10;
 
 float configBnuuyScale = 700;
 std::string configBunnyRes = ResourceDef::SIMPLE_BUNNY;
-MATERIAL_TYPE configBunnyMaterial = MATERIAL_TYPE::M_GLASS;
+MATERIAL_TYPE configBunnyMaterial = MATERIAL_TYPE::M_MIRROR;
 
 std::string configOutputImageName = "img";
 
-//the three vars below to be deleted soon
+//the three vars below are to be deleted soon
 int configBatchStartBounce = 3;
 int configBatchEndBounces = 200;
 bool configUseBatchRun = false;
