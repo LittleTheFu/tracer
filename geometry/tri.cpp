@@ -89,6 +89,8 @@ bool Tri::hit(const Ray &ray, HitRecord &record) const
     record.transform = m_transform;
 
     record.point = m_transform.transformPoint(_objPoint);
+    record.u = u(_objPoint);
+    record.v = v(_objPoint);
 
 #if _NORMAL_DEBUG_
     record.normal = m_transform.transformVector(frame.vectorToWorld(Common::LOCAL_NORMAL));
@@ -103,7 +105,7 @@ bool Tri::hit(const Ray &ray, HitRecord &record) const
         record.f = m_pMtrl->eval(record.u, record.v, -weghtedRayDir, r, record.reflectPdf, record.isDelta);
         assert(record.f.isValid());
  
-        record.dot = MathUtility::clamp(std::abs(r * Common::LOCAL_NORMAL), MathConstant::FLOAT_SAMLL_NUMBER, 1.0f);
+        record.dot = MathUtility::clamp(std::abs(r * Common::LOCAL_NORMAL), 0.0f, 1.0f);
         record.reflect = m_transform.transformVector(wieghtedFrame.vectorToWorld(r));
 
         if (record.isDelta)
@@ -225,10 +227,16 @@ Vector3 Tri::dpdv(const Vector3 &point) const
 
 float Tri::u(const Vector3 &point) const
 {
-    return 0.0f;
+    float wa, wb, wc;
+    getWeight(point, wa, wb, wc);
+
+    return m_a.u * wa + m_b.u * wb + m_c.u * wc;
 }
 
 float Tri::v(const Vector3 &point) const
 {
-    return 0.0f;
+    float wa, wb, wc;
+    getWeight(point, wa, wb, wc);
+
+    return m_a.v * wa + m_b.v * wb + m_c.v * wc;
 }

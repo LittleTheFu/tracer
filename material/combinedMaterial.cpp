@@ -7,7 +7,7 @@ CombinedMaterial::CombinedMaterial(std::shared_ptr<const Material> first, std::s
 {
     assert(first && second);
 
-    m_factor = 0.8f;
+    m_factor = 0.5f;
 
     m_FirstMaterial = first;
     m_SecondMaterial = second;
