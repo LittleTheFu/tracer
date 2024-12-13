@@ -59,13 +59,12 @@ bool Tri::hit(const Ray &ray, HitRecord &record) const
 {
     record.t = MathConstant::FLOAT_MAX;
 
-    Ray testRay(Vector3(0,0,0), Vector3(0,0,1));
+    // Ray testRay(Vector3(0,0,0), Vector3(0,0,1));
     Ray newRay = ray.genNewRay(m_transform);
 
     Frame frame(m_normal, m_ab, m_a.pos);
     Ray localRay = newRay.genNewRay(frame);
 
-    const Vector3 trueNormal = getLocalNormal(false);
     const float n = (-localRay.origin) * Common::LOCAL_NORMAL;
     const float d = localRay.dir * Common::LOCAL_NORMAL;
 
@@ -82,6 +81,10 @@ bool Tri::hit(const Ray &ray, HitRecord &record) const
         return false;
     }
 
+    Vector3 weightedNormal = getWeightedNormal(_objPoint);
+    Frame wieghtedFrame(weightedNormal, m_ab, _objPoint);
+    Vector3 weghtedRayDir = wieghtedFrame.vectorToLocal(frame.vectorToWorld(localRay.dir));
+
     record.mtrl = m_pMtrl;
     record.transform = m_transform;
 
@@ -90,23 +93,18 @@ bool Tri::hit(const Ray &ray, HitRecord &record) const
 #if _NORMAL_DEBUG_
     record.normal = m_transform.transformVector(frame.vectorToWorld(Common::LOCAL_NORMAL));
 #else
-    record.normal = m_transform.transformNormal(frame.vectorToWorld(Common::LOCAL_NORMAL));
+    // record.normal = m_transform.transformNormal(frame.vectorToWorld(Common::LOCAL_NORMAL));
+    record.normal = m_transform.transformNormal(wieghtedFrame.vectorToWorld(Common::LOCAL_NORMAL));
 #endif
-
-    // float w_a, w_b, w_c;
-    // getWeight(ap_ab, ap_bc, ap_ca, w_a, w_b, w_c);
-
-    // record.u = m_a.u * w_a + m_b.u * w_b + m_c.u * w_c;
-    // record.v = m_a.v * w_a + m_b.v * w_b + m_c.v * w_c;
 
     if (m_pMtrl)
     {
         Vector3 r;
-        record.f = m_pMtrl->eval(record.u, record.v, -localRay.dir, r, record.reflectPdf, record.isDelta);
+        record.f = m_pMtrl->eval(record.u, record.v, -weghtedRayDir, r, record.reflectPdf, record.isDelta);
         assert(record.f.isValid());
  
         record.dot = MathUtility::clamp(std::abs(r * Common::LOCAL_NORMAL), MathConstant::FLOAT_SAMLL_NUMBER, 1.0f);
-        record.reflect = m_transform.transformVector(frame.vectorToWorld(r));
+        record.reflect = m_transform.transformVector(wieghtedFrame.vectorToWorld(r));
 
         if (record.isDelta)
         {
@@ -169,10 +167,50 @@ bool Tri::isAllFacePositive(const Vector3 &p) const
     return true;
 }
 
+void Tri::getWeight(const Vector3 &p, float &wa, float &wb, float &wc) const
+{
+    wa = 0.0f;
+    wb = 0.0f;
+    wc = 0.0f;
+
+    // can be optimized with this function,do it later,maybe...
+    if (!isAllFacePositive(p))
+        return;
+
+    Vector3 ap = p - m_a.pos;
+    Vector3 bp = p - m_b.pos;
+    Vector3 cp = p - m_c.pos;
+
+    float d = m_ab.cross(m_bc).length();
+    if (d == 0.0f)
+        return;
+
+    float a = m_bc.cross(bp).length();
+    float b = m_ca.cross(cp).length();
+    float c = m_ab.cross(ap).length();
+
+    wa = a / d;
+    wb = b / d;
+    wc = c / d;
+}
+
 void Tri::calcNormal()
 {
     m_normal = m_ab.cross(m_bc);
     m_normal.normalize();
+    // m_normal = m_a.normal + m_b.normal + m_c.normal;
+    // m_normal.normalize();
+}
+
+Vector3 Tri::getWeightedNormal(const Vector3 &p) const
+{
+    float wa, wb, wc;
+    getWeight(p, wa, wb, wc);
+
+    Vector3 normal = m_a.normal * wa + m_b.normal * wb + m_c.normal * wc;
+    normal.normalize();
+
+    return normal;
 }
 
 Vector3 Tri::dpdu(const Vector3 &point) const
