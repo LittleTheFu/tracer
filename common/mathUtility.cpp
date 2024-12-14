@@ -176,6 +176,16 @@ int MathUtility::sampleFromWeights(std::initializer_list<float> weights)
     return index;
 }
 
+void MathUtility::sampleFromUnitDisk(float &x, float &y)
+{
+    // sqr is needed ?
+    float r = MathUtility::genRandomDecimal();
+    float theta = MathUtility::genRandomDecimal() * MathConstant::TWO_PI;
+
+    x = r * cos(theta);
+    y = r * sin(theta);
+}
+
 int MathUtility::getMaxIndex(float a0, float a1, float a2)
 {
     if (a0 >= a1 && a0 >= a2)
