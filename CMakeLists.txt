@@ -71,7 +71,7 @@ SET (RAY_TRACER_SOURCE
     scene/sceneBuilder.cpp
     scene/teapotSceneBuilder.cpp
     scene/volumeSceneBuilder.cpp
-    shape/vox.cpp
+    volume/vox.cpp
     texture/chessboardTexture.cpp
     texture/constTexture.cpp
     texture/imageTexture.cpp
@@ -146,7 +146,7 @@ SET (RAY_TRACER_HEADER
     scene/sceneBuilder.h
     scene/volumeSceneBuilder.h
     scene/teapotSceneBuilder.h
-    shape/vox.h
+    volume/vox.h
     texture/chessboardTexture.h
     texture/constTexture.h
     texture/imageTexture.h
@@ -169,7 +169,7 @@ INCLUDE_DIRECTORIES(brdf
                     mathmatic 
                     media
                     scene  
-                    shape
+                    volume
                     test
                     texture 
                     tracer
