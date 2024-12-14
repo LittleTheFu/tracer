@@ -14,6 +14,11 @@ void DiffuseBrdf::setColor(const Color &rho)
     m_color = rho;
 }
 
+float DiffuseBrdf::pdf(const Vector3 &wo, const Vector3 &wi) const
+{
+    return MathConstant::INV_TWO_PI;
+}
+
 Color DiffuseBrdf::get_f(const Vector3 &wo, const Vector3 &wi) const
 {
     return m_color * MathConstant::INV_PI * m_scale;

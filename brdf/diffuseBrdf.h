@@ -14,6 +14,9 @@ public:
     Color sample_f(const Vector3 &wo, Vector3 &wi, float &pdf) const;
     void setColor(const Color &color);
 
+    virtual float pdf(const Vector3 &wo, const Vector3 &wi) const override;
+
+
 private:
     Color m_color;
     float m_scale;

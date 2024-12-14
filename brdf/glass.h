@@ -9,6 +9,7 @@ public:
     Glass(float etaOutsie, float etaInside);
 
     Color sample_f(const Vector3 &wo, Vector3 &wi, float &pdf) const;
+    virtual float pdf(const Vector3 &wo, const Vector3 &wi) const override;
 
 private:
     float m_etaOutside;
