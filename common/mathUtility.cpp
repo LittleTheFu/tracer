@@ -178,7 +178,7 @@ int MathUtility::sampleFromWeights(std::initializer_list<float> weights)
 
 void MathUtility::sampleFromUnitDisk(float &x, float &y)
 {
-    // sqr is needed ?
+    // is sqr(r)  needed ?
     float r = MathUtility::genRandomDecimal();
     float theta = MathUtility::genRandomDecimal() * MathConstant::TWO_PI;
 
