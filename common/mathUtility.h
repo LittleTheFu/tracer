@@ -34,6 +34,8 @@ public:
 
     static float smooth(float t);
     static float getSign(float x);
+
+    static float sqr(float x);
 };
 
 #endif

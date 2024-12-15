@@ -39,6 +39,7 @@ public:
     bool isZero() const;
     bool isPerpendicular(const Vector3 &that) const;
 
+    void faceForward(const Vector3 &forward);
     Vector3 getTangentVector() const;
 
     float length() const;

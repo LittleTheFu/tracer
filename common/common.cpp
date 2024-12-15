@@ -5,6 +5,7 @@
 #include <sstream> 
 #include <iomanip>
 #include "mathConstantDef.h"
+#include "mathUtility.h"
 
 const Vector3 Common::LOCAL_NORMAL = Vector3(0, 0, 1);
 
@@ -14,6 +15,66 @@ Vector3 Common::getNormal(const Vector3 &from, const Vector3 &to)
     r.normalize();
 
     return r;
+}
+
+float Common::cosTheta(const Vector3 &v)
+{
+    return v.z;
+}
+
+float Common::cosThetaSq(const Vector3 &v)
+{
+    return cosTheta(v) * cosTheta(v);
+}
+
+float Common::sinTheta(const Vector3 &v)
+{
+    return MathUtility::clamp(std::sqrt(sinThetaSq(v)), 0, 1);
+}
+
+float Common::sinThetaSq(const Vector3 &v)
+{
+    return MathUtility::clamp(1 - cosThetaSq(v), 0, 1);
+}
+
+float Common::tanTheta(const Vector3 &v)
+{
+    return sinTheta(v) / cosTheta(v);
+}
+
+float Common::tanThetaSq(const Vector3 &v)
+{
+    return sinThetaSq(v) / cosThetaSq(v);
+}
+
+float Common::cosPhi(const Vector3 &v)
+{
+    float r = sinTheta(v);
+
+    if(r == 0.0f)
+        return 1.0f;
+
+    return MathUtility::clamp(v.x / r, -1.0f, 1.0f);
+}
+
+float Common::cosPhiSq(const Vector3 &v)
+{
+    return cosPhi(v) * cosPhi(v);
+}
+
+float Common::sinPhi(const Vector3 &v)
+{
+    float r = sinTheta(v);
+
+    if(r == 0.0f)
+        return 0.0f;
+
+    return MathUtility::clamp(v.y / r, -1.0f, 1.0f);
+}
+
+float Common::sinPhiSq(const Vector3 &v)
+{
+    return sinPhi(v) * sinPhi(v);
 }
 
 void Common::printCurrentTime()

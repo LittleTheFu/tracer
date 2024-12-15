@@ -10,6 +10,18 @@ class Common
 public:
     static Vector3 getNormal(const Vector3 &from, const Vector3 &to);
 
+    //warning: input vector must be normalized,to be recosidered later...
+    static float cosTheta(const Vector3 &v);
+    static float cosThetaSq(const Vector3 &v);
+    static float sinTheta(const Vector3 &v);
+    static float sinThetaSq(const Vector3 &v);
+    static float tanTheta(const Vector3 &v);
+    static float tanThetaSq(const Vector3 &v);
+    static float cosPhi(const Vector3 &v);
+    static float cosPhiSq(const Vector3 &v);
+    static float sinPhi(const Vector3 &v);
+    static float sinPhiSq(const Vector3 &v);
+
 public:
     static void printCurrentTime();
 

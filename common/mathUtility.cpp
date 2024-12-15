@@ -213,3 +213,8 @@ float MathUtility::getSign(float x)
     if(x < 0.0f)    return -1.0f;
     return 0.0f;
 }
+
+float MathUtility::sqr(float x)
+{
+    return x * x;
+}

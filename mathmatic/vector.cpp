@@ -336,6 +336,16 @@ bool Vector3::isPerpendicular(const Vector3 &that) const
     return isX && isY && isZ;
 }
 
+void Vector3::faceForward(const Vector3 &forward)
+{
+    float dot = this->operator*(forward);
+
+    if (dot < 0)
+    {
+        *this = -(*this);
+    }
+}
+
 Vector3 Vector3::getTangentVector() const
 {
     Vector3 r;

@@ -21,6 +21,7 @@ SET (RAY_TRACER_SOURCE
     brdf/DummyBrdf.cpp
     brdf/glass.cpp
     brdf/diffuseBrdf.cpp
+    brdf/microfacet.cpp
     brdf/mirror.cpp
     camera/camera.cpp
     camera/fishEyeCamera.cpp
@@ -91,6 +92,7 @@ SET (RAY_TRACER_HEADER
     brdf/DummyBrdf.h
     brdf/glass.h
     brdf/diffuseBrdf.h
+    brdf/microfacet.h
     brdf/mirror.h
     camera/camera.h
     camera/fishEyeCamera.h
