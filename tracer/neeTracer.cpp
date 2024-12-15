@@ -44,8 +44,9 @@ Color NeeTracer::trace(std::shared_ptr<const ObjectPool> pool, Ray &ray) const
             
             Ray sampleRay;
             Color partColor = sampleLightFromNormalMaterial(pool, record.point, record.normal, sampleRay);
-            record.f = record.mtrl->get_f(-hitRay.dir, sampleRay.dir);
-            color += beta * record.f * partColor;
+            // record.f = record.mtrl->get_f(-hitRay.dir, sampleRay.dir);
+            Color f = record.mtrl->get_f(-hitRay.dir, sampleRay.dir);
+            color += beta * f * partColor;
         }
 
         beta *= (record.f * record.dot);
