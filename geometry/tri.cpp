@@ -14,12 +14,12 @@ Tri::Tri(const TriVertex &a,
          const TriVertex &b,
          const TriVertex &c,
          const Vector3 &pos,
-         const std::shared_ptr<Material> material)
+         std::shared_ptr<Material> material)
 {
     set(a, b, c, pos, material);
 }
 
-void Tri::set(const TriVertex &a, const TriVertex &b, const TriVertex &c, const Vector3 &pos, const std::shared_ptr<Material> material)
+void Tri::set(const TriVertex &a, const TriVertex &b, const TriVertex &c, Vector3 &pos, std::shared_ptr<Material> material)
 {
     m_a = a;
     m_b = b;

@@ -35,13 +35,13 @@ public:
         const TriVertex &b,
         const TriVertex &c,
         const Vector3 &pos,
-        const std::shared_ptr<Material> material);
+        std::shared_ptr<Material> material);
 
     void set(const TriVertex &a,
                 const TriVertex &b,
                 const TriVertex &c,
                 const Vector3 &pos,
-                const std::shared_ptr<Material> material);
+                std::shared_ptr<Material> material);
 
     void getSplitChildren(Tri *outTri_1, Tri *outTri_2, Tri *outTri_3) const;
 
