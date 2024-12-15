@@ -5,6 +5,12 @@
 #include "frame.h"
 #include "mathUtility.h"
 
+Ray::Ray()
+{
+    origin = Vector3::ZERO;
+    dir = Vector3::ZERO;
+}
+
 Ray::Ray(const Vector3 &origin, const Vector3 &dir)
 {
     this->media.clear();

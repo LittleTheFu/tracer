@@ -21,7 +21,8 @@ private:
 
     Color sampleLightFromNormalMaterial(std::shared_ptr<const ObjectPool> pool,
                                        const Vector3 &pos,
-                                       const Vector3 &normal) const;
+                                       const Vector3 &normal,
+                                       Ray &sampleRay) const;
 
     Ray genNextRay(const HitRecord &record) const;
 

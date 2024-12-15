@@ -9,6 +9,7 @@
 class Ray
 {
 public:
+    Ray();
     Ray(const Vector3 &origin, const Vector3 &dir);
 
     Vector3 origin;

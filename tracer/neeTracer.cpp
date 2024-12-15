@@ -40,9 +40,12 @@ Color NeeTracer::trace(std::shared_ptr<const ObjectPool> pool, Ray &ray) const
         }
         else
         {
-            // warning: record.f above should be recaculated,it's OK here because we only have lambert material
-            // to be fixed later when more material types are supported
-            color += beta * record.f * sampleLightFromNormalMaterial(pool, record.point, record.normal);
+            //to be fixed later:here you need to check if the pointer is null
+            
+            Ray sampleRay;
+            Color partColor = sampleLightFromNormalMaterial(pool, record.point, record.normal, sampleRay);
+            // record.f = record.mtrl->get_f(-hitRay.dir, sampleRay.dir);
+            color += beta * record.f * partColor;
         }
 
         beta *= (record.f * record.dot);
@@ -74,7 +77,8 @@ Color NeeTracer::sampleLightFromDeltaMaterial(std::shared_ptr<const ObjectPool> 
 
 Color NeeTracer::sampleLightFromNormalMaterial(std::shared_ptr<const ObjectPool> pool,
                                                const Vector3 &pos,
-                                               const Vector3 &normal) const
+                                               const Vector3 &normal,
+                                               Ray &sampleRay) const
 {
     float sampleLightPdf;
     Vector3 lightSurfacePoint = pool->m_pLight->sample(pos, sampleLightPdf);
@@ -84,6 +88,7 @@ Color NeeTracer::sampleLightFromNormalMaterial(std::shared_ptr<const ObjectPool>
 
     // plus lightDir * 0.001f is a hotfix to avoid self intersection
     Ray sampleLightRay(pos + lightDir * 0.001f, lightDir);
+    sampleRay = sampleLightRay;//return value
     Color lightColor = pool->getColorFromLight(sampleLightRay);
 
     // to be fixed later : test visibility with light first?

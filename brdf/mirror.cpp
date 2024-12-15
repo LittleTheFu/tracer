@@ -5,6 +5,11 @@ Mirror::Mirror()
 
 }
 
+Color Mirror::get_f(const Vector3 &wo, const Vector3 &wi) const
+{
+    return Color::COLOR_BLACK;
+}
+
 Color Mirror::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf) const
 {
     const Vector3 local_wo = -wo;

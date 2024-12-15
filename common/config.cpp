@@ -10,7 +10,7 @@ TracerType configTracerType = TracerType::NEE;
 
 int configCameraFactor = 3;
 int configBounceTime = 8;//this one will be deleted soon
-int configSamplersPerPixel = 1;
+int configSamplersPerPixel = 3;
 int configNeeTracerDepth = 10;
 
 float configBnuuyScale = 700;
