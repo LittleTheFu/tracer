@@ -11,7 +11,7 @@
 class Mesh : public Geometry
 {
 public:
-    Mesh(const std::string fileName, const Vector3 pos, float scale, std::shared_ptr<const Material> pMtrl);
+    Mesh(const std::string fileName, const Vector3 pos, float scale, std::shared_ptr<Material> pMtrl);
 
     virtual bool hit(const Ray &ray, HitRecord &record) const override;
 

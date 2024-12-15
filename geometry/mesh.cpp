@@ -4,7 +4,7 @@
 #include <assimp/postprocess.h> // Post processing flags
 #include <cassert>
 
-Mesh::Mesh(const std::string fileName, const Vector3 pos, float scale, std::shared_ptr<const Material> pMtrl)
+Mesh::Mesh(const std::string fileName, const Vector3 pos, float scale, std::shared_ptr<Material> pMtrl)
 {
     assert(scale > 0);
 
