@@ -10,6 +10,13 @@ DielectricMaterial::DielectricMaterial()
 
     m_pGlassBrdf = new Glass(m_etaOutside, m_etaInside);
     m_pMirrorBrdf = new Mirror();
+
+    m_pCurrentBrdf = m_pGlassBrdf;
+}
+
+Color DielectricMaterial::get_f(const Vector3 &wo, const Vector3 &wi) const
+{
+    return m_pCurrentBrdf->get_f(wo, wi);
 }
 
 Color DielectricMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf, bool &isDelta)
@@ -44,11 +51,13 @@ Color DielectricMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi,
 
     if (rnd < F)
     {
+        m_pCurrentBrdf = m_pMirrorBrdf;
         color = m_pMirrorBrdf->sample_f(wo, wi, pdf);
         pdf = F;
     }
     else
     {
+        m_pCurrentBrdf = m_pGlassBrdf;
         color = m_pGlassBrdf->sample_f(wo, wi, pdf);
         pdf = 1 - F;
     }

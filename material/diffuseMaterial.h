@@ -13,7 +13,7 @@ class DiffuseMaterial : public Material
 public:
     DiffuseMaterial(std::shared_ptr<Texture> pTexture, float scale);
 
-    Color get_f(const Vector3 &wo, const Vector3 &wi) const;
+    virtual Color get_f(const Vector3 &wo, const Vector3 &wi) const override;
     virtual Color eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf, bool &isDelta);
 
 private:

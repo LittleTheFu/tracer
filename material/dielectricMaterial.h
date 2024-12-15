@@ -11,11 +11,13 @@ class DielectricMaterial : public Material
 public:
     DielectricMaterial();
 
+    virtual Color get_f(const Vector3 &wo, const Vector3 &wi) const override;
     virtual Color eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf, bool &isDelta) override;
 
 private:
     Glass *m_pGlassBrdf;
     Mirror *m_pMirrorBrdf;
+    Brdf *m_pCurrentBrdf;//bad here,to be fixed later...
 
     float m_etaOutside;
     float m_etaInside;
