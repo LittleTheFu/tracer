@@ -11,7 +11,7 @@ Ball::Ball()
     this->r = 1;
 }
 
-Ball::Ball(const Vector3 &rotate, const Vector3 &position, float r, std::shared_ptr<const Material> pMtrl)
+Ball::Ball(const Vector3 &rotate, const Vector3 &position, float r, std::shared_ptr<Material> pMtrl)
 {
     init(rotate, position);
 

@@ -2,7 +2,7 @@
 #include "diffuseBrdf.h"
 #include "common.h"
 
-DiffuseMaterial::DiffuseMaterial(std::shared_ptr<const Texture> pTexture, float scale)
+DiffuseMaterial::DiffuseMaterial(std::shared_ptr<Texture> pTexture, float scale)
 {
     m_pDiffuseBrdf = std::make_shared<DiffuseBrdf>(scale);
     m_pTexture = pTexture;
@@ -15,7 +15,7 @@ Color DiffuseMaterial::get_f(const Vector3 &wo, const Vector3 &wi) const
     return f;
 }
 
-Color DiffuseMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf, bool &isDelta) const
+Color DiffuseMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf, bool &isDelta)
 {
     isDelta = false;
     Color textureColor = m_pTexture->getColor(u, v);

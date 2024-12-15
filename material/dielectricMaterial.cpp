@@ -12,7 +12,7 @@ DielectricMaterial::DielectricMaterial()
     m_pMirrorBrdf = new Mirror();
 }
 
-Color DielectricMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf, bool &isDelta) const
+Color DielectricMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf, bool &isDelta)
 {
     isDelta = true;
     float etaInputSide = m_etaOutside;

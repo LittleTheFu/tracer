@@ -39,7 +39,7 @@ public:
     void setTransform(const Transform &t);
     Transform getTransform() const;
 
-    void setMaterial(std::shared_ptr<const Material> pMtrl);
+    void setMaterial(std::shared_ptr<Material> pMtrl);
     bool isVolume() const;
 
 //for development
@@ -62,7 +62,7 @@ protected:
 
     BoundBox m_boundBox;
 
-    std::shared_ptr<const Material> m_pMtrl;
+    std::shared_ptr<Material> m_pMtrl;
 };
 
 #endif

@@ -64,7 +64,7 @@ void MaterialManager::init()
     m_map[MATERIAL_TYPE::M_COMBINED] = combinedMtrl;
 }
 
-std::shared_ptr<const Material> MaterialManager::get(MATERIAL_TYPE type) const
+std::shared_ptr<Material> MaterialManager::get(MATERIAL_TYPE type) const
 {
     auto it = m_map.find(type);
 

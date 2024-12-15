@@ -3,7 +3,7 @@
 #include <cassert>
 #include <memory>
 
-CombinedMaterial::CombinedMaterial(std::shared_ptr<const Material> first, std::shared_ptr<const Material> second)
+CombinedMaterial::CombinedMaterial(std::shared_ptr<Material> first, std::shared_ptr<Material> second)
 {
     assert(first && second);
 
@@ -15,7 +15,7 @@ CombinedMaterial::CombinedMaterial(std::shared_ptr<const Material> first, std::s
     m_currentMaterial = m_FirstMaterial;
 }
 
-Color CombinedMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf, bool &isDelta) const
+Color CombinedMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf, bool &isDelta)
 {
     Color color;
 

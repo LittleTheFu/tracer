@@ -11,7 +11,7 @@ class MaterialManager
 public:
     MaterialManager();
     const static MaterialManager *getInstance();
-    std::shared_ptr<const Material> get(MATERIAL_TYPE type) const;
+    std::shared_ptr<Material> get(MATERIAL_TYPE type) const;
 
 private:
     void init();
@@ -20,25 +20,25 @@ private:
     static MaterialManager *instance;
 
 private:
-    std::map<MATERIAL_TYPE, std::shared_ptr<const Material>> m_map;
+    std::map<MATERIAL_TYPE, std::shared_ptr<Material>> m_map;
 
 private:
-    std::shared_ptr<const Material> diffuseMtrlRed;
-    std::shared_ptr<const Material> diffuseMtrlYellow;
-    std::shared_ptr<const Material> diffuseMtrlAqua;
-    std::shared_ptr<const Material> diffuseMtrlPurple;
-    std::shared_ptr<const Material> diffuseMtrlGreen;
-    std::shared_ptr<const Material> diffuseMtrlBlue;
-    std::shared_ptr<const Material> diffuseMtrlWhite;
+    std::shared_ptr<Material> diffuseMtrlRed;
+    std::shared_ptr<Material> diffuseMtrlYellow;
+    std::shared_ptr<Material> diffuseMtrlAqua;
+    std::shared_ptr<Material> diffuseMtrlPurple;
+    std::shared_ptr<Material> diffuseMtrlGreen;
+    std::shared_ptr<Material> diffuseMtrlBlue;
+    std::shared_ptr<Material> diffuseMtrlWhite;
 
-    std::shared_ptr<const Material> diffuseMtrlTexLena;
-    std::shared_ptr<const Material> diffuseMtrlTexChessBoard;
+    std::shared_ptr<Material> diffuseMtrlTexLena;
+    std::shared_ptr<Material> diffuseMtrlTexChessBoard;
 
-    std::shared_ptr<const Material> mirrorMtrl;
-    std::shared_ptr<const Material> glassMtrl;
+    std::shared_ptr<Material> mirrorMtrl;
+    std::shared_ptr<Material> glassMtrl;
 
-    std::shared_ptr<const Material> dielectricMtrl;
-    std::shared_ptr<const Material> combinedMtrl;
+    std::shared_ptr<Material> dielectricMtrl;
+    std::shared_ptr<Material> combinedMtrl;
 };
 
 #endif

@@ -9,7 +9,7 @@ class GlassMaterial : public Material
 public:
     GlassMaterial();
 
-    virtual Color eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf, bool &isDelta) const override;
+    virtual Color eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf, bool &isDelta) override;
 
 private:
     Glass *m_pGlassBrdf;
