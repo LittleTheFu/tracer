@@ -3,10 +3,10 @@
 
 #include "vector.h"
 #include "color.h"
+#include <complex>
 
 class Common
 {
-//for test bug
 public:
     static Vector3 getNormal(const Vector3 &from, const Vector3 &to);
 
@@ -26,6 +26,13 @@ public:
                          float etaOutputSide,
                          float cos_theta_in,
                          float cos_theta_out);
+
+    static float frenselComplex(std::complex<float> etaInputSide,
+                                std::complex<float> etaOutputSide,
+                                std::complex<float> cos_theta_in,
+                                std::complex<float> cos_theta_out);
+                
+    static float getNormSq(std::complex<float> c);      
 
 public:
     static void printCurrentTime();
