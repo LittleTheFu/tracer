@@ -2,6 +2,7 @@
 #define _VECTOR_H_
 
 #include <iostream>
+#include <complex>
 
 class Vector3
 {
@@ -48,6 +49,11 @@ public:
     Vector3 dir() const;
 
     bool isSameDir(const Vector3 & that) const;
+
+    Vector3 conductorReflect(const Vector3 &normal,
+                             std::complex<float> etaOutside,
+                             std::complex<float> etaInside,
+                             float &fresnel) const;
 
     Vector3 reflect(const Vector3 &normal) const;
     Vector3 refract(const Vector3 &normal,

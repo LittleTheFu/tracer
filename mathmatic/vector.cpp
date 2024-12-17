@@ -244,6 +244,11 @@ bool Vector3::isSameDir(const Vector3 & that) const
     return r > 0;
 }
 
+Vector3 Vector3::conductorReflect(const Vector3 &normal, std::complex<float> etaOutside, std::complex<float> etaInside, float &fresnel) const
+{
+    return Vector3();
+}
+
 Vector3 Vector3::reflect(const Vector3 &normal) const
 {
     assert((normal != Vector3::ZERO) && "Vector3::reflect()");
