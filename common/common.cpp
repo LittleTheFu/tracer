@@ -78,9 +78,9 @@ float Common::sinPhiSq(const Vector3 &v)
 }
 
 float Common::fresnel(float etaInputSide,
-                                          float etaOutputSide,
-                                          float cos_theta_in,
-                                          float cos_theta_out)
+                      float etaOutputSide,
+                      float cos_theta_in,
+                      float cos_theta_out)
 {
     float r_pa = (etaOutputSide * cos_theta_in - etaInputSide * cos_theta_out) /
                  (etaOutputSide * cos_theta_in + etaInputSide * cos_theta_out);
