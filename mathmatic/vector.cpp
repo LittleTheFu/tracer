@@ -305,7 +305,7 @@ Vector3 Vector3::refract(const Vector3 &normal,
     Vector3 out_p = in_p / eta;
     Vector3 out_n = cos_theta_out * this->length() * n;
 
-    Vector3 out = out_p + out,_n;
+    Vector3 out = out_p + out_n;
 
     float cos_theta_in = dot;
     fresnel = Common::fresnel(etaInputSide, etaOutputSide, cos_theta_in, cos_theta_out);
