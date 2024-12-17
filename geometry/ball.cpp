@@ -248,13 +248,11 @@ bool Ball::getHitParam(float t_min, float t_max, float &t_out) const
 
 void Ball::HandleMaterial(const Vector3 &localNormal, const Vector3 &localPoint, const Ray& newRay, HitRecord &record) const
 {
-    record.mtrl = m_pMtrl;
-
     Frame frame(localNormal, dpdu(localPoint), Vector3::ZERO);
 
     const Vector3 local_wo = frame.pointToLocal(-newRay.dir);
     Vector3 r;
-    record.f = m_pMtrl->eval(record.u, record.v, local_wo, r, record.reflectPdf, record.isDelta);
+    record.f = m_pMtrl->eval(record.u, record.v, local_wo, r, record.reflectPdf, record.isDelta, record.brdf);
     record.dot = MathUtility::clamp(std::abs(r * Common::LOCAL_NORMAL), MathConstant::FLOAT_SAMLL_NUMBER, 1.0f);
 
     Vector3 localReflectVector = frame.pointToWorld(r);

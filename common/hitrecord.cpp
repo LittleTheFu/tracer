@@ -15,6 +15,8 @@ HitRecord::HitRecord()
     dotLight = 1;
 
     f = Color::COLOR_BLACK;
+
+    brdf = nullptr;
 }
 
 HitRecord HitRecord::getCloserOne(const HitRecord &that) const

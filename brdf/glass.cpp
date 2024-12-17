@@ -56,3 +56,8 @@ float Glass::pdf(const Vector3 &wo, const Vector3 &wi) const
 {
     return 0.0f;
 }
+
+std::shared_ptr<Brdf> Glass::clone() const
+{
+    return std::make_shared<Glass>(*this);
+}

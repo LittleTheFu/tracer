@@ -82,9 +82,7 @@ bool Tri::hit(const Ray &ray, HitRecord &record) const
         return false;
     }
 
-    record.mtrl = m_pMtrl;
     record.transform = m_transform;
-
     record.point = m_transform.transformPoint(_objPoint);
 
 #if _NORMAL_DEBUG_
@@ -102,7 +100,7 @@ bool Tri::hit(const Ray &ray, HitRecord &record) const
     if (m_pMtrl)
     {
         Vector3 r;
-        record.f = m_pMtrl->eval(record.u, record.v, -localRay.dir, r, record.reflectPdf, record.isDelta);
+        record.f = m_pMtrl->eval(record.u, record.v, -localRay.dir, r, record.reflectPdf, record.isDelta, record.brdf);
         assert(record.f.isValid());
  
         record.dot = MathUtility::clamp(std::abs(r * Common::LOCAL_NORMAL), MathConstant::FLOAT_SAMLL_NUMBER, 1.0f);

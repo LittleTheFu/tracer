@@ -19,7 +19,13 @@ Color DielectricMaterial::get_f(const Vector3 &wo, const Vector3 &wi) const
     return m_pCurrentBrdf->get_f(wo, wi);
 }
 
-Color DielectricMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf, bool &isDelta)
+Color DielectricMaterial::eval(float u,
+                               float v,
+                               const Vector3 &wo,
+                               Vector3 &wi,
+                               float &pdf,
+                               bool &isDelta,
+                               std::shared_ptr<Brdf> &brdf)
 {
     isDelta = true;
     float etaInputSide = m_etaOutside;
@@ -53,11 +59,13 @@ Color DielectricMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi,
     {
         m_pCurrentBrdf = m_pMirrorBrdf;
         color = m_pMirrorBrdf->sample_f(wo, wi, pdf);
+        brdf = m_pMirrorBrdf->clone();
         pdf = F;
     }
     else
     {
         m_pCurrentBrdf = m_pGlassBrdf;
+        brdf = m_pGlassBrdf->clone();
         color = m_pGlassBrdf->sample_f(wo, wi, pdf);
         pdf = 1 - F;
     }

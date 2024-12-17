@@ -55,7 +55,6 @@ bool Plane::hit(const Ray &ray, HitRecord &record) const
         return false;
     }
 
-    record.mtrl = m_pMtrl;
     record.transform = m_transform;
 
     record.point = m_transform.transformPoint(localPoint);
@@ -104,7 +103,7 @@ void Plane::buildBoundBox()
 void Plane::HandleMaterial(const Ray &newRay, HitRecord &record) const
 {
     Vector3 r;
-    record.f = m_pMtrl->eval(record.u, record.v, -newRay.dir, r, record.reflectPdf, record.isDelta);
+    record.f = m_pMtrl->eval(record.u, record.v, -newRay.dir, r, record.reflectPdf, record.isDelta, record.brdf);
     record.dot = MathUtility::clamp(std::abs(r * Common::LOCAL_NORMAL), MathConstant::FLOAT_SAMLL_NUMBER, 1.0f);
     record.reflect = m_transform.transformVector(r);
 

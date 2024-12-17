@@ -5,9 +5,10 @@
 #include "material.h"
 #include "transform.h"
 #include "color.h"
-#include <vector>
 #include "media.h"
+#include "brdf.h"
 #include <memory>
+#include <vector>
 
 
 class HitRecord
@@ -22,7 +23,7 @@ public:
     Media insideMedia;
     
     Transform transform;
-    std::shared_ptr<const Material> mtrl;
+    std::shared_ptr<Brdf> brdf;  
 
     Vector3 point;
     Vector3 normal;

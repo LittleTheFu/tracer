@@ -15,7 +15,7 @@ public:
     void setColor(const Color &color);
 
     virtual float pdf(const Vector3 &wo, const Vector3 &wi) const override;
-
+    virtual std::shared_ptr<Brdf> clone() const override;
 
 private:
     Color m_color;

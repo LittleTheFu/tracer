@@ -6,7 +6,8 @@
 class DummyBrdf : public Brdf
 {
 public:
-    virtual Color sample_f(const Vector3 &wo, Vector3 &wi, float &pdf) = 0;
+    virtual Color sample_f(const Vector3 &wo, Vector3 &wi, float &pdf) const override;
+    virtual std::shared_ptr<Brdf> clone() const override;
 };
 
 #endif

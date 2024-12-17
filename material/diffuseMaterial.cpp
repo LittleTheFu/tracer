@@ -15,11 +15,18 @@ Color DiffuseMaterial::get_f(const Vector3 &wo, const Vector3 &wi) const
     return f;
 }
 
-Color DiffuseMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf, bool &isDelta)
+Color DiffuseMaterial::eval(float u,
+                            float v,
+                            const Vector3 &wo,
+                            Vector3 &wi,
+                            float &pdf,
+                            bool &isDelta,
+                            std::shared_ptr<Brdf> &brdf)
 {
     isDelta = false;
     Color textureColor = m_pTexture->getColor(u, v);
     m_pDiffuseBrdf->setColor(textureColor);
+    brdf = m_pDiffuseBrdf->clone();
 
     Color f = m_pDiffuseBrdf->sample_f(wo, wi, pdf);
 
