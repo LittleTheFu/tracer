@@ -77,7 +77,7 @@ float Common::sinPhiSq(const Vector3 &v)
     return sinPhi(v) * sinPhi(v);
 }
 
-float Common::calculateFresnelReflectance(float etaInputSide,
+float Common::fresnel(float etaInputSide,
                                           float etaOutputSide,
                                           float cos_theta_in,
                                           float cos_theta_out)

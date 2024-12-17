@@ -22,7 +22,7 @@ public:
     static float sinPhi(const Vector3 &v);
     static float sinPhiSq(const Vector3 &v);
 
-    static float calculateFresnelReflectance(float etaInputSide,
+    static float fresnel(float etaInputSide,
                                              float etaOutputSide,
                                              float cos_theta_in,
                                              float cos_theta_out);
