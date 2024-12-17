@@ -77,6 +77,19 @@ float Common::sinPhiSq(const Vector3 &v)
     return sinPhi(v) * sinPhi(v);
 }
 
+float Common::calculateFresnelReflectance(float etaInputSide,
+                                          float etaOutputSide,
+                                          float cos_theta_in,
+                                          float cos_theta_out)
+{
+    float r_pa = (etaOutputSide * cos_theta_in - etaInputSide * cos_theta_out) /
+                 (etaOutputSide * cos_theta_in + etaInputSide * cos_theta_out);
+    float r_per = (etaInputSide * cos_theta_in - etaOutputSide * cos_theta_out) /
+                  (etaInputSide * cos_theta_in + etaOutputSide * cos_theta_out);
+
+    return 0.5f * (r_pa * r_pa + r_per * r_per);
+}
+
 void Common::printCurrentTime()
 {
     std::chrono::system_clock::time_point now = std::chrono::system_clock::now();

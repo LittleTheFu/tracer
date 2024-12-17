@@ -1,8 +1,10 @@
+#include "common.h"
 #include "vector.h"
-#include <tgmath.h>
-#include <algorithm>
 #include "mathUtility.h"
 #include "mathConstantDef.h"
+
+#include <tgmath.h>
+#include <algorithm>
 #include <cassert>
 
 Vector3 const Vector3::ZERO = Vector3(0, 0, 0);
@@ -299,16 +301,10 @@ Vector3 Vector3::refract(const Vector3 &normal,
     Vector3 out_p = in_p / eta;
     Vector3 out_n = cos_theta_out * this->length() * n;
 
-    Vector3 out = out_p + out_n;
+    Vector3 out = out_p + out,_n;
 
     float cos_theta_in = dot;
-
-    float r_pa = (etaOutputSide * cos_theta_in - etaInputSide * cos_theta_out) /
-                 (etaOutputSide * cos_theta_in + etaInputSide * cos_theta_out);
-    float r_per = (etaInputSide * cos_theta_in - etaOutputSide * cos_theta_out) /
-                  (etaInputSide * cos_theta_in + etaOutputSide * cos_theta_out);
-
-    fresnel = 0.5f * (r_pa * r_pa + r_per * r_per);
+    fresnel = Common::calculateFresnelReflectance(etaInputSide, etaOutputSide, cos_theta_in, cos_theta_out);
 
     return out;
 }
