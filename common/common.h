@@ -23,9 +23,9 @@ public:
     static float sinPhiSq(const Vector3 &v);
 
     static float fresnel(float etaInputSide,
-                                             float etaOutputSide,
-                                             float cos_theta_in,
-                                             float cos_theta_out);
+                         float etaOutputSide,
+                         float cos_theta_in,
+                         float cos_theta_out);
 
 public:
     static void printCurrentTime();
