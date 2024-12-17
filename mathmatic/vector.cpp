@@ -3,7 +3,6 @@
 #include "mathUtility.h"
 #include "mathConstantDef.h"
 
-#include <tgmath.h>
 #include <algorithm>
 #include <cassert>
 
