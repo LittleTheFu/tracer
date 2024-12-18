@@ -100,12 +100,12 @@ float Common::frenselComplex(std::complex<float> eta, float cos_theta_in)
     // eta = std::complex<float>(1) / eta;
     float sin2Theta_i = 1 - MathUtility::sq(cos_theta_in);
     std::complex<float> sin2Theta_t = sin2Theta_i / MathUtility::sq_c(eta);
-    std::complex<float> cos_theta_out = std::sqrt(std::complex<float>(1) - sin2Theta_t);
+    std::complex<float> cos_theta_t = std::sqrt(std::complex<float>(1) - sin2Theta_t);
 
-    std::complex<float> r_pa = (eta * cos_theta_in - cos_theta_out) /
-                               (eta * cos_theta_in + cos_theta_out);
-    std::complex<float> r_per = (cos_theta_in - eta * cos_theta_out) /
-                                (cos_theta_in + eta * cos_theta_out);
+    std::complex<float> r_pa = (eta * cos_theta_in - cos_theta_t) /
+                               (eta * cos_theta_in + cos_theta_t);
+    std::complex<float> r_per = (cos_theta_in - eta * cos_theta_t) /
+                                (cos_theta_in + eta * cos_theta_t);
 
     return 0.5f * (getNormSq(r_pa) + getNormSq(r_per));
 }
