@@ -2,6 +2,7 @@
 #define _MATH_UTILITY_H_
 
 #include <initializer_list>
+#include <complex>
 
 class MathUtility
 {
@@ -35,7 +36,9 @@ public:
     static float smooth(float t);
     static float getSign(float x);
 
+    //should be extract to a template function,later...
     static float sq(float x);
+    static std::complex<float> sq_c(std::complex<float> x);
 };
 
 #endif

@@ -7,7 +7,7 @@ void BetaSceneBuilder::build()
     buildRoom();
     buildLight(configLightPos, configLightRadius);
 
-    buildConductorBall(Vector3(-10, -40, 300), 50);
+    buildConductorBall(Vector3(-10, -40, 350), 50);
     // buildRedBall(Vector3(-10, -70, 300), 20);
     // buildAquaBall(Vector3(-70, 80, 350), 20);
     // buildMirrorBall(Vector3(-50, 70, 350), 20);

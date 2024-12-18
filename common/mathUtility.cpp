@@ -218,3 +218,8 @@ float MathUtility::sq(float x)
 {
     return x * x;
 }
+
+std::complex<float> MathUtility::sq_c(std::complex<float> x)
+{
+    return x * x;
+}

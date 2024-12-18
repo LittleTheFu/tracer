@@ -97,8 +97,9 @@ float Common::fresnel(float etaInputSide,
 
 float Common::frenselComplex(std::complex<float> eta, float cos_theta_in)
 {
+    // eta = std::complex<float>(1) / eta;
     float sin2Theta_i = 1 - MathUtility::sq(cos_theta_in);
-    std::complex<float> sin2Theta_t = sin2Theta_i / std::sqrt(eta);
+    std::complex<float> sin2Theta_t = sin2Theta_i / MathUtility::sq_c(eta);
     std::complex<float> cos_theta_out = std::sqrt(std::complex<float>(1) - sin2Theta_t);
 
     std::complex<float> r_pa = (eta * cos_theta_in - cos_theta_out) /
