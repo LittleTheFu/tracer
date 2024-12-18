@@ -48,6 +48,7 @@ SET (RAY_TRACER_SOURCE
     light/light.cpp
     # main/main.cpp
     material/combinedMaterial.cpp
+    material/conductorMaterial.cpp
     material/dummyMaterial.cpp
     material/glassMaterial.cpp
     material/diffuseMaterial.cpp
@@ -125,6 +126,7 @@ SET (RAY_TRACER_HEADER
     geometry/tri.h
     light/light.h
     material/combinedMaterial.h
+    material/conductorMaterial.h
     material/dummyMaterial.h
     material/glassMaterial.h
     material/diffuseMaterial.h
