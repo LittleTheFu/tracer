@@ -6,6 +6,7 @@
 class Microfacet
 {
 public:
+    Microfacet();
     Microfacet(float alpha_x, float alpha_y);
 
     float distribution(const Vector3 &wm) const;
@@ -17,6 +18,8 @@ public:
 
     Vector3 sample_wm(const Vector3 &w) const;
     float pdf(const Vector3 &wo, const Vector3 &wi) const;
+
+    // Color sample(const Vector3 &wo, Vector3 &wi, float &pdf) const;
 
 private:
     float m_alpha_x;

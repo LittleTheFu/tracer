@@ -20,27 +20,51 @@ std::shared_ptr<Brdf> ConductorBrdf::clone() const
 Color ConductorBrdf::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf) const
 {
     const Vector3 local_wo = -wo;
-    
+
     Vector3 n = LOCAL_NORMAL;
-    if(local_wo.isSameDir(n))
+    if (local_wo.isSameDir(n))
     {
         wi = Vector3::ZERO;
         pdf = 1;
         return Color::COLOR_BLACK;
-        
-        n = -n;
     }
 
-    wi = local_wo.reflect(n);
-    float absCosTheta = Common::absCosTheta(wi);
+    Vector3 wm = m_microfacet.sample_wm(wo);
+    wi = local_wo.reflect(wm);
 
-    float f = Common::frenselComplex(m_eta, absCosTheta) / absCosTheta;
-    Color cf(f, f, f);
+    pdf = m_microfacet.pdf(wo, wi);
 
-    return cf;
+    float absCosTheta_o = Common::absCosTheta(wo);
+    float absCosTheta_i = Common::absCosTheta(wi);
+
+    float absDot = std::abs(wo * wi);
+
+    float f = Common::frenselComplex(m_eta, absDot);
+
+    wm.normalize();
+
+    float final_f = m_microfacet.distribution(wm) * f * m_microfacet.g(wo, wi) / (4 * absCosTheta_o * absCosTheta_i);
+
+    Color F(final_f, final_f, final_f);
+
+    return F;
 }
 
 Color ConductorBrdf::get_f(const Vector3 &wo, const Vector3 &wi) const
 {
-    return Color::COLOR_BLACK;
+    float absDot = std::abs(wo * wi);
+
+    float f = Common::frenselComplex(m_eta, absDot);
+
+    Vector3 wm = wo + wi;
+    wm.normalize();
+
+    float absCosTheta_o = Common::absCosTheta(wo);
+    float absCosTheta_i = Common::absCosTheta(wi);
+
+    float final_f = m_microfacet.distribution(wm) * f * m_microfacet.g(wo, wi) / (4 * absCosTheta_o * absCosTheta_i);
+
+    Color F(final_f, final_f, final_f);
+
+    return F;
 }

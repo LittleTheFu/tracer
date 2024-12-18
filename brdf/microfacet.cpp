@@ -4,6 +4,12 @@
 #include "mathConstantDef.h"
 #include "frame.h"
 
+Microfacet::Microfacet()
+{
+    m_alpha_x = 1.0f;
+    m_alpha_y = 1.0f;
+}
+
 Microfacet::Microfacet(float alpha_x, float alpha_y)
 {
     m_alpha_x = alpha_x;
@@ -110,3 +116,8 @@ float Microfacet::pdf(const Vector3 &wo, const Vector3 &wi) const
 
     return r;
 }
+
+// Color Microfacet::sample(const Vector3 &wo, Vector3 &wi, float &pdf) const
+// {
+//     return Color::COLOR_BLACK;
+// }

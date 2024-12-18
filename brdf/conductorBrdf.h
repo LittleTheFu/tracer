@@ -3,6 +3,7 @@
 
 #include "brdf.h"
 #include "color.h"
+#include "microfacet.h"
 #include <complex>
 
 class ConductorBrdf : public Brdf
@@ -17,6 +18,7 @@ public:
 
 private:
     std::complex<float> m_eta;
+    Microfacet m_microfacet;
 };
 
 
