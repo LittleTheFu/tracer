@@ -17,11 +17,10 @@ public:
 
     Vector3 sample_wm(const Vector3 &w) const;
     float pdf(const Vector3 &wo, const Vector3 &wi) const;
-   
+
 private:
     float m_alpha_x;
     float m_alpha_y;
-
 };
 
 #endif
