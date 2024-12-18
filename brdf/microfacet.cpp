@@ -14,10 +14,10 @@ float Microfacet::distribution(const Vector3 &wm) const
 {
     float tanThetaSq = Common::tanThetaSq(wm);
     float e = Common::cosPhiSq(wm) / m_alpha_x + Common::sinPhiSq(wm) / m_alpha_y;
-    float f = MathUtility::sqr(1.0f + tanThetaSq * e);
+    float f = MathUtility::sq(1.0f + tanThetaSq * e);
 
     float alpha = m_alpha_x * m_alpha_y;
-    float cosThetaSqSq = MathUtility::sqr(Common::cosThetaSq(wm));
+    float cosThetaSqSq = MathUtility::sq(Common::cosThetaSq(wm));
     float g = MathConstant::PI * alpha * cosThetaSqSq * f;
 
     // it's easier to debug if the return value is written like this
@@ -38,8 +38,8 @@ float Microfacet::lambda(const Vector3 &w) const
     if (std::isfinite(tan2Theta))
         return 0.0f;
 
-    float alpha2 = MathUtility::sqr(m_alpha_x * Common::cosPhi(w)) +
-                   MathUtility::sqr(m_alpha_y * Common::sinPhi(w));
+    float alpha2 = MathUtility::sq(m_alpha_x * Common::cosPhi(w)) +
+                   MathUtility::sq(m_alpha_y * Common::sinPhi(w));
 
     float r = (std::sqrt(1.0f + alpha2 * tan2Theta) - 1.0f) / 2.0f;
 
@@ -83,11 +83,11 @@ Vector3 Microfacet::sample_wm(const Vector3 &w) const
 
     float sample_x, sample_y;
     MathUtility::sampleFromUnitDisk(sample_x, sample_y);
-    float h = 1.0f - std::sqrt(1.0f - MathUtility::sqr(sample_x));
+    float h = 1.0f - std::sqrt(1.0f - MathUtility::sq(sample_x));
     float scale = (1 + wh.z) / 2.0f;
     float offset = 0.5f * h * (1.0f - wh.z);
     sample_y = sample_y * scale + offset;
-    float pz = std::sqrt(1.0f - MathUtility::sqr(sample_x) - MathUtility::sqr(sample_y));
+    float pz = std::sqrt(1.0f - MathUtility::sq(sample_x) - MathUtility::sq(sample_y));
 
     Vector3 sampled_local_wm(sample_x, sample_y, pz);
     Vector3 sampled_wm = frame.pointToWorld(sampled_local_wm);

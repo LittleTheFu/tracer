@@ -27,6 +27,11 @@ float Common::cosThetaSq(const Vector3 &v)
     return cosTheta(v) * cosTheta(v);
 }
 
+float Common::absCosTheta(const Vector3 &v)
+{
+    return std::abs(v.z);
+}
+
 float Common::sinTheta(const Vector3 &v)
 {
     return MathUtility::clamp(std::sqrt(sinThetaSq(v)), 0, 1);
@@ -90,15 +95,16 @@ float Common::fresnel(float etaInputSide,
     return 0.5f * (r_pa * r_pa + r_per * r_per);
 }
 
-float Common::frenselComplex(std::complex<float> etaInputSide,
-                             std::complex<float> etaOutputSide,
-                             std::complex<float> cos_theta_in,
-                             std::complex<float> cos_theta_out)
+float Common::frenselComplex(std::complex<float> eta, float cos_theta_in)
 {
-    std::complex<float> r_pa = (etaOutputSide * cos_theta_in - etaInputSide * cos_theta_out) /
-                               (etaOutputSide * cos_theta_in + etaInputSide * cos_theta_out);
-    std::complex<float> r_per = (etaInputSide * cos_theta_in - etaOutputSide * cos_theta_out) /
-                                (etaInputSide * cos_theta_in + etaOutputSide * cos_theta_out);
+    float sin2Theta_i = 1 - MathUtility::sq(cos_theta_in);
+    std::complex<float> sin2Theta_t = sin2Theta_i / std::sqrt(eta);
+    std::complex<float> cos_theta_out = std::sqrt(std::complex<float>(1) - sin2Theta_t);
+
+    std::complex<float> r_pa = (eta * cos_theta_in - cos_theta_out) /
+                               (eta * cos_theta_in + cos_theta_out);
+    std::complex<float> r_per = (cos_theta_in - eta * cos_theta_out) /
+                                (cos_theta_in + eta * cos_theta_out);
 
     return 0.5f * (getNormSq(r_pa) + getNormSq(r_per));
 }

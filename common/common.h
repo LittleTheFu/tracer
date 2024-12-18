@@ -13,12 +13,17 @@ public:
     //warning: input vector must be normalized,to be recosidered later...
     static float cosTheta(const Vector3 &v);
     static float cosThetaSq(const Vector3 &v);
+    static float absCosTheta(const Vector3 &v);
+
     static float sinTheta(const Vector3 &v);
     static float sinThetaSq(const Vector3 &v);
+
     static float tanTheta(const Vector3 &v);
     static float tanThetaSq(const Vector3 &v);
+
     static float cosPhi(const Vector3 &v);
     static float cosPhiSq(const Vector3 &v);
+
     static float sinPhi(const Vector3 &v);
     static float sinPhiSq(const Vector3 &v);
 
@@ -27,10 +32,7 @@ public:
                          float cos_theta_in,
                          float cos_theta_out);
 
-    static float frenselComplex(std::complex<float> etaInputSide,
-                                std::complex<float> etaOutputSide,
-                                std::complex<float> cos_theta_in,
-                                std::complex<float> cos_theta_out);
+    static float frenselComplex(std::complex<float> eta, float cos_theta_in);
                 
     static float getNormSq(std::complex<float> c);      
 

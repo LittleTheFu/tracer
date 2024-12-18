@@ -214,7 +214,7 @@ float MathUtility::getSign(float x)
     return 0.0f;
 }
 
-float MathUtility::sqr(float x)
+float MathUtility::sq(float x)
 {
     return x * x;
 }
