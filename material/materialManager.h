@@ -39,6 +39,8 @@ private:
 
     std::shared_ptr<Material> dielectricMtrl;
     std::shared_ptr<Material> combinedMtrl;
+
+    std::shared_ptr<Material> conductorMtrl;
 };
 
 #endif

@@ -8,6 +8,7 @@
 class ConductorBrdf : public Brdf
 {
 public:
+    ConductorBrdf();
     ConductorBrdf(float eta, float k);
 
     virtual std::shared_ptr<Brdf> clone() const override;

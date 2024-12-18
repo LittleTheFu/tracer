@@ -20,6 +20,8 @@ enum class MATERIAL_TYPE
 
     M_DIELECTRIC,
     M_COMBINED,
+
+    M_CONDUCTOR,
 };
 
 #endif

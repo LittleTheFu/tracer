@@ -1,6 +1,11 @@
 #include "conductorBrdf.h"
 #include "common.h"
 
+ConductorBrdf::ConductorBrdf()
+{
+    m_eta = std::complex<float>(0.14f, 3.68f);
+}
+
 ConductorBrdf::ConductorBrdf(float eta, float k)
 {
     m_eta.real(eta);
@@ -9,7 +14,7 @@ ConductorBrdf::ConductorBrdf(float eta, float k)
 
 std::shared_ptr<Brdf> ConductorBrdf::clone() const
 {
-    return std::shared_ptr<Brdf>();
+    return std::make_shared<ConductorBrdf>(*this);
 }
 
 Color ConductorBrdf::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf) const
@@ -29,7 +34,7 @@ Color ConductorBrdf::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf) const
     wi = local_wo.reflect(n);
     float absCosTheta = Common::absCosTheta(wi);
 
-    float f = Common::frenselComplex(m_eta, absCosTheta);
+    float f = Common::frenselComplex(m_eta, absCosTheta) / absCosTheta;
     Color cf(f, f, f);
 
     return cf;

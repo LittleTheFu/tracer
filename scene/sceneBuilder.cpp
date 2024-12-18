@@ -93,6 +93,12 @@ void SceneBuilder::buildAquaBall(const Vector3 &pos, float r)
     m_pObjectPool->add(aquaBall);
 }
 
+void SceneBuilder::buildConductorBall(const Vector3 &pos, float r)
+{
+    std::shared_ptr<Ball> conductorBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_CONDUCTOR));
+    m_pObjectPool->add(conductorBall);
+}
+
 void SceneBuilder::buildMixBall(const Vector3& pos, float r)
 {
     // std::shared_ptr<Ball> mixBall = std::make_shared<Ball>(Vector3::ZERO, Vector3(-28, 72, 350), 20, MtrlMix);

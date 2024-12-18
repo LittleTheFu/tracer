@@ -31,6 +31,8 @@ protected:
     void buildRedBall(const Vector3& pos, float r);
     void buildAquaBall(const Vector3& pos, float r);
 
+    void buildConductorBall(const Vector3& pos, float r);
+
     void buildBunny(const Vector3& pos, float scale, const std::string& res, MATERIAL_TYPE materialType);
 
     void buildRedTri(const Vector3& pos);

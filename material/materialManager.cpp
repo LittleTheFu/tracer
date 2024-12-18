@@ -9,6 +9,7 @@
 #include "dielectricMaterial.h"
 #include "combinedMaterial.h"
 #include "chessboardTexture.h"
+#include "conductorMaterial.h"
 
 MaterialManager* MaterialManager::instance = nullptr;
 
@@ -48,6 +49,7 @@ void MaterialManager::init()
     dielectricMtrl = std::make_shared<DielectricMaterial>();
 
     combinedMtrl = std::make_shared<CombinedMaterial>(diffuseMtrlTexChessBoard, mirrorMtrl);
+    conductorMtrl = std::make_shared<ConductorMaterial>();
 
     m_map[MATERIAL_TYPE::M_RED] = diffuseMtrlRed;
     m_map[MATERIAL_TYPE::M_YELLOW] = diffuseMtrlYellow;
@@ -62,6 +64,7 @@ void MaterialManager::init()
     m_map[MATERIAL_TYPE::M_GLASS] = glassMtrl;
     m_map[MATERIAL_TYPE::M_DIELECTRIC] = dielectricMtrl;
     m_map[MATERIAL_TYPE::M_COMBINED] = combinedMtrl;
+    m_map[MATERIAL_TYPE::M_CONDUCTOR] = conductorMtrl;
 }
 
 std::shared_ptr<Material> MaterialManager::get(MATERIAL_TYPE type) const
