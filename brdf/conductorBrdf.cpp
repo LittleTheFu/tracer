@@ -3,7 +3,7 @@
 
 ConductorBrdf::ConductorBrdf()
 {
-    m_eta = std::complex<float>(2.4f, 3.5f);
+    m_eta = std::complex<float>(0.2f, 1.1f);
 }
 
 ConductorBrdf::ConductorBrdf(float eta, float k)
