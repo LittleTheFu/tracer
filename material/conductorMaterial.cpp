@@ -18,7 +18,7 @@ Color ConductorMaterial::eval(float u,
                               bool &isDelta,
                               std::shared_ptr<Brdf> &brdf)
 {
-    isDelta = false;
+    isDelta = true;
     brdf = m_pConductorBrdf->clone();
 
     Color f = m_pConductorBrdf->sample_f(wo, wi, pdf);

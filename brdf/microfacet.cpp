@@ -6,8 +6,8 @@
 
 Microfacet::Microfacet()
 {
-    m_alpha_x = 1.0f;
-    m_alpha_y = 1.0f;
+    m_alpha_x = 0.5f;
+    m_alpha_y = 0.5f;
 }
 
 Microfacet::Microfacet(float alpha_x, float alpha_y)
