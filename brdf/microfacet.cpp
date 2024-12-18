@@ -47,7 +47,7 @@ float Microfacet::lambda(const Vector3 &w) const
     float alpha2 = MathUtility::sq(m_alpha_x * Common::cosPhi(w)) +
                    MathUtility::sq(m_alpha_y * Common::sinPhi(w));
 
-    float r = (std::sqrt(1.0f + alpha2 * tan2Theta) - 1.0f) / 2.0f;
+    float r = (MathUtility::sq(1.0f + alpha2 * tan2Theta) - 1.0f) / 2.0f;
 
     return r;
 }
