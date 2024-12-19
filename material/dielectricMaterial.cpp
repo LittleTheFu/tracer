@@ -119,7 +119,7 @@ Color DielectricMaterial::eval_rough(float u, float v, const Vector3 &wo, Vector
 
     float rnd = MathUtility::genRandomDecimal();
     Vector3 input_wo = -wo;
-    
+
     if (rnd < pr)
     {
         Vector3 wi = input_wo.reflect(wm);
@@ -138,7 +138,7 @@ Color DielectricMaterial::eval_rough(float u, float v, const Vector3 &wo, Vector
     
     bool isTotalReflect = false;
     float fresnel;
-    input_wo.refract(wm, etaInputSide, etaOutputSide, isTotalReflect, fresnel);
+    wi = input_wo.refract(wm, etaInputSide, etaOutputSide, isTotalReflect, fresnel);
     float eta_p = etaInputSide / etaOutputSide;
 
     if(isTotalReflect)
