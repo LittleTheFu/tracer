@@ -7,14 +7,14 @@ void BetaSceneBuilder::build()
     buildRoom();
     buildLight(configLightPos, configLightRadius);
 
-    buildConductorBall(Vector3(-10, -40, 350), 50);
+    // buildConductorBall(Vector3(-10, -40, 350), 50);
     // buildRedBall(Vector3(-10, -70, 300), 20);
     // buildAquaBall(Vector3(-70, 80, 350), 20);
     // buildMirrorBall(Vector3(-50, 70, 350), 20);
 
     //to be fixed : light power leak
     // buildGlassBall(Vector3(60, 30, 300), 20);
-    // buildMixBall(Vector3(50, -60, 300), 35);
+    buildMixBall(Vector3(10, -50, 300), 45);
     
     // buildRedTri(Vector3(-55,0,370));
     // buildGreenTri(Vector3(50,-60,350));

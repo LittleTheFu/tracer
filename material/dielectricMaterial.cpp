@@ -27,6 +27,17 @@ Color DielectricMaterial::eval(float u,
                                bool &isDelta,
                                std::shared_ptr<Brdf> &brdf)
 {
+    return eval_smooth(u, v, wo, wi, pdf, isDelta, brdf);
+}
+
+Color DielectricMaterial::eval_smooth(float u,
+                               float v,
+                               const Vector3 &wo,
+                               Vector3 &wi,
+                               float &pdf,
+                               bool &isDelta,
+                               std::shared_ptr<Brdf> &brdf)
+{
     isDelta = true;
     float etaInputSide = m_etaOutside;
     float etaOutputSide = m_etaInside;

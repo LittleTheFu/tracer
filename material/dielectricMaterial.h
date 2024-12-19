@@ -5,7 +5,7 @@
 #include "glass.h"
 #include "mirror.h"
 
-//this class should be renamed to something like related to "glass"
+// this class should be renamed to something like related to "glass"
 class DielectricMaterial : public Material
 {
 public:
@@ -21,9 +21,18 @@ public:
                        std::shared_ptr<Brdf> &brdf) override;
 
 private:
+    Color eval_smooth(float u,
+                      float v,
+                      const Vector3 &wo,
+                      Vector3 &wi,
+                      float &pdf,
+                      bool &isDelta,
+                      std::shared_ptr<Brdf> &brdf);
+
+private:
     Glass *m_pGlassBrdf;
     Mirror *m_pMirrorBrdf;
-    Brdf *m_pCurrentBrdf;//bad here,to be fixed later...
+    Brdf *m_pCurrentBrdf; // bad here,to be fixed later...
 
     float m_etaOutside;
     float m_etaInside;
