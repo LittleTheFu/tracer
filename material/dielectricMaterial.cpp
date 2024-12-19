@@ -1,11 +1,12 @@
 #include "dielectricMaterial.h"
 #include "mathUtility.h"
 #include "mathConstantDef.h"
+#include "common.h"
 #include <cmath>
 
 DielectricMaterial::DielectricMaterial()
 {
-    m_isSmooth = true;
+    m_isSmooth = false;
 
     m_etaOutside = 1;
     m_etaInside = 1.5;
@@ -24,19 +25,19 @@ Color DielectricMaterial::eval(float u,
                                bool &isDelta,
                                std::shared_ptr<Brdf> &brdf)
 {
-    if(m_isSmooth)
+    if (m_isSmooth)
         return eval_smooth(u, v, wo, wi, pdf, isDelta, brdf);
 
     return eval_rough(u, v, wo, wi, pdf, isDelta, brdf);
 }
 
 Color DielectricMaterial::eval_smooth(float u,
-                               float v,
-                               const Vector3 &wo,
-                               Vector3 &wi,
-                               float &pdf,
-                               bool &isDelta,
-                               std::shared_ptr<Brdf> &brdf)
+                                      float v,
+                                      const Vector3 &wo,
+                                      Vector3 &wi,
+                                      float &pdf,
+                                      bool &isDelta,
+                                      std::shared_ptr<Brdf> &brdf)
 {
     isDelta = true;
     float etaInputSide = m_etaOutside;
@@ -81,7 +82,7 @@ Color DielectricMaterial::eval_smooth(float u,
         pdf = 1 - F;
     }
 
-    if(pdf == 0)
+    if (pdf == 0)
     {
         pdf = MathConstant::FLOAT_SAMLL_NUMBER;
         // return Color::COLOR_BLACK;
@@ -92,5 +93,67 @@ Color DielectricMaterial::eval_smooth(float u,
 
 Color DielectricMaterial::eval_rough(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf, bool &isDelta, std::shared_ptr<Brdf> &brdf)
 {
-    return Color();
+    isDelta = true;
+
+    Vector3 wm = m_microfacet.sample_wm(wo);
+    Vector3 normal = Brdf::LOCAL_NORMAL;
+
+    float cosOut = wo * normal;
+
+    float etaInputSide = m_etaOutside;
+    float etaOutputSide = m_etaInside;
+
+    if (cosOut < 0)
+    {
+        std::swap(etaInputSide, etaOutputSide);
+        cosOut = -cosOut;
+        normal = -normal;
+    }
+
+    float abs_cos_in = std::abs(wo * wm);
+    float R = Common::fresnel(etaInputSide, etaOutputSide, abs_cos_in, cosOut);
+    float T = 1.0f - R;
+
+    float pr = R;
+    float pt = T;
+
+    float rnd = MathUtility::genRandomDecimal();
+    Vector3 input_wo = -wo;
+    
+    if (rnd < pr)
+    {
+        Vector3 wi = input_wo.reflect(wm);
+        float abs_dot = std::abs(wo * wm);
+        pdf = m_microfacet.pdf(wo, wm) / (4 * abs_dot) * pr;
+        float f = m_microfacet.d(wo, wm) * m_microfacet.g(wo, wi) * R /
+                  (4 * Common::cosTheta(wi) * Common::cosTheta(wo));
+        brdf = m_pMirrorBrdf->clone();
+
+        return Color(f, f, f);
+    }
+
+    brdf = m_pGlassBrdf->clone();
+
+    // TODO: refraction
+    
+    bool isTotalReflect = false;
+    float fresnel;
+    input_wo.refract(wm, etaInputSide, etaOutputSide, isTotalReflect, fresnel);
+    float eta_p = etaInputSide / etaOutputSide;
+
+    if(isTotalReflect)
+    {
+        return Color::COLOR_BLACK;
+    }
+
+    float denom = MathUtility::sq(wi * wm + wo * wm / eta_p);
+    float dwm_dwi = std::abs(wi * wm) / denom;
+    pdf = m_microfacet.pdf(wo, wm) / dwm_dwi * pt;
+
+
+    float ft = (T * m_microfacet.d(wo, wm) * m_microfacet.g(wo, wi) *
+    std::abs((wi * wm) * (wo * wm) /
+    (Common::cosTheta(wi) * Common::cosTheta(wo) * denom)));
+
+    return Color(ft, ft, ft);
 }

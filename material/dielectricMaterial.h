@@ -4,6 +4,7 @@
 #include "material.h"
 #include "glass.h"
 #include "mirror.h"
+#include "microfacet.h"
 
 // this class should be renamed to something like related to "glass"
 class DielectricMaterial : public Material
@@ -45,6 +46,9 @@ private:
     float m_etaInside;
 
     bool m_isSmooth;
+
+    Microfacet m_microfacet;
+
 };
 
 #endif
