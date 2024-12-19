@@ -5,6 +5,8 @@
 
 DielectricMaterial::DielectricMaterial()
 {
+    m_isSmooth = true;
+
     m_etaOutside = 1;
     m_etaInside = 1.5;
 
@@ -27,7 +29,10 @@ Color DielectricMaterial::eval(float u,
                                bool &isDelta,
                                std::shared_ptr<Brdf> &brdf)
 {
-    return eval_smooth(u, v, wo, wi, pdf, isDelta, brdf);
+    if(m_isSmooth)
+        return eval_smooth(u, v, wo, wi, pdf, isDelta, brdf);
+
+    return Color::COLOR_BLACK;
 }
 
 Color DielectricMaterial::eval_smooth(float u,

@@ -36,6 +36,8 @@ private:
 
     float m_etaOutside;
     float m_etaInside;
+
+    bool m_isSmooth;
 };
 
 #endif
