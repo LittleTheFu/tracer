@@ -32,7 +32,7 @@ Color DielectricMaterial::eval(float u,
     if(m_isSmooth)
         return eval_smooth(u, v, wo, wi, pdf, isDelta, brdf);
 
-    return Color::COLOR_BLACK;
+    return eval_rough(u, v, wo, wi, pdf, isDelta, brdf);
 }
 
 Color DielectricMaterial::eval_smooth(float u,
@@ -93,4 +93,9 @@ Color DielectricMaterial::eval_smooth(float u,
     }
 
     return color;
+}
+
+Color DielectricMaterial::eval_rough(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf, bool &isDelta, std::shared_ptr<Brdf> &brdf)
+{
+    return Color();
 }
