@@ -6,11 +6,6 @@ MirrorMaterial::MirrorMaterial()
     m_pMirrorBrdf = new Mirror();
 }
 
-Color MirrorMaterial::get_f(const Vector3 &wo, const Vector3 &wi) const
-{
-    return m_pMirrorBrdf->get_f(wo, wi);
-}
-
 Color MirrorMaterial::eval(float u,
                            float v,
                            const Vector3 &wo,

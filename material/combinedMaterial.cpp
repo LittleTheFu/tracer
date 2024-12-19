@@ -15,11 +15,6 @@ CombinedMaterial::CombinedMaterial(std::shared_ptr<Material> first, std::shared_
     m_currentMaterial = m_FirstMaterial;
 }
 
-Color CombinedMaterial::get_f(const Vector3 &wo, const Vector3 &wi) const
-{
-    return m_currentMaterial->get_f(wo, wi);
-}
-
 Color CombinedMaterial::eval(float u,
                              float v,
                              const Vector3 &wo,

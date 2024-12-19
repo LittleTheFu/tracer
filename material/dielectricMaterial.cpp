@@ -16,11 +16,6 @@ DielectricMaterial::DielectricMaterial()
     m_pCurrentBrdf = m_pGlassBrdf;
 }
 
-Color DielectricMaterial::get_f(const Vector3 &wo, const Vector3 &wi) const
-{
-    return m_pCurrentBrdf->get_f(wo, wi);
-}
-
 Color DielectricMaterial::eval(float u,
                                float v,
                                const Vector3 &wo,

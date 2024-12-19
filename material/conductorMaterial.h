@@ -9,7 +9,6 @@ class ConductorMaterial : public Material
 public:
     ConductorMaterial();
 
-    virtual Color get_f(const Vector3 &wo, const Vector3 &wi) const override;
     virtual Color eval(float u,
                        float v,
                        const Vector3 &wo,

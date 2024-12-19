@@ -10,7 +10,6 @@ public:
     CombinedMaterial() = delete;
     CombinedMaterial(std::shared_ptr<Material> first, std::shared_ptr<Material> second);
 
-    virtual Color get_f(const Vector3 &wo, const Vector3 &wi) const override;
     virtual Color eval(float u,
                        float v,
                        const Vector3 &wo,

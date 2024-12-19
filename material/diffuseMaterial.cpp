@@ -8,13 +8,6 @@ DiffuseMaterial::DiffuseMaterial(std::shared_ptr<Texture> pTexture, float scale)
     m_pTexture = pTexture;
 }
 
-Color DiffuseMaterial::get_f(const Vector3 &wo, const Vector3 &wi) const
-{
-    Color f = m_pDiffuseBrdf->get_f(wo, wi);
-
-    return f;
-}
-
 Color DiffuseMaterial::eval(float u,
                             float v,
                             const Vector3 &wo,
