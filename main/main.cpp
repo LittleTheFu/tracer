@@ -9,8 +9,12 @@
 #include "mathUtility.h"
 #include "vox.h"
 #include <memory>
+#include "powitacq_rgb.h"
 std::shared_ptr<SceneBuilder> createBuilder()
 {
+    //test
+    powitacq_rgb::BRDF b("");
+
     std::shared_ptr<SceneBuilder> builder = nullptr;
     
     if (configScene == ConfigScene::ROOM_BUNNY)
