@@ -6,6 +6,7 @@
 #include <limits>         // std::numeric_limits
 #include <sstream>        // std::ostringstream
 #include <unordered_map>
+#include "powitacq_rgb.h"
 
 #define POWITACQ_SAMPLE_LUMINANCE 1
 

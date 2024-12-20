@@ -16,7 +16,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 project (ray_tracer)
 
 SET (RAY_TRACER_SOURCE
-    brdf/powitacq_rgb.inl
+    # brdf/powitacq_rgb.inl
     brdf/brdf.cpp
     brdf/brdfMgr.cpp
     brdf/conductorBrdf.cpp

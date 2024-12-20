@@ -52,6 +52,8 @@ using make_signed_t = typename make_signed<T>::type;
 }
 #endif
 
+#define POWITACQ_IMPLEMENTATION 1
+
 #define POWITACQ_NAMESPACE_BEGIN  namespace powitacq_rgb {
 #define POWITACQ_NAMESPACE_END    }
 #define POWITACQ_DIM(V)           template <size_t D = Dim, std::enable_if_t<(D >= V), int> = 0>

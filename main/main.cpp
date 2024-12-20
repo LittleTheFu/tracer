@@ -13,7 +13,7 @@
 std::shared_ptr<SceneBuilder> createBuilder()
 {
     //test
-    powitacq_rgb::BRDF b("");
+    powitacq_rgb::BRDF b("../resource/ilm_l3_37_matte_rgb.bsdf");
 
     std::shared_ptr<SceneBuilder> builder = nullptr;
     
