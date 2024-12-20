@@ -21,6 +21,7 @@ SET (RAY_TRACER_SOURCE
     brdf/conductorBrdf.cpp
     brdf/DummyBrdf.cpp
     brdf/glass.cpp
+    brdf/measuredBrdf.cpp
     brdf/diffuseBrdf.cpp
     brdf/microfacet.cpp
     brdf/mirror.cpp
@@ -95,6 +96,7 @@ SET (RAY_TRACER_HEADER
     brdf/conductorBrdf.h
     brdf/DummyBrdf.h
     brdf/glass.h
+    brdf/measuredBrdf.h
     brdf/diffuseBrdf.h
     brdf/microfacet.h
     brdf/mirror.h
