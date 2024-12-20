@@ -6,7 +6,8 @@
 
 DielectricMaterial::DielectricMaterial()
 {
-    m_isSmooth = false;
+    //Warning : don't set it to true,for rough surface is not supported yet...
+    m_isSmooth = true;
 
     m_etaOutside = 1;
     m_etaInside = 1.5;
