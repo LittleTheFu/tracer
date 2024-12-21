@@ -148,7 +148,8 @@
     "xtree": "cpp",
     "cassert": "cpp",
     "xstddef": "cpp",
-    "valarray": "cpp"
+    "valarray": "cpp",
+    "future": "cpp"
   },
   "C_Cpp.default.compilerPath": "cl.exe"
 }

@@ -41,6 +41,17 @@ float MeasuredBrdf::pdf(const Vector3 &wo, const Vector3 &wi) const
     return pdf;
 }
 
+Color MeasuredBrdf::get_f(const Vector3 &wo, const Vector3 &wi) const
+{
+    powitacq_rgb::Vector3f wrapper_wo(wo.x, wo.y, wo.z);   
+    powitacq_rgb::Vector3f wrapper_wi(wi.x, wi.y, wi.z);
+
+    powitacq_rgb::Vector3f f = m_pBrdf->eval(wrapper_wo, wrapper_wi);
+    Color ff(f.x(), f.y(), f.z());
+
+    return ff;
+}
+
 std::shared_ptr<Brdf> MeasuredBrdf::clone() const
 {
     return std::make_shared<MeasuredBrdf>(*this);

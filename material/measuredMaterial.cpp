@@ -3,7 +3,7 @@
 
 MeasuredMaterial::MeasuredMaterial()
 {
-    m_brdf = std::make_shared<MeasuredBrdf>(ResourceDef::TESTED_BRDF_METAL);
+    m_brdf = std::make_shared<MeasuredBrdf>(ResourceDef::TESTED_BRDF_GREEN);
 }
 
 Color MeasuredMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf, bool &isDelta, std::shared_ptr<Brdf> &brdf)
