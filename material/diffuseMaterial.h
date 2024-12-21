@@ -19,7 +19,7 @@ public:
                        Vector3 &wi,
                        float &pdf,
                        bool &isDelta,
-                       std::shared_ptr<Brdf> &brdf);
+                       std::shared_ptr<Brdf> &brdf) override;
 
 private:
     std::shared_ptr<DiffuseBrdf> m_pDiffuseBrdf;
