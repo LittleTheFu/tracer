@@ -10,6 +10,9 @@
 #include "combinedMaterial.h"
 #include "chessboardTexture.h"
 #include "conductorMaterial.h"
+#include "measuredMaterial.h"
+
+// class MeasuredMaterial;
 
 MaterialManager* MaterialManager::instance = nullptr;
 
@@ -50,6 +53,8 @@ void MaterialManager::init()
 
     combinedMtrl = std::make_shared<CombinedMaterial>(diffuseMtrlTexChessBoard, mirrorMtrl);
     conductorMtrl = std::make_shared<ConductorMaterial>();
+
+    measuredMtrl = std::make_shared<MeasuredMaterial>();
 
     m_map[MATERIAL_TYPE::M_RED] = diffuseMtrlRed;
     m_map[MATERIAL_TYPE::M_YELLOW] = diffuseMtrlYellow;

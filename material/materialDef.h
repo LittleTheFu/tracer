@@ -22,6 +22,8 @@ enum class MATERIAL_TYPE
     M_COMBINED,
 
     M_CONDUCTOR,
+
+    M_MEASURED_BRDF,
 };
 
 #endif

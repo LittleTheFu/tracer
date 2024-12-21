@@ -9,11 +9,11 @@
 #include "mathUtility.h"
 #include "vox.h"
 #include <memory>
-#include "powitacq_rgb.h"
+// #include "powitacq_rgb.h"
 std::shared_ptr<SceneBuilder> createBuilder()
 {
     //test
-    powitacq_rgb::BRDF b("../resource/ilm_l3_37_matte_rgb.bsdf");
+    // powitacq_rgb::BRDF b("../resource/ilm_l3_37_matte_rgb.bsdf");
 
     std::shared_ptr<SceneBuilder> builder = nullptr;
     

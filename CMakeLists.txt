@@ -56,6 +56,7 @@ SET (RAY_TRACER_SOURCE
     material/diffuseMaterial.cpp
     material/material.cpp
     material/materialManager.cpp
+    material/measuredMaterial.cpp
     material/microMaterial.cpp
     material/mirrorMaterial.cpp
     material/dielectricMaterial.cpp
@@ -93,6 +94,7 @@ SET (RAY_TRACER_SOURCE
 
 SET (RAY_TRACER_HEADER
     brdf/powitacq_rgb.h
+    brdf/powitacq_rgb.inl
     brdf/brdf.h
     brdf/brdfMgr.h
     brdf/conductorBrdf.h
@@ -137,6 +139,7 @@ SET (RAY_TRACER_HEADER
     material/material.h
     material/materialDef.h
     material/materialManager.h
+    material/measuredMaterial.h
     material/microMaterial.h
     material/mirrorMaterial.h
     material/dielectricMaterial.h
