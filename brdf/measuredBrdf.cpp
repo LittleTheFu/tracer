@@ -2,6 +2,7 @@
 #include "mathUtility.h"
 #include "resourceDef.h"
 #include <cassert>
+#include "mathConstantDef.h"
 
 MeasuredBrdf::MeasuredBrdf(const std::string &file)
 {
@@ -24,6 +25,7 @@ Color MeasuredBrdf::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf) const
 
     wi = Vector3(wrapper_wi.x(), wrapper_wi.y(), wrapper_wi.z());
     Color color(wrapper_color.x(), wrapper_color.y(), wrapper_color.z());
+    // color /= MathConstant::PI;
 
     return color;
 }
