@@ -147,6 +147,6 @@ POWITACQ_NAMESPACE_END
 #endif
 
 // #ifdef POWITACQ_IMPLEMENTATION
-#if POWITACQ_IMPLEMENTATION
-    #include "powitacq_rgb.inl"
-#endif
+// #if POWITACQ_IMPLEMENTATION
+//     #include "powitacq_rgb.inl"
+// #endif

@@ -12,8 +12,6 @@
 #include "conductorMaterial.h"
 #include "measuredMaterial.h"
 
-// class MeasuredMaterial;
-
 MaterialManager* MaterialManager::instance = nullptr;
 
 MaterialManager::MaterialManager()
@@ -70,6 +68,7 @@ void MaterialManager::init()
     m_map[MATERIAL_TYPE::M_DIELECTRIC] = dielectricMtrl;
     m_map[MATERIAL_TYPE::M_COMBINED] = combinedMtrl;
     m_map[MATERIAL_TYPE::M_CONDUCTOR] = conductorMtrl;
+    m_map[MATERIAL_TYPE::M_MEASURED_BRDF] = measuredMtrl;
 }
 
 std::shared_ptr<Material> MaterialManager::get(MATERIAL_TYPE type) const
