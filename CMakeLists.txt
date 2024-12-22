@@ -16,7 +16,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 project (ray_tracer)
 
 SET (RAY_TRACER_SOURCE
-    brdf/powitacq_rgb.cpp
     brdf/brdf.cpp
     brdf/brdfMgr.cpp
     brdf/conductorBrdf.cpp
@@ -34,7 +33,6 @@ SET (RAY_TRACER_SOURCE
     common/common.cpp
     common/config.cpp
     common/hitrecord.cpp
-    # common/lodepng.cpp
     common/mathUtility.cpp
     common/noise.cpp
     common/spectrum.cpp
@@ -93,8 +91,6 @@ SET (RAY_TRACER_SOURCE
 )
 
 SET (RAY_TRACER_HEADER
-    brdf/powitacq_rgb.h
-    # brdf/powitacq_rgb.inl
     brdf/brdf.h
     brdf/brdfMgr.h
     brdf/conductorBrdf.h
@@ -113,7 +109,6 @@ SET (RAY_TRACER_HEADER
     common/common.h
     common/config.h
     common/hitrecord.h
-    # common/lodepng.h
     common/mathConstantDef.h
     common/mathUtility.h
     common/noise.h
@@ -199,11 +194,15 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR}/third/assimp/include)
 add_subdirectory(${PROJECT_SOURCE_DIR}/third/lodepng/)
 include_directories(${PROJECT_SOURCE_DIR}/third/lodepng/include)
 
+add_subdirectory(${PROJECT_SOURCE_DIR}/third/powitacq/)
+include_directories(${PROJECT_SOURCE_DIR}/third/powitacq/include)
+
 add_executable(ray_tracer main/main.cpp )
 
 target_link_libraries(ray_tracer mylibs)
 target_link_libraries(ray_tracer assimp)
 target_link_libraries(ray_tracer lodepng)
+target_link_libraries(ray_tracer powitacq)
 
 # enable_testing()
 
@@ -215,9 +214,8 @@ target_link_libraries(ray_tracer lodepng)
 
 set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/install" CACHE PATH "Install path" FORCE)
 
-# 安装整个资源目录
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/resource/ DESTINATION ${CMAKE_BINARY_DIR}/resource
-        FILES_MATCHING PATTERN "*")  # 安装所有文件
+        FILES_MATCHING PATTERN "*")
 
 install(TARGETS ray_tracer  mylibs assimp lodepng RUNTIME DESTINATION ${CMAKE_BINARY_DIR}/bin)
 

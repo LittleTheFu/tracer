@@ -2,7 +2,7 @@
 #define _MEASURED_BRDF_H_
 
 #include "brdf.h"
-#include "powitacq_rgb.h"
+#include <powitacq/powitacq_rgb.h>
 #include <string>
 #include <memory>
 
