@@ -9,7 +9,6 @@ bool configUseBVH = false;
 TracerType configTracerType = TracerType::NEE;
 
 int configCameraFactor = 3;
-int configBounceTime = 8;//this one will be deleted soon
 int configSamplersPerPixel = 3;
 int configNeeTracerDepth = 3;
 
@@ -18,11 +17,6 @@ std::string configBunnyRes = ResourceDef::SIMPLE_BUNNY;
 MATERIAL_TYPE configBunnyMaterial = MATERIAL_TYPE::M_GLASS;
 
 std::string configOutputImageName = "img";
-
-//the three vars below to be deleted soon
-int configBatchStartBounce = 3;
-int configBatchEndBounces = 200;
-bool configUseBatchRun = false;
 
 bool configLogProgress = true;
 
