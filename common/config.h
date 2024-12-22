@@ -10,6 +10,7 @@ enum class ConfigScene {
     ROOM_SIMPLE,
     ROOM_BUNNY,
     ROOM_TEAPOT,
+    ROOM_MATERIAL_BALLS,
     ROOM_VOLUME,
 };
 

@@ -1,7 +1,7 @@
 #include "config.h"
 
 //don't use ROOM_VOLUME right now
-ConfigScene configScene = ConfigScene::ROOM_SIMPLE;
+ConfigScene configScene = ConfigScene::ROOM_MATERIAL_BALLS;
 
 bool configUseBVH = false;
 

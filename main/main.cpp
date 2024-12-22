@@ -5,11 +5,12 @@
 #include "betaSceneBuilder.h"
 #include "volumeSceneBuilder.h"
 #include "teapotSceneBuilder.h"
+#include "mtrlSceneBuilder.h"
 #include "config.h"
 #include "mathUtility.h"
 #include "vox.h"
 #include <memory>
-// #include "powitacq_rgb.h"
+
 std::shared_ptr<SceneBuilder> createBuilder()
 {
     //test
@@ -25,6 +26,8 @@ std::shared_ptr<SceneBuilder> createBuilder()
         builder = std::make_shared<VolumeSceneBuilder>();
     else if (configScene == ConfigScene::ROOM_TEAPOT)
         builder = std::make_shared<TeapotSceneBuilder>();
+    else if (configScene == ConfigScene::ROOM_MATERIAL_BALLS)
+        builder = std::make_shared<MtrlSceneBuilder>();
     else
         builder = std::make_shared<BetaSceneBuilder>();
 
