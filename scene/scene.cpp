@@ -26,8 +26,6 @@ Scene::Scene(std::shared_ptr<SceneBuilder> pBuilder, TracerType tracerType)
         tracer = std::make_shared<VolTracer>();
 
     m_pCamera = std::make_shared<PinholeCamera>(tracer);
-
-    m_MaxBounces = configBatchEndBounces;
 }
 
 void Scene::run()
@@ -48,30 +46,30 @@ void Scene::run()
 
 void Scene::batchRun()
 {
-    TimeRecorder t;
-    t.start();
+    // TimeRecorder t;
+    // t.start();
     
-    preConstructScene();
-    constructScene();
+    // preConstructScene();
+    // constructScene();
 
-    preRender();
+    // preRender();
 
-    int bounce = configBatchStartBounce;
+    // int bounce = configBatchStartBounce;
 
-    while (true)
-    {
-        configOutputImageName = std::to_string(bounce);
-        m_pCamera->setBounceTime(bounce);
+    // while (true)
+    // {
+    //     configOutputImageName = std::to_string(bounce);
+    //     m_pCamera->setBounceTime(bounce);
 
-        render();
-        postRender();
+    //     render();
+    //     postRender();
 
-        bounce++;
-        if (bounce > m_MaxBounces)
-            break;
-    }
+    //     bounce++;
+    //     if (bounce > m_MaxBounces)
+    //         break;
+    // }
 
-    t.end();
+    // t.end();
 }
 
 void Scene::preConstructScene()

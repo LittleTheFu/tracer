@@ -18,8 +18,6 @@ Camera::Camera(std::shared_ptr<Tracer> tracer)
     m_Width = default_screen_width * m_factor;
     m_Height = default_screen_height * m_factor;
 
-    m_BounceTime = configBounceTime;
-
     m_pTracer = tracer;
 }
 

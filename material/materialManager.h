@@ -41,7 +41,11 @@ private:
     std::shared_ptr<Material> combinedMtrl;
 
     std::shared_ptr<Material> conductorMtrl;
-    std::shared_ptr<Material> measuredMtrl;
+
+    std::shared_ptr<Material> measuredWhiteMtrl;
+    std::shared_ptr<Material> measuredGreenMtrl;
+    std::shared_ptr<Material> measuredMetalMtrl;
+    std::shared_ptr<Material> measuredMintMtrl;
 };
 
 #endif

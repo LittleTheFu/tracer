@@ -26,6 +26,11 @@ protected:
     void buildMirrorBall(const Vector3& pos, float r);
     void buildMixBall(const Vector3& pos, float r);
 
+    void buildMeasuredWhiteBall(const Vector3& pos, float r);
+    void buildMeasuredGreenBall(const Vector3& pos, float r);
+    void buildMeasuredMetalBall(const Vector3& pos, float r);
+    void buildMeasuredMintBall(const Vector3& pos, float r);
+
     void buildVolumeBall(const Vector3& pos, float r);
 
     void buildRedBall(const Vector3& pos, float r);

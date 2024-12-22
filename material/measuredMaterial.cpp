@@ -1,9 +1,9 @@
 #include "measuredMaterial.h"
 #include "resourceDef.h"
 
-MeasuredMaterial::MeasuredMaterial()
+MeasuredMaterial::MeasuredMaterial(const std::string &brdfPath)
 {
-    m_brdf = std::make_shared<MeasuredBrdf>(ResourceDef::BRDF_GREEN);
+    m_brdf = std::make_shared<MeasuredBrdf>(brdfPath);
 }
 
 Color MeasuredMaterial::eval(float u, float v, const Vector3 &wo, Vector3 &wi, float &pdf, bool &isDelta, std::shared_ptr<Brdf> &brdf)

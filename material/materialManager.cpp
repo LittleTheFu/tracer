@@ -52,7 +52,10 @@ void MaterialManager::init()
     combinedMtrl = std::make_shared<CombinedMaterial>(diffuseMtrlTexChessBoard, mirrorMtrl);
     conductorMtrl = std::make_shared<ConductorMaterial>();
 
-    measuredMtrl = std::make_shared<MeasuredMaterial>();
+    measuredWhiteMtrl = std::make_shared<MeasuredMaterial>(ResourceDef::BRDF_WHITE);
+    measuredGreenMtrl = std::make_shared<MeasuredMaterial>(ResourceDef::BRDF_GREEN);
+    measuredMetalMtrl = std::make_shared<MeasuredMaterial>(ResourceDef::BRDF_METAL);
+    measuredMintMtrl = std::make_shared<MeasuredMaterial>(ResourceDef::BRDF_MINT);
 
     m_map[MATERIAL_TYPE::M_RED] = diffuseMtrlRed;
     m_map[MATERIAL_TYPE::M_YELLOW] = diffuseMtrlYellow;
@@ -68,7 +71,10 @@ void MaterialManager::init()
     m_map[MATERIAL_TYPE::M_DIELECTRIC] = dielectricMtrl;
     m_map[MATERIAL_TYPE::M_COMBINED] = combinedMtrl;
     m_map[MATERIAL_TYPE::M_CONDUCTOR] = conductorMtrl;
-    m_map[MATERIAL_TYPE::M_MEASURED_BRDF] = measuredMtrl;
+    m_map[MATERIAL_TYPE::M_MEASURED_WHITE_BRDF] = measuredWhiteMtrl;
+    m_map[MATERIAL_TYPE::M_MEASURED_GREEN_BRDF] = measuredGreenMtrl;
+    m_map[MATERIAL_TYPE::M_MEASURED_METAL_BRDF] = measuredMetalMtrl;
+    m_map[MATERIAL_TYPE::M_MEASURED_MINT_BRDF] = measuredMintMtrl;
 }
 
 std::shared_ptr<Material> MaterialManager::get(MATERIAL_TYPE type) const

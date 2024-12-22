@@ -28,8 +28,6 @@ private:
     std::shared_ptr<ObjectPool> m_pObjectPool;
     std::shared_ptr<Camera> m_pCamera;
     std::shared_ptr<SceneBuilder> m_pBuilder;
-
-    int m_MaxBounces;
 };
 
 #endif

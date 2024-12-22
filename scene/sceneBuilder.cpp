@@ -101,9 +101,32 @@ void SceneBuilder::buildConductorBall(const Vector3 &pos, float r)
 
 void SceneBuilder::buildMixBall(const Vector3& pos, float r)
 {
-    // std::shared_ptr<Ball> mixBall = std::make_shared<Ball>(Vector3::ZERO, Vector3(-28, 72, 350), 20, MtrlMix);
-    std::shared_ptr<Ball> mixBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_MEASURED_BRDF));
+    std::shared_ptr<Ball> mixBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_DIELECTRIC));
     m_pObjectPool->add(mixBall);
+}
+
+void SceneBuilder::buildMeasuredWhiteBall(const Vector3 &pos, float r)
+{
+    std::shared_ptr<Ball> measuredWhiteBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_MEASURED_WHITE_BRDF));
+    m_pObjectPool->add(measuredWhiteBall);
+}
+
+void SceneBuilder::buildMeasuredGreenBall(const Vector3 &pos, float r)
+{
+    std::shared_ptr<Ball> measuredGreenBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_MEASURED_GREEN_BRDF));
+    m_pObjectPool->add(measuredGreenBall);
+}
+
+void SceneBuilder::buildMeasuredMetalBall(const Vector3 &pos, float r)
+{
+    std::shared_ptr<Ball> measuredMetalBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_MEASURED_METAL_BRDF));
+    m_pObjectPool->add(measuredMetalBall);
+}
+
+void SceneBuilder::buildMeasuredMintBall(const Vector3 &pos, float r)
+{
+    std::shared_ptr<Ball> measuredMintBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_MEASURED_MINT_BRDF));
+    m_pObjectPool->add(measuredMintBall);
 }
 
 void SceneBuilder::buildVolumeBall(const Vector3 &pos, float r)

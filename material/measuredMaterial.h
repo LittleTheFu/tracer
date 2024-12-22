@@ -4,11 +4,12 @@
 #include "material.h"
 #include "measuredBrdf.h"
 #include <memory>
+#include <string>
 
 class MeasuredMaterial : public Material
 {
 public:
-    MeasuredMaterial();
+    MeasuredMaterial(const std::string &brdfPath);
 
     virtual Color eval(float u,
                        float v,
