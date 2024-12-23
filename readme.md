@@ -52,5 +52,5 @@ reference: https://pbr-book.org/4ed/contents
 ---
 ![img](document/sample_1.png)
 ---
-![img](document/sample_3.png)
+![img](document/sample_4.png)
 ---
