@@ -55,7 +55,10 @@ public:
 
 private:
     bool isAllFacePositive(const Vector3 &p) const;
+    void getWeight(const Vector3 &p, float &wa, float &wb, float &wc) const;
     void calcNormal();
+
+    Vector3 getWeightedNormal(const Vector3 &p) const;
 
 private:
     virtual Vector3 dpdu(const Vector3 &point) const override;
