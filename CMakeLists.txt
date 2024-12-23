@@ -231,24 +231,25 @@ endif()
 # LIBRARY DESTINATION ${CMAKE_BINARY_DIR}/lib
 # ARCHIVE DESTINATION ${CMAKE_BINARY_DIR}/lib
 # 
+enable_testing()
 
-# CMakeLists.txt
+find_program(CTEST_MEMORYCHECK_COMMAND NAMES valgrind)
+INCLUDE(Dart)
 
-#set( 设置 googletest 的本地路径
+# 设置 GoogleTest 的本地路径
 set(GOOGLETEST_PATH "${PROJECT_SOURCE_DIR}/third/googletest" CACHE PATH "Path to googletest" FORCE)
 
-# 添加 googletest 子目录
+# 添加 GoogleTest 的子目录
 add_subdirectory(${GOOGLETEST_PATH} ${CMAKE_BINARY_DIR}/third/googletest)
 
 # 如果需要链接 gtest 库
-include_directories(${GOOGLETEST_PATH}/include)
-# link_directories(${GOOGLETEST_PATH?}/lib)
+include_directories(${GOOGLETEST_PATH}/googletest/include)
 
-# SET (TEST_SOURCE test/test.cpp)
-# include_directories(${TEST_SOURCE})
-# 示例：添加测试目标
-enable_testing()
-add_executable(MyTests test/test.cpp)
-target_link_libraries(MyTests gtest gtest_main)
+# 添加测试目标
 
-add_test(NAME MyTests COMMAND MyTests)
+
+add_executable(MyTest test/test.cpp)
+target_link_libraries(MyTest gtest gtest_main)
+
+add_test(NAME MyTests COMMAND MyTest)
+
