@@ -129,6 +129,30 @@ void SceneBuilder::buildMeasuredMintBall(const Vector3 &pos, float r)
     m_pObjectPool->add(measuredMintBall);
 }
 
+void SceneBuilder::buildMeasuredGreenPvcBall(const Vector3 &pos, float r)
+{
+    std::shared_ptr<Ball> measuredGreenPvcBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_MEASURED_GREEN_PVC_BRDF));
+    m_pObjectPool->add(measuredGreenPvcBall);
+}
+
+void SceneBuilder::buildMeasuredBrushedAluminiumBall(const Vector3 &pos, float r)
+{
+    std::shared_ptr<Ball> measuredBrushedAluminiumBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_MEASURED_BRUSHED_ALUMINIUM_BRDF));
+    m_pObjectPool->add(measuredBrushedAluminiumBall);
+}
+
+void SceneBuilder::buildMeasuredTarkinTunicBall(const Vector3 &pos, float r)
+{
+    std::shared_ptr<Ball> measuredTarkinTunicBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_MEASURED_TARKIN_TUNIC_BRDF));
+    m_pObjectPool->add(measuredTarkinTunicBall);
+}
+
+void SceneBuilder::buildMeasuredSariSilkBall(const Vector3 &pos, float r)
+{
+    std::shared_ptr<Ball> measuredSariSilkBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_MEASURED_SARI_SILK_BRDF));
+    m_pObjectPool->add(measuredSariSilkBall);
+}
+
 void SceneBuilder::buildVolumeBall(const Vector3 &pos, float r)
 {
     std::shared_ptr<Ball> volumeBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, nullptr);

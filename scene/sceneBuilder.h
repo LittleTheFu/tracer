@@ -30,6 +30,10 @@ protected:
     void buildMeasuredGreenBall(const Vector3& pos, float r);
     void buildMeasuredMetalBall(const Vector3& pos, float r);
     void buildMeasuredMintBall(const Vector3& pos, float r);
+    void buildMeasuredGreenPvcBall(const Vector3& pos, float r);
+    void buildMeasuredBrushedAluminiumBall(const Vector3& pos, float r);
+    void buildMeasuredTarkinTunicBall(const Vector3& pos, float r);
+    void buildMeasuredSariSilkBall(const Vector3& pos, float r);
 
     void buildVolumeBall(const Vector3& pos, float r);
 

@@ -46,6 +46,11 @@ private:
     std::shared_ptr<Material> measuredGreenMtrl;
     std::shared_ptr<Material> measuredMetalMtrl;
     std::shared_ptr<Material> measuredMintMtrl;
+
+    std::shared_ptr<Material> measuredBrushAluminiumMtrl;
+    std::shared_ptr<Material> measuredGreenPVCMtrl;
+    std::shared_ptr<Material> measuredBrushedTarkinTunicMtrl;
+    std::shared_ptr<Material> measuredSariSilkMtrl;
 };
 
 #endif

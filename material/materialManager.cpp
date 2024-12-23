@@ -56,6 +56,10 @@ void MaterialManager::init()
     measuredGreenMtrl = std::make_shared<MeasuredMaterial>(ResourceDef::BRDF_GREEN);
     measuredMetalMtrl = std::make_shared<MeasuredMaterial>(ResourceDef::BRDF_METAL);
     measuredMintMtrl = std::make_shared<MeasuredMaterial>(ResourceDef::BRDF_MINT);
+    measuredSariSilkMtrl = std::make_shared<MeasuredMaterial>(ResourceDef::BRDF_SARI_SILK);
+    measuredBrushAluminiumMtrl = std::make_shared<MeasuredMaterial>(ResourceDef::BRDF_BRUSHED_ALUMINIUM);
+    measuredGreenPVCMtrl = std::make_shared<MeasuredMaterial>(ResourceDef::BRDF_GREEN_PVC);
+    measuredBrushedTarkinTunicMtrl = std::make_shared<MeasuredMaterial>(ResourceDef::BRDF_TARKIN_TUNIC);
 
     m_map[MATERIAL_TYPE::M_RED] = diffuseMtrlRed;
     m_map[MATERIAL_TYPE::M_YELLOW] = diffuseMtrlYellow;
@@ -75,6 +79,10 @@ void MaterialManager::init()
     m_map[MATERIAL_TYPE::M_MEASURED_GREEN_BRDF] = measuredGreenMtrl;
     m_map[MATERIAL_TYPE::M_MEASURED_METAL_BRDF] = measuredMetalMtrl;
     m_map[MATERIAL_TYPE::M_MEASURED_MINT_BRDF] = measuredMintMtrl;
+    m_map[MATERIAL_TYPE::M_MEASURED_SARI_SILK_BRDF] = measuredSariSilkMtrl;
+    m_map[MATERIAL_TYPE::M_MEASURED_BRUSHED_ALUMINIUM_BRDF] = measuredBrushAluminiumMtrl;
+    m_map[MATERIAL_TYPE::M_MEASURED_GREEN_PVC_BRDF] = measuredGreenPVCMtrl;
+    m_map[MATERIAL_TYPE::M_MEASURED_TARKIN_TUNIC_BRDF] = measuredBrushedTarkinTunicMtrl;
 }
 
 std::shared_ptr<Material> MaterialManager::get(MATERIAL_TYPE type) const
