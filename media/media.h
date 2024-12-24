@@ -12,6 +12,8 @@ public:
     void set(float a, float s, float n, Color e);
     void clear();
 
+    bool isClear() const;
+
 public:
     float sigma_a;
     float sigma_s;
@@ -19,6 +21,9 @@ public:
     float sigma_major;
 
     Color emitColor;
+
+private:
+    bool m_isClear;
 };
 
 #endif
