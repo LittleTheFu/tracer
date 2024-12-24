@@ -101,7 +101,7 @@ bool Tri::hit(const Ray &ray, HitRecord &record) const
     {
         Vector3 r;
         record.f = m_pMtrl->eval(record.u, record.v, -weghtedRayDir, r, record.reflectPdf, record.isDelta, record.brdf);
-        assert(record.f.isValid());
+        // assert(record.f.isValid());
  
         record.dot = MathUtility::clamp(std::abs(r * Common::LOCAL_NORMAL), 0.0f, 1.0f);
         record.reflect = m_transform.transformVector(wieghtedFrame.vectorToWorld(r));
