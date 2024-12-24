@@ -33,39 +33,14 @@ Color NeeVolTracer::trace(std::shared_ptr<const ObjectPool> pool, Ray &ray) cons
         if(record.reflectPdf == 0.0f)
             break;
 
-        // sample light
-        if (record.isDelta)
+        if(record.isVolumeBoundery)
         {
-            color += beta * sampleLightFromDeltaMaterial(pool, record.point, record.reflect);
+
         }
         else
         {
-            //to be fixed later:here you need to check if the pointer is null
-            
-            Ray sampleRay;
-            Color partialColor = sampleLightFromNormalMaterial(pool, record.point, record.normal, sampleRay);
-
-            Frame frame(record.normal, record.point);
-            Vector3 local_wo = frame.vectorToLocal(-hitRay.dir);
-            Vector3 local_wi = frame.vectorToLocal(sampleRay.dir);
-            local_wo.normalize();
-            local_wi.normalize();
-            Color f = record.brdf->get_f(local_wo, local_wi);
-            color += beta * f * partialColor;
+            normalTrace(pool, record, hitRay, beta, color);
         }
-
-        beta *= (record.f * record.dot);
-        hitRay = genNextRay(record);
-
-        // bug? why?
-        // too bright due to the lack of attenuation factor
-        // float p = 1.0f - beta.getClampedMaxComponent();
-        // float p = MathUtility::genRandomDecimal();
-        // if(m_rouletter.evaluate(p))
-        // {
-        //     break;
-        // }
-        // beta /= p;
     }
 
     return color;
@@ -112,4 +87,35 @@ Ray NeeVolTracer::genNextRay(const HitRecord &record) const
     Vector3 origin = record.point + sign * record.normal * 0.001f;
 
     return Ray(origin, record.reflect);
+}
+
+Color NeeVolTracer::normalTrace(std::shared_ptr<const ObjectPool> pool,
+                                const HitRecord &record,
+                                Ray &hitRay,
+                                Color &beta,
+                                Color &color) const
+{
+    // sample light
+    if (record.isDelta)
+    {
+        color += beta * sampleLightFromDeltaMaterial(pool, record.point, record.reflect);
+    }
+    else
+    {
+        // to be fixed later:here you need to check if the pointer is null
+
+        Ray sampleRay;
+        Color partialColor = sampleLightFromNormalMaterial(pool, record.point, record.normal, sampleRay);
+
+        Frame frame(record.normal, record.point);
+        Vector3 local_wo = frame.vectorToLocal(-hitRay.dir);
+        Vector3 local_wi = frame.vectorToLocal(sampleRay.dir);
+        local_wo.normalize();
+        local_wi.normalize();
+        Color f = record.brdf->get_f(local_wo, local_wi);
+        color += beta * f * partialColor;
+    }
+
+    beta *= (record.f * record.dot);
+    hitRay = genNextRay(record);
 }

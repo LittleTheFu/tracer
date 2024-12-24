@@ -26,6 +26,13 @@ private:
 
     Ray genNextRay(const HitRecord &record) const;
 
+    //should be renamed later
+    Color normalTrace(std::shared_ptr<const ObjectPool> pool,
+                      const HitRecord &record,
+                      Ray &hitRay,
+                      Color &beta,
+                      Color &color) const;
+
 private:
     int m_depth;
     RussianRouletter m_rouletter;
