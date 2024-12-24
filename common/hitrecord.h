@@ -23,7 +23,8 @@ public:
     Media insideMedia;
     
     Transform transform;
-    std::shared_ptr<Brdf> brdf;  
+    std::shared_ptr<Brdf> brdf;
+    bool isVolumeBoundery;
 
     Vector3 point;
     Vector3 normal;

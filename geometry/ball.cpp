@@ -128,8 +128,7 @@ bool Ball::hit(const Ray &ray, HitRecord &record) const
     else
     {
         //for volume rendering(just for test now)
-        record.insideMedia = m_insideMedia;
-        record.outsideMedia = m_outsideMedia;
+        record.isVolumeBoundery = true;
     }
 
     return true;

@@ -17,6 +17,7 @@ HitRecord::HitRecord()
     f = Color::COLOR_BLACK;
 
     brdf = nullptr;
+    isVolumeBoundery = false;
 }
 
 HitRecord HitRecord::getCloserOne(const HitRecord &that) const
