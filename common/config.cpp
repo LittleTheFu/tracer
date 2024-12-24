@@ -9,7 +9,7 @@ bool configUseBVH = false;
 TracerType configTracerType = TracerType::NEE;
 
 int configCameraFactor = 6;
-int configSamplersPerPixel = 30;
+int configSamplersPerPixel = 5;
 int configNeeTracerDepth = 10;
 
 float configBnuuyScale = 300;
