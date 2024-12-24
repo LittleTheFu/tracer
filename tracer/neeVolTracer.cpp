@@ -112,10 +112,12 @@ Color NeeVolTracer::normalTrace(std::shared_ptr<const ObjectPool> pool,
         Vector3 local_wi = frame.vectorToLocal(sampleRay.dir);
         local_wo.normalize();
         local_wi.normalize();
-        Color f = record.brdf->get_f(local_wo, local_wi);
-        color += beta * f * partialColor;
+        Color clr = record.brdf->get_f(local_wo, local_wi);
+        color += beta * clr * partialColor;
     }
 
     beta *= (record.f * record.dot);
     hitRay = genNextRay(record);
+
+    return color;
 }
