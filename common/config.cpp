@@ -1,15 +1,15 @@
 #include "config.h"
 
 //don't use ROOM_VOLUME right now
-ConfigScene configScene = ConfigScene::ROOM_MATERIAL_BALLS;
+ConfigScene configScene = ConfigScene::ROOM_VOLUME;
 
 bool configUseBVH = false;
 
 //don't modify this because others are not done yet
-TracerType configTracerType = TracerType::NEE;
+TracerType configTracerType = TracerType::NEE_VOLUME;
 
-int configCameraFactor = 6;
-int configSamplersPerPixel = 30;
+int configCameraFactor = 3;
+int configSamplersPerPixel = 3;
 int configNeeTracerDepth = 10;
 
 float configBnuuyScale = 300;
