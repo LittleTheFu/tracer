@@ -1,8 +1,8 @@
 // Copyright 2024 <fu>
 #include "volTracer.h"
 #include "mathUtility.h"
-
 #include <memory>
+
 Color VolTracer::trace(std::shared_ptr<const ObjectPool> pool,
                         Ray &ray, int bounceNum,
                         const HitRecord &currentState) const {
