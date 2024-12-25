@@ -33,13 +33,16 @@ private:
                       Ray &hitRay,
                       Color &beta,
                       Color &color,
-                      bool &isVacuum) const;
+                      bool &isVacuum,
+                      float &pdf) const;
 
-    float volTrace(std::shared_ptr<const ObjectPool> pool,
+    void volTrace(std::shared_ptr<const ObjectPool> pool,
                   Ray &hitRay,
                   bool &isVacuum,
                   int &depth,
-                  Color &f) const;
+                  Color &beta,
+                  float &pdf,
+                  Color &color) const;
 
 private:
     int m_depth;

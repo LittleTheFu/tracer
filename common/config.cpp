@@ -8,8 +8,8 @@ bool configUseBVH = false;
 //don't modify this because others are not done yet
 TracerType configTracerType = TracerType::NEE_VOLUME;
 
-int configCameraFactor = 3;
-int configSamplersPerPixel = 3;
+int configCameraFactor = 2;
+int configSamplersPerPixel = 2;
 int configNeeTracerDepth = 10;
 
 float configBnuuyScale = 300;
