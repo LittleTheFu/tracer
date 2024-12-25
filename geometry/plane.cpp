@@ -62,6 +62,7 @@ bool Plane::hit(const Ray &ray, HitRecord &record) const
 
     record.u = u(localPoint);
     record.v = v(localPoint);
+    record.geometry = std::make_shared<Plane>(*this);
 
     if (m_pMtrl)
     {

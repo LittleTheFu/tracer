@@ -18,6 +18,8 @@ HitRecord::HitRecord()
 
     brdf = nullptr;
     isVolumeBoundery = false;
+
+    localPoint = Vector3::ZERO;
 }
 
 HitRecord HitRecord::getCloserOne(const HitRecord &that) const

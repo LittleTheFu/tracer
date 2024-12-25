@@ -12,9 +12,7 @@ Ray::Ray()
 }
 
 Ray::Ray(const Vector3 &origin, const Vector3 &dir)
-{
-    this->media.clear();
-    
+{    
     this->origin = origin;
     this->dir = dir;
     this->dir.normalize();

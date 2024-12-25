@@ -136,10 +136,10 @@ float MathUtility::genRamdomSignDecimal()
     return v;
 }
 
-float MathUtility::sampleExponential(float lambda)
+float MathUtility::sampleExponential(float lambda, float &pdf)
 {
     float r = -std::log(1.0f - genRandomDecimal()) / lambda;
-    // std::cout << r << std::endl;
+    pdf = lambda * std::exp(-lambda * r);
     return r;
 }
 

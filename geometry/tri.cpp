@@ -89,6 +89,7 @@ bool Tri::hit(const Ray &ray, HitRecord &record) const
     record.point = m_transform.transformPoint(_objPoint);
     record.u = u(_objPoint);
     record.v = v(_objPoint);
+    record.geometry = std::make_shared<Tri>(*this);
 
 #if _NORMAL_DEBUG_
     record.normal = m_transform.transformVector(frame.vectorToWorld(Common::LOCAL_NORMAL));

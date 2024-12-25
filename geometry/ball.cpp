@@ -114,12 +114,14 @@ bool Ball::hit(const Ray &ray, HitRecord &record) const
 
     const Vector3 localPoint = newRay.origin + record.t * newRay.dir;
     record.point = m_transform.transformPoint(localPoint);
+    record.localPoint = localPoint;
 
     const Vector3 localNormal = getLocalNormal(localPoint);
     record.normal = m_transform.transformNormal(localNormal);
 
     record.u = u(localPoint);
     record.v = v(localPoint);
+    record.geometry = std::make_shared<Ball>(*this);
 
     if (m_pMtrl)
     {

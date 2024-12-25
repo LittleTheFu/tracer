@@ -14,7 +14,10 @@ Color VolTracer::trace(std::shared_ptr<const ObjectPool> pool,
     if (ray.media.sigma_major == 0.0f)
         t = tMax;
     else
-        t = MathUtility::sampleExponential(ray.media.sigma_major);
+    {
+        float sampleDistancePdf;
+        t = MathUtility::sampleExponential(ray.media.sigma_major, sampleDistancePdf);
+    }
 
     while (t < tMax) {
         float sigma_a = ray.media.sigma_a;
@@ -52,7 +55,8 @@ Color VolTracer::trace(std::shared_ptr<const ObjectPool> pool,
             Ray newRay(ray.getPosition(t), dir);
             return trace(pool, newRay, bounceNum, record);
         } else {
-            t += 50 * MathUtility::sampleExponential(ray.media.sigma_major);
+            float n_samplePdf;
+            t += 50 * MathUtility::sampleExponential(ray.media.sigma_major, n_samplePdf);
             // t += 20;
         }
     }

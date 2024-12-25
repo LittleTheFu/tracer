@@ -24,6 +24,8 @@ public:
     void setPosition(const Vector3 &position);
     Vector3 getPosition() const;
 
+    Vector3 getLocalPosition(const Vector3 &worldPosition) const;
+
     virtual bool hit(const Ray &ray, HitRecord &record) const = 0;
     virtual Vector3 sampleFromPoint(const Vector3 &thatPoint, float &pdf) const;
     virtual Color get_f(const Vector3 &wo, const Vector3 &wi, const Vector3 &point, const Vector3 &normal) const;

@@ -4,7 +4,6 @@ Geometry::Geometry()
 {
     m_pMtrl = nullptr;
 
-    m_outsideMedia.clear();
     m_insideMedia.set(1,1,1,Color::COLOR_WHITE);
 }
 
@@ -24,6 +23,11 @@ Vector3 Geometry::getPosition() const
 {
     Vector3 p = m_transform.transformPoint(Vector3::ZERO);
     return p;
+}
+
+Vector3 Geometry::getLocalPosition(const Vector3 &worldPosition) const
+{
+    return m_transform.invTransformPoint(worldPosition);
 }
 
 void Geometry::setTag(Tag tag)

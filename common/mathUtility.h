@@ -26,7 +26,7 @@ public:
     static float genRamdomSignDecimal();
 
     //sample e^(-lambda*t)
-    static float sampleExponential(float lambda);
+    static float sampleExponential(float lambda, float &pdf);
     static int sampleFromWeights(std::initializer_list<float> weights);
 
     static void sampleFromUnitDisk(float &x, float &y);

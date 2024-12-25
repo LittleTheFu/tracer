@@ -22,7 +22,7 @@ std::string configOutputImageName = "img";
 bool configLogProgress = true;
 
 float configLightRadius = 20;
-Vector3 configLightPos(0, 40, 300);
+Vector3 configLightPos(0, 80, 200);
 float configLightIntensity = 180;
 
 float configLambdaScale = 0.6f;

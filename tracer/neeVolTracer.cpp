@@ -1,6 +1,7 @@
 #include "neeVolTracer.h"
 #include "hitrecord.h"
 #include "mathUtility.h"
+#include "mathConstantDef.h"
 
 NeeVolTracer::NeeVolTracer(int depth)
 {
@@ -16,6 +17,7 @@ Color NeeVolTracer::trace(std::shared_ptr<const ObjectPool> pool, Ray &ray) cons
 
     int depth = 0;
     Ray hitRay(ray);
+    bool isVacuum = true;
 
     while (true)
     {
@@ -23,23 +25,23 @@ Color NeeVolTracer::trace(std::shared_ptr<const ObjectPool> pool, Ray &ray) cons
             break;
         depth++;
 
-        HitRecord record;
-        if (!pool->hitScene(hitRay, record))
+        if (isVacuum)
         {
-            color += Color::COLOR_BLACK;
-            break;
-        }
+            HitRecord record;
+            if (!pool->hitScene(hitRay, record))
+            {
+                color += Color::COLOR_BLACK;
+                break;
+            }
 
-        if(record.reflectPdf == 0.0f)
-            break;
+            if (record.reflectPdf == 0.0f)
+                break;
 
-        if(record.isVolumeBoundery)
-        {
-
+            normalTrace(pool, record, hitRay, beta, color, isVacuum);
         }
         else
         {
-            normalTrace(pool, record, hitRay, beta, color);
+            volTrace(pool, hitRay, isVacuum, depth);
         }
     }
 
@@ -47,8 +49,8 @@ Color NeeVolTracer::trace(std::shared_ptr<const ObjectPool> pool, Ray &ray) cons
 }
 
 Color NeeVolTracer::sampleLightFromDeltaMaterial(std::shared_ptr<const ObjectPool> pool,
-                                              const Vector3 &pos,
-                                              const Vector3 &dir) const
+                                                 const Vector3 &pos,
+                                                 const Vector3 &dir) const
 {
     Ray deltaLightRay(pos, dir);
     Color lightColor = pool->getColorFromLight(deltaLightRay);
@@ -57,9 +59,9 @@ Color NeeVolTracer::sampleLightFromDeltaMaterial(std::shared_ptr<const ObjectPoo
 }
 
 Color NeeVolTracer::sampleLightFromNormalMaterial(std::shared_ptr<const ObjectPool> pool,
-                                               const Vector3 &pos,
-                                               const Vector3 &normal,
-                                               Ray &sampleRay) const
+                                                  const Vector3 &pos,
+                                                  const Vector3 &normal,
+                                                  Ray &sampleRay) const
 {
     float sampleLightPdf;
     Vector3 lightSurfacePoint = pool->m_pLight->sample(pos, sampleLightPdf);
@@ -69,7 +71,7 @@ Color NeeVolTracer::sampleLightFromNormalMaterial(std::shared_ptr<const ObjectPo
 
     // plus lightDir * 0.001f is a hotfix to avoid self intersection
     Ray sampleLightRay(pos + lightDir * 0.001f, lightDir);
-    sampleRay = sampleLightRay;//return value
+    sampleRay = sampleLightRay; // return value
     Color lightColor = pool->getColorFromLight(sampleLightRay);
 
     // to be fixed later : test visibility with light first?
@@ -93,10 +95,15 @@ Color NeeVolTracer::normalTrace(std::shared_ptr<const ObjectPool> pool,
                                 const HitRecord &record,
                                 Ray &hitRay,
                                 Color &beta,
-                                Color &color) const
+                                Color &color,
+                                bool &isVacuum) const
 {
     // sample light
-    if (record.isDelta)
+    if (record.isVolumeBoundery)
+    {
+        isVacuum = !isVacuum;
+    }
+    else if (record.isDelta)
     {
         color += beta * sampleLightFromDeltaMaterial(pool, record.point, record.reflect);
     }
@@ -120,4 +127,75 @@ Color NeeVolTracer::normalTrace(std::shared_ptr<const ObjectPool> pool,
     hitRay = genNextRay(record);
 
     return color;
+}
+
+float NeeVolTracer::volTrace(std::shared_ptr<const ObjectPool> pool,
+                            Ray &hitRay,
+                            bool &isVacuum,
+                            int &depth) const
+{
+    float pdf = 1.0f;
+
+    while (!isVacuum)
+    {
+        // do tracing in volume
+        // 1.get the longest distance to travel
+        HitRecord record;
+        if (!pool->hitScene(hitRay, record))
+            break;
+
+        if (!record.isVolumeBoundery)
+            break;
+
+        // the distance is record.t
+        float tMax = record.t;
+        Vector3 localPoint = record.geometry->getLocalPosition(record.point);
+        float sigma_a = m_vox.get(localPoint.x, localPoint.y, localPoint.z);
+        Media media(sigma_a, 1, Color::COLOR_NAVY);
+
+        float sampleDistancePdf;
+        float t = MathUtility::sampleExponential(media.sigma_major, sampleDistancePdf);
+        sampleDistancePdf *= pdf;
+        if (t > tMax)
+        {
+            Vector3 origin = record.point + hitRay.dir * MathConstant::FLOAT_SAMLL_NUMBER;
+            hitRay.origin = origin;
+            isVacuum = true;
+
+            return pdf;
+        }
+
+        int index = MathUtility::sampleFromWeights({media.sigma_a,
+                                                    media.sigma_s,
+                                                    media.sigma_n});
+
+        if (index == 0)
+        {
+            //dirty but quick fix,should be fixed later
+            pdf *= (media.sigma_a / media.sigma_major);
+            return pdf;
+        }
+        else if (index == 1)
+        {
+            pdf *= (media.sigma_s / media.sigma_major);
+            depth++;
+            if(depth > m_depth)
+                return pdf;
+
+            //todo: get color from light 
+
+            // scattering
+            Vector3 dir = Vector3::sampleUniformFromSphere();
+            pdf *= MathConstant::FOUR_PI;
+            Ray newRay(hitRay.getPosition(t), dir);
+        }
+        else
+        {
+            pdf *= (media.sigma_n / media.sigma_major);
+            float n_samplePdf;
+            t += 50 * MathUtility::sampleExponential(media.sigma_major, n_samplePdf);
+        }
+    }
+
+    return pdf;
 }
