@@ -156,14 +156,14 @@ bool Tri::isAllFacePositive(const Vector3 &p) const
     Vector3 bp = p - m_b.pos;
     Vector3 cp = p - m_c.pos;
 
-    Vector3 bc_bp = m_bc.cross(bp).dir();
-    Vector3 ca_cp = m_ca.cross(cp).dir();
-    Vector3 ab_ap = m_ab.cross(ap).dir();
+    Vector3 bc_bp = m_bc.cross(bp);
+    Vector3 ca_cp = m_ca.cross(cp);
+    Vector3 ab_ap = m_ab.cross(ap);
 
-    if(bc_bp != ca_cp) return false;
-    if(ca_cp != ab_ap) return false;
-    if(ab_ap != bc_bp) return false;
-    
+    if(!bc_bp.isSameDir(ca_cp)) return false;
+    if(!ca_cp.isSameDir(ab_ap)) return false;
+    if(!ab_ap.isSameDir(bc_bp)) return false;
+
     return true;
 }
 
