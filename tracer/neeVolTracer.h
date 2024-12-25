@@ -28,7 +28,7 @@ private:
     Ray genNextRay(const HitRecord &record) const;
 
     // should be renamed later
-    Color normalTrace(std::shared_ptr<const ObjectPool> pool,
+    Color evalVaccum(std::shared_ptr<const ObjectPool> pool,
                       const HitRecord &record,
                       Ray &hitRay,
                       Color &beta,
@@ -36,13 +36,14 @@ private:
                       bool &isVacuum,
                       float &pdf) const;
 
-    void volTrace(std::shared_ptr<const ObjectPool> pool,
+    void evalVolume(std::shared_ptr<const ObjectPool> pool,
                   Ray &hitRay,
                   bool &isVacuum,
                   int &depth,
                   Color &beta,
                   float &pdf,
-                  Color &color) const;
+                  Color &color,
+                  bool &isAbsorbed) const;
 
 private:
     int m_depth;

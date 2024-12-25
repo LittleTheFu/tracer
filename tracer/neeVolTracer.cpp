@@ -11,6 +11,8 @@ NeeVolTracer::NeeVolTracer(int depth)
 
 Color NeeVolTracer::trace(std::shared_ptr<const ObjectPool> pool, Ray &ray) const
 {
+    bool isAbsorbed = false;
+
     // Color color = Color::COLOR_BLACK;
     Color color = traceFirstBounce(pool, ray);
     Color beta = Color::COLOR_WHITE;
@@ -23,6 +25,9 @@ Color NeeVolTracer::trace(std::shared_ptr<const ObjectPool> pool, Ray &ray) cons
 
     while (true)
     {
+        if(isAbsorbed)
+            break;
+
         if (depth > m_depth)
             break;
         depth++;
@@ -36,17 +41,23 @@ Color NeeVolTracer::trace(std::shared_ptr<const ObjectPool> pool, Ray &ray) cons
                 break;
             }
 
-            if (record.reflectPdf == 0.0f)
+            if (record.reflectPdf == 0.0f && !record.isVolumeBoundery)
                 break;
 
+            if(record.isVolumeBoundery)
+                record.reflectPdf = 1.0f;
+
             pdf *= record.reflectPdf;
-            normalTrace(pool, record, hitRay, beta, color, isVacuum, pdf);
+            evalVaccum(pool, record, hitRay, beta, color, isVacuum, pdf);
         }
         else
         {
-            volTrace(pool, hitRay, isVacuum, depth, beta, pdf, color);
+            evalVolume(pool, hitRay, isVacuum, depth, beta, pdf, color, isAbsorbed);
         }
     }
+
+    // if(isAbsorbed)
+    //     color = Color::COLOR_BLACK;
 
     return color;
 }
@@ -94,7 +105,7 @@ Ray NeeVolTracer::genNextRay(const HitRecord &record) const
     return Ray(origin, record.reflect);
 }
 
-Color NeeVolTracer::normalTrace(std::shared_ptr<const ObjectPool> pool,
+Color NeeVolTracer::evalVaccum(std::shared_ptr<const ObjectPool> pool,
                                 const HitRecord &record,
                                 Ray &hitRay,
                                 Color &beta,
@@ -102,6 +113,7 @@ Color NeeVolTracer::normalTrace(std::shared_ptr<const ObjectPool> pool,
                                 bool &isVacuum,
                                 float &pdf) const
 {
+    Vector3 old_ray_dir = hitRay.dir;
     // sample light
     if (record.isVolumeBoundery)
     {
@@ -130,16 +142,22 @@ Color NeeVolTracer::normalTrace(std::shared_ptr<const ObjectPool> pool,
     beta *= (record.f * record.dot);
     hitRay = genNextRay(record);
 
+    if(record.isVolumeBoundery)
+    {
+        hitRay.dir = old_ray_dir;
+    }
+
     return color;
 }
 
-void NeeVolTracer::volTrace(std::shared_ptr<const ObjectPool> pool,
+void NeeVolTracer::evalVolume(std::shared_ptr<const ObjectPool> pool,
                              Ray &hitRay,
                              bool &isVacuum,
                              int &depth,
                              Color &beta,
                              float &pdf,
-                             Color &color) const
+                             Color &color,
+                             bool &isAbsorbed) const
 {
     // float pdf = 1.0f;
     // f = Color::COLOR_WHITE;
@@ -150,15 +168,19 @@ void NeeVolTracer::volTrace(std::shared_ptr<const ObjectPool> pool,
         // 1.get the longest distance to travel
         HitRecord record;
         if (!pool->hitScene(hitRay, record))
+        {
+            isVacuum = true;
             break;
+        }
 
-        if (!record.isVolumeBoundery)
-            break;
+        // if (!record.isVolumeBoundery)
+        //     break;
 
         // the distance is record.t
         float tMax = record.t;
         Vector3 localPoint = record.geometry->getLocalPosition(record.point);
-        float sigma_a = m_vox.get(localPoint.x, localPoint.y, localPoint.z);
+        float factor = 10.0f;
+        float sigma_a = m_vox.get(localPoint.x * factor, localPoint.y * factor, localPoint.z * factor);
         Media media(sigma_a, 1, Color::COLOR_NAVY);
 
         float sampleDistancePdf;
@@ -181,6 +203,7 @@ void NeeVolTracer::volTrace(std::shared_ptr<const ObjectPool> pool,
         {
             // dirty but quick fix,should be fixed later
             pdf *= (media.sigma_a / media.sigma_major);
+            isAbsorbed = true;
             return;
         }
         else if (index == 1)
@@ -218,6 +241,7 @@ void NeeVolTracer::volTrace(std::shared_ptr<const ObjectPool> pool,
                         sampleLightPdf *= (media.sigma_n / media.sigma_major);
                         float n_l_samplePdf;
                         n_t += 50 * MathUtility::sampleExponential(media.sigma_major, n_l_samplePdf);
+                        sampleLightPdf *= n_l_samplePdf;
                     }
                     Ray vaccumRay(hitRay.getPosition(tBounderyMax) + lightDir * MathConstant::FLOAT_SAMLL_NUMBER, lightDir);
                     Color vaccumLightColor = pool->getColorFromLight(sampleLightRay);

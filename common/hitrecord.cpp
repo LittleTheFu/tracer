@@ -14,12 +14,14 @@ HitRecord::HitRecord()
 
     dotLight = 1;
 
-    f = Color::COLOR_BLACK;
+    f = Color::COLOR_WHITE;
+    dot = 1.0f;
 
     brdf = nullptr;
     isVolumeBoundery = false;
 
     localPoint = Vector3::ZERO;
+    reflectPdf = 0.0f;
 }
 
 HitRecord HitRecord::getCloserOne(const HitRecord &that) const
