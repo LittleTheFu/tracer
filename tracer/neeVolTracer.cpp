@@ -18,6 +18,7 @@ Color NeeVolTracer::trace(std::shared_ptr<const ObjectPool> pool, Ray &ray) cons
     int depth = 0;
     Ray hitRay(ray);
     bool isVacuum = true;
+    Color volF = Color::COLOR_WHITE;
 
     while (true)
     {
@@ -41,7 +42,7 @@ Color NeeVolTracer::trace(std::shared_ptr<const ObjectPool> pool, Ray &ray) cons
         }
         else
         {
-            volTrace(pool, hitRay, isVacuum, depth);
+            volTrace(pool, hitRay, isVacuum, depth, volF);
         }
     }
 
@@ -132,9 +133,11 @@ Color NeeVolTracer::normalTrace(std::shared_ptr<const ObjectPool> pool,
 float NeeVolTracer::volTrace(std::shared_ptr<const ObjectPool> pool,
                             Ray &hitRay,
                             bool &isVacuum,
-                            int &depth) const
+                            int &depth,
+                            Color &f) const
 {
     float pdf = 1.0f;
+    f = Color::COLOR_WHITE;
 
     while (!isVacuum)
     {
@@ -187,6 +190,7 @@ float NeeVolTracer::volTrace(std::shared_ptr<const ObjectPool> pool,
             // scattering
             Vector3 dir = Vector3::sampleUniformFromSphere();
             pdf *= MathConstant::FOUR_PI;
+            f = f * MathConstant::FOUR_PI;
             Ray newRay(hitRay.getPosition(t), dir);
         }
         else

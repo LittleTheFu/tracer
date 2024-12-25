@@ -20,7 +20,7 @@ Color Hitter::getColorFromLight(const Ray &ray) const
     Color color = m_pLight->getColor();
 
     HitRecord record;
-    if (!hitGeometryObjectOnly(ray, record))
+    if (!hitGeometryObjectOnly(ray, record, true))
     {
         // return color * dot;
         return color;
@@ -41,7 +41,7 @@ Color Hitter::getColorFromLight(const Ray &ray) const
     return Color::COLOR_BLACK;
 }
 
-bool Hitter::hitGeometryObjectOnly(const Ray &ray, HitRecord &record) const
+bool Hitter::hitGeometryObjectOnly(const Ray &ray, HitRecord &record, bool skipVolume) const
 {
     bool hit = false;
     float tMin = MathConstant::FLOAT_MAX;
@@ -49,6 +49,9 @@ bool Hitter::hitGeometryObjectOnly(const Ray &ray, HitRecord &record) const
     for (auto it = m_objects.begin(); it != m_objects.end(); it++)
     {
         HitRecord tempRecord;
+
+        if(skipVolume && (*it)->isVolume())
+            continue;
 
         if ((*it)->hit(ray, tempRecord))
         {

@@ -38,7 +38,8 @@ private:
     float volTrace(std::shared_ptr<const ObjectPool> pool,
                   Ray &hitRay,
                   bool &isVacuum,
-                  int &depth) const;
+                  int &depth,
+                  Color &f) const;
 
 private:
     int m_depth;

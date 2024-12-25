@@ -16,7 +16,7 @@ public:
 
 public:
     virtual void init(const std::vector<std::shared_ptr<Geometry>> &objects, std::shared_ptr<const Light> light) override;
-    virtual bool hitGeometryObjectOnly(const Ray &ray, HitRecord &record) const override;
+    virtual bool hitGeometryObjectOnly(const Ray &ray, HitRecord &record, bool skipVolume = false) const override;
     
 public:
     virtual Color getColorFromLight(const Ray &ray) const override;

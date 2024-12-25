@@ -152,7 +152,7 @@ bool BVH::_hitGeometryObjectOnly(std::shared_ptr<BVHNode> node,
     return false;
 }
 
-bool BVH::hitGeometryObjectOnly(const Ray &ray, HitRecord &record) const
+bool BVH::hitGeometryObjectOnly(const Ray &ray, HitRecord &record, bool skipVolume) const
 {
     return _hitGeometryObjectOnly(m_rootNode, ray, record);
 }

@@ -16,7 +16,8 @@ public:
 
     virtual bool hitGeometryObjectOnly(
         const Ray &ray,
-        HitRecord &record) const;
+        HitRecord &record, 
+        bool skipVolume = false) const;
 
 protected:
     std::vector<std::shared_ptr<Geometry>> m_objects;

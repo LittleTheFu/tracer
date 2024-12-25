@@ -11,7 +11,7 @@ Color HitterInterface::getColorFromLight(const Ray &ray) const
     return Color();
 }
 
-bool HitterInterface::hitGeometryObjectOnly(const Ray &ray, HitRecord &record) const
+bool HitterInterface::hitGeometryObjectOnly(const Ray &ray, HitRecord &record, bool skipVolume) const
 {
     return false;
 }
