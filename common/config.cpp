@@ -23,6 +23,6 @@ bool configLogProgress = true;
 
 float configLightRadius = 20;
 Vector3 configLightPos(0, 80, 200);
-float configLightIntensity = 180;
+float configLightIntensity = 10;
 
 float configLambdaScale = 0.6f;

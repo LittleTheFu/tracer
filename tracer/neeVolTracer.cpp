@@ -124,7 +124,7 @@ Color NeeVolTracer::normalTrace(std::shared_ptr<const ObjectPool> pool,
         local_wo.normalize();
         local_wi.normalize();
         Color clr = record.brdf->get_f(local_wo, local_wi);
-        color += beta * clr * partialColor;
+        color += beta * clr * partialColor / pdf;
     }
 
     beta *= (record.f * record.dot);
