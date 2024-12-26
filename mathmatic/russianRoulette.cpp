@@ -1,7 +1,7 @@
-#include "russianRouletter.h"
+#include "RussianRoulette.h"
 #include "mathUtility.h"
 
-bool RussianRouletter::evaluate(float p) const
+bool RussianRoulette::evaluate(float p) const
 {
     return MathUtility::genRandomDecimal() < p;
 }

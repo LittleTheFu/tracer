@@ -5,7 +5,7 @@
 #include "objectpool.h"
 #include "ray.h"
 #include "color.h"
-#include "russianRouletter.h"
+#include "RussianRoulette.h"
 #include "vox.h"
 #include <memory>
 
@@ -47,7 +47,7 @@ private:
 
 private:
     int m_depth;
-    RussianRouletter m_rouletter;
+    RussianRoulette m_rouletter;
 
     Vox m_vox;
 };

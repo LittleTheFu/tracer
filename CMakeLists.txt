@@ -62,7 +62,7 @@ SET (RAY_TRACER_SOURCE
     mathmatic/frame.cpp
     mathmatic/matrix.cpp
     mathmatic/ray.cpp
-    mathmatic/russianRouletter.cpp
+    mathmatic/RussianRoulette.cpp
     mathmatic/transform.cpp
     mathmatic/vector.cpp
     media/media.cpp
@@ -145,7 +145,7 @@ SET (RAY_TRACER_HEADER
     mathmatic/frame.h
     mathmatic/matrix.h
     mathmatic/ray.h
-    mathmatic/russianRouletter.h
+    mathmatic/RussianRoulette.h
     mathmatic/transform.h
     mathmatic/vector.h
     media/media.h
