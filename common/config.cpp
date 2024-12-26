@@ -9,7 +9,7 @@ bool configUseBVH = false;
 TracerType configTracerType = TracerType::NEE_VOLUME;
 
 int configCameraFactor = 2;
-int configSamplersPerPixel = 2;
+int configSamplersPerPixel = 1;
 int configNeeTracerDepth = 10;
 
 float configBnuuyScale = 300;
@@ -23,6 +23,6 @@ bool configLogProgress = true;
 
 float configLightRadius = 20;
 Vector3 configLightPos(0, 80, 200);
-float configLightIntensity = 0.0001f;
+float configLightIntensity = 20.0f;
 
 float configLambdaScale = 0.6f;

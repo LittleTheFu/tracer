@@ -50,6 +50,7 @@ private:
     RussianRoulette m_rouletter;
 
     Vox m_vox;
+    int n_trave_factor;
 };
 
 #endif
