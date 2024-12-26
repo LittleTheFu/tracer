@@ -138,7 +138,7 @@ Color NeeVolTracer::evalVaccum(std::shared_ptr<const ObjectPool> pool,
         local_wo.normalize();
         local_wi.normalize();
         Color clr = record.brdf->get_f(local_wo, local_wi);
-        color += beta * clr * partialColor / pdf;
+        color += beta * clr * partialColor;
     }
 
     beta *= (record.f * record.dot);
@@ -261,6 +261,15 @@ void NeeVolTracer::evalVolume(std::shared_ptr<const ObjectPool> pool,
             pdf *= MathConstant::FOUR_PI;
             beta = beta * MathConstant::FOUR_PI;
             Ray newRay(hitRay.getPosition(t), dir);
+
+             HitRecord _record;
+            if (!pool->hitScene(hitRay, _record))
+            {
+            }
+            else
+            {
+                tMax = _record.t;
+            }
         }
         else
         {
@@ -271,6 +280,7 @@ void NeeVolTracer::evalVolume(std::shared_ptr<const ObjectPool> pool,
             if(t > tMax)
             {
                 isVacuum = true;
+                hitRay.origin = hitRay.getPosition(tMax) + hitRay.dir * MathConstant::FLOAT_SAMLL_NUMBER;
                 return;
             }
         }
