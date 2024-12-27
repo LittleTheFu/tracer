@@ -26,6 +26,11 @@ bool Light::hit(const Ray &ray, float &t, Vector3 &normal, float &dot) const
 
     bool isHit = m_pBall->hit(ray, record);
 
+    if(!isHit)
+    {
+        int k = 3;
+    }
+
     t = record.t;
     normal = record.normal;
     dot = MathUtility::clamp((-ray.dir) * normal, 0, 1);

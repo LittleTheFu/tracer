@@ -1,5 +1,6 @@
 #include "hitter.h"
 #include "mathConstantDef.h"
+#include "mathUtility.h"
 
 Color Hitter::getColorFromLight(const Ray &ray) const
 {
@@ -15,6 +16,11 @@ Color Hitter::getColorFromLight(const Ray &ray) const
     if (!hitLightOnly(ray, t, normal, dot))
     {
         return Color::COLOR_BLACK;
+    }
+
+    if(MathUtility::is_in_range(t, 611.3f, 611.4f, true, true))
+    {
+        int m = 3;
     }
 
     Color color = m_pLight->getColor();

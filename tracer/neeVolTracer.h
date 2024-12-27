@@ -34,7 +34,8 @@ private:
                       Color &beta,
                       Color &color,
                       bool &isVacuum,
-                      float &pdf) const;
+                      float &pdf,
+                      bool &isPassingVolume) const;
 
     void evalVolume(std::shared_ptr<const ObjectPool> pool,
                   Ray &hitRay,
@@ -43,7 +44,8 @@ private:
                   Color &beta,
                   float &pdf,
                   Color &color,
-                  bool &isAbsorbed) const;
+                  bool &isAbsorbed,
+                  bool &isPassingVolume) const;
 
 private:
     int m_depth;
@@ -51,6 +53,7 @@ private:
 
     Vox m_vox;
     int n_trave_factor;
+    bool m_isPassingVolumeBoundery;
 };
 
 #endif
