@@ -1,7 +1,7 @@
-#include "betaSceneBuilder.h"
+#include "simpleSceneBuilder.h"
 #include "config.h"
 
-void BetaSceneBuilder::build()
+void SimpleSceneBuilder::build()
 {
     // buildMeshRoom();
     buildRoom();

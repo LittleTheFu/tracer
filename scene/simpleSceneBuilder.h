@@ -3,7 +3,7 @@
 
 #include "sceneBuilder.h"
 
-class BetaSceneBuilder : public SceneBuilder
+class SimpleSceneBuilder : public SceneBuilder
 {
 public:
     virtual void build() override;

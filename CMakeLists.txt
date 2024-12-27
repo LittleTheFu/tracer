@@ -66,8 +66,8 @@ SET (RAY_TRACER_SOURCE
     mathmatic/transform.cpp
     mathmatic/vector.cpp
     media/media.cpp
-    scene/bunnySceneBuilder.cpp
-    scene/betaSceneBuilder.cpp
+    scene/simpleBunnySceneBuilder.cpp
+    scene/simpleSceneBuilder.cpp
     scene/bvh.cpp
     scene/bvhNode.cpp
     scene/hitter.cpp
@@ -149,8 +149,8 @@ SET (RAY_TRACER_HEADER
     mathmatic/transform.h
     mathmatic/vector.h
     media/media.h
-    scene/bunnySceneBuilder.h
-    scene/betaSceneBuilder.h
+    scene/simpleBunnySceneBuilder.h
+    scene/simpleSceneBuilder.h
     scene/bvh.h
     scene/bvhNode.h
     scene/hitter.h

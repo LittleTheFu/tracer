@@ -1,7 +1,7 @@
-#include "bunnySceneBuilder.h"
+#include "simpleBunnySceneBuilder.h"
 #include "config.h"
 
-void BunnySceneBuilder::build()
+void SimpleBunnySceneBuilder::build()
 {
     buildRoom();
     buildLight(configLightPos, configLightRadius);
