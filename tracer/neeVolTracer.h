@@ -53,7 +53,7 @@ private:
 
     Vox m_vox;
     int n_trave_factor;
-    bool m_isPassingVolumeBoundery;
+    float m_vox_factor;
 };
 
 #endif
