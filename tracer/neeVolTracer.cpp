@@ -8,8 +8,8 @@ NeeVolTracer::NeeVolTracer(int depth)
     if (depth >= 1)
         m_depth = depth;
 
-    n_trave_factor = 100;
-    m_vox_factor = 1.0f;
+    n_trave_factor = 200;
+    m_vox_factor = 1;
 }
 
 Color NeeVolTracer::trace(std::shared_ptr<const ObjectPool> pool, Ray &ray) const
@@ -259,19 +259,20 @@ void NeeVolTracer::evalVolume(std::shared_ptr<const ObjectPool> pool,
                 if (!pool->hitScene(sampleLightRay, bounderyRecord))
                 {
                 }
-                else
+                
                 {
                     float tBounderyMax = bounderyRecord.t;
                     float n_t = 0.0f;
                     while (n_t < tBounderyMax)
                     {
                         Vector3 currentPos = hitRay.getPosition(t + n_t);
-                        float _sigma_s = m_vox.get(currentPos.x * m_vox_factor, currentPos.y * m_vox_factor, currentPos.z * m_vox_factor);
+                        Vector3 _localPoint = record.geometry->getLocalPosition(currentPos);
+                        float _sigma_s = m_vox.get(_localPoint.x * m_vox_factor, _localPoint.y * m_vox_factor, _localPoint.z * m_vox_factor);
                         Media _media(0.0f, sigma_s, Color::COLOR_NAVY);
                         sampleLightPdf *= (_media.sigma_n / _media.sigma_major);
                         float n_l_samplePdf;
-                        n_t += n_trave_factor * MathUtility::sampleExponential(_media.sigma_major, n_l_samplePdf);
-                        sampleLightPdf *= n_l_samplePdf;
+                        n_t += n_trave_factor * MathUtility::sampleExponential(2.0f, n_l_samplePdf);
+                        // sampleLightPdf *= n_l_samplePdf;
                     }
                     Ray vaccumRay(hitRay.getPosition(tBounderyMax) + lightDir * MathConstant::FLOAT_SAMLL_NUMBER, lightDir);
                     Color vaccumLightColor = pool->getColorFromLight(sampleLightRay);

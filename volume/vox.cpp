@@ -30,6 +30,34 @@ float Vox::get(int x, int y, int z) const
     //     return 0;
     // if (z < 0)
     //     return 0;
+
+    //hardcode for test
+    int xOffset = 50;
+    int yOffset = 0;
+    int zOffset = 0;
+
+    // float scale = 0.8;
+    // x *= scale;
+    // y *= scale;
+    // z *= scale;
+
+    x += xOffset;
+    y += yOffset;
+    z += zOffset;
+
+    // if (x >= NUM)
+    //     return 0;
+    // if (y >= NUM)
+    //     return 0;
+    // if (z >= NUM)
+    //     return 0;
+
+    // if (x < 0)
+    //     return 0;
+    // if (y < 0)
+    //     return 0;
+    // if (z < 0)
+    //     return 0;
     
     x = (x % NUM + NUM) % NUM;
     y = (y % NUM + NUM) % NUM;
