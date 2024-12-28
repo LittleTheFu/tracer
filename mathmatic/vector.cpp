@@ -390,7 +390,7 @@ float Vector3::length() const
 
 Vector3 Vector3::getRandomVector()
 {
-    Vector3 vec(MathUtility::genRamdomSignDecimal(), MathUtility::genRamdomSignDecimal(), MathUtility::genRamdomSignDecimal());
+    Vector3 vec(MathUtility::genRandomDecimal(), MathUtility::genRandomDecimal(), MathUtility::genRandomDecimal());
     vec.normalize();
 
     return vec;
