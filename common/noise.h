@@ -14,7 +14,7 @@ private:
     int modIndex(int n) const;
     void getComponent(float a, int &i, float &f) const;
     
-    const static int NUM = 64;
+    const static int NUM = 16;
     Vector3 m_data[NUM][NUM][NUM];
 };
 

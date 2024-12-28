@@ -32,9 +32,9 @@ float Vox::get(float x, float y, float z) const
     //     return 0;
 
     //hardcode for test
-    float xOffset = 50;
-    float yOffset = 30;
-    float zOffset = 40;
+    float xOffset = 0;
+    float yOffset = 0;
+    float zOffset = 0;
 
     // float scale = 0.99;
     // x *= scale;
@@ -66,5 +66,5 @@ float Vox::get(float x, float y, float z) const
     int fy = (_y % NUM + NUM) % NUM;
     int fz = (_z % NUM + NUM) % NUM;
 
-    return m_data[fz + fy * NUM + fx * NUM * NUM];
+    return m_data[fx + fy * NUM + fz * NUM * NUM];
 }

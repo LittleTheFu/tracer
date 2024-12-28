@@ -27,8 +27,8 @@ Vector3 Geometry::getPosition() const
 
 Vector3 Geometry::getLocalPosition(const Vector3 &worldPosition) const
 {
-    return worldPosition;
-    // return m_transform.invTransformPoint(worldPosition);
+    // return worldPosition;
+    return m_transform.invTransformPoint(worldPosition);
 }
 
 void Geometry::setTag(Tag tag)

@@ -8,6 +8,7 @@
 #include "RussianRoulette.h"
 #include "vox.h"
 #include <memory>
+#include "noise.h"
 
 class NeeVolTracer : public Tracer
 {
@@ -54,6 +55,8 @@ private:
     Vox m_vox;
     int n_trave_factor;
     int m_vox_factor;
+    Noise m_noise_s;
+    Noise m_noise_a;
 };
 
 #endif
