@@ -24,7 +24,7 @@ Scene::Scene(std::shared_ptr<SceneBuilder> pBuilder, TracerType tracerType)
     else if(tracerType == TracerType::NEE)
         tracer = std::make_shared<NeeTracer>(configNeeTracerDepth);
     else if (tracerType == TracerType::NEE_VOLUME)
-        tracer = std::make_shared<NeeVolTracer>(10);
+        tracer = std::make_shared<NeeVolTracer>(2);
     else
         tracer = std::make_shared<VolTracer>();
 

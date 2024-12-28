@@ -201,10 +201,10 @@ void NeeVolTracer::evalVolume(std::shared_ptr<const ObjectPool> pool,
         // the distance is record.t
         float tMax = record.t;
         Vector3 localPoint = record.geometry->getLocalPosition(record.point);
-        float sigma_s = m_vox.get(localPoint.x * m_vox_factor, localPoint.y * m_vox_factor, localPoint.z * m_vox_factor);
-        // float sigma_s = m_noise_s.getValue(localPoint)/2;
-        // float sigma_a = m_noise_a.getValue(localPoint)/50;
-        Media media(0, sigma_s, Color::COLOR_NAVY);
+        // float sigma_s = m_vox.get(localPoint.x * m_vox_factor, localPoint.y * m_vox_factor, localPoint.z * m_vox_factor);
+        float sigma_s = m_noise_s.getValue(localPoint)/2;
+        float sigma_a = m_noise_a.getValue(localPoint)/50;
+        Media media(sigma_a, sigma_s, Color::COLOR_NAVY);
 
         float sampleDistancePdf;
         float t = MathUtility::sampleExponential(media.sigma_major, sampleDistancePdf);
@@ -270,10 +270,10 @@ void NeeVolTracer::evalVolume(std::shared_ptr<const ObjectPool> pool,
                     {
                         Vector3 currentPos = sampleLightRay.getPosition(n_t);
                         Vector3 _localPoint = record.geometry->getLocalPosition(currentPos);
-                        float _sigma_s = m_vox.get(_localPoint.x * m_vox_factor, _localPoint.y * m_vox_factor, _localPoint.z * m_vox_factor);
-                        // float sigma_s = m_noise_s.getValue(localPoint)/2;
-                        // float sigma_a = m_noise_a.getValue(localPoint)/50;
-                        Media _media(0,_sigma_s, Color::COLOR_NAVY);
+                        // float _sigma_s = m_vox.get(_localPoint.x * m_vox_factor, _localPoint.y * m_vox_factor, _localPoint.z * m_vox_factor);
+                        float sigma_s = m_noise_s.getValue(localPoint)/2;
+                        float sigma_a = m_noise_a.getValue(localPoint)/2;
+                        Media _media(sigma_a,sigma_s, Color::COLOR_NAVY);
                         sampleLightPdf *= (_media.sigma_n / _media.sigma_major);
                         float n_l_samplePdf;
                         n_t += n_trave_factor * MathUtility::sampleExponential(_media.sigma_major, n_l_samplePdf);

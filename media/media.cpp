@@ -1,7 +1,7 @@
 #include "media.h"
 
 Media::Media(float a, float s, Color e)
-    : sigma_a(a), sigma_s(s), sigma_n(1.0f), emitColor(e)
+    : sigma_a(a), sigma_s(s), sigma_n(0.0f), emitColor(e)
 {
     //just for test...
     sigma_major = sigma_s + sigma_a + sigma_n;

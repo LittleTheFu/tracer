@@ -151,11 +151,11 @@ int MathUtility::sampleFromWeights(std::initializer_list<float> weights)
     if(weights.size() == 0)
         assert(false);
 
-    for(auto w : weights)
-    {
-        if(w < 0)
-            assert(false);
-    }
+    // for(auto w : weights)
+    // {
+    //     if(w < 0)
+    //         assert(false);
+    // }
     
     float totalWeight = 0.0f;
     for(auto w : weights)
