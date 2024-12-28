@@ -41,7 +41,7 @@ float Noise::getValue(const Vector3 &v) const
 
     float w = MathUtility::interpolate(u0, u1, fZ);
 
-    return w;
+    return std::abs(w);
 }
 
 float Noise::getValue(float u, float v) const
