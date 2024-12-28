@@ -15,7 +15,7 @@ Vox::Vox()
     //     std::cout << m_data[i] << std::endl;
 }
 
-float Vox::get(int x, int y, int z) const
+float Vox::get(float x, float y, float z) const
 {
     // if (x >= NUM)
     //     return 0;
@@ -32,11 +32,11 @@ float Vox::get(int x, int y, int z) const
     //     return 0;
 
     //hardcode for test
-    int xOffset = 50;
-    int yOffset = 0;
-    int zOffset = 0;
+    float xOffset = 50;
+    float yOffset = 30;
+    float zOffset = 40;
 
-    // float scale = 0.8;
+    // float scale = 0.99;
     // x *= scale;
     // y *= scale;
     // z *= scale;
@@ -58,10 +58,13 @@ float Vox::get(int x, int y, int z) const
     //     return 0;
     // if (z < 0)
     //     return 0;
+    int _x = (int)x;
+    int _y = (int)y;
+    int _z = (int)z;
     
-    x = (x % NUM + NUM) % NUM;
-    y = (y % NUM + NUM) % NUM;
-    z = (z % NUM + NUM) % NUM;
+    int fx = (_x % NUM + NUM) % NUM;
+    int fy = (_y % NUM + NUM) % NUM;
+    int fz = (_z % NUM + NUM) % NUM;
 
-    return m_data[x + y * NUM + z * NUM * NUM];
+    return m_data[fz + fy * NUM + fx * NUM * NUM];
 }

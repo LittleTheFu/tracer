@@ -10,7 +10,7 @@ public:
 public:
     Vox();
 
-    float get(int x, int y, int z) const;
+    float get(float x, float y, float z) const;
 
     std::unique_ptr<float[]> m_data;
 };

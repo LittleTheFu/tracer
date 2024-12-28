@@ -35,7 +35,7 @@ Color NeeVolTracer::trace(std::shared_ptr<const ObjectPool> pool, Ray &ray) cons
         if (depth > m_depth)
             break;
 
-        if(!isPassingVolume)
+        if (!isPassingVolume)
             depth++;
 
         if (isVacuum)
@@ -99,7 +99,7 @@ Color NeeVolTracer::sampleLightFromNormalMaterial(std::shared_ptr<const ObjectPo
 
     // do partical caculation here first
     Color retColor = lightColor * (absDot / sampleLightPdf);
-    if(retColor == Color::COLOR_BLACK)
+    if (retColor == Color::COLOR_BLACK)
     {
         int k = 3;
     }
@@ -226,7 +226,7 @@ void NeeVolTracer::evalVolume(std::shared_ptr<const ObjectPool> pool,
             // dirty but quick fix,should be fixed later
             pdf *= (media.sigma_a / media.sigma_major);
             isAbsorbed = true;
-            // color += Color::COLOR_YELLOW;
+            color += Color::COLOR_YELLOW;
             isPassingVolume = false;
             return;
         }
@@ -259,25 +259,28 @@ void NeeVolTracer::evalVolume(std::shared_ptr<const ObjectPool> pool,
                 if (!pool->hitScene(sampleLightRay, bounderyRecord))
                 {
                 }
-                
+                else
                 {
                     float tBounderyMax = bounderyRecord.t;
                     float n_t = 0.0f;
                     while (n_t < tBounderyMax)
                     {
-                        Vector3 currentPos = hitRay.getPosition(t + n_t);
+                        Vector3 currentPos = sampleLightRay.getPosition(n_t);
                         Vector3 _localPoint = record.geometry->getLocalPosition(currentPos);
                         float _sigma_s = m_vox.get(_localPoint.x * m_vox_factor, _localPoint.y * m_vox_factor, _localPoint.z * m_vox_factor);
                         Media _media(0.0f, sigma_s, Color::COLOR_NAVY);
                         sampleLightPdf *= (_media.sigma_n / _media.sigma_major);
                         float n_l_samplePdf;
-                        n_t += n_trave_factor * MathUtility::sampleExponential(2.0f, n_l_samplePdf);
-                        // sampleLightPdf *= n_l_samplePdf;
+                        n_t += n_trave_factor * MathUtility::sampleExponential(_media.sigma_major, n_l_samplePdf);
+                        sampleLightPdf *= n_l_samplePdf;
                     }
-                    Ray vaccumRay(hitRay.getPosition(tBounderyMax) + lightDir * MathConstant::FLOAT_SAMLL_NUMBER, lightDir);
+                    // Ray vaccumRay(sampleLightRay.getPosition(tBounderyMax) + lightDir * MathConstant::FLOAT_SAMLL_NUMBER, lightDir);
+                    Ray vaccumRay(sampleLightRay.getPosition(tBounderyMax) + lightDir, lightDir);
                     Color vaccumLightColor = pool->getColorFromLight(sampleLightRay);
                     Color finalColor = vaccumLightColor * beta / sampleLightPdf;
-                    color += finalColor;
+                    // Color finalColor = vaccumLightColor;
+                    // color += finalColor;
+                    color += Color::COLOR_WHITE;
                 }
             }
 
@@ -286,6 +289,8 @@ void NeeVolTracer::evalVolume(std::shared_ptr<const ObjectPool> pool,
             pdf *= MathConstant::FOUR_PI;
             beta = beta * MathConstant::FOUR_PI;
             Ray newRay(hitRay.getPosition(t), dir);
+            hitRay.origin = newRay.origin;
+            hitRay.dir = newRay.dir;
 
             HitRecord _record;
             if (!pool->hitScene(hitRay, _record))
@@ -306,7 +311,7 @@ void NeeVolTracer::evalVolume(std::shared_ptr<const ObjectPool> pool,
             {
                 isVacuum = true;
                 isPassingVolume = true;
-                hitRay.origin = hitRay.getPosition(tMax) + hitRay.dir * MathConstant::FLOAT_SAMLL_NUMBER;
+                hitRay.origin = hitRay.getPosition(tMax) + hitRay.dir;
                 return;
             }
         }

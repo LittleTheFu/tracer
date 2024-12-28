@@ -6,7 +6,8 @@ Media::Media(float a, float s, Color e)
     //just for test...
     // sigma_major = sigma_s + sigma_a + sigma_n;
     sigma_major = 2.0f;
-    sigma_n = sigma_major - sigma_s;
+    sigma_a = 0.0f;
+    sigma_n = sigma_major - sigma_s - sigma_a;
     if(sigma_n < 0.0f)
         sigma_n = 0.0f;
     sigma_a = 0.0f;

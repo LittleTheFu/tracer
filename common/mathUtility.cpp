@@ -123,8 +123,11 @@ float MathUtility::interpolate(float a, float b, float t)
 
 float MathUtility::genRandomDecimal()
 {
-    const float max = (float)RAND_MAX;
-    const float u = std::rand() / max;
+    float max = (float)RAND_MAX;
+    float u = 0;
+
+    while (u == 0)
+        u = std::rand() / max;
 
     return u;
 }
@@ -160,7 +163,12 @@ int MathUtility::sampleFromWeights(std::initializer_list<float> weights)
         totalWeight += w;
     }
     
-    float r = genRandomDecimal() * totalWeight;
+    float rnd = genRandomDecimal();
+    float r = rnd * totalWeight;
+    if(r == 0)
+    {
+        int l = 0;
+    }
     float cumulateWeight = 0.0f;
     int index  = 0;
     for(auto it = weights.begin(); it != weights.end(); it++)
@@ -171,6 +179,11 @@ int MathUtility::sampleFromWeights(std::initializer_list<float> weights)
             index =  static_cast<int>(std::distance(weights.begin(), it));
             break;
         }
+    }
+
+    if(index == 0)
+    {
+        int a = 0;
     }
 
     return index;
