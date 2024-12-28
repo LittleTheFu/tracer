@@ -17,7 +17,6 @@ project (ray_tracer)
 
 SET (RAY_TRACER_SOURCE
     brdf/brdf.cpp
-    brdf/brdfMgr.cpp
     brdf/conductorBrdf.cpp
     brdf/DummyBrdf.cpp
     brdf/glass.cpp
@@ -95,7 +94,6 @@ SET (RAY_TRACER_SOURCE
 
 SET (RAY_TRACER_HEADER
     brdf/brdf.h
-    brdf/brdfMgr.h
     brdf/conductorBrdf.h
     brdf/DummyBrdf.h
     brdf/glass.h
