@@ -170,7 +170,8 @@ INCLUDE_DIRECTORIES(brdf
                     material
                     mathmatic 
                     media
-                    scene  
+                    scene
+                    scene_builder  
                     volume
                     test
                     texture 
