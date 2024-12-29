@@ -88,6 +88,9 @@ bool Scene::isBVHOn(SceneType type) const
     if (type == SceneType::ROOM_TEAPOT)
         return true;
 
+    if (type == SceneType::ROOM_COMPLEX_BUNNY)
+        return true;
+
     return false;
 }
 
