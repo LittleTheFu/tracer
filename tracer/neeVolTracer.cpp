@@ -279,7 +279,7 @@
 //                         n_t += n_trave_factor * MathUtility::sampleExponential(_media.sigma_major, n_l_samplePdf);
 //                         sampleLightPdf *= n_l_samplePdf;
 //                     }
-//                     // Ray vaccumRay(sampleLightRay.getPosition(tBounderyMax) + lightDir * MathConstant::FLOAT_SAMLL_NUMBER, lightDir);
+//                     // Ray vaccumRay(sampleLightRay.getPosition(tBounderyMax) + lightDir * MathConstant::FLOAT_SMALL_NUMBER, lightDir);
 //                     Ray vaccumRay(sampleLightRay.getPosition(tBounderyMax) + lightDir, lightDir);
 //                     Color vaccumLightColor = pool->getColorFromLight(sampleLightRay);
 //                     Color finalColor = vaccumLightColor * beta / sampleLightPdf;

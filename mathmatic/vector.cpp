@@ -329,9 +329,9 @@ bool Vector3::isPerpendicular(const Vector3 &that) const
 {
     const Vector3 r = this->cross(that);
 
-    bool isX = std::abs(r.x) < MathConstant::FLOAT_SAMLL_NUMBER;
-    bool isY = std::abs(r.y) < MathConstant::FLOAT_SAMLL_NUMBER;
-    bool isZ = std::abs(r.z) < MathConstant::FLOAT_SAMLL_NUMBER;
+    bool isX = std::abs(r.x) < MathConstant::FLOAT_SMALL_NUMBER;
+    bool isY = std::abs(r.y) < MathConstant::FLOAT_SMALL_NUMBER;
+    bool isZ = std::abs(r.z) < MathConstant::FLOAT_SMALL_NUMBER;
 
     return isX && isY && isZ;
 }

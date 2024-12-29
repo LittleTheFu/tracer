@@ -7,9 +7,9 @@
 #include "bvh.h"
 #include "config.h"
 
-ObjectPool::ObjectPool() : m_pLight(nullptr)
+ObjectPool::ObjectPool(bool useBVH) : m_pLight(nullptr)
 {
-    if (configUseBVH)
+    if (useBVH)
         m_pHitter = new BVH();
     else
         m_pHitter = new SimperHitter();

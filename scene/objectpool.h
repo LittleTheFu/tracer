@@ -14,7 +14,7 @@
 class ObjectPool
 {
 public:
-    ObjectPool();
+    ObjectPool(bool useBVH);
 
     void initHitter();
 

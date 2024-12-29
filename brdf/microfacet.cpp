@@ -34,7 +34,7 @@ float Microfacet::distribution(const Vector3 &wm) const
 
 bool Microfacet::isSmooth() const
 {
-    return std::max(m_alpha_x, m_alpha_y) < MathConstant::FLOAT_SAMLL_NUMBER;
+    return std::max(m_alpha_x, m_alpha_y) < MathConstant::FLOAT_SMALL_NUMBER;
 }
 
 float Microfacet::lambda(const Vector3 &w) const

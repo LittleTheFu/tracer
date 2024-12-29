@@ -16,8 +16,8 @@ std::shared_ptr<SceneBuilder> createBuilder()
         builder = std::make_shared<SimpleBunnySceneBuilder>();
     else if (configScene == ConfigScene::ROOM_SIMPLE)
         builder = std::make_shared<SimpleSceneBuilder>();
-    else if (configScene == ConfigScene::ROOM_VOLUME)
-        builder = std::make_shared<VolumeSceneBuilder>();
+    // else if (configScene == ConfigScene::ROOM_VOLUME)
+    //     builder = std::make_shared<VolumeSceneBuilder>();
     else if (configScene == ConfigScene::ROOM_TEAPOT)
         builder = std::make_shared<TeapotSceneBuilder>();
     else if (configScene == ConfigScene::ROOM_MATERIAL_BALLS)

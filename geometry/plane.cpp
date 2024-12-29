@@ -43,7 +43,7 @@ bool Plane::hit(const Ray &ray, HitRecord &record) const
     const float d = newRay.dir * getLocalNormal(reverse);
 
     record.t = n / d;
-    if (record.t < MathConstant::FLOAT_SAMLL_NUMBER)
+    if (record.t < MathConstant::FLOAT_SMALL_NUMBER)
     {
         return false;
     }
@@ -105,7 +105,7 @@ void Plane::HandleMaterial(const Ray &newRay, HitRecord &record) const
 {
     Vector3 r;
     record.f = m_pMtrl->eval(record.u, record.v, -newRay.dir, r, record.reflectPdf, record.isDelta, record.brdf);
-    record.dot = MathUtility::clamp(std::abs(r * Common::LOCAL_NORMAL), MathConstant::FLOAT_SAMLL_NUMBER, 1.0f);
+    record.dot = MathUtility::clamp(std::abs(r * Common::LOCAL_NORMAL), MathConstant::FLOAT_SMALL_NUMBER, 1.0f);
     record.reflect = m_transform.transformVector(r);
 
     if (record.isDelta)

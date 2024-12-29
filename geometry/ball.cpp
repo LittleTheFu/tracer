@@ -226,14 +226,14 @@ float Ball::getTheta(const Vector3 &point) const
 
 bool Ball::getHitParam(float t_min, float t_max, float &t_out) const
 {
-    bool hit = t_min > MathConstant::FLOAT_SAMLL_NUMBER;
+    bool hit = t_min > MathConstant::FLOAT_SMALL_NUMBER;
     if (hit)
     {
         t_out = t_min;
     }
     else
     {
-        hit = t_max > MathConstant::FLOAT_SAMLL_NUMBER;
+        hit = t_max > MathConstant::FLOAT_SMALL_NUMBER;
         if (hit)
         {
             t_out = t_max;
@@ -250,7 +250,7 @@ void Ball::HandleMaterial(const Vector3 &localNormal, const Vector3 &localPoint,
     const Vector3 local_wo = frame.pointToLocal(-newRay.dir);
     Vector3 r;
     record.f = m_pMtrl->eval(record.u, record.v, local_wo, r, record.reflectPdf, record.isDelta, record.brdf);
-    record.dot = MathUtility::clamp(std::abs(r * Common::LOCAL_NORMAL), MathConstant::FLOAT_SAMLL_NUMBER, 1.0f);
+    record.dot = MathUtility::clamp(std::abs(r * Common::LOCAL_NORMAL), MathConstant::FLOAT_SMALL_NUMBER, 1.0f);
 
     Vector3 localReflectVector = frame.pointToWorld(r);
     localReflectVector.normalize();

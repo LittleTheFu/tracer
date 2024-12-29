@@ -68,7 +68,7 @@ bool Tri::hit(const Ray &ray, HitRecord &record) const
     const float d = localRay.dir * Common::LOCAL_NORMAL;
 
     record.t = n / d;
-    if (record.t < MathConstant::FLOAT_SAMLL_NUMBER)
+    if (record.t < MathConstant::FLOAT_SMALL_NUMBER)
     {
         return false;
     }

@@ -11,7 +11,7 @@
 class Scene
 {
 public:
-    Scene(std::shared_ptr<SceneBuilder> pBuilder, TracerType tracerType);
+    Scene(std::shared_ptr<SceneBuilder> pBuilder, TracerType tracerType, int depth, bool useBVH);
 
 public:
     void run();

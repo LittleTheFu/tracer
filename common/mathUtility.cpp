@@ -35,12 +35,12 @@ bool MathUtility::is_float_equal(float x, float y)
 {
     float diff = std::abs(x - y);
 
-    return diff < MathConstant::FLOAT_SAMLL_NUMBER;
+    return diff < MathConstant::FLOAT_SMALL_NUMBER;
 }
 
 bool MathUtility::is_float_zero(float x)
 {
-    return is_float_equal(x, MathConstant::FLOAT_SAMLL_NUMBER);
+    return is_float_equal(x, MathConstant::FLOAT_SMALL_NUMBER);
 }
 
 float MathUtility::clamp(float v, float min, float max)

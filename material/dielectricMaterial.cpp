@@ -85,7 +85,7 @@ Color DielectricMaterial::eval_smooth(float u,
 
     if (pdf == 0)
     {
-        pdf = MathConstant::FLOAT_SAMLL_NUMBER;
+        pdf = MathConstant::FLOAT_SMALL_NUMBER;
         // return Color::COLOR_BLACK;
     }
 

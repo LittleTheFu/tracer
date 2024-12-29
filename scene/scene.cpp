@@ -1,3 +1,5 @@
+#include <cassert>
+
 #include "common.h"
 #include "config.h"
 #include "neeTracer.h"
@@ -7,20 +9,20 @@
 #include "timeRecorder.h"
 #include "volTracer.h"
 
-Scene::Scene(std::shared_ptr<SceneBuilder> pBuilder, TracerType tracerType)
+Scene::Scene(std::shared_ptr<SceneBuilder> pBuilder, TracerType tracerType, int depth, bool useBVH)
 {
-    m_pObjectPool = std::make_shared<ObjectPool>();
+    m_pObjectPool = std::make_shared<ObjectPool>(useBVH);
 
     m_pBuilder = pBuilder;
     m_pBuilder->init(m_pObjectPool);
 
     std::shared_ptr<Tracer> tracer = nullptr;
     if (tracerType == TracerType::NEE)
-        tracer = std::make_shared<NeeTracer>(configNeeTracerDepth);
+        tracer = std::make_shared<NeeTracer>(depth);
     // else if (tracerType == TracerType::NEE_VOLUME)
     //     tracer = std::make_shared<NeeVolTracer>(2);
     else
-        tracer = std::make_shared<NeeTracer>(configNeeTracerDepth);
+        tracer = std::make_shared<NeeTracer>(depth);
 
     m_pCamera = std::make_shared<PinholeCamera>(tracer);
 }
