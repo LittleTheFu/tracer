@@ -3,16 +3,6 @@ cmake_minimum_required(VERSION 3.16)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
-# include(FetchContent)
-# FetchContent_Declare(
-#   googletest
-#   URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
-#   DOWNLOAD_EXTRACT_TIMESTAMP TRUE
-# )
-# # For Windows: Prevent overriding the parent project's compiler/linker settings
-# set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-# FetchContent_MakeAvailable(googletest)
-
 project (ray_tracer)
 
 SET (RAY_TRACER_SOURCE
@@ -204,14 +194,6 @@ target_link_libraries(ray_tracer assimp)
 target_link_libraries(ray_tracer lodepng)
 target_link_libraries(ray_tracer powitacq)
 
-# enable_testing()
-
-# add_executable(hello_test  test/test.cpp)
-# target_link_libraries(hello_test GTest::gtest_main)
-
-# include(GoogleTest)
-# gtest_discover_tests(hello_test)
-
 set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/install" CACHE PATH "Install path" FORCE)
 
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/resource/ DESTINATION ${CMAKE_BINARY_DIR}/resource
@@ -223,31 +205,3 @@ install(TARGETS ray_tracer  mylibs assimp lodepng RUNTIME DESTINATION ${CMAKE_BI
 if( NOT WIN32)
     configure_file( ${CMAKE_SOURCE_DIR}/document/run_and_mail.sh ${CMAKE_BINARY_DIR} COPYONLY)
 endif()
-
-# install(TARGETS ray_tracer mylibs assimp
-# RUNTIME DESTINATION ${CMAKE_BINARY_DIR}/bin
-# LIBRARY DESTINATION ${CMAKE_BINARY_DIR}/lib
-# ARCHIVE DESTINATION ${CMAKE_BINARY_DIR}/lib
-# 
-# enable_testing()
-
-# find_program(CTEST_MEMORYCHECK_COMMAND NAMES valgrind)
-# INCLUDE(Dart)
-
-# # 设置 GoogleTest 的本地路径
-# set(GOOGLETEST_PATH "${PROJECT_SOURCE_DIR}/third/googletest" CACHE PATH "Path to googletest" FORCE)
-
-# # 添加 GoogleTest 的子目录
-# add_subdirectory(${GOOGLETEST_PATH} ${CMAKE_BINARY_DIR}/third/googletest)
-
-# # 如果需要链接 gtest 库
-# include_directories(${GOOGLETEST_PATH}/googletest/include)
-
-# # 添加测试目标
-
-
-# add_executable(MyTest test/test.cpp)
-# target_link_libraries(MyTest gtest gtest_main)
-
-# add_test(NAME MyTests COMMAND MyTest)
-
