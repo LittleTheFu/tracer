@@ -12,7 +12,7 @@
 #include "mtrlSceneBuilder.h"
 #include "complexBunnySceneBuilder.h"
 
-Scene::Scene(SceneType sceneType, float resolutionScale, int samplersPerPixel, int depth)
+Scene::Scene(SceneType sceneType, int resolutionScale, int samplersPerPixel, int depth)
 {
     m_pObjectPool = std::make_shared<ObjectPool>(isBVHOn(sceneType));
     

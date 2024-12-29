@@ -12,7 +12,7 @@
 class Scene
 {
 public:
-    Scene(SceneType sceneType, float resolutionScale, int samplersPerPixel, int depth);
+    Scene(SceneType sceneType, int resolutionScale, int samplersPerPixel, int depth);
 
 public:
     void run();
