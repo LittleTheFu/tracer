@@ -168,21 +168,37 @@ void SceneBuilder::buildBunny(const Vector3 &pos, float scale, const std::string
 
 void SceneBuilder::buildRedTri(const Vector3 &pos)
 {
-    TriVertex a(-30, -30, -20);
-    TriVertex b(-30, 30, 0);
-    TriVertex c(20, -20, -10);
+    Vector3 a(-30, -30, -20);
+    Vector3 b(-30, 30, 0);
+    Vector3 c(20, -20, -10);
 
-    std::shared_ptr<Tri> tri = std::make_shared<Tri>(a, b, c, pos, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_RED));
+    Vector3 na = (a - b).cross(a - c);
+    Vector3 nb = (b - c).cross(b - a);
+    Vector3 nc = (c - a).cross(c - b);
+
+    TriVertex ta(a, na);
+    TriVertex tb(b, nb);
+    TriVertex tc(c, nc);
+
+    std::shared_ptr<Tri> tri = std::make_shared<Tri>(ta, tb, tc, pos, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_RED));
     m_pObjectPool->add(tri);
 }
 
 void SceneBuilder::buildGreenTri(const Vector3 &pos)
 {
-    TriVertex a(-150, 10, 30);
-    TriVertex c(40, 0, 10);
-    TriVertex b(-170, 40, 50);
+    Vector3 a(-150, 10, 30);
+    Vector3 b(-170, 40, 50);
+    Vector3 c(40, 0, 10);
 
-    std::shared_ptr<Tri> tri = std::make_shared<Tri>(a, b, c, pos, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_GREEN));
+    Vector3 na = (a - b).cross(a - c);
+    Vector3 nb = (b - c).cross(b - a);
+    Vector3 nc = (c - a).cross(c - b);
+
+    TriVertex ta(a, na);
+    TriVertex tb(b, nb);
+    TriVertex tc(c, nc);
+
+    std::shared_ptr<Tri> tri = std::make_shared<Tri>(ta, tb, tc, pos, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_GREEN));
     m_pObjectPool->add(tri);
 }
 
