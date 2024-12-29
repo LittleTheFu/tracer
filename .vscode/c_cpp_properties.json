@@ -13,6 +13,7 @@
                 "${workspaceFolder}/media",
                 "${workspaceFolder}/resource",
                 "${workspaceFolder}/scene",
+                "${workspaceFolder}/scene_builder",
                 "${workspaceFolder}/volume",
                 "${workspaceFolder}/test",
                 "${workspaceFolder}/texture",
