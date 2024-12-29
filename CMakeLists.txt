@@ -61,6 +61,7 @@ SET (RAY_TRACER_SOURCE
     scene/hitterInterface.cpp
     scene/objectpool.cpp
     scene/scene.cpp
+    scene_builder/complexBunnySceneBuilder.cpp
     scene_builder/simpleBunnySceneBuilder.cpp
     scene_builder/simpleSceneBuilder.cpp
     scene_builder/mtrlSceneBuilder.cpp
@@ -141,6 +142,7 @@ SET (RAY_TRACER_HEADER
     scene/hitterInterface.h
     scene/objectpool.h
     scene/scene.h
+    scene_builder/complexBunnySceneBuilder.h
     scene_builder/simpleBunnySceneBuilder.h
     scene_builder/simpleSceneBuilder.h
     scene_builder/mtrlSceneBuilder.h
