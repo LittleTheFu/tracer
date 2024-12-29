@@ -1,14 +1,15 @@
-#ifndef _HITTER_H_
-#define _HITTER_H_
+#ifndef _SIMPLE_HITTER_H_
+#define _SIMPLE_HITTER_H_
 
-#include "ray.h"
-#include "hitrecord.h"
-#include "color.h"
 #include <vector>
-#include "geometry.h"
-#include "hitterInterface.h"
 
-class Hitter : public HitterInterface
+#include "color.h"
+#include "geometry.h"
+#include "hitrecord.h"
+#include "hitterInterface.h"
+#include "ray.h"
+
+class SimperHitter : public HitterInterface
 {
 public:
     virtual Color getColorFromLight(const Ray &ray) const override;
