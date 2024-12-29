@@ -19,6 +19,8 @@ public:
     Vector3 getSurfacePoint(const Vector3 &thatPoint) const;
     Vector3 getNormal(const Vector3 point) const;
     Vector3 getCenter() const;
+
+    void setIntensity(float intensity);
     
     bool hit(const Ray &ray, float &t, Vector3 &normal, float &dot) const;
     void setTag(Tag tag);

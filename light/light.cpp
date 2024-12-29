@@ -8,7 +8,7 @@
 Light::Light(const Vector3 &position, float r)
 {
     m_pBall = new Ball(Vector3::ZERO, position, r, nullptr);
-    m_intensity = configLightIntensity;
+    m_intensity = 80.0f;
 }
 
 void Light::applyTransform(const Transform &t)
@@ -69,6 +69,11 @@ Vector3 Light::getCenter() const
     Vector3 center = m_pBall->getTransform().transformPoint(Vector3::ZERO);
 
     return center;
+}
+
+void Light::setIntensity(float intensity)
+{
+    m_intensity = intensity;
 }
 
 const Geometry *Light::getGeometry() const
