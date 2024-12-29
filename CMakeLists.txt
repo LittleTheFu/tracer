@@ -55,18 +55,18 @@ SET (RAY_TRACER_SOURCE
     mathmatic/transform.cpp
     mathmatic/vector.cpp
     media/media.cpp
-    scene/simpleBunnySceneBuilder.cpp
-    scene/simpleSceneBuilder.cpp
     scene/bvh.cpp
     scene/bvhNode.cpp
     scene/simpleHitter.cpp
     scene/hitterInterface.cpp
-    scene/mtrlSceneBuilder.cpp
     scene/objectpool.cpp
     scene/scene.cpp
-    scene/sceneBuilder.cpp
-    scene/teapotSceneBuilder.cpp
-    scene/volumeSceneBuilder.cpp
+    scene_builder/simpleBunnySceneBuilder.cpp
+    scene_builder/simpleSceneBuilder.cpp
+    scene_builder/mtrlSceneBuilder.cpp
+    scene_builder/sceneBuilder.cpp
+    scene_builder/teapotSceneBuilder.cpp
+    scene_builder/volumeSceneBuilder.cpp
     volume/vox.cpp
     texture/chessboardTexture.cpp
     texture/constTexture.cpp
@@ -135,18 +135,18 @@ SET (RAY_TRACER_HEADER
     mathmatic/transform.h
     mathmatic/vector.h
     media/media.h
-    scene/simpleBunnySceneBuilder.h
-    scene/simpleSceneBuilder.h
     scene/bvh.h
     scene/bvhNode.h
     scene/simpleHitter.h
     scene/hitterInterface.h
-    scene/mtrlSceneBuilder.h
     scene/objectpool.h
     scene/scene.h
-    scene/sceneBuilder.h
-    scene/volumeSceneBuilder.h
-    scene/teapotSceneBuilder.h
+    scene_builder/simpleBunnySceneBuilder.h
+    scene_builder/simpleSceneBuilder.h
+    scene_builder/mtrlSceneBuilder.h
+    scene_builder/sceneBuilder.h
+    scene_builder/volumeSceneBuilder.h
+    scene_builder/teapotSceneBuilder.h
     volume/vox.h
     texture/chessboardTexture.h
     texture/constTexture.h
