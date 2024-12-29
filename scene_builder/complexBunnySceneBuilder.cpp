@@ -1,6 +1,7 @@
 #include "complexBunnySceneBuilder.h"
 #include "materialDef.h"
 #include "resourceDef.h"
+
 void ComplexBunnyBuilder::build()
 {
     buildRoom();
