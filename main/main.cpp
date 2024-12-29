@@ -1,15 +1,12 @@
+#include <memory>
+
+#include "config.h"
 #include "scene.h"
-#include "mesh.h"
-#include "common.h"
+#include "mtrlSceneBuilder.h"
 #include "simpleBunnySceneBuilder.h"
 #include "simpleSceneBuilder.h"
-#include "volumeSceneBuilder.h"
 #include "teapotSceneBuilder.h"
-#include "mtrlSceneBuilder.h"
-#include "config.h"
-#include "mathUtility.h"
-#include "vox.h"
-#include <memory>
+#include "volumeSceneBuilder.h"
 
 std::shared_ptr<SceneBuilder> createBuilder()
 {

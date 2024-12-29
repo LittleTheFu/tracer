@@ -1,7 +1,8 @@
+#include <algorithm>
+#include <cmath>
+
 #include "diffuseBrdf.h"
 #include "mathConstantDef.h"
-#include <cmath>
-#include <algorithm>
 
 DiffuseBrdf::DiffuseBrdf(float scale)
 {

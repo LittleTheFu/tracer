@@ -1,8 +1,10 @@
-#include "mesh.h"
+#include <cassert>
+
 #include <assimp/Importer.hpp>  // C++ importer interface
 #include <assimp/scene.h>       // Output data structure
 #include <assimp/postprocess.h> // Post processing flags
-#include <cassert>
+
+#include "mesh.h"
 
 Mesh::Mesh(const std::string fileName, const Vector3 pos, float scale, std::shared_ptr<Material> pMtrl)
 {
@@ -54,10 +56,6 @@ Mesh::Mesh(const std::string fileName, const Vector3 pos, float scale, std::shar
         // va.setUV(u_a, v_a);
         // vb.setUV(u_b, v_b);
         // vc.setUV(u_c, v_c);
-
-        // TriVertex va(x_a * scale, y_a * scale, z_a * scale);
-        // TriVertex vb(x_b * scale, y_b * scale, z_b * scale);
-        // TriVertex vc(x_c * scale, y_c * scale, z_c * scale);
 
         auto tri = std::make_shared<Tri>(va, vb, vc, pos, pMtrl);
 

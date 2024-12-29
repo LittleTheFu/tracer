@@ -1,10 +1,11 @@
-#include "ball.h"
-#include "mathConstantDef.h"
-#include "common.h"
-#include "mathUtility.h"
-#include <cmath>
 #include <algorithm>
+#include <cmath>
+
+#include "ball.h"
+#include "common.h"
 #include "frame.h"
+#include "mathConstantDef.h"
+#include "mathUtility.h"
 
 Ball::Ball()
 {
@@ -52,11 +53,6 @@ Vector3 Ball::getLocalDirection(float u, float v) const
     const float z = std::cos(theta);
 
     return Vector3(x, y, z);
-}
-
-Color Ball::get_f(const Vector3 &wo, const Vector3 &wi, const Vector3 &point, const Vector3 &normal) const
-{
-    return Color::COLOR_WHITE;
 }
 
 Vector3 Ball::getCentroid() const

@@ -1,9 +1,10 @@
 #ifndef _C_PLANE_H_
 #define _C_PLANE_H_
 
+#include <memory>
+
 #include "geometry.h"
 #include "material.h"
-#include <memory>
 
 class Plane : public Geometry
 {

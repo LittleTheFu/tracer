@@ -1,10 +1,9 @@
-#include "tri.h"
-#include "common.h"
-#include "mathUtility.h"
-#include "mathConstantDef.h"
 #include <cassert>
 
-#define _NORMAL_DEBUG_ (0)
+#include "common.h"
+#include "mathConstantDef.h"
+#include "mathUtility.h"
+#include "tri.h"
 
 Tri::Tri()
 {
@@ -52,14 +51,14 @@ void Tri::getSplitChildren(Tri *outTri_1, Tri *outTri_2, Tri *outTri_3) const
     outTri_3->set(m_c, m_a, d, m_pos, m_pMtrl);
 }
 
-//transform twice
+//transform three times
 //1.to object frame
-//2.then to tri frame
+//2.then to tri frame built from face normal
+//3.then to tri frame built from weighted normal
 bool Tri::hit(const Ray &ray, HitRecord &record) const
 {
     record.t = MathConstant::FLOAT_MAX;
 
-    // Ray testRay(Vector3(0,0,0), Vector3(0,0,1));
     Ray newRay = ray.genNewRay(m_transform);
 
     Frame frame(m_normal, m_ab, m_a.pos);
@@ -91,18 +90,12 @@ bool Tri::hit(const Ray &ray, HitRecord &record) const
     record.v = v(_objPoint);
     record.geometry = std::make_shared<Tri>(*this);
 
-#if _NORMAL_DEBUG_
-    record.normal = m_transform.transformVector(frame.vectorToWorld(Common::LOCAL_NORMAL));
-#else
-    // record.normal = m_transform.transformNormal(frame.vectorToWorld(Common::LOCAL_NORMAL));
     record.normal = m_transform.transformNormal(wieghtedFrame.vectorToWorld(Common::LOCAL_NORMAL));
-#endif
 
     if (m_pMtrl)
     {
         Vector3 r;
         record.f = m_pMtrl->eval(record.u, record.v, -weghtedRayDir, r, record.reflectPdf, record.isDelta, record.brdf);
-        // assert(record.f.isValid());
  
         record.dot = MathUtility::clamp(std::abs(r * Common::LOCAL_NORMAL), 0.0f, 1.0f);
         record.reflect = m_transform.transformVector(wieghtedFrame.vectorToWorld(r));
@@ -112,13 +105,7 @@ bool Tri::hit(const Ray &ray, HitRecord &record) const
             record.dot = 1;
         }
     }
-    else
-    {
-        record.insideMedia = m_insideMedia;
-        record.outsideMedia = m_outsideMedia;
-    }
 
-    // std::cout<<"true"<<std::endl;
     return true;
 }
 

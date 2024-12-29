@@ -1,8 +1,9 @@
-#include "light.h"
 #include "ball.h"
+#include "config.h"
 #include "hitrecord.h"
 #include "mathUtility.h"
-#include "config.h"
+
+#include "light.h"
 
 Light::Light(const Vector3 &position, float r)
 {

@@ -1,12 +1,13 @@
 #ifndef _MESH_H_
 #define _MESH_H_
 
-#include "geometry.h"
-#include "tri.h"
+#include <memory>
 #include <vector>
+
+#include "geometry.h"
 #include "material.h"
 #include "objectpool.h"
-#include <memory>
+#include "tri.h"
 
 class Mesh : public Geometry
 {

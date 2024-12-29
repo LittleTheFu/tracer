@@ -1,9 +1,10 @@
-#include "mathUtility.h"
-#include "mathConstantDef.h"
 #include <algorithm>
-#include <cmath>
 #include <cassert>
+#include <cmath>
 #include <iostream>
+
+#include "mathConstantDef.h"
+#include "mathUtility.h"
 
 bool MathUtility::is_in_range(float value, float low, float high, bool equalLow, bool equalHigh)
 {

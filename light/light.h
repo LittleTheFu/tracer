@@ -1,11 +1,11 @@
 #ifndef _LIGHT_H_
 #define _LIGHT_H_
 
-#include "ray.h"
-#include "vector.h"
-#include "transform.h"
-#include "tagDef.h"
 #include "ball.h"
+#include "ray.h"
+#include "tagDef.h"
+#include "transform.h"
+#include "vector.h"
 
 class Geometry;
 

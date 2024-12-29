@@ -1,10 +1,12 @@
 #ifndef _MEASURED_BRDF_H_
 #define _MEASURED_BRDF_H_
 
-#include "brdf.h"
-#include <powitacq/powitacq_rgb.h>
-#include <string>
 #include <memory>
+#include <string>
+
+#include <powitacq/powitacq_rgb.h>
+
+#include "brdf.h"
 
 class MeasuredBrdf : public Brdf
 {

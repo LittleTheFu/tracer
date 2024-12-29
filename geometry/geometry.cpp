@@ -9,8 +9,6 @@ Geometry::Geometry()
 
 void Geometry::init(const Vector3 &rotate, const Vector3 &position)
 {
-    // m_transform.rotate(rotate);
-    // m_transform.translate(position);
     m_transform.set(rotate, position);
 }
 
@@ -27,7 +25,6 @@ Vector3 Geometry::getPosition() const
 
 Vector3 Geometry::getLocalPosition(const Vector3 &worldPosition) const
 {
-    // return worldPosition;
     return m_transform.invTransformPoint(worldPosition);
 }
 
@@ -76,18 +73,6 @@ Vector3 Geometry::sampleFromPoint(const Vector3 &thatPoint, float &pdf) const
     pdf = 1;
 
     return Vector3::ZERO;
-}
-
-Color Geometry::get_f(const Vector3 &wo, const Vector3 &wi, const Vector3 &point, const Vector3 &normal) const
-{
-    //transform to local frame is needed
-
-    // if(m_pMtrl)
-    // {
-    //     return m_pMtrl->get_f(wo, wi);
-    // }
-
-    return Color::COLOR_WHITE;
 }
 
 Vector3 Geometry::getCentroid() const

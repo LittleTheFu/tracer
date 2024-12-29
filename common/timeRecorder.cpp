@@ -1,6 +1,7 @@
-#include "timeRecorder.h"
-#include <iostream>
 #include <iomanip>
+#include <iostream>
+
+#include "timeRecorder.h"
 
 void TimeRecorder::start()
 {

@@ -1,8 +1,8 @@
-#include "microfacet.h"
 #include "common.h"
-#include "mathUtility.h"
-#include "mathConstantDef.h"
 #include "frame.h"
+#include "mathConstantDef.h"
+#include "mathUtility.h"
+#include "microfacet.h"
 
 Microfacet::Microfacet()
 {

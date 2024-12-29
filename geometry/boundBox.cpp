@@ -1,8 +1,9 @@
-#include "boundBox.h"
-#include "mathUtility.h"
 #include <algorithm>
 #include <cassert>
+
+#include "boundBox.h"
 #include "mathConstantDef.h"
+#include "mathUtility.h"
 
 BoundBox::BoundBox()
 {

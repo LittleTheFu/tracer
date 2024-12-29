@@ -1,9 +1,10 @@
-#include "measuredBrdf.h"
-#include "mathUtility.h"
-#include "resourceDef.h"
 #include <cassert>
-#include "mathConstantDef.h"
+
 #include "converter.h"
+#include "mathConstantDef.h"
+#include "mathUtility.h"
+#include "measuredBrdf.h"
+#include "resourceDef.h"
 
 MeasuredBrdf::MeasuredBrdf(const std::string &file)
 {

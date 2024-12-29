@@ -1,9 +1,10 @@
 #ifndef _BRDF_H_
 #define _BRDF_H_
 
-#include "vector.h"
-#include "color.h"
 #include <memory>
+
+#include "color.h"
+#include "vector.h"
 
 class Brdf
 {

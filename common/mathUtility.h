@@ -36,7 +36,7 @@ public:
     static float smooth(float t);
     static float getSign(float x);
 
-    //should be extract to a template function,later...
+    //should be extracted to a template function,later...
     static float sq(float x);
     static std::complex<float> sq_c(std::complex<float> x);
 };

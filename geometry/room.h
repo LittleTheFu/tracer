@@ -1,9 +1,10 @@
 #ifndef _ROOM_H_
 #define _ROOM_H_
 
-#include "geometry.h"
-#include <vector>
 #include <memory>
+#include <vector>
+
+#include "geometry.h"
 
 class Room
 {

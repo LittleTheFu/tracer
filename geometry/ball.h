@@ -1,9 +1,10 @@
 #ifndef _C_BALL_H_
 #define _C_BALL_H_
 
+#include <memory>
+
 #include "geometry.h"
 #include "material.h"
-#include <memory>
 
 class Ball : public Geometry
 {
@@ -14,8 +15,6 @@ public:
     virtual bool hit(const Ray &ray, HitRecord &record) const override;
     virtual Vector3 sampleFromPoint(const Vector3 &thatPoint, float &pdf) const override;
     Vector3 getLocalDirection(float u, float v) const;
-
-    virtual Color get_f(const Vector3 &wo, const Vector3 &wi,const Vector3 &point, const Vector3 &normal) const override;
 
     virtual Vector3 getCentroid() const override;
     virtual float surfaceArea() const override;

@@ -1,7 +1,9 @@
-#include "glass.h"
-#include "color.h"
-#include <cassert>
 #include <algorithm>
+#include <cassert>
+
+#include "color.h"
+
+#include "glass.h"
 
 Glass::Glass(float etaOutsie, float etaInside)
 {

@@ -1,9 +1,11 @@
-#include "plane.h"
-#include "common.h"
-#include "mathUtility.h"
-#include "mathConstantDef.h"
 #include <cmath>
 #include <iostream>
+
+#include "common.h"
+#include "mathConstantDef.h"
+#include "mathUtility.h"
+#include "plane.h"
+
 Plane::Plane(const Vector3 &rotate, const Vector3 &position, float length, std::shared_ptr<Material> pMtrl)
 {
     init(rotate, position);
@@ -32,7 +34,6 @@ bool Plane::hit(const Ray &ray, HitRecord &record) const
     const Ray newRay = ray.genNewRay(m_transform);
 
     bool reverse = false;
-    // if (newRay.dir * getLocalNormal() >= 0)
     if (newRay.dir.z >= 0)
     {
         reverse = true;
@@ -44,7 +45,6 @@ bool Plane::hit(const Ray &ray, HitRecord &record) const
     record.t = n / d;
     if (record.t < MathConstant::FLOAT_SAMLL_NUMBER)
     {
-        // std::cout << record.t << "," << n << "," << d << std::endl;
         return false;
     }
 
@@ -126,10 +126,6 @@ Vector3 Plane::dpdv(const Vector3 &point) const
 
 float Plane::u(const Vector3 &point) const
 {
-    // float x = std::abs(point.x);
-    // float modU = (int)x % m_uvCellSize;
-    // float uu = modU / (float)m_uvCellSize;
-
     float x = point.x + half_length;
     float length = half_length * 2;
     float uu = x / length;
@@ -139,10 +135,6 @@ float Plane::u(const Vector3 &point) const
 
 float Plane::v(const Vector3 &point) const
 {
-    // float y = std::abs(point.y);
-    // float modV = (int)y % m_uvCellSize;
-    // float vv = modV / (float)m_uvCellSize;
-
     float y = point.y + half_length;
     float length = half_length * 2;
     float vv = y / length;

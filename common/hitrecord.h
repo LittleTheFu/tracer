@@ -21,9 +21,6 @@ public:
 
     Media getMeida(const Vector3 &dir) const;
 
-    Media outsideMedia;
-    Media insideMedia;
-    
     Transform transform;
     std::shared_ptr<Brdf> brdf;
     std::shared_ptr<Geometry> geometry;
@@ -54,6 +51,9 @@ public:
     bool isMistHit;
 
     bool isDelta;
+
+    Media outsideMedia;
+    Media insideMedia;
 };
 
 #endif

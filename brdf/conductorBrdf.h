@@ -1,10 +1,11 @@
 #ifndef _CONDUCTOR_BRDF_H_
 #define _CONDUCTOR_BRDF_H_
 
+#include <complex>
+
 #include "brdf.h"
 #include "color.h"
 #include "microfacet.h"
-#include <complex>
 
 class ConductorBrdf : public Brdf
 {

@@ -1,9 +1,9 @@
 #ifndef _BOUND_BOX_H_
 #define _BOUND_BOX_H_
 
-#include "vector.h"
-#include "ray.h"
 #include "axisDef.h"
+#include "ray.h"
+#include "vector.h"
 
 class BoundBox
 {
