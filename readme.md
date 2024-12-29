@@ -32,14 +32,22 @@ cmake --install .
 
 5.after running the program, an image named "img.png" will be created which represents the rendering result.
 
-6.Because the rendering process is time-consuming, you can change the resolution of the image by changing the value resolutionScale in config.cpp.
+6.you can change the scene by changing the code in config.cpp.
+
+eg:
+
+    SceneType configScene = SceneType::ROOM_TEAPOT;
+
+7.Because the rendering process is time-consuming, you can change the resolution of the image by changing the value resolutionScale and configSamplersPerPixel in config.cpp.
 
 eg: 
     
     
     int resolutionScale = 16;//this is slow but with more resolution
-
-    int resolutionScale = 2;//otherwise,the opposite
+    int configSamplersPerPixel = 10;//this is slow but with more sapplers
+---
+    int resolutionScale = 2;//this is fast but with less resolution
+    int configSamplersPerPixel = 1;//tis is fast but with less samplers
 
 
 
