@@ -1,12 +1,11 @@
-#include "camera.h"
-#include <lodepng/lodepng.h>
-#include "common.h"
-#include "simpleTracer.h"
-#include "randomTracer.h"
 #include <iomanip>
-#include "timeRecorder.h"
+#include <lodepng/lodepng.h>
+
+#include "camera.h"
+#include "common.h"
 #include "config.h"
 #include "mathConstantDef.h"
+#include "timeRecorder.h"
 
 const int Camera::default_screen_width = 256;
 const int Camera::default_screen_height = 256;
@@ -46,65 +45,6 @@ void Camera::setBounceTime(int bounceTime)
     m_BounceTime = bounceTime;
 }
 
-// #include <thread>
-// #include <vector>
-
-// void Camera::render()
-// {
-//     m_Image.resize(m_Width * m_Height * 4);
-
-//     // 创建一个线程池，线程数量可以根据硬件核心数调整
-//     unsigned numThreads = std::thread::hardware_concurrency();
-//     std::vector<std::thread> threads(numThreads);
-
-//     // 每个线程处理一部分行
-//     unsigned rowsPerThread = m_Height / numThreads;
-//     unsigned remainingRows = m_Height % numThreads;
-
-//     for (unsigned i = 0; i < numThreads; ++i)
-//     {
-//         unsigned startRow = i * rowsPerThread;
-//         unsigned endRow = startRow + rowsPerThread;
-
-//         // 最后一个线程处理剩余的行
-//         if (i == numThreads - 1)
-//         {
-//             endRow += remainingRows;
-//         }
-
-//         threads[i] = std::thread([this, startRow, endRow]() {
-//             for (unsigned y = startRow; y < endRow; y++)
-//             {
-
-
-//                 for (unsigned x = 0; x < m_Width; x++)
-//                 {
-//                     if (configLogProgress)
-//                         logProgress(x,y);
-
-//                     HitRecord record = InitHitRecord();
-//                     Ray ray = generateRay(static_cast<float>(x), static_cast<float>(y));
-
-//                     Color color = Color::COLOR_BLACK;
-//                     for (int time = 0; time < configSamplersPerPixel; time++)
-//                     {
-//                         color += m_pTracer->trace(m_pObjectPool, ray);
-//                     }
-//                     color /= static_cast<float>(configSamplersPerPixel);
-
-//                     setImage(x, y, color);
-//                 }
-//             }
-//         });
-//     }
-
-//     // 等待所有线程完成
-//     for (auto& thread : threads)
-//     {
-//         thread.join();
-//     }
-// }
-
 void Camera::render()
 {
     m_Image.resize(m_Width * m_Height * 4);
@@ -122,8 +62,7 @@ void Camera::render()
             HitRecord record = InitHitRecord();
             Ray ray = generateRay(static_cast<float>(x), static_cast<float>(y));
 
-            // Color color = m_pTracer->traceFirstBounce(m_pObjectPool, ray);
-            Color color = Color::COLOR_BLACK;
+            Color color = m_pTracer->traceFirstBounce(m_pObjectPool, ray);
             for (int time = 0; time < configSamplersPerPixel; time++)
             {
                 color += m_pTracer->trace(m_pObjectPool, ray);

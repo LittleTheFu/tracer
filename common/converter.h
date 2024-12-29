@@ -2,8 +2,9 @@
 #define _CONVERTER_H_
 
 #include <powitacq/powitacq_rgb.h>
-#include "vector.h"
+
 #include "color.h"
+#include "vector.h"
 
 class ThirdInterfaceConverter
 {

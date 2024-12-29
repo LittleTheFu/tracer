@@ -40,8 +40,6 @@ Color NeeTracer::trace(std::shared_ptr<const ObjectPool> pool, Ray &ray) const
         }
         else
         {
-            //to be fixed later:here you need to check if the pointer is null
-            
             Ray sampleRay;
             Color partialColor = sampleLightFromNormalMaterial(pool, record.point, record.normal, sampleRay);
 
@@ -56,16 +54,6 @@ Color NeeTracer::trace(std::shared_ptr<const ObjectPool> pool, Ray &ray) const
 
         beta *= (record.f * record.dot);
         hitRay = genNextRay(record);
-
-        // bug? why?
-        // too bright due to the lack of attenuation factor
-        // float p = 1.0f - beta.getClampedMaxComponent();
-        // float p = MathUtility::genRandomDecimal();
-        // if(m_rouletter.evaluate(p))
-        // {
-        //     break;
-        // }
-        // beta /= p;
     }
 
     return color;

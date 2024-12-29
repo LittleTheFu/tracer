@@ -3,11 +3,9 @@
 
 enum class TracerType
 {
-    RANDOM = 0,
-    SIMPLE,
-    NEE,
-    NEE_VOLUME,
-    VOLUME,
+    NEE = 0,
+    // NEE_VOLUME,
+    // VOLUME,
 };
 
 #endif

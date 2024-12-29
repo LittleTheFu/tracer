@@ -6,7 +6,7 @@ ConfigScene configScene = ConfigScene::ROOM_VOLUME;
 bool configUseBVH = false;
 
 //don't modify this because others are not done yet
-TracerType configTracerType = TracerType::NEE_VOLUME;
+TracerType configTracerType = TracerType::NEE;
 
 int configCameraFactor = 10;
 int configSamplersPerPixel = 1;

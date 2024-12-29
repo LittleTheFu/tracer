@@ -1,13 +1,14 @@
-#include "sceneBuilder.h"
-#include "plane.h"
-#include "mathConstantDef.h"
-#include "mesh.h"
-#include "resourceDef.h"
-#include "ball.h"
-#include "materialManager.h"
-#include "room.h"
-#include "tagDef.h"
 #include <memory>
+
+#include "ball.h"
+#include "mathConstantDef.h"
+#include "materialManager.h"
+#include "mesh.h"
+#include "plane.h"
+#include "resourceDef.h"
+#include "room.h"
+#include "sceneBuilder.h"
+#include "tagDef.h"
 
 void SceneBuilder::init(std::shared_ptr<ObjectPool> pool)
 {

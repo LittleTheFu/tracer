@@ -1,5 +1,6 @@
-#include "color.h"
 #include <cassert>
+
+#include "color.h"
 #include "common.h"
 #include "mathUtility.h"
 

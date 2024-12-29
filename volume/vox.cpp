@@ -1,6 +1,7 @@
-#include "vox.h"
 #include <fstream>
 #include <iostream>
+
+#include "vox.h"
 
 Vox::Vox()
 {

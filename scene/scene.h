@@ -1,11 +1,12 @@
 #ifndef _SCENE_H_
 #define _SCENE_H_
 
+#include <memory>
+
 #include "camera.h"
 #include "objectpool.h"
 #include "sceneBuilder.h"
 #include "tracerDef.h"
-#include <memory>
 
 class Scene
 {

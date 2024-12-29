@@ -1,13 +1,14 @@
 #ifndef _SCENE_BUILDER_H_
 #define _SCENE_BUILDER_H_
 
-#include "diffuseMaterial.h"
-#include "mirrorMaterial.h"
-#include "glassMaterial.h"
-#include "dielectricMaterial.h"
-#include "objectpool.h"
-#include "materialDef.h"
 #include <memory>
+
+#include "dielectricMaterial.h"
+#include "diffuseMaterial.h"
+#include "glassMaterial.h"
+#include "mirrorMaterial.h"
+#include "materialDef.h"
+#include "objectpool.h"
 
 class SceneBuilder
 {

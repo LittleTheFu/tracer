@@ -1,12 +1,13 @@
 #ifndef _NEE_TRACER_H_
 #define _NEE_TRACER_H_
 
-#include "tracer.h"
+#include <memory>
+
+#include "color.h"
 #include "objectpool.h"
 #include "ray.h"
-#include "color.h"
 #include "RussianRoulette.h"
-#include <memory>
+#include "tracer.h"
 
 class NeeTracer : public Tracer
 {

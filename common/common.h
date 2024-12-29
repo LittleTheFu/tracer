@@ -1,9 +1,10 @@
 #ifndef _COMMON_H_
 #define _COMMON_H_
 
-#include "vector.h"
-#include "color.h"
 #include <complex>
+
+#include "color.h"
+#include "vector.h"
 
 class Common
 {

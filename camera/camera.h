@@ -1,13 +1,14 @@
 #ifndef _CAMERA_H_
 #define _CAMERA_H_
 
-#include "objectpool.h"
-#include "vector.h"
-#include "transform.h"
+#include <memory>
 #include <string>
+
+#include "objectpool.h"
 #include "ray.h"
 #include "tracer.h"
-#include <memory>
+#include "transform.h"
+#include "vector.h"
 
 class Camera
 {

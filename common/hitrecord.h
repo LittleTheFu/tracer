@@ -1,15 +1,15 @@
 #ifndef _HIT_RECORD_H_
 #define _HIT_RECORD_H_
 
-#include "vector.h"
-#include "material.h"
-#include "transform.h"
-#include "color.h"
-#include "media.h"
-// #include "geometry.h"
-#include "brdf.h"
 #include <memory>
 #include <vector>
+
+#include "brdf.h"
+#include "color.h"
+#include "material.h"
+#include "media.h"
+#include "transform.h"
+#include "vector.h"
 
 class Geometry;
 

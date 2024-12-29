@@ -1,8 +1,8 @@
 #ifndef _CONFIG_H_
 #define _CONFIG_H_
 
-#include "resourceDef.h"
 #include "materialDef.h"
+#include "resourceDef.h"
 #include "tracerDef.h"
 #include "vector.h"
 

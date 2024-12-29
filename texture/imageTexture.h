@@ -1,9 +1,10 @@
 #ifndef _IMAGE_H_
 #define _IMAGE_H_
 
-#include "texture.h"
 #include <string>
 #include <vector>
+
+#include "texture.h"
 
 class ImageTexture : public Texture
 {

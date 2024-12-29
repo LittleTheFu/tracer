@@ -1,5 +1,5 @@
-#include "volumeSceneBuilder.h"
 #include "config.h"
+#include "volumeSceneBuilder.h"
 
 void VolumeSceneBuilder::build()
 {

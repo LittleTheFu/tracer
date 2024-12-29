@@ -1,11 +1,12 @@
 #ifndef _TRACER_H_
 #define _TRACER_H_
 
+#include <memory>
+
+#include "color.h"
+#include "hitrecord.h"
 #include "objectpool.h"
 #include "ray.h"
-#include "hitrecord.h"
-#include "color.h"
-#include <memory>
 
 class Tracer
 {

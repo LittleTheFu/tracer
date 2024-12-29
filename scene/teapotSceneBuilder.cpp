@@ -1,6 +1,6 @@
-#include "teapotSceneBuilder.h"
-#include "resourceDef.h"
 #include "materialDef.h"
+#include "resourceDef.h"
+#include "teapotSceneBuilder.h"
 
 void TeapotSceneBuilder::build()
 {

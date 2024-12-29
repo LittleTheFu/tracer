@@ -1,5 +1,6 @@
-#include "noiseTexture.h"
 #include <math.h>
+
+#include "noiseTexture.h"
 
 NoiseTexture::NoiseTexture(Color color)
 {

@@ -1,9 +1,10 @@
-#include "common.h"
 #include <cmath>
 #include <cstdlib>
 #include <chrono>
-#include <sstream> 
 #include <iomanip>
+#include <sstream>
+
+#include "common.h"
 #include "mathConstantDef.h"
 #include "mathUtility.h"
 
