@@ -3,7 +3,7 @@
 #include <iostream>
 #include <algorithm>
 #include <cassert>
-#include "hitter.h"
+#include "simpleHitter.h"
 #include "bvh.h"
 #include "config.h"
 

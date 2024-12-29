@@ -1,4 +1,4 @@
-#include "hitter.h"
+#include "simpleHitter.h"
 #include "mathConstantDef.h"
 #include "mathUtility.h"
 
