@@ -30,11 +30,11 @@ void SceneBuilder::buildRoom()
 
     Vector3 topRotate(-MathConstant::PI / 2, 0, 0);
     Vector3 topPosition(0, -c, 0);
-    std::shared_ptr<Plane> topPlane = std::make_shared<Plane>(topRotate, topPosition, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_WHITE));
+    std::shared_ptr<Plane> topPlane = std::make_shared<Plane>(topRotate, topPosition, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_COMBINED));
 
     Vector3 bottomRotate(MathConstant::PI / 2, 0, 0);
     Vector3 bottomPosition(0, c, 0);
-    std::shared_ptr<Plane> bottomPlane = std::make_shared<Plane>(bottomRotate, bottomPosition, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_WHITE));
+    std::shared_ptr<Plane> bottomPlane = std::make_shared<Plane>(bottomRotate, bottomPosition, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_COMBINED));
 
     Vector3 frontRotate(MathConstant::PI, 0, 0);
     Vector3 frontPosition(0, 0, 5 * c);
@@ -64,6 +64,17 @@ void SceneBuilder::buildLight(const Vector3& pos, float r)
     light->setTag(Tag::TAG_LIGHT);
 
     m_pObjectPool->add(light);
+}
+
+void SceneBuilder::setLightIntensity(float intensity)
+{
+    if (!m_pObjectPool)
+        return;
+
+    if (!m_pObjectPool->m_pLight)
+        return;
+
+    m_pObjectPool->m_pLight->setIntensity(intensity);
 }
 
 void SceneBuilder::buildSceneWithDefaultConfig()

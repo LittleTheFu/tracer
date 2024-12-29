@@ -20,6 +20,7 @@ protected:
     void buildRoom();
     void buildMeshRoom();
     void buildLight(const Vector3& pos, float r);
+    void setLightIntensity(float intensity);
 
     void buildSceneWithDefaultConfig();
 

@@ -15,7 +15,6 @@ extern int configNeeTracerDepth;
 extern std::string configOutputImageName;
 
 extern bool configEnableLogProgress;
-extern float configLightIntensity;
 extern float configLambdaScale;
 
 #endif
