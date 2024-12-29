@@ -1,6 +1,7 @@
-#include "transform.h"
-#include "mathUtility.h"
 #include <iostream>
+
+#include "mathUtility.h"
+#include "transform.h"
 
 Transform::Transform()
 {

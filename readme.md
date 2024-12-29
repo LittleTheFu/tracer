@@ -32,14 +32,14 @@ cmake --install .
 
 5.after running the program, an image named "img.png" will be created which represents the rendering result.
 
-6.Because the rendering process is time-consuming, you can change the resolution of the image by changing the value configCameraFactor in config.cpp.
+6.Because the rendering process is time-consuming, you can change the resolution of the image by changing the value resolutionScale in config.cpp.
 
 eg: 
     
     
-    int configCameraFactor = 16;//this is slow but with more resolution
+    int resolutionScale = 16;//this is slow but with more resolution
 
-    int configCameraFactor = 2;//otherwise,the opposite
+    int resolutionScale = 2;//otherwise,the opposite
 
 
 

@@ -104,6 +104,7 @@ SET (RAY_TRACER_HEADER
     common/mathUtility.h
     common/noise.h
     common/resourceDef.h
+    common/sceneDef.h
     common/spectrum.h
     common/tagDef.h
     common/timeRecorder.h

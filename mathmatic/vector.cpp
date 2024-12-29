@@ -1,10 +1,10 @@
-#include "common.h"
-#include "vector.h"
-#include "mathUtility.h"
-#include "mathConstantDef.h"
-
 #include <algorithm>
 #include <cassert>
+
+#include "common.h"
+#include "mathConstantDef.h"
+#include "mathUtility.h"
+#include "vector.h"
 
 Vector3 const Vector3::ZERO = Vector3(0, 0, 0);
 

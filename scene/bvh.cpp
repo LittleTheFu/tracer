@@ -1,9 +1,10 @@
+#include <algorithm>
+#include <cassert>
+
 #include "bvh.h"
 #include "boundBox.h"
-#include "mathUtility.h"
 #include "mathConstantDef.h"
-#include <cassert>
-#include <algorithm>
+#include "mathUtility.h"
 
 bool BVH::search(std::shared_ptr<Geometry> geometry) const
 {

@@ -1,8 +1,9 @@
 #ifndef _MATRIX_H_
 #define _MATRIX_H_
 
-#include "vector.h"
 #include <iostream>
+
+#include "vector.h"
 
 class Matrix
 {

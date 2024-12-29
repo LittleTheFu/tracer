@@ -3,6 +3,7 @@
 
 #include <memory>
 
+#include "sceneDef.h"
 #include "camera.h"
 #include "objectpool.h"
 #include "sceneBuilder.h"
@@ -11,7 +12,7 @@
 class Scene
 {
 public:
-    Scene(std::shared_ptr<SceneBuilder> pBuilder, TracerType tracerType, int depth, bool useBVH);
+    Scene(SceneType sceneType, float resolutionScale, int samplersPerPixel, int depth);
 
 public:
     void run();
@@ -24,6 +25,10 @@ private:
     void preRender();
     void render();
     void postRender();
+
+private:
+    bool isBVHOn(SceneType type) const;
+    std::shared_ptr<SceneBuilder> createSceneBuilder(SceneType type) const;
 
 private:
     std::shared_ptr<ObjectPool> m_pObjectPool;

@@ -1,7 +1,8 @@
 #include "fishEyeCamera.h"
 #include "ball.h"
 
-FishEyeCamera::FishEyeCamera(std::shared_ptr<Tracer> tracer) : Camera(tracer)
+FishEyeCamera::FishEyeCamera(std::shared_ptr<Tracer> tracer, int resolutionScale, int samplersPerPixel)
+    : Camera(tracer, resolutionScale, samplersPerPixel)
 {
 }
 

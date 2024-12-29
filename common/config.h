@@ -3,25 +3,14 @@
 
 #include <string>
 
+#include "sceneDef.h"
 #include "tracerDef.h"
 
-enum class ConfigScene {
-    ROOM_SIMPLE = 0,
-    ROOM_BUNNY,
-    ROOM_TEAPOT,
-    ROOM_MATERIAL_BALLS,
-    // ROOM_VOLUME,
-};
+extern SceneType configScene;
 
-extern ConfigScene configScene;
-extern bool configUseBVH;
-
-extern TracerType configTracerType;
-
-extern int configCameraFactor;
+extern int configResolutionScale;
 extern int configSamplersPerPixel;
 extern int configNeeTracerDepth;
-
 
 extern std::string configOutputImageName;
 

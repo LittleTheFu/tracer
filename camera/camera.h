@@ -13,7 +13,7 @@
 class Camera
 {
 public:
-    Camera(std::shared_ptr<Tracer> tracer);
+    Camera(std::shared_ptr<Tracer> tracer, int resolutionScale, int samplersPerPixel);
 
     void setPool(std::shared_ptr<const ObjectPool> pool);
 
@@ -22,7 +22,8 @@ public:
 
     Transform getTransform() const;
 
-    void setBounceTime(int bounceTime);
+    void enableLog();
+    void disableLog();
 
     void render();
     bool saveToImage(const std::string &name) const;
@@ -41,8 +42,10 @@ private:
     std::vector<unsigned char> m_Image;
 
     Transform m_transform;
-    unsigned m_factor;
-    int m_BounceTime;
+    int m_resolutionScale;
+    int m_samplersPerPixel;
+
+    bool m_enableLog;
 
 private:
     const static int default_screen_width;

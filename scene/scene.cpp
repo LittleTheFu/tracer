@@ -3,28 +3,24 @@
 #include "common.h"
 #include "config.h"
 #include "neeTracer.h"
-#include "neeVolTracer.h"
 #include "pinholeCamera.h"
 #include "scene.h"
 #include "timeRecorder.h"
-#include "volTracer.h"
+#include "simpleSceneBuilder.h"
+#include "simpleBunnySceneBuilder.h"
+#include "teapotSceneBuilder.h"
+#include "mtrlSceneBuilder.h"
+#include "complexBunnySceneBuilder.h"
 
-Scene::Scene(std::shared_ptr<SceneBuilder> pBuilder, TracerType tracerType, int depth, bool useBVH)
+Scene::Scene(SceneType sceneType, float resolutionScale, int samplersPerPixel, int depth)
 {
-    m_pObjectPool = std::make_shared<ObjectPool>(useBVH);
-
-    m_pBuilder = pBuilder;
+    m_pObjectPool = std::make_shared<ObjectPool>(isBVHOn(sceneType));
+    
+    m_pBuilder = createSceneBuilder(sceneType);
     m_pBuilder->init(m_pObjectPool);
 
-    std::shared_ptr<Tracer> tracer = nullptr;
-    if (tracerType == TracerType::NEE)
-        tracer = std::make_shared<NeeTracer>(depth);
-    // else if (tracerType == TracerType::NEE_VOLUME)
-    //     tracer = std::make_shared<NeeVolTracer>(2);
-    else
-        tracer = std::make_shared<NeeTracer>(depth);
-
-    m_pCamera = std::make_shared<PinholeCamera>(tracer);
+    std::shared_ptr<Tracer> tracer = std::make_shared<NeeTracer>(depth);
+    m_pCamera = std::make_shared<PinholeCamera>(tracer, resolutionScale, samplersPerPixel);
 }
 
 void Scene::run()
@@ -45,7 +41,7 @@ void Scene::run()
 
 void Scene::batchRun()
 {
-   //Todo:
+    // Todo:
 }
 
 void Scene::preConstructScene()
@@ -82,4 +78,35 @@ void Scene::postRender()
 {
     m_pCamera->saveToImage(configOutputImageName);
     Common::printCurrentTime();
+}
+
+bool Scene::isBVHOn(SceneType type) const
+{
+    if (type == SceneType::ROOM_SIMPLE_BUNNY)
+        return true;
+
+    if (type == SceneType::ROOM_TEAPOT)
+        return true;
+
+    return false;
+}
+
+std::shared_ptr<SceneBuilder> Scene::createSceneBuilder(SceneType type) const
+{
+    std::shared_ptr<SceneBuilder> builder = nullptr;
+
+    if (type == SceneType::ROOM_SIMPLE_BUNNY)
+        builder = std::make_shared<SimpleBunnySceneBuilder>();
+    else if (type == SceneType::ROOM_SIMPLE)
+        builder = std::make_shared<SimpleSceneBuilder>();
+    else if (type == SceneType::ROOM_COMPLEX_BUNNY)
+        builder = std::make_shared<ComplexBunnyBuilder>();
+    else if (type == SceneType::ROOM_TEAPOT)
+        builder = std::make_shared<TeapotSceneBuilder>();
+    else if (type == SceneType::ROOM_MATERIAL_BALLS)
+        builder = std::make_shared<MtrlSceneBuilder>();
+    else
+        builder = std::make_shared<SimpleSceneBuilder>();
+
+    return builder;
 }

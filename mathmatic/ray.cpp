@@ -1,9 +1,10 @@
-#include "ray.h"
-#include <limits>
 #include <cmath>
+#include <limits>
+
 #include "common.h"
 #include "frame.h"
 #include "mathUtility.h"
+#include "ray.h"
 
 Ray::Ray()
 {

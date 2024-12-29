@@ -1,5 +1,6 @@
-#include "frame.h"
 #include <cassert>
+
+#include "frame.h"
 
 Frame::Frame(const Vector3 &normal, const Vector3 &tangent, const Vector3 &_origin)
 {

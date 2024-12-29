@@ -1,12 +1,13 @@
 #ifndef _HITTER_INTERFACE_H_
 #define _HITTER_INTERFACE_H_
 
+#include <memory>
 #include <vector>
+
 #include "geometry.h"
+#include "hitrecord.h"
 #include "light.h"
 #include "ray.h"
-#include "hitrecord.h"
-#include <memory>
 
 class HitterInterface
 {

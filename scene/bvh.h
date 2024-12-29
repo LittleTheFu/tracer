@@ -1,11 +1,12 @@
 #ifndef _BVH_H_
 #define _BVH_H_
 
-#include <vector>
-#include "geometry.h"
-#include "bvhNode.h"
-#include "hitterInterface.h"
 #include <memory>
+#include <vector>
+
+#include "bvhNode.h"
+#include "geometry.h"
+#include "hitterInterface.h"
 
 class BVH : public HitterInterface
 {

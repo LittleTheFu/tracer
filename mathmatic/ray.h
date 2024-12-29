@@ -1,10 +1,10 @@
 #ifndef _RAY_H_
 #define _RAY_H_
 
-#include "vector.h"
-#include "transform.h"
 #include "frame.h"
 #include "media.h"
+#include "transform.h"
+#include "vector.h"
 
 class Ray
 {

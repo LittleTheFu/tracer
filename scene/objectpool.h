@@ -1,15 +1,16 @@
 #ifndef _OBJECT_POOL_H_
 #define _OBJECT_POOL_H_
 
+#include <memory>
 #include <vector>
-#include "ray.h"
+
+#include "color.h"
 #include "geometry.h"
 #include "hitrecord.h"
-#include "color.h"
-#include "light.h"
-#include "transform.h"
 #include "hitterInterface.h"
-#include <memory>
+#include "light.h"
+#include "ray.h"
+#include "transform.h"
 
 class ObjectPool
 {

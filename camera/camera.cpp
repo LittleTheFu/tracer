@@ -1,3 +1,5 @@
+#include <cassert>
+
 #include <iomanip>
 #include <lodepng/lodepng.h>
 
@@ -10,18 +12,26 @@
 const int Camera::default_screen_width = 256;
 const int Camera::default_screen_height = 256;
 
-Camera::Camera(std::shared_ptr<Tracer> tracer)
+Camera::Camera(std::shared_ptr<Tracer> tracer, int resolutionScale, int samplersPerPixel)
 {
-    m_factor = configCameraFactor;
+    assert(tracer);
+    assert(resolutionScale > 0);
+    assert(samplersPerPixel > 0);
 
-    m_Width = default_screen_width * m_factor;
-    m_Height = default_screen_height * m_factor;
+    m_resolutionScale = resolutionScale;
+    m_samplersPerPixel = samplersPerPixel;
+
+    m_Width = default_screen_width * m_resolutionScale;
+    m_Height = default_screen_height * m_resolutionScale;
 
     m_pTracer = tracer;
+
+    m_enableLog = true;
 }
 
 void Camera::setPool(std::shared_ptr<const ObjectPool> pool)
 {
+    assert(pool);
     m_pObjectPool = pool;
 }
 
@@ -40,9 +50,14 @@ Transform Camera::getTransform() const
     return m_transform;
 }
 
-void Camera::setBounceTime(int bounceTime)
+void Camera::enableLog()
 {
-    m_BounceTime = bounceTime;
+    m_enableLog = true;
+}
+
+void Camera::disableLog()
+{
+    m_enableLog = false;
 }
 
 void Camera::render()
@@ -56,18 +71,18 @@ void Camera::render()
 
         for (unsigned x = 0; x < m_Width; x++)
         {
-            if (configEnableLogProgress)
+            if (m_enableLog)
                 logProgress(x, y);
 
             HitRecord record = InitHitRecord();
             Ray ray = generateRay(static_cast<float>(x), static_cast<float>(y));
 
             Color color = m_pTracer->traceFirstBounce(m_pObjectPool, ray);
-            for (int time = 0; time < configSamplersPerPixel; time++)
+            for (int time = 0; time < m_samplersPerPixel; time++)
             {
                 color += m_pTracer->trace(m_pObjectPool, ray);
             }
-            color /= static_cast<float>(configSamplersPerPixel);
+            color /= static_cast<float>(m_samplersPerPixel);
             
             setImage(x, y, color);
 
