@@ -12,7 +12,7 @@ ObjectPool::ObjectPool() : m_pLight(nullptr)
     if (configUseBVH)
         m_pHitter = new BVH();
     else
-        m_pHitter = new Hitter();
+        m_pHitter = new SimperHitter();
 }
 
 void ObjectPool::initHitter()
