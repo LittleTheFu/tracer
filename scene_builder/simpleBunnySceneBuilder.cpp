@@ -1,11 +1,11 @@
 #include "simpleBunnySceneBuilder.h"
-#include "config.h"
+#include "materialDef.h"
+#include "resourceDef.h"
 
 void SimpleBunnySceneBuilder::build()
 {
     buildRoom();
-    buildLight(configLightPos, configLightRadius);
+    buildLight(Vector3(0, 80, 200), 20);
     
-    // buildBunny(Vector3(10, -50, 350), configBnuuyScale, configBunnyRes, configBunnyMaterial);
-    buildBunny(Vector3(10, -90, 350), configBnuuyScale, configBunnyRes, configBunnyMaterial);
+    buildBunny(Vector3(10, -90, 350), 300, ResourceDef::SIMPLE_BUNNY, MATERIAL_TYPE::M_DIELECTRIC);
 }

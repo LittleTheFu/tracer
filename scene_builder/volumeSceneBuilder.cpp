@@ -4,7 +4,7 @@
 void VolumeSceneBuilder::build()
 {
     buildRoom();
-    buildLight(configLightPos, configLightRadius);
+    buildLight(Vector3(0, 80, 200), 20);
 
     buildAquaBall(Vector3(-90, -90, 260), 5);
     buildVolumeBall(Vector3(0, 0, 320), 100);

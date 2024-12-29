@@ -56,7 +56,7 @@ void Camera::render()
 
         for (unsigned x = 0; x < m_Width; x++)
         {
-            if (configLogProgress)
+            if (configEnableLogProgress)
                 logProgress(x, y);
 
             HitRecord record = InitHitRecord();
