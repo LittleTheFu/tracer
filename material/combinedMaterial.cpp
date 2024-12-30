@@ -3,11 +3,11 @@
 #include <cassert>
 #include <memory>
 
-CombinedMaterial::CombinedMaterial(std::shared_ptr<Material> first, std::shared_ptr<Material> second)
+CombinedMaterial::CombinedMaterial(std::shared_ptr<Material> first, std::shared_ptr<Material> second, float weight)
 {
     assert(first && second);
 
-    m_factor = 0.5f;
+    m_weight = weight;
 
     m_FirstMaterial = first;
     m_SecondMaterial = second;
@@ -25,17 +25,17 @@ Color CombinedMaterial::eval(float u,
 {
     Color color;
 
-    if (MathUtility::genRandomDecimal() < m_factor)
+    if (MathUtility::genRandomDecimal() < m_weight)
     {
         m_currentMaterial = m_FirstMaterial;
         color = m_FirstMaterial->eval(u, v, wo, wi, pdf, isDelta, brdf);
-        pdf *= m_factor;
+        pdf *= m_weight;
     }
     else
     {
         m_currentMaterial = m_SecondMaterial;
         color = m_SecondMaterial->eval(u, v, wo, wi, pdf, isDelta, brdf);
-        pdf *= (1 - m_factor);
+        pdf *= (1 - m_weight);
     }
 
     return color;

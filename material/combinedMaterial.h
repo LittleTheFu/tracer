@@ -8,7 +8,7 @@ class CombinedMaterial : public Material
 {
 public:
     CombinedMaterial() = delete;
-    CombinedMaterial(std::shared_ptr<Material> first, std::shared_ptr<Material> second);
+    CombinedMaterial(std::shared_ptr<Material> first, std::shared_ptr<Material> second, float weight);
 
     virtual Color eval(float u,
                        float v,
@@ -25,7 +25,7 @@ private:
     std::shared_ptr<Material> m_currentMaterial;//bad,to be fixed later
 
     //should be renamed to a better name
-    float m_factor;
+    float m_weight;
 };
 
 #endif

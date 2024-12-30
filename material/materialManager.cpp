@@ -49,7 +49,7 @@ void MaterialManager::init()
 
     dielectricMtrl = std::make_shared<DielectricMaterial>();
 
-    combinedMtrl = std::make_shared<CombinedMaterial>(diffuseMtrlTexChessBoard, mirrorMtrl);
+    combinedMtrl = std::make_shared<CombinedMaterial>(diffuseMtrlTexChessBoard, mirrorMtrl, 0.8f);
     conductorMtrl = std::make_shared<ConductorMaterial>();
 
     measuredWhiteMtrl = std::make_shared<MeasuredMaterial>(ResourceDef::BRDF_WHITE);
