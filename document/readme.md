@@ -1,4 +1,4 @@
-not done yet
+<!-- not done yet
 ---
 ![img](axis.jpg)
 ---
@@ -9,4 +9,4 @@ not done yet
 ![img](vector_refract.jpg)
 ---
 ![img](vector_refract_calc.jpg)
----
+--- -->
