@@ -6,9 +6,9 @@ $scenes = @("simple_room", "simple_room_bunny", "complex_room_bunny", "room_teap
 
 # 循环运行可执行文件并传递不同的参数
 foreach ($scene in $scenes) {
-    Write-Output "正在运行场景: $scene"
+    Write-Output "scene: $scene"
     & $executable $scene
-    Write-Output "场景 $scene 运行完成"
+    Write-Output "scene $scene is done"
 }
 
-Write-Output "所有场景运行完成"
+Write-Output "all scenes are done"
