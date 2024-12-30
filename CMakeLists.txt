@@ -206,8 +206,9 @@ install(DIRECTORY ${CMAKE_SOURCE_DIR}/resource/ DESTINATION ${CMAKE_BINARY_DIR}/
 install(TARGETS ray_tracer  mylibs assimp lodepng RUNTIME DESTINATION ${CMAKE_BINARY_DIR}/bin)
 
 
-if( NOT WIN32)
+if(WIN32)
+    configure_file( ${CMAKE_SOURCE_DIR}/document/run_tracer_multiple.ps1 ${CMAKE_BINARY_DIR}/bin COPYONLY)
+else()
     configure_file( ${CMAKE_SOURCE_DIR}/document/run_and_mail.sh ${CMAKE_BINARY_DIR} COPYONLY)
     configure_file( ${CMAKE_SOURCE_DIR}/document/run_tracer_multiple.sh ${CMAKE_BINARY_DIR} COPYONLY)
-
 endif()
