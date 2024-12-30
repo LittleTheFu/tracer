@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 设置可执行文件的路径
-EXECUTABLE=./tracer  # 假设可执行文件名为 binary_tracer 并位于当前目录下
+EXECUTABLE=./ray_tracer  # 假设可执行文件名为 binary_tracer 并位于当前目录下
 
 # 定义要传递的参数数组
 SCENES=(simple_room simple_room_bunny complex_room_bunny room_teapot room_material_balls)
