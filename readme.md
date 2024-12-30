@@ -33,7 +33,7 @@ cmake --build .
 cmake --install .
 ```
 
-4.then an .exe file named ray_tracer.exe will be generated in the bin folder.
+4.then an .exe file named `ray_tracer.exe` will be generated in the `bin` folder.
 
 5.after running the program, an image named "img.png" will be created which represents the rendering result.
 
@@ -43,7 +43,7 @@ eg:
 
     SceneType configScene = SceneType::ROOM_TEAPOT;
 
-7.Because the rendering process is time-consuming, you can change the resolution of the image by changing the value resolutionScale and configSamplersPerPixel in config.cpp.
+7.Because the rendering process is time-consuming, you can change the resolution of the image by changing the value `resolutionScale` and `configSamplersPerPixel` in `config.cpp`.
 
 eg: 
     
@@ -56,7 +56,7 @@ eg:
 
 
 
-you can get some details in the document folder.(in progressing...)
+you can get some details in the `document` folder.(in progressing...)
 
 reference: https://pbr-book.org/4ed/contents
 
