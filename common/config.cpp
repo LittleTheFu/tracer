@@ -3,8 +3,8 @@
 //don't use ROOM_VOLUME right now
 SceneType configScene = SceneType::ROOM_TEAPOT;
 
-int configResolutionScale = 10;
-int configSamplersPerPixel = 40;
+int configResolutionScale = 1;
+int configSamplersPerPixel = 1;
 int configNeeTracerDepth = 10;
 
 std::string configOutputImageName = "img";
