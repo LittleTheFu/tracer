@@ -6,7 +6,7 @@
 #include "color.h"
 #include "objectpool.h"
 #include "ray.h"
-#include "RussianRoulette.h"
+#include "russianRoulette.h"
 #include "tracer.h"
 
 class NeeTracer : public Tracer

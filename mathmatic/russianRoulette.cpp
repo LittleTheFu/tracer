@@ -1,4 +1,4 @@
-#include "RussianRoulette.h"
+#include "russianRoulette.h"
 #include "mathUtility.h"
 
 bool RussianRoulette::evaluate(float p) const
