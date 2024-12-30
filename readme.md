@@ -1,5 +1,7 @@
 RayTracer
----
+
+中文版说明[点击这里](readme_cn.md)
+
 
 ![CMake](https://img.shields.io/badge/CMake-v3.16-green)
 ![C++](https://img.shields.io/badge/C++-17-green)
