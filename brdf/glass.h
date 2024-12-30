@@ -10,7 +10,7 @@ public:
 
     Color get_f(const Vector3 &wo, const Vector3 &wi) const override;
 
-    Color sample_f(const Vector3 &wo, Vector3 &wi, float &pdf) const;
+    virtual Color sample_f(const Vector3 &wo, Vector3 &wi, float &pdf) const override;
     virtual float pdf(const Vector3 &wo, const Vector3 &wi) const override;
     virtual std::shared_ptr<Brdf> clone() const override;
 
