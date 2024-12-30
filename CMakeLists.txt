@@ -200,15 +200,15 @@ target_link_libraries(ray_tracer powitacq)
 
 set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/install" CACHE PATH "Install path" FORCE)
 
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/resource/ DESTINATION ${CMAKE_BINARY_DIR}/resource
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/resource/ DESTINATION ${CMAKE_BINARY_DIR}/resource/
         FILES_MATCHING PATTERN "*")
 
-install(TARGETS ray_tracer  mylibs assimp lodepng RUNTIME DESTINATION ${CMAKE_BINARY_DIR}/bin)
+install(TARGETS ray_tracer  mylibs assimp lodepng RUNTIME DESTINATION ${CMAKE_BINARY_DIR}/bin/)
 
 
 if(WIN32)
-    configure_file( ${CMAKE_SOURCE_DIR}/document/run_tracer_multiple.ps1 ${CMAKE_BINARY_DIR}/bin COPYONLY)
+    configure_file( ${CMAKE_SOURCE_DIR}/document/run_tracer_multiple.ps1 ${CMAKE_BINARY_DIR}/bin/run_tracer_multiple.ps1 COPYONLY)
 else()
-    configure_file( ${CMAKE_SOURCE_DIR}/document/run_and_mail.sh ${CMAKE_BINARY_DIR} COPYONLY)
-    configure_file( ${CMAKE_SOURCE_DIR}/document/run_tracer_multiple.sh ${CMAKE_BINARY_DIR} COPYONLY)
+    configure_file( ${CMAKE_SOURCE_DIR}/document/run_and_mail.sh ${CMAKE_BINARY_DIR}/run_and_mail.sh COPYONLY)
+    configure_file( ${CMAKE_SOURCE_DIR}/document/run_tracer_multiple.sh ${CMAKE_BINARY_DIR}/run_tracer_multiple.sh COPYONLY)
 endif()
