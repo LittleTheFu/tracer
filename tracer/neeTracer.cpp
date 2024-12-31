@@ -43,11 +43,10 @@ Color NeeTracer::trace(std::shared_ptr<const ObjectPool> pool, Ray &ray) const
             Ray sampleRay;
             Color partialColor = sampleLightFromNormalMaterial(pool, record.point, record.normal, sampleRay);
 
-            Frame frame(record.normal, record.point);
-            Vector3 local_wo = frame.vectorToLocal(-hitRay.dir);
-            Vector3 local_wi = frame.vectorToLocal(sampleRay.dir);
-            local_wo.normalize();
-            local_wi.normalize();
+            Vector3 local_wo;
+            Vector3 local_wi;
+            getLocalWoWi(record, -hitRay.dir, sampleRay.dir, local_wo, local_wi);
+  
             Color f = record.brdf->get_f(local_wo, local_wi);
             color += beta * f * partialColor;
         }
@@ -100,4 +99,15 @@ Ray NeeTracer::genNextRay(const HitRecord &record) const
     Vector3 origin = record.point + sign * record.normal * 0.001f;
 
     return Ray(origin, record.reflect);
+}
+
+void NeeTracer::getLocalWoWi(const HitRecord &record, const Vector3 &worldWo, const Vector3 &worldWi, Vector3 &wo, Vector3 &wi) const
+{
+    Frame frame(record.normal, record.point);
+
+    wo = frame.vectorToLocal(worldWo);
+    wi = frame.vectorToLocal(worldWi);
+
+    wo.normalize();
+    wi.normalize();
 }
