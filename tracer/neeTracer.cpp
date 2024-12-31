@@ -52,7 +52,7 @@ Color NeeTracer::trace(std::shared_ptr<const ObjectPool> pool, Ray &ray) const
             color += beta * f * partialColor;
         }
 
-        beta *= (record.f * record.dot);
+        beta *= (record.f * record.dot) / record.reflectPdf;
         hitRay = genNextRay(record);
     }
 
