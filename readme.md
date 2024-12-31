@@ -1,4 +1,4 @@
-RayTracer
+SoftRayTracer
 
 中文版说明[点击这里](readme_cn.md)
 

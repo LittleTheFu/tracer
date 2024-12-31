@@ -1,4 +1,4 @@
-RayTracer
+SoftRayTracer
 ---
 
 ![CMake](https://img.shields.io/badge/CMake-v3.16-green)
