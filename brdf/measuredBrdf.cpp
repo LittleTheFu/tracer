@@ -48,10 +48,10 @@ Color MeasuredBrdf::get_f(const Vector3 &wo, const Vector3 &wi) const
     powitacq_rgb::Vector3f wrapper_wi = ThirdInterfaceConverter::toPowitVec(wi);
 
     //Warnning: care about the order of wo and wi here
-    powitacq_rgb::Vector3f f = m_pBrdf->eval(wrapper_wo, wrapper_wi);
-    Color ff(f.x(), f.y(), f.z());
+    powitacq_rgb::Vector3f originF = m_pBrdf->eval(wrapper_wo, wrapper_wi);
+    Color f = ThirdInterfaceConverter::toColor(originF);
 
-    return ff;
+    return f;
 }
 
 std::shared_ptr<Brdf> MeasuredBrdf::clone() const
