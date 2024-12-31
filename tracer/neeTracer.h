@@ -28,6 +28,13 @@ private:
     Ray genNextRay(const HitRecord &record) const;
 
 private:
+    void getLocalWoWi(const HitRecord &record,
+                         const Vector3 &worldWo,
+                         const Vector3 &worldWi,
+                         Vector3 &wo,
+                         Vector3 &wi) const;
+
+private:
     int m_depth;
     RussianRoulette m_rouletter;
 };
