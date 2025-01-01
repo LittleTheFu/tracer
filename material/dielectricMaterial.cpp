@@ -73,9 +73,9 @@ Color DielectricMaterial::eval_smooth(float u,
     if (rnd < F)
     {
         m_pCurrentBrdf = m_pMirrorBrdf;
-        color = m_pMirrorBrdf->sample_f(wo, wi, pdf);
-        // if(wi.z != 0.0f)
-        //     color = color / std::abs(wi.z);
+        color = m_pMirrorBrdf->sample_f(wo, wi, pdf) * F;
+        if(wi.z != 0.0f)
+            color = color / std::abs(wi.z);
         brdf = m_pMirrorBrdf->clone();
         pdf = F;
     }
@@ -83,15 +83,15 @@ Color DielectricMaterial::eval_smooth(float u,
     {
         m_pCurrentBrdf = m_pGlassBrdf;
         brdf = m_pGlassBrdf->clone();
-        color = m_pGlassBrdf->sample_f(wo, wi, pdf);
-        // if(wi.z != 0.0f)
-        //     color = color / std::abs(wi.z);
+        color = m_pGlassBrdf->sample_f(wo, wi, pdf) * (1 - F);
+        if(wi.z != 0.0f)
+            color = color / std::abs(wi.z);
         pdf = 1 - F;
     }
 
     if (pdf == 0)
     {
-        pdf = MathConstant::FLOAT_SMALL_NUMBER;
+        // pdf = MathConstant::FLOAT_SMALL_NUMBER;
         // return Color::COLOR_BLACK;
     }
 
