@@ -4,7 +4,7 @@ void SimpleSceneBuilder::build()
 {
     buildRoom();
     buildLight(Vector3(0, 10, 200), 20);
-    setLightIntensity(80.0f);
+    setLightIntensity(50.0f);
 
     // buildConductorBall(Vector3(-10, -40, 350), 50);
     buildRedBall(Vector3(60, 30, 300), 20);
