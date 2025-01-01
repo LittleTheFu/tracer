@@ -2,7 +2,7 @@
 #define _DIELECTRIC_MATERIAL_H_
 
 #include "material.h"
-#include "glass.h"
+#include "refreactorBsdf.h"
 #include "mirror.h"
 #include "microfacet.h"
 
@@ -38,7 +38,7 @@ private:
                       std::shared_ptr<Brdf> &brdf);
 
 private:
-    Glass *m_pGlassBrdf;
+    RefrectorBsdf *m_pGlassBrdf;
     Mirror *m_pMirrorBrdf;
     Brdf *m_pCurrentBrdf; // bad here,to be fixed later...
 

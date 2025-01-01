@@ -13,7 +13,7 @@ DielectricMaterial::DielectricMaterial()
     m_etaOutside = 1;
     m_etaInside = 1.5;
 
-    m_pGlassBrdf = new Glass(m_etaOutside, m_etaInside);
+    m_pGlassBrdf = new RefrectorBsdf(m_etaOutside, m_etaInside);
     m_pMirrorBrdf = new Mirror();
 
     m_pCurrentBrdf = m_pGlassBrdf;

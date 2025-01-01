@@ -9,7 +9,7 @@ SET (RAY_TRACER_SOURCE
     brdf/brdf.cpp
     brdf/conductorBrdf.cpp
     brdf/DummyBrdf.cpp
-    brdf/glass.cpp
+    brdf/refreactorBsdf.cpp
     brdf/measuredBrdf.cpp
     brdf/diffuseBrdf.cpp
     brdf/microfacet.cpp
@@ -40,7 +40,7 @@ SET (RAY_TRACER_SOURCE
     material/combinedMaterial.cpp
     material/conductorMaterial.cpp
     material/dummyMaterial.cpp
-    material/glassMaterial.cpp
+    material/refreactorMaterial.cpp
     material/diffuseMaterial.cpp
     material/material.cpp
     material/materialManager.cpp
@@ -85,7 +85,7 @@ SET (RAY_TRACER_HEADER
     brdf/brdf.h
     brdf/conductorBrdf.h
     brdf/DummyBrdf.h
-    brdf/glass.h
+    brdf/refreactorBsdf.h
     brdf/measuredBrdf.h
     brdf/diffuseBrdf.h
     brdf/microfacet.h
@@ -121,7 +121,7 @@ SET (RAY_TRACER_HEADER
     material/combinedMaterial.h
     material/conductorMaterial.h
     material/dummyMaterial.h
-    material/glassMaterial.h
+    material/refreactorMaterial.h
     material/diffuseMaterial.h
     material/material.h
     material/materialDef.h
