@@ -30,7 +30,7 @@ Color MeasuredBrdf::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf) const
     color = color * pdf;
     float cos = std::abs(wi.z);
     if(cos == 0.0f)
-        cos = 0.0001f;
+        return Color::COLOR_BLACK;
     color = color / cos; 
 
     return color;
@@ -58,7 +58,7 @@ Color MeasuredBrdf::get_f(const Vector3 &wo, const Vector3 &wi) const
 
     float cos = std::abs(wrapper_wi.z());
     if(cos == 0.0f)
-        cos = 0.0001f;
+        return Color::COLOR_BLACK;
 
     Color ff(f.x() / cos, f.y() / cos, f.z() / cos);
 
