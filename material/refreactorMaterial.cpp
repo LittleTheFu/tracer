@@ -1,12 +1,12 @@
-#include "glassMaterial.h"
-#include "glass.h"
+#include "refreactorMaterial.h"
+#include "refreactorBsdf.h"
 
-GlassMaterial::GlassMaterial()
+RefreactorMaterial::RefreactorMaterial()
 {
-    m_pGlassBrdf = new Glass(1, 1.5);
+    m_pRefreactorBsdf = new RefrectorBsdf(1, 1.5);
 }
 
-Color GlassMaterial::eval(float u,
+Color RefreactorMaterial::eval(float u,
                           float v,
                           const Vector3 &wo,
                           Vector3 &wi,
@@ -15,8 +15,8 @@ Color GlassMaterial::eval(float u,
                           std::shared_ptr<Brdf> &brdf)
 {
     isDelta = true;
-    Color color = m_pGlassBrdf->sample_f(wo, wi, pdf);
-    brdf = m_pGlassBrdf->clone();
+    Color color = m_pRefreactorBsdf->sample_f(wo, wi, pdf);
+    brdf = m_pRefreactorBsdf->clone();
 
     return color;
 }

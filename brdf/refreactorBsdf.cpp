@@ -3,9 +3,9 @@
 
 #include "mathUtility.h"
 #include "color.h"
-#include "glass.h"
+#include "refreactorBsdf.h"
 
-Glass::Glass(float etaOutsie, float etaInside)
+RefrectorBsdf::RefrectorBsdf(float etaOutsie, float etaInside)
 {
     assert(etaInside != 0);
     assert(etaOutsie != 0);
@@ -14,12 +14,12 @@ Glass::Glass(float etaOutsie, float etaInside)
     m_etaOutside = etaOutsie;
 }
 
-Color Glass::get_f(const Vector3 &wo, const Vector3 &wi) const
+Color RefrectorBsdf::get_f(const Vector3 &wo, const Vector3 &wi) const
 {
     return Color::COLOR_BLACK;
 }
 
-Color Glass::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf) const
+Color RefrectorBsdf::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf) const
 {
     Vector3 normal = LOCAL_NORMAL;
     float dot = wo * normal;
@@ -54,12 +54,12 @@ Color Glass::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf) const
     return Color::COLOR_WHITE * MathUtility::sq(etaOutputSide / etaInputSide);
 }
 
-float Glass::pdf(const Vector3 &wo, const Vector3 &wi) const
+float RefrectorBsdf::pdf(const Vector3 &wo, const Vector3 &wi) const
 {
     return 0.0f;
 }
 
-std::shared_ptr<Brdf> Glass::clone() const
+std::shared_ptr<Brdf> RefrectorBsdf::clone() const
 {
-    return std::make_shared<Glass>(*this);
+    return std::make_shared<RefrectorBsdf>(*this);
 }

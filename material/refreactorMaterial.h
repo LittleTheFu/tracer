@@ -1,13 +1,13 @@
-#ifndef _GLASS_MATERIAL_H_
-#define _GLASS_MATERIAL_H_
+#ifndef _REFREACTOR_MATERIAL_H_
+#define _REFREACTOR_MATERIAL_H_
 
 #include "material.h"
-#include "glass.h"
+#include "refreactorBsdf.h"
 
-class GlassMaterial : public Material
+class RefreactorMaterial : public Material
 {
 public:
-    GlassMaterial();
+    RefreactorMaterial();
 
     virtual Color eval(float u,
                        float v,
@@ -18,7 +18,7 @@ public:
                        std::shared_ptr<Brdf> &brdf) override;
 
 private:
-    Glass *m_pGlassBrdf;
+    RefrectorBsdf *m_pRefreactorBsdf;
 };
 
 #endif

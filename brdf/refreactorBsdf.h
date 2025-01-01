@@ -1,12 +1,12 @@
-#ifndef _GLASS_H_
-#define _GLASS_H_
+#ifndef _REFREACTOR_BSDF_H_
+#define _REFREACTOR_BSDF_H_
 
 #include "brdf.h"
 
-class Glass : public Brdf
+class RefrectorBsdf : public Brdf
 {
 public:
-    Glass(float etaOutsie, float etaInside);
+    RefrectorBsdf(float etaOutsie, float etaInside);
 
     Color get_f(const Vector3 &wo, const Vector3 &wi) const override;
 

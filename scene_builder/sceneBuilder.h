@@ -5,7 +5,7 @@
 
 #include "dielectricMaterial.h"
 #include "diffuseMaterial.h"
-#include "glassMaterial.h"
+#include "refreactorMaterial.h"
 #include "mirrorMaterial.h"
 #include "materialDef.h"
 #include "objectpool.h"

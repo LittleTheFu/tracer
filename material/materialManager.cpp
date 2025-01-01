@@ -5,7 +5,7 @@
 #include "config.h"
 #include "diffuseMaterial.h"
 #include "mirrorMaterial.h"
-#include "glassMaterial.h"
+#include "refreactorMaterial.h"
 #include "dielectricMaterial.h"
 #include "combinedMaterial.h"
 #include "chessboardTexture.h"
@@ -45,7 +45,7 @@ void MaterialManager::init()
     diffuseMtrlTexChessBoard = std::make_shared<DiffuseMaterial>(std::make_shared<ChessboardTexture>(), 0.2f);
 
     mirrorMtrl = std::make_shared<MirrorMaterial>();
-    glassMtrl = std::make_shared<GlassMaterial>();
+    glassMtrl = std::make_shared<RefreactorMaterial>();
 
     dielectricMtrl = std::make_shared<DielectricMaterial>();
 
