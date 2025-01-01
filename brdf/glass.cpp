@@ -1,8 +1,8 @@
 #include <algorithm>
 #include <cassert>
 
+#include "mathUtility.h"
 #include "color.h"
-
 #include "glass.h"
 
 Glass::Glass(float etaOutsie, float etaInside)
@@ -42,16 +42,16 @@ Color Glass::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf) const
     pdf = 1;
 
     //for debug
-    if(totalReflect)
-    {
-        return Color::COLOR_BLACK;
-    }
-    else
-    {
-        return Color::COLOR_WHITE;
-    }
+    // if(totalReflect)
+    // {
+    //     return Color::COLOR_BLACK;
+    // }
+    // else
+    // {
+    //     return Color::COLOR_WHITE;
+    // }
 
-    return Color::COLOR_WHITE;
+    return Color::COLOR_WHITE * MathUtility::sq(etaOutputSide / etaInputSide);
 }
 
 float Glass::pdf(const Vector3 &wo, const Vector3 &wi) const

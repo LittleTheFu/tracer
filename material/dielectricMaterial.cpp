@@ -1,7 +1,8 @@
-#include "dielectricMaterial.h"
-#include "mathUtility.h"
-#include "mathConstantDef.h"
 #include "common.h"
+#include "dielectricMaterial.h"
+#include "mathConstantDef.h"
+#include "mathUtility.h"
+
 #include <cmath>
 
 DielectricMaterial::DielectricMaterial()
@@ -67,11 +68,14 @@ Color DielectricMaterial::eval_smooth(float u,
     float rnd = MathUtility::genRandomDecimal();
 
     Color color;
+    float abs_cos_out = std::abs(wo * normal);
 
     if (rnd < F)
     {
         m_pCurrentBrdf = m_pMirrorBrdf;
-        color = m_pMirrorBrdf->sample_f(wo, wi, pdf);
+        color = m_pMirrorBrdf->sample_f(wo, wi, pdf) * F;
+        if(wi.z != 0.0f)
+            color = color / std::abs(wi.z);
         brdf = m_pMirrorBrdf->clone();
         pdf = F;
     }
@@ -79,13 +83,15 @@ Color DielectricMaterial::eval_smooth(float u,
     {
         m_pCurrentBrdf = m_pGlassBrdf;
         brdf = m_pGlassBrdf->clone();
-        color = m_pGlassBrdf->sample_f(wo, wi, pdf);
+        color = m_pGlassBrdf->sample_f(wo, wi, pdf) * (1 - F);
+        if(wi.z != 0.0f)
+            color = color / std::abs(wi.z);
         pdf = 1 - F;
     }
 
     if (pdf == 0)
     {
-        pdf = MathConstant::FLOAT_SMALL_NUMBER;
+        // pdf = MathConstant::FLOAT_SMALL_NUMBER;
         // return Color::COLOR_BLACK;
     }
 

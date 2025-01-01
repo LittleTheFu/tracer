@@ -28,17 +28,17 @@ void SceneBuilder::buildRoom()
     Vector3 rightPosition(c, 0, 0);
     std::shared_ptr<Plane> rightPlane = std::make_shared<Plane>(rightRotate, rightPosition, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_BLUE));
 
-    Vector3 topRotate(-MathConstant::PI / 2, 0, 0);
-    Vector3 topPosition(0, -c, 0);
-    std::shared_ptr<Plane> topPlane = std::make_shared<Plane>(topRotate, topPosition, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_COMBINED));
-
     Vector3 bottomRotate(MathConstant::PI / 2, 0, 0);
     Vector3 bottomPosition(0, c, 0);
     std::shared_ptr<Plane> bottomPlane = std::make_shared<Plane>(bottomRotate, bottomPosition, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_COMBINED));
 
+    Vector3 topRotate(-MathConstant::PI / 2, 0, 0);
+    Vector3 topPosition(0, -c, 0);
+    std::shared_ptr<Plane> topPlane = std::make_shared<Plane>(topRotate, topPosition, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_COMBINED));
+
     Vector3 frontRotate(MathConstant::PI, 0, 0);
     Vector3 frontPosition(0, 0, 5 * c);
-    std::shared_ptr<Plane> frontPlane = std::make_shared<Plane>(frontRotate, frontPosition, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_AQUA));
+    std::shared_ptr<Plane> frontPlane = std::make_shared<Plane>(frontRotate, frontPosition, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_YELLOW));
 
     Vector3 backRotate(0, 0, 0);
     Vector3 backPosition(0, 0, -3 * c);
