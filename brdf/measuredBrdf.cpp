@@ -28,10 +28,10 @@ Color MeasuredBrdf::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf) const
     wi = ThirdInterfaceConverter::toVec(wrapper_wi);
     Color color = ThirdInterfaceConverter::toColor(wrapper_color);
     color = color * pdf;
-    float cos = std::abs(wi.z);
-    if(cos == 0.0f)
+    float absDot = std::abs(wi.z);
+    if(absDot == 0.0f)
         return Color::COLOR_BLACK;
-    color = color / cos; 
+    color = color / absDot; 
 
     return color;
 }
@@ -56,11 +56,11 @@ Color MeasuredBrdf::get_f(const Vector3 &wo, const Vector3 &wi) const
     powitacq_rgb::Vector3f f = m_pBrdf->eval(wrapper_wo, wrapper_wi);
     // f *= wrapper_wi.z();
 
-    float cos = std::abs(wrapper_wi.z());
-    if(cos == 0.0f)
+    float absDot = std::abs(wrapper_wi.z());
+    if(absDot == 0.0f)
         return Color::COLOR_BLACK;
 
-    Color ff(f.x() / cos, f.y() / cos, f.z() / cos);
+    Color ff(f.x() / absDot, f.y() / absDot, f.z() / absDot);
 
     return ff;
 }
