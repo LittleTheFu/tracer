@@ -58,7 +58,7 @@ private:
     virtual float u(const Vector3 &point) const = 0;
     virtual float v(const Vector3 &point) const = 0;
 
-    virtual bool testHit(const Ray &localRay, float &t) const = 0;
+    virtual bool testHit(const Ray &localRay, float &t) const;
 
 protected:
     Transform m_transform;
