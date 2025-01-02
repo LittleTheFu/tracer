@@ -50,6 +50,7 @@ public:
     virtual Vector3 getCentroid() const override;
     virtual float surfaceArea() const override;
     virtual void buildBoundBox() override;
+    virtual bool testHit(const Ray &localRay, float &t) const override;
 
     Vector3 getLocalNormal(bool reverse = false) const;
 
