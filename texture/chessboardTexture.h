@@ -7,7 +7,7 @@ class ChessboardTexture : public Texture
 {
 public:
     ChessboardTexture();
-    Color getColor(float u, float v) const;
+    virtual Color getColor(float u, float v) const override;
 
 private:
     float m_factor;

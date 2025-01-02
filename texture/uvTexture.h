@@ -7,7 +7,7 @@
 class UvTexture : public Texture
 {
 public:
-    Color getColor(float u, float v) const;
+    virtual Color getColor(float u, float v) const override;
 };
 
 #endif

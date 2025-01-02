@@ -8,7 +8,7 @@ class NoiseTexture : public Texture
 {
 public:
     NoiseTexture(Color color);
-    virtual Color getColor(float u, float v) const;
+    virtual Color getColor(float u, float v) const override;
 
 private:
     Noise m_noise;
