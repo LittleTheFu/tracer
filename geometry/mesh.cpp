@@ -14,7 +14,11 @@ Mesh::Mesh(const std::string fileName, const Vector3 pos, float scale, std::shar
     Assimp::Importer importer;
     std::cout << "starting importer...1" << std::endl;
 
-    const aiScene *scene = importer.ReadFile(fileName.c_str(), 0);
+    const aiScene *scene = importer.ReadFile(fileName.c_str(), aiProcess_Triangulate);
+    if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
+        std::cerr << "ERROR::ASSIMP:: " << importer.GetErrorString() << std::endl;
+        return;
+    }
     int faceNUM = scene->mMeshes[0]->mNumFaces;
     std::cout << "face num : " << faceNUM << std::endl;
     for(int i = 0; i < faceNUM; i++)
@@ -22,36 +26,9 @@ Mesh::Mesh(const std::string fileName, const Vector3 pos, float scale, std::shar
         aiFace face = scene->mMeshes[0]->mFaces[i];
         assert(face.mNumIndices == 3);
 
-        float x_a = scene->mMeshes[0]->mVertices[face.mIndices[0]].x;
-        float y_a = scene->mMeshes[0]->mVertices[face.mIndices[0]].y;
-        float z_a = scene->mMeshes[0]->mVertices[face.mIndices[0]].z;
-        float n_x_a = scene->mMeshes[0]->mNormals[face.mIndices[0]].x;
-        float n_y_a = scene->mMeshes[0]->mNormals[face.mIndices[0]].y;
-        float n_z_a = scene->mMeshes[0]->mNormals[face.mIndices[0]].z;
-        // float u_a = scene->mMeshes[0]->mTextureCoords[0][face.mIndices[0]].x;
-        // float v_a = scene->mMeshes[0]->mTextureCoords[0][face.mIndices[0]].y;
-
-        float x_b = scene->mMeshes[0]->mVertices[face.mIndices[1]].x;
-        float y_b = scene->mMeshes[0]->mVertices[face.mIndices[1]].y;
-        float z_b = scene->mMeshes[0]->mVertices[face.mIndices[1]].z;
-        float n_x_b = scene->mMeshes[0]->mNormals[face.mIndices[1]].x;
-        float n_y_b = scene->mMeshes[0]->mNormals[face.mIndices[1]].y;
-        float n_z_b = scene->mMeshes[0]->mNormals[face.mIndices[1]].z;
-        // float u_b = scene->mMeshes[0]->mTextureCoords[0][face.mIndices[1]].x;
-        // float v_b = scene->mMeshes[0]->mTextureCoords[0][face.mIndices[1]].y;
-
-        float x_c = scene->mMeshes[0]->mVertices[face.mIndices[2]].x;
-        float y_c = scene->mMeshes[0]->mVertices[face.mIndices[2]].y;
-        float z_c = scene->mMeshes[0]->mVertices[face.mIndices[2]].z;
-        float n_x_c = scene->mMeshes[0]->mNormals[face.mIndices[2]].x;
-        float n_y_c = scene->mMeshes[0]->mNormals[face.mIndices[2]].y;
-        float n_z_c = scene->mMeshes[0]->mNormals[face.mIndices[2]].z;
-        // float u_c = scene->mMeshes[0]->mTextureCoords[0][face.mIndices[2]].x;
-        // float v_c = scene->mMeshes[0]->mTextureCoords[0][face.mIndices[2]].y;
-
-        TriVertex va(x_a * scale, y_a * scale, z_a * scale, n_x_a, n_y_a, n_z_a);
-        TriVertex vb(x_b * scale, y_b * scale, z_b * scale, n_x_b, n_y_b, n_z_b);
-        TriVertex vc(x_c * scale, y_c * scale, z_c * scale, n_x_c, n_y_c, n_z_c);
+        TriVertex va = createTriVertex(scene->mMeshes[0], face.mIndices[0], scale);
+        TriVertex vb = createTriVertex(scene->mMeshes[0], face.mIndices[1], scale);
+        TriVertex vc = createTriVertex(scene->mMeshes[0], face.mIndices[2], scale);
 
         // va.setUV(u_a, v_a);
         // vb.setUV(u_b, v_b);
@@ -61,6 +38,19 @@ Mesh::Mesh(const std::string fileName, const Vector3 pos, float scale, std::shar
 
         m_tris.push_back(tri);
     }
+}
+
+TriVertex Mesh::createTriVertex(const aiMesh* mesh, unsigned int index, float scale) const {
+    float x = mesh->mVertices[index].x;
+    float y = mesh->mVertices[index].y;
+    float z = mesh->mVertices[index].z;
+    float n_x = mesh->mNormals[index].x;
+    float n_y = mesh->mNormals[index].y;
+    float n_z = mesh->mNormals[index].z;
+    // float u = mesh->mTextureCoords[0][index].x;
+    // float v = mesh->mTextureCoords[0][index].y;
+
+    return TriVertex(x * scale, y * scale, z * scale, n_x, n_y, n_z);
 }
 
 bool Mesh::hit(const Ray &ray, HitRecord &record) const
