@@ -86,10 +86,11 @@ bool Ball::testHit(const Ray &localRay, float &t) const
     if (!MathUtility::solveLinerEquation(a, b, c, t0, t1))
         return false;
 
-    bool hit = getHitParam(t0, t1, t);
-
-    if (!hit)
+    //refactor later...
+    if (!getHitParam(t0, t1, t))
         return false;
+
+    return true;
 }
 
 bool Ball::isIn(const Vector3 &point) const
