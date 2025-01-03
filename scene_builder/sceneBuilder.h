@@ -20,7 +20,7 @@ protected:
     void buildRoom();
 
     //notice: it seems that we haven't set the material to the right
-    //wall because we are setting the materials in the LOCAL spcae!!!
+    //wall because we are setting the materials in the LOCAL space!!!
     virtual MATERIAL_TYPE getLeftWallMaterial() const;
     virtual MATERIAL_TYPE getRightWallMaterial() const;
     virtual MATERIAL_TYPE getFloorMaterial() const;
