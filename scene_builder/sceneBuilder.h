@@ -19,7 +19,7 @@ public:
 protected:
     void buildRoom();
 
-    //notice: it seems not we haven't set the material to the right
+    //notice: it seems that we haven't set the material to the right
     //wall because we are setting the materials in the LOCAL spcae!!!
     virtual MATERIAL_TYPE getLeftWallMaterial() const;
     virtual MATERIAL_TYPE getRightWallMaterial() const;
