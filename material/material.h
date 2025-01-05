@@ -20,6 +20,11 @@ public:
                        float &pdf,
                        bool &isDelta,
                        std::shared_ptr<Brdf> &brdf);
+    
+    void setNormalTexture(std::shared_ptr<Texture> normalTexture);
+
+private:
+    std::shared_ptr<Texture> m_NormalTexture;
 };
 
 #endif
