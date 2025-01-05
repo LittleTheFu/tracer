@@ -7,6 +7,7 @@
 #include "vector.h"
 
 Vector3 const Vector3::ZERO = Vector3(0, 0, 0);
+Vector3 const Vector3::ONE = Vector3(1, 1, 1);
 
 Vector3::Vector3()
 {
