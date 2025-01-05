@@ -20,7 +20,7 @@ Vector3 NormalTexture::getNormal(float u, float v) const
     //maybe a converter is needed,later...
     Vector3 normal(color.r, color.g, color.b);
     normal = normal * 2.0f - Vector3::ONE;
-    // normal.normalize();
+    normal.normalize();
 
     return normal;
 }

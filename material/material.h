@@ -21,6 +21,7 @@ public:
                        bool &isDelta,
                        std::shared_ptr<Brdf> &brdf);
     
+    //at this time,it only works for meshes,others will be added later...
     void setNormalTexture(std::shared_ptr<NormalTexture> normalTexture);
     bool isNormalTextureValid() const;
     std::shared_ptr<NormalTexture> getNormalTexture() const;

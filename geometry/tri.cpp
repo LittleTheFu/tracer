@@ -77,6 +77,7 @@ bool Tri::hit(const Ray &ray, HitRecord &record) const
     {
         //to be optimized later...
         pixelNormal = m_pMtrl->getNormalTexture()->getNormal(u(_objPoint), v(_objPoint));
+        pixelNormal = frame.vectorToWorld(pixelNormal);
     }
     Frame pixelFrame(pixelNormal, m_ab, _objPoint);
     Vector3 weghtedRayDir = pixelFrame.vectorToLocal(frame.vectorToWorld(localRay.dir));
