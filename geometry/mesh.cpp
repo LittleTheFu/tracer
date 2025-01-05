@@ -50,7 +50,10 @@ TriVertex Mesh::createTriVertex(const aiMesh* mesh, unsigned int index, float sc
     float u = mesh->mTextureCoords[0][index].x;
     float v = mesh->mTextureCoords[0][index].y;
 
-    return TriVertex(x * scale, y * scale, z * scale, n_x, n_y, n_z);
+    TriVertex tri(x * scale, y * scale, z * scale, n_x, n_y, n_z);
+    tri.setUV(u, v);
+
+    return tri;
 }
 
 bool Mesh::hit(const Ray &ray, HitRecord &record) const
