@@ -21,6 +21,7 @@ public:
 public:
     void addToPool(std::shared_ptr<ObjectPool> pool);
 
+//we don't calculate things related to uv in mesh but in tri
 private:
     virtual Vector3 dpdu(const Vector3 &point) const override;
     virtual Vector3 dpdv(const Vector3 &point) const override;

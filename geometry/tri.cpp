@@ -214,6 +214,16 @@ Vector3 Tri::getWeightedNormal(const Vector3 &p) const
     return normal;
 }
 
+//can be optimized together with getWeightedNormal()
+// void Tri::getWeightedUV(const Vector3 &p, float &u, float &v) const
+// {
+//     float wa, wb, wc;
+//     getWeight(p, wa, wb, wc);
+
+//     u = m_a.u * wa + m_b.u * wb + m_c.u * wc;
+//     v = m_a.v * wa + m_b.v * wb + m_c.v * wc;
+// }
+
 Vector3 Tri::dpdu(const Vector3 &point) const
 {
     return Vector3();

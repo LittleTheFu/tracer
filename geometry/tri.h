@@ -59,7 +59,9 @@ private:
     void getWeight(const Vector3 &p, float &wa, float &wb, float &wc) const;
     void calcNormal();
 
+    //can be optimized because both methodes called the func getWeight()
     Vector3 getWeightedNormal(const Vector3 &p) const;
+    // void getWeightedUV(const Vector3 &p, float &u, float &v) const;
 
 private:
     virtual Vector3 dpdu(const Vector3 &point) const override;

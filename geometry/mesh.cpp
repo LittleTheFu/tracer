@@ -47,10 +47,13 @@ TriVertex Mesh::createTriVertex(const aiMesh* mesh, unsigned int index, float sc
     float n_x = mesh->mNormals[index].x;
     float n_y = mesh->mNormals[index].y;
     float n_z = mesh->mNormals[index].z;
-    // float u = mesh->mTextureCoords[0][index].x;
-    // float v = mesh->mTextureCoords[0][index].y;
+    float u = mesh->mTextureCoords[0][index].x;
+    float v = mesh->mTextureCoords[0][index].y;
 
-    return TriVertex(x * scale, y * scale, z * scale, n_x, n_y, n_z);
+    TriVertex tri(x * scale, y * scale, z * scale, n_x, n_y, n_z);
+    tri.setUV(u, v);
+
+    return tri;
 }
 
 bool Mesh::hit(const Ray &ray, HitRecord &record) const
