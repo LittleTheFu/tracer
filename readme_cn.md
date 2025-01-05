@@ -43,7 +43,7 @@ cmake --install .
 
     SceneType configScene = SceneType::ROOM_TEAPOT;
 
-    点击查看单独渲染的图像：
+点击查看单独渲染的图像：
     
 - [SceneType::ROOM_SIMPLE](/document/simple_room.png)
 - [SceneType::ROOM_SIMPLE_BUNNY](/document/simple_room_bunny.png)
