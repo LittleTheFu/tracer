@@ -70,9 +70,16 @@ bool Tri::hit(const Ray &ray, HitRecord &record) const
     Vector3 localPoint = localRay.origin + record.t * localRay.dir;
     Vector3 _objPoint = frame.pointToWorld(localPoint);
 
-    Vector3 weightedNormal = getWeightedNormal(_objPoint);
-    Frame wieghtedFrame(weightedNormal, m_ab, _objPoint);
-    Vector3 weghtedRayDir = wieghtedFrame.vectorToLocal(frame.vectorToWorld(localRay.dir));
+    Vector3 pixelNormal = getWeightedNormal(_objPoint);
+    //quick and dirty,need to refactor and optimized later...
+    //and some variable should be renamed
+    if(m_pMtrl && m_pMtrl->isNormalTextureValid()) 
+    {
+        //to be optimized later...
+        pixelNormal = m_pMtrl->getNormalTexture()->getNormal(u(_objPoint), v(_objPoint));
+    }
+    Frame pixelFrame(pixelNormal, m_ab, _objPoint);
+    Vector3 weghtedRayDir = pixelFrame.vectorToLocal(frame.vectorToWorld(localRay.dir));
 
     record.transform = m_transform;
     record.point = m_transform.transformPoint(_objPoint);
@@ -80,7 +87,7 @@ bool Tri::hit(const Ray &ray, HitRecord &record) const
     record.u = u(_objPoint);
     record.v = v(_objPoint);
 
-    record.normal = m_transform.transformNormal(wieghtedFrame.vectorToWorld(Common::LOCAL_NORMAL));
+    record.normal = m_transform.transformNormal(pixelFrame.vectorToWorld(Common::LOCAL_NORMAL));
 
     if (m_pMtrl)
     {
@@ -88,7 +95,7 @@ bool Tri::hit(const Ray &ray, HitRecord &record) const
         record.f = m_pMtrl->eval(record.u, record.v, -weghtedRayDir, r, record.reflectPdf, record.isDelta, record.brdf);
 
         record.dot = MathUtility::clamp(std::abs(r * Common::LOCAL_NORMAL), 0.0f, 1.0f);
-        record.reflect = m_transform.transformVector(wieghtedFrame.vectorToWorld(r));
+        record.reflect = m_transform.transformVector(pixelFrame.vectorToWorld(r));
 
         if (record.isDelta)
         {

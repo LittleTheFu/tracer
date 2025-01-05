@@ -5,6 +5,7 @@
 #include "config.h"
 #include "diffuseMaterial.h"
 #include "mirrorMaterial.h"
+#include "normalTexture.h"
 #include "refreactorMaterial.h"
 #include "dielectricMaterial.h"
 #include "combinedMaterial.h"
@@ -56,10 +57,14 @@ void MaterialManager::init()
     measuredGreenMtrl = std::make_shared<MeasuredMaterial>(ResourceDef::BRDF_GREEN);
     measuredMetalMtrl = std::make_shared<MeasuredMaterial>(ResourceDef::BRDF_METAL);
     measuredMintMtrl = std::make_shared<MeasuredMaterial>(ResourceDef::BRDF_MINT);
+
     measuredSariSilkMtrl = std::make_shared<MeasuredMaterial>(ResourceDef::BRDF_SARI_SILK);
     measuredBrushAluminiumMtrl = std::make_shared<MeasuredMaterial>(ResourceDef::BRDF_BRUSHED_ALUMINIUM);
     measuredGreenPVCMtrl = std::make_shared<MeasuredMaterial>(ResourceDef::BRDF_GREEN_PVC);
+
+    //test normal map
     measuredBrushedTarkinTunicMtrl = std::make_shared<MeasuredMaterial>(ResourceDef::BRDF_TARKIN_TUNIC);
+    measuredBrushedTarkinTunicMtrl->setNormalTexture(std::make_shared<NormalTexture>(ResourceDef::NORMAL));
 
     m_map[MATERIAL_TYPE::M_RED] = diffuseMtrlRed;
     m_map[MATERIAL_TYPE::M_YELLOW] = diffuseMtrlYellow;

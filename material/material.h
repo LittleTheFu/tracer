@@ -4,7 +4,7 @@
 #include "brdf.h"
 #include "color.h"
 #include "ray.h"
-#include "texture.h"
+#include "normalTexture.h"
 #include "vector.h"
 #include <memory>
 
@@ -21,10 +21,12 @@ public:
                        bool &isDelta,
                        std::shared_ptr<Brdf> &brdf);
     
-    void setNormalTexture(std::shared_ptr<Texture> normalTexture);
+    void setNormalTexture(std::shared_ptr<NormalTexture> normalTexture);
+    bool isNormalTextureValid() const;
+    std::shared_ptr<NormalTexture> getNormalTexture() const;
 
 private:
-    std::shared_ptr<Texture> m_NormalTexture;
+    std::shared_ptr<NormalTexture> m_NormalTexture;
 };
 
 #endif

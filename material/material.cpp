@@ -16,7 +16,17 @@ Color Material::eval(float u,
     return Color::COLOR_BLACK;
 }
 
-void Material::setNormalTexture(std::shared_ptr<Texture> normalTexture)
+void Material::setNormalTexture(std::shared_ptr<NormalTexture> normalTexture)
 {
     m_NormalTexture = normalTexture;
+}
+
+bool Material::isNormalTextureValid() const
+{
+    return m_NormalTexture != nullptr;
+}
+
+std::shared_ptr<NormalTexture> Material::getNormalTexture() const
+{
+    return m_NormalTexture;
 }
