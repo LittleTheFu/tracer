@@ -119,7 +119,13 @@ bool Ball::hit(const Ray &ray, HitRecord &record) const
     record.point = m_transform.transformPoint(localPoint);
     record.localPoint = localPoint;
 
-    const Vector3 localNormal = getLocalNormal(localPoint);
+    Vector3 localNormal = getLocalNormal(localPoint);
+    if(m_pMtrl && m_pMtrl->isNormalTextureValid()) //quick and dirty, only for test.localNomal should be renamed
+    {
+        Frame frame(localNormal, localPoint);
+        Vector3 pixelNormal = m_pMtrl->getNormalTexture()->getNormal(u(localPoint), v(localPoint));//should be optimized
+        localNormal = frame.vectorToWorld(pixelNormal);
+    }
     record.normal = m_transform.transformNormal(localNormal);
 
     record.u = u(localPoint);
