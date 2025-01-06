@@ -51,6 +51,9 @@ private:
     std::shared_ptr<Material> measuredGreenPVCMtrl;
     std::shared_ptr<Material> measuredBrushedTarkinTunicMtrl;
     std::shared_ptr<Material> measuredSariSilkMtrl;
+
+    std::shared_ptr<Material> normalMapGreenPVCMtrl;
+    std::shared_ptr<Material> normalMapSariSilkMtrl;
 };
 
 #endif

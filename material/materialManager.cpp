@@ -1,17 +1,17 @@
-#include "materialManager.h"
-#include "constTexture.h"
-#include "imageTexture.h"
-#include "resourceDef.h"
+#include "combinedMaterial.h"
 #include "config.h"
+#include "constTexture.h"
 #include "diffuseMaterial.h"
+#include "dielectricMaterial.h"
+#include "imageTexture.h"
+#include "materialManager.h"
+#include "measuredMaterial.h"
 #include "mirrorMaterial.h"
 #include "normalTexture.h"
 #include "refreactorMaterial.h"
-#include "dielectricMaterial.h"
-#include "combinedMaterial.h"
-#include "chessboardTexture.h"
+#include "resourceDef.h"
 #include "conductorMaterial.h"
-#include "measuredMaterial.h"
+#include "chessboardTexture.h"
 
 MaterialManager* MaterialManager::instance = nullptr;
 
@@ -61,10 +61,14 @@ void MaterialManager::init()
     measuredSariSilkMtrl = std::make_shared<MeasuredMaterial>(ResourceDef::BRDF_SARI_SILK);
     measuredBrushAluminiumMtrl = std::make_shared<MeasuredMaterial>(ResourceDef::BRDF_BRUSHED_ALUMINIUM);
     measuredGreenPVCMtrl = std::make_shared<MeasuredMaterial>(ResourceDef::BRDF_GREEN_PVC);
-
-    //test normal map
     measuredBrushedTarkinTunicMtrl = std::make_shared<MeasuredMaterial>(ResourceDef::BRDF_TARKIN_TUNIC);
-    measuredBrushedTarkinTunicMtrl->setNormalTexture(std::make_shared<NormalTexture>(ResourceDef::NORMAL));
+
+    normalMapGreenPVCMtrl = std::make_shared<MeasuredMaterial>(ResourceDef::BRDF_GREEN_PVC);
+    normalMapGreenPVCMtrl->setNormalTexture(std::make_shared<NormalTexture>(ResourceDef::NORMAL));
+
+    normalMapSariSilkMtrl = std::make_shared<MeasuredMaterial>(ResourceDef::BRDF_SARI_SILK);
+    normalMapSariSilkMtrl->setNormalTexture(std::make_shared<NormalTexture>(ResourceDef::NORMAL));
+    
 
     m_map[MATERIAL_TYPE::M_RED] = diffuseMtrlRed;
     m_map[MATERIAL_TYPE::M_YELLOW] = diffuseMtrlYellow;
@@ -88,6 +92,8 @@ void MaterialManager::init()
     m_map[MATERIAL_TYPE::M_MEASURED_BRUSHED_ALUMINIUM_BRDF] = measuredBrushAluminiumMtrl;
     m_map[MATERIAL_TYPE::M_MEASURED_GREEN_PVC_BRDF] = measuredGreenPVCMtrl;
     m_map[MATERIAL_TYPE::M_MEASURED_TARKIN_TUNIC_BRDF] = measuredBrushedTarkinTunicMtrl;
+    m_map[MATERIAL_TYPE::M_NORMAL_MAP_GREEN_PVC] = normalMapGreenPVCMtrl;
+    m_map[MATERIAL_TYPE::M_NORMAL_MAP_SARI_SILK] = normalMapSariSilkMtrl;
 }
 
 std::shared_ptr<Material> MaterialManager::get(MATERIAL_TYPE type) const

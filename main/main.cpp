@@ -42,6 +42,11 @@ void configFromParams(int argc, char *argv[])
         configScene = SceneType::ROOM_MATERIAL_BALLS;
         configOutputImageName = "room_material_balls";
     }
+    else if (str == "room_normal_map")
+    {
+        configScene = SceneType::ROOM_NORMAL_MAP;
+        configOutputImageName = "room_normal_map";
+    }
     else
     {
         // do nothing

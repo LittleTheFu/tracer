@@ -202,6 +202,18 @@ void SceneBuilder::buildMeasuredSariSilkBall(const Vector3 &pos, float r)
     m_pObjectPool->add(measuredSariSilkBall);
 }
 
+void SceneBuilder::buildNormalMapGreenPvcBall(const Vector3 &pos, float r)
+{
+    std::shared_ptr<Ball> normalMapGreenPvcBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_NORMAL_MAP_GREEN_PVC));
+    m_pObjectPool->add(normalMapGreenPvcBall);
+}
+
+void SceneBuilder::buildNormalMapSariSilkBall(const Vector3 &pos, float r)
+{
+    std::shared_ptr<Ball> normalMapSariSilkBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_NORMAL_MAP_SARI_SILK));
+    m_pObjectPool->add(normalMapSariSilkBall);
+}
+
 void SceneBuilder::buildVolumeBall(const Vector3 &pos, float r)
 {
     std::shared_ptr<Ball> volumeBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, nullptr);

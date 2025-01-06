@@ -47,6 +47,9 @@ protected:
     void buildMeasuredTarkinTunicBall(const Vector3& pos, float r);
     void buildMeasuredSariSilkBall(const Vector3& pos, float r);
 
+    void buildNormalMapGreenPvcBall(const Vector3& pos, float r);
+    void buildNormalMapSariSilkBall(const Vector3& pos, float r);
+
     void buildVolumeBall(const Vector3& pos, float r);
 
     void buildRedBall(const Vector3& pos, float r);
