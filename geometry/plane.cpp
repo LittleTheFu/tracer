@@ -84,12 +84,6 @@ void Plane::buildBoundBox()
 
 bool Plane::testHit(const Ray &localRay, float &t) const
 {
-    bool reverse = false;
-    if (localRay.dir.z >= 0)
-    {
-        reverse = true;
-    }
-
     Vector3 localNormal = Common::LOCAL_NORMAL;
     const float n = (-localRay.origin) * localNormal;
     const float d = localRay.dir * localNormal;
