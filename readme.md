@@ -49,7 +49,7 @@ Click to see the rendered image seperately:
 - SceneType::ROOM_SIMPLE_BUNNY(in rendering...)  
 - [SceneType::ROOM_COMPLEX_BUNNY](/document/complex_room_bunny.png)  
 - [SceneType::ROOM_TEAPOT](/document/room_teapot.png)  
-- SceneType::ROOM_MATERIAL_BALLS(in rendering...)  
+- [SceneType::ROOM_MATERIAL_BALLS](/document/room_material_balls.png)  
 
 
 

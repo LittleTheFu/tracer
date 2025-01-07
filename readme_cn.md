@@ -49,7 +49,7 @@ cmake --install .
 - SceneType::ROOM_SIMPLE_BUNNY(正在渲染中...)
 - [SceneType::ROOM_COMPLEX_BUNNY](/document/complex_room_bunny.png)
 - [SceneType::ROOM_TEAPOT](/document/room_teapot.png)
-- SceneType::ROOM_MATERIAL_BALLS（正在渲染中...）
+- [SceneType::ROOM_MATERIAL_BALLS](/document/room_material_balls.png)  
 
 
 
