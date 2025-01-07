@@ -28,7 +28,6 @@ private:
     virtual float u(const Vector3 &point) const override;
     virtual float v(const Vector3 &point) const override;
 
-    Vector3 getLocalNormal(bool reverse) const;
     bool isLocalIn(const Vector3 &p) const;
 
     int m_uvCellSize;

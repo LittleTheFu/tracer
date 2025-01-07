@@ -16,31 +16,27 @@ Plane::Plane(const Vector3 &rotate, const Vector3 &position, float length, std::
     this->m_uvCellSize = 100;
 }
 
-Vector3 Plane::getLocalNormal(bool reverse = false) const
-{
-    if (reverse)
-    {
-        return Vector3(0, 0, -1);
-    }
-
-    return Vector3(0, 0, 1);
-}
-
-
 bool Plane::hit(const Ray &ray, HitRecord &record) const
 {
     record.t = MathConstant::FLOAT_MAX;
 
     const Ray newRay = ray.genNewRay(m_transform);
-    bool reverse = (newRay.dir.z < 0);
+    bool reverse = false;
 
     if(!testHit(newRay, record.t))
         return false;
 
     //refactor later...
     Vector3 localPoint = newRay.origin + record.t * newRay.dir;
-    Vector3 localNormal = getLocalNormal(reverse);
+    Vector3 localNormal = Common::LOCAL_NORMAL;
 
+    //refactor later...
+    //right now just for testing normal map
+    if(m_pMtrl && m_pMtrl->isNormalTextureValid())
+    {
+        localNormal = m_pMtrl->getNormalTexture()->getNormal(u(localPoint), v(localPoint));
+    }
+   
     record.transform = m_transform;
 
     record.point = m_transform.transformPoint(localPoint);
@@ -94,7 +90,7 @@ bool Plane::testHit(const Ray &localRay, float &t) const
         reverse = true;
     }
 
-    Vector3 localNormal = getLocalNormal(reverse);
+    Vector3 localNormal = Common::LOCAL_NORMAL;
     const float n = (-localRay.origin) * localNormal;
     const float d = localRay.dir * localNormal;
 

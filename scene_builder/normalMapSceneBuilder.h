@@ -7,6 +7,9 @@ class NormalMapSceneBuilder : public SceneBuilder
 {
 public:
     virtual void build() override;
+
+    virtual MATERIAL_TYPE getLeftWallMaterial() const;
+    virtual MATERIAL_TYPE getRightWallMaterial() const;
 };
 
 #endif
