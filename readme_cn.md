@@ -45,11 +45,16 @@ cmake --install .
 
 点击查看单独渲染的图像：
     
-- [SceneType::ROOM_SIMPLE](/document/simple_room.png)
-- SceneType::ROOM_SIMPLE_BUNNY(正在渲染中...)
-- [SceneType::ROOM_COMPLEX_BUNNY](/document/complex_room_bunny.png)
-- [SceneType::ROOM_TEAPOT](/document/room_teapot.png)
+- [SceneType::ROOM_SIMPLE](/document/simple_room.png)  
+ ![img](/document/preview/simple_room.png)  
+- SceneType::ROOM_SIMPLE_BUNNY(正在渲染中...)  
+ ![img](/document/preview/simple_room_bunny.png)  
+- [SceneType::ROOM_COMPLEX_BUNNY](/document/complex_room_bunny.png)  
+ ![img](/document/preview/complex_room_bunny.png)  
+- [SceneType::ROOM_TEAPOT](/document/room_teapot.png)  
+ ![img](/document/preview/room_teapot.png)  
 - [SceneType::ROOM_MATERIAL_BALLS](/document/room_material_balls.png)  
+ ![img](/document/preview/room_material_balls.png)  
 
 
 
