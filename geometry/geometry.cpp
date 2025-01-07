@@ -43,6 +43,11 @@ std::string Geometry::getClassName() const
     return typeid(*this).name();
 }
 
+bool Geometry::testHit(const Ray &localRay, float &t) const
+{
+    return false;
+}
+
 void Geometry::applyTransform(const Transform &t)
 {
     m_transform.applyTransform(t);

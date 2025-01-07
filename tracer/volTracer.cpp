@@ -1,4 +1,3 @@
-// // Copyright 2024 <fu>
 // #include "volTracer.h"
 // #include "mathUtility.h"
 // #include <memory>

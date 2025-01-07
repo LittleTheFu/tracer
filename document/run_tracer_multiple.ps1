@@ -2,7 +2,7 @@
 $executable = ".\ray_tracer.exe"
 
 # 定义要传递的参数数组
-$scenes = @("simple_room", "simple_room_bunny", "complex_room_bunny", "room_teapot", "room_material_balls")
+$scenes = @("simple_room", "simple_room_bunny", "complex_room_bunny", "room_teapot", "room_material_balls","room_normal_map")
 
 # 循环运行可执行文件并传递不同的参数
 foreach ($scene in $scenes) {

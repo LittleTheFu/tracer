@@ -11,6 +11,7 @@
 #include "teapotSceneBuilder.h"
 #include "mtrlSceneBuilder.h"
 #include "complexBunnySceneBuilder.h"
+#include "normalMapSceneBuilder.h"
 
 Scene::Scene(SceneType sceneType, int resolutionScale, int samplersPerPixel, int depth)
 {
@@ -108,6 +109,8 @@ std::shared_ptr<SceneBuilder> Scene::createSceneBuilder(SceneType type) const
         builder = std::make_shared<TeapotSceneBuilder>();
     else if (type == SceneType::ROOM_MATERIAL_BALLS)
         builder = std::make_shared<MtrlSceneBuilder>();
+    else if (type == SceneType::ROOM_NORMAL_MAP)
+        builder = std::make_shared<NormalMapSceneBuilder>();
     else
         builder = std::make_shared<SimpleSceneBuilder>();
 

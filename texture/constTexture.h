@@ -8,7 +8,7 @@ class ConstTexture : public Texture
 {
 public:
     ConstTexture(const Color &color);
-    Color getColor(float u, float v) const;
+    virtual Color getColor(float u, float v) const override;
 
 private:
     Color m_color;

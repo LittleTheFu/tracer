@@ -7,6 +7,10 @@ class SimpleSceneBuilder : public SceneBuilder
 {
 public:
     virtual void build() override;
+
+private:
+    virtual MATERIAL_TYPE getLeftWallMaterial() const override;
+    virtual MATERIAL_TYPE getCeilingMaterial() const override;
 };
 
 #endif

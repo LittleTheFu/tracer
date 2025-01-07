@@ -43,6 +43,16 @@ cmake --install .
 
     SceneType configScene = SceneType::ROOM_TEAPOT;
 
+点击查看单独渲染的图像：
+    
+- [SceneType::ROOM_SIMPLE](/document/simple_room.png)
+- [SceneType::ROOM_SIMPLE_BUNNY](/document/simple_room_bunny.png)
+- [SceneType::ROOM_COMPLEX_BUNNY](/document/complex_room_bunny.png)
+- SceneType::ROOM_TEAPOT（正在渲染中...）
+- SceneType::ROOM_MATERIAL_BALLS（正在渲染中...）
+
+
+
 7.由于渲染过程耗时较长，你可以通过修改 `config.cpp` 中的 `resolutionScale` 和 `configSamplersPerPixel` 来调整图像分辨率和采样数。
 
 例如:

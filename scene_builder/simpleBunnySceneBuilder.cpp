@@ -10,3 +10,8 @@ void SimpleBunnySceneBuilder::build()
     
     buildBunny(Vector3(30, -100, 350), 900, ResourceDef::SIMPLE_BUNNY, MATERIAL_TYPE::M_DIELECTRIC);
 }
+
+MATERIAL_TYPE SimpleBunnySceneBuilder::getCeilingMaterial() const
+{
+    return MATERIAL_TYPE::M_GREEN;
+}

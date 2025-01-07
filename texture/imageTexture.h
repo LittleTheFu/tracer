@@ -10,7 +10,7 @@ class ImageTexture : public Texture
 {
 public:
     ImageTexture(const std::string fileName);
-    Color getColor(float u, float v) const;
+    virtual Color getColor(float u, float v) const override;
 
 private:
     unsigned m_width;

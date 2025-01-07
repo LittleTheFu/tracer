@@ -51,60 +51,78 @@ void Tri::getSplitChildren(Tri *outTri_1, Tri *outTri_2, Tri *outTri_3) const
     outTri_3->set(m_c, m_a, d, m_pos, m_pMtrl);
 }
 
-//transform three times
-//1.to object frame
-//2.then to tri frame built from face normal
-//3.then to tri frame built from weighted normal
+// transform three times
+// 1.to object frame
+// 2.then to tri frame built from face normal
+// 3.then to tri frame built from weighted normal
 bool Tri::hit(const Ray &ray, HitRecord &record) const
 {
     record.t = MathConstant::FLOAT_MAX;
-
     Ray newRay = ray.genNewRay(m_transform);
 
     Frame frame(m_normal, m_ab, m_a.pos);
     Ray localRay = newRay.genNewRay(frame);
 
-    const float n = (-localRay.origin) * Common::LOCAL_NORMAL;
-    const float d = localRay.dir * Common::LOCAL_NORMAL;
-
-    record.t = n / d;
-    if (record.t < MathConstant::FLOAT_SMALL_NUMBER)
-    {
+    if (!testHit(localRay, record.t))
         return false;
-    }
 
+    //reduntant code,refactor later...
     Vector3 localPoint = localRay.origin + record.t * localRay.dir;
     Vector3 _objPoint = frame.pointToWorld(localPoint);
-    if (!isAllFacePositive(_objPoint))
-    {
-        return false;
-    }
 
-    Vector3 weightedNormal = getWeightedNormal(_objPoint);
-    Frame wieghtedFrame(weightedNormal, m_ab, _objPoint);
-    Vector3 weghtedRayDir = wieghtedFrame.vectorToLocal(frame.vectorToWorld(localRay.dir));
+    Vector3 pixelNormal = getWeightedNormal(_objPoint);
+    //quick and dirty,need to refactor and optimized later...
+    //and some variable should be renamed
+    if(m_pMtrl && m_pMtrl->isNormalTextureValid()) 
+    {
+        //to be optimized later...
+        pixelNormal = m_pMtrl->getNormalTexture()->getNormal(u(_objPoint), v(_objPoint));
+        pixelNormal = frame.vectorToWorld(pixelNormal);
+    }
+    Frame pixelFrame(pixelNormal, m_ab, _objPoint);
+    Vector3 weghtedRayDir = pixelFrame.vectorToLocal(frame.vectorToWorld(localRay.dir));
 
     record.transform = m_transform;
     record.point = m_transform.transformPoint(_objPoint);
+
     record.u = u(_objPoint);
     record.v = v(_objPoint);
-    record.geometry = std::make_shared<Tri>(*this);
 
-    record.normal = m_transform.transformNormal(wieghtedFrame.vectorToWorld(Common::LOCAL_NORMAL));
+    record.normal = m_transform.transformNormal(pixelFrame.vectorToWorld(Common::LOCAL_NORMAL));
 
     if (m_pMtrl)
     {
         Vector3 r;
         record.f = m_pMtrl->eval(record.u, record.v, -weghtedRayDir, r, record.reflectPdf, record.isDelta, record.brdf);
- 
+
         record.dot = MathUtility::clamp(std::abs(r * Common::LOCAL_NORMAL), 0.0f, 1.0f);
-        record.reflect = m_transform.transformVector(wieghtedFrame.vectorToWorld(r));
+        record.reflect = m_transform.transformVector(pixelFrame.vectorToWorld(r));
 
         if (record.isDelta)
         {
             record.dot = 1;
         }
     }
+
+    return true;
+}
+
+bool Tri::testHit(const Ray &localRay, float &t) const
+{
+    const float n = (-localRay.origin) * Common::LOCAL_NORMAL;
+    const float d = localRay.dir * Common::LOCAL_NORMAL;
+
+    t = n / d;
+    if (t < MathConstant::FLOAT_SMALL_NUMBER)
+        return false;
+
+    Vector3 localPoint = localRay.origin + t * localRay.dir;
+
+    //refactor later...
+    Frame frame(m_normal, m_ab, m_a.pos);
+    Vector3 _objPoint = frame.pointToWorld(localPoint);
+    if (!isAllFacePositive(_objPoint))
+        return false;
 
     return true;
 }
@@ -148,9 +166,12 @@ bool Tri::isAllFacePositive(const Vector3 &p) const
     Vector3 ca_cp = m_ca.cross(cp);
     Vector3 ab_ap = m_ab.cross(ap);
 
-    if(!bc_bp.isSameDir(ca_cp)) return false;
-    if(!ca_cp.isSameDir(ab_ap)) return false;
-    if(!ab_ap.isSameDir(bc_bp)) return false;
+    if (!bc_bp.isSameDir(ca_cp))
+        return false;
+    if (!ca_cp.isSameDir(ab_ap))
+        return false;
+    if (!ab_ap.isSameDir(bc_bp))
+        return false;
 
     return true;
 }
@@ -200,6 +221,16 @@ Vector3 Tri::getWeightedNormal(const Vector3 &p) const
 
     return normal;
 }
+
+//can be optimized together with getWeightedNormal()
+// void Tri::getWeightedUV(const Vector3 &p, float &u, float &v) const
+// {
+//     float wa, wb, wc;
+//     getWeight(p, wa, wb, wc);
+
+//     u = m_a.u * wa + m_b.u * wb + m_c.u * wc;
+//     v = m_a.v * wa + m_b.v * wb + m_c.v * wc;
+// }
 
 Vector3 Tri::dpdu(const Vector3 &point) const
 {

@@ -20,5 +20,5 @@ Color ChessboardTexture::getColor(float u, float v) const
         return Color::COLOR_WHITE;
     }
 
-    return Color::COLOR_LIGHT_GRAY;
+    return Color::COLOR_BLACK;
 }

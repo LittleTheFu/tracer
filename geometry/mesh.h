@@ -4,6 +4,8 @@
 #include <memory>
 #include <vector>
 
+#include <assimp/mesh.h>
+
 #include "geometry.h"
 #include "material.h"
 #include "objectpool.h"
@@ -18,12 +20,18 @@ public:
 
 public:
     void addToPool(std::shared_ptr<ObjectPool> pool);
+
+//we don't calculate things related to uv in mesh but in tri
 private:
     virtual Vector3 dpdu(const Vector3 &point) const override;
     virtual Vector3 dpdv(const Vector3 &point) const override;
 
     virtual float u(const Vector3 &point) const override;
     virtual float v(const Vector3 &point) const override;
+
+private:
+    TriVertex createTriVertex(const aiMesh* mesh, unsigned int index, float scale) const;
+
 
 public:
     std::vector<std::shared_ptr<Tri>> m_tris;
