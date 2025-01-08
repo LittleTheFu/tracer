@@ -151,11 +151,6 @@ void Tri::buildBoundBox()
     m_boundBox.update(c);
 }
 
-Vector3 Tri::getLocalNormal(bool reverse) const
-{
-    return m_normal;
-}
-
 bool Tri::isAllFacePositive(const Vector3 &p) const
 {
     Vector3 ap = p - m_a.pos;
