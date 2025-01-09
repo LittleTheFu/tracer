@@ -68,7 +68,7 @@ eg:
     int configSamplersPerPixel = 10;//this is slow but with more sapplers
 ---
     int resolutionScale = 2;//this is fast but with less resolution
-    int configSamplersPerPixel = 1;//tis is fast but with less samplers
+    int configSamplersPerPixel = 1;//this is fast but with less samplers
 
 
 
