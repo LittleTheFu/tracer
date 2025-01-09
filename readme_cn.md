@@ -47,7 +47,7 @@ cmake --install .
     
 - [SceneType::ROOM_SIMPLE](/document/simple_room.png)  
   [![img](/document/preview/simple_room.png)](/document/simple_room.png)  
-- SceneType::ROOM_SIMPLE_BUNNY(正在渲染中...)  
+- [SceneType::ROOM_SIMPLE_BUNNY](/document/simple_room_bunny.png)    
   [![img](/document/preview/simple_room_bunny.png)](/document/simple_room_bunny.png)  
 - [SceneType::ROOM_COMPLEX_BUNNY](/document/complex_room_bunny.png)  
   [![img](/document/preview/complex_room_bunny.png)](/document/complex_room_bunny.png)  
