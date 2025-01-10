@@ -7,6 +7,9 @@ class SimpleBunnySceneBuilder : public SceneBuilder
 {
 public:
     virtual void build() override;
+
+private:
+    virtual MATERIAL_TYPE getCeilingMaterial() const override;
 };
 
 #endif

@@ -18,6 +18,16 @@ public:
 
 protected:
     void buildRoom();
+
+    //notice: it seems that we haven't set the material to the right
+    //wall because we are setting the materials in the LOCAL space!!!
+    virtual MATERIAL_TYPE getLeftWallMaterial() const;
+    virtual MATERIAL_TYPE getRightWallMaterial() const;
+    virtual MATERIAL_TYPE getFloorMaterial() const;
+    virtual MATERIAL_TYPE getCeilingMaterial() const;
+    virtual MATERIAL_TYPE getFrontWallMaterial() const;
+    virtual MATERIAL_TYPE getBackWallMaterial() const;
+
     void buildMeshRoom();
     void buildLight(const Vector3& pos, float r);
     void setLightIntensity(float intensity);
@@ -36,6 +46,9 @@ protected:
     void buildMeasuredBrushedAluminiumBall(const Vector3& pos, float r);
     void buildMeasuredTarkinTunicBall(const Vector3& pos, float r);
     void buildMeasuredSariSilkBall(const Vector3& pos, float r);
+
+    void buildNormalMapGreenPvcBall(const Vector3& pos, float r);
+    void buildNormalMapSariSilkBall(const Vector3& pos, float r);
 
     void buildVolumeBall(const Vector3& pos, float r);
 
