@@ -69,6 +69,7 @@ public:
     static Vector3 sampleUniformFromCone(float thetaMax);
 
     static const Vector3 ZERO;
+    static const Vector3 ONE;
 
     float x;
     float y;

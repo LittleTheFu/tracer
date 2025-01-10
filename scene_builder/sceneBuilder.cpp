@@ -20,29 +20,36 @@ void SceneBuilder::buildRoom()
     const float c = 100;
     const float r = 5 * c;
 
+    MATERIAL_TYPE leftMtrl = getLeftWallMaterial();
+    MATERIAL_TYPE rightMtrl = getRightWallMaterial();
+    MATERIAL_TYPE topMtrl = getCeilingMaterial();
+    MATERIAL_TYPE bottomMtrl = getFloorMaterial();
+    MATERIAL_TYPE frontMtrl = getFrontWallMaterial();
+    MATERIAL_TYPE backMtrl = getBackWallMaterial();
+
     Vector3 leftRotate(0, MathConstant::PI / 2, 0);
     Vector3 leftPosition(-c, 0, 0);
-    std::shared_ptr<Plane> leftPlane = std::make_shared<Plane>(leftRotate, leftPosition, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_RED));
+    std::shared_ptr<Plane> leftPlane = std::make_shared<Plane>(leftRotate, leftPosition, r, MaterialManager::getInstance()->get(leftMtrl));
 
     Vector3 rightRotate(0, -MathConstant::PI / 2, 0);
     Vector3 rightPosition(c, 0, 0);
-    std::shared_ptr<Plane> rightPlane = std::make_shared<Plane>(rightRotate, rightPosition, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_BLUE));
+    std::shared_ptr<Plane> rightPlane = std::make_shared<Plane>(rightRotate, rightPosition, r, MaterialManager::getInstance()->get(rightMtrl));
 
     Vector3 bottomRotate(MathConstant::PI / 2, 0, 0);
     Vector3 bottomPosition(0, c, 0);
-    std::shared_ptr<Plane> bottomPlane = std::make_shared<Plane>(bottomRotate, bottomPosition, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_CHESSBOARD));
+    std::shared_ptr<Plane> bottomPlane = std::make_shared<Plane>(bottomRotate, bottomPosition, r, MaterialManager::getInstance()->get(bottomMtrl));
 
     Vector3 topRotate(-MathConstant::PI / 2, 0, 0);
     Vector3 topPosition(0, -c, 0);
-    std::shared_ptr<Plane> topPlane = std::make_shared<Plane>(topRotate, topPosition, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_COMBINED));
+    std::shared_ptr<Plane> topPlane = std::make_shared<Plane>(topRotate, topPosition, r, MaterialManager::getInstance()->get(topMtrl));
 
     Vector3 frontRotate(MathConstant::PI, 0, 0);
     Vector3 frontPosition(0, 0, 5 * c);
-    std::shared_ptr<Plane> frontPlane = std::make_shared<Plane>(frontRotate, frontPosition, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_YELLOW));
+    std::shared_ptr<Plane> frontPlane = std::make_shared<Plane>(frontRotate, frontPosition, r, MaterialManager::getInstance()->get(frontMtrl));
 
     Vector3 backRotate(0, 0, 0);
     Vector3 backPosition(0, 0, -3 * c);
-    std::shared_ptr<Plane> backPlane = std::make_shared<Plane>(backRotate, backPosition, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_RED));
+    std::shared_ptr<Plane> backPlane = std::make_shared<Plane>(backRotate, backPosition, r, MaterialManager::getInstance()->get(backMtrl));
 
     m_pObjectPool->add(frontPlane);
     m_pObjectPool->add(backPlane);
@@ -50,6 +57,36 @@ void SceneBuilder::buildRoom()
     m_pObjectPool->add(bottomPlane);
     m_pObjectPool->add(leftPlane);
     m_pObjectPool->add(rightPlane);
+}
+
+MATERIAL_TYPE SceneBuilder::getLeftWallMaterial() const
+{
+    return MATERIAL_TYPE::M_RED;
+}
+
+MATERIAL_TYPE SceneBuilder::getRightWallMaterial() const
+{
+    return MATERIAL_TYPE::M_BLUE;
+}
+
+MATERIAL_TYPE SceneBuilder::getFloorMaterial() const
+{
+    return MATERIAL_TYPE::M_COMBINED;
+}
+
+MATERIAL_TYPE SceneBuilder::getCeilingMaterial() const
+{
+    return MATERIAL_TYPE::M_CHESSBOARD;
+}
+
+MATERIAL_TYPE SceneBuilder::getFrontWallMaterial() const
+{
+    return MATERIAL_TYPE::M_YELLOW;
+}
+
+MATERIAL_TYPE SceneBuilder::getBackWallMaterial() const
+{
+    return MATERIAL_TYPE::M_RED;
 }
 
 void SceneBuilder::buildMeshRoom()
@@ -163,6 +200,18 @@ void SceneBuilder::buildMeasuredSariSilkBall(const Vector3 &pos, float r)
 {
     std::shared_ptr<Ball> measuredSariSilkBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_MEASURED_SARI_SILK_BRDF));
     m_pObjectPool->add(measuredSariSilkBall);
+}
+
+void SceneBuilder::buildNormalMapGreenPvcBall(const Vector3 &pos, float r)
+{
+    std::shared_ptr<Ball> normalMapGreenPvcBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_NORMAL_MAP_GREEN_PVC));
+    m_pObjectPool->add(normalMapGreenPvcBall);
+}
+
+void SceneBuilder::buildNormalMapSariSilkBall(const Vector3 &pos, float r)
+{
+    std::shared_ptr<Ball> normalMapSariSilkBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_NORMAL_MAP_SARI_SILK));
+    m_pObjectPool->add(normalMapSariSilkBall);
 }
 
 void SceneBuilder::buildVolumeBall(const Vector3 &pos, float r)

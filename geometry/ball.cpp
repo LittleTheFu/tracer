@@ -77,6 +77,22 @@ void Ball::buildBoundBox()
     m_boundBox.update(max);
 }
 
+bool Ball::testHit(const Ray &localRay, float &t) const
+{
+    float a, b, c;
+    genRayHitParam(localRay, a, b, c);
+
+    float t0, t1;
+    if (!MathUtility::solveLinerEquation(a, b, c, t0, t1))
+        return false;
+
+    //refactor later...
+    if (!getHitParam(t0, t1, t))
+        return false;
+
+    return true;
+}
+
 bool Ball::isIn(const Vector3 &point) const
 {
     Vector3 center = m_transform.transformPoint(Vector3::ZERO);
@@ -94,16 +110,7 @@ bool Ball::hit(const Ray &ray, HitRecord &record) const
 {
     const Ray newRay = ray.genNewRay(m_transform);
 
-    float a, b, c;
-    genRayHitParam(newRay, a, b, c);
-
-    float t0, t1;
-    if (!MathUtility::solveLinerEquation(a, b, c, t0, t1))
-        return false;
-
-    bool hit = getHitParam(t0, t1, record.t);
-
-    if (!hit)
+    if (!testHit(newRay, record.t))
         return false;
 
     record.transform = m_transform;
@@ -112,12 +119,17 @@ bool Ball::hit(const Ray &ray, HitRecord &record) const
     record.point = m_transform.transformPoint(localPoint);
     record.localPoint = localPoint;
 
-    const Vector3 localNormal = getLocalNormal(localPoint);
+    Vector3 localNormal = getLocalNormal(localPoint);
+    if(m_pMtrl && m_pMtrl->isNormalTextureValid()) //quick and dirty, only for test.localNomal should be renamed
+    {
+        Frame frame(localNormal, localPoint);
+        Vector3 pixelNormal = m_pMtrl->getNormalTexture()->getNormal(u(localPoint), v(localPoint));//should be optimized
+        localNormal = frame.vectorToWorld(pixelNormal);
+    }
     record.normal = m_transform.transformNormal(localNormal);
 
     record.u = u(localPoint);
     record.v = v(localPoint);
-    record.geometry = std::make_shared<Ball>(*this);
 
     if (m_pMtrl)
     {
@@ -125,7 +137,7 @@ bool Ball::hit(const Ray &ray, HitRecord &record) const
     }
     else
     {
-        //for volume rendering(just for test now)
+        // for volume rendering(just for test now)
         record.isVolumeBoundery = true;
     }
 
@@ -142,18 +154,18 @@ Vector3 Ball::sampleFromPoint(const Vector3 &thatPoint, float &pdf) const
 
     float d = localPoint.length();
     float thetaMax = std::asin(r / d);
-    float cosThetaMax =  std::cos(thetaMax);
+    float cosThetaMax = std::cos(thetaMax);
 
     float rnd = MathUtility::genRandomDecimal();
-    float sampleCosTheta =   1 - rnd + rnd * cosThetaMax;
+    float sampleCosTheta = 1 - rnd + rnd * cosThetaMax;
     float theta = std::acos(sampleCosTheta);
 
     float gamma = MathConstant::PI - d / r * std::sin(theta);
     float alpha = MathConstant::PI - gamma - theta;
     float phi = MathUtility::genRandomDecimal() * MathConstant::TWO_PI;
 
-    Vector3 sampleZAxis(0,0,-1);
-    Vector3 sampleBallFrameOrigin(0,0,d);
+    Vector3 sampleZAxis(0, 0, -1);
+    Vector3 sampleBallFrameOrigin(0, 0, d);
     Frame sampleBallFrame(sampleZAxis, sampleBallFrameOrigin);
     Vector3 sampledBallPoint = getLocalPoint(alpha, phi);
 
@@ -163,9 +175,9 @@ Vector3 Ball::sampleFromPoint(const Vector3 &thatPoint, float &pdf) const
     Vector3 worldSampledPoint = m_transform.transformPoint(sampledBallPoint);
 
     float oneMinus = 1 - cosThetaMax;
-    float div = 1 /oneMinus;
+    float div = 1 / oneMinus;
     pdf = div * MathConstant::INV_TWO_PI;
- 
+
     return worldSampledPoint;
 }
 
@@ -243,7 +255,7 @@ bool Ball::getHitParam(float t_min, float t_max, float &t_out) const
     return hit;
 }
 
-void Ball::HandleMaterial(const Vector3 &localNormal, const Vector3 &localPoint, const Ray& newRay, HitRecord &record) const
+void Ball::HandleMaterial(const Vector3 &localNormal, const Vector3 &localPoint, const Ray &newRay, HitRecord &record) const
 {
     Frame frame(localNormal, dpdu(localPoint), Vector3::ZERO);
 

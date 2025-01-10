@@ -16,6 +16,8 @@ public:
     virtual float surfaceArea() const override;
     virtual void buildBoundBox() override;
 
+    virtual bool testHit(const Ray &localRay, float &t) const override;
+
 public:
     float half_length;
 

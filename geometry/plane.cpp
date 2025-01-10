@@ -32,37 +32,22 @@ bool Plane::hit(const Ray &ray, HitRecord &record) const
     record.t = MathConstant::FLOAT_MAX;
 
     const Ray newRay = ray.genNewRay(m_transform);
+    bool reverse = (newRay.dir.z < 0);
 
-    bool reverse = false;
-    if (newRay.dir.z >= 0)
-    {
-        reverse = true;
-    }
-
-    const float n = (-newRay.origin) * getLocalNormal(reverse);
-    const float d = newRay.dir * getLocalNormal(reverse);
-
-    record.t = n / d;
-    if (record.t < MathConstant::FLOAT_SMALL_NUMBER)
-    {
+    if(!testHit(newRay, record.t))
         return false;
-    }
 
+    //refactor later...
     Vector3 localPoint = newRay.origin + record.t * newRay.dir;
-
-    if (!isLocalIn(localPoint))
-    {
-        return false;
-    }
+    Vector3 localNormal = getLocalNormal(reverse);
 
     record.transform = m_transform;
 
     record.point = m_transform.transformPoint(localPoint);
-    record.normal = m_transform.transformNormal(getLocalNormal(reverse));
+    record.normal = m_transform.transformNormal(localNormal);
 
     record.u = u(localPoint);
     record.v = v(localPoint);
-    record.geometry = std::make_shared<Plane>(*this);
 
     if (m_pMtrl)
     {
@@ -99,6 +84,34 @@ void Plane::buildBoundBox()
     m_boundBox.update(pb);
     m_boundBox.update(pc);
     m_boundBox.update(pd);
+}
+
+bool Plane::testHit(const Ray &localRay, float &t) const
+{
+    bool reverse = false;
+    if (localRay.dir.z >= 0)
+    {
+        reverse = true;
+    }
+
+    Vector3 localNormal = getLocalNormal(reverse);
+    const float n = (-localRay.origin) * localNormal;
+    const float d = localRay.dir * localNormal;
+
+    t = n / d;
+    if (t < MathConstant::FLOAT_SMALL_NUMBER)
+    {
+        return false;
+    }
+
+    Vector3 localPoint = localRay.origin + t * localRay.dir;
+
+    if (!isLocalIn(localPoint))
+    {
+        return false;
+    }
+
+    return true;
 }
 
 void Plane::HandleMaterial(const Ray &newRay, HitRecord &record) const

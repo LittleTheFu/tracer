@@ -23,7 +23,6 @@ public:
 
     Transform transform;
     std::shared_ptr<Brdf> brdf;
-    std::shared_ptr<Geometry> geometry;
     bool isVolumeBoundery;
 
     Vector3 point;

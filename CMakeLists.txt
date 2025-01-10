@@ -65,6 +65,7 @@ SET (RAY_TRACER_SOURCE
     scene_builder/simpleBunnySceneBuilder.cpp
     scene_builder/simpleSceneBuilder.cpp
     scene_builder/mtrlSceneBuilder.cpp
+    scene_builder/normalMapSceneBuilder.cpp
     scene_builder/sceneBuilder.cpp
     scene_builder/teapotSceneBuilder.cpp
     scene_builder/volumeSceneBuilder.cpp
@@ -73,6 +74,7 @@ SET (RAY_TRACER_SOURCE
     texture/constTexture.cpp
     texture/imageTexture.cpp
     texture/noiseTexture.cpp
+    texture/normalTexture.cpp
     texture/texture.cpp
     texture/uvTexture.cpp
     tracer/neeTracer.cpp
@@ -147,6 +149,7 @@ SET (RAY_TRACER_HEADER
     scene_builder/simpleBunnySceneBuilder.h
     scene_builder/simpleSceneBuilder.h
     scene_builder/mtrlSceneBuilder.h
+    scene_builder/normalMapSceneBuilder.h
     scene_builder/sceneBuilder.h
     scene_builder/volumeSceneBuilder.h
     scene_builder/teapotSceneBuilder.h
@@ -155,6 +158,7 @@ SET (RAY_TRACER_HEADER
     texture/constTexture.h
     texture/imageTexture.h
     texture/noiseTexture.h
+    texture/normalTexture.h
     texture/texture.h
     texture/uvTexture.h
     tracer/neeTracer.h

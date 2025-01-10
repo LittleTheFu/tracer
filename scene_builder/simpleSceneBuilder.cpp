@@ -21,3 +21,13 @@ void SimpleSceneBuilder::build()
     //to be fixed : light power leak
     // buildGlassTri(Vector3(20,35,230));
 }
+
+MATERIAL_TYPE SimpleSceneBuilder::getLeftWallMaterial() const
+{
+    return MATERIAL_TYPE::M_GREEN;
+}
+
+MATERIAL_TYPE SimpleSceneBuilder::getCeilingMaterial() const
+{
+    return MATERIAL_TYPE::M_WHITE;
+}
