@@ -27,7 +27,7 @@ bool Plane::hit(const Ray &ray, HitRecord &record) const
         return false;
 
     //refactor later...
-    Vector3 localPoint = newRay.origin + record.t * newRay.dir;
+    Vector3 localPoint = newRay.getPosition(record.t);
     Vector3 localNormal = Common::LOCAL_NORMAL;
 
     //refactor later...

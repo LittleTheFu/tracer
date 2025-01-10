@@ -67,7 +67,7 @@ bool Tri::hit(const Ray &ray, HitRecord &record) const
         return false;
 
     //reduntant code,refactor later...
-    Vector3 localPoint = localRay.origin + record.t * localRay.dir;
+    Vector3 localPoint = localRay.getPosition(record.t);
     Vector3 _objPoint = frame.pointToWorld(localPoint);
 
     Vector3 pixelNormal = getWeightedNormal(_objPoint);

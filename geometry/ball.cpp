@@ -115,7 +115,7 @@ bool Ball::hit(const Ray &ray, HitRecord &record) const
 
     record.transform = m_transform;
 
-    const Vector3 localPoint = newRay.origin + record.t * newRay.dir;
+    const Vector3 localPoint = newRay.getPosition(record.t);
     record.point = m_transform.transformPoint(localPoint);
     record.localPoint = localPoint;
 
