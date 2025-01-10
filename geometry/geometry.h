@@ -51,6 +51,9 @@ public:
 
     std::string getClassName() const;
 
+protected:
+    virtual Vector3 getNormalFromNormalMap(const Vector3 &originNormal, const Vector3 &localPoint) const;
+
 private:
     virtual Vector3 dpdu(const Vector3 &point) const = 0;
     virtual Vector3 dpdv(const Vector3 &point) const = 0;

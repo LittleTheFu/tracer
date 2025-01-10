@@ -34,7 +34,7 @@ bool Plane::hit(const Ray &ray, HitRecord &record) const
     //right now just for testing normal map
     if(m_pMtrl && m_pMtrl->isNormalTextureValid())
     {
-        localNormal = m_pMtrl->getNormalTexture()->getNormal(u(localPoint), v(localPoint));
+        localNormal = getNormalFromNormalMap(localNormal, localPoint);
     }
    
     record.transform = m_transform;
