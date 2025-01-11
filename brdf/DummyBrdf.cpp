@@ -1,4 +1,4 @@
-#include "DummyBrdf.h"
+#include "dummyBrdf.h"
 #include "color.h"
 #include "vector.h"
 
