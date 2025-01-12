@@ -8,7 +8,6 @@ project (ray_tracer)
 SET (RAY_TRACER_SOURCE
     brdf/brdf.cpp
     brdf/conductorBrdf.cpp
-    brdf/dummyBrdf.cpp
     brdf/refreactorBsdf.cpp
     brdf/measuredBrdf.cpp
     brdf/diffuseBrdf.cpp
@@ -86,7 +85,6 @@ SET (RAY_TRACER_SOURCE
 SET (RAY_TRACER_HEADER
     brdf/brdf.h
     brdf/conductorBrdf.h
-    brdf/dummyBrdf.h
     brdf/refreactorBsdf.h
     brdf/measuredBrdf.h
     brdf/diffuseBrdf.h
