@@ -55,7 +55,8 @@ cmake --install .
   [![img](/document/preview/room_teapot.png)](/document/room_teapot.png)  
 - [SceneType::ROOM_MATERIAL_BALLS](/document/room_material_balls.png)  
   [![img](/document/preview/room_material_balls.png)](/document/room_material_balls.png)  
-- SceneType::ROOM_NORMAL_MAP
+- [SceneType::ROOM_NORMAL_MAP](/document/room_normal_map.png)  
+  [![img](/document/preview/room_normal_map.png)](/document/room_normal_map.png)  
 
 
 
