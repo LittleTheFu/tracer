@@ -38,6 +38,7 @@ public:
     static float getNormSq(std::complex<float> c);
 
     static bool isBothTrue(bool a, bool b);
+    static bool isOnlyOneTrue(bool a, bool b);
 
 public:
     static void printCurrentTime();

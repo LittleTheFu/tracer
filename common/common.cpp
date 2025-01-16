@@ -121,6 +121,18 @@ bool Common::isBothTrue(bool a, bool b)
     return (a && b);
 }
 
+bool Common::isOnlyOneTrue(bool a, bool b)
+{
+    // xor is preferred but here just for clarity
+    if (a && !b)
+        return true;
+
+    if (!a && b)
+        return true;
+
+    return false;
+}
+
 void Common::printCurrentTime()
 {
     std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
