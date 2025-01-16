@@ -24,6 +24,10 @@ bool Curve::hit(const Ray &ray, HitRecord &record) const
 {
     const Ray newRay = ray.genNewRay(m_transform);
 
+    float t0 = 0.0f;
+    float t1 = 0.0f;
+    bool isHit = hitRecursive(newRay, record, 10, t0, t1);
+
     return false;
 }
 
@@ -61,6 +65,12 @@ bool Curve::hitRecursive(const Ray &ray,
                          float t0,
                          float t1) const
 {
+    std::vector<Vector3> controlPoints = { m_p0, m_p1, m_p2, m_p3 };
+    return _hitRecursive(ray, depth, controlPoints);
+}
+
+bool Curve::_hitRecursive(const Ray &ray, int depth, const std::vector<Vector3> &controlPoints) const
+{
     if (depth <= 0)
         return false;
 
@@ -72,7 +82,13 @@ bool Curve::hitRecursive(const Ray &ray,
     bool isLeftHit = hit(ray, left);
     bool isRightHit = hit(ray, right);
 
-    return hitRecursive(ray, record, depth - 1, t0, t1);
+    if(isLeftHit)
+        return _hitRecursive(ray, depth - 1, left);
+
+    if(isRightHit)
+        return _hitRecursive(ray, depth - 1, right);
+
+    return false;
 }
 
 bool Curve::hit(const Ray &ray, const std::vector<Vector3> &controlPoints) const

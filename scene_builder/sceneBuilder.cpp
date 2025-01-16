@@ -1,6 +1,7 @@
 #include <memory>
 
 #include "ball.h"
+#include "curve.h"
 #include "mathConstantDef.h"
 #include "materialManager.h"
 #include "mesh.h"
@@ -270,4 +271,10 @@ void SceneBuilder::buildGlassTri(const Vector3 &pos)
 
     std::shared_ptr<Tri> tri = std::make_shared<Tri>(a, b, c, pos, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_GLASS));
     m_pObjectPool->add(tri);
+}
+
+void SceneBuilder::buildRedCurve(const Vector3 &pos)
+{
+    std::shared_ptr<Curve> redCurve = std::make_shared<Curve>(pos, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_RED));
+    m_pObjectPool->add(redCurve);
 }

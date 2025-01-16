@@ -30,6 +30,10 @@ private:
                       float t0,
                       float t1) const;
 
+    bool _hitRecursive(const Ray &ray,
+                       int depth,
+                       const std::vector<Vector3> &controlPoints) const;
+
     bool hit(const Ray &ray,const std::vector<Vector3> &controlPoints) const;
 
     void split(std::vector<Vector3> &left, std::vector<Vector3> &right) const;
