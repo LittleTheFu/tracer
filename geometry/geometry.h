@@ -14,6 +14,7 @@
 
 class Geometry
 {
+//for test media, not used right now
 public:
     Media m_outsideMedia;
     Media m_insideMedia;  
