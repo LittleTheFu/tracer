@@ -1,4 +1,9 @@
+#include <cassert>
+
+#include "boundBox.h"
 #include "curve.h"
+
+const int Curve::CONTROL_POINTS_NUM = 4;
 
 Curve::Curve(const Vector3 &p0, const Vector3 &p1, const Vector3 &p2, const Vector3 &p3)
 {
@@ -59,7 +64,31 @@ bool Curve::hitRecursive(const Ray &ray,
     if (depth <= 0)
         return false;
 
+    std::vector<Vector3> left, right;
+    split(left, right);
+    assert(left.size() == CONTROL_POINTS_NUM);
+    assert(right.size() == CONTROL_POINTS_NUM);
+
+    bool isLeftHit = hit(ray, left);
+    bool isRightHit = hit(ray, right);
+
     return hitRecursive(ray, record, depth - 1, t0, t1);
+}
+
+bool Curve::hit(const Ray &ray, const std::vector<Vector3> &controlPoints) const
+{
+    assert(controlPoints.size() == CONTROL_POINTS_NUM);
+
+    BoundBox boundBox;
+    for (int i = 0; i < CONTROL_POINTS_NUM; ++i)
+    {
+        boundBox.update(controlPoints[i]);
+    }
+
+    float dummyT = 0.0f;
+    bool isHit = boundBox.hit(ray, dummyT);
+
+    return isHit;
 }
 
 void Curve::split(std::vector<Vector3> &left, std::vector<Vector3> &right) const

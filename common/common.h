@@ -35,7 +35,9 @@ public:
 
     static float frenselComplex(std::complex<float> eta, float cos_theta_in);
                 
-    static float getNormSq(std::complex<float> c);      
+    static float getNormSq(std::complex<float> c);
+
+    static bool isBothTrue(bool a, bool b);
 
 public:
     static void printCurrentTime();

@@ -116,6 +116,11 @@ float Common::getNormSq(std::complex<float> c)
     return c.real() * c.real() + c.imag() * c.imag();
 }
 
+bool Common::isBothTrue(bool a, bool b)
+{
+    return (a && b);
+}
+
 void Common::printCurrentTime()
 {
     std::chrono::system_clock::time_point now = std::chrono::system_clock::now();

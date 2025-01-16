@@ -30,6 +30,8 @@ private:
                       float t0,
                       float t1) const;
 
+    bool hit(const Ray &ray,const std::vector<Vector3> &controlPoints) const;
+
     void split(std::vector<Vector3> &left, std::vector<Vector3> &right) const;
 
 private:
@@ -39,6 +41,9 @@ private:
     Vector3 m_p3;
 
     float m_width;
+
+private:
+    static const int CONTROL_POINTS_NUM;
 };
 
 #endif
