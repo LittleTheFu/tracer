@@ -121,7 +121,7 @@ bool Common::isBothTrue(bool a, bool b)
     return (a && b);
 }
 
-bool Common::isOnlyOneTrue(bool a, bool b)
+bool Common::isExactOneTrue(bool a, bool b)
 {
     // xor is preferred but here just for clarity
     if (a && !b)
