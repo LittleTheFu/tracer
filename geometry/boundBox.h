@@ -18,6 +18,7 @@ public:
     Vector3 getExtend() const;
 
     float surfaceArea() const;
+    float volume() const;
 
     BoundBox createSubBox(Axis axis, float startPercent, float endPercent) const;
 

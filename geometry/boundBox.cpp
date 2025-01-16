@@ -65,6 +65,14 @@ float BoundBox::surfaceArea() const
     return area;
 }
 
+float BoundBox::volume() const
+{
+    Vector3 e = getExtend();
+    float volume = e.x * e.y * e.z;//for clarity
+
+    return volume;
+}
+
 BoundBox BoundBox::createSubBox(Axis axis, float startPercent, float endPercent) const
 {
     assert(startPercent < endPercent);
