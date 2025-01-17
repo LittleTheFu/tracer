@@ -65,12 +65,37 @@ float BoundBox::surfaceArea() const
     return area;
 }
 
+float BoundBox::getMaxFaceArea() const
+{
+    Vector3 e = getExtend();
+
+    float xy = e.x * e.y;
+    float yz = e.y * e.z;
+    float zx = e.z * e.x;
+
+    //for clarity
+    float max = MathUtility::getMax(xy, yz, zx);
+
+    return max;
+}
+
 float BoundBox::volume() const
 {
     Vector3 e = getExtend();
     float volume = e.x * e.y * e.z;//for clarity
 
     return volume;
+}
+
+bool BoundBox::is2dOr3d() const
+{
+    if(volume() > 0.0f)
+        return true;
+
+    if(getMaxFaceArea() > 0.0f)
+        return true;
+
+    return false;
 }
 
 BoundBox BoundBox::createSubBox(Axis axis, float startPercent, float endPercent) const

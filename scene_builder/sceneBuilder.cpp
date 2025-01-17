@@ -275,6 +275,6 @@ void SceneBuilder::buildGlassTri(const Vector3 &pos)
 
 void SceneBuilder::buildRedCurve(const Vector3 &pos)
 {
-    std::shared_ptr<Curve> redCurve = std::make_shared<Curve>(pos, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_RED));
-    m_pObjectPool->add(redCurve);
+    // std::shared_ptr<Curve> redCurve = std::make_shared<Curve>(pos, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_RED));
+    // m_pObjectPool->add(redCurve);
 }

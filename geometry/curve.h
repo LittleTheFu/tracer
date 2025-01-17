@@ -34,9 +34,13 @@ private:
                        int depth,
                        const std::vector<Vector3> &controlPoints) const;
 
-    bool hit(const Ray &ray,const std::vector<Vector3> &controlPoints) const;
+    bool hitBoundBox(const Ray &ray,const std::vector<Vector3> &controlPoints) const;
+    bool hitCurveSegment(const Ray &ray, const std::vector<Vector3> &controlPoints) const;
 
     void split(std::vector<Vector3> &left, std::vector<Vector3> &right) const;
+
+private:
+    static Vector3 getPoint(float u, const Vector3 &p0, const Vector3 &p1, const Vector3 &p2, const Vector3 &p3);
 
 private:
     Vector3 m_p0;
@@ -48,6 +52,7 @@ private:
 
 private:
     static const int CONTROL_POINTS_NUM;
+    static const int MAX_DEPTH;
 };
 
 #endif

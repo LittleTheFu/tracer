@@ -2,8 +2,10 @@
 
 #include "boundBox.h"
 #include "curve.h"
+#include "mathUtility.h"
 
 const int Curve::CONTROL_POINTS_NUM = 4;
+const int Curve::MAX_DEPTH = 10;
 
 Curve::Curve(const Vector3 &p0, const Vector3 &p1, const Vector3 &p2, const Vector3 &p3)
 {
@@ -26,7 +28,7 @@ bool Curve::hit(const Ray &ray, HitRecord &record) const
 
     float t0 = 0.0f;
     float t1 = 0.0f;
-    bool isHit = hitRecursive(newRay, record, 10, t0, t1);
+    bool isHit = hitRecursive(newRay, record, MAX_DEPTH, t0, t1);
 
     return false;
 }
@@ -72,15 +74,15 @@ bool Curve::hitRecursive(const Ray &ray,
 bool Curve::_hitRecursive(const Ray &ray, int depth, const std::vector<Vector3> &controlPoints) const
 {
     if (depth <= 0)
-        return false;
+        return hitCurveSegment(ray, controlPoints);
 
     std::vector<Vector3> left, right;
     split(left, right);
     assert(left.size() == CONTROL_POINTS_NUM);
     assert(right.size() == CONTROL_POINTS_NUM);
 
-    bool isLeftHit = hit(ray, left);
-    bool isRightHit = hit(ray, right);
+    bool isLeftHit = hitBoundBox(ray, left);
+    bool isRightHit = hitBoundBox(ray, right);
 
     if(isLeftHit)
         return _hitRecursive(ray, depth - 1, left);
@@ -91,7 +93,7 @@ bool Curve::_hitRecursive(const Ray &ray, int depth, const std::vector<Vector3> 
     return false;
 }
 
-bool Curve::hit(const Ray &ray, const std::vector<Vector3> &controlPoints) const
+bool Curve::hitBoundBox(const Ray &ray, const std::vector<Vector3> &controlPoints) const
 {
     assert(controlPoints.size() == CONTROL_POINTS_NUM);
 
@@ -105,6 +107,19 @@ bool Curve::hit(const Ray &ray, const std::vector<Vector3> &controlPoints) const
     bool isHit = boundBox.hit(ray, dummyT);
 
     return isHit;
+}
+
+bool Curve::hitCurveSegment(const Ray &ray, const std::vector<Vector3> &controlPoints) const
+{
+    assert(controlPoints.size() == CONTROL_POINTS_NUM);
+    
+    Vector3 tangentStart = controlPoints.at(1) - controlPoints.at(0);
+    Vector3 orthogonalStart = tangentStart.getTangentVector();
+
+    Vector3 tangentEnd = controlPoints.at(2) + controlPoints.at(3);
+    Vector3 orthogonalEnd = tangentEnd.getTangentVector();
+
+    return false;
 }
 
 void Curve::split(std::vector<Vector3> &left, std::vector<Vector3> &right) const
@@ -138,4 +153,12 @@ void Curve::split(std::vector<Vector3> &left, std::vector<Vector3> &right) const
     right.push_back(right1);
     right.push_back(right2);
     right.push_back(right3);
+}
+
+Vector3 Curve::getPoint(float u, const Vector3 &p0, const Vector3 &p1, const Vector3 &p2, const Vector3 &p3)
+{
+    assert(MathUtility::is_in_range(u, 0.0f, 1.0f, true, true));
+    Vector3 point = (1 - u) * (1 - u) * (1 - u) * p0 + 3 * (1 - u) * (1 - u) * u * p1 + 3 * (1 - u) * u * u * p2 + u * u * u * p3;
+
+    return point;
 }
