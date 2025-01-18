@@ -77,8 +77,8 @@ void Camera::render()
             HitRecord record = InitHitRecord();
             Ray ray = generateRay(static_cast<float>(x), static_cast<float>(y));
 
-            // Color color = m_pTracer->traceFirstBounce(m_pObjectPool, ray);
-            Color color = Color::COLOR_BLACK;
+            Color color = m_pTracer->traceFirstBounce(m_pObjectPool, ray);
+            // Color color = Color::COLOR_BLACK;
             for (int time = 0; time < m_samplersPerPixel; time++)
             {
                 color += m_pTracer->trace(m_pObjectPool, ray);
