@@ -64,6 +64,8 @@ protected:
 
     void buildGlassTri(const Vector3& pos);
 
+    void buildRedCurve(const Vector3& pos);
+
 protected:
     std::shared_ptr<ObjectPool> m_pObjectPool;
 };

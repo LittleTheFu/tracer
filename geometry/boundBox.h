@@ -18,6 +18,10 @@ public:
     Vector3 getExtend() const;
 
     float surfaceArea() const;
+    float getMaxFaceArea() const;
+    float volume() const;
+
+    bool is2dOr3d() const;
 
     BoundBox createSubBox(Axis axis, float startPercent, float endPercent) const;
 

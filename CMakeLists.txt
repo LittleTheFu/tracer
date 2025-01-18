@@ -8,7 +8,6 @@ project (ray_tracer)
 SET (RAY_TRACER_SOURCE
     brdf/brdf.cpp
     brdf/conductorBrdf.cpp
-    brdf/DummyBrdf.cpp
     brdf/refreactorBsdf.cpp
     brdf/measuredBrdf.cpp
     brdf/diffuseBrdf.cpp
@@ -30,6 +29,7 @@ SET (RAY_TRACER_SOURCE
     geometry/ball.cpp
     geometry/boundBox.cpp
     geometry/circle.cpp
+    geometry/curve.cpp
     geometry/geometry.cpp
     geometry/mesh.cpp
     geometry/plane.cpp
@@ -61,6 +61,7 @@ SET (RAY_TRACER_SOURCE
     scene/hitterInterface.cpp
     scene/objectpool.cpp
     scene/scene.cpp
+    scene_builder/curveSceneBuilder.cpp
     scene_builder/complexBunnySceneBuilder.cpp
     scene_builder/simpleBunnySceneBuilder.cpp
     scene_builder/simpleSceneBuilder.cpp
@@ -86,7 +87,6 @@ SET (RAY_TRACER_SOURCE
 SET (RAY_TRACER_HEADER
     brdf/brdf.h
     brdf/conductorBrdf.h
-    brdf/DummyBrdf.h
     brdf/refreactorBsdf.h
     brdf/measuredBrdf.h
     brdf/diffuseBrdf.h
@@ -114,6 +114,7 @@ SET (RAY_TRACER_HEADER
     geometry/ball.h
     geometry/boundBox.h
     geometry/circle.h
+    geometry/curve.h
     geometry/geometry.h
     geometry/mesh.h
     geometry/plane.h
@@ -145,6 +146,7 @@ SET (RAY_TRACER_HEADER
     scene/hitterInterface.h
     scene/objectpool.h
     scene/scene.h
+    scene_builder/curveSceneBuilder.h
     scene_builder/complexBunnySceneBuilder.h
     scene_builder/simpleBunnySceneBuilder.h
     scene_builder/simpleSceneBuilder.h

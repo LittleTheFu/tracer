@@ -14,6 +14,7 @@
 
 class Geometry
 {
+//for test media, not used right now
 public:
     Media m_outsideMedia;
     Media m_insideMedia;  
@@ -50,6 +51,9 @@ public:
     Tag getTag() const;
 
     std::string getClassName() const;
+
+protected:
+    virtual Vector3 getNormalFromNormalMap(const Vector3 &originNormal, const Vector3 &localPoint) const;
 
 private:
     virtual Vector3 dpdu(const Vector3 &point) const = 0;

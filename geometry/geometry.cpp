@@ -1,3 +1,5 @@
+#include <cassert>
+
 #include "geometry.h"
 
 Geometry::Geometry()
@@ -41,6 +43,17 @@ Tag Geometry::getTag() const
 std::string Geometry::getClassName() const
 {
     return typeid(*this).name();
+}
+
+Vector3 Geometry::getNormalFromNormalMap(const Vector3 &originNormal, const Vector3 &localPoint) const
+{
+    assert(m_pMtrl);
+    assert(m_pMtrl->isNormalTextureValid());
+    
+    Frame frame(originNormal, localPoint);
+    Vector3 normal = m_pMtrl->getNormalTexture()->getNormal(u(localPoint), v(localPoint));
+
+    return frame.vectorToWorld(normal);
 }
 
 bool Geometry::testHit(const Ray &localRay, float &t) const

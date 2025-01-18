@@ -67,7 +67,7 @@ bool Tri::hit(const Ray &ray, HitRecord &record) const
         return false;
 
     //reduntant code,refactor later...
-    Vector3 localPoint = localRay.origin + record.t * localRay.dir;
+    Vector3 localPoint = localRay.getPosition(record.t);
     Vector3 _objPoint = frame.pointToWorld(localPoint);
 
     Vector3 pixelNormal = getWeightedNormal(_objPoint);
@@ -76,8 +76,7 @@ bool Tri::hit(const Ray &ray, HitRecord &record) const
     if(m_pMtrl && m_pMtrl->isNormalTextureValid()) 
     {
         //to be optimized later...
-        pixelNormal = m_pMtrl->getNormalTexture()->getNormal(u(_objPoint), v(_objPoint));
-        pixelNormal = frame.vectorToWorld(pixelNormal);
+        pixelNormal = getNormalFromNormalMap(m_normal, _objPoint);
     }
     Frame pixelFrame(pixelNormal, m_ab, _objPoint);
     Vector3 weghtedRayDir = pixelFrame.vectorToLocal(frame.vectorToWorld(localRay.dir));
@@ -149,11 +148,6 @@ void Tri::buildBoundBox()
     m_boundBox.update(a);
     m_boundBox.update(b);
     m_boundBox.update(c);
-}
-
-Vector3 Tri::getLocalNormal(bool reverse) const
-{
-    return m_normal;
 }
 
 bool Tri::isAllFacePositive(const Vector3 &p) const

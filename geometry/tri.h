@@ -52,8 +52,6 @@ public:
     virtual void buildBoundBox() override;
     virtual bool testHit(const Ray &localRay, float &t) const override;
 
-    Vector3 getLocalNormal(bool reverse = false) const;
-
 private:
     bool isAllFacePositive(const Vector3 &p) const;
     void getWeight(const Vector3 &p, float &wa, float &wb, float &wc) const;

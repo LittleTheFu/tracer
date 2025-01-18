@@ -216,6 +216,17 @@ int MathUtility::getMaxIndex(float a0, float a1, float a2)
     }
 }
 
+float MathUtility::getMax(float a0, float a1, float a2)
+{
+    if (a0 >= a1 && a0 >= a2)
+        return a0;
+
+    if (a1 >= a0 && a1 >= a2)
+        return a1;
+
+    return a2;
+}
+
 float MathUtility::smooth(float t)
 {
    return t * t * (3 - 2 * t);

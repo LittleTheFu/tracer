@@ -11,8 +11,6 @@ class Room
 public:
     Room();
 
-    //auto ptr, maybe? or I will implement a singleton
-    //consider it later,maybe.(maybe not,perhaps)
     std::vector<std::shared_ptr<Geometry>> getTris() const;
 
 private:

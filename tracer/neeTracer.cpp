@@ -10,8 +10,8 @@ NeeTracer::NeeTracer(int depth)
 
 Color NeeTracer::trace(std::shared_ptr<const ObjectPool> pool, Ray &ray) const
 {
-    // Color color = Color::COLOR_BLACK;
-    Color color = traceFirstBounce(pool, ray);
+    Color color = Color::COLOR_BLACK;
+    // Color color = traceFirstBounce(pool, ray);
     Color beta = Color::COLOR_WHITE;
 
     int depth = 0;
@@ -73,6 +73,9 @@ Color NeeTracer::sampleLightFromNormalMaterial(std::shared_ptr<const ObjectPool>
                                                const Vector3 &normal,
                                                Ray &sampleRay) const
 {
+    //for test
+    // return Color::COLOR_WHITE * 100;
+
     float sampleLightPdf;
     Vector3 lightSurfacePoint = pool->m_pLight->sample(pos, sampleLightPdf);
 

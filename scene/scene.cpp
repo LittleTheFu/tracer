@@ -2,6 +2,7 @@
 
 #include "common.h"
 #include "config.h"
+#include "curveSceneBuilder.h"
 #include "neeTracer.h"
 #include "pinholeCamera.h"
 #include "scene.h"
@@ -111,6 +112,8 @@ std::shared_ptr<SceneBuilder> Scene::createSceneBuilder(SceneType type) const
         builder = std::make_shared<MtrlSceneBuilder>();
     else if (type == SceneType::ROOM_NORMAL_MAP)
         builder = std::make_shared<NormalMapSceneBuilder>();
+    else if (type == SceneType::ROOM_CURVE)
+        builder = std::make_shared<CurveSceneBuilder>();
     else
         builder = std::make_shared<SimpleSceneBuilder>();
 
