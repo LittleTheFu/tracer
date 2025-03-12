@@ -9,6 +9,8 @@ SoftRayTracer
 ![lodepng](https://img.shields.io/badge/assimp-5.4.3-blue)
 ![lodepng](https://img.shields.io/badge/powitacq-blue)
 
+**This is a soft ray tracing renderer based on the Monte Carlo algorithm.**
+
 Suppose you are in the root directory of this project.
 
 Then:
