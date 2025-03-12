@@ -6,8 +6,8 @@ SoftRayTracer
 ![CMake](https://img.shields.io/badge/CMake-v3.16-green)
 ![C++](https://img.shields.io/badge/C++-17-green)
 ![lodepng](https://img.shields.io/badge/lodepng-blue)
-![lodepng](https://img.shields.io/badge/assimp-5.4.3-blue)
-![lodepng](https://img.shields.io/badge/powitacq-blue)
+![assimp](https://img.shields.io/badge/assimp-5.4.3-blue)
+![powitacq](https://img.shields.io/badge/powitacq-blue)
 
 **This is a soft ray tracing renderer based on the Monte Carlo algorithm.**
 
