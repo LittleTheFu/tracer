@@ -9,7 +9,7 @@ SoftRayTracer
 ![assimp](https://img.shields.io/badge/assimp-5.4.3-blue)
 ![powitacq](https://img.shields.io/badge/powitacq-blue)
 
-**This is a soft ray tracing renderer based on the Monte Carlo algorithm.**
+**This is a soft ray tracing renderer based on the Monte Carlo algorithm.(It doesn't use any third-party rendering APIs.)**
 
 Suppose you are in the root directory of this project.
 

@@ -7,7 +7,7 @@ SoftRayTracer
 ![assimp](https://img.shields.io/badge/assimp-5.4.3-blue)
 ![powitacq](https://img.shields.io/badge/powitacq-blue)
 
-**这是一个基于蒙特卡洛算法的软光线追踪渲染器。**
+**这是一个基于蒙特卡洛算法的软光线追踪渲染器。(没有使用任何第三方渲染api)**
 
 假设你位于该项目的根目录。
 
