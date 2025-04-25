@@ -6,8 +6,10 @@ SoftRayTracer
 ![CMake](https://img.shields.io/badge/CMake-v3.16-green)
 ![C++](https://img.shields.io/badge/C++-17-green)
 ![lodepng](https://img.shields.io/badge/lodepng-blue)
-![lodepng](https://img.shields.io/badge/assimp-5.4.3-blue)
-![lodepng](https://img.shields.io/badge/powitacq-blue)
+![assimp](https://img.shields.io/badge/assimp-5.4.3-blue)
+![powitacq](https://img.shields.io/badge/powitacq-blue)
+
+**This is a soft ray tracing renderer based on the Monte Carlo algorithm.(It doesn't use any third-party rendering APIs.)**
 
 Suppose you are in the root directory of this project.
 
@@ -60,13 +62,13 @@ Click to see the rendered image seperately:
 
 
 
-7.Because the rendering process is time-consuming, you can change the resolution of the image by changing the value `resolutionScale` and `configSamplersPerPixel` in `config.cpp`.
+7.Because the rendering process is time-consuming, you can change the resolution and sampler number of the image by changing the value `resolutionScale` and `configSamplersPerPixel` in `config.cpp`.
 
 eg: 
     
     
     int resolutionScale = 16;//this is slow but with more resolution
-    int configSamplersPerPixel = 10;//this is slow but with more sapplers
+    int configSamplersPerPixel = 10;//this is slow but with more samplers
 ---
     int resolutionScale = 2;//this is fast but with less resolution
     int configSamplersPerPixel = 1;//this is fast but with less samplers
