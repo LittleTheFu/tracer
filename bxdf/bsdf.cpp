@@ -3,7 +3,10 @@
 
 Bsdf::Bsdf(const Vector3 &ns_world)
 {
-    ns_world_ = ns_world;
+    nsWorld_ = ns_world;
+
+    MathUtility::buildBTN(nsWorld_, tLocal_, bLocal_, nLocal_);
+    tbnFrame_.buildFromTBN(tLocal_, bLocal_, nLocal_);
 }
 
 void Bsdf::addBxdf(std::shared_ptr<Bxdf> bxdf)
@@ -15,11 +18,14 @@ Color Bsdf::f(const Vector3 &wo, const Vector3 &wi, BxdfType flags) const
 {
     Color f = Color::COLOR_BLACK;
 
+    Vector3 wo_local = tbnFrame_.vectorToLocal(wo);
+    Vector3 wi_local = tbnFrame_.vectorToLocal(wi);
+
     for (const auto &bxdf : bxdfs_)
     {
         if (bxdf->isType(flags))
         {
-            f += bxdf->f(wo, wi);
+            f += bxdf->f(wo_local, wi_local);
         }
     }
 
@@ -30,11 +36,14 @@ float Bsdf::pdf(const Vector3 &wo, const Vector3 &wi, BxdfType flags) const
 {
     float pdf = 0;
 
+    Vector3 wo_local = tbnFrame_.vectorToLocal(wo);
+    Vector3 wi_local = tbnFrame_.vectorToLocal(wi);
+
     for (const auto &bxdf : bxdfs_)
     {
         if (bxdf->isType(flags))
         {
-            pdf += bxdf->pdf(wo, wi);
+            pdf += bxdf->pdf(wo_local, wi_local);
         }
     }
 
@@ -44,6 +53,8 @@ float Bsdf::pdf(const Vector3 &wo, const Vector3 &wi, BxdfType flags) const
 Color Bsdf::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf, BxdfType flags) const
 {
     std::vector<std::shared_ptr<Bxdf>> bxdfs;
+
+    Vector3 wo_local = tbnFrame_.vectorToLocal(wo);
 
     for (const auto &bxdf : bxdfs_)
     {
@@ -61,7 +72,10 @@ Color Bsdf::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf, BxdfType flags)
 
     int index = MathUtility::sampleUniformly(bxdfs.size());
 
-    Color f = bxdfs[index]->sample_f(wo, wi, pdf);
+    Vector3 wi_local;
+    Color f = bxdfs[index]->sample_f(wo, wi_local, pdf);
+    wi = tbnFrame_.vectorToWorld(wi_local);
+    
     pdf /= bxdfs.size();
 
     return f;

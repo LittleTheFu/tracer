@@ -6,6 +6,8 @@
 #include <vector>
 #include "bxdf.h"
 #include "bxdfType.h"
+#include "frame.h"
+
 
 class Bsdf
 {
@@ -20,7 +22,10 @@ public:
     Color sample_f(const Vector3 &wo, Vector3 &wi, float &pdf, BxdfType flags) const;
 
 private:
-    Vector3 ns_world_;
+    Vector3 nsWorld_;
+
+    Vector3 tLocal_, bLocal_, nLocal_;
+    Frame tbnFrame_;
 
     std::vector<std::shared_ptr<Bxdf>> bxdfs_;
 };

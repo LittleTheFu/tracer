@@ -47,6 +47,15 @@ Frame::Frame(const Vector3 &normal, const Vector3 &_origin)
     origin = _origin;
 }
 
+void Frame::buildFromTBN(const Vector3 &t, const Vector3 &b, const Vector3 &n)
+{
+    x_axis = t;
+    y_axis = b;
+    z_axis = n;
+
+    origin = Vector3::ZERO;
+}
+
 Vector3 Frame::pointToLocal(const Vector3 &point) const
 {
     float xProj = (point - origin) * x_axis;
