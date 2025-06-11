@@ -4,6 +4,8 @@
 #include <initializer_list>
 #include <complex>
 
+#include "vector.h"
+
 class MathUtility
 {
 public:
@@ -25,6 +27,8 @@ public:
     static float genRandomDecimal();
     static float genRamdomSignDecimal();
 
+    static int sampleUniformly(int size);
+
     //sample e^(-lambda*t)
     static float sampleExponential(float lambda, float &pdf);
     static int sampleFromWeights(std::initializer_list<float> weights);
@@ -40,6 +44,9 @@ public:
     //should be extracted to a template function,later...
     static float sq(float x);
     static std::complex<float> sq_c(std::complex<float> x);
+
+    //should be merged into frame class, later...
+    static void buildBTN(const Vector3 &normal, Vector3 &b, Vector3 &t, Vector3 &n);
 };
 
 #endif

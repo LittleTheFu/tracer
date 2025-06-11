@@ -98,7 +98,7 @@ bool Ball::isIn(const Vector3 &point) const
     Vector3 center = m_transform.transformPoint(Vector3::ZERO);
     Vector3 diff = point - center;
 
-    if (diff.lenthSqr() <= r * r)
+    if (diff.lenthSq() <= r * r)
     {
         return true;
     }
@@ -274,9 +274,9 @@ void Ball::HandleMaterial(const Vector3 &localNormal, const Vector3 &localPoint,
 
 void Ball::genRayHitParam(const Ray &ray, float &a_out, float &b_out, float &c_out) const
 {
-    a_out = ray.dir.lenthSqr();
+    a_out = ray.dir.lenthSq();
     b_out = 2 * (ray.dir * ray.origin);
-    c_out = ray.origin.lenthSqr() - r * r;
+    c_out = ray.origin.lenthSq() - r * r;
 }
 
 float Ball::u(const Vector3 &point) const

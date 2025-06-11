@@ -140,6 +140,16 @@ float MathUtility::genRamdomSignDecimal()
     return v;
 }
 
+int MathUtility::sampleUniformly(int size)
+{
+    assert(size > 0);
+
+    float r = genRandomDecimal();
+    int index = static_cast<int>(r * size);
+
+    return index;
+}
+
 float MathUtility::sampleExponential(float lambda, float &pdf)
 {
     float r = -std::log(1.0f - genRandomDecimal()) / lambda;
@@ -247,4 +257,36 @@ float MathUtility::sq(float x)
 std::complex<float> MathUtility::sq_c(std::complex<float> x)
 {
     return x * x;
+}
+
+void MathUtility::buildBTN(const Vector3 &normal, Vector3 &b, Vector3 &t, Vector3 &n)
+{
+    float lenth_sq = normal.lenthSq();
+    if(lenth_sq <= MathConstant::FLOAT_SMALL_NUMBER )
+    {
+        assert(0);
+    }
+
+    n = normal;
+    n.normalize();
+
+    Vector3 auxAxis;
+    if(std::abs(n.x) < std::abs(n.y) && std::abs(n.x) < std::abs(n.z))
+    {
+        auxAxis = Vector3(1, 0, 0);
+    }
+    else if(std::abs(n.y) < std::abs(n.x) && std::abs(n.y) < std::abs(n.z))
+    {
+        auxAxis = Vector3(0, 1, 0);
+    }
+    else
+    {
+        auxAxis = Vector3(0, 0, 1);
+    }
+
+    t = auxAxis.cross(n);
+    t.normalize();
+
+    b = n.cross(t);
+    b.normalize();
 }

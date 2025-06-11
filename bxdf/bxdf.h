@@ -8,12 +8,20 @@
 class Bxdf
 {
 public:
-    virtual float f(const Vector3 &wo, const Vector3 &wi) const = 0;
+    virtual Color f(const Vector3 &wo, const Vector3 &wi) const = 0;
     virtual float pdf(const Vector3 &wo, const Vector3 &wi) const = 0;
-    
+
     virtual Color sample_f(const Vector3 &wo, Vector3 &wi, float &pdf) const;
 
+public:
+    Bxdf(BxdfType type);
+    virtual ~Bxdf() = default;
 
+    BxdfType getType() const;
+    bool isType(BxdfType type) const;
+
+private:
+    BxdfType type_;
 };
 
 #endif

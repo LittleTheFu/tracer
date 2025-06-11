@@ -195,7 +195,7 @@ Vector3 Vector3::operator-() const
     return Vector3(x, y, z);
 }
 
-float Vector3::lenthSqr() const
+float Vector3::lenthSq() const
 {
     float xSqr = x * x;
     float ySqr = y * y;
@@ -380,7 +380,7 @@ Vector3 Vector3::getTangentVector() const
 
 float Vector3::length() const
 {
-    float lenSqr = lenthSqr();
+    float lenSqr = lenthSq();
     if (lenSqr <= 0.0f)
     {
         return 0.0f;

@@ -44,7 +44,7 @@ public:
     Vector3 getTangentVector() const;
 
     float length() const;
-    float lenthSqr() const;
+    float lenthSq() const;
     void normalize();
     Vector3 dir() const;
 

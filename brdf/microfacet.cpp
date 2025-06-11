@@ -107,7 +107,7 @@ Vector3 Microfacet::sample_wm(const Vector3 &w) const
 float Microfacet::pdf(const Vector3 &wo, const Vector3 &wi) const
 {
     Vector3 wm = wo + wi;
-    if (wm.lenthSqr() == 0.0f)
+    if (wm.lenthSq() == 0.0f)
         return 0.0f;
 
     wm.faceForward(Vector3(0,0,1));
