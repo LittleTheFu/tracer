@@ -1,24 +1,24 @@
-#ifndef _ROOM_H_
-#define _ROOM_H_
+// #ifndef _ROOM_H_
+// #define _ROOM_H_
 
-#include <memory>
-#include <vector>
+// #include <memory>
+// #include <vector>
 
-#include "geometry.h"
+// #include "geometry.h"
 
-class Room
-{
-public:
-    Room();
+// class Room
+// {
+// public:
+//     Room();
 
-    std::vector<std::shared_ptr<Geometry>> getTris() const;
+//     std::vector<std::shared_ptr<Geometry>> getTris() const;
 
-private:
-    void init();
-    void refine();
+// private:
+//     void init();
+//     void refine();
 
-private:
-    std::vector<std::shared_ptr<Geometry>> m_tris;
-};
+// private:
+//     std::vector<std::shared_ptr<Geometry>> m_tris;
+// };
 
-#endif // _ROOM_H_
+// #endif // _ROOM_H_
