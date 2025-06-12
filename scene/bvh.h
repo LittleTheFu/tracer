@@ -7,6 +7,7 @@
 #include "bvhNode.h"
 #include "geometry.h"
 #include "hitterInterface.h"
+#include "interaction.h"
 
 class BVH : public HitterInterface
 {
@@ -17,13 +18,16 @@ public:
 
 public:
     virtual void init(const std::vector<std::shared_ptr<Geometry>> &objects, std::shared_ptr<const Light> light) override;
-    virtual bool hitGeometryObjectOnly(const Ray &ray, HitRecord &record) const override;
+    virtual bool hitGeometryObjectOnly(const Ray &ray, HitRecord &record, Interaction &interaction) const override;
     
 public:
     virtual Color getColorFromLight(const Ray &ray) const override;
 
 private:
-    bool _hitGeometryObjectOnly(std::shared_ptr<BVHNode> node, const Ray &ray, HitRecord &record) const;
+    bool _hitGeometryObjectOnly(std::shared_ptr<BVHNode> node,
+                                const Ray &ray,
+                                HitRecord &record,
+                                Interaction &interaction) const;
 
     void build();
 

@@ -3,9 +3,10 @@
 
 #include "vector.h"
 // #include <geometry.h>
-#include "materialPlus.h"
+// #include "materialPlus.h"
 
 class Geometry;
+class MaterialPlus;
 
 class Interaction
 {

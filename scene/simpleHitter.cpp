@@ -16,7 +16,8 @@ Color SimperHitter::getColorFromLight(const Ray &ray) const
     Color color = m_pLight->getColor();
 
     HitRecord record;
-    if (!hitGeometryObjectOnly(ray, record))
+    Interaction interaction;
+    if (!hitGeometryObjectOnly(ray, record, interaction))
     {
         return color;
     }
@@ -29,7 +30,7 @@ Color SimperHitter::getColorFromLight(const Ray &ray) const
     return Color::COLOR_BLACK;
 }
 
-bool SimperHitter::hitGeometryObjectOnly(const Ray &ray, HitRecord &record) const
+bool SimperHitter::hitGeometryObjectOnly(const Ray &ray, HitRecord &record, Interaction &interaction) const
 {
     bool hit = false;
     float tMin = MathConstant::FLOAT_MAX;

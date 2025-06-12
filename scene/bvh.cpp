@@ -114,8 +114,9 @@ void BVH::printNode(std::shared_ptr<BVHNode> node, const std::string &prefix)
 }
 
 bool BVH::_hitGeometryObjectOnly(std::shared_ptr<BVHNode> node,
-              const Ray &ray,
-              HitRecord &record) const
+                                 const Ray &ray,
+                                 HitRecord &record,
+                                 Interaction &interaction) const
 {
     if (node->isLeaf())
         return hitLeaf(ray, node->objects, record);
@@ -126,7 +127,10 @@ bool BVH::_hitGeometryObjectOnly(std::shared_ptr<BVHNode> node,
     std::shared_ptr<BVHNode> rightChild = node->rightChild;
 
     HitRecord leftRecord;
+    Interaction leftInteraction;
+
     HitRecord rightRecord;
+    Interaction rightInteraction;
 
     bool isLeftChildHit = false;
     bool isRightChildHit = false;
@@ -139,10 +143,10 @@ bool BVH::_hitGeometryObjectOnly(std::shared_ptr<BVHNode> node,
     if (isIn || isHit)
     {
         if (leftChild)
-            isLeftChildHit = _hitGeometryObjectOnly(leftChild, ray, leftRecord);
+            isLeftChildHit = _hitGeometryObjectOnly(leftChild, ray, leftRecord, leftInteraction);
 
         if (rightChild)
-            isRightChildHit = _hitGeometryObjectOnly(rightChild, ray, rightRecord);
+            isRightChildHit = _hitGeometryObjectOnly(rightChild, ray, rightRecord, rightInteraction);
 
         record = leftRecord.getCloserOne(rightRecord);
 
@@ -153,9 +157,9 @@ bool BVH::_hitGeometryObjectOnly(std::shared_ptr<BVHNode> node,
     return false;
 }
 
-bool BVH::hitGeometryObjectOnly(const Ray &ray, HitRecord &record) const
+bool BVH::hitGeometryObjectOnly(const Ray &ray, HitRecord &record, Interaction &interaction) const
 {
-    return _hitGeometryObjectOnly(m_rootNode, ray, record);
+    return _hitGeometryObjectOnly(m_rootNode, ray, record, interaction);
 }
 
 bool BVH::hitLeaf(const Ray &ray, const std::vector<std::shared_ptr<Geometry>> objects, HitRecord &record) const
@@ -197,7 +201,8 @@ Color BVH::getColorFromLight(const Ray &ray) const
     Color color = m_pLight->getColor();
 
     HitRecord record;
-    if (!_hitGeometryObjectOnly(m_rootNode, ray, record))
+    Interaction interaction;
+    if (!_hitGeometryObjectOnly(m_rootNode, ray, record, interaction))
     {
         // return color * dot;
         return color;
