@@ -5,6 +5,18 @@ set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
 project (ray_tracer)
 
+
+SET (BXDF_DIR "bxdf")
+SET (BXDF_SOURCE_FILES 
+    ${BXDF_DIR}/bsdf.cpp
+    ${BXDF_DIR}/bxdf.cpp
+    ${BXDF_DIR}/interaction.cpp
+    ${BXDF_DIR}/lambertianReflection.cpp
+    ${BXDF_DIR}/materialPlus.cpp
+)
+
+SET (RAY_TRACER_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/ray_tracer")
+
 SET (RAY_TRACER_SOURCE
     brdf/brdf.cpp
     brdf/conductorBrdf.cpp
@@ -183,9 +195,10 @@ INCLUDE_DIRECTORIES(brdf
                     test
                     texture 
                     tracer
+                    ${BXDF_DIR}
                     )
                     
-add_library(mylibs STATIC ${RAY_TRACER_SOURCE} ${RAY_TRACER_HEADER})
+add_library(mylibs STATIC ${RAY_TRACER_SOURCE} ${RAY_TRACER_HEADER} ${BXDF_SOURCE_FILES})
 
 add_subdirectory(${PROJECT_SOURCE_DIR}/third/assimp/)
 include_directories(${PROJECT_SOURCE_DIR}/third/assimp/include)
