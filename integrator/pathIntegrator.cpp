@@ -1,9 +1,61 @@
 #include "pathIntegrator.h"
 #include <mathUtility.h>
+#include <cassert>
 
 Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool) const
 {
-    return Color();
+    Color color = Color::COLOR_BLACK;
+    Color beta = Color::COLOR_WHITE;
+
+    int depth = 0;
+    Ray hitRay(ray);
+
+    while (true)
+    {
+        if (depth > m_depth)
+            break;
+        depth++;
+
+        HitRecord record;
+        Interaction interaction;
+
+        if (!pool->hitScene(hitRay, record, interaction))
+        {
+            color += Color::COLOR_BLACK;
+            break;
+        }
+
+        if(interaction.material == nullptr)
+        {
+            color += Color::COLOR_BLACK;
+            break;
+        }
+
+
+
+        assert(interaction.material != nullptr);
+        std::unique_ptr<Bsdf> bsdf = interaction.material->createBsdf(interaction);
+        Vector3 wo;
+        float _pdf;
+        Color f = bsdf->sample_f(-hitRay.dir, wo, _pdf, BxdfType::ALL);
+
+        Ray dummyRay;
+        Color _directLight = sampleLightFromNormalMaterial(pool, interaction.point, interaction.normal_shading, dummyRay);
+        // _directLight = Color::COLOR_WHITE * 100;
+
+
+        color += beta * f * _directLight;
+
+        beta *= (f * record.dot) / _pdf;
+
+        HitRecord nextRecord;
+        nextRecord.point = interaction.point;
+        nextRecord.normal = interaction.normal_shading;
+        nextRecord.reflect = wo;
+        hitRay = genNextRay(nextRecord);
+    }
+
+    return color;
 }
 
 

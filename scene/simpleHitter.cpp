@@ -39,13 +39,14 @@ bool SimperHitter::hitGeometryObjectOnly(const Ray &ray, HitRecord &record, Inte
     {
         HitRecord tempRecord;
 
-        Interaction interaction;
-        if ((*it)->hit(ray, tempRecord, interaction))
+        Interaction tempInteraction;
+        if ((*it)->hit(ray, tempRecord, tempInteraction))
         {
             if (tempRecord.t < tMin)
             {
                 tMin = tempRecord.t;
                 record = tempRecord;
+                interaction = tempInteraction;
                 hit = true;
             }
         }

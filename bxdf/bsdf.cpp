@@ -70,7 +70,12 @@ Color Bsdf::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf, BxdfType flags)
         return Color::COLOR_BLACK;
     }
 
+    //hack,bug,to be fixed later
     int index = MathUtility::sampleUniformly(bxdfs.size());
+    if (index >= bxdfs.size())
+    {
+        index = bxdfs.size() - 1;
+    }
 
     Vector3 wi_local;
     Color f = bxdfs[index]->sample_f(wo, wi_local, pdf);
