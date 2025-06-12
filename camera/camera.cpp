@@ -9,6 +9,8 @@
 #include "mathConstantDef.h"
 #include "timeRecorder.h"
 
+#include "pathIntegrator.h"
+
 const int Camera::default_screen_width = 256;
 const int Camera::default_screen_height = 256;
 
@@ -27,6 +29,9 @@ Camera::Camera(std::shared_ptr<Tracer> tracer, int resolutionScale, int samplers
     m_pTracer = tracer;
 
     m_enableLog = true;
+
+    //-------for refactoring-------//
+    integrator_ = std::make_unique<PathIntegrator>();
 }
 
 void Camera::setPool(std::shared_ptr<const ObjectPool> pool)
@@ -58,6 +63,36 @@ void Camera::enableLog()
 void Camera::disableLog()
 {
     m_enableLog = false;
+}
+
+void Camera::renderPlus()
+{
+    m_Image.resize(m_Width * m_Height * 4);
+
+    for (unsigned y = 0; y < m_Height; y++)
+    {
+        for (unsigned x = 0; x < m_Width; x++)
+        {
+            if (m_enableLog)
+                logProgress(x, y);
+
+            HitRecord record = InitHitRecord();
+            Ray ray = generateRay(static_cast<float>(x), static_cast<float>(y));
+
+            // Color color = m_pTracer->traceFirstBounce(m_pObjectPool, ray);
+            Color color = Color::COLOR_BLACK;
+            for (int time = 0; time < m_samplersPerPixel; time++)
+            {
+                // color += m_pTracer->trace(m_pObjectPool, ray);
+                color += integrator_->Li(ray, m_pObjectPool);
+            }
+            color /= static_cast<float>(m_samplersPerPixel);
+            
+            setImage(x, y, color);
+
+        }
+        // rec.end();
+    }
 }
 
 void Camera::render()

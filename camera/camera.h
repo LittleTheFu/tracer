@@ -9,9 +9,15 @@
 #include "tracer.h"
 #include "transform.h"
 #include "vector.h"
+#include "integrator.h"
 
 class Camera
 {
+    //--------for refactoring--------//
+private:
+    std::unique_ptr<Integrator> integrator_;
+    //end----------------------------//
+
 public:
     Camera(std::shared_ptr<Tracer> tracer, int resolutionScale, int samplersPerPixel);
 
@@ -24,6 +30,10 @@ public:
 
     void enableLog();
     void disableLog();
+
+    //for refactoring----------------//
+    void renderPlus();
+    //end----------------------------//
 
     void render();
     bool saveToImage(const std::string &name) const;

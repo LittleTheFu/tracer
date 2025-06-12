@@ -3,6 +3,7 @@
         {
             "name": "windows",
             "includePath": [
+                "${workspaceFolder}/integrator",
                 "${workspaceFolder}/bxdf",
                 "${workspaceFolder}/brdf",
                 "${workspaceFolder}/camera",

@@ -73,7 +73,9 @@ void Scene::preRender()
 
 void Scene::render()
 {
-    m_pCamera->render();
+    // m_pCamera->render();
+    
+    m_pCamera->renderPlus();
 }
 
 void Scene::postRender()

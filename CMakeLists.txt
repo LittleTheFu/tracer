@@ -5,14 +5,20 @@ set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
 project (ray_tracer)
 
+SET (INTEGRATOR_DIR "integrator")
+SET (INTEGRATOR_SOURCE_FILES
+    ${INTEGRATOR_DIR}/integrator.cpp
+    ${INTEGRATOR_DIR}/pathIntegrator.cpp
+)
 
 SET (BXDF_DIR "bxdf")
 SET (BXDF_SOURCE_FILES 
     ${BXDF_DIR}/bsdf.cpp
     ${BXDF_DIR}/bxdf.cpp
     ${BXDF_DIR}/interaction.cpp
-    ${BXDF_DIR}/lambertianReflection.cpp
+    ${BXDF_DIR}/materialLambertian.cpp
     ${BXDF_DIR}/materialPlus.cpp
+    ${BXDF_DIR}/LambertianReflection.cpp
 )
 
 SET (RAY_TRACER_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/ray_tracer")
@@ -181,7 +187,9 @@ SET (RAY_TRACER_HEADER
     tracer/volTracer.h
 )
 
-INCLUDE_DIRECTORIES(brdf 
+INCLUDE_DIRECTORIES(${BXDF_DIR}
+                    ${INTEGRATOR_DIR}
+                    brdf 
                     camera
                     common 
                     geometry 
@@ -195,10 +203,13 @@ INCLUDE_DIRECTORIES(brdf
                     test
                     texture 
                     tracer
-                    ${BXDF_DIR}
                     )
                     
-add_library(mylibs STATIC ${RAY_TRACER_SOURCE} ${RAY_TRACER_HEADER} ${BXDF_SOURCE_FILES})
+add_library(mylibs STATIC 
+            ${RAY_TRACER_SOURCE} 
+            ${RAY_TRACER_HEADER} 
+            ${BXDF_SOURCE_FILES}
+            ${INTEGRATOR_SOURCE_FILES})
 
 add_subdirectory(${PROJECT_SOURCE_DIR}/third/assimp/)
 include_directories(${PROJECT_SOURCE_DIR}/third/assimp/include)
