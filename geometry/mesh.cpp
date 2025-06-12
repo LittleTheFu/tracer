@@ -6,7 +6,11 @@
 
 #include "mesh.h"
 
-Mesh::Mesh(const std::string fileName, const Vector3 pos, float scale, std::shared_ptr<Material> pMtrl)
+Mesh::Mesh(const std::string fileName,
+           const Vector3 pos,
+           float scale,
+           std::shared_ptr<Material> pMtrl,
+           std::shared_ptr<MaterialPlus> pMtrlPlus)
 {
     assert(scale > 0);
 
@@ -34,7 +38,7 @@ Mesh::Mesh(const std::string fileName, const Vector3 pos, float scale, std::shar
         // vb.setUV(u_b, v_b);
         // vc.setUV(u_c, v_c);
 
-        auto tri = std::make_shared<Tri>(va, vb, vc, pos, pMtrl);
+        auto tri = std::make_shared<Tri>(va, vb, vc, pos, pMtrl, pMtrlPlus);
         tri->setSelfPtr(tri);
 
         m_tris.push_back(tri);

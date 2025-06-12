@@ -13,12 +13,18 @@ Tri::Tri(const TriVertex &a,
          const TriVertex &b,
          const TriVertex &c,
          const Vector3 &pos,
-         std::shared_ptr<Material> material)
+         std::shared_ptr<Material> material,
+         std::shared_ptr<MaterialPlus> materialPlus)
 {
-    set(a, b, c, pos, material);
+    set(a, b, c, pos, material, materialPlus);
 }
 
-void Tri::set(const TriVertex &a, const TriVertex &b, const TriVertex &c, const Vector3 &pos, std::shared_ptr<Material> material)
+void Tri::set(const TriVertex &a,
+              const TriVertex &b,
+              const TriVertex &c,
+              const Vector3 &pos,
+              std::shared_ptr<Material> material,
+              std::shared_ptr<MaterialPlus> materialPlus)
 {
     m_a = a;
     m_b = b;
@@ -33,6 +39,8 @@ void Tri::set(const TriVertex &a, const TriVertex &b, const TriVertex &c, const 
     m_localCentroid = (a.pos + b.pos + c.pos) / 3;
     this->m_pMtrl = material;
 
+    this->setMaterialPlus(materialPlus);
+
     init(Vector3::ZERO, pos);
 }
 
@@ -42,13 +50,13 @@ void Tri::getSplitChildren(Tri *outTri_1, Tri *outTri_2, Tri *outTri_3) const
     TriVertex d(centroid, Vector3::ZERO);
 
     outTri_1->setTransform(m_transform);
-    outTri_1->set(m_a, m_b, d, m_pos, m_pMtrl);
+    outTri_1->set(m_a, m_b, d, m_pos, m_pMtrl, getMaterialPlus());
 
     outTri_2->setTransform(m_transform);
-    outTri_2->set(m_b, m_c, d, m_pos, m_pMtrl);
+    outTri_2->set(m_b, m_c, d, m_pos, m_pMtrl, getMaterialPlus());
 
     outTri_3->setTransform(m_transform);
-    outTri_3->set(m_c, m_a, d, m_pos, m_pMtrl);
+    outTri_3->set(m_c, m_a, d, m_pos, m_pMtrl, getMaterialPlus());
 }
 
 // transform three times
@@ -102,6 +110,14 @@ bool Tri::hit(const Ray &ray, HitRecord &record, Interaction &interaction) const
             record.dot = 1;
         }
     }
+
+    interaction.point = record.point;
+    interaction.normal_geometry = record.normal;
+    interaction.normal_shading = record.normal;
+    interaction.u = record.u;
+    interaction.v = record.v;
+    interaction.geometry = getSelfPtr();
+    interaction.material = getMaterialPlus();
 
     return true;
 }

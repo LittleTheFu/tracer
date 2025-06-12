@@ -10,11 +10,16 @@
 #include "material.h"
 #include "objectpool.h"
 #include "tri.h"
+#include "materialPlus.h"
 
 class Mesh : public Geometry
 {
 public:
-    Mesh(const std::string fileName, const Vector3 pos, float scale, std::shared_ptr<Material> pMtrl);
+    Mesh(const std::string fileName,
+         const Vector3 pos,
+         float scale,
+         std::shared_ptr<Material> pMtrl,
+         std::shared_ptr<MaterialPlus> pMtrlPlus);
 
     virtual bool hit(const Ray &ray, HitRecord &record, Interaction &interaction) const override;
 

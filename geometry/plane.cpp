@@ -5,6 +5,8 @@
 #include "mathConstantDef.h"
 #include "mathUtility.h"
 #include "plane.h"
+#include "interaction.h"
+
 
 Plane::Plane(const Vector3 &rotate, const Vector3 &position, float length, std::shared_ptr<Material> pMtrl)
 {
@@ -49,6 +51,14 @@ bool Plane::hit(const Ray &ray, HitRecord &record, Interaction &interaction) con
     {
         HandleMaterial(newRay, record);
     }
+
+    interaction.point = record.point;
+    interaction.normal_geometry = record.normal;
+    interaction.normal_shading = record.normal;
+    interaction.u = record.u;
+    interaction.v = record.v;
+    interaction.geometry = getSelfPtr();
+    interaction.material = getMaterialPlus();
 
     return true;
 }

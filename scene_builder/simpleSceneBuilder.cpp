@@ -2,7 +2,7 @@
 
 void SimpleSceneBuilder::build()
 {
-    // buildRoom();
+    buildRoom();
     buildLight(Vector3(0, 10, 200), 20);
     setLightIntensity(50.0f);
 

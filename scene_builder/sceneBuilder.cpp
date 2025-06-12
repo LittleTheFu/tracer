@@ -10,7 +10,7 @@
 #include "room.h"
 #include "sceneBuilder.h"
 #include "tagDef.h"
-#include <materialLambertian.h>
+#include "materialLambertian.h"
 
 void SceneBuilder::init(std::shared_ptr<ObjectPool> pool)
 {
@@ -33,31 +33,37 @@ void SceneBuilder::buildRoom()
     Vector3 leftPosition(-c, 0, 0);
     std::shared_ptr<Plane> leftPlane = std::make_shared<Plane>(leftRotate, leftPosition, r, MaterialManager::getInstance()->get(leftMtrl));
     leftPlane->setSelfPtr(leftPlane);
+    leftPlane->setMaterialPlus(std::make_shared<MaterialLambertian>(Color::COLOR_RED));
 
     Vector3 rightRotate(0, -MathConstant::PI / 2, 0);
     Vector3 rightPosition(c, 0, 0);
     std::shared_ptr<Plane> rightPlane = std::make_shared<Plane>(rightRotate, rightPosition, r, MaterialManager::getInstance()->get(rightMtrl));
     rightPlane->setSelfPtr(rightPlane);
+    rightPlane->setMaterialPlus(std::make_shared<MaterialLambertian>(Color::COLOR_BLUE));
 
     Vector3 bottomRotate(MathConstant::PI / 2, 0, 0);
     Vector3 bottomPosition(0, c, 0);
     std::shared_ptr<Plane> bottomPlane = std::make_shared<Plane>(bottomRotate, bottomPosition, r, MaterialManager::getInstance()->get(bottomMtrl));
     bottomPlane->setSelfPtr(bottomPlane);
+    bottomPlane->setMaterialPlus(std::make_shared<MaterialLambertian>(Color::COLOR_GREEN));
 
     Vector3 topRotate(-MathConstant::PI / 2, 0, 0);
     Vector3 topPosition(0, -c, 0);
     std::shared_ptr<Plane> topPlane = std::make_shared<Plane>(topRotate, topPosition, r, MaterialManager::getInstance()->get(topMtrl));
     topPlane->setSelfPtr(topPlane);
+    topPlane->setMaterialPlus(std::make_shared<MaterialLambertian>(Color::COLOR_YELLOW));
 
     Vector3 frontRotate(MathConstant::PI, 0, 0);
     Vector3 frontPosition(0, 0, 5 * c);
     std::shared_ptr<Plane> frontPlane = std::make_shared<Plane>(frontRotate, frontPosition, r, MaterialManager::getInstance()->get(frontMtrl));
     frontPlane->setSelfPtr(frontPlane);
+    frontPlane->setMaterialPlus(std::make_shared<MaterialLambertian>(Color::COLOR_AQUA));
 
     Vector3 backRotate(0, 0, 0);
     Vector3 backPosition(0, 0, -3 * c);
     std::shared_ptr<Plane> backPlane = std::make_shared<Plane>(backRotate, backPosition, r, MaterialManager::getInstance()->get(backMtrl));
     backPlane->setSelfPtr(backPlane);
+    backPlane->setMaterialPlus(std::make_shared<MaterialLambertian>(Color::COLOR_ORANGE));
 
     m_pObjectPool->add(frontPlane);
     m_pObjectPool->add(backPlane);
@@ -99,11 +105,11 @@ MATERIAL_TYPE SceneBuilder::getBackWallMaterial() const
 
 void SceneBuilder::buildMeshRoom()
 {
-    std::shared_ptr<Room> room = std::make_shared<Room>();
-    m_pObjectPool->add(room->getTris());
+    // std::shared_ptr<Room> room = std::make_shared<Room>();
+    // m_pObjectPool->add(room->getTris());
 }
 
-void SceneBuilder::buildLight(const Vector3& pos, float r)
+void SceneBuilder::buildLight(const Vector3 &pos, float r)
 {
     std::shared_ptr<Light> light = std::make_shared<Light>(pos, r);
     light->setTag(Tag::TAG_LIGHT);
@@ -142,7 +148,7 @@ void SceneBuilder::buildMirrorBall(const Vector3 &pos, float r)
     m_pObjectPool->add(mirrorBall);
 }
 
-void SceneBuilder::buildRedBall(const Vector3& pos, float r)
+void SceneBuilder::buildRedBall(const Vector3 &pos, float r)
 {
     std::shared_ptr<Ball> redBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_RED));
     redBall->setSelfPtr(redBall);
@@ -168,7 +174,7 @@ void SceneBuilder::buildConductorBall(const Vector3 &pos, float r)
     m_pObjectPool->add(conductorBall);
 }
 
-void SceneBuilder::buildMixBall(const Vector3& pos, float r)
+void SceneBuilder::buildMixBall(const Vector3 &pos, float r)
 {
     std::shared_ptr<Ball> mixBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_DIELECTRIC));
     mixBall->setSelfPtr(mixBall);
@@ -266,7 +272,11 @@ void SceneBuilder::buildVolumeBall(const Vector3 &pos, float r)
 
 void SceneBuilder::buildBunny(const Vector3 &pos, float scale, const std::string &res, MATERIAL_TYPE materialType)
 {
-    std::shared_ptr<Mesh> bunny = std::make_shared<Mesh>(res, pos, scale, MaterialManager::getInstance()->get(materialType));
+    std::shared_ptr<Mesh> bunny = std::make_shared<Mesh>(res,
+                                                         pos,
+                                                         scale,
+                                                         MaterialManager::getInstance()->get(materialType),
+                                                         std::make_shared<MaterialLambertian>(Color::COLOR_GREEN));
     bunny->setSelfPtr(bunny);
 
     bunny->addToPool(m_pObjectPool);
@@ -286,7 +296,12 @@ void SceneBuilder::buildRedTri(const Vector3 &pos)
     TriVertex tb(b, nb);
     TriVertex tc(c, nc);
 
-    std::shared_ptr<Tri> tri = std::make_shared<Tri>(ta, tb, tc, pos, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_RED));
+    std::shared_ptr<Tri> tri = std::make_shared<Tri>(ta,
+                                                     tb,
+                                                     tc,
+                                                     pos,
+                                                     MaterialManager::getInstance()->get(MATERIAL_TYPE::M_RED),
+                                                     std::make_shared<MaterialLambertian>(Color::COLOR_RED));
     tri->setSelfPtr(tri);
 
     m_pObjectPool->add(tri);
@@ -306,7 +321,12 @@ void SceneBuilder::buildGreenTri(const Vector3 &pos)
     TriVertex tb(b, nb);
     TriVertex tc(c, nc);
 
-    std::shared_ptr<Tri> tri = std::make_shared<Tri>(ta, tb, tc, pos, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_GREEN));
+    std::shared_ptr<Tri> tri = std::make_shared<Tri>(ta,
+                                                     tb,
+                                                     tc,
+                                                     pos,
+                                                     MaterialManager::getInstance()->get(MATERIAL_TYPE::M_GREEN),
+                                                     std::make_shared<MaterialLambertian>(Color::COLOR_GREEN));
     tri->setSelfPtr(tri);
 
     m_pObjectPool->add(tri);
@@ -314,22 +334,22 @@ void SceneBuilder::buildGreenTri(const Vector3 &pos)
 
 void SceneBuilder::buildGlassTri(const Vector3 &pos)
 {
-    TriVertex a(-100, -100, -20);
-    TriVertex b(-80, 90, 0);
-    TriVertex c(40, -90, -10);
+    // TriVertex a(-100, -100, -20);
+    // TriVertex b(-80, 90, 0);
+    // TriVertex c(40, -90, -10);
 
-    std::shared_ptr<Tri> tri = std::make_shared<Tri>(a, b, c, pos, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_GLASS));
-    tri->setSelfPtr(tri);
+    // std::shared_ptr<Tri> tri = std::make_shared<Tri>(a, b, c, pos, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_GLASS));
+    // tri->setSelfPtr(tri);
 
-    m_pObjectPool->add(tri);
+    // m_pObjectPool->add(tri);
 }
 
 void SceneBuilder::buildRedCurve(const Vector3 &pos)
 {
-    Vector3 p0 = { -150, -50, 280 };
-    Vector3 p1 = { -150, 50, 280 };
-    Vector3 p2 = { 150, -150, 280 };
-    Vector3 p3 = { 150, 150, 280 };
+    Vector3 p0 = {-150, -50, 280};
+    Vector3 p1 = {-150, 50, 280};
+    Vector3 p2 = {150, -150, 280};
+    Vector3 p3 = {150, 150, 280};
 
     std::shared_ptr<Curve> redCurve = std::make_shared<Curve>(p0, p1, p2, p3);
     redCurve->setSelfPtr(redCurve);

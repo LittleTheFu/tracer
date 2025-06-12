@@ -34,7 +34,10 @@ private:
     std::shared_ptr<BVHNode> generateTree(const std::vector<std::shared_ptr<Geometry>> &objects, int depth);
     void printNode(std::shared_ptr<BVHNode> node, const std::string &prefix);
 
-    bool hitLeaf(const Ray &ray, const std::vector<std::shared_ptr<Geometry> > objects, HitRecord &record) const;
+    bool hitLeaf(const Ray &ray,
+                 const std::vector<std::shared_ptr<Geometry>> objects,
+                 HitRecord &record,
+                 Interaction &interaction) const;
 
     BoundBox getBoundBox(const std::vector<std::shared_ptr<Geometry>> &objects) const;
     BoundBox getCentroidBox(const std::vector<std::shared_ptr<Geometry>> &objects) const;

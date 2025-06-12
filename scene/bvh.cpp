@@ -119,7 +119,7 @@ bool BVH::_hitGeometryObjectOnly(std::shared_ptr<BVHNode> node,
                                  Interaction &interaction) const
 {
     if (node->isLeaf())
-        return hitLeaf(ray, node->objects, record);
+        return hitLeaf(ray, node->objects, record, interaction);
 
     BoundBox box = node->boundBox;
 
@@ -150,6 +150,11 @@ bool BVH::_hitGeometryObjectOnly(std::shared_ptr<BVHNode> node,
 
         record = leftRecord.getCloserOne(rightRecord);
 
+        if(leftRecord.t < rightRecord.t)
+            interaction = leftInteraction;
+        else
+            interaction = rightInteraction;
+
         bool is_hit = isLeftChildHit || isRightChildHit;
         return is_hit;
     }
@@ -162,7 +167,10 @@ bool BVH::hitGeometryObjectOnly(const Ray &ray, HitRecord &record, Interaction &
     return _hitGeometryObjectOnly(m_rootNode, ray, record, interaction);
 }
 
-bool BVH::hitLeaf(const Ray &ray, const std::vector<std::shared_ptr<Geometry>> objects, HitRecord &record) const
+bool BVH::hitLeaf(const Ray &ray,
+                  const std::vector<std::shared_ptr<Geometry>> objects,
+                  HitRecord &record,
+                  Interaction &interaction) const
 {
     assert(objects.size() > 0);
     bool hit = false;
@@ -171,14 +179,15 @@ bool BVH::hitLeaf(const Ray &ray, const std::vector<std::shared_ptr<Geometry>> o
     for (auto it = objects.begin(); it != objects.end(); it++)
     {
         HitRecord tempRecord;
-        
-        Interaction interaction;
-        if ((*it)->hit(ray, tempRecord, interaction))
+        Interaction tempInteraction;
+
+        if ((*it)->hit(ray, tempRecord, tempInteraction))
         {
             if (tempRecord.t < tMin)
             {
                 tMin = tempRecord.t;
                 record = tempRecord;
+                interaction = tempInteraction;
                 hit = true;
             }
         }
