@@ -2,6 +2,7 @@
 #include "mathConstantDef.h"
 
 LambertianReflection::LambertianReflection(const Color &reflectance)
+    : Bxdf(BxdfType::DIFFUSE)
 {
     reflectance_ = reflectance;
 }
