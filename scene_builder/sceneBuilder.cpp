@@ -10,6 +10,7 @@
 #include "room.h"
 #include "sceneBuilder.h"
 #include "tagDef.h"
+#include <materialLambertian.h>
 
 void SceneBuilder::init(std::shared_ptr<ObjectPool> pool)
 {
@@ -145,6 +146,7 @@ void SceneBuilder::buildRedBall(const Vector3& pos, float r)
 {
     std::shared_ptr<Ball> redBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_RED));
     redBall->setSelfPtr(redBall);
+    redBall->setMaterialPlus(std::make_shared<MaterialLambertian>(Color::COLOR_RED));
 
     m_pObjectPool->add(redBall);
 }
@@ -153,6 +155,7 @@ void SceneBuilder::buildAquaBall(const Vector3 &pos, float r)
 {
     std::shared_ptr<Ball> aquaBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_AQUA));
     aquaBall->setSelfPtr(aquaBall);
+    aquaBall->setMaterialPlus(std::make_shared<MaterialLambertian>(Color::COLOR_AQUA));
 
     m_pObjectPool->add(aquaBall);
 }
@@ -330,6 +333,6 @@ void SceneBuilder::buildRedCurve(const Vector3 &pos)
 
     std::shared_ptr<Curve> redCurve = std::make_shared<Curve>(p0, p1, p2, p3);
     redCurve->setSelfPtr(redCurve);
-    
+
     m_pObjectPool->add(redCurve);
 }

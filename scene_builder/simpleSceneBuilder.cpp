@@ -13,7 +13,7 @@ void SimpleSceneBuilder::build()
 
     //to be fixed : light power leak
     // buildGlassBall(Vector3(60, 30, 300), 20);
-    buildMixBall(Vector3(35, -50, 270), 35);
+    // buildMixBall(Vector3(35, -50, 270), 35);
     
     // buildRedTri(Vector3(-55,0,370));
     // buildGreenTri(Vector3(50,-60,350));
