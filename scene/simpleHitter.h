@@ -13,7 +13,7 @@ class SimperHitter : public HitterInterface
 {
 public:
     virtual Color getColorFromLight(const Ray &ray) const override;
-    virtual bool hitGeometryObjectOnly(const Ray &ray, HitRecord &record, bool skipVolume = false) const override;
+    virtual bool hitGeometryObjectOnly(const Ray &ray, HitRecord &record) const override;
 
 private:
     bool hitLightOnly(const Ray &ray, float &t, Vector3 &normal, float &dot) const;

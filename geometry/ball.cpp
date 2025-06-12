@@ -129,6 +129,14 @@ bool Ball::hit(const Ray &ray, HitRecord &record, Interaction &interaction) cons
     record.u = u(localPoint);
     record.v = v(localPoint);
 
+    interaction.point = record.point;
+    interaction.normal_geometry = record.normal;
+    interaction.normal_shading = record.normal;
+    interaction.u = record.u;
+    interaction.v = record.v;
+    interaction.geometry = getSelfPtr();
+    interaction.material = getMaterialPlus();
+
     if (m_pMtrl)
     {
         HandleMaterial(localNormal, localPoint, newRay, record);

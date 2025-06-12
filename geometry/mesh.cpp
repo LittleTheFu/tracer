@@ -35,6 +35,7 @@ Mesh::Mesh(const std::string fileName, const Vector3 pos, float scale, std::shar
         // vc.setUV(u_c, v_c);
 
         auto tri = std::make_shared<Tri>(va, vb, vc, pos, pMtrl);
+        tri->setSelfPtr(tri);
 
         m_tris.push_back(tri);
     }

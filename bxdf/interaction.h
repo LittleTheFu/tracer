@@ -25,7 +25,7 @@ public:
     float v;
 
     std::shared_ptr<Geometry> geometry;
-    std::unique_ptr<MaterialPlus> material;
+    std::shared_ptr<MaterialPlus> material;
 };
 
 #endif

@@ -65,7 +65,7 @@ void ObjectPool::buildBoundBox()
     }
 }
 
-bool ObjectPool::hitScene(const Ray &ray, HitRecord &record) const
+bool ObjectPool::hitScene(const Ray &ray, HitRecord &record, Interaction &interaction) const
 {
     return m_pHitter->hitGeometryObjectOnly(ray, record);
 }

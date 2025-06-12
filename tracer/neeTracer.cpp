@@ -1,6 +1,7 @@
 #include "neeTracer.h"
 #include "hitrecord.h"
 #include "mathUtility.h"
+#include "interaction.h"
 
 NeeTracer::NeeTracer(int depth)
 {
@@ -24,7 +25,9 @@ Color NeeTracer::trace(std::shared_ptr<const ObjectPool> pool, Ray &ray) const
         depth++;
 
         HitRecord record;
-        if (!pool->hitScene(hitRay, record))
+        Interaction interaction;
+
+        if (!pool->hitScene(hitRay, record, interaction))
         {
             color += Color::COLOR_BLACK;
             break;

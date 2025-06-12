@@ -15,10 +15,7 @@ public:
     virtual void init(const std::vector<std::shared_ptr<Geometry>> &objects, std::shared_ptr<const Light> light);
     virtual Color getColorFromLight(const Ray &ray) const;
 
-    virtual bool hitGeometryObjectOnly(
-        const Ray &ray,
-        HitRecord &record, 
-        bool skipVolume = false) const;
+    virtual bool hitGeometryObjectOnly(const Ray &ray, HitRecord &record) const;
 
 protected:
     std::vector<std::shared_ptr<Geometry>> m_objects;

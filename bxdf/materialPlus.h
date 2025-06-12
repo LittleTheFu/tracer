@@ -4,9 +4,9 @@
 #include "bsdf.h"
 #include "imageTexture.h"
 #include "normalTexture.h"
+#include "interaction.h"
 #include <memory>
 
-class Interaction;
 
 class MaterialPlus
 {
@@ -15,9 +15,9 @@ public:
     virtual ~MaterialPlus() = default;
 
 public:
-    std::unique_ptr<Bsdf> createBsdf(const Interaction& interaction);
+    virtual std::unique_ptr<Bsdf> createBsdf(const Interaction& interaction) = 0;
 
-private:
+protected:
     std::shared_ptr<ImageTexture> albedo_;
     std::shared_ptr<NormalTexture> normal_;
 };

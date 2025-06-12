@@ -11,6 +11,7 @@
 #include "light.h"
 #include "ray.h"
 #include "transform.h"
+#include "interaction.h"
 
 class ObjectPool
 {
@@ -28,7 +29,7 @@ public:
     void applyTransfrom(Transform t);
     void buildBoundBox();
 
-    bool hitScene(const Ray &ray, HitRecord &record) const;
+    bool hitScene(const Ray &ray, HitRecord &record, Interaction &interaction) const;
     
 public:
     Color getColorFromLight(const Ray &ray) const;

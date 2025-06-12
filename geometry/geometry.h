@@ -13,6 +13,7 @@
 
 //for refactoring
 #include "interaction.h"
+#include "materialPlus.h"
 // class Interaction;
 
 
@@ -75,6 +76,19 @@ protected:
     BoundBox m_boundBox;
 
     std::shared_ptr<Material> m_pMtrl;
+
+//for refactoring--------------------------------------
+public:
+    void setMaterialPlus(std::shared_ptr<MaterialPlus> pMtrlPlus);
+    std::shared_ptr<MaterialPlus> getMaterialPlus() const;
+private:
+    std::shared_ptr<MaterialPlus> m_pMtrlPlus;
+public:
+    void setSelfPtr(std::shared_ptr<Geometry> selfPtr);
+    std::shared_ptr<Geometry> getSelfPtr() const;
+private:
+    //a hack for refactoring
+    std::shared_ptr<Geometry> selfPtr_;
 };
 
 #endif

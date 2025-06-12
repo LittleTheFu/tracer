@@ -6,6 +6,11 @@ Geometry::Geometry()
 {
     m_pMtrl = nullptr;
 
+    //for refactoring--------------------------------------
+    m_pMtrlPlus = nullptr;
+    selfPtr_ = nullptr;
+    //end--------------------------------------------------
+
     m_insideMedia.set(1,1,1,Color::COLOR_WHITE);
 }
 
@@ -110,4 +115,27 @@ void Geometry::buildBoundBox()
 BoundBox Geometry::getBoundBox() const
 {
     return m_boundBox;
+}
+
+
+//--------------------for refactoring-------------------------
+void Geometry::setMaterialPlus(std::shared_ptr<MaterialPlus> pMtrlPlus)
+{
+    m_pMtrlPlus = pMtrlPlus;
+}
+
+std::shared_ptr<MaterialPlus> Geometry::getMaterialPlus() const
+{
+    return m_pMtrlPlus;
+}
+
+
+void Geometry::setSelfPtr(std::shared_ptr<Geometry> selfPtr)
+{
+    selfPtr_ = selfPtr;
+}
+
+std::shared_ptr<Geometry> Geometry::getSelfPtr() const
+{
+    return selfPtr_;
 }
