@@ -31,26 +31,32 @@ void SceneBuilder::buildRoom()
     Vector3 leftRotate(0, MathConstant::PI / 2, 0);
     Vector3 leftPosition(-c, 0, 0);
     std::shared_ptr<Plane> leftPlane = std::make_shared<Plane>(leftRotate, leftPosition, r, MaterialManager::getInstance()->get(leftMtrl));
+    leftPlane->setSelfPtr(leftPlane);
 
     Vector3 rightRotate(0, -MathConstant::PI / 2, 0);
     Vector3 rightPosition(c, 0, 0);
     std::shared_ptr<Plane> rightPlane = std::make_shared<Plane>(rightRotate, rightPosition, r, MaterialManager::getInstance()->get(rightMtrl));
+    rightPlane->setSelfPtr(rightPlane);
 
     Vector3 bottomRotate(MathConstant::PI / 2, 0, 0);
     Vector3 bottomPosition(0, c, 0);
     std::shared_ptr<Plane> bottomPlane = std::make_shared<Plane>(bottomRotate, bottomPosition, r, MaterialManager::getInstance()->get(bottomMtrl));
+    bottomPlane->setSelfPtr(bottomPlane);
 
     Vector3 topRotate(-MathConstant::PI / 2, 0, 0);
     Vector3 topPosition(0, -c, 0);
     std::shared_ptr<Plane> topPlane = std::make_shared<Plane>(topRotate, topPosition, r, MaterialManager::getInstance()->get(topMtrl));
+    topPlane->setSelfPtr(topPlane);
 
     Vector3 frontRotate(MathConstant::PI, 0, 0);
     Vector3 frontPosition(0, 0, 5 * c);
     std::shared_ptr<Plane> frontPlane = std::make_shared<Plane>(frontRotate, frontPosition, r, MaterialManager::getInstance()->get(frontMtrl));
+    frontPlane->setSelfPtr(frontPlane);
 
     Vector3 backRotate(0, 0, 0);
     Vector3 backPosition(0, 0, -3 * c);
     std::shared_ptr<Plane> backPlane = std::make_shared<Plane>(backRotate, backPosition, r, MaterialManager::getInstance()->get(backMtrl));
+    backPlane->setSelfPtr(backPlane);
 
     m_pObjectPool->add(frontPlane);
     m_pObjectPool->add(backPlane);
