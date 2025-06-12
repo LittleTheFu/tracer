@@ -6,6 +6,8 @@
 #include "normalTexture.h"
 #include <memory>
 
+class Interaction;
+
 class MaterialPlus
 {
 public:
