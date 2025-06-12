@@ -106,7 +106,7 @@ bool Ball::isIn(const Vector3 &point) const
     return false;
 }
 
-bool Ball::hit(const Ray &ray, HitRecord &record) const
+bool Ball::hit(const Ray &ray, HitRecord &record, Interaction &interaction) const
 {
     const Ray newRay = ray.genNewRay(m_transform);
 

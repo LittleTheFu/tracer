@@ -13,7 +13,7 @@ public:
 
     void setWidth(float width);
 
-    virtual bool hit(const Ray &ray, HitRecord &record) const override;
+    virtual bool hit(const Ray &ray, HitRecord &record, Interaction &interaction) const override;
     virtual void buildBoundBox() override;
 
 private:

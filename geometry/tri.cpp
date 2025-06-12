@@ -55,7 +55,7 @@ void Tri::getSplitChildren(Tri *outTri_1, Tri *outTri_2, Tri *outTri_3) const
 // 1.to object frame
 // 2.then to tri frame built from face normal
 // 3.then to tri frame built from weighted normal
-bool Tri::hit(const Ray &ray, HitRecord &record) const
+bool Tri::hit(const Ray &ray, HitRecord &record, Interaction &interaction) const
 {
     record.t = MathConstant::FLOAT_MAX;
     Ray newRay = ray.genNewRay(m_transform);

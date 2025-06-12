@@ -41,7 +41,8 @@ bool SimperHitter::hitGeometryObjectOnly(const Ray &ray, HitRecord &record, bool
         if(skipVolume && (*it)->isVolume())
             continue;
 
-        if ((*it)->hit(ray, tempRecord))
+        Interaction interaction;
+        if ((*it)->hit(ray, tempRecord, interaction))
         {
             if (tempRecord.t < tMin)
             {

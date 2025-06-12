@@ -2,8 +2,10 @@
 #define _INTERACTION_H_
 
 #include "vector.h"
-#include <geometry.h>
+// #include <geometry.h>
 #include "materialPlus.h"
+
+class Geometry;
 
 class Interaction
 {

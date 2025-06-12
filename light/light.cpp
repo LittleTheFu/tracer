@@ -25,7 +25,8 @@ bool Light::hit(const Ray &ray, float &t, Vector3 &normal, float &dot) const
 {
     HitRecord record;
 
-    bool isHit = m_pBall->hit(ray, record);
+    Interaction interaction;
+    bool isHit = m_pBall->hit(ray, record, interaction);
 
     if(!isHit)
     {

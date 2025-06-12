@@ -11,6 +11,10 @@
 #include "transform.h"
 #include "vector.h"
 
+//for refactoring
+#include "interaction.h"
+// class Interaction;
+
 
 class Geometry
 {
@@ -28,7 +32,7 @@ public:
 
     Vector3 getLocalPosition(const Vector3 &worldPosition) const;
 
-    virtual bool hit(const Ray &ray, HitRecord &record) const = 0;
+    virtual bool hit(const Ray &ray, HitRecord &record, Interaction &interaction) const = 0;
     virtual Vector3 sampleFromPoint(const Vector3 &thatPoint, float &pdf) const;
     
     virtual Vector3 getCentroid() const;

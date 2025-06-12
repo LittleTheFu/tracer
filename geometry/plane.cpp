@@ -16,7 +16,7 @@ Plane::Plane(const Vector3 &rotate, const Vector3 &position, float length, std::
     this->m_uvCellSize = 100;
 }
 
-bool Plane::hit(const Ray &ray, HitRecord &record) const
+bool Plane::hit(const Ray &ray, HitRecord &record, Interaction &interaction) const
 {
     record.t = MathConstant::FLOAT_MAX;
 

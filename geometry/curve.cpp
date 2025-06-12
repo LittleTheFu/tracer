@@ -26,7 +26,7 @@ void Curve::setWidth(float width)
     m_width = width;
 }
 
-bool Curve::hit(const Ray &ray, HitRecord &record) const
+bool Curve::hit(const Ray &ray, HitRecord &record, Interaction &interaction) const
 {
     // const Ray newRay = ray.genNewRay(m_transform);
     const Ray newRay = ray; // test

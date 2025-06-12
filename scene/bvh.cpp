@@ -167,8 +167,9 @@ bool BVH::hitLeaf(const Ray &ray, const std::vector<std::shared_ptr<Geometry>> o
     for (auto it = objects.begin(); it != objects.end(); it++)
     {
         HitRecord tempRecord;
-
-        if ((*it)->hit(ray, tempRecord))
+        
+        Interaction interaction;
+        if ((*it)->hit(ray, tempRecord, interaction))
         {
             if (tempRecord.t < tMin)
             {
