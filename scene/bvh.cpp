@@ -38,7 +38,7 @@ bool BVH::_search(std::shared_ptr<BVHNode> node, std::shared_ptr<Geometry> geome
     return false;
 }
 
-void BVH::init(std::shared_ptr<const Light> light,
+void BVH::init(std::shared_ptr<const AreaLight> light,
                const std::vector<std::shared_ptr<Primitive>> &primitives)
 {
     HitterInterface::init(light, primitives);
@@ -211,13 +211,13 @@ Color BVH::getColorFromLight(const Ray &ray) const
     float t;
     Vector3 normal;
     float dot;
-    if (!m_pLight->hit(ray, t, normal, dot))
+    Interaction _interaction;
+    if (!light_->getGeometryPrimitive()->getGeometry()->hit(ray, _interaction))
     {
-        // m_pLight->hit(ray, t, normal, dot);
         return Color::COLOR_BLACK;
     }
 
-    Color color = m_pLight->getColor();
+    Color color = light_->getColor();
 
     Interaction interaction;
     if (!_hitGeometryObjectOnly(m_rootNode, ray, interaction))

@@ -20,8 +20,11 @@ public:
     void addPrimitive(std::shared_ptr<Primitive> primitive);
     void addPrimitives(std::vector<std::shared_ptr<Primitive>> primitives);
 
+    void setLight(std::shared_ptr<AreaLight> light);
+
 private:
     std::vector<std::shared_ptr<Primitive>> primitives_;
+    std::shared_ptr<AreaLight> light_;
 //-----end----------------
 
 public:
@@ -33,7 +36,7 @@ public:
 
     // void add(std::vector<std::shared_ptr<Geometry>> objects);
     // void add(std::shared_ptr<Geometry> pGeometry);
-    void add(std::shared_ptr<Light> pLight);
+    // void add(std::shared_ptr<Light> pLight);
 
     void applyTransfrom(Transform t);
     void buildBoundBox();
@@ -47,7 +50,7 @@ public:
 
     // bool validBVH() const;
 
-    std::shared_ptr<Light> m_pLight;
+    std::shared_ptr<AreaLight> m_pLight;
 
 private:
     HitterInterface *m_pHitter;

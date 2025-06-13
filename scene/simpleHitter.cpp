@@ -13,7 +13,7 @@ Color SimperHitter::getColorFromLight(const Ray &ray) const
         return Color::COLOR_BLACK;
     }
 
-    Color color = m_pLight->getColor();
+    Color color = light_->getColor() * light_->getIntensity();
 
     Interaction interaction;
     if (!hitGeometryObjectOnly(ray, interaction))
@@ -54,6 +54,8 @@ bool SimperHitter::hitGeometryObjectOnly(const Ray &ray, Interaction &interactio
 
 bool SimperHitter::hitLightOnly(const Ray &ray, float &t, Vector3 &normal, float &dot) const
 {
-    bool hit = m_pLight->hit(ray, t, normal, dot);
+    Interaction interaction;
+    bool hit = light_->getGeometryPrimitive()->getGeometry()->hit(ray, interaction);
+
     return hit;
 }

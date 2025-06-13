@@ -17,7 +17,7 @@ public:
     bool _search(std::shared_ptr<BVHNode> node, std::shared_ptr<Geometry> geometry) const;
 
 public:
-    virtual void init(std::shared_ptr<const Light> light,
+    virtual void init(std::shared_ptr<const AreaLight> light,
                        const std::vector<std::shared_ptr<Primitive>> &primitives) override;
     virtual bool hitGeometryObjectOnly(const Ray &ray, Interaction &interaction) const override;
     

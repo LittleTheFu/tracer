@@ -42,47 +42,47 @@ Vector3 Light::sample(const Vector3 &thatPoint, float &pdf) const
     return m_pBall->sampleFromPoint(thatPoint, pdf);
 }
 
-Vector3 Light::getSurfacePoint(const Vector3 &thatPoint) const
-{
-    Ball *pBall = (Ball*)m_pBall;
-    Vector3 center = pBall->getPosition();
-    Vector3 dir = thatPoint - center;
-    dir.normalize();
-    dir *= pBall->r;
+// Vector3 Light::getSurfacePoint(const Vector3 &thatPoint) const
+// {
+//     Ball *pBall = (Ball*)m_pBall;
+//     Vector3 center = pBall->getPosition();
+//     Vector3 dir = thatPoint - center;
+//     dir.normalize();
+//     dir *= pBall->r;
 
-    return center + dir;
-}
+//     return center + dir;
+// }
 
-Vector3 Light::getNormal(const Vector3 point) const
-{
-    Vector3 center = m_pBall->getTransform().transformPoint(Vector3::ZERO);
-    Vector3 normal = point - center;
-    normal.normalize();
+// Vector3 Light::getNormal(const Vector3 point) const
+// {
+//     Vector3 center = m_pBall->getTransform().transformPoint(Vector3::ZERO);
+//     Vector3 normal = point - center;
+//     normal.normalize();
 
-    return normal;
-}
+//     return normal;
+// }
 
-Vector3 Light::getCenter() const
-{
-    Vector3 center = m_pBall->getTransform().transformPoint(Vector3::ZERO);
+// Vector3 Light::getCenter() const
+// {
+//     Vector3 center = m_pBall->getTransform().transformPoint(Vector3::ZERO);
 
-    return center;
-}
+//     return center;
+// }
 
 void Light::setIntensity(float intensity)
 {
     m_intensity = intensity;
 }
 
-const Geometry *Light::getGeometry() const
-{
-    return m_pBall;
-}
+// const Geometry *Light::getGeometry() const
+// {
+//     return m_pBall;
+// }
 
-bool Light::isIn(const Vector3 &point) const
-{
-    return m_pBall->isIn(point);
-}
+// bool Light::isIn(const Vector3 &point) const
+// {
+//     return m_pBall->isIn(point);
+// }
 
 Color Light::getColor() const
 {

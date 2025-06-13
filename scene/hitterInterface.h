@@ -9,22 +9,22 @@
 #include "ray.h"
 #include "interaction.h"
 #include "primitive.h"
-
+#include "areaLight.h"
 
 class HitterInterface
 {
 public:
-    virtual void init(std::shared_ptr<const Light> light,
+    virtual void init(std::shared_ptr<const AreaLight> light,
                       const std::vector<std::shared_ptr<Primitive>> &primitives);
     virtual Color getColorFromLight(const Ray &ray) const;
 
+    //dirty:
     virtual bool hitGeometryObjectOnly(const Ray &ray, Interaction &interaction) const;
 
 protected:
-    std::vector<std::shared_ptr<Geometry>> m_objects;
-    std::shared_ptr<const Light> m_pLight;
 
     std::vector<std::shared_ptr<Primitive>> primitives_;
+    std::shared_ptr<const AreaLight> light_;
 };
 
 #endif

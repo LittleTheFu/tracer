@@ -17,8 +17,12 @@ void ObjectPool::addPrimitives(std::vector<std::shared_ptr<Primitive>> primitive
 {
     primitives_.insert(primitives_.end(), primitives.begin(), primitives.end());
 }
-//-----------------end------------------------------
 
+void ObjectPool::setLight(std::shared_ptr<AreaLight> light)
+{
+    light_ = light;
+}
+//-----------------end------------------------------
 
 ObjectPool::ObjectPool(bool useBVH) : m_pLight(nullptr)
 {
@@ -52,10 +56,10 @@ void ObjectPool::log()
 //     m_objects.push_back(pGeometry);
 // }
 
-void ObjectPool::add(std::shared_ptr<Light> pLight)
-{
-    m_pLight = pLight;
-}
+// void ObjectPool::add(std::shared_ptr<Light> pLight)
+// {
+//     m_pLight = pLight;
+// }
 
 void ObjectPool::applyTransfrom(Transform t)
 {
@@ -64,13 +68,8 @@ void ObjectPool::applyTransfrom(Transform t)
         (*it)->getGeometry()->applyTransform(t);
     }
 
-    // for (auto it = m_objects.begin(); it != m_objects.end(); it++)
-    // {
-    //     (*it)->applyTransform(t);
-    // }
-
-    if(m_pLight)
-        m_pLight->applyTransform(t);
+    // if(m_pLight)
+    //     m_pLight->applyTransform(t);
 }
 
 void ObjectPool::buildBoundBox()
@@ -79,11 +78,6 @@ void ObjectPool::buildBoundBox()
     {
         (*it)->getGeometry()->buildBoundBox();
     }
-
-    // for (auto it = m_objects.begin(); it != m_objects.end(); it++)
-    // {
-    //     (*it)->buildBoundBox();
-    // }
 }
 
 bool ObjectPool::hitScene(const Ray &ray, Interaction &interaction) const

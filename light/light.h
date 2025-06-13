@@ -16,18 +16,18 @@ public:
 
     void applyTransform(const Transform &t);
     Vector3 sample(const Vector3 &thatPoint, float &pdf) const;
-    Vector3 getSurfacePoint(const Vector3 &thatPoint) const;
-    Vector3 getNormal(const Vector3 point) const;
-    Vector3 getCenter() const;
+    // Vector3 getSurfacePoint(const Vector3 &thatPoint) const;
+    // Vector3 getNormal(const Vector3 point) const;
+    // Vector3 getCenter() const;
 
     void setIntensity(float intensity);
     
     bool hit(const Ray &ray, float &t, Vector3 &normal, float &dot) const;
     void setTag(Tag tag);
 
-    const Geometry *getGeometry() const;
+    // const Geometry *getGeometry() const;
 
-    bool isIn(const Vector3 &point) const;
+    // bool isIn(const Vector3 &point) const;
     Color getColor() const;
 
 private:
