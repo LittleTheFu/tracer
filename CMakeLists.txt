@@ -56,7 +56,6 @@ SET (RAY_TRACER_SOURCE
     geometry/plane.cpp
     geometry/room.cpp
     geometry/tri.cpp
-    light/light.cpp
     # main/main.cpp
     material/combinedMaterial.cpp
     material/conductorMaterial.cpp
@@ -136,7 +135,6 @@ SET (RAY_TRACER_HEADER
     geometry/plane.h
     geometry/room.h
     geometry/tri.h
-    light/light.h
     material/combinedMaterial.h
     material/conductorMaterial.h
     material/dummyMaterial.h
@@ -187,7 +185,6 @@ INCLUDE_DIRECTORIES(${BXDF_DIR}
                     camera
                     common 
                     geometry 
-                    light 
                     material
                     mathmatic 
                     media
