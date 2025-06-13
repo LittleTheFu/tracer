@@ -95,10 +95,6 @@ SET (RAY_TRACER_SOURCE
     texture/normalTexture.cpp
     texture/texture.cpp
     texture/uvTexture.cpp
-    tracer/neeTracer.cpp
-    tracer/neeVolTracer.cpp
-    tracer/tracer.cpp
-    tracer/volTracer.cpp
 )
 
 SET (RAY_TRACER_HEADER
@@ -179,10 +175,6 @@ SET (RAY_TRACER_HEADER
     texture/normalTexture.h
     texture/texture.h
     texture/uvTexture.h
-    tracer/neeTracer.h
-    tracer/neeVolTracer.h
-    tracer/tracer.h
-    tracer/volTracer.h
 )
 
 INCLUDE_DIRECTORIES(${BXDF_DIR}
@@ -200,7 +192,6 @@ INCLUDE_DIRECTORIES(${BXDF_DIR}
                     volume
                     test
                     texture 
-                    tracer
                     )
                     
 add_library(mylibs STATIC 
