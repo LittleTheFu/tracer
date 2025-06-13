@@ -19,7 +19,7 @@ private:
     //end----------------------------//
 
 public:
-    Camera(std::shared_ptr<Tracer> tracer, int resolutionScale, int samplersPerPixel);
+    Camera(int resolutionScale, int samplersPerPixel);
 
     void setPool(std::shared_ptr<const ObjectPool> pool);
 
@@ -35,7 +35,6 @@ public:
     void renderPlus();
     //end----------------------------//
 
-    void render();
     bool saveToImage(const std::string &name) const;
 
 private:
@@ -48,7 +47,6 @@ private:
 
 private:
     std::shared_ptr<const ObjectPool> m_pObjectPool;
-    std::shared_ptr<const Tracer> m_pTracer;
     std::vector<unsigned char> m_Image;
 
     Transform m_transform;

@@ -14,9 +14,8 @@
 const int Camera::default_screen_width = 256;
 const int Camera::default_screen_height = 256;
 
-Camera::Camera(std::shared_ptr<Tracer> tracer, int resolutionScale, int samplersPerPixel)
+Camera::Camera(int resolutionScale, int samplersPerPixel)
 {
-    assert(tracer);
     assert(resolutionScale > 0);
     assert(samplersPerPixel > 0);
 
@@ -25,8 +24,6 @@ Camera::Camera(std::shared_ptr<Tracer> tracer, int resolutionScale, int samplers
 
     m_Width = default_screen_width * m_resolutionScale;
     m_Height = default_screen_height * m_resolutionScale;
-
-    m_pTracer = tracer;
 
     m_enableLog = true;
 
@@ -79,11 +76,9 @@ void Camera::renderPlus()
             HitRecord record = InitHitRecord();
             Ray ray = generateRay(static_cast<float>(x), static_cast<float>(y));
 
-            // Color color = m_pTracer->traceFirstBounce(m_pObjectPool, ray);
             Color color = Color::COLOR_BLACK;
             for (int time = 0; time < m_samplersPerPixel; time++)
             {
-                // color += m_pTracer->trace(m_pObjectPool, ray);
                 color += integrator_->Li(ray, m_pObjectPool);
             }
             color /= static_cast<float>(m_samplersPerPixel);
@@ -95,37 +90,6 @@ void Camera::renderPlus()
     }
 }
 
-void Camera::render()
-{
-    m_Image.resize(m_Width * m_Height * 4);
-
-    for (unsigned y = 0; y < m_Height; y++)
-    {
-        // TimeRecorder rec;
-        // rec.start();
-
-        for (unsigned x = 0; x < m_Width; x++)
-        {
-            if (m_enableLog)
-                logProgress(x, y);
-
-            HitRecord record = InitHitRecord();
-            Ray ray = generateRay(static_cast<float>(x), static_cast<float>(y));
-
-            Color color = m_pTracer->traceFirstBounce(m_pObjectPool, ray);
-            // Color color = Color::COLOR_BLACK;
-            for (int time = 0; time < m_samplersPerPixel; time++)
-            {
-                color += m_pTracer->trace(m_pObjectPool, ray);
-            }
-            color /= static_cast<float>(m_samplersPerPixel);
-            
-            setImage(x, y, color);
-
-        }
-        // rec.end();
-    }
-}
 
 bool Camera::saveToImage(const std::string &name) const
 {

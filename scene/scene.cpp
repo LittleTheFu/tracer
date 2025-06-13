@@ -21,8 +21,7 @@ Scene::Scene(SceneType sceneType, int resolutionScale, int samplersPerPixel, int
     m_pBuilder = createSceneBuilder(sceneType);
     m_pBuilder->init(m_pObjectPool);
 
-    std::shared_ptr<Tracer> tracer = std::make_shared<NeeTracer>(depth);
-    m_pCamera = std::make_shared<PinholeCamera>(tracer, resolutionScale, samplersPerPixel);
+    m_pCamera = std::make_shared<PinholeCamera>(resolutionScale, samplersPerPixel);
 }
 
 void Scene::run()
