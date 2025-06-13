@@ -11,6 +11,7 @@
 #include "sceneBuilder.h"
 #include "tagDef.h"
 #include "materialLambertian.h"
+#include "geometryPrimitive.h"
 
 void SceneBuilder::init(std::shared_ptr<ObjectPool> pool)
 {
@@ -71,6 +72,25 @@ void SceneBuilder::buildRoom()
     m_pObjectPool->add(bottomPlane);
     m_pObjectPool->add(leftPlane);
     m_pObjectPool->add(rightPlane);
+
+    //---------------for refactoring-------
+    std::shared_ptr<GeometryPrimitive> leftPrimitive = std::make_shared<GeometryPrimitive>(leftPlane, leftPlane->getMaterialPlus());
+    m_pObjectPool->addPrimitive(leftPrimitive);
+
+    std::shared_ptr<GeometryPrimitive> rightPrimitive = std::make_shared<GeometryPrimitive>(rightPlane, rightPlane->getMaterialPlus());
+    m_pObjectPool->addPrimitive(rightPrimitive);
+    
+    std::shared_ptr<GeometryPrimitive> topPrimitive = std::make_shared<GeometryPrimitive>(topPlane, topPlane->getMaterialPlus());
+    m_pObjectPool->addPrimitive(topPrimitive);
+
+    std::shared_ptr<GeometryPrimitive> bottomPrimitive = std::make_shared<GeometryPrimitive>(bottomPlane, bottomPlane->getMaterialPlus());
+    m_pObjectPool->addPrimitive(bottomPrimitive);
+
+    std::shared_ptr<GeometryPrimitive> frontPrimitive = std::make_shared<GeometryPrimitive>(frontPlane, frontPlane->getMaterialPlus());
+    m_pObjectPool->addPrimitive(frontPrimitive);
+
+    std::shared_ptr<GeometryPrimitive> backPrimitive = std::make_shared<GeometryPrimitive>(backPlane, backPlane->getMaterialPlus());
+    m_pObjectPool->addPrimitive(backPrimitive);
 }
 
 MATERIAL_TYPE SceneBuilder::getLeftWallMaterial() const
@@ -155,6 +175,10 @@ void SceneBuilder::buildRedBall(const Vector3 &pos, float r)
     redBall->setMaterialPlus(std::make_shared<MaterialLambertian>(Color::COLOR_RED));
 
     m_pObjectPool->add(redBall);
+
+    //----------------for refactoring-----------------
+    std::shared_ptr<GeometryPrimitive> redPrimitive = std::make_shared<GeometryPrimitive>(redBall, redBall->getMaterialPlus());
+    m_pObjectPool->addPrimitive(redPrimitive);
 }
 
 void SceneBuilder::buildAquaBall(const Vector3 &pos, float r)
@@ -164,6 +188,10 @@ void SceneBuilder::buildAquaBall(const Vector3 &pos, float r)
     aquaBall->setMaterialPlus(std::make_shared<MaterialLambertian>(Color::COLOR_AQUA));
 
     m_pObjectPool->add(aquaBall);
+
+    //----------------for refactoring-----------------
+    std::shared_ptr<GeometryPrimitive> aquaPrimitive = std::make_shared<GeometryPrimitive>(aquaBall, aquaBall->getMaterialPlus());
+    m_pObjectPool->addPrimitive(aquaPrimitive);
 }
 
 void SceneBuilder::buildConductorBall(const Vector3 &pos, float r)

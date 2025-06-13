@@ -11,9 +11,19 @@
 #include "ray.h"
 #include "transform.h"
 #include "interaction.h"
+#include "primitive.h"
 
 class ObjectPool
 {
+//-------for refactory----
+public:
+    void addPrimitive(std::shared_ptr<Primitive> primitive);
+    void addPrimitives(std::vector<std::shared_ptr<Primitive>> primitives);
+
+private:
+    std::vector<std::shared_ptr<Primitive>> primitives_;
+//-----end----------------
+
 public:
     ObjectPool(bool useBVH);
 
@@ -43,5 +53,7 @@ private:
     std::vector<std::shared_ptr<Geometry>> m_objects;
     HitterInterface *m_pHitter;
 };
+
+
 
 #endif

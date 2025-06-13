@@ -38,9 +38,11 @@ bool BVH::_search(std::shared_ptr<BVHNode> node, std::shared_ptr<Geometry> geome
     return false;
 }
 
-void BVH::init(const std::vector<std::shared_ptr<Geometry>> &objects, std::shared_ptr<const Light> light)
+void BVH::init(const std::vector<std::shared_ptr<Geometry>> &objects,
+               std::shared_ptr<const Light> light,
+               const std::vector<std::shared_ptr<Primitive>> &primitives)
 {
-    HitterInterface::init(objects, light);
+    HitterInterface::init(objects, light, primitives);
     build();
 }
 

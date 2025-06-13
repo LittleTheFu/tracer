@@ -20,6 +20,8 @@ SET (BXDF_SOURCE_FILES
     ${BXDF_DIR}/materialPlus.cpp
     ${BXDF_DIR}/emittingMaterial.cpp
     ${BXDF_DIR}/LambertianReflection.cpp
+    ${BXDF_DIR}/primitive.cpp
+    ${BXDF_DIR}/geometryPrimitive.cpp
 )
 
 SET (RAY_TRACER_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/ray_tracer")

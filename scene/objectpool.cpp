@@ -7,6 +7,19 @@
 #include "bvh.h"
 #include "config.h"
 
+//-------------for refactory---------------------------
+void ObjectPool::addPrimitive(std::shared_ptr<Primitive> primitive)
+{
+    primitives_.push_back(primitive);
+}
+
+void ObjectPool::addPrimitives(std::vector<std::shared_ptr<Primitive>> primitives)
+{
+    primitives_.insert(primitives_.end(), primitives.begin(), primitives.end());
+}
+//-----------------end------------------------------
+
+
 ObjectPool::ObjectPool(bool useBVH) : m_pLight(nullptr)
 {
     if (useBVH)
@@ -17,7 +30,7 @@ ObjectPool::ObjectPool(bool useBVH) : m_pLight(nullptr)
 
 void ObjectPool::initHitter()
 {
-    m_pHitter->init(m_objects, m_pLight);
+    m_pHitter->init(m_objects, m_pLight, primitives_);
 }
 
 void ObjectPool::log()
@@ -46,6 +59,11 @@ void ObjectPool::add(std::shared_ptr<Light> pLight)
 
 void ObjectPool::applyTransfrom(Transform t)
 {
+    // for (auto it = primitives_.begin(); it != primitives_.end(); it++)
+    // {
+    //     (*it)->getGeometry()->applyTransform(t);
+    // }
+
     for (auto it = m_objects.begin(); it != m_objects.end(); it++)
     {
         (*it)->applyTransform(t);
@@ -57,6 +75,11 @@ void ObjectPool::applyTransfrom(Transform t)
 
 void ObjectPool::buildBoundBox()
 {
+    // for (auto it = primitives_.begin(); it != primitives_.end(); it++)
+    // {
+    //     (*it)->getGeometry()->buildBoundBox();
+    // }
+
     for (auto it = m_objects.begin(); it != m_objects.end(); it++)
     {
         (*it)->buildBoundBox();

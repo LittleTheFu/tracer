@@ -34,10 +34,11 @@ bool SimperHitter::hitGeometryObjectOnly(const Ray &ray, Interaction &interactio
     bool hit = false;
     float tMin = MathConstant::FLOAT_MAX;
 
-    for (auto it = m_objects.begin(); it != m_objects.end(); it++)
+    // for (auto it = m_objects.begin(); it != m_objects.end(); it++)
+    for (auto it = primitives_.begin(); it != primitives_.end(); it++)
     {
         Interaction tempInteraction;
-        if ((*it)->hit(ray, tempInteraction))
+        if ((*it)->getGeometry()->hit(ray, tempInteraction))
         {
             if (tempInteraction.t < tMin)
             {
