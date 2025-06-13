@@ -6,7 +6,6 @@
 
 #include "objectpool.h"
 #include "ray.h"
-#include "tracer.h"
 #include "transform.h"
 #include "vector.h"
 #include "integrator.h"

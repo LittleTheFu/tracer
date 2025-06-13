@@ -3,7 +3,6 @@
 #include "common.h"
 #include "config.h"
 #include "curveSceneBuilder.h"
-#include "neeTracer.h"
 #include "pinholeCamera.h"
 #include "scene.h"
 #include "timeRecorder.h"
