@@ -18,6 +18,7 @@ SET (BXDF_SOURCE_FILES
     ${BXDF_DIR}/interaction.cpp
     ${BXDF_DIR}/materialLambertian.cpp
     ${BXDF_DIR}/materialPlus.cpp
+    ${BXDF_DIR}/emittingMaterial.cpp
     ${BXDF_DIR}/LambertianReflection.cpp
 )
 

@@ -6,6 +6,7 @@
 #include "normalTexture.h"
 #include "interaction.h"
 #include <memory>
+#include "color.h"
 
 
 class MaterialPlus
@@ -15,7 +16,10 @@ public:
     virtual ~MaterialPlus() = default;
 
 public:
-    virtual std::unique_ptr<Bsdf> createBsdf(const Interaction& interaction) = 0;
+    virtual std::unique_ptr<Bsdf> createBsdf(const Interaction& interaction);
+
+    virtual bool isEmitting() const;
+    virtual Color getEmittedRadiance() const;
 
 protected:
     std::shared_ptr<ImageTexture> albedo_;
