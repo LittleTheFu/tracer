@@ -137,6 +137,8 @@ void SceneBuilder::buildLight(const Vector3 &pos, float r)
 
     // m_pObjectPool->addPrimitive(lightPrimitive);
     m_pObjectPool->setLight(areaLight);
+
+    m_pObjectPool->addPrimitive(lightPrimitive);
 }
 
 void SceneBuilder::setLightIntensity(float intensity)

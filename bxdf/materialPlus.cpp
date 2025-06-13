@@ -12,5 +12,5 @@ bool MaterialPlus::isEmitting() const
 
 Color MaterialPlus::getEmittedRadiance() const
 {
-    return Color::COLOR_BLACK;
+    return Color::COLOR_WHITE;
 }

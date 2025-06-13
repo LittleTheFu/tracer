@@ -24,15 +24,22 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
             break;
         }
 
-        // if(interaction.material == nullptr)
-        // {
-        //     color += Color::COLOR_BLACK;
-        //     break;
-        // }
+        if(interaction.material == nullptr)
+        {
+            color += Color::COLOR_BLACK;
+            break;
+        }
 
 
-
+        //for debug
         assert(interaction.material != nullptr);
+
+        if (interaction.material->isEmitting())
+        {
+            color = interaction.material->getEmittedRadiance(); 
+            break;
+        }
+
         std::unique_ptr<Bsdf> bsdf = interaction.material->createBsdf(interaction);
         Vector3 wo;
         float _pdf;

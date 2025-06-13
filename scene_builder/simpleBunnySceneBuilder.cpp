@@ -5,8 +5,8 @@
 void SimpleBunnySceneBuilder::build()
 {
     buildRoom();
-    buildLight(Vector3(40, 40, 350), 20);
-    setLightIntensity(40.0f);
+    buildLight(Vector3(60, 30, 270), 10);
+    setLightIntensity(60.0f);
     
     buildBunny(Vector3(30, -100, 350), 900, ResourceDef::SIMPLE_BUNNY, MATERIAL_TYPE::M_DIELECTRIC);
 }
