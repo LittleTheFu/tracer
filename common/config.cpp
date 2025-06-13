@@ -3,7 +3,7 @@
 //don't use ROOM_VOLUME right now
 SceneType configScene = SceneType::ROOM_SIMPLE_BUNNY;
 
-int configResolutionScale = 3;
+int configResolutionScale = 1;
 int configSamplersPerPixel = 6;
 int configNeeTracerDepth = 10;
 

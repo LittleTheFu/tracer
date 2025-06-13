@@ -42,7 +42,6 @@ private:
 
 private:
     void setImage(unsigned int x, unsigned int y, const Color &color);
-    HitRecord InitHitRecord() const;
     void logProgress(unsigned int x, unsigned int y) const;
 
 private:

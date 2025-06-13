@@ -73,7 +73,6 @@ void Camera::renderPlus()
             if (m_enableLog)
                 logProgress(x, y);
 
-            HitRecord record = InitHitRecord();
             Ray ray = generateRay(static_cast<float>(x), static_cast<float>(y));
 
             Color color = Color::COLOR_BLACK;
@@ -113,16 +112,6 @@ void Camera::setImage(unsigned int x, unsigned int y, const Color &color)
     m_Image[4 * m_Width * y + 4 * x + 3] = 255;
 }
 
-HitRecord Camera::InitHitRecord() const
-{
-    HitRecord record;
-    
-    record.reflectPdf = 1;
-    record.dot = 1;
-    record.f = Color::COLOR_WHITE;
-
-    return record;
-}
 
 void Camera::logProgress(unsigned int x, unsigned int y) const
 {
