@@ -7,7 +7,6 @@
 #include "color.h"
 #include "geometry.h"
 #include "hitterInterface.h"
-#include "light.h"
 #include "ray.h"
 #include "transform.h"
 #include "interaction.h"
@@ -21,7 +20,7 @@ public:
     void addPrimitives(std::vector<std::shared_ptr<Primitive>> primitives);
 
     void setLight(std::shared_ptr<AreaLight> light);
-    
+
 public:
     std::shared_ptr<AreaLight> light_;
 

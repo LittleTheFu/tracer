@@ -5,7 +5,6 @@
 #include <vector>
 
 #include "geometry.h"
-#include "light.h"
 #include "ray.h"
 #include "interaction.h"
 #include "primitive.h"
