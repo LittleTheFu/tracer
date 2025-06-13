@@ -59,15 +59,15 @@ void ObjectPool::add(std::shared_ptr<Light> pLight)
 
 void ObjectPool::applyTransfrom(Transform t)
 {
-    // for (auto it = primitives_.begin(); it != primitives_.end(); it++)
-    // {
-    //     (*it)->getGeometry()->applyTransform(t);
-    // }
-
-    for (auto it = m_objects.begin(); it != m_objects.end(); it++)
+    for (auto it = primitives_.begin(); it != primitives_.end(); it++)
     {
-        (*it)->applyTransform(t);
+        (*it)->getGeometry()->applyTransform(t);
     }
+
+    // for (auto it = m_objects.begin(); it != m_objects.end(); it++)
+    // {
+    //     (*it)->applyTransform(t);
+    // }
 
     if(m_pLight)
         m_pLight->applyTransform(t);
@@ -75,17 +75,15 @@ void ObjectPool::applyTransfrom(Transform t)
 
 void ObjectPool::buildBoundBox()
 {
-    // for (auto it = primitives_.begin(); it != primitives_.end(); it++)
-    // {
-    //     (*it)->getGeometry()->buildBoundBox();
-    // }
-
-    for (auto it = m_objects.begin(); it != m_objects.end(); it++)
+    for (auto it = primitives_.begin(); it != primitives_.end(); it++)
     {
-        (*it)->buildBoundBox();
-        // std::cout << (*it)->getClassName() << std::endl;
-        // std::cout << (*it)->getBoundBox() << std::endl;
+        (*it)->getGeometry()->buildBoundBox();
     }
+
+    // for (auto it = m_objects.begin(); it != m_objects.end(); it++)
+    // {
+    //     (*it)->buildBoundBox();
+    // }
 }
 
 bool ObjectPool::hitScene(const Ray &ray, Interaction &interaction) const
