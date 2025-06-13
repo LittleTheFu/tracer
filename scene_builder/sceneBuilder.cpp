@@ -66,13 +66,6 @@ void SceneBuilder::buildRoom()
     backPlane->setSelfPtr(backPlane);
     backPlane->setMaterialPlus(std::make_shared<MaterialLambertian>(Color::COLOR_ORANGE));
 
-    m_pObjectPool->add(frontPlane);
-    m_pObjectPool->add(backPlane);
-    m_pObjectPool->add(topPlane);
-    m_pObjectPool->add(bottomPlane);
-    m_pObjectPool->add(leftPlane);
-    m_pObjectPool->add(rightPlane);
-
     //---------------for refactoring-------
     std::shared_ptr<GeometryPrimitive> leftPrimitive = std::make_shared<GeometryPrimitive>(leftPlane, leftPlane->getMaterialPlus());
     m_pObjectPool->addPrimitive(leftPrimitive);
@@ -157,7 +150,7 @@ void SceneBuilder::buildGlassBall(const Vector3 &pos, float r)
     std::shared_ptr<Ball> glassBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_GLASS));
     glassBall->setSelfPtr(glassBall);
 
-    m_pObjectPool->add(glassBall);
+    // m_pObjectPool->add(glassBall);
 }
 
 void SceneBuilder::buildMirrorBall(const Vector3 &pos, float r)
@@ -165,7 +158,7 @@ void SceneBuilder::buildMirrorBall(const Vector3 &pos, float r)
     std::shared_ptr<Ball> mirrorBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_MIRROR));
     mirrorBall->setSelfPtr(mirrorBall);
 
-    m_pObjectPool->add(mirrorBall);
+    // m_pObjectPool->add(mirrorBall);
 }
 
 void SceneBuilder::buildRedBall(const Vector3 &pos, float r)
@@ -174,7 +167,7 @@ void SceneBuilder::buildRedBall(const Vector3 &pos, float r)
     redBall->setSelfPtr(redBall);
     redBall->setMaterialPlus(std::make_shared<MaterialLambertian>(Color::COLOR_RED));
 
-    m_pObjectPool->add(redBall);
+    // m_pObjectPool->add(redBall);
 
     //----------------for refactoring-----------------
     std::shared_ptr<GeometryPrimitive> redPrimitive = std::make_shared<GeometryPrimitive>(redBall, redBall->getMaterialPlus());
@@ -187,7 +180,7 @@ void SceneBuilder::buildAquaBall(const Vector3 &pos, float r)
     aquaBall->setSelfPtr(aquaBall);
     aquaBall->setMaterialPlus(std::make_shared<MaterialLambertian>(Color::COLOR_AQUA));
 
-    m_pObjectPool->add(aquaBall);
+    // m_pObjectPool->add(aquaBall);
 
     //----------------for refactoring-----------------
     std::shared_ptr<GeometryPrimitive> aquaPrimitive = std::make_shared<GeometryPrimitive>(aquaBall, aquaBall->getMaterialPlus());
@@ -199,7 +192,7 @@ void SceneBuilder::buildConductorBall(const Vector3 &pos, float r)
     std::shared_ptr<Ball> conductorBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_CONDUCTOR));
     conductorBall->setSelfPtr(conductorBall);
 
-    m_pObjectPool->add(conductorBall);
+    // m_pObjectPool->add(conductorBall);
 }
 
 void SceneBuilder::buildMixBall(const Vector3 &pos, float r)
@@ -207,7 +200,7 @@ void SceneBuilder::buildMixBall(const Vector3 &pos, float r)
     std::shared_ptr<Ball> mixBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_DIELECTRIC));
     mixBall->setSelfPtr(mixBall);
 
-    m_pObjectPool->add(mixBall);
+    // m_pObjectPool->add(mixBall);
 }
 
 void SceneBuilder::buildMeasuredWhiteBall(const Vector3 &pos, float r)
@@ -215,7 +208,7 @@ void SceneBuilder::buildMeasuredWhiteBall(const Vector3 &pos, float r)
     std::shared_ptr<Ball> measuredWhiteBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_MEASURED_WHITE_BRDF));
     measuredWhiteBall->setSelfPtr(measuredWhiteBall);
 
-    m_pObjectPool->add(measuredWhiteBall);
+    // m_pObjectPool->add(measuredWhiteBall);
 }
 
 void SceneBuilder::buildMeasuredGreenBall(const Vector3 &pos, float r)
@@ -223,7 +216,7 @@ void SceneBuilder::buildMeasuredGreenBall(const Vector3 &pos, float r)
     std::shared_ptr<Ball> measuredGreenBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_MEASURED_GREEN_BRDF));
     measuredGreenBall->setSelfPtr(measuredGreenBall);
 
-    m_pObjectPool->add(measuredGreenBall);
+    // m_pObjectPool->add(measuredGreenBall);
 }
 
 void SceneBuilder::buildMeasuredMetalBall(const Vector3 &pos, float r)
@@ -231,7 +224,7 @@ void SceneBuilder::buildMeasuredMetalBall(const Vector3 &pos, float r)
     std::shared_ptr<Ball> measuredMetalBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_MEASURED_METAL_BRDF));
     measuredMetalBall->setSelfPtr(measuredMetalBall);
 
-    m_pObjectPool->add(measuredMetalBall);
+    // m_pObjectPool->add(measuredMetalBall);
 }
 
 void SceneBuilder::buildMeasuredMintBall(const Vector3 &pos, float r)
@@ -239,7 +232,7 @@ void SceneBuilder::buildMeasuredMintBall(const Vector3 &pos, float r)
     std::shared_ptr<Ball> measuredMintBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_MEASURED_MINT_BRDF));
     measuredMintBall->setSelfPtr(measuredMintBall);
 
-    m_pObjectPool->add(measuredMintBall);
+    // m_pObjectPool->add(measuredMintBall);
 }
 
 void SceneBuilder::buildMeasuredGreenPvcBall(const Vector3 &pos, float r)
@@ -247,7 +240,7 @@ void SceneBuilder::buildMeasuredGreenPvcBall(const Vector3 &pos, float r)
     std::shared_ptr<Ball> measuredGreenPvcBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_MEASURED_GREEN_PVC_BRDF));
     measuredGreenPvcBall->setSelfPtr(measuredGreenPvcBall);
 
-    m_pObjectPool->add(measuredGreenPvcBall);
+    // m_pObjectPool->add(measuredGreenPvcBall);
 }
 
 void SceneBuilder::buildMeasuredBrushedAluminiumBall(const Vector3 &pos, float r)
@@ -255,7 +248,7 @@ void SceneBuilder::buildMeasuredBrushedAluminiumBall(const Vector3 &pos, float r
     std::shared_ptr<Ball> measuredBrushedAluminiumBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_MEASURED_BRUSHED_ALUMINIUM_BRDF));
     measuredBrushedAluminiumBall->setSelfPtr(measuredBrushedAluminiumBall);
 
-    m_pObjectPool->add(measuredBrushedAluminiumBall);
+    // m_pObjectPool->add(measuredBrushedAluminiumBall);
 }
 
 void SceneBuilder::buildMeasuredTarkinTunicBall(const Vector3 &pos, float r)
@@ -263,7 +256,7 @@ void SceneBuilder::buildMeasuredTarkinTunicBall(const Vector3 &pos, float r)
     std::shared_ptr<Ball> measuredTarkinTunicBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_MEASURED_TARKIN_TUNIC_BRDF));
     measuredTarkinTunicBall->setSelfPtr(measuredTarkinTunicBall);
 
-    m_pObjectPool->add(measuredTarkinTunicBall);
+    // m_pObjectPool->add(measuredTarkinTunicBall);
 }
 
 void SceneBuilder::buildMeasuredSariSilkBall(const Vector3 &pos, float r)
@@ -271,7 +264,7 @@ void SceneBuilder::buildMeasuredSariSilkBall(const Vector3 &pos, float r)
     std::shared_ptr<Ball> measuredSariSilkBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_MEASURED_SARI_SILK_BRDF));
     measuredSariSilkBall->setSelfPtr(measuredSariSilkBall);
 
-    m_pObjectPool->add(measuredSariSilkBall);
+    // m_pObjectPool->add(measuredSariSilkBall);
 }
 
 void SceneBuilder::buildNormalMapGreenPvcBall(const Vector3 &pos, float r)
@@ -279,7 +272,7 @@ void SceneBuilder::buildNormalMapGreenPvcBall(const Vector3 &pos, float r)
     std::shared_ptr<Ball> normalMapGreenPvcBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_NORMAL_MAP_GREEN_PVC));
     normalMapGreenPvcBall->setSelfPtr(normalMapGreenPvcBall);
 
-    m_pObjectPool->add(normalMapGreenPvcBall);
+    // m_pObjectPool->add(normalMapGreenPvcBall);
 }
 
 void SceneBuilder::buildNormalMapSariSilkBall(const Vector3 &pos, float r)
@@ -287,7 +280,7 @@ void SceneBuilder::buildNormalMapSariSilkBall(const Vector3 &pos, float r)
     std::shared_ptr<Ball> normalMapSariSilkBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_NORMAL_MAP_SARI_SILK));
     normalMapSariSilkBall->setSelfPtr(normalMapSariSilkBall);
 
-    m_pObjectPool->add(normalMapSariSilkBall);
+    // m_pObjectPool->add(normalMapSariSilkBall);
 }
 
 void SceneBuilder::buildVolumeBall(const Vector3 &pos, float r)
@@ -295,7 +288,7 @@ void SceneBuilder::buildVolumeBall(const Vector3 &pos, float r)
     std::shared_ptr<Ball> volumeBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, nullptr);
     volumeBall->setSelfPtr(volumeBall);
 
-    m_pObjectPool->add(volumeBall);
+    // m_pObjectPool->add(volumeBall);
 }
 
 void SceneBuilder::buildBunny(const Vector3 &pos, float scale, const std::string &res, MATERIAL_TYPE materialType)
@@ -332,7 +325,7 @@ void SceneBuilder::buildRedTri(const Vector3 &pos)
                                                      std::make_shared<MaterialLambertian>(Color::COLOR_RED));
     tri->setSelfPtr(tri);
 
-    m_pObjectPool->add(tri);
+    // m_pObjectPool->add(tri);
 }
 
 void SceneBuilder::buildGreenTri(const Vector3 &pos)
@@ -357,7 +350,7 @@ void SceneBuilder::buildGreenTri(const Vector3 &pos)
                                                      std::make_shared<MaterialLambertian>(Color::COLOR_GREEN));
     tri->setSelfPtr(tri);
 
-    m_pObjectPool->add(tri);
+    // m_pObjectPool->add(tri);
 }
 
 void SceneBuilder::buildGlassTri(const Vector3 &pos)

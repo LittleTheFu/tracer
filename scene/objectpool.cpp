@@ -30,27 +30,27 @@ ObjectPool::ObjectPool(bool useBVH) : m_pLight(nullptr)
 
 void ObjectPool::initHitter()
 {
-    m_pHitter->init(m_objects, m_pLight, primitives_);
+    m_pHitter->init(m_pLight, primitives_);
 }
 
 void ObjectPool::log()
 {
-    size_t num = m_objects.size();
+    size_t num = primitives_.size();
     std::cout << "pool size : " << num << std::endl;
 }
 
-void ObjectPool::add(std::vector<std::shared_ptr<Geometry>> objects)
-{
-    for(auto it = objects.begin(); it != objects.end(); it++)
-    {
-        m_objects.push_back(*it);
-    }
-}
+// void ObjectPool::add(std::vector<std::shared_ptr<Geometry>> objects)
+// {
+//     for(auto it = objects.begin(); it != objects.end(); it++)
+//     {
+//         m_objects.push_back(*it);
+//     }
+// }
 
-void ObjectPool::add(std::shared_ptr<Geometry> pGeometry)
-{
-    m_objects.push_back(pGeometry);
-}
+// void ObjectPool::add(std::shared_ptr<Geometry> pGeometry)
+// {
+//     m_objects.push_back(pGeometry);
+// }
 
 void ObjectPool::add(std::shared_ptr<Light> pLight)
 {
@@ -96,33 +96,33 @@ Color ObjectPool::getColorFromLight(const Ray &ray) const
     return m_pHitter->getColorFromLight(ray);
 }
 
-std::vector<std::shared_ptr<Geometry>> ObjectPool::getObjects() const
+std::vector<std::shared_ptr<Primitive>> ObjectPool::getPrimitives() const
 {
-    return m_objects;
+    return primitives_;
 }
 
-bool ObjectPool::validBVH() const
-{
-    BVH *bvh = dynamic_cast<BVH*>(m_pHitter);
-    if(!bvh)
-        return false;
+// bool ObjectPool::validBVH() const
+// {
+//     BVH *bvh = dynamic_cast<BVH*>(m_pHitter);
+//     if(!bvh)
+//         return false;
         
-    bool allFound = true;
+//     bool allFound = true;
 
-    for(auto it = m_objects.begin(); it != m_objects.end(); it++)
-    {
-        if(bvh->search(*it))
-        {
-            std::cout << "found" <<std::endl;
-        }
-        else
-        {
-            allFound = false;
-            std::cout << "not found" <<std::endl;
-        }
-    }
+//     for(auto it = m_objects.begin(); it != m_objects.end(); it++)
+//     {
+//         if(bvh->search(*it))
+//         {
+//             std::cout << "found" <<std::endl;
+//         }
+//         else
+//         {
+//             allFound = false;
+//             std::cout << "not found" <<std::endl;
+//         }
+//     }
 
-    std::cout << "VALID ALL FOUND: " << allFound << "   &&&&&" << std::endl;
+//     std::cout << "VALID ALL FOUND: " << allFound << "   &&&&&" << std::endl;
 
-    return allFound;
-}
+//     return allFound;
+// }

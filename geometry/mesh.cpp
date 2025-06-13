@@ -71,8 +71,6 @@ void Mesh::addToPool(std::shared_ptr<ObjectPool> pool)
 {
     for(auto it = m_tris.begin(); it != m_tris.end(); it++)
     {
-        pool->add(*it);
-
         std::shared_ptr<GeometryPrimitive> primitive = std::make_shared<GeometryPrimitive>(*it, (*it)->getMaterialPlus());
         pool->addPrimitive(primitive);
     }

@@ -31,8 +31,8 @@ public:
 
     void log();
 
-    void add(std::vector<std::shared_ptr<Geometry>> objects);
-    void add(std::shared_ptr<Geometry> pGeometry);
+    // void add(std::vector<std::shared_ptr<Geometry>> objects);
+    // void add(std::shared_ptr<Geometry> pGeometry);
     void add(std::shared_ptr<Light> pLight);
 
     void applyTransfrom(Transform t);
@@ -43,14 +43,13 @@ public:
 public:
     Color getColorFromLight(const Ray &ray) const;
 
-    std::vector<std::shared_ptr<Geometry>> getObjects() const;
+    std::vector<std::shared_ptr<Primitive>> getPrimitives() const;
 
-    bool validBVH() const;
+    // bool validBVH() const;
 
     std::shared_ptr<Light> m_pLight;
 
 private:
-    std::vector<std::shared_ptr<Geometry>> m_objects;
     HitterInterface *m_pHitter;
 };
 
