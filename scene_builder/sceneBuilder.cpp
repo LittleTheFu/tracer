@@ -147,7 +147,7 @@ void SceneBuilder::setLightIntensity(float intensity)
     if (!m_pObjectPool->light_)
         return;
 
-    // m_pObjectPool->light_->setIntensity(intensity);
+    m_pObjectPool->light_->setIntensity(intensity);
 }
 
 void SceneBuilder::buildSceneWithDefaultConfig()

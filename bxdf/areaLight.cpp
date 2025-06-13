@@ -15,7 +15,7 @@ AreaLight::AreaLight(std::shared_ptr<GeometryPrimitive> geometryPrimitive)
 
 Color AreaLight::getColor() const
 {
-    return color_;
+    return color_ * intensity_;
 }
 
 void AreaLight::setIntensity(float intensity)

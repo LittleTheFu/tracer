@@ -15,7 +15,7 @@ Color SimperHitter::getColorFromLight(const Ray &ray) const
         return Color::COLOR_BLACK;
     }
 
-    Color color = light_->getColor() * light_->getIntensity();
+    Color color = light_->getColor();
 
     Interaction interaction;
     if (!hitGeometryObjectOnly(ray, interaction, light_->getGeometryPrimitive()))

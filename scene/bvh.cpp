@@ -234,7 +234,7 @@ Color BVH::getColorFromLight(const Ray &ray) const
     if (_interaction.t < interaction.t)
     {
         // return color * dot;
-        return color * _interaction.t;
+        return color;
     }
 
     return Color::COLOR_BLACK;
