@@ -54,7 +54,7 @@ void BVH::build()
     printNode(m_rootNode, "");
 }
 
-std::shared_ptr<BVHNode> BVH::generateTree(const std::vector<std::shared_ptr<Geometry>> &objects, int depth)
+std::shared_ptr<BVHNode> BVH::generateTree(const std::vector<std::shared_ptr<Primitive>> &primitives, int depth)
 {
     BoundBox objectsBoundBox = getBoundBox(objects);
 
@@ -64,6 +64,8 @@ std::shared_ptr<BVHNode> BVH::generateTree(const std::vector<std::shared_ptr<Geo
     if (depth > DEPTH || objects.size() <= 1)
     {
         node->objects = objects;
+        node->primitives = primitives;
+
         return node;
     }
 
@@ -120,7 +122,7 @@ bool BVH::_hitGeometryObjectOnly(std::shared_ptr<BVHNode> node,
                                  Interaction &interaction) const
 {
     if (node->isLeaf())
-        return hitLeaf(ray, node->objects, interaction);
+        return hitLeaf(ray, node->objects, node->primitives, interaction);
 
     BoundBox box = node->boundBox;
 
@@ -180,17 +182,19 @@ bool BVH::hitGeometryObjectOnly(const Ray &ray, Interaction &interaction) const
 
 bool BVH::hitLeaf(const Ray &ray,
                   const std::vector<std::shared_ptr<Geometry>> objects,
+                  const std::vector<std::shared_ptr<Primitive>> primitives,
                   Interaction &interaction) const
 {
     assert(objects.size() > 0);
     bool hit = false;
     float tMin = MathConstant::FLOAT_MAX;
 
-    for (auto it = objects.begin(); it != objects.end(); it++)
+    // for (auto it = objects.begin(); it != objects.end(); it++)
+    for (auto it = primitives.begin(); it != primitives.end(); it++)
     {
         Interaction tempInteraction;
 
-        if ((*it)->hit(ray, tempInteraction))
+        if ((*it)->getGeometry()->hit(ray, tempInteraction))
         {
             if (tempInteraction.t < tMin)
             {
@@ -233,68 +237,74 @@ Color BVH::getColorFromLight(const Ray &ray) const
     return Color::COLOR_BLACK;
 }
 
-BoundBox BVH::getBoundBox(const std::vector<std::shared_ptr<Geometry>> &objects) const
+BoundBox BVH::getBoundBox(const std::vector<std::shared_ptr<Primitive>> &primitives) const
 {
     // assert(objects.size() > 0);
-    BoundBox objectsBoundBox;
+    BoundBox primitivesBoundBox;
 
-    for (auto it = objects.begin(); it != objects.end(); it++)
+    for (auto it = primitives.begin(); it != primitives.end(); it++)
     {
-        objectsBoundBox.update((*it)->getBoundBox());
+        primitivesBoundBox.update((*it)->getGeometry()->getBoundBox());
     }
 
-    // assert(!objectsBoundBox.hasInfiniteComponent());
+    // assert(!primitivesBoundBox.hasInfiniteComponent());
 
-    return objectsBoundBox;
+    return primitivesBoundBox;
 }
 
-BoundBox BVH::getCentroidBox(const std::vector<std::shared_ptr<Geometry>> &objects) const
+BoundBox BVH::getCentroidBox(const std::vector<std::shared_ptr<Primitive>> &primitives) const
 {
     // assert(objects.size() > 0);
-    BoundBox centerBox;
+    BoundBox primitivesBoundBox;
 
-    for (auto it = objects.begin(); it != objects.end(); it++)
+    for (auto it = primitives.begin(); it != primitives.end(); it++)
     {
-        centerBox.update((*it)->getCentroid());
+        primitivesBoundBox.update((*it)->getGeometry()->getCentroid());
     }
 
-    // assert(!centerBox.hasInfiniteComponent());
-    return centerBox;
+    // assert(!primitivesBoundBox.hasInfiniteComponent());
+    return primitivesBoundBox;
 }
 
-void BVH::splitObjects(const std::vector<std::shared_ptr<Geometry>> &objects,
+void BVH::splitObjects(const std::vector<std::shared_ptr<Primitive>> &primitives,
                        const BoundBox &leftBox,
                        const BoundBox &rightBox,
-                       std::vector<std::shared_ptr<Geometry>> &outLeftObjects,
-                       std::vector<std::shared_ptr<Geometry>> &outRightObjects) const
+                       std::vector<std::shared_ptr<Primitive>> &outLeftPrimitives,
+                       std::vector<std::shared_ptr<Primitive>> &outRightPrimitives) const
 {
     // assert(!leftBox.hasInfiniteComponent());
     // assert(!rightBox.hasInfiniteComponent());
-    // assert(objects.size() > 0);
+    // assert(primitives.size() > 0);
 
-    for (auto it = objects.begin(); it != objects.end(); it++)
+    for (auto it = primitives.begin(); it != primitives.end(); it++)
     {
-        Vector3 centroid = (*it)->getCentroid();
+        Vector3 centroid = (*it)->getGeometry()->getCentroid();
 
         if (leftBox.isInBox(centroid))
-            outLeftObjects.push_back(*it);
+        {
+            outLeftPrimitives.push_back(*it);
+        }
 
         if (rightBox.isInBox(centroid))
-            outRightObjects.push_back(*it);
+        {
+            outRightPrimitives.push_back(*it);
+        }
     }
 
     // assert(outLeftObjects.size() + outRightObjects.size() >= objects.size());
 }
 
-void BVH::calcBestSplit(const std::vector<std::shared_ptr<Geometry>> &objects, BoundBox &outLeftBox, BoundBox &outRightBox) const
+void BVH::calcBestSplit(const std::vector<std::shared_ptr<Primitive>> &primitives,
+                        BoundBox &outLeftBox,
+                        BoundBox &outRightBox) const
 {
     // assert(objects.size() > 0);
 
     // 1.get main axis
-    BoundBox centerBox = getCentroidBox(objects);
+    BoundBox centerBox = getCentroidBox(primitives);
     Axis axis = centerBox.getMainAxis();
 
-    BoundBox boundBox = getBoundBox(objects);
+    BoundBox boundBox = getBoundBox(primitives);
 
     // 2.create buckets
     const int BUCKET_NUM = 12;
@@ -311,14 +321,14 @@ void BVH::calcBestSplit(const std::vector<std::shared_ptr<Geometry>> &objects, B
     }
 
     // 3.do calc in each bucket
-    for (auto it = objects.begin(); it != objects.end(); it++)
+    for (auto it = primitives.begin(); it != primitives.end(); it++)
     {
         for (int i = 0; i < BUCKET_NUM; i++)
         {
-            Vector3 centroid = (*it)->getBoundBox().getCenter();
+            Vector3 centroid = (*it)->getGeometry()->getCentroid();
             if (buckets[i].originBoundBox.isInBox(centroid))
             {
-                BoundBox box = (*it)->getBoundBox();
+                BoundBox box = (*it)->getGeometry()->getBoundBox();
                 buckets[i].num++;
                 buckets[i].updatedBoundBox.update(box);
             }

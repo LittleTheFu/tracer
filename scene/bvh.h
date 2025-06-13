@@ -32,21 +32,23 @@ private:
 
     void build();
 
-    std::shared_ptr<BVHNode> generateTree(const std::vector<std::shared_ptr<Geometry>> &objects, int depth);
+    std::shared_ptr<BVHNode> generateTree(const std::vector<std::shared_ptr<Primitive>> &primitives,
+                                          int depth);
     void printNode(std::shared_ptr<BVHNode> node, const std::string &prefix);
 
     bool hitLeaf(const Ray &ray,
                  const std::vector<std::shared_ptr<Geometry>> objects,
+                 const std::vector<std::shared_ptr<Primitive>> primitives,
                  Interaction &interaction) const;
 
-    BoundBox getBoundBox(const std::vector<std::shared_ptr<Geometry>> &objects) const;
-    BoundBox getCentroidBox(const std::vector<std::shared_ptr<Geometry>> &objects) const;
+    BoundBox getBoundBox(const std::vector<std::shared_ptr<Primitive>> &primitives) const;
+    BoundBox getCentroidBox(const std::vector<std::shared_ptr<Primitive>> &primitives) const;
 
-    void splitObjects(const std::vector<std::shared_ptr<Geometry>> &objects,
+    void splitObjects(const std::vector<std::shared_ptr<Primitive>> &primitives,
                       const BoundBox &leftBox,
                       const BoundBox &rightBox,
-                      std::vector<std::shared_ptr<Geometry>> &outLeftObjects, 
-                      std::vector<std::shared_ptr<Geometry>> &outRightObjects) const;
+                      std::vector<std::shared_ptr<Primitive>> &outLeftPrimitives, 
+                      std::vector<std::shared_ptr<Primitive>> &outRightPrimitives) const;
 
     class Bucket
     {
@@ -58,7 +60,9 @@ private:
         BoundBox updatedBoundBox;
     };
 
-    void calcBestSplit(const std::vector<std::shared_ptr<Geometry>> &objects, BoundBox &outLeftBox, BoundBox &outRightBox) const;
+    void calcBestSplit(const std::vector<std::shared_ptr<Primitive>> &primitives,
+                       BoundBox &outLeftBox,
+                       BoundBox &outRightBox) const;
 
 private:
     std::shared_ptr<BVHNode> m_rootNode;

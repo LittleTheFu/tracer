@@ -5,6 +5,7 @@
 #include <assimp/postprocess.h> // Post processing flags
 
 #include "mesh.h"
+#include <geometryPrimitive.h>
 
 Mesh::Mesh(const std::string fileName,
            const Vector3 pos,
@@ -71,6 +72,9 @@ void Mesh::addToPool(std::shared_ptr<ObjectPool> pool)
     for(auto it = m_tris.begin(); it != m_tris.end(); it++)
     {
         pool->add(*it);
+
+        std::shared_ptr<GeometryPrimitive> primitive = std::make_shared<GeometryPrimitive>(*it, (*it)->getMaterialPlus());
+        pool->addPrimitive(primitive);
     }
 }
 
