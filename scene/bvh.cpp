@@ -48,7 +48,7 @@ void BVH::init(const std::vector<std::shared_ptr<Geometry>> &objects,
 
 void BVH::build()
 {
-    m_rootNode = generateTree(m_objects, 0);
+    m_rootNode = generateTree(primitives_, 0);
 
     std::cout << "after generateTree" << std::endl;
     printNode(m_rootNode, "");
@@ -56,52 +56,51 @@ void BVH::build()
 
 std::shared_ptr<BVHNode> BVH::generateTree(const std::vector<std::shared_ptr<Primitive>> &primitives, int depth)
 {
-    BoundBox objectsBoundBox = getBoundBox(objects);
+    BoundBox primitivesBoundBox = getBoundBox(primitives);
 
     std::shared_ptr<BVHNode> node = std::make_shared<BVHNode>();
-    node->boundBox = objectsBoundBox;
+    node->boundBox = primitivesBoundBox;
 
-    if (depth > DEPTH || objects.size() <= 1)
+    if (depth > DEPTH || primitives.size() <= 1)
     {
-        node->objects = objects;
         node->primitives = primitives;
 
         return node;
     }
 
     // 1.get the main axis
-    BoundBox centroidBox = getCentroidBox(objects);
+    BoundBox centroidBox = getCentroidBox(primitives);
     Axis axis = centroidBox.getMainAxis();
 
     // 2.get the position to split along the axis
     // split bound box
     BoundBox leftChildBoundBox, rightChildBoundBox;
-    calcBestSplit(objects, leftChildBoundBox, rightChildBoundBox);
+    calcBestSplit(primitives, leftChildBoundBox, rightChildBoundBox);
 
     // 3.split objects into two children
-    std::vector<std::shared_ptr<Geometry>> leftObjects, rightObjects;
-    splitObjects(objects, leftChildBoundBox, rightChildBoundBox, leftObjects, rightObjects);
+    std::vector<std::shared_ptr<Primitive>> leftPrimitives, rightPrimitives;
+    splitObjects(primitives, leftChildBoundBox, rightChildBoundBox, leftPrimitives, rightPrimitives);
 
-    if (leftObjects.size() == objects.size())
+    if (leftPrimitives.size() == primitives.size())
     {
-        node->objects = objects;
+        node->primitives = primitives;
         return node;
     }
 
-    if (rightObjects.size() == objects.size())
+    if (rightPrimitives.size() == primitives.size())
     {
-        node->objects = objects;
+        node->primitives = primitives;
         return node;
     }
 
-    if (leftObjects.size() > 0)
-        node->leftChild = generateTree(leftObjects, depth + 1);
+    if (leftPrimitives.size() > 0)
+        node->leftChild = generateTree(leftPrimitives, depth + 1);
 
-    if (rightObjects.size() > 0)
-        node->rightChild = generateTree(rightObjects, depth + 1);
+    if (rightPrimitives.size() > 0)
+        node->rightChild = generateTree(rightPrimitives, depth + 1);
 
     if (!node->leftChild && !node->rightChild)
-        node->objects = objects;
+        node->primitives = primitives; 
 
     return node;
 }
@@ -185,7 +184,7 @@ bool BVH::hitLeaf(const Ray &ray,
                   const std::vector<std::shared_ptr<Primitive>> primitives,
                   Interaction &interaction) const
 {
-    assert(objects.size() > 0);
+    assert(primitives.size() > 0);
     bool hit = false;
     float tMin = MathConstant::FLOAT_MAX;
 
