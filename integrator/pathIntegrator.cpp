@@ -24,11 +24,11 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
             break;
         }
 
-        if(interaction.material == nullptr)
-        {
-            color += Color::COLOR_BLACK;
-            break;
-        }
+        // if(interaction.material == nullptr)
+        // {
+        //     color += Color::COLOR_BLACK;
+        //     break;
+        // }
 
 
 
