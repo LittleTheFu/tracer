@@ -106,46 +106,29 @@ bool Ball::isIn(const Vector3 &point) const
     return false;
 }
 
-bool Ball::hit(const Ray &ray, HitRecord &record, Interaction &interaction) const
+bool Ball::hit(const Ray &ray, Interaction &interaction) const
 {
     const Ray newRay = ray.genNewRay(m_transform);
 
-    if (!testHit(newRay, record.t))
+    if (!testHit(newRay, interaction.t))
         return false;
 
-    record.transform = m_transform;
-
-    const Vector3 localPoint = newRay.getPosition(record.t);
-    record.point = m_transform.transformPoint(localPoint);
-    record.localPoint = localPoint;
+    const Vector3 localPoint = newRay.getPosition(interaction.t);
+    interaction.point = m_transform.transformPoint(localPoint);
 
     Vector3 localNormal = getLocalNormal(localPoint);
     if(m_pMtrl && m_pMtrl->isNormalTextureValid()) //quick and dirty, only for test.localNomal should be renamed
     {
         localNormal = getNormalFromNormalMap(localNormal, localPoint);
     }
-    record.normal = m_transform.transformNormal(localNormal);
+    interaction.normal_geometry = m_transform.transformNormal(localNormal);
+    interaction.normal_shading = m_transform.transformNormal(localNormal);
 
-    record.u = u(localPoint);
-    record.v = v(localPoint);
+    interaction.u = u(localPoint);
+    interaction.v = v(localPoint);
 
-    interaction.point = record.point;
-    interaction.normal_geometry = record.normal;
-    interaction.normal_shading = record.normal;
-    interaction.u = record.u;
-    interaction.v = record.v;
     interaction.geometry = getSelfPtr();
     interaction.material = getMaterialPlus();
-
-    if (m_pMtrl)
-    {
-        HandleMaterial(localNormal, localPoint, newRay, record);
-    }
-    else
-    {
-        // for volume rendering(just for test now)
-        record.isVolumeBoundery = true;
-    }
 
     return true;
 }
@@ -259,25 +242,6 @@ bool Ball::getHitParam(float t_min, float t_max, float &t_out) const
     }
 
     return hit;
-}
-
-void Ball::HandleMaterial(const Vector3 &localNormal, const Vector3 &localPoint, const Ray &newRay, HitRecord &record) const
-{
-    Frame frame(localNormal, dpdu(localPoint), Vector3::ZERO);
-
-    const Vector3 local_wo = frame.pointToLocal(-newRay.dir);
-    Vector3 r;
-    record.f = m_pMtrl->eval(record.u, record.v, local_wo, r, record.reflectPdf, record.isDelta, record.brdf);
-    record.dot = MathUtility::clamp(std::abs(r * Common::LOCAL_NORMAL), MathConstant::FLOAT_SMALL_NUMBER, 1.0f);
-
-    Vector3 localReflectVector = frame.pointToWorld(r);
-    localReflectVector.normalize();
-    record.reflect = m_transform.transformVector(localReflectVector);
-
-    if (record.isDelta)
-    {
-        record.dot = 1;
-    }
 }
 
 void Ball::genRayHitParam(const Ray &ray, float &a_out, float &b_out, float &c_out) const

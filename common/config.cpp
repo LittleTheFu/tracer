@@ -1,7 +1,7 @@
 #include "config.h"
 
 //don't use ROOM_VOLUME right now
-SceneType configScene = SceneType::ROOM_SIMPLE_BUNNY;
+SceneType configScene = SceneType::ROOM_SIMPLE;
 
 int configResolutionScale = 1;
 int configSamplersPerPixel = 6;

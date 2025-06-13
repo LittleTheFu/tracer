@@ -63,19 +63,18 @@ void Tri::getSplitChildren(Tri *outTri_1, Tri *outTri_2, Tri *outTri_3) const
 // 1.to object frame
 // 2.then to tri frame built from face normal
 // 3.then to tri frame built from weighted normal
-bool Tri::hit(const Ray &ray, HitRecord &record, Interaction &interaction) const
+bool Tri::hit(const Ray &ray, Interaction &interaction) const
 {
-    record.t = MathConstant::FLOAT_MAX;
     Ray newRay = ray.genNewRay(m_transform);
 
     Frame frame(m_normal, m_ab, m_a.pos);
     Ray localRay = newRay.genNewRay(frame);
 
-    if (!testHit(localRay, record.t))
+    if (!testHit(localRay, interaction.t))
         return false;
 
     //reduntant code,refactor later...
-    Vector3 localPoint = localRay.getPosition(record.t);
+    Vector3 localPoint = localRay.getPosition(interaction.t);
     Vector3 _objPoint = frame.pointToWorld(localPoint);
 
     Vector3 pixelNormal = getWeightedNormal(_objPoint);
@@ -89,35 +88,18 @@ bool Tri::hit(const Ray &ray, HitRecord &record, Interaction &interaction) const
     Frame pixelFrame(pixelNormal, m_ab, _objPoint);
     Vector3 weghtedRayDir = pixelFrame.vectorToLocal(frame.vectorToWorld(localRay.dir));
 
-    record.transform = m_transform;
-    record.point = m_transform.transformPoint(_objPoint);
+    interaction.point = m_transform.transformPoint(_objPoint);
 
-    record.u = u(_objPoint);
-    record.v = v(_objPoint);
+    interaction.u = u(_objPoint);
+    interaction.v = v(_objPoint);
 
-    record.normal = m_transform.transformNormal(pixelFrame.vectorToWorld(Common::LOCAL_NORMAL));
+    interaction.normal_geometry = m_transform.transformNormal(pixelFrame.vectorToWorld(Common::LOCAL_NORMAL));
+    interaction.normal_shading = m_transform.transformNormal(pixelFrame.vectorToWorld(Common::LOCAL_NORMAL));
 
-    if (m_pMtrl)
-    {
-        Vector3 r;
-        record.f = m_pMtrl->eval(record.u, record.v, -weghtedRayDir, r, record.reflectPdf, record.isDelta, record.brdf);
-
-        record.dot = MathUtility::clamp(std::abs(r * Common::LOCAL_NORMAL), 0.0f, 1.0f);
-        record.reflect = m_transform.transformVector(pixelFrame.vectorToWorld(r));
-
-        if (record.isDelta)
-        {
-            record.dot = 1;
-        }
-    }
-
-    interaction.point = record.point;
-    interaction.normal_geometry = record.normal;
-    interaction.normal_shading = record.normal;
-    interaction.u = record.u;
-    interaction.v = record.v;
     interaction.geometry = getSelfPtr();
     interaction.material = getMaterialPlus();
+
+    assert(interaction.material);
 
     return true;
 }

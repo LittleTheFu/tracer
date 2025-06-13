@@ -18,7 +18,7 @@ public:
 
 public:
     virtual void init(const std::vector<std::shared_ptr<Geometry>> &objects, std::shared_ptr<const Light> light) override;
-    virtual bool hitGeometryObjectOnly(const Ray &ray, HitRecord &record, Interaction &interaction) const override;
+    virtual bool hitGeometryObjectOnly(const Ray &ray, Interaction &interaction) const override;
     
 public:
     virtual Color getColorFromLight(const Ray &ray) const override;
@@ -26,7 +26,6 @@ public:
 private:
     bool _hitGeometryObjectOnly(std::shared_ptr<BVHNode> node,
                                 const Ray &ray,
-                                HitRecord &record,
                                 Interaction &interaction) const;
 
     void build();
@@ -36,7 +35,6 @@ private:
 
     bool hitLeaf(const Ray &ray,
                  const std::vector<std::shared_ptr<Geometry>> objects,
-                 HitRecord &record,
                  Interaction &interaction) const;
 
     BoundBox getBoundBox(const std::vector<std::shared_ptr<Geometry>> &objects) const;

@@ -6,7 +6,6 @@
 
 #include "color.h"
 #include "geometry.h"
-#include "hitrecord.h"
 #include "hitterInterface.h"
 #include "light.h"
 #include "ray.h"
@@ -29,7 +28,7 @@ public:
     void applyTransfrom(Transform t);
     void buildBoundBox();
 
-    bool hitScene(const Ray &ray, HitRecord &record, Interaction &interaction) const;
+    bool hitScene(const Ray &ray, Interaction &interaction) const;
     
 public:
     Color getColorFromLight(const Ray &ray) const;

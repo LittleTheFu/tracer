@@ -10,7 +10,7 @@ class Plane : public Geometry
 {
 public:
     Plane(const Vector3 &rotate, const Vector3 &position, float length, std::shared_ptr<Material> pMtrl);
-    virtual bool hit(const Ray &ray, HitRecord &record, Interaction &interaction) const override;
+    virtual bool hit(const Ray &ray, Interaction &interaction) const override;
 
     virtual Vector3 getCentroid() const override;
     virtual float surfaceArea() const override;
@@ -31,9 +31,6 @@ private:
     bool isLocalIn(const Vector3 &p) const;
 
     int m_uvCellSize;
-
-private:
-    void HandleMaterial(const Ray &newRay, HitRecord &record) const;
 };
 
 #endif

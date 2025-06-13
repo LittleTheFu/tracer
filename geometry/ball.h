@@ -12,7 +12,7 @@ public:
     Ball();
     Ball(const Vector3 &rotate, const Vector3 &position, float r, std::shared_ptr<Material> pMtrl);
 
-    virtual bool hit(const Ray &ray, HitRecord &record, Interaction &interaction) const override;
+    virtual bool hit(const Ray &ray, Interaction &interaction) const override;
     virtual Vector3 sampleFromPoint(const Vector3 &thatPoint, float &pdf) const override;
     Vector3 getLocalDirection(float u, float v) const;
 
@@ -43,9 +43,6 @@ private:
 private:
     bool getHitParam(float t_min, float t_max, float &t_out) const;
     void genRayHitParam(const Ray &ray, float &a_out, float &b_out, float &c_out) const;
-
-private:
-    void HandleMaterial(const Vector3 &localNormal, const Vector3 &localPoint, const Ray &newRay, HitRecord &record) const;
 };
 
 #endif

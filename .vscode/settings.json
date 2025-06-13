@@ -149,7 +149,8 @@
     "cassert": "cpp",
     "xstddef": "cpp",
     "valarray": "cpp",
-    "future": "cpp"
+    "future": "cpp",
+    "*.rh": "cpp"
   },
   "C_Cpp.default.compilerPath": "cl.exe"
 }

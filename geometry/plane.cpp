@@ -18,18 +18,16 @@ Plane::Plane(const Vector3 &rotate, const Vector3 &position, float length, std::
     this->m_uvCellSize = 100;
 }
 
-bool Plane::hit(const Ray &ray, HitRecord &record, Interaction &interaction) const
+bool Plane::hit(const Ray &ray, Interaction &interaction) const
 {
-    record.t = MathConstant::FLOAT_MAX;
-
     const Ray newRay = ray.genNewRay(m_transform);
     bool reverse = false;
 
-    if(!testHit(newRay, record.t))
+    if(!testHit(newRay, interaction.t))
         return false;
 
     //refactor later...
-    Vector3 localPoint = newRay.getPosition(record.t);
+    Vector3 localPoint = newRay.getPosition(interaction.t);
     Vector3 localNormal = Common::LOCAL_NORMAL;
 
     //refactor later...
@@ -38,25 +36,14 @@ bool Plane::hit(const Ray &ray, HitRecord &record, Interaction &interaction) con
     {
         localNormal = getNormalFromNormalMap(localNormal, localPoint);
     }
-   
-    record.transform = m_transform;
 
-    record.point = m_transform.transformPoint(localPoint);
-    record.normal = m_transform.transformNormal(localNormal);
+    interaction.point = m_transform.transformPoint(localPoint);
+    interaction.normal_geometry = m_transform.transformNormal(localNormal);
+    interaction.normal_shading = interaction.normal_geometry;
 
-    record.u = u(localPoint);
-    record.v = v(localPoint);
+    interaction.u = u(localPoint);
+    interaction.v = v(localPoint);
 
-    if (m_pMtrl)
-    {
-        HandleMaterial(newRay, record);
-    }
-
-    interaction.point = record.point;
-    interaction.normal_geometry = record.normal;
-    interaction.normal_shading = record.normal;
-    interaction.u = record.u;
-    interaction.v = record.v;
     interaction.geometry = getSelfPtr();
     interaction.material = getMaterialPlus();
 
@@ -112,19 +99,6 @@ bool Plane::testHit(const Ray &localRay, float &t) const
     }
 
     return true;
-}
-
-void Plane::HandleMaterial(const Ray &newRay, HitRecord &record) const
-{
-    Vector3 r;
-    record.f = m_pMtrl->eval(record.u, record.v, -newRay.dir, r, record.reflectPdf, record.isDelta, record.brdf);
-    record.dot = MathUtility::clamp(std::abs(r * Common::LOCAL_NORMAL), MathConstant::FLOAT_SMALL_NUMBER, 1.0f);
-    record.reflect = m_transform.transformVector(r);
-
-    if (record.isDelta)
-    {
-        record.dot = 1;
-    }
 }
 
 Vector3 Plane::dpdu(const Vector3 &point) const

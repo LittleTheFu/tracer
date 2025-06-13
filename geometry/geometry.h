@@ -4,12 +4,12 @@
 #include <memory>
 
 #include "boundBox.h"
-#include "hitrecord.h"
 #include "media.h"
 #include "ray.h"
 #include "tagDef.h"
 #include "transform.h"
 #include "vector.h"
+#include "material.h"
 
 //for refactoring
 #include "interaction.h"
@@ -33,7 +33,7 @@ public:
 
     Vector3 getLocalPosition(const Vector3 &worldPosition) const;
 
-    virtual bool hit(const Ray &ray, HitRecord &record, Interaction &interaction) const = 0;
+    virtual bool hit(const Ray &ray, Interaction &interaction) const = 0;
     virtual Vector3 sampleFromPoint(const Vector3 &thatPoint, float &pdf) const;
     
     virtual Vector3 getCentroid() const;

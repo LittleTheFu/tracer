@@ -4,8 +4,6 @@
 
 Geometry::Geometry()
 {
-    m_pMtrl = nullptr;
-
     //for refactoring--------------------------------------
     m_pMtrlPlus = nullptr;
     selfPtr_ = nullptr;

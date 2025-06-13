@@ -61,7 +61,7 @@ TriVertex Mesh::createTriVertex(const aiMesh* mesh, unsigned int index, float sc
     return tri;
 }
 
-bool Mesh::hit(const Ray &ray, HitRecord &record, Interaction &interaction) const
+bool Mesh::hit(const Ray &ray, Interaction &interaction) const
 {
     return false;
 }

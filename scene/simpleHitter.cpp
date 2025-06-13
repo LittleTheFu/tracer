@@ -15,14 +15,13 @@ Color SimperHitter::getColorFromLight(const Ray &ray) const
 
     Color color = m_pLight->getColor();
 
-    HitRecord record;
     Interaction interaction;
-    if (!hitGeometryObjectOnly(ray, record, interaction))
+    if (!hitGeometryObjectOnly(ray, interaction))
     {
         return color;
     }
 
-    if (t < record.t)
+    if (t < interaction.t)
     {
         return color;
     }
@@ -30,22 +29,19 @@ Color SimperHitter::getColorFromLight(const Ray &ray) const
     return Color::COLOR_BLACK;
 }
 
-bool SimperHitter::hitGeometryObjectOnly(const Ray &ray, HitRecord &record, Interaction &interaction) const
+bool SimperHitter::hitGeometryObjectOnly(const Ray &ray, Interaction &interaction) const
 {
     bool hit = false;
     float tMin = MathConstant::FLOAT_MAX;
 
     for (auto it = m_objects.begin(); it != m_objects.end(); it++)
     {
-        HitRecord tempRecord;
-
         Interaction tempInteraction;
-        if ((*it)->hit(ray, tempRecord, tempInteraction))
+        if ((*it)->hit(ray, tempInteraction))
         {
-            if (tempRecord.t < tMin)
+            if (tempInteraction.t < tMin)
             {
-                tMin = tempRecord.t;
-                record = tempRecord;
+                tMin = tempInteraction.t;
                 interaction = tempInteraction;
                 hit = true;
             }

@@ -39,7 +39,6 @@ SET (RAY_TRACER_SOURCE
     common/common.cpp
     common/config.cpp
     common/converter.cpp
-    common/hitrecord.cpp
     common/mathUtility.cpp
     common/noise.cpp
     common/spectrum.cpp
@@ -119,7 +118,6 @@ SET (RAY_TRACER_HEADER
     common/common.h
     common/config.h
     common/converter.h
-    common/hitrecord.h
     common/mathConstantDef.h
     common/mathUtility.h
     common/noise.h

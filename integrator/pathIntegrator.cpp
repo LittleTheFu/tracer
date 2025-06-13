@@ -16,10 +16,9 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
             break;
         depth++;
 
-        HitRecord record;
         Interaction interaction;
 
-        if (!pool->hitScene(hitRay, record, interaction))
+        if (!pool->hitScene(hitRay, interaction))
         {
             color += Color::COLOR_BLACK;
             break;
@@ -46,13 +45,11 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
 
         color += beta * f * _directLight;
 
-        beta *= (f * record.dot) / _pdf;
+        float dot = std::abs(interaction.normal_geometry * hitRay.dir);
+        beta *= (f * dot) / _pdf;
 
-        HitRecord nextRecord;
-        nextRecord.point = interaction.point;
-        nextRecord.normal = interaction.normal_shading;
-        nextRecord.reflect = wo;
-        hitRay = genNextRay(nextRecord);
+        hitRay = genNextRay(interaction.point, interaction.normal_shading, wo);
+
     }
 
     return color;
@@ -96,23 +93,12 @@ Color PathIntegrator::sampleLightFromNormalMaterial(std::shared_ptr<const Object
     return lightColor * (absDot / sampleLightPdf);
 }
 
-Ray PathIntegrator::genNextRay(const HitRecord &record) const
+Ray PathIntegrator::genNextRay(const Vector3 &pos, const Vector3 &normal, const Vector3 &reflect) const
 {
-    float sign = MathUtility::getSign(record.normal * record.reflect);
+     float sign = MathUtility::getSign(normal * reflect);
 
     //  multiply by a 0.001f is a lazy way to avoid self intersection
-    Vector3 origin = record.point + sign * record.normal * 0.001f;
+    Vector3 origin = pos + sign * reflect * 0.001f;
 
-    return Ray(origin, record.reflect);
-}
-
-void PathIntegrator::getLocalWoWi(const HitRecord &record, const Vector3 &worldWo, const Vector3 &worldWi, Vector3 &wo, Vector3 &wi) const
-{
-    Frame frame(record.normal, record.point);
-
-    wo = frame.vectorToLocal(worldWo);
-    wi = frame.vectorToLocal(worldWi);
-
-    wo.normalize();
-    wi.normalize();
+    return Ray(origin, reflect);
 }

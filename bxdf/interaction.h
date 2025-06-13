@@ -27,6 +27,9 @@ public:
 
     std::shared_ptr<Geometry> geometry;
     std::shared_ptr<MaterialPlus> material;
+
+    //---for refactoring---
+    float t;
 };
 
 #endif

@@ -18,14 +18,9 @@ private:
                                         const Vector3 &normal,
                                         Ray &sampleRay) const;
 
-    Ray genNextRay(const HitRecord &record) const;
-
-private:
-    void getLocalWoWi(const HitRecord &record,
-                      const Vector3 &worldWo,
-                      const Vector3 &worldWi,
-                      Vector3 &wo,
-                      Vector3 &wi) const;
+    Ray genNextRay(const Vector3 &pos,
+                   const Vector3 &normal,
+                   const Vector3 &reflect) const;
 
 private:
     int m_depth;

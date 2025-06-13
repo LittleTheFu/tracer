@@ -1,6 +1,5 @@
 #include "ball.h"
 #include "config.h"
-#include "hitrecord.h"
 #include "mathUtility.h"
 
 #include "light.h"
@@ -23,18 +22,16 @@ void Light::setTag(Tag tag)
 
 bool Light::hit(const Ray &ray, float &t, Vector3 &normal, float &dot) const
 {
-    HitRecord record;
-
     Interaction interaction;
-    bool isHit = m_pBall->hit(ray, record, interaction);
+    bool isHit = m_pBall->hit(ray, interaction);
 
     if(!isHit)
     {
         int k = 3;
     }
 
-    t = record.t;
-    normal = record.normal;
+    t = interaction.t;
+    normal = interaction.normal_geometry;
     dot = MathUtility::clamp((-ray.dir) * normal, 0, 1);
 
     return isHit;

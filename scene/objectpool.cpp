@@ -65,9 +65,9 @@ void ObjectPool::buildBoundBox()
     }
 }
 
-bool ObjectPool::hitScene(const Ray &ray, HitRecord &record, Interaction &interaction) const
+bool ObjectPool::hitScene(const Ray &ray, Interaction &interaction) const
 {
-    return m_pHitter->hitGeometryObjectOnly(ray, record, interaction);
+    return m_pHitter->hitGeometryObjectOnly(ray, interaction);
 }
 
 Color ObjectPool::getColorFromLight(const Ray &ray) const

@@ -21,7 +21,7 @@ public:
          std::shared_ptr<Material> pMtrl,
          std::shared_ptr<MaterialPlus> pMtrlPlus);
 
-    virtual bool hit(const Ray &ray, HitRecord &record, Interaction &interaction) const override;
+    virtual bool hit(const Ray &ray, Interaction &interaction) const override;
 
 public:
     void addToPool(std::shared_ptr<ObjectPool> pool);

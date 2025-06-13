@@ -4,6 +4,7 @@
 #include "geometry.h"
 #include "vector.h"
 #include <memory>
+#include <material.h>
 
 class TriVertex
 {
@@ -47,7 +48,7 @@ public:
 
     void getSplitChildren(Tri *outTri_1, Tri *outTri_2, Tri *outTri_3) const;
 
-    virtual bool hit(const Ray &ray, HitRecord &record, Interaction &interaction) const override;
+    virtual bool hit(const Ray &ray, Interaction &interaction) const override;
     
     virtual Vector3 getCentroid() const override;
     virtual float surfaceArea() const override;
