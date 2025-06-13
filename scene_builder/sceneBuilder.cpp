@@ -135,7 +135,8 @@ void SceneBuilder::buildLight(const Vector3 &pos, float r)
     std::shared_ptr<GeometryPrimitive> lightPrimitive = std::make_shared<GeometryPrimitive>(ball, lightMaterial);
     std::shared_ptr<AreaLight> areaLight = std::make_shared<AreaLight>(lightPrimitive);
 
-    m_pObjectPool->addPrimitive(lightPrimitive);
+    // m_pObjectPool->addPrimitive(lightPrimitive);
+    m_pObjectPool->setLight(areaLight);
 }
 
 void SceneBuilder::setLightIntensity(float intensity)
@@ -143,10 +144,10 @@ void SceneBuilder::setLightIntensity(float intensity)
     if (!m_pObjectPool)
         return;
 
-    if (!m_pObjectPool->m_pLight)
+    if (!m_pObjectPool->light_)
         return;
 
-    m_pObjectPool->m_pLight->setIntensity(intensity);
+    // m_pObjectPool->light_->setIntensity(intensity);
 }
 
 void SceneBuilder::buildSceneWithDefaultConfig()

@@ -117,10 +117,11 @@ void BVH::printNode(std::shared_ptr<BVHNode> node, const std::string &prefix)
 
 bool BVH::_hitGeometryObjectOnly(std::shared_ptr<BVHNode> node,
                                  const Ray &ray,
-                                 Interaction &interaction) const
+                                 Interaction &interaction,
+                                std::shared_ptr<Primitive> skipPrimitive) const
 {
     if (node->isLeaf())
-        return hitLeaf(ray, node->objects, node->primitives, interaction);
+        return hitLeaf(ray, node->objects, node->primitives, interaction, skipPrimitive);
 
     BoundBox box = node->boundBox;
 
@@ -141,10 +142,10 @@ bool BVH::_hitGeometryObjectOnly(std::shared_ptr<BVHNode> node,
     if (isIn || isHit)
     {
         if (leftChild)
-            isLeftChildHit = _hitGeometryObjectOnly(leftChild, ray, leftInteraction);
+            isLeftChildHit = _hitGeometryObjectOnly(leftChild, ray, leftInteraction, skipPrimitive);
 
         if (rightChild)
-            isRightChildHit = _hitGeometryObjectOnly(rightChild, ray, rightInteraction);
+            isRightChildHit = _hitGeometryObjectOnly(rightChild, ray, rightInteraction, skipPrimitive);
 
         // quick and dirty
         if (!isLeftChildHit && !isRightChildHit)
@@ -173,15 +174,16 @@ bool BVH::_hitGeometryObjectOnly(std::shared_ptr<BVHNode> node,
     return false;
 }
 
-bool BVH::hitGeometryObjectOnly(const Ray &ray, Interaction &interaction) const
+bool BVH::hitGeometryObjectOnly(const Ray &ray, Interaction &interaction, std::shared_ptr<Primitive> skipPrimitive) const
 {
-    return _hitGeometryObjectOnly(m_rootNode, ray, interaction);
+    return _hitGeometryObjectOnly(m_rootNode, ray, interaction, skipPrimitive);
 }
 
 bool BVH::hitLeaf(const Ray &ray,
                   const std::vector<std::shared_ptr<Geometry>> objects,
                   const std::vector<std::shared_ptr<Primitive>> primitives,
-                  Interaction &interaction) const
+                  Interaction &interaction,
+                  std::shared_ptr<Primitive> skipPrimitive) const
 {
     assert(primitives.size() > 0);
     bool hit = false;
@@ -190,6 +192,9 @@ bool BVH::hitLeaf(const Ray &ray,
     // for (auto it = objects.begin(); it != objects.end(); it++)
     for (auto it = primitives.begin(); it != primitives.end(); it++)
     {
+        if (skipPrimitive == (*it))
+            continue;
+
         Interaction tempInteraction;
 
         if ((*it)->getGeometry()->hit(ray, tempInteraction))
@@ -220,16 +225,16 @@ Color BVH::getColorFromLight(const Ray &ray) const
     Color color = light_->getColor();
 
     Interaction interaction;
-    if (!_hitGeometryObjectOnly(m_rootNode, ray, interaction))
+    if (!_hitGeometryObjectOnly(m_rootNode, ray, interaction, light_->getGeometryPrimitive()))
     {
         // return color * dot;
         return color;
     }
 
-    if (t < interaction.t)
+    if (_interaction.t < interaction.t)
     {
         // return color * dot;
-        return color;
+        return color * _interaction.t;
     }
 
     return Color::COLOR_BLACK;

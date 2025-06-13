@@ -19,7 +19,8 @@ public:
 public:
     virtual void init(std::shared_ptr<const AreaLight> light,
                        const std::vector<std::shared_ptr<Primitive>> &primitives) override;
-    virtual bool hitGeometryObjectOnly(const Ray &ray, Interaction &interaction) const override;
+    virtual bool hitGeometryObjectOnly(const Ray &ray, Interaction &interaction, std::shared_ptr<Primitive> skipPrimitive = nullptr) const override;
+
     
 public:
     virtual Color getColorFromLight(const Ray &ray) const override;
@@ -27,7 +28,9 @@ public:
 private:
     bool _hitGeometryObjectOnly(std::shared_ptr<BVHNode> node,
                                 const Ray &ray,
-                                Interaction &interaction) const;
+                                Interaction &interaction,
+                                std::shared_ptr<Primitive> skipPrimitive = nullptr) const;
+
 
     void build();
 
@@ -38,7 +41,9 @@ private:
     bool hitLeaf(const Ray &ray,
                  const std::vector<std::shared_ptr<Geometry>> objects,
                  const std::vector<std::shared_ptr<Primitive>> primitives,
-                 Interaction &interaction) const;
+                 Interaction &interaction,
+                 std::shared_ptr<Primitive> skipPrimitive = nullptr) const;
+
 
     BoundBox getBoundBox(const std::vector<std::shared_ptr<Primitive>> &primitives) const;
     BoundBox getCentroidBox(const std::vector<std::shared_ptr<Primitive>> &primitives) const;

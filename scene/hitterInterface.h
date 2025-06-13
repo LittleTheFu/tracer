@@ -18,8 +18,8 @@ public:
                       const std::vector<std::shared_ptr<Primitive>> &primitives);
     virtual Color getColorFromLight(const Ray &ray) const;
 
-    //dirty:
-    virtual bool hitGeometryObjectOnly(const Ray &ray, Interaction &interaction) const;
+    //dirty: light ptr
+    virtual bool hitGeometryObjectOnly(const Ray &ray, Interaction &interaction, std::shared_ptr<Primitive> skipPrimitive = nullptr) const;
 
 protected:
 

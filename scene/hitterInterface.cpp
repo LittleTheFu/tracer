@@ -12,7 +12,7 @@ Color HitterInterface::getColorFromLight(const Ray &ray) const
     return Color();
 }
 
-bool HitterInterface::hitGeometryObjectOnly(const Ray &ray, Interaction &interaction) const
+bool HitterInterface::hitGeometryObjectOnly(const Ray &ray, Interaction &interaction, std::shared_ptr<Primitive> skipPrimitive) const
 {
     return false;
 }

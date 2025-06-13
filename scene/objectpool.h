@@ -21,10 +21,12 @@ public:
     void addPrimitives(std::vector<std::shared_ptr<Primitive>> primitives);
 
     void setLight(std::shared_ptr<AreaLight> light);
+    
+public:
+    std::shared_ptr<AreaLight> light_;
 
 private:
     std::vector<std::shared_ptr<Primitive>> primitives_;
-    std::shared_ptr<AreaLight> light_;
 //-----end----------------
 
 public:
@@ -49,8 +51,6 @@ public:
     std::vector<std::shared_ptr<Primitive>> getPrimitives() const;
 
     // bool validBVH() const;
-
-    std::shared_ptr<AreaLight> m_pLight;
 
 private:
     HitterInterface *m_pHitter;

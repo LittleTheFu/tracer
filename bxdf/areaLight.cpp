@@ -10,7 +10,7 @@ AreaLight::AreaLight(std::shared_ptr<GeometryPrimitive> geometryPrimitive)
     assert(geometryPrimitive_->isEmitting());
 
     color_ = geometryPrimitive_->getMaterial()->getEmittedRadiance();
-    intensity_ = 80.0f;
+    intensity_ = 40.0f;
 }
 
 Color AreaLight::getColor() const

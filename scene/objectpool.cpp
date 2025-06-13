@@ -24,7 +24,7 @@ void ObjectPool::setLight(std::shared_ptr<AreaLight> light)
 }
 //-----------------end------------------------------
 
-ObjectPool::ObjectPool(bool useBVH) : m_pLight(nullptr)
+ObjectPool::ObjectPool(bool useBVH) : light_(nullptr)
 {
     if (useBVH)
         m_pHitter = new BVH();
@@ -34,7 +34,7 @@ ObjectPool::ObjectPool(bool useBVH) : m_pLight(nullptr)
 
 void ObjectPool::initHitter()
 {
-    m_pHitter->init(m_pLight, primitives_);
+    m_pHitter->init(light_, primitives_);
 }
 
 void ObjectPool::log()

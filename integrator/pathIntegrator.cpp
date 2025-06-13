@@ -76,7 +76,7 @@ Color PathIntegrator::sampleLightFromNormalMaterial(std::shared_ptr<const Object
     // return Color::COLOR_WHITE * 100;
 
     float sampleLightPdf;
-    Vector3 lightSurfacePoint = pool->m_pLight->sample(pos, sampleLightPdf);
+    Vector3 lightSurfacePoint = pool->light_->sample(pos, sampleLightPdf);
 
     Vector3 lightDir = lightSurfacePoint - pos;
     lightDir.normalize();
