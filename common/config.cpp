@@ -3,8 +3,8 @@
 //don't use ROOM_VOLUME right now
 SceneType configScene = SceneType::ROOM_SIMPLE_BUNNY;
 
-int configResolutionScale = 4;
-int configSamplersPerPixel = 10;
+int configResolutionScale = 3;
+int configSamplersPerPixel = 6;
 int configNeeTracerDepth = 10;
 
 std::string configOutputImageName = "img";
