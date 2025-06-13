@@ -31,7 +31,7 @@ bool BVHNode::isLeaf() const
 std::size_t BVHNode::getSize() const
 {
     if (isLeaf())
-        return objects.size();
+        return primitives.size();
 
     std::size_t leftNum = 0;
     if (leftChild)

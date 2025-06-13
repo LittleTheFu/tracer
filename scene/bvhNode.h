@@ -23,7 +23,6 @@ public:
     std::shared_ptr<BVHNode> leftChild;
     std::shared_ptr<BVHNode> rightChild;
 
-    std::vector<std::shared_ptr<Geometry>> objects;
     std::vector<std::shared_ptr<Primitive>> primitives;
 
     // Geometry *geometry;

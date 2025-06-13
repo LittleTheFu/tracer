@@ -39,7 +39,6 @@ private:
     void printNode(std::shared_ptr<BVHNode> node, const std::string &prefix);
 
     bool hitLeaf(const Ray &ray,
-                 const std::vector<std::shared_ptr<Geometry>> objects,
                  const std::vector<std::shared_ptr<Primitive>> primitives,
                  Interaction &interaction,
                  std::shared_ptr<Primitive> skipPrimitive = nullptr) const;

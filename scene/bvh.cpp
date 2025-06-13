@@ -21,12 +21,13 @@ bool BVH::_search(std::shared_ptr<BVHNode> node, std::shared_ptr<Geometry> geome
 
     if (node->isLeaf())
     {
-        auto it = std::find(node->objects.begin(), node->objects.end(), geometry);
+        for (auto it = node->primitives.begin(); it != node->primitives.end(); it++)
+        {
+            if ((*it)->getGeometry() == geometry)
+                return true;
+        }
 
-        if (it != node->objects.end())
-            return true;
-        else
-            return false;
+        return false;
     }
 
     if (node->leftChild && _search(node->leftChild, geometry))
@@ -121,7 +122,7 @@ bool BVH::_hitGeometryObjectOnly(std::shared_ptr<BVHNode> node,
                                 std::shared_ptr<Primitive> skipPrimitive) const
 {
     if (node->isLeaf())
-        return hitLeaf(ray, node->objects, node->primitives, interaction, skipPrimitive);
+        return hitLeaf(ray, node->primitives, interaction, skipPrimitive);
 
     BoundBox box = node->boundBox;
 
@@ -180,7 +181,6 @@ bool BVH::hitGeometryObjectOnly(const Ray &ray, Interaction &interaction, std::s
 }
 
 bool BVH::hitLeaf(const Ray &ray,
-                  const std::vector<std::shared_ptr<Geometry>> objects,
                   const std::vector<std::shared_ptr<Primitive>> primitives,
                   Interaction &interaction,
                   std::shared_ptr<Primitive> skipPrimitive) const
