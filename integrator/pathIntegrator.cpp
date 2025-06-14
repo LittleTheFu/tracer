@@ -42,6 +42,12 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
             break;
         }
 
+        if(interaction.normal_geometry.isSameDir(hitRay.dir))
+        {
+            // color += Color::COLOR_BLACK;
+            break;
+        }
+
         std::unique_ptr<Bsdf> bsdf = interaction.primitive->getMaterial()->createBsdf(interaction);
         Vector3 wo;
         float _pdf;
