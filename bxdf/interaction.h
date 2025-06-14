@@ -2,6 +2,7 @@
 #define _INTERACTION_H_
 
 #include "vector.h"
+#include <memory>
 // #include "primitive.h"
 // #include <geometry.h>
 // #include "materialPlus.h"
