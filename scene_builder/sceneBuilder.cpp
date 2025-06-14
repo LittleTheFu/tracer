@@ -302,7 +302,7 @@ void SceneBuilder::buildBunny(const Vector3 &pos, float scale, const std::string
     // bunny->addToPool(m_pObjectPool);
 
     std::shared_ptr<GeometryPrimitive> primitive = std::make_shared<GeometryPrimitive>(bunny, material);
-    m_pObjectPool->addPrimitive(primitive);
+    // m_pObjectPool->addPrimitive(primitive);
 }
 
 void SceneBuilder::buildRedTri(const Vector3 &pos)
