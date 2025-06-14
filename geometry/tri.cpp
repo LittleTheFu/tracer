@@ -12,19 +12,15 @@ Tri::Tri()
 Tri::Tri(const TriVertex &a,
          const TriVertex &b,
          const TriVertex &c,
-         const Vector3 &pos,
-         std::shared_ptr<Material> material,
-         std::shared_ptr<MaterialPlus> materialPlus)
+         const Vector3 &pos)
 {
-    set(a, b, c, pos, material, materialPlus);
+    set(a, b, c, pos);
 }
 
 void Tri::set(const TriVertex &a,
               const TriVertex &b,
               const TriVertex &c,
-              const Vector3 &pos,
-              std::shared_ptr<Material> material,
-              std::shared_ptr<MaterialPlus> materialPlus)
+              const Vector3 &pos)
 {
     m_a = a;
     m_b = b;
@@ -37,9 +33,6 @@ void Tri::set(const TriVertex &a,
     calcNormal();
 
     m_localCentroid = (a.pos + b.pos + c.pos) / 3;
-    this->m_pMtrl = material;
-
-    this->setMaterialPlus(materialPlus);
 
     init(Vector3::ZERO, pos);
 }
@@ -50,13 +43,13 @@ void Tri::getSplitChildren(Tri *outTri_1, Tri *outTri_2, Tri *outTri_3) const
     TriVertex d(centroid, Vector3::ZERO);
 
     outTri_1->setTransform(m_transform);
-    outTri_1->set(m_a, m_b, d, m_pos, m_pMtrl, getMaterialPlus());
+    outTri_1->set(m_a, m_b, d, m_pos);
 
     outTri_2->setTransform(m_transform);
-    outTri_2->set(m_b, m_c, d, m_pos, m_pMtrl, getMaterialPlus());
+    outTri_2->set(m_b, m_c, d, m_pos);
 
     outTri_3->setTransform(m_transform);
-    outTri_3->set(m_c, m_a, d, m_pos, m_pMtrl, getMaterialPlus());
+    outTri_3->set(m_c, m_a, d, m_pos);
 }
 
 // transform three times
@@ -80,11 +73,11 @@ bool Tri::hit(const Ray &ray, Interaction &interaction) const
     Vector3 pixelNormal = getWeightedNormal(_objPoint);
     //quick and dirty,need to refactor and optimized later...
     //and some variable should be renamed
-    if(m_pMtrl && m_pMtrl->isNormalTextureValid()) 
-    {
-        //to be optimized later...
-        pixelNormal = getNormalFromNormalMap(m_normal, _objPoint);
-    }
+    // if(m_pMtrl && m_pMtrl->isNormalTextureValid()) 
+    // {
+    //     //to be optimized later...
+    //     pixelNormal = getNormalFromNormalMap(m_normal, _objPoint);
+    // }
     Frame pixelFrame(pixelNormal, m_ab, _objPoint);
     Vector3 weghtedRayDir = pixelFrame.vectorToLocal(frame.vectorToWorld(localRay.dir));
 
@@ -96,10 +89,10 @@ bool Tri::hit(const Ray &ray, Interaction &interaction) const
     interaction.normal_geometry = m_transform.transformNormal(pixelFrame.vectorToWorld(Common::LOCAL_NORMAL));
     interaction.normal_shading = m_transform.transformNormal(pixelFrame.vectorToWorld(Common::LOCAL_NORMAL));
 
-    interaction.geometry = getSelfPtr();
-    interaction.material = getMaterialPlus();
+    // interaction.geometry = getSelfPtr();
+    // interaction.material = getMaterialPlus();
 
-    assert(interaction.material);
+    // assert(interaction.material);
 
     return true;
 }

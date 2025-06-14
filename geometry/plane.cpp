@@ -8,13 +8,11 @@
 #include "interaction.h"
 
 
-Plane::Plane(const Vector3 &rotate, const Vector3 &position, float length, std::shared_ptr<Material> pMtrl)
+Plane::Plane(const Vector3 &rotate, const Vector3 &position, float length)
 {
     init(rotate, position);
 
     this->half_length = length;
-    this->m_pMtrl = pMtrl;
-
     this->m_uvCellSize = 100;
 }
 
@@ -32,10 +30,10 @@ bool Plane::hit(const Ray &ray, Interaction &interaction) const
 
     //refactor later...
     //right now just for testing normal map
-    if(m_pMtrl && m_pMtrl->isNormalTextureValid())
-    {
-        localNormal = getNormalFromNormalMap(localNormal, localPoint);
-    }
+    // if(m_pMtrl && m_pMtrl->isNormalTextureValid())
+    // {
+    //     localNormal = getNormalFromNormalMap(localNormal, localPoint);
+    // }
 
     interaction.point = m_transform.transformPoint(localPoint);
     interaction.normal_geometry = m_transform.transformNormal(localNormal);
@@ -44,8 +42,8 @@ bool Plane::hit(const Ray &ray, Interaction &interaction) const
     interaction.u = u(localPoint);
     interaction.v = v(localPoint);
 
-    interaction.geometry = getSelfPtr();
-    interaction.material = getMaterialPlus();
+    // interaction.geometry = getSelfPtr();
+    // interaction.material = getMaterialPlus();
 
     return true;
 }

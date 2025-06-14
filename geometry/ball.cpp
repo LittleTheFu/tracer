@@ -12,12 +12,12 @@ Ball::Ball()
     this->r = 1;
 }
 
-Ball::Ball(const Vector3 &rotate, const Vector3 &position, float r, std::shared_ptr<Material> pMtrl)
+Ball::Ball(const Vector3 &rotate, const Vector3 &position, float r)
 {
     init(rotate, position);
 
     this->r = r;
-    this->m_pMtrl = pMtrl;
+    // this->m_pMtrl = pMtrl;
 }
 
 Vector3 Ball::getLocalNormal(const Vector3 &thatPoint) const
@@ -117,18 +117,18 @@ bool Ball::hit(const Ray &ray, Interaction &interaction) const
     interaction.point = m_transform.transformPoint(localPoint);
 
     Vector3 localNormal = getLocalNormal(localPoint);
-    if(m_pMtrl && m_pMtrl->isNormalTextureValid()) //quick and dirty, only for test.localNomal should be renamed
-    {
-        localNormal = getNormalFromNormalMap(localNormal, localPoint);
-    }
+    // if(m_pMtrl && m_pMtrl->isNormalTextureValid()) //quick and dirty, only for test.localNomal should be renamed
+    // {
+    //     localNormal = getNormalFromNormalMap(localNormal, localPoint);
+    // }
     interaction.normal_geometry = m_transform.transformNormal(localNormal);
     interaction.normal_shading = m_transform.transformNormal(localNormal);
 
     interaction.u = u(localPoint);
     interaction.v = v(localPoint);
 
-    interaction.geometry = getSelfPtr();
-    interaction.material = getMaterialPlus();
+    // interaction.geometry = getSelfPtr();
+    // interaction.material = getMaterialPlus();
 
     return true;
 }

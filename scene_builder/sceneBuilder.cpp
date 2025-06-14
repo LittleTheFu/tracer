@@ -34,57 +34,54 @@ void SceneBuilder::buildRoom()
 
     Vector3 leftRotate(0, MathConstant::PI / 2, 0);
     Vector3 leftPosition(-c, 0, 0);
-    std::shared_ptr<Plane> leftPlane = std::make_shared<Plane>(leftRotate, leftPosition, r, MaterialManager::getInstance()->get(leftMtrl));
-    leftPlane->setSelfPtr(leftPlane);
-    leftPlane->setMaterialPlus(std::make_shared<MaterialLambertian>(Color::COLOR_RED));
+    std::shared_ptr<Plane> leftPlane = std::make_shared<Plane>(leftRotate, leftPosition, r);
+    std::shared_ptr<MaterialPlus> leftMtrlLambertian = std::make_shared<MaterialLambertian>(Color::COLOR_RED);
 
     Vector3 rightRotate(0, -MathConstant::PI / 2, 0);
     Vector3 rightPosition(c, 0, 0);
-    std::shared_ptr<Plane> rightPlane = std::make_shared<Plane>(rightRotate, rightPosition, r, MaterialManager::getInstance()->get(rightMtrl));
-    rightPlane->setSelfPtr(rightPlane);
-    rightPlane->setMaterialPlus(std::make_shared<MaterialLambertian>(Color::COLOR_BLUE));
+    std::shared_ptr<Plane> rightPlane = std::make_shared<Plane>(rightRotate, rightPosition, r);
+    std::shared_ptr<MaterialPlus> rightMtrlLambertian = std::make_shared<MaterialLambertian>(Color::COLOR_BLUE);
+
 
     Vector3 bottomRotate(MathConstant::PI / 2, 0, 0);
     Vector3 bottomPosition(0, c, 0);
-    std::shared_ptr<Plane> bottomPlane = std::make_shared<Plane>(bottomRotate, bottomPosition, r, MaterialManager::getInstance()->get(bottomMtrl));
-    bottomPlane->setSelfPtr(bottomPlane);
-    bottomPlane->setMaterialPlus(std::make_shared<MaterialLambertian>(Color::COLOR_GREEN));
+    std::shared_ptr<Plane> bottomPlane = std::make_shared<Plane>(bottomRotate, bottomPosition, r);
+    std::shared_ptr<MaterialPlus> bottomMtrlLambertian = std::make_shared<MaterialLambertian>(Color::COLOR_GREEN);
+    
 
     Vector3 topRotate(-MathConstant::PI / 2, 0, 0);
     Vector3 topPosition(0, -c, 0);
-    std::shared_ptr<Plane> topPlane = std::make_shared<Plane>(topRotate, topPosition, r, MaterialManager::getInstance()->get(topMtrl));
-    topPlane->setSelfPtr(topPlane);
-    topPlane->setMaterialPlus(std::make_shared<MaterialLambertian>(Color::COLOR_YELLOW));
+    std::shared_ptr<Plane> topPlane = std::make_shared<Plane>(topRotate, topPosition, r);
+    std::shared_ptr<MaterialPlus> topMtrlLambertian = std::make_shared<MaterialLambertian>(Color::COLOR_YELLOW);
 
     Vector3 frontRotate(MathConstant::PI, 0, 0);
     Vector3 frontPosition(0, 0, 5 * c);
-    std::shared_ptr<Plane> frontPlane = std::make_shared<Plane>(frontRotate, frontPosition, r, MaterialManager::getInstance()->get(frontMtrl));
-    frontPlane->setSelfPtr(frontPlane);
-    frontPlane->setMaterialPlus(std::make_shared<MaterialLambertian>(Color::COLOR_AQUA));
+    std::shared_ptr<Plane> frontPlane = std::make_shared<Plane>(frontRotate, frontPosition, r);
+    std::shared_ptr<MaterialPlus> frontMtrlLambertian = std::make_shared<MaterialLambertian>(Color::COLOR_AQUA);
 
     Vector3 backRotate(0, 0, 0);
     Vector3 backPosition(0, 0, -3 * c);
-    std::shared_ptr<Plane> backPlane = std::make_shared<Plane>(backRotate, backPosition, r, MaterialManager::getInstance()->get(backMtrl));
-    backPlane->setSelfPtr(backPlane);
-    backPlane->setMaterialPlus(std::make_shared<MaterialLambertian>(Color::COLOR_ORANGE));
+    std::shared_ptr<Plane> backPlane = std::make_shared<Plane>(backRotate, backPosition, r);
+    std::shared_ptr<MaterialPlus> backMtrlLambertian = std::make_shared<MaterialLambertian>(Color::COLOR_ORANGE);
 
     //---------------for refactoring-------
-    std::shared_ptr<GeometryPrimitive> leftPrimitive = std::make_shared<GeometryPrimitive>(leftPlane, leftPlane->getMaterialPlus());
+    std::shared_ptr<GeometryPrimitive> leftPrimitive = std::make_shared<GeometryPrimitive>(leftPlane, leftMtrlLambertian);
     m_pObjectPool->addPrimitive(leftPrimitive);
 
-    std::shared_ptr<GeometryPrimitive> rightPrimitive = std::make_shared<GeometryPrimitive>(rightPlane, rightPlane->getMaterialPlus());
+    std::shared_ptr<GeometryPrimitive> rightPrimitive = std::make_shared<GeometryPrimitive>(rightPlane, rightMtrlLambertian);
     m_pObjectPool->addPrimitive(rightPrimitive);
     
-    std::shared_ptr<GeometryPrimitive> topPrimitive = std::make_shared<GeometryPrimitive>(topPlane, topPlane->getMaterialPlus());
+    std::shared_ptr<GeometryPrimitive> topPrimitive = std::make_shared<GeometryPrimitive>(topPlane, topMtrlLambertian);
+
     m_pObjectPool->addPrimitive(topPrimitive);
 
-    std::shared_ptr<GeometryPrimitive> bottomPrimitive = std::make_shared<GeometryPrimitive>(bottomPlane, bottomPlane->getMaterialPlus());
+    std::shared_ptr<GeometryPrimitive> bottomPrimitive = std::make_shared<GeometryPrimitive>(bottomPlane, bottomMtrlLambertian);
     m_pObjectPool->addPrimitive(bottomPrimitive);
 
-    std::shared_ptr<GeometryPrimitive> frontPrimitive = std::make_shared<GeometryPrimitive>(frontPlane, frontPlane->getMaterialPlus());
+    std::shared_ptr<GeometryPrimitive> frontPrimitive = std::make_shared<GeometryPrimitive>(frontPlane, frontMtrlLambertian);
     m_pObjectPool->addPrimitive(frontPrimitive);
 
-    std::shared_ptr<GeometryPrimitive> backPrimitive = std::make_shared<GeometryPrimitive>(backPlane, backPlane->getMaterialPlus());
+    std::shared_ptr<GeometryPrimitive> backPrimitive = std::make_shared<GeometryPrimitive>(backPlane, backMtrlLambertian);
     m_pObjectPool->addPrimitive(backPrimitive);
 }
 
@@ -130,10 +127,10 @@ void SceneBuilder::buildLight(const Vector3 &pos, float r)
     // light->setTag(Tag::TAG_LIGHT);
     // m_pObjectPool->add(light);
 
-    std::shared_ptr<Geometry> ball = std::make_shared<Ball>(Vector3::ZERO, pos, r, nullptr);
+    std::shared_ptr<Geometry> ball = std::make_shared<Ball>(Vector3::ZERO, pos, r);
     std::shared_ptr<MaterialPlus> lightMaterial = std::make_shared<EmittingMaterial>();
-    ball->setSelfPtr(ball);
-    ball->setMaterialPlus(lightMaterial);
+    // ball->setSelfPtr(ball);
+    // ball->setMaterialPlus(lightMaterial);
     std::shared_ptr<GeometryPrimitive> lightPrimitive = std::make_shared<GeometryPrimitive>(ball, lightMaterial);
     std::shared_ptr<AreaLight> areaLight = std::make_shared<AreaLight>(lightPrimitive);
 
@@ -160,160 +157,152 @@ void SceneBuilder::buildSceneWithDefaultConfig()
 
 void SceneBuilder::buildGlassBall(const Vector3 &pos, float r)
 {
-    std::shared_ptr<Ball> glassBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_GLASS));
-    glassBall->setSelfPtr(glassBall);
+    std::shared_ptr<Ball> glassBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+    // glassBall->setSelfPtr(glassBall);
 
     // m_pObjectPool->add(glassBall);
 }
 
 void SceneBuilder::buildMirrorBall(const Vector3 &pos, float r)
 {
-    std::shared_ptr<Ball> mirrorBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_MIRROR));
-    mirrorBall->setSelfPtr(mirrorBall);
+    std::shared_ptr<Ball> mirrorBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+    // mirrorBall->setSelfPtr(mirrorBall);
 
     // m_pObjectPool->add(mirrorBall);
 }
 
 void SceneBuilder::buildRedBall(const Vector3 &pos, float r)
 {
-    std::shared_ptr<Ball> redBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_RED));
-    redBall->setSelfPtr(redBall);
-    redBall->setMaterialPlus(std::make_shared<MaterialLambertian>(Color::COLOR_RED));
+    std::shared_ptr<Ball> redBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+    std::shared_ptr<MaterialPlus> redMaterial = std::make_shared<MaterialLambertian>(Color::COLOR_RED);
 
-    // m_pObjectPool->add(redBall);
+    std::shared_ptr<GeometryPrimitive> redPrimitive = std::make_shared<GeometryPrimitive>(redBall, redMaterial);
 
-    //----------------for refactoring-----------------
-    std::shared_ptr<GeometryPrimitive> redPrimitive = std::make_shared<GeometryPrimitive>(redBall, redBall->getMaterialPlus());
     m_pObjectPool->addPrimitive(redPrimitive);
 }
 
 void SceneBuilder::buildAquaBall(const Vector3 &pos, float r)
 {
-    std::shared_ptr<Ball> aquaBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_AQUA));
-    aquaBall->setSelfPtr(aquaBall);
-    aquaBall->setMaterialPlus(std::make_shared<MaterialLambertian>(Color::COLOR_AQUA));
+    std::shared_ptr<Ball> aquaBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+    std::shared_ptr<MaterialPlus> aquaMaterial = std::make_shared<MaterialLambertian>(Color::COLOR_AQUA);
+    std::shared_ptr<GeometryPrimitive> aquaPrimitive = std::make_shared<GeometryPrimitive>(aquaBall, aquaMaterial);
 
-    // m_pObjectPool->add(aquaBall);
-
-    //----------------for refactoring-----------------
-    std::shared_ptr<GeometryPrimitive> aquaPrimitive = std::make_shared<GeometryPrimitive>(aquaBall, aquaBall->getMaterialPlus());
     m_pObjectPool->addPrimitive(aquaPrimitive);
 }
 
 void SceneBuilder::buildConductorBall(const Vector3 &pos, float r)
 {
-    std::shared_ptr<Ball> conductorBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_CONDUCTOR));
-    conductorBall->setSelfPtr(conductorBall);
+    std::shared_ptr<Ball> conductorBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+    // conductorBall->setSelfPtr(conductorBall);
 
     // m_pObjectPool->add(conductorBall);
 }
 
 void SceneBuilder::buildMixBall(const Vector3 &pos, float r)
 {
-    std::shared_ptr<Ball> mixBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_DIELECTRIC));
-    mixBall->setSelfPtr(mixBall);
+    std::shared_ptr<Ball> mixBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+    // mixBall->setSelfPtr(mixBall);
 
     // m_pObjectPool->add(mixBall);
 }
 
 void SceneBuilder::buildMeasuredWhiteBall(const Vector3 &pos, float r)
 {
-    std::shared_ptr<Ball> measuredWhiteBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_MEASURED_WHITE_BRDF));
-    measuredWhiteBall->setSelfPtr(measuredWhiteBall);
+    std::shared_ptr<Ball> measuredWhiteBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+    // measuredWhiteBall->setSelfPtr(measuredWhiteBall);
 
     // m_pObjectPool->add(measuredWhiteBall);
 }
 
 void SceneBuilder::buildMeasuredGreenBall(const Vector3 &pos, float r)
 {
-    std::shared_ptr<Ball> measuredGreenBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_MEASURED_GREEN_BRDF));
-    measuredGreenBall->setSelfPtr(measuredGreenBall);
+    std::shared_ptr<Ball> measuredGreenBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+    // measuredGreenBall->setSelfPtr(measuredGreenBall);
 
     // m_pObjectPool->add(measuredGreenBall);
 }
 
 void SceneBuilder::buildMeasuredMetalBall(const Vector3 &pos, float r)
 {
-    std::shared_ptr<Ball> measuredMetalBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_MEASURED_METAL_BRDF));
-    measuredMetalBall->setSelfPtr(measuredMetalBall);
+    std::shared_ptr<Ball> measuredMetalBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+    // measuredMetalBall->setSelfPtr(measuredMetalBall);
 
     // m_pObjectPool->add(measuredMetalBall);
 }
 
 void SceneBuilder::buildMeasuredMintBall(const Vector3 &pos, float r)
 {
-    std::shared_ptr<Ball> measuredMintBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_MEASURED_MINT_BRDF));
-    measuredMintBall->setSelfPtr(measuredMintBall);
+    std::shared_ptr<Ball> measuredMintBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+    // measuredMintBall->setSelfPtr(measuredMintBall);
 
     // m_pObjectPool->add(measuredMintBall);
 }
 
 void SceneBuilder::buildMeasuredGreenPvcBall(const Vector3 &pos, float r)
 {
-    std::shared_ptr<Ball> measuredGreenPvcBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_MEASURED_GREEN_PVC_BRDF));
-    measuredGreenPvcBall->setSelfPtr(measuredGreenPvcBall);
+    std::shared_ptr<Ball> measuredGreenPvcBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+    // measuredGreenPvcBall->setSelfPtr(measuredGreenPvcBall);
 
     // m_pObjectPool->add(measuredGreenPvcBall);
 }
 
 void SceneBuilder::buildMeasuredBrushedAluminiumBall(const Vector3 &pos, float r)
 {
-    std::shared_ptr<Ball> measuredBrushedAluminiumBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_MEASURED_BRUSHED_ALUMINIUM_BRDF));
-    measuredBrushedAluminiumBall->setSelfPtr(measuredBrushedAluminiumBall);
+    std::shared_ptr<Ball> measuredBrushedAluminiumBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+    // measuredBrushedAluminiumBall->setSelfPtr(measuredBrushedAluminiumBall);
 
     // m_pObjectPool->add(measuredBrushedAluminiumBall);
 }
 
 void SceneBuilder::buildMeasuredTarkinTunicBall(const Vector3 &pos, float r)
 {
-    std::shared_ptr<Ball> measuredTarkinTunicBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_MEASURED_TARKIN_TUNIC_BRDF));
-    measuredTarkinTunicBall->setSelfPtr(measuredTarkinTunicBall);
+    std::shared_ptr<Ball> measuredTarkinTunicBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+    // measuredTarkinTunicBall->setSelfPtr(measuredTarkinTunicBall);
 
     // m_pObjectPool->add(measuredTarkinTunicBall);
 }
 
 void SceneBuilder::buildMeasuredSariSilkBall(const Vector3 &pos, float r)
 {
-    std::shared_ptr<Ball> measuredSariSilkBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_MEASURED_SARI_SILK_BRDF));
-    measuredSariSilkBall->setSelfPtr(measuredSariSilkBall);
+    std::shared_ptr<Ball> measuredSariSilkBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+    // measuredSariSilkBall->setSelfPtr(measuredSariSilkBall);
 
     // m_pObjectPool->add(measuredSariSilkBall);
 }
 
 void SceneBuilder::buildNormalMapGreenPvcBall(const Vector3 &pos, float r)
 {
-    std::shared_ptr<Ball> normalMapGreenPvcBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_NORMAL_MAP_GREEN_PVC));
-    normalMapGreenPvcBall->setSelfPtr(normalMapGreenPvcBall);
+    std::shared_ptr<Ball> normalMapGreenPvcBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+    // normalMapGreenPvcBall->setSelfPtr(normalMapGreenPvcBall);
 
     // m_pObjectPool->add(normalMapGreenPvcBall);
 }
 
 void SceneBuilder::buildNormalMapSariSilkBall(const Vector3 &pos, float r)
 {
-    std::shared_ptr<Ball> normalMapSariSilkBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_NORMAL_MAP_SARI_SILK));
-    normalMapSariSilkBall->setSelfPtr(normalMapSariSilkBall);
+    std::shared_ptr<Ball> normalMapSariSilkBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+    // normalMapSariSilkBall->setSelfPtr(normalMapSariSilkBall);
 
     // m_pObjectPool->add(normalMapSariSilkBall);
 }
 
 void SceneBuilder::buildVolumeBall(const Vector3 &pos, float r)
 {
-    std::shared_ptr<Ball> volumeBall = std::make_shared<Ball>(Vector3::ZERO, pos, r, nullptr);
-    volumeBall->setSelfPtr(volumeBall);
+    std::shared_ptr<Ball> volumeBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+    // volumeBall->setSelfPtr(volumeBall);
 
     // m_pObjectPool->add(volumeBall);
 }
 
 void SceneBuilder::buildBunny(const Vector3 &pos, float scale, const std::string &res, MATERIAL_TYPE materialType)
 {
-    std::shared_ptr<Mesh> bunny = std::make_shared<Mesh>(res,
-                                                         pos,
-                                                         scale,
-                                                         MaterialManager::getInstance()->get(materialType),
-                                                         std::make_shared<MaterialLambertian>(Color::COLOR_GREEN));
-    bunny->setSelfPtr(bunny);
+    std::shared_ptr<MaterialLambertian> material = std::make_shared<MaterialLambertian>(Color::COLOR_GREEN);
+    std::shared_ptr<Mesh> bunny = std::make_shared<Mesh>(res, pos, scale);
+    // bunny->setSelfPtr(bunny);
+    // bunny->addToPool(m_pObjectPool);
 
-    bunny->addToPool(m_pObjectPool);
+    std::shared_ptr<GeometryPrimitive> primitive = std::make_shared<GeometryPrimitive>(bunny, material);
+    m_pObjectPool->addPrimitive(primitive);
 }
 
 void SceneBuilder::buildRedTri(const Vector3 &pos)
@@ -330,13 +319,7 @@ void SceneBuilder::buildRedTri(const Vector3 &pos)
     TriVertex tb(b, nb);
     TriVertex tc(c, nc);
 
-    std::shared_ptr<Tri> tri = std::make_shared<Tri>(ta,
-                                                     tb,
-                                                     tc,
-                                                     pos,
-                                                     MaterialManager::getInstance()->get(MATERIAL_TYPE::M_RED),
-                                                     std::make_shared<MaterialLambertian>(Color::COLOR_RED));
-    tri->setSelfPtr(tri);
+    std::shared_ptr<Tri> tri = std::make_shared<Tri>(ta, tb, tc, pos);
 
     // m_pObjectPool->add(tri);
 }
@@ -355,13 +338,7 @@ void SceneBuilder::buildGreenTri(const Vector3 &pos)
     TriVertex tb(b, nb);
     TriVertex tc(c, nc);
 
-    std::shared_ptr<Tri> tri = std::make_shared<Tri>(ta,
-                                                     tb,
-                                                     tc,
-                                                     pos,
-                                                     MaterialManager::getInstance()->get(MATERIAL_TYPE::M_GREEN),
-                                                     std::make_shared<MaterialLambertian>(Color::COLOR_GREEN));
-    tri->setSelfPtr(tri);
+    std::shared_ptr<Tri> tri = std::make_shared<Tri>(ta, tb, tc, pos);
 
     // m_pObjectPool->add(tri);
 }

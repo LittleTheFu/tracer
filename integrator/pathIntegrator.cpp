@@ -23,8 +23,9 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
             color += Color::COLOR_BLACK;
             break;
         }
+        assert(interaction.primitive != nullptr);
 
-        if(interaction.material == nullptr)
+        if(interaction.primitive->getMaterial() == nullptr)
         {
             color += Color::COLOR_BLACK;
             break;
@@ -32,16 +33,16 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
 
 
         //for debug
-        assert(interaction.material != nullptr);
+        assert(interaction.primitive->getMaterial() != nullptr);
 
-        if (interaction.material->isEmitting())
+        if (interaction.primitive->getMaterial()->isEmitting())
         {
             // color = interaction.material->getEmittedRadiance(); 
-            color += interaction.material->getEmittedRadiance();
+            color += interaction.primitive->getMaterial()->getEmittedRadiance();
             break;
         }
 
-        std::unique_ptr<Bsdf> bsdf = interaction.material->createBsdf(interaction);
+        std::unique_ptr<Bsdf> bsdf = interaction.primitive->getMaterial()->createBsdf(interaction);
         Vector3 wo;
         float _pdf;
         Color f = bsdf->sample_f(-hitRay.dir, wo, _pdf, BxdfType::ALL);

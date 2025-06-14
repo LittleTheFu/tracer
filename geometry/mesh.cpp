@@ -9,9 +9,7 @@
 
 Mesh::Mesh(const std::string fileName,
            const Vector3 pos,
-           float scale,
-           std::shared_ptr<Material> pMtrl,
-           std::shared_ptr<MaterialPlus> pMtrlPlus)
+           float scale)
 {
     assert(scale > 0);
 
@@ -39,8 +37,8 @@ Mesh::Mesh(const std::string fileName,
         // vb.setUV(u_b, v_b);
         // vc.setUV(u_c, v_c);
 
-        auto tri = std::make_shared<Tri>(va, vb, vc, pos, pMtrl, pMtrlPlus);
-        tri->setSelfPtr(tri);
+        auto tri = std::make_shared<Tri>(va, vb, vc, pos);
+        // tri->setSelfPtr(tri);
 
         m_tris.push_back(tri);
     }
@@ -67,14 +65,14 @@ bool Mesh::hit(const Ray &ray, Interaction &interaction) const
     return false;
 }
 
-void Mesh::addToPool(std::shared_ptr<ObjectPool> pool)
-{
-    for(auto it = m_tris.begin(); it != m_tris.end(); it++)
-    {
-        std::shared_ptr<GeometryPrimitive> primitive = std::make_shared<GeometryPrimitive>(*it, (*it)->getMaterialPlus());
-        pool->addPrimitive(primitive);
-    }
-}
+// void Mesh::addToPool(std::shared_ptr<ObjectPool> pool)
+// {
+//     for(auto it = m_tris.begin(); it != m_tris.end(); it++)
+//     {
+//         std::shared_ptr<GeometryPrimitive> primitive = std::make_shared<GeometryPrimitive>(*it, (*it)->getMaterialPlus());
+//         pool->addPrimitive(primitive);
+//     }
+// }
 
 Vector3 Mesh::dpdu(const Vector3 &point) const
 {

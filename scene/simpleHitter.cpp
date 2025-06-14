@@ -53,6 +53,7 @@ bool SimperHitter::hitGeometryObjectOnly(const Ray &ray,
             {
                 tMin = tempInteraction.t;
                 interaction = tempInteraction;
+                interaction.primitive = (*it);
                 hit = true;
             }
         }

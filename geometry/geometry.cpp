@@ -5,8 +5,8 @@
 Geometry::Geometry()
 {
     //for refactoring--------------------------------------
-    m_pMtrlPlus = nullptr;
-    selfPtr_ = nullptr;
+    // m_pMtrlPlus = nullptr;
+    // m_selfPtr = nullptr;
     //end--------------------------------------------------
 
     m_insideMedia.set(1,1,1,Color::COLOR_WHITE);
@@ -48,16 +48,16 @@ std::string Geometry::getClassName() const
     return typeid(*this).name();
 }
 
-Vector3 Geometry::getNormalFromNormalMap(const Vector3 &originNormal, const Vector3 &localPoint) const
-{
-    assert(m_pMtrl);
-    assert(m_pMtrl->isNormalTextureValid());
+// Vector3 Geometry::getNormalFromNormalMap(const Vector3 &originNormal, const Vector3 &localPoint) const
+// {
+//     assert(m_pMtrl);
+//     assert(m_pMtrl->isNormalTextureValid());
     
-    Frame frame(originNormal, localPoint);
-    Vector3 normal = m_pMtrl->getNormalTexture()->getNormal(u(localPoint), v(localPoint));
+//     Frame frame(originNormal, localPoint);
+//     Vector3 normal = m_pMtrl->getNormalTexture()->getNormal(u(localPoint), v(localPoint));
 
-    return frame.vectorToWorld(normal);
-}
+//     return frame.vectorToWorld(normal);
+// }
 
 bool Geometry::testHit(const Ray &localRay, float &t) const
 {
@@ -79,15 +79,15 @@ Transform Geometry::getTransform() const
     return m_transform;
 }
 
-void Geometry::setMaterial(std::shared_ptr<Material> pMtrl)
-{
-    m_pMtrl = pMtrl;
-}
+// void Geometry::setMaterial(std::shared_ptr<Material> pMtrl)
+// {
+//     m_pMtrl = pMtrl;
+// }
 
-bool Geometry::isVolume() const
-{
-   return m_pMtrl == nullptr;
-}
+// bool Geometry::isVolume() const
+// {
+//    return m_pMtrl == nullptr;
+// }
 
 Vector3 Geometry::sampleFromPoint(const Vector3 &thatPoint, float &pdf) const
 {
@@ -117,23 +117,23 @@ BoundBox Geometry::getBoundBox() const
 
 
 //--------------------for refactoring-------------------------
-void Geometry::setMaterialPlus(std::shared_ptr<MaterialPlus> pMtrlPlus)
-{
-    m_pMtrlPlus = pMtrlPlus;
-}
+// void Geometry::setMaterialPlus(std::shared_ptr<MaterialPlus> pMtrlPlus)
+// {
+//     m_pMtrlPlus = pMtrlPlus;
+// }
 
-std::shared_ptr<MaterialPlus> Geometry::getMaterialPlus() const
-{
-    return m_pMtrlPlus;
-}
+// std::shared_ptr<MaterialPlus> Geometry::getMaterialPlus() const
+// {
+//     return m_pMtrlPlus;
+// }
 
 
-void Geometry::setSelfPtr(std::shared_ptr<Geometry> selfPtr)
-{
-    selfPtr_ = selfPtr;
-}
+// void Geometry::setSelfPtr(std::shared_ptr<Geometry> selfPtr)
+// {
+//     selfPtr_ = selfPtr;
+// }
 
-std::shared_ptr<Geometry> Geometry::getSelfPtr() const
-{
-    return selfPtr_;
-}
+// std::shared_ptr<Geometry> Geometry::getSelfPtr() const
+// {
+//     return selfPtr_;
+// }

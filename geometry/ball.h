@@ -10,7 +10,7 @@ class Ball : public Geometry
 {
 public:
     Ball();
-    Ball(const Vector3 &rotate, const Vector3 &position, float r, std::shared_ptr<Material> pMtrl);
+    Ball(const Vector3 &rotate, const Vector3 &position, float r);
 
     virtual bool hit(const Ray &ray, Interaction &interaction) const override;
     virtual Vector3 sampleFromPoint(const Vector3 &thatPoint, float &pdf) const override;

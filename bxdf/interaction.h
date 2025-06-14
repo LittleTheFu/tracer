@@ -2,9 +2,11 @@
 #define _INTERACTION_H_
 
 #include "vector.h"
+// #include "primitive.h"
 // #include <geometry.h>
 // #include "materialPlus.h"
 
+class Primitive;
 class Geometry;
 class MaterialPlus;
 
@@ -25,8 +27,10 @@ public:
     float u;
     float v;
 
-    std::shared_ptr<Geometry> geometry;
-    std::shared_ptr<MaterialPlus> material;
+    // std::shared_ptr<Geometry> geometry;
+    // std::shared_ptr<MaterialPlus> material;
+
+    std::shared_ptr<Primitive> primitive;
 
     //---for refactoring---
     float t;

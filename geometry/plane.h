@@ -9,7 +9,7 @@
 class Plane : public Geometry
 {
 public:
-    Plane(const Vector3 &rotate, const Vector3 &position, float length, std::shared_ptr<Material> pMtrl);
+    Plane(const Vector3 &rotate, const Vector3 &position, float length);
     virtual bool hit(const Ray &ray, Interaction &interaction) const override;
 
     virtual Vector3 getCentroid() const override;

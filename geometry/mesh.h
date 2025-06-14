@@ -17,14 +17,12 @@ class Mesh : public Geometry
 public:
     Mesh(const std::string fileName,
          const Vector3 pos,
-         float scale,
-         std::shared_ptr<Material> pMtrl,
-         std::shared_ptr<MaterialPlus> pMtrlPlus);
+         float scale);
 
     virtual bool hit(const Ray &ray, Interaction &interaction) const override;
 
 public:
-    void addToPool(std::shared_ptr<ObjectPool> pool);
+    // void addToPool(std::shared_ptr<ObjectPool> pool);
 
 //we don't calculate things related to uv in mesh but in tri
 private:
