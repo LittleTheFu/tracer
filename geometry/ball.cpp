@@ -17,7 +17,6 @@ Ball::Ball(const Vector3 &rotate, const Vector3 &position, float r)
     init(rotate, position);
 
     this->r = r;
-    // this->m_pMtrl = pMtrl;
 }
 
 Vector3 Ball::getLocalNormal(const Vector3 &thatPoint) const
