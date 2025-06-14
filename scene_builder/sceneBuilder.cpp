@@ -123,20 +123,12 @@ void SceneBuilder::buildMeshRoom()
 
 void SceneBuilder::buildLight(const Vector3 &pos, float r)
 {
-    // std::shared_ptr<Light> light = std::make_shared<Light>(pos, r);
-    // light->setTag(Tag::TAG_LIGHT);
-    // m_pObjectPool->add(light);
-
     std::shared_ptr<Geometry> ball = std::make_shared<Ball>(Vector3::ZERO, pos, r);
     std::shared_ptr<MaterialPlus> lightMaterial = std::make_shared<EmittingMaterial>();
-    // ball->setSelfPtr(ball);
-    // ball->setMaterialPlus(lightMaterial);
     std::shared_ptr<GeometryPrimitive> lightPrimitive = std::make_shared<GeometryPrimitive>(ball, lightMaterial);
     std::shared_ptr<AreaLight> areaLight = std::make_shared<AreaLight>(lightPrimitive);
 
-    // m_pObjectPool->addPrimitive(lightPrimitive);
     m_pObjectPool->setLight(areaLight);
-
     m_pObjectPool->addPrimitive(lightPrimitive);
 }
 
@@ -158,7 +150,6 @@ void SceneBuilder::buildSceneWithDefaultConfig()
 void SceneBuilder::buildGlassBall(const Vector3 &pos, float r)
 {
     std::shared_ptr<Ball> glassBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
-    // glassBall->setSelfPtr(glassBall);
 
     // m_pObjectPool->add(glassBall);
 }
@@ -166,7 +157,6 @@ void SceneBuilder::buildGlassBall(const Vector3 &pos, float r)
 void SceneBuilder::buildMirrorBall(const Vector3 &pos, float r)
 {
     std::shared_ptr<Ball> mirrorBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
-    // mirrorBall->setSelfPtr(mirrorBall);
 
     // m_pObjectPool->add(mirrorBall);
 }
@@ -193,7 +183,6 @@ void SceneBuilder::buildAquaBall(const Vector3 &pos, float r)
 void SceneBuilder::buildConductorBall(const Vector3 &pos, float r)
 {
     std::shared_ptr<Ball> conductorBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
-    // conductorBall->setSelfPtr(conductorBall);
 
     // m_pObjectPool->add(conductorBall);
 }
@@ -201,7 +190,6 @@ void SceneBuilder::buildConductorBall(const Vector3 &pos, float r)
 void SceneBuilder::buildMixBall(const Vector3 &pos, float r)
 {
     std::shared_ptr<Ball> mixBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
-    // mixBall->setSelfPtr(mixBall);
 
     // m_pObjectPool->add(mixBall);
 }
@@ -209,7 +197,6 @@ void SceneBuilder::buildMixBall(const Vector3 &pos, float r)
 void SceneBuilder::buildMeasuredWhiteBall(const Vector3 &pos, float r)
 {
     std::shared_ptr<Ball> measuredWhiteBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
-    // measuredWhiteBall->setSelfPtr(measuredWhiteBall);
 
     // m_pObjectPool->add(measuredWhiteBall);
 }
@@ -217,7 +204,6 @@ void SceneBuilder::buildMeasuredWhiteBall(const Vector3 &pos, float r)
 void SceneBuilder::buildMeasuredGreenBall(const Vector3 &pos, float r)
 {
     std::shared_ptr<Ball> measuredGreenBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
-    // measuredGreenBall->setSelfPtr(measuredGreenBall);
 
     // m_pObjectPool->add(measuredGreenBall);
 }
@@ -225,7 +211,6 @@ void SceneBuilder::buildMeasuredGreenBall(const Vector3 &pos, float r)
 void SceneBuilder::buildMeasuredMetalBall(const Vector3 &pos, float r)
 {
     std::shared_ptr<Ball> measuredMetalBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
-    // measuredMetalBall->setSelfPtr(measuredMetalBall);
 
     // m_pObjectPool->add(measuredMetalBall);
 }
@@ -233,7 +218,6 @@ void SceneBuilder::buildMeasuredMetalBall(const Vector3 &pos, float r)
 void SceneBuilder::buildMeasuredMintBall(const Vector3 &pos, float r)
 {
     std::shared_ptr<Ball> measuredMintBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
-    // measuredMintBall->setSelfPtr(measuredMintBall);
 
     // m_pObjectPool->add(measuredMintBall);
 }
@@ -241,7 +225,6 @@ void SceneBuilder::buildMeasuredMintBall(const Vector3 &pos, float r)
 void SceneBuilder::buildMeasuredGreenPvcBall(const Vector3 &pos, float r)
 {
     std::shared_ptr<Ball> measuredGreenPvcBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
-    // measuredGreenPvcBall->setSelfPtr(measuredGreenPvcBall);
 
     // m_pObjectPool->add(measuredGreenPvcBall);
 }
@@ -249,7 +232,6 @@ void SceneBuilder::buildMeasuredGreenPvcBall(const Vector3 &pos, float r)
 void SceneBuilder::buildMeasuredBrushedAluminiumBall(const Vector3 &pos, float r)
 {
     std::shared_ptr<Ball> measuredBrushedAluminiumBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
-    // measuredBrushedAluminiumBall->setSelfPtr(measuredBrushedAluminiumBall);
 
     // m_pObjectPool->add(measuredBrushedAluminiumBall);
 }
@@ -257,7 +239,6 @@ void SceneBuilder::buildMeasuredBrushedAluminiumBall(const Vector3 &pos, float r
 void SceneBuilder::buildMeasuredTarkinTunicBall(const Vector3 &pos, float r)
 {
     std::shared_ptr<Ball> measuredTarkinTunicBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
-    // measuredTarkinTunicBall->setSelfPtr(measuredTarkinTunicBall);
 
     // m_pObjectPool->add(measuredTarkinTunicBall);
 }
@@ -265,7 +246,6 @@ void SceneBuilder::buildMeasuredTarkinTunicBall(const Vector3 &pos, float r)
 void SceneBuilder::buildMeasuredSariSilkBall(const Vector3 &pos, float r)
 {
     std::shared_ptr<Ball> measuredSariSilkBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
-    // measuredSariSilkBall->setSelfPtr(measuredSariSilkBall);
 
     // m_pObjectPool->add(measuredSariSilkBall);
 }
@@ -273,7 +253,6 @@ void SceneBuilder::buildMeasuredSariSilkBall(const Vector3 &pos, float r)
 void SceneBuilder::buildNormalMapGreenPvcBall(const Vector3 &pos, float r)
 {
     std::shared_ptr<Ball> normalMapGreenPvcBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
-    // normalMapGreenPvcBall->setSelfPtr(normalMapGreenPvcBall);
 
     // m_pObjectPool->add(normalMapGreenPvcBall);
 }
@@ -281,7 +260,6 @@ void SceneBuilder::buildNormalMapGreenPvcBall(const Vector3 &pos, float r)
 void SceneBuilder::buildNormalMapSariSilkBall(const Vector3 &pos, float r)
 {
     std::shared_ptr<Ball> normalMapSariSilkBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
-    // normalMapSariSilkBall->setSelfPtr(normalMapSariSilkBall);
 
     // m_pObjectPool->add(normalMapSariSilkBall);
 }
@@ -289,7 +267,6 @@ void SceneBuilder::buildNormalMapSariSilkBall(const Vector3 &pos, float r)
 void SceneBuilder::buildVolumeBall(const Vector3 &pos, float r)
 {
     std::shared_ptr<Ball> volumeBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
-    // volumeBall->setSelfPtr(volumeBall);
 
     // m_pObjectPool->add(volumeBall);
 }
@@ -299,12 +276,6 @@ void SceneBuilder::buildBunny(const Vector3 &pos, float scale, const std::string
     std::shared_ptr<MaterialLambertian> material = std::make_shared<MaterialLambertian>(Color::COLOR_GREEN);
     std::shared_ptr<Mesh> bunny = std::make_shared<Mesh>(res, pos, scale);
     bunny->addToPool(m_pObjectPool, material);
-
-    // bunny->setSelfPtr(bunny);
-    // bunny->addToPool(m_pObjectPool);
-
-    // std::shared_ptr<GeometryPrimitive> primitive = std::make_shared<GeometryPrimitive>(bunny, material);
-    // m_pObjectPool->addPrimitive(primitive);
 }
 
 void SceneBuilder::buildRedTri(const Vector3 &pos)
@@ -352,7 +323,6 @@ void SceneBuilder::buildGlassTri(const Vector3 &pos)
     // TriVertex c(40, -90, -10);
 
     // std::shared_ptr<Tri> tri = std::make_shared<Tri>(a, b, c, pos, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_GLASS));
-    // tri->setSelfPtr(tri);
 
     // m_pObjectPool->add(tri);
 }
@@ -365,7 +335,6 @@ void SceneBuilder::buildRedCurve(const Vector3 &pos)
     // Vector3 p3 = {150, 150, 280};
 
     // std::shared_ptr<Curve> redCurve = std::make_shared<Curve>(p0, p1, p2, p3);
-    // redCurve->setSelfPtr(redCurve);
 
     // m_pObjectPool->add(redCurve);
 }
