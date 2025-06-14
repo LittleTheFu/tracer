@@ -4,8 +4,9 @@
 enum BxdfType
 {
     DIFFUSE = 1 << 0,
+    MEASURED = 1 << 7,
 
-    ALL = DIFFUSE,
+    ALL = DIFFUSE | MEASURED,
 };
 
 #endif

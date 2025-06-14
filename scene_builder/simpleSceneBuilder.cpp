@@ -7,8 +7,9 @@ void SimpleSceneBuilder::build()
     setLightIntensity(50.0f);
 
     // buildConductorBall(Vector3(-10, -40, 350), 50);
-    buildRedBall(Vector3(60, 30, 300), 20);
-    buildAquaBall(Vector3(-70, 80, 350), 20);
+    // buildRedBall(Vector3(60, 30, 300), 20);
+    // buildAquaBall(Vector3(-70, 80, 350), 20);
+    buildMeasuredGreenPvcBall(Vector3(-60, 30, 300), 20);
     // buildMirrorBall(Vector3(-50, 70, 350), 20);
 
     //to be fixed : light power leak

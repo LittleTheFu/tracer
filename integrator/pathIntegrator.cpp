@@ -45,7 +45,7 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
         std::unique_ptr<Bsdf> bsdf = interaction.primitive->getMaterial()->createBsdf(interaction);
         Vector3 wo;
         float _pdf;
-        Color f = bsdf->sample_f(-hitRay.dir, wo, _pdf, BxdfType::ALL);
+        Color f = bsdf->sample_f(hitRay.dir, wo, _pdf, BxdfType::ALL);
 
         Ray dummyRay;
         Color _directLight = sampleLightFromNormalMaterial(pool, interaction.point, interaction.normal_shading, dummyRay);

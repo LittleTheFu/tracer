@@ -14,6 +14,7 @@
 #include "geometryPrimitive.h"
 #include <areaLight.h>
 #include <emittingMaterial.h>
+#include <materialPVC.h>
 
 void SceneBuilder::init(std::shared_ptr<ObjectPool> pool)
 {
@@ -225,8 +226,10 @@ void SceneBuilder::buildMeasuredMintBall(const Vector3 &pos, float r)
 void SceneBuilder::buildMeasuredGreenPvcBall(const Vector3 &pos, float r)
 {
     std::shared_ptr<Ball> measuredGreenPvcBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+    std::shared_ptr<MaterialPVC> material = std::make_shared<MaterialPVC>();
+    std::shared_ptr<GeometryPrimitive> measuredGreenPvcPrimitive = std::make_shared<GeometryPrimitive>(measuredGreenPvcBall, material);
 
-    // m_pObjectPool->add(measuredGreenPvcBall);
+    m_pObjectPool->addPrimitive(measuredGreenPvcPrimitive);
 }
 
 void SceneBuilder::buildMeasuredBrushedAluminiumBall(const Vector3 &pos, float r)
