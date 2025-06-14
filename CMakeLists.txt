@@ -19,7 +19,7 @@ SET (BXDF_SOURCE_FILES
     ${BXDF_DIR}/materialLambertian.cpp
     ${BXDF_DIR}/materialPlus.cpp
     ${BXDF_DIR}/emittingMaterial.cpp
-    ${BXDF_DIR}/LambertianReflection.cpp
+    ${BXDF_DIR}/lambertianReflection.cpp
     ${BXDF_DIR}/primitive.cpp
     ${BXDF_DIR}/geometryPrimitive.cpp
     ${BXDF_DIR}/areaLight.cpp
