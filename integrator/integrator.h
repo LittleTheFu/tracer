@@ -4,7 +4,7 @@
 #include "color.h"
 #include "ray.h"
 #include "scene.h"
-#include "objectPool.h"
+#include "objectpool.h"
 #include <memory>
 
 class Integrator
