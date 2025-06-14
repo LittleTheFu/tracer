@@ -10,7 +10,7 @@
 class Integrator
 {
 public:
-    Integrator( int maxDepth = 5);
+    Integrator( int maxDepth = 10);
     virtual Color Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool) const = 0;
 
 protected:

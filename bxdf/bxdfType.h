@@ -9,7 +9,7 @@ enum BxdfType
     REFLECTION = 1 << 9,
     TRANSMISSION = 1 << 10,
 
-    ALL = DIFFUSE | MEASURED,
+    ALL = DIFFUSE | MEASURED | REFLECTION | TRANSMISSION,
 };
 
 #endif

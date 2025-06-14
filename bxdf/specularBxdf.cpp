@@ -18,7 +18,7 @@ float SpecularBxdf::pdf(const Vector3 &wo, const Vector3 &wi) const
 Color SpecularBxdf::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf, const Interaction &interaction) const
 {
     // const Vector3 local_wo = -wo;
-    Vector3 n = interaction.normal_shading;
+    Vector3 n = -interaction.normal_shading;
 
     if(!wo.isSameDir(n))
     {

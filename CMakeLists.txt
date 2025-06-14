@@ -25,6 +25,8 @@ SET (BXDF_SOURCE_FILES
     ${BXDF_DIR}/areaLight.cpp
     ${BXDF_DIR}/materialPVC.cpp
     ${BXDF_DIR}/measuredBxdf.cpp
+    ${BXDF_DIR}/materialMirror.cpp
+    ${BXDF_DIR}/specularBxdf.cpp
 )
 
 SET (RAY_TRACER_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/ray_tracer")
