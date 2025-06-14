@@ -10,7 +10,8 @@ MeasuredBxdf::MeasuredBxdf(const std::string &file)
     assert(brdf_);
 }
 
-Color MeasuredBxdf::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf) const
+Color MeasuredBxdf::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf, const Interaction &interaction) const
+
 {
     float rnd_0 = MathUtility::genRandomDecimal();
     float rnd_1 = MathUtility::genRandomDecimal();

@@ -19,7 +19,8 @@ public:
     Color f(const Vector3 &wo, const Vector3 &wi, BxdfType flags) const;
     float pdf(const Vector3 &wo, const Vector3 &wi, BxdfType flags) const;
 
-    Color sample_f(const Vector3 &wo, Vector3 &wi, float &pdf, BxdfType flags) const;
+    Color sample_f(const Vector3 &wo, Vector3 &wi, float &pdf, const Interaction &interaction, BxdfType flags) const;
+
 
 private:
     Vector3 nsWorld_;

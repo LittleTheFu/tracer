@@ -13,7 +13,8 @@ public:
     virtual Color f(const Vector3 &wo, const Vector3 &wi) const override;
     virtual float pdf(const Vector3 &wo, const Vector3 &wi) const override;
 
-    virtual Color sample_f(const Vector3 &wo, Vector3 &wi, float &pdf) const override;
+    virtual Color sample_f(const Vector3 &wo, Vector3 &wi, float &pdf, const Interaction &interaction) const override;
+
 
 private:
     std::shared_ptr<powitacq_rgb::BRDF> brdf_;

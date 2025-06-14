@@ -68,8 +68,8 @@ void ObjectPool::applyTransfrom(Transform t)
         (*it)->getGeometry()->applyTransform(t);
     }
 
-    if(light_)
-        light_->applyTransform(t);
+    // if(light_)
+    //     light_->applyTransform(t);
 }
 
 void ObjectPool::buildBoundBox()
