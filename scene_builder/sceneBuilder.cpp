@@ -159,6 +159,9 @@ void SceneBuilder::buildGlassBall(const Vector3 &pos, float r)
 void SceneBuilder::buildMirrorBall(const Vector3 &pos, float r)
 {
     std::shared_ptr<Ball> mirrorBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+    std::shared_ptr<MaterialPlus> mirrorMaterial = std::make_shared<MaterialMirror>();
+    std::shared_ptr<GeometryPrimitive> mirrorPrimitive = std::make_shared<GeometryPrimitive>(mirrorBall, mirrorMaterial);
+    m_pObjectPool->addPrimitive(mirrorPrimitive);
 
     // m_pObjectPool->add(mirrorBall);
 }
@@ -227,8 +230,8 @@ void SceneBuilder::buildMeasuredMintBall(const Vector3 &pos, float r)
 void SceneBuilder::buildMeasuredGreenPvcBall(const Vector3 &pos, float r)
 {
     std::shared_ptr<Ball> measuredGreenPvcBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
-    // std::shared_ptr<MaterialPVC> material = std::make_shared<MaterialPVC>();
-    std::shared_ptr<MaterialMirror> material = std::make_shared<MaterialMirror>();
+    std::shared_ptr<MaterialPVC> material = std::make_shared<MaterialPVC>();
+    // std::shared_ptr<MaterialMirror> material = std::make_shared<MaterialMirror>();
 
     std::shared_ptr<GeometryPrimitive> measuredGreenPvcPrimitive = std::make_shared<GeometryPrimitive>(measuredGreenPvcBall, material);
 
