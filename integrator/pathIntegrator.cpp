@@ -51,16 +51,30 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
         std::unique_ptr<Bsdf> bsdf = interaction.primitive->getMaterial()->createBsdf(interaction);
         Vector3 wo;
         float _pdf;
-        Color f = bsdf->sample_f(hitRay.dir, wo, _pdf, interaction, BxdfType::ALL);
+        BxdfType sampledType;
+        Color f = bsdf->sample_f(-hitRay.dir, wo, _pdf, sampledType, interaction, BxdfType::ALL);
 
-        Ray dummyRay;
-        Color _directLight = sampleLightFromNormalMaterial(pool, interaction.point, interaction.normal_shading, dummyRay);
-        // _directLight = Color::COLOR_WHITE * 100;
+         if(sampledType == BxdfType::REFLECTION)
+         {
+            assert(!hitRay.dir.isSameDir(interaction.normal_shading));
+            assert(wo.isSameDir(interaction.normal_geometry));
+         }
 
+        Color _directLight = Color::COLOR_BLACK;
+        
+        if(sampledType == BxdfType::DIFFUSE)
+        {
+            Ray dummyRay;
+            _directLight = sampleLightFromNormalMaterial(pool, interaction.point, interaction.normal_shading, dummyRay);
+        }
 
         color += beta * f * _directLight;
 
         float dot = std::abs(interaction.normal_geometry * hitRay.dir);
+        if(sampledType == BxdfType::REFLECTION)
+        {
+            dot = 1;
+        }
         beta *= (f * dot) / _pdf;
 
         hitRay = genNextRay(interaction.point, interaction.normal_shading, wo);

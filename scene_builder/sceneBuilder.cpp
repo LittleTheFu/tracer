@@ -280,7 +280,7 @@ void SceneBuilder::buildVolumeBall(const Vector3 &pos, float r)
 void SceneBuilder::buildBunny(const Vector3 &pos, float scale, const std::string &res, MATERIAL_TYPE materialType)
 {
     // std::shared_ptr<MaterialLambertian> material = std::make_shared<MaterialLambertian>(Color::COLOR_GREEN);
-    std::shared_ptr<MaterialPlus> material = std::make_shared<MaterialPVC>(); 
+    std::shared_ptr<MaterialPlus> material = std::make_shared<MaterialMirror>(); 
     std::shared_ptr<Mesh> bunny = std::make_shared<Mesh>(res, pos, scale);
     bunny->addToPool(m_pObjectPool, material);
 }

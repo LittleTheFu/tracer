@@ -241,7 +241,7 @@ bool Vector3::isSameDir(const Vector3 & that) const
 {
     float r = this->operator*(that);
 
-    return r > 0;
+    return r >= 0;
 }
 
 Vector3 Vector3::conductorReflect(const Vector3 &normal, std::complex<float> etaOutside, std::complex<float> etaInside, float &fresnel) const

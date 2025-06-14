@@ -50,7 +50,12 @@ float Bsdf::pdf(const Vector3 &wo, const Vector3 &wi, BxdfType flags) const
     return pdf;
 }
 
-Color Bsdf::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf, const Interaction &interaction, BxdfType flags) const
+Color Bsdf::sample_f(const Vector3 &wo,
+                     Vector3 &wi,
+                     float &pdf,
+                     BxdfType &sampledType,
+                     const Interaction &interaction,
+                     BxdfType flags) const
 {
     std::vector<std::shared_ptr<Bxdf>> bxdfs;
 
@@ -78,7 +83,8 @@ Color Bsdf::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf, const Interacti
     }
 
     Vector3 wi_local;
-    Color f = bxdfs[index]->sample_f(wo, wi_local, pdf, interaction);
+    Color f = bxdfs[index]->sample_f(wo_local, wi_local, pdf, interaction);
+    sampledType = bxdfs[index]->getType();
     wi = tbnFrame_.vectorToWorld(wi_local);
     
     pdf /= bxdfs.size();
