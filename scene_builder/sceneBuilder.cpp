@@ -298,10 +298,12 @@ void SceneBuilder::buildBunny(const Vector3 &pos, float scale, const std::string
 {
     std::shared_ptr<MaterialLambertian> material = std::make_shared<MaterialLambertian>(Color::COLOR_GREEN);
     std::shared_ptr<Mesh> bunny = std::make_shared<Mesh>(res, pos, scale);
+    bunny->addToPool(m_pObjectPool, material);
+
     // bunny->setSelfPtr(bunny);
     // bunny->addToPool(m_pObjectPool);
 
-    std::shared_ptr<GeometryPrimitive> primitive = std::make_shared<GeometryPrimitive>(bunny, material);
+    // std::shared_ptr<GeometryPrimitive> primitive = std::make_shared<GeometryPrimitive>(bunny, material);
     // m_pObjectPool->addPrimitive(primitive);
 }
 
