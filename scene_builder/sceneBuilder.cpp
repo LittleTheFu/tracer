@@ -132,6 +132,8 @@ void SceneBuilder::buildLight(const Vector3 &pos, float r)
 
     std::shared_ptr<Geometry> ball = std::make_shared<Ball>(Vector3::ZERO, pos, r, nullptr);
     std::shared_ptr<MaterialPlus> lightMaterial = std::make_shared<EmittingMaterial>();
+    ball->setSelfPtr(ball);
+    ball->setMaterialPlus(lightMaterial);
     std::shared_ptr<GeometryPrimitive> lightPrimitive = std::make_shared<GeometryPrimitive>(ball, lightMaterial);
     std::shared_ptr<AreaLight> areaLight = std::make_shared<AreaLight>(lightPrimitive);
 

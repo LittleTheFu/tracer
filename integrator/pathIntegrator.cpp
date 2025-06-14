@@ -36,7 +36,8 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
 
         if (interaction.material->isEmitting())
         {
-            color = interaction.material->getEmittedRadiance(); 
+            // color = interaction.material->getEmittedRadiance(); 
+            color += interaction.material->getEmittedRadiance();
             break;
         }
 
