@@ -1,4 +1,4 @@
-#include "MaterialMirror.h"
+#include "materialMirror.h"
 #include "lambertianReflection.h"
 #include "specularBxdf.h"
 
