@@ -73,7 +73,7 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
         float dot = std::abs(interaction.normal_geometry * hitRay.dir);
         if(hasFlag(sampledType, BxdfType::SPECULAR))
         {
-            dot = 1;
+            // dot = 1;
         }
         beta *= (f * dot) / _pdf;
 

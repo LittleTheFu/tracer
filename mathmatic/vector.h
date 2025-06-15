@@ -57,8 +57,8 @@ public:
 
     Vector3 reflect(const Vector3 &normal) const;
     Vector3 refract(const Vector3 &normal,
-                     float etaOutside,
-                     float etaInside,
+                     float etaI,
+                     float etaT,
                      bool &totalReflect,
                      float &fresnel) const;
     bool isInSameSide(const Vector3 &that) const;

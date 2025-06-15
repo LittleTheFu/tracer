@@ -83,15 +83,15 @@ float Common::sinPhiSq(const Vector3 &v)
     return sinPhi(v) * sinPhi(v);
 }
 
-float Common::fresnel(float etaInputSide,
-                      float etaOutputSide,
+float Common::fresnel(float etaI,
+                      float etaT,
                       float cos_theta_in,
                       float cos_theta_out)
 {
-    float r_pa = (etaOutputSide * cos_theta_in - etaInputSide * cos_theta_out) /
-                 (etaOutputSide * cos_theta_in + etaInputSide * cos_theta_out);
-    float r_per = (etaInputSide * cos_theta_in - etaOutputSide * cos_theta_out) /
-                  (etaInputSide * cos_theta_in + etaOutputSide * cos_theta_out);
+    float r_pa = (etaT * cos_theta_in - etaI * cos_theta_out) /
+                 (etaT * cos_theta_in + etaI * cos_theta_out);
+    float r_per = (etaI * cos_theta_in - etaT * cos_theta_out) /
+                  (etaI * cos_theta_in + etaT * cos_theta_out);
 
     return 0.5f * (r_pa * r_pa + r_per * r_per);
 }

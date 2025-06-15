@@ -29,7 +29,7 @@ Color DielectricBxdf::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf, const
 
     if (dot < 0)
     {
-        normal = -normal;
+        // normal = -normal;
         // std::swap(etaI, etaT);
     }
 
@@ -43,16 +43,45 @@ Color DielectricBxdf::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf, const
     
     pdf = fresnel;
 
+    static int totalReflectCnt = 0;
+    static int totalTransmitCnt = 0;
+
+    if(totalReflectCnt % 100 == 0)
+    {
+        std::cout << "totalReflectCnt: " << totalReflectCnt << std::endl;
+        std::cout << "totalTransmitCnt: " << totalTransmitCnt << std::endl;
+    }
+
+
     //for debug
-    // if(totalReflect)
+    if(totalReflect)
+    {
+        totalReflectCnt++;
+        return Color::COLOR_WHITE;
+    }
+    else
+    {
+        totalTransmitCnt++;
+        // return Color::COLOR_WHITE;
+    }
+    // static int moreThanOneCnt = 0;
+    // static int lessThanOneCnt = 0;
+
+    // if(etaI > etaT)
     // {
-    //     return Color::COLOR_BLACK;
+    //     moreThanOneCnt++;
     // }
     // else
     // {
-    //     return Color::COLOR_WHITE;
+    //     lessThanOneCnt++;
     // }
 
-    return Color::COLOR_WHITE * MathUtility::sq(etaT / etaI);
+    // if(moreThanOneCnt % 10 == 0)
+    // {
+    //     std::cout << "moreThanOneCnt: " << moreThanOneCnt << std::endl;
+    //     std::cout << "lessThanOneCnt: " << lessThanOneCnt << std::endl;
+    // }
+
+    return Color::COLOR_WHITE * MathUtility::sq(etaI / etaT);
     // return Color::COLOR_WHITE;
 }
