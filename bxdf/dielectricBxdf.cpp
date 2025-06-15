@@ -30,7 +30,7 @@ Color DielectricBxdf::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf, const
     if (dot < 0)
     {
         normal = -normal;
-        std::swap(etaI, etaT);
+        // std::swap(etaI, etaT);
     }
 
     // Vector3 inputVector = Vector3(wo.x, wo.y, -wo.z);
