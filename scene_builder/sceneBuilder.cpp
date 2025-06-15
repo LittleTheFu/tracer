@@ -16,6 +16,7 @@
 #include <emittingMaterial.h>
 #include <materialPVC.h>
 #include <materialMirror.h>
+#include <materialGlass.h>
 
 void SceneBuilder::init(std::shared_ptr<ObjectPool> pool)
 {
@@ -59,7 +60,7 @@ void SceneBuilder::buildRoom()
     Vector3 frontRotate(MathConstant::PI, 0, 0);
     Vector3 frontPosition(0, 0, 5 * c);
     std::shared_ptr<Plane> frontPlane = std::make_shared<Plane>(frontRotate, frontPosition, r);
-    std::shared_ptr<MaterialPlus> frontMtrlLambertian = std::make_shared<MaterialLambertian>(Color::COLOR_AQUA);
+    std::shared_ptr<MaterialPlus> frontMtrlLambertian = std::make_shared<MaterialLambertian>(Color::COLOR_PINK);
 
     Vector3 backRotate(0, 0, 0);
     Vector3 backPosition(0, 0, -3 * c);
@@ -152,6 +153,9 @@ void SceneBuilder::buildSceneWithDefaultConfig()
 void SceneBuilder::buildGlassBall(const Vector3 &pos, float r)
 {
     std::shared_ptr<Ball> glassBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+    std::shared_ptr<MaterialPlus> glassMaterial = std::make_shared<MaterialGlass>();
+    std::shared_ptr<GeometryPrimitive> glassPrimitive = std::make_shared<GeometryPrimitive>(glassBall, glassMaterial);
+    m_pObjectPool->addPrimitive(glassPrimitive);
 
     // m_pObjectPool->add(glassBall);
 }

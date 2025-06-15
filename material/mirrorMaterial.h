@@ -3,6 +3,7 @@
 
 #include "material.h"
 #include "mirror.h"
+
 class MirrorMaterial : public Material
 {
 public:

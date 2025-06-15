@@ -66,6 +66,8 @@ bool Tri::hit(const Ray &ray, Interaction &interaction) const
     if (!testHit(localRay, interaction.t))
         return false;
 
+    interaction.incoming = ray.dir;
+
     //reduntant code,refactor later...
     Vector3 localPoint = localRay.getPosition(interaction.t);
     Vector3 _objPoint = frame.pointToWorld(localPoint);

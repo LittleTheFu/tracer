@@ -272,7 +272,7 @@ Vector3 Vector3::refract(const Vector3 &normal,
     assert((normal != Vector3::ZERO && "Vector3::_refract"));
     assert((etaInputSide != 0) && "Vector3::_refract");
     assert((etaOutputSide != 0) && "Vector3::_refract");
-    assert(!isSameDir(normal) && "Vector3::_refract");
+    // assert(!isSameDir(normal) && "Vector3::_refract");
 
     float eta = etaOutputSide / etaInputSide;
 

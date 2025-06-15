@@ -24,6 +24,8 @@ bool Plane::hit(const Ray &ray, Interaction &interaction) const
     if(!testHit(newRay, interaction.t))
         return false;
 
+    interaction.incoming = ray.dir;
+    
     //refactor later...
     Vector3 localPoint = newRay.getPosition(interaction.t);
     Vector3 localNormal = Common::LOCAL_NORMAL;

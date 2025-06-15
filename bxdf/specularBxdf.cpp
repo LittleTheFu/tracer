@@ -2,7 +2,7 @@
 #include <cassert>
 
 SpecularBxdf::SpecularBxdf()
-    : Bxdf(BxdfType::REFLECTION)
+    : Bxdf(static_cast<BxdfType>(BxdfType::REFLECTION | BxdfType::SPECULAR))
 {
 }
 

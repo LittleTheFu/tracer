@@ -17,5 +17,5 @@ BxdfType Bxdf::getType() const
 
 bool Bxdf::isType(BxdfType type) const
 {
-    return (type_ & type) != 0;
+    return hasFlag(type_, type);
 }

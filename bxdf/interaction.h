@@ -18,6 +18,7 @@ public:
     ~Interaction() = default;
 
 public:
+    Vector3 incoming;
     Vector3 point;
 
     Vector3 normal_geometry;

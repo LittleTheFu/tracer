@@ -42,11 +42,11 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
             break;
         }
 
-        if(interaction.normal_geometry.isSameDir(hitRay.dir))
-        {
+        // if(interaction.normal_geometry.isSameDir(hitRay.dir))
+        // {
             // color += Color::COLOR_BLACK;
-            break;
-        }
+            // break;
+        // }
 
         std::unique_ptr<Bsdf> bsdf = interaction.primitive->getMaterial()->createBsdf(interaction);
         Vector3 wo;
@@ -54,15 +54,15 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
         BxdfType sampledType;
         Color f = bsdf->sample_f(-hitRay.dir, wo, _pdf, sampledType, interaction, BxdfType::ALL);
 
-         if(sampledType == BxdfType::REFLECTION)
-         {
-            assert(!hitRay.dir.isSameDir(interaction.normal_shading));
-            assert(wo.isSameDir(interaction.normal_geometry));
-         }
+        //  if(sampledType == BxdfType::REFLECTION)
+        //  {
+        //     assert(!hitRay.dir.isSameDir(interaction.normal_shading));
+        //     assert(wo.isSameDir(interaction.normal_geometry));
+        //  }
 
         Color _directLight = Color::COLOR_BLACK;
         
-        if(sampledType == BxdfType::DIFFUSE)
+        if(hasFlag(sampledType, BxdfType::DIFFUSE))
         {
             Ray dummyRay;
             _directLight = sampleLightFromNormalMaterial(pool, interaction.point, interaction.normal_shading, dummyRay);
@@ -71,7 +71,7 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
         color += beta * f * _directLight;
 
         float dot = std::abs(interaction.normal_geometry * hitRay.dir);
-        if(sampledType == BxdfType::REFLECTION)
+        if(hasFlag(sampledType, BxdfType::SPECULAR))
         {
             dot = 1;
         }
@@ -127,7 +127,7 @@ Ray PathIntegrator::genNextRay(const Vector3 &pos, const Vector3 &normal, const 
      float sign = MathUtility::getSign(normal * reflect);
 
     //  multiply by a 0.001f is a lazy way to avoid self intersection
-    Vector3 origin = pos + sign * reflect * 0.001f;
+    Vector3 origin = pos + sign * normal * 0.001f;
 
     return Ray(origin, reflect);
 }

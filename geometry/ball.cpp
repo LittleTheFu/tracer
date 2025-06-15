@@ -112,6 +112,8 @@ bool Ball::hit(const Ray &ray, Interaction &interaction) const
     if (!testHit(newRay, interaction.t))
         return false;
 
+    interaction.incoming = ray.dir;
+
     const Vector3 localPoint = newRay.getPosition(interaction.t);
     interaction.point = m_transform.transformPoint(localPoint);
 

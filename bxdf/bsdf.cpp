@@ -89,5 +89,10 @@ Color Bsdf::sample_f(const Vector3 &wo,
     
     pdf /= bxdfs.size();
 
+    if (hasFlag(sampledType, BxdfType::SPECULAR))
+    {
+        pdf = 1;
+    }
+
     return f;
 }
