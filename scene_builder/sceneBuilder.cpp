@@ -154,6 +154,9 @@ void SceneBuilder::buildGlassBall(const Vector3 &pos, float r)
 {
     std::shared_ptr<Ball> glassBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
     std::shared_ptr<MaterialPlus> glassMaterial = std::make_shared<MaterialGlass>();
+    std::shared_ptr<MaterialPlus> redMaterial = std::make_shared<MaterialLambertian>(Color::COLOR_RED);
+    std::shared_ptr<MaterialPlus> mirrorMaterial = std::make_shared<MaterialMirror>();
+
     std::shared_ptr<GeometryPrimitive> glassPrimitive = std::make_shared<GeometryPrimitive>(glassBall, glassMaterial);
     m_pObjectPool->addPrimitive(glassPrimitive);
 

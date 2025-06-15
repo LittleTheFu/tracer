@@ -27,61 +27,47 @@ Color DielectricBxdf::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf, const
     float etaI = etaI_;
     float etaT = etaT_;
 
-    if (dot < 0)
+    if (dot > 0)
     {
-        // normal = -normal;
-        // std::swap(etaI, etaT);
+        normal = -normal;
     }
 
-    // Vector3 inputVector = Vector3(wo.x, wo.y, -wo.z);
     Vector3 inputVector = -wo;
     bool totalReflect;
     float fresnel;
-    wi = inputVector.refract(normal, etaI, etaT, totalReflect, fresnel);
+    Vector3 temp_refracted_wi = inputVector.refract(normal, etaI, etaT, totalReflect, fresnel);
 
     assert(MathUtility::is_in_range(fresnel, 0.0f, 1 + 0.00001f, true, true));
-    
-    pdf = fresnel;
 
-    static int totalReflectCnt = 0;
-    static int totalTransmitCnt = 0;
 
-    if(totalReflectCnt % 100 == 0)
-    {
-        std::cout << "totalReflectCnt: " << totalReflectCnt << std::endl;
-        std::cout << "totalTransmitCnt: " << totalTransmitCnt << std::endl;
+   // 2.1. 内全反射 (TIR)
+    if (totalReflect) {
+        // 如果发生全内反射，则光线只能反射。
+        wi = inputVector.reflect(normal); // 确保 wi 是正确的反射方向
+        pdf = 1.0f; // 确定性采样，PDF为1.0。
+        // Fresnel 在 TIR 时应该为 1.0。BxDF 值为 Color::WHITE * fresnel (即 Color::WHITE)。
+        return Color::COLOR_WHITE * fresnel; 
+    } 
+    // 2.2. 非 TIR 情况：概率反射或概率折射
+    else {
+        // 生成一个随机数来决定是反射还是折射
+        float rand_val = MathUtility::genRandomDecimal();
+
+        if (rand_val < fresnel) {
+            // 采样反射路径 (概率为 fresnel)
+            wi = inputVector.reflect(normal); // 计算反射方向
+            pdf = fresnel; // 采样反射路径的 PDF
+            // 镜面反射的 BxDF 值为 Color::WHITE * fresnel。
+            // 返回 f / pdf = (Color::WHITE * fresnel) / fresnel = Color::WHITE。
+            return Color::COLOR_WHITE; 
+        } else {
+            // 采样折射路径 (概率为 1 - fresnel)
+            wi = temp_refracted_wi; // wi 是之前 refract 计算得到的折射方向
+            pdf = 1.0f - fresnel; // 采样折射路径的 PDF
+            // 镜面透射的 BxDF 值为 Color::WHITE * (1 - fresnel) * (etaI / etaT)^2。
+            // 返回 f / pdf = (Color::WHITE * (1.0f - fresnel) * MathUtility::sq(etaI / etaT)) / (1.0f - fresnel)
+            //               = Color::COLOR_WHITE * MathUtility::sq(etaI / etaT)。
+            return Color::COLOR_WHITE * MathUtility::sq(etaI / etaT);
+        }
     }
-
-
-    //for debug
-    if(totalReflect)
-    {
-        totalReflectCnt++;
-        return Color::COLOR_WHITE;
-    }
-    else
-    {
-        totalTransmitCnt++;
-        // return Color::COLOR_WHITE;
-    }
-    // static int moreThanOneCnt = 0;
-    // static int lessThanOneCnt = 0;
-
-    // if(etaI > etaT)
-    // {
-    //     moreThanOneCnt++;
-    // }
-    // else
-    // {
-    //     lessThanOneCnt++;
-    // }
-
-    // if(moreThanOneCnt % 10 == 0)
-    // {
-    //     std::cout << "moreThanOneCnt: " << moreThanOneCnt << std::endl;
-    //     std::cout << "lessThanOneCnt: " << lessThanOneCnt << std::endl;
-    // }
-
-    return Color::COLOR_WHITE * MathUtility::sq(etaI / etaT);
-    // return Color::COLOR_WHITE;
 }
