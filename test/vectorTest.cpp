@@ -518,7 +518,7 @@ TEST_F(Vector3RefractTest, PerpendicularIncidence) {
     // 光线从空气进入玻璃 (incident_ray_straight . normal_up < 0)
     Vector3 refracted_entering = incident_ray_straight.refract(normal_up, air_eta, glass_eta, totalReflect, fresnel);
     ASSERT_FALSE(totalReflect);
-    ASSERT_NEAR(fresnel, 0.0f, EPSILON); // 垂直入射，菲涅尔为0
+    ASSERT_NEAR(fresnel, 0.04f, EPSILON); // 垂直入射，菲涅尔为0
     ASSERT_NEAR(refracted_entering.x, incident_ray_straight.x, EPSILON);
     ASSERT_NEAR(refracted_entering.y, incident_ray_straight.y, EPSILON);
     ASSERT_NEAR(refracted_entering.z, incident_ray_straight.z, EPSILON);
@@ -528,7 +528,7 @@ TEST_F(Vector3RefractTest, PerpendicularIncidence) {
     // 但在refract内部会翻转n_internal为normal_up，并swap etaI/etaT
     Vector3 refracted_exiting = incident_ray_straight.refract(normal_down, glass_eta, air_eta, totalReflect, fresnel);
     ASSERT_FALSE(totalReflect);
-    ASSERT_NEAR(fresnel, 0.0f, EPSILON); // 垂直入射，菲涅尔为0
+    ASSERT_NEAR(fresnel, 0.04f, EPSILON); // 垂直入射，菲涅尔为0
     ASSERT_NEAR(refracted_exiting.x, incident_ray_straight.x, EPSILON);
     ASSERT_NEAR(refracted_exiting.y, incident_ray_straight.y, EPSILON);
     ASSERT_NEAR(refracted_exiting.z, incident_ray_straight.z, EPSILON);
@@ -537,35 +537,36 @@ TEST_F(Vector3RefractTest, PerpendicularIncidence) {
 
 // 倾斜入射（从空气到玻璃）：应该发生折射，菲涅尔不为0
 TEST_F(Vector3RefractTest, AngledIncidenceAirToGlass) {
-    Vector3 incident_angled = Vector3(0.707f, 0.0f, -0.707f).dir(); // 45度入射 (x轴正向，z轴负向)
+    Vector3 incident_angled = Vector3(0.707f, 0.0f, -0.707f).dir();
     float fresnel;
     bool totalReflect;
 
-    // normal_up = (0,0,1)
-    // cos_theta_incident_raw = incident_angled . normal_up = -0.707f (小于0，表示光线进入)
-    // n_internal = normal_up = (0,0,1)
-    // current_etaI = air_eta = 1.0, current_etaT = glass_eta = 1.5
     Vector3 refracted = incident_angled.refract(normal_up, air_eta, glass_eta, totalReflect, fresnel);
 
     ASSERT_FALSE(totalReflect);
-    ASSERT_GT(fresnel, 0.0f); // 应该有菲涅尔反射
+    ASSERT_GT(fresnel, 0.0f);
 
-    // 验证折射方向 (可以使用在线斯涅尔定律计算器验证，或手动计算)
-    // 根据斯涅尔定律：sin(theta_t) = (etaI/etaT) * sin(thetaI)
-    // thetaI = 45 deg, sin(thetaI) = 0.707
-    // sin(theta_t) = (1.0/1.5) * 0.707 = 0.6666 * 0.707 = 0.471
-    // theta_t = asin(0.471) approx 28.08 deg
-    // cos(theta_t) approx 0.882
-    // R = (eta_ratio * (I - dot * N)) + cos_theta_out * N
-    // I = (0.707, 0, -0.707), N = (0,0,1), dot = -0.707
-    // I - dot * N = (0.707, 0, -0.707) - (-0.707)*(0,0,1) = (0.707, 0, 0)
-    // T_perp = (1.0/1.5) * (0.707, 0, 0) = (0.471, 0, 0)
-    // T_parallel = cos_theta_out * N = 0.882 * (0,0,1) = (0, 0, 0.882)
-    // out = (0.471, 0, 0.882)
-    ASSERT_NEAR(refracted.x, 0.4714f, EPSILON); 
+    // 重新计算精确的期望值（或使用更精确的常量）
+    // 从空气到玻璃，入射向量的Z是负的，法线是正的。
+    // 光线进入后，Z分量应该仍然是负的。
+    // 假设 air_eta = 1.0f, glass_eta = 1.5f
+    // incident_angled.x = 0.70710678f, incident_angled.z = -0.70710678f (这是 sqrt(2)/2 的值)
+    // normal_up = (0,0,1)
+
+    // incident_angle_cos_val = incident_angled.dot(normal_up) = -0.70710678f
+    // sin_incident_angle = sqrt(1 - incident_angle_cos_val^2) = 0.70710678f
+    // eta_ratio = 1.0f / 1.5f = 0.66666667f
+    // sin_refracted_angle = eta_ratio * sin_incident_angle = 0.66666667f * 0.70710678f = 0.47140452f
+    // cos_refracted_angle = sqrt(1 - sin_refracted_angle^2) = sqrt(1 - 0.47140452^2) = 0.88195171f
+
+    // expected_refracted_x = incident_angled.x * eta_ratio = 0.70710678f * 0.66666667f = 0.47140452f
+    // expected_refracted_z = -cos_refracted_angle = -0.88195171f (关键的负号)
+
+    // 因此，你需要这样修改断言：
+    ASSERT_NEAR(refracted.x, 0.47140452f, EPSILON); // 使用更精确的值
     ASSERT_NEAR(refracted.y, 0.0f, EPSILON);
-    ASSERT_NEAR(refracted.z, 0.8819f, EPSILON);
-    ASSERT_NEAR(refracted.length(), 1.0f, EPSILON); // 确保是单位向量
+    ASSERT_NEAR(refracted.z, -0.88195171f, EPSILON); // **符号从正变为负**
+    ASSERT_NEAR(refracted.length(), 1.0f, EPSILON);
 }
 
 // 全内反射 (TIR) 测试：从玻璃到空气，大角度入射
@@ -601,60 +602,63 @@ TEST_F(Vector3RefractTest, TotalInternalReflection) {
 
 // 光线从玻璃到空气，小角度入射（非 TIR）
 TEST_F(Vector3RefractTest, AngledIncidenceGlassToAir) {
-    Vector3 incident_angled = Vector3(0.5f, 0.0f, -std::sqrt(1.0f - 0.5f*0.5f)).dir(); // 入射角约30度
+    // 重新设定一个离开物体的入射光线和法线
+    // 入射向量 I = (0.5, 0, 0.866025)
+    // 这是一个与Z轴正向夹角约30度的向量，表示光线从物体内部射出。
+    // sin(30) = 0.5, cos(30) = 0.866025
+    Vector3 incident_from_inside = Vector3(0.5f, 0.0f, std::sqrt(1.0f - 0.5f*0.5f)).dir();
+    
     float fresnel;
     bool totalReflect;
 
-    // normal_up = (0,0,1)
-    // cos_theta_incident_raw = incident_angled . normal_up = -std::sqrt(1.0f - 0.5f*0.5f) < 0
-    // 所以 n_internal = normal_up, 且 swap(etaI, etaT) 不发生。
-    // 这意味着光线是从外部（air_eta）射入内部（glass_eta）。
-    // 这不符合从玻璃到空气的测试意图。
-
-    // 为了正确测试“从玻璃到空气”，需要调整 normal 的传入方式，使其点积为正，或确保 refract 内部逻辑正确识别。
-    // 根据你的 refract 实现：
-    // 如果 cos_theta_incident_raw < 0 (光线进入物体)，则 n_internal = N_outward (即normal), 不swap eta。
-    // 如果 cos_theta_incident_raw >= 0 (光线离开物体)，则 n_internal = -N_outward (-normal), swap eta。
-
-    // 要测试“从玻璃到空气”，且光线离开物体，那么入射光线 * N_outward 应该 >= 0
-    // 例如：入射光线 (0,0,1) 离开法线 (0,0,-1)
-    // 让我们重新设定一个离开物体的入射光线和法线
-    Vector3 incident_from_inside = Vector3(0.5f, 0.0f, 0.866025f).dir(); // 从物体内部射向法线 (0,0,1)
-    
+    // normal_up = (0,0,1) 是外向法线，指向物体外部
     // 调用 refract 时，normal 参数应是当前面的外向法线，即 (0,0,1)
-    // incident_from_inside . normal_up > 0, 所以 refract 内部会 n_internal = -normal_up, 并 swap(etaI, etaT)
+    // 传入 glass_eta 作为当前介质，air_eta 作为目标介质
+    // incident_from_inside . normal_up (0.866) > 0, 所以 refract 内部会 n_internal = -normal_up (即(0,0,-1))
+    // 并且不再进行 eta 的 swap (因为我们已经修复了 refract 函数)
     Vector3 refracted = incident_from_inside.refract(normal_up, glass_eta, air_eta, totalReflect, fresnel);
 
+    // 验证是否发生全内反射
+    // 入射角约30度，临界角约为41.81度 (arcsin(1.0/1.5))
+    // 30 < 41.81，所以不会发生全内反射，光线会折射
     ASSERT_FALSE(totalReflect);
-    ASSERT_GT(fresnel, 0.0f); // 应该有菲涅尔反射
+    // 应该有菲涅尔反射（任何折射都会伴随反射）
+    ASSERT_GT(fresnel, 0.0f); 
 
-    // 验证折射方向 (计算)
-    // I = (0.5, 0, 0.866)
+    // 验证折射方向 (基于正确的 refract 逻辑和计算)
+    // 内部计算推导：
+    // I = (0.5, 0, 0.866025)
     // N_outward = (0,0,1)
-    // refract 内部：
-    // cos_theta_incident_raw = I . N_outward = 0.866 > 0
+    // cos_theta_incident_raw = I . N_outward = 0.866025
     // n_internal = -N_outward = (0,0,-1)
-    // current_etaI = air_eta = 1.0, current_etaT = glass_eta = 1.5 (因为 swap 发生在参数传入前)
-    // NO! 'std::swap(current_etaI, current_etaT);' 发生在内部，所以实际计算时：
-    // current_etaI = 1.5 (glass_eta)
-    // current_etaT = 1.0 (air_eta)
-    // dot = I . n_internal = (0.5, 0, 0.866) . (0,0,-1) = -0.866
-    // sin_theta_in_sqr = 1 - dot*dot = 1 - (-0.866)^2 = 1 - 0.75 = 0.25
+    // current_etaI (用于Snell公式) = glass_eta = 1.5
+    // current_etaT (用于Snell公式) = air_eta = 1.0
+    // dot (I . n_internal) = -0.866025
+    // sin_theta_in_sqr = 1 - (-0.866025)^2 = 0.25
     // eta_ratio = current_etaI / current_etaT = 1.5 / 1.0 = 1.5
     // sin_theta_out_sqr = sin_theta_in_sqr * eta_ratio^2 = 0.25 * 1.5^2 = 0.25 * 2.25 = 0.5625
     // cos_theta_out_sqr = 1 - 0.5625 = 0.4375
-    // cos_theta_out = sqrt(0.4375) = 0.6614
-    //
+    // cos_theta_out = sqrt(0.4375) = 0.6614378...
+
     // T_perp = eta_ratio * (I - dot * n_internal)
-    //        = 1.5 * ((0.5, 0, 0.866) - (-0.866)*(0,0,-1))
-    //        = 1.5 * ((0.5, 0, 0.866) - (0,0,0.866))
+    //        = 1.5 * ((0.5, 0, 0.866025) - (-0.866025)*(0,0,-1))
+    //        = 1.5 * ((0.5, 0, 0.866025) - (0,0,0.866025))
     //        = 1.5 * (0.5, 0, 0) = (0.75, 0, 0)
-    // T_parallel = cos_theta_out * n_internal = 0.6614 * (0,0,-1) = (0, 0, -0.6614)
-    // out = (0.75, 0, -0.6614)
+
+    // T_parallel = -cos_theta_out * n_internal (根据你代码中的负号)
+    //            = -0.6614378 * (0,0,-1)
+    //            = (0, 0, 0.6614378)
+
+    // out = T_perp + T_parallel
+    //     = (0.75, 0, 0) + (0, 0, 0.6614378)
+    //     = (0.75, 0, 0.6614378)
+
+    // 最终断言：
     ASSERT_NEAR(refracted.x, 0.75f, EPSILON);
     ASSERT_NEAR(refracted.y, 0.0f, EPSILON);
-    ASSERT_NEAR(refracted.z, -0.66143f, EPSILON);
-    ASSERT_NEAR(refracted.length(), 1.0f, EPSILON);
+    // Z 分量现在是正值，因为法线反向，且 T_parallel 公式带负号
+    ASSERT_NEAR(refracted.z, 0.661437f, EPSILON); // <-- 修正为正数
+    ASSERT_NEAR(refracted.length(), 1.0f, EPSILON); // 验证折射向量是单位向量
 }
 
 // ============================================================================
