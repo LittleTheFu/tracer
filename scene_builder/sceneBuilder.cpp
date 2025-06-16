@@ -316,28 +316,37 @@ void SceneBuilder::buildRedTri(const Vector3 &pos)
 
 void SceneBuilder::buildGreenTri(const Vector3 &pos)
 {
-    Vector3 a(-150, 10, 30);
-    Vector3 b(-170, 40, 50);
-    Vector3 c(40, 0, 10);
+    Vector3 a(150, -60, 200);
+    Vector3 b(-170, 40, 200);
+    Vector3 c(40, 70, 200);
 
-    Vector3 na = (a - b).cross(a - c);
-    Vector3 nb = (b - c).cross(b - a);
-    Vector3 nc = (c - a).cross(c - b);
+    // Vector3 na = (a - b).cross(a - c);
+    // Vector3 nb = (b - c).cross(b - a);
+    // Vector3 nc = (c - a).cross(c - b);
+
+    Vector3 na = {0, 0, -1};
+    Vector3 nb = {0, 0, -1};
+    Vector3 nc = {0, 0, -1};
 
     TriVertex ta(a, na);
     TriVertex tb(b, nb);
     TriVertex tc(c, nc);
 
     std::shared_ptr<Tri> tri = std::make_shared<Tri>(ta, tb, tc, pos);
+    std::shared_ptr<MaterialPlus> materialMirror = std::make_shared<MaterialMirror>(); 
+    std::shared_ptr<MaterialPlus> materialGlass = std::make_shared<MaterialGlass>(); 
+
+    std::shared_ptr<GeometryPrimitive> primitive = std::make_shared<GeometryPrimitive>(tri, materialGlass);
+    m_pObjectPool->addPrimitive(primitive);
 
     // m_pObjectPool->add(tri);
 }
 
 void SceneBuilder::buildGlassTri(const Vector3 &pos)
 {
-    // TriVertex a(-100, -100, -20);
-    // TriVertex b(-80, 90, 0);
-    // TriVertex c(40, -90, -10);
+    TriVertex a(-100, -100, -20);
+    TriVertex b(-80, 90, 0);
+    TriVertex c(40, -90, -10);
 
     // std::shared_ptr<Tri> tri = std::make_shared<Tri>(a, b, c, pos, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_GLASS));
 

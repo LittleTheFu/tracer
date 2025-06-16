@@ -13,11 +13,12 @@ void SimpleSceneBuilder::build()
     // buildMirrorBall(Vector3(-50, 70, 350), 20);
 
     //to be fixed : light power leak
-    buildGlassBall(Vector3(0, -50, 300), 30);
+    buildGlassBall(Vector3(50, -60, 300), 30);
     // buildMixBall(Vector3(35, -50, 270), 35);
     
     // buildRedTri(Vector3(-55,0,370));
     // buildGreenTri(Vector3(50,-60,350));
+    // buildGreenTri(Vector3(0,0,0));
 
     //to be fixed : light power leak
     // buildGlassTri(Vector3(20,35,230));

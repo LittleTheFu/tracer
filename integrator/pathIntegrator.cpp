@@ -1,6 +1,7 @@
 #include "pathIntegrator.h"
 #include <mathUtility.h>
 #include <cassert>
+#include <mathConstantDef.h>
 
 Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool) const
 {
@@ -38,7 +39,7 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
         if (interaction.primitive->getMaterial()->isEmitting())
         {
             // color = interaction.material->getEmittedRadiance(); 
-            color += interaction.primitive->getMaterial()->getEmittedRadiance();
+            color += beta * interaction.primitive->getMaterial()->getEmittedRadiance();
             break;
         }
 
@@ -49,10 +50,10 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
         // }
 
         std::unique_ptr<Bsdf> bsdf = interaction.primitive->getMaterial()->createBsdf(interaction);
-        Vector3 wo;
+        Vector3 wi;
         float _pdf;
         BxdfType sampledType;
-        Color f = bsdf->sample_f(-hitRay.dir, wo, _pdf, sampledType, interaction, BxdfType::ALL);
+        Color sampled_f = bsdf->sample_f(-hitRay.dir, wi, _pdf, sampledType, interaction, BxdfType::ALL);
 
         //  if(sampledType == BxdfType::REFLECTION)
         //  {
@@ -62,22 +63,24 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
 
         Color _directLight = Color::COLOR_BLACK;
         
+        Color f = Color::COLOR_BLACK;
         if(hasFlag(sampledType, BxdfType::DIFFUSE))
         {
-            Ray dummyRay;
-            _directLight = sampleLightFromNormalMaterial(pool, interaction.point, interaction.normal_shading, dummyRay);
+            Ray rayToLight;
+            _directLight = sampleLightFromNormalMaterial(pool, interaction.point, interaction.normal_shading, rayToLight);
+            f = bsdf->f(-hitRay.dir, rayToLight.dir, BxdfType::DIFFUSE);
         }
 
         color += beta * f * _directLight;
 
-        float dot = std::abs(interaction.normal_geometry * hitRay.dir);
-        if(hasFlag(sampledType, BxdfType::SPECULAR))
-        {
-            // dot = 1;
+        float cos_theta_incident_abs = std::abs(interaction.normal_geometry * wi);
+        if (_pdf < 0.0000001f)//quick and dirty
+        { 
+            break;
         }
-        beta *= (f * dot) / _pdf;
+        beta *= (sampled_f * cos_theta_incident_abs) / _pdf;
 
-        hitRay = genNextRay(interaction.point, interaction.normal_shading, wo);
+        hitRay = genNextRay(interaction.point, interaction.normal_shading, wi);
 
     }
 

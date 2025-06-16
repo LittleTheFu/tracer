@@ -153,6 +153,10 @@ bool Tri::isAllFacePositive(const Vector3 &p) const
     Vector3 ca_cp = m_ca.cross(cp);
     Vector3 ab_ap = m_ab.cross(ap);
 
+    //hack...
+    if(bc_bp.isZero() || ca_cp.isZero() || ab_ap.isZero())
+        return false;
+
     if (!bc_bp.isSameDir(ca_cp))
         return false;
     if (!ca_cp.isSameDir(ab_ap))

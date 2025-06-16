@@ -253,26 +253,14 @@ Vector3 Vector3::conductorReflect(const Vector3 &normal, std::complex<float> eta
 }
 
 // 在 Vector3.cpp 或定义 Vector3::reflect 的位置
-Vector3 Vector3::reflect(const Vector3 &normal_raw) const // 'this' 指的是入射向量
+Vector3 Vector3::reflect(const Vector3 &normal_raw) const
 {
-    // 确保法线不为零向量
     assert((normal_raw != Vector3::ZERO) && "Vector3::reflect() - Normal is zero.");
+    assert(!this->isSameDir(normal_raw));
 
-    Vector3 n = normal_raw.dir(); // 确保法线是单位向量（假设 .dir() 方法会标准化）
-
-    // 计算入射向量与法线的点积
+    Vector3 n = normal_raw.dir();
     float dot_prod = this->operator*(n); 
 
-    // 如果点积为正（即入射向量和法线指向大致相同的半球），
-    // 则翻转法线，使其指向远离入射向量的方向。
-    // 这是为了让后续的反射公式中的 (I . N) 为负，符合通常的约定。
-    if (dot_prod > 0) {
-        n = -n;             // 翻转法线
-        dot_prod = -dot_prod; // 同时更新点积的符号，因为 n 翻转了
-    }
-    // 经过以上处理，dot_prod 保证是负数或零。
-
-    // 标准的反射公式：R = I - 2 * (I . N) * N
     return *this - 2 * dot_prod * n; 
 }
 
@@ -301,25 +289,26 @@ Vector3 Vector3::refract(const Vector3 &normal,
     assert((etaT != 0) && "Vector3::_refract");
 
     // 原始的向外法线 (N_outward)
-    Vector3 N_outward = normal.dir(); 
+    // Vector3 N_outward = normal.dir(); 
 
     // 计算入射光线与向外法线的点积
-    float cos_theta_incident_raw = (*this) * N_outward; 
+    // float cos_theta_incident_raw = (*this) * N_outward; 
 
     // 根据光线是进入还是离开，调整内部使用的折射率和法线方向
     float current_etaI = etaI; 
     float current_etaT = etaT; 
-    Vector3 n_internal; 
+    // Vector3 n_internal; 
 
-    if (cos_theta_incident_raw < 0) { // 光线正在进入物体 (例如，从空气到玻璃)
-        n_internal = N_outward; 
-    } else { // 光线正在离开物体 (例如，从玻璃到空气)
-        n_internal = -N_outward; 
-        // std::swap(current_etaI, current_etaT); 
-    }
+    // if (cos_theta_incident_raw < 0) { // 光线正在进入物体 (例如，从空气到玻璃)
+    //     n_internal = N_outward; 
+    // } else { // 光线正在离开物体 (例如，从玻璃到空气)
+    //     n_internal = -N_outward; 
+    //     // std::swap(current_etaI, current_etaT); 
+    // }
 
     // 现在，'dot' (cos_theta_i) 始终是负值，符合标准折射公式的预期
-    float dot = (*this) * n_internal; 
+    // float dot = (*this) * n_internal; 
+    float dot = (*this) * normal; 
     
     float cos_theta_in_sqr = dot * dot;
     float sin_theta_in_sqr = 1.0f - cos_theta_in_sqr;
@@ -334,7 +323,8 @@ Vector3 Vector3::refract(const Vector3 &normal,
         totalReflect = true;
         fresnel = 1;
         // 反射时，法线需要指向远离入射光线的方向
-        return reflect(cos_theta_incident_raw < 0 ? N_outward : -N_outward); 
+        // return reflect(cos_theta_incident_raw < 0 ? N_outward : -N_outward); 
+        return reflect(normal);
     }
 
     if (sin_theta_out_sqr > 1.0f) sin_theta_out_sqr = 1.0f; // 钳位
@@ -348,10 +338,10 @@ Vector3 Vector3::refract(const Vector3 &normal,
     // *** 新的折射向量计算方法 ***
     // T_perp = eta * I_perp
     // I_perp = I - (I . N_in) * N_in = I - dot * N_in
-    Vector3 T_perp = eta_ratio * ((*this) - dot * n_internal); 
+    Vector3 T_perp = eta_ratio * ((*this) - dot * normal); 
 
     // T_parallel = -cos_theta_out * N_in
-    Vector3 T_parallel = -cos_theta_out * n_internal;
+    Vector3 T_parallel = -cos_theta_out * normal;
 
     // 最终折射向量 T = T_perp + T_parallel
     Vector3 out = T_perp + T_parallel;

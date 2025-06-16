@@ -24,7 +24,7 @@ Color SpecularBxdf::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf, const I
 
     if(!wo.isSameDir(n))
     {
-        assert(0);
+        // assert(0);
         wi = Vector3::ZERO;
         pdf = 0;
 
