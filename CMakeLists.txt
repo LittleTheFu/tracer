@@ -217,6 +217,33 @@ include_directories(${PROJECT_SOURCE_DIR}/third/lodepng/include)
 add_subdirectory(${PROJECT_SOURCE_DIR}/third/powitacq/)
 include_directories(${PROJECT_SOURCE_DIR}/third/powitacq/include)
 
+# --- START GOOGLETEST INTEGRATION ---
+
+# Add googletest as a subdirectory. This assumes googletest/ is at third/googletest
+# and contains its own CMakeLists.txt.
+add_subdirectory(${PROJECT_SOURCE_DIR}/third/googletest)
+
+# Find googletest. This will provide targets like gtest, gtest_main, gmock, gmock_main
+# find_package(GTest CONFIG REQUIRED)
+
+# Add your test executable
+add_executable(tracer_tests test/test.cpp)
+
+# Link your test executable with your project's library and googletest
+target_link_libraries(tracer_tests
+    mylibs
+    GTest::gtest_main  # Links against gtest and gtest_main (which provides main() function)
+    # If you're using Google Mock, you'd also add GTest::gmock_main
+)
+
+# Enable testing for your project
+enable_testing()
+
+# Add the tests to CTest (optional, but good practice)
+add_test(NAME MyTracerTests COMMAND tracer_tests)
+
+# --- END GOOGLETEST INTEGRATION ---
+
 add_executable(ray_tracer main/main.cpp )
 
 target_link_libraries(ray_tracer mylibs)
