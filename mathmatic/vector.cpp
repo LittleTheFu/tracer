@@ -377,13 +377,8 @@ bool Vector3::isZero() const
 
 bool Vector3::isPerpendicular(const Vector3 &that) const
 {
-    const Vector3 r = this->cross(that);
-
-    bool isX = std::abs(r.x) < MathConstant::FLOAT_SMALL_NUMBER;
-    bool isY = std::abs(r.y) < MathConstant::FLOAT_SMALL_NUMBER;
-    bool isZ = std::abs(r.z) < MathConstant::FLOAT_SMALL_NUMBER;
-
-    return isX && isY && isZ;
+    float dot_product = (*this) * that;
+    return MathUtility::is_float_equal(dot_product, 0.0f);
 }
 
 void Vector3::faceForward(const Vector3 &forward)
