@@ -227,7 +227,10 @@ add_subdirectory(${PROJECT_SOURCE_DIR}/third/googletest)
 # find_package(GTest CONFIG REQUIRED)
 
 # Add your test executable
-add_executable(tracer_tests test/test.cpp)
+add_executable(tracer_tests 
+                test/test.cpp
+                test/vectorTest.cpp)
+
 
 # Link your test executable with your project's library and googletest
 target_link_libraries(tracer_tests
