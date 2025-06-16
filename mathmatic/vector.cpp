@@ -239,9 +239,8 @@ Vector3 Vector3::dir() const
 
 bool Vector3::isSameDir(const Vector3 & that) const
 {
-    if (this->isZero() || that.isZero()) {
-        return true;
-    }
+    assert(!this->isZero());
+    assert(!that.isZero());
 
     float r = this->operator*(that);
 
@@ -316,7 +315,7 @@ Vector3 Vector3::refract(const Vector3 &normal,
         n_internal = N_outward; 
     } else { // 光线正在离开物体 (例如，从玻璃到空气)
         n_internal = -N_outward; 
-        std::swap(current_etaI, current_etaT); 
+        // std::swap(current_etaI, current_etaT); 
     }
 
     // 现在，'dot' (cos_theta_i) 始终是负值，符合标准折射公式的预期
@@ -352,7 +351,7 @@ Vector3 Vector3::refract(const Vector3 &normal,
     Vector3 T_perp = eta_ratio * ((*this) - dot * n_internal); 
 
     // T_parallel = -cos_theta_out * N_in
-    Vector3 T_parallel = cos_theta_out * n_internal;
+    Vector3 T_parallel = -cos_theta_out * n_internal;
 
     // 最终折射向量 T = T_perp + T_parallel
     Vector3 out = T_perp + T_parallel;
