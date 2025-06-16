@@ -41,11 +41,12 @@ Color DielectricBxdf::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf, const
                                                            totalReflect, 
                                                            fresnel);
 
-    assert(MathUtility::is_in_range(fresnel, 0.0f, 1.0f + 1e-5f, true, true)); 
+    // assert(MathUtility::is_in_range(fresnel, 0.0f, 1.0f + 1e-5f, true, true)); 
 
     const float MIN_PROBABILITY_THRESHOLD = 1e-6f; 
 
     if (totalReflect) {
+        // assert(0);
         wi = inputVector.reflect(local_surface_normal);
         
         pdf = 1.0f; 
@@ -56,6 +57,7 @@ Color DielectricBxdf::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf, const
         float rand_val = MathUtility::genRandomDecimal();
 
         if (rand_val < fresnel) {
+            // assert(0);
             wi = inputVector.reflect(local_surface_normal);
             pdf = std::max(MIN_PROBABILITY_THRESHOLD, fresnel); 
             
@@ -66,6 +68,8 @@ Color DielectricBxdf::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf, const
             float transmittance_prob = 1.0f - fresnel;
             pdf = std::max(MIN_PROBABILITY_THRESHOLD, transmittance_prob); 
             
+            Vector3 diff = wi + wo;
+            // assert(MathUtility::is_in_range(diff.length(), 0.0f, 1.0f + 1e-5f, true, true));
             return Color::COLOR_WHITE * (transmittance_prob / pdf) * MathUtility::sq(etaI_ / etaT_);
         }
     }

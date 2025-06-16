@@ -23,7 +23,7 @@ private:
                    const Vector3 &reflect) const;
 
 private:
-    int m_depth = 8;
+    int m_depth = 10;
 };
 
 #endif

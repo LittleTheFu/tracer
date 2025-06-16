@@ -318,7 +318,8 @@ Vector3 Vector3::refract(const Vector3 &normal,
 
     float sin_theta_out_sqr = sin_theta_in_sqr * (eta_ratio * eta_ratio);
     
-    if(sin_theta_out_sqr >= 1.0f - MathConstant::FLOAT_SMALL_NUMBER) // 使用 epsilon
+    // if(sin_theta_out_sqr >= 1.0f - MathConstant::FLOAT_SMALL_NUMBER) // 使用 epsilon
+    if(sin_theta_out_sqr > 1.0f)
     {
         totalReflect = true;
         fresnel = 1;
