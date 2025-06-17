@@ -4,7 +4,7 @@
 SceneType configScene = SceneType::ROOM_SIMPLE;
 
 int configResolutionScale = 10;
-int configSamplersPerPixel = 20;
+int configSamplersPerPixel = 100;
 int configNeeTracerDepth = 10;
 
 std::string configOutputImageName = "img";
