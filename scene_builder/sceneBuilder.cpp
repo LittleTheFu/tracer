@@ -154,13 +154,9 @@ void SceneBuilder::buildGlassBall(const Vector3 &pos, float r)
 {
     std::shared_ptr<Ball> glassBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
     std::shared_ptr<MaterialPlus> glassMaterial = std::make_shared<MaterialGlass>();
-    std::shared_ptr<MaterialPlus> redMaterial = std::make_shared<MaterialLambertian>(Color::COLOR_RED);
-    std::shared_ptr<MaterialPlus> mirrorMaterial = std::make_shared<MaterialMirror>();
 
     std::shared_ptr<GeometryPrimitive> glassPrimitive = std::make_shared<GeometryPrimitive>(glassBall, glassMaterial);
     m_pObjectPool->addPrimitive(glassPrimitive);
-
-    // m_pObjectPool->add(glassBall);
 }
 
 void SceneBuilder::buildMirrorBall(const Vector3 &pos, float r)
@@ -169,8 +165,6 @@ void SceneBuilder::buildMirrorBall(const Vector3 &pos, float r)
     std::shared_ptr<MaterialPlus> mirrorMaterial = std::make_shared<MaterialMirror>();
     std::shared_ptr<GeometryPrimitive> mirrorPrimitive = std::make_shared<GeometryPrimitive>(mirrorBall, mirrorMaterial);
     m_pObjectPool->addPrimitive(mirrorPrimitive);
-
-    // m_pObjectPool->add(mirrorBall);
 }
 
 void SceneBuilder::buildRedBall(const Vector3 &pos, float r)
@@ -192,100 +186,69 @@ void SceneBuilder::buildAquaBall(const Vector3 &pos, float r)
     m_pObjectPool->addPrimitive(aquaPrimitive);
 }
 
-void SceneBuilder::buildConductorBall(const Vector3 &pos, float r)
-{
-    std::shared_ptr<Ball> conductorBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+// void SceneBuilder::buildConductorBall(const Vector3 &pos, float r)
+// {
+//     std::shared_ptr<Ball> conductorBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+// }
 
-    // m_pObjectPool->add(conductorBall);
-}
+// void SceneBuilder::buildMeasuredWhiteBall(const Vector3 &pos, float r)
+// {
+//     std::shared_ptr<Ball> measuredWhiteBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+// }
 
-void SceneBuilder::buildMixBall(const Vector3 &pos, float r)
-{
-    std::shared_ptr<Ball> mixBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+// void SceneBuilder::buildMeasuredGreenBall(const Vector3 &pos, float r)
+// {
+//     std::shared_ptr<Ball> measuredGreenBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+// }
 
-    // m_pObjectPool->add(mixBall);
-}
+// void SceneBuilder::buildMeasuredMetalBall(const Vector3 &pos, float r)
+// {
+//     std::shared_ptr<Ball> measuredMetalBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+// }
 
-void SceneBuilder::buildMeasuredWhiteBall(const Vector3 &pos, float r)
-{
-    std::shared_ptr<Ball> measuredWhiteBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
-
-    // m_pObjectPool->add(measuredWhiteBall);
-}
-
-void SceneBuilder::buildMeasuredGreenBall(const Vector3 &pos, float r)
-{
-    std::shared_ptr<Ball> measuredGreenBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
-
-    // m_pObjectPool->add(measuredGreenBall);
-}
-
-void SceneBuilder::buildMeasuredMetalBall(const Vector3 &pos, float r)
-{
-    std::shared_ptr<Ball> measuredMetalBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
-
-    // m_pObjectPool->add(measuredMetalBall);
-}
-
-void SceneBuilder::buildMeasuredMintBall(const Vector3 &pos, float r)
-{
-    std::shared_ptr<Ball> measuredMintBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
-
-    // m_pObjectPool->add(measuredMintBall);
-}
+// void SceneBuilder::buildMeasuredMintBall(const Vector3 &pos, float r)
+// {
+//     std::shared_ptr<Ball> measuredMintBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+// }
 
 void SceneBuilder::buildMeasuredGreenPvcBall(const Vector3 &pos, float r)
 {
     std::shared_ptr<Ball> measuredGreenPvcBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
     std::shared_ptr<MaterialPVC> material = std::make_shared<MaterialPVC>();
-    // std::shared_ptr<MaterialMirror> material = std::make_shared<MaterialMirror>();
-
     std::shared_ptr<GeometryPrimitive> measuredGreenPvcPrimitive = std::make_shared<GeometryPrimitive>(measuredGreenPvcBall, material);
 
     m_pObjectPool->addPrimitive(measuredGreenPvcPrimitive);
 }
 
-void SceneBuilder::buildMeasuredBrushedAluminiumBall(const Vector3 &pos, float r)
-{
-    std::shared_ptr<Ball> measuredBrushedAluminiumBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+// void SceneBuilder::buildMeasuredBrushedAluminiumBall(const Vector3 &pos, float r)
+// {
+//     std::shared_ptr<Ball> measuredBrushedAluminiumBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+// }
 
-    // m_pObjectPool->add(measuredBrushedAluminiumBall);
-}
+// void SceneBuilder::buildMeasuredTarkinTunicBall(const Vector3 &pos, float r)
+// {
+//     std::shared_ptr<Ball> measuredTarkinTunicBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+// }
 
-void SceneBuilder::buildMeasuredTarkinTunicBall(const Vector3 &pos, float r)
-{
-    std::shared_ptr<Ball> measuredTarkinTunicBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+// void SceneBuilder::buildMeasuredSariSilkBall(const Vector3 &pos, float r)
+// {
+//     std::shared_ptr<Ball> measuredSariSilkBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+// }
 
-    // m_pObjectPool->add(measuredTarkinTunicBall);
-}
+// void SceneBuilder::buildNormalMapGreenPvcBall(const Vector3 &pos, float r)
+// {
+//     std::shared_ptr<Ball> normalMapGreenPvcBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+// }
 
-void SceneBuilder::buildMeasuredSariSilkBall(const Vector3 &pos, float r)
-{
-    std::shared_ptr<Ball> measuredSariSilkBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+// void SceneBuilder::buildNormalMapSariSilkBall(const Vector3 &pos, float r)
+// {
+//     std::shared_ptr<Ball> normalMapSariSilkBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+// }
 
-    // m_pObjectPool->add(measuredSariSilkBall);
-}
-
-void SceneBuilder::buildNormalMapGreenPvcBall(const Vector3 &pos, float r)
-{
-    std::shared_ptr<Ball> normalMapGreenPvcBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
-
-    // m_pObjectPool->add(normalMapGreenPvcBall);
-}
-
-void SceneBuilder::buildNormalMapSariSilkBall(const Vector3 &pos, float r)
-{
-    std::shared_ptr<Ball> normalMapSariSilkBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
-
-    // m_pObjectPool->add(normalMapSariSilkBall);
-}
-
-void SceneBuilder::buildVolumeBall(const Vector3 &pos, float r)
-{
-    std::shared_ptr<Ball> volumeBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
-
-    // m_pObjectPool->add(volumeBall);
-}
+// void SceneBuilder::buildVolumeBall(const Vector3 &pos, float r)
+// {
+//     std::shared_ptr<Ball> volumeBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+// }
 
 void SceneBuilder::buildBunny(const Vector3 &pos, float scale, const std::string &res, MATERIAL_TYPE materialType)
 {
@@ -316,45 +279,34 @@ void SceneBuilder::buildRedTri(const Vector3 &pos)
 
 void SceneBuilder::buildGreenTri(const Vector3 &pos)
 {
-    Vector3 a(150, -60, 200);
+    Vector3 a(-150, -60, 200);
     Vector3 b(-170, 40, 200);
-    Vector3 c(40, 70, 200);
+    Vector3 c(-40, 70, 200);
 
-    // Vector3 na = (a - b).cross(a - c);
-    // Vector3 nb = (b - c).cross(b - a);
-    // Vector3 nc = (c - a).cross(c - b);
-
-    Vector3 na = {0, 0, -1};
-    Vector3 nb = {0, 0, -1};
-    Vector3 nc = {0, 0, -1};
+    Vector3 na = (a - b).cross(a - c);
+    Vector3 nb = (b - c).cross(b - a);
+    Vector3 nc = (c - a).cross(c - b);
 
     TriVertex ta(a, na);
     TriVertex tb(b, nb);
     TriVertex tc(c, nc);
 
     std::shared_ptr<Tri> tri = std::make_shared<Tri>(ta, tb, tc, pos);
-    std::shared_ptr<MaterialPlus> materialMirror = std::make_shared<MaterialMirror>(); 
-    std::shared_ptr<MaterialPlus> materialGlass = std::make_shared<MaterialGlass>(); 
+    std::shared_ptr<MaterialPlus> material = std::make_shared<MaterialLambertian>(Color::COLOR_GREEN); 
+    std::shared_ptr<GeometryPrimitive> primitive = std::make_shared<GeometryPrimitive>(tri, material);
 
-    std::shared_ptr<GeometryPrimitive> primitive = std::make_shared<GeometryPrimitive>(tri, materialGlass);
     m_pObjectPool->addPrimitive(primitive);
-
-    // m_pObjectPool->add(tri);
 }
 
-void SceneBuilder::buildGlassTri(const Vector3 &pos)
-{
-    TriVertex a(-100, -100, -20);
-    TriVertex b(-80, 90, 0);
-    TriVertex c(40, -90, -10);
+// void SceneBuilder::buildGlassTri(const Vector3 &pos)
+// {
+    // TriVertex a(-100, -100, -20);
+    // TriVertex b(-80, 90, 0);
+    // TriVertex c(40, -90, -10);
+// }
 
-    // std::shared_ptr<Tri> tri = std::make_shared<Tri>(a, b, c, pos, MaterialManager::getInstance()->get(MATERIAL_TYPE::M_GLASS));
-
-    // m_pObjectPool->add(tri);
-}
-
-void SceneBuilder::buildRedCurve(const Vector3 &pos)
-{
+// void SceneBuilder::buildRedCurve(const Vector3 &pos)
+// {
     // Vector3 p0 = {-150, -50, 280};
     // Vector3 p1 = {-150, 50, 280};
     // Vector3 p2 = {150, -150, 280};
@@ -363,4 +315,4 @@ void SceneBuilder::buildRedCurve(const Vector3 &pos)
     // std::shared_ptr<Curve> redCurve = std::make_shared<Curve>(p0, p1, p2, p3);
 
     // m_pObjectPool->add(redCurve);
-}
+// }
