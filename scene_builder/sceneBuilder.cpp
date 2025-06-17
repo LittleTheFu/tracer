@@ -17,6 +17,9 @@
 #include <materialPVC.h>
 #include <materialMirror.h>
 #include <materialGlass.h>
+#include <materialSilk.h>
+#include <materialTarkinTunic.h>
+#include <cassert>
 
 void SceneBuilder::init(std::shared_ptr<ObjectPool> pool)
 {
@@ -250,13 +253,66 @@ void SceneBuilder::buildMeasuredGreenPvcBall(const Vector3 &pos, float r)
 //     std::shared_ptr<Ball> volumeBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
 // }
 
-void SceneBuilder::buildBunny(const Vector3 &pos, float scale, const std::string &res, MATERIAL_TYPE materialType)
+void SceneBuilder::buildModel(const Vector3 &pos, float scale, const std::string &model, MATERIAL_TYPE materialType)
 {
-    // std::shared_ptr<MaterialLambertian> material = std::make_shared<MaterialLambertian>(Color::COLOR_GREEN);
     std::shared_ptr<ImageTexture> albedoTexture = std::make_shared<ImageTexture>(ResourceDef::LENA);
-    std::shared_ptr<MaterialPlus> material = std::make_shared<MaterialLambertian>(albedoTexture);
-    std::shared_ptr<Mesh> bunny = std::make_shared<Mesh>(res, pos, scale);
-    bunny->addToPool(m_pObjectPool, material);
+    std::shared_ptr<MaterialPlus> material = nullptr;
+
+    if(materialType == MATERIAL_TYPE::M_RED)
+    {
+        material = std::make_shared<MaterialLambertian>(Color::COLOR_RED);
+    }
+    else if(materialType == MATERIAL_TYPE::M_YELLOW)
+    {
+        material = std::make_shared<MaterialLambertian>(Color::COLOR_YELLOW);
+    }
+    else if(materialType == MATERIAL_TYPE::M_GREEN)
+    {
+        material = std::make_shared<MaterialLambertian>(Color::COLOR_GREEN);
+    }
+    else if(materialType == MATERIAL_TYPE::M_BLUE)
+    {
+        material = std::make_shared<MaterialLambertian>(Color::COLOR_BLUE);
+    }
+    else if(materialType == MATERIAL_TYPE::M_WHITE)
+    {
+        material = std::make_shared<MaterialLambertian>(Color::COLOR_WHITE);
+    }
+    else if(materialType == MATERIAL_TYPE::M_PURPLE)
+    {
+        material = std::make_shared<MaterialLambertian>(Color::COLOR_PURPLE);
+    }
+    else if(materialType == MATERIAL_TYPE::M_LENA)
+    {
+        material = std::make_shared<MaterialLambertian>(albedoTexture);
+    }
+    else if(materialType == MATERIAL_TYPE::M_MEASURED_SARI_SILK_BRDF)
+    {
+        material = std::make_shared<MaterialSilk>();
+    }
+    else if(materialType == MATERIAL_TYPE::M_MEASURED_TARKIN_TUNIC_BRDF)
+    {
+        material = std::make_shared<MaterialTarkinTunic>();
+    }
+    else if(materialType == MATERIAL_TYPE::M_MEASURED_GREEN_PVC_BRDF)
+    {
+        material = std::make_shared<MaterialPVC>();
+    }
+    else if(materialType == MATERIAL_TYPE::M_GLASS)
+    {
+        material = std::make_shared<MaterialGlass>();
+    }
+    else if(materialType == MATERIAL_TYPE::M_MIRROR)
+    {
+        material = std::make_shared<MaterialMirror>();
+    }
+    else
+    {
+        assert(0);
+    }
+
+    std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>(model, pos, scale);
+    mesh->addToPool(m_pObjectPool, material);
 }
 
 void SceneBuilder::buildRedTri(const Vector3 &pos)

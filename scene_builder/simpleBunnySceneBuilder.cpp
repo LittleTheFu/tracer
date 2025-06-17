@@ -8,7 +8,7 @@ void SimpleBunnySceneBuilder::build()
     buildLight(Vector3(0, 0, 270), 10);
     setLightIntensity(60.0f);
     
-    buildBunny(Vector3(30, -100, 350), 900, ResourceDef::SIMPLE_BUNNY, MATERIAL_TYPE::M_DIELECTRIC);
+    buildModel(Vector3(30, -100, 350), 900, ResourceDef::SIMPLE_BUNNY, MATERIAL_TYPE::M_DIELECTRIC);
 }
 
 MATERIAL_TYPE SimpleBunnySceneBuilder::getCeilingMaterial() const

@@ -29,6 +29,8 @@ SET (BXDF_SOURCE_FILES
     ${BXDF_DIR}/specularBxdf.cpp
     ${BXDF_DIR}/dielectricBxdf.cpp
     ${BXDF_DIR}/materialGlass.cpp
+    ${BXDF_DIR}/materialSilk.cpp
+    ${BXDF_DIR}/materialTarkinTunic.cpp
 )
 
 SET (RAY_TRACER_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/ray_tracer")

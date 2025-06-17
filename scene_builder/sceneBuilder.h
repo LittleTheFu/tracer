@@ -56,7 +56,7 @@ protected:
 
     // void buildConductorBall(const Vector3& pos, float r);
 
-    void buildBunny(const Vector3& pos, float scale, const std::string& res, MATERIAL_TYPE materialType);
+    void buildModel(const Vector3& pos, float scale, const std::string& model, MATERIAL_TYPE materialType);
 
     void buildRedTri(const Vector3& pos);
     void buildGreenTri(const Vector3& pos);
