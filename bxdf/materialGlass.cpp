@@ -12,7 +12,9 @@ std::unique_ptr<Bsdf> MaterialGlass::createBsdf(const Interaction &interaction)
 
     bool isSameDir = interaction.incoming.isSameDir(interaction.normal_shading);
     if(isSameDir)
+    {
         std::swap(etaI, etaT);
+    }
 
     std::shared_ptr<DielectricBxdf> dielectricBxdf = std::make_shared<DielectricBxdf>(etaI, etaT);
 

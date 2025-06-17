@@ -22,7 +22,7 @@ public:
     virtual Color getEmittedRadiance() const;
 
 protected:
-    std::shared_ptr<ImageTexture> albedo_;
+    std::shared_ptr<ImageTexture> albedoTexture_;
     std::shared_ptr<NormalTexture> normal_;
 };
 

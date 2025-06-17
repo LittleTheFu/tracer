@@ -19,40 +19,58 @@ float DielectricBxdf::pdf(const Vector3 &wo, const Vector3 &wi) const
     return 0.0f;
 }
 
+// dielectricBxdf.cpp
+
 Color DielectricBxdf::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf, const Interaction &interaction) const
 {
-    Vector3 normal = Vector3(0, 0, 1);
-    float dot = wo * normal;
-
-    float etaI = etaI_;
-    float etaT = etaT_;
-
-    if (dot < 0)
+    // 1. 局部空间法线 (wo 已在 BTN 空间，法线是 Z 轴)
+    Vector3 local_surface_normal = Vector3(0, 0, 1); 
+    if(!local_surface_normal.isSameDir(wo))
     {
-        normal = -normal;
-        // std::swap(etaI, etaT);
+        local_surface_normal = -local_surface_normal;
     }
+    
+    Vector3 inputVector = -wo; // 入射光线方向 (局部空间)
 
-    // Vector3 inputVector = Vector3(wo.x, wo.y, -wo.z);
-    Vector3 inputVector = -wo;
     bool totalReflect;
     float fresnel;
-    wi = inputVector.refract(normal, etaI, etaT, totalReflect, fresnel);
 
-    assert(MathUtility::is_in_range(fresnel, 0.0f, 1 + 0.00001f, true, true));
-    
-    pdf = fresnel;
+    Vector3 temp_refracted_wi_local = inputVector.refract(local_surface_normal, 
+                                                           etaI_, 
+                                                           etaT_, 
+                                                           totalReflect, 
+                                                           fresnel);
 
-    //for debug
-    // if(totalReflect)
-    // {
-    //     return Color::COLOR_BLACK;
-    // }
-    // else
-    // {
-    //     return Color::COLOR_WHITE;
-    // }
+    // assert(MathUtility::is_in_range(fresnel, 0.0f, 1.0f + 1e-5f, true, true)); 
 
-    return Color::COLOR_WHITE * MathUtility::sq(etaT / etaI);
-    // return Color::COLOR_WHITE;
+    const float MIN_PROBABILITY_THRESHOLD = 1e-6f; 
+
+    if (totalReflect) {
+        // assert(0);
+        wi = inputVector.reflect(local_surface_normal);
+        
+        pdf = 1.0f; 
+
+        return Color::COLOR_WHITE;
+    }
+    else {
+        float rand_val = MathUtility::genRandomDecimal();
+
+        if (rand_val < fresnel) {
+            // assert(0);
+            wi = inputVector.reflect(local_surface_normal);
+            pdf = std::max(MIN_PROBABILITY_THRESHOLD, fresnel); 
+            
+            return Color::COLOR_WHITE * (fresnel / pdf);
+        } else {
+            wi = temp_refracted_wi_local; 
+            
+            float transmittance_prob = 1.0f - fresnel;
+            pdf = std::max(MIN_PROBABILITY_THRESHOLD, transmittance_prob); 
+            
+            Vector3 diff = wi + wo;
+            // assert(MathUtility::is_in_range(diff.length(), 0.0f, 1.0f + 1e-5f, true, true));
+            return Color::COLOR_WHITE * (transmittance_prob / pdf) * MathUtility::sq(etaI_ / etaT_);
+        }
+    }
 }

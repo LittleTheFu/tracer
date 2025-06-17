@@ -7,8 +7,8 @@
 class MaterialLambertian : public MaterialPlus
 {
 public:
-    MaterialLambertian();
     MaterialLambertian(const Color &albedo);
+    MaterialLambertian(const std::shared_ptr<ImageTexture> albedoTexture);
 
     virtual std::unique_ptr<Bsdf> createBsdf(const Interaction& interaction) override;
     

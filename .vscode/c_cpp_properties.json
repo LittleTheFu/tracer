@@ -9,7 +9,6 @@
                 "${workspaceFolder}/camera",
                 "${workspaceFolder}/common",
                 "${workspaceFolder}/geometry",
-                "${workspaceFolder}/light",
                 "${workspaceFolder}/material",
                 "${workspaceFolder}/mathmatic",
                 "${workspaceFolder}/media",
@@ -19,11 +18,11 @@
                 "${workspaceFolder}/volume",
                 "${workspaceFolder}/test",
                 "${workspaceFolder}/texture",
-                "${workspaceFolder}/tracer",
                 "${workspaceFolder}/third/assimp/include",
                 "${workspaceFolder}/build/third/assimp/include",
                 "${workspaceFolder}/third/lodepng/include",
-                "${workspaceFolder}/third/powitacq/include"
+                "${workspaceFolder}/third/powitacq/include",
+                "${workspaceFolder}/third/googletest/googletest/include"
             ],
             "cStandard": "c17",
             "cppStandard": "c++17",
