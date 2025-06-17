@@ -21,9 +21,12 @@ public:
     virtual bool isEmitting() const;
     virtual Color getEmittedRadiance() const;
 
+    bool hasNormalMap() const;
+    std::shared_ptr<NormalTexture> getNormalTexture() const;
+
 protected:
     std::shared_ptr<ImageTexture> albedoTexture_;
-    std::shared_ptr<NormalTexture> normal_;
+    std::shared_ptr<NormalTexture> normalTexture_;
 };
 
 #endif

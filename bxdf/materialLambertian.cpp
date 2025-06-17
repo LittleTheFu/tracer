@@ -1,5 +1,5 @@
 #include "materialLambertian.h"
-#include "lambertianReflection.h"
+#include "lambertianBxdf.h"
 #include <cassert>
 
 MaterialLambertian::MaterialLambertian(const Color &albedo)
@@ -23,7 +23,7 @@ std::unique_ptr<Bsdf> MaterialLambertian::createBsdf(const Interaction &interact
     {
         color = albedoTexture_->getColor(interaction.u, interaction.v);
     }
-    bsdf->addBxdf(std::make_shared<LambertianReflection>(color));
+    bsdf->addBxdf(std::make_shared<LambertianBxdf>(color));
 
     return bsdf;
 };

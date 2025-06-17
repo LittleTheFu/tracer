@@ -14,3 +14,14 @@ Color MaterialPlus::getEmittedRadiance() const
 {
     return Color::COLOR_WHITE;
 }
+
+bool MaterialPlus::hasNormalMap() const
+{
+    return normalTexture_ != nullptr;
+}
+
+std::shared_ptr<NormalTexture> MaterialPlus::getNormalTexture() const
+{
+    return normalTexture_;
+}
+

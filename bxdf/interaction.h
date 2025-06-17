@@ -3,7 +3,6 @@
 
 #include "vector.h"
 #include <memory>
-// #include "primitive.h"
 // #include <geometry.h>
 // #include "materialPlus.h"
 
@@ -16,6 +15,9 @@ class Interaction
 public:
     Interaction() = default;
     ~Interaction() = default;
+
+    bool hasNormalMap() const;
+    Vector3 getNormalFromNormalMap(float u, float v) const;
 
 public:
     Vector3 incoming;

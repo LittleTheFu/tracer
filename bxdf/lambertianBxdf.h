@@ -1,12 +1,12 @@
-#ifndef _LAMBERTIANREFLECTION_H_
-#define _LAMBERTIANREFLECTION_H_
+#ifndef _LAMBERTIAN_BXDF_H_
+#define _LAMBERTIAN_BXDF_H_
 
 #include "bxdf.h"
 
-class LambertianReflection : public Bxdf
+class LambertianBxdf : public Bxdf
 {
 public:
-    LambertianReflection(const Color &reflectance);
+    LambertianBxdf(const Color &reflectance);
 
     virtual Color f(const Vector3 &wo, const Vector3 &wi) const override;
     virtual float pdf(const Vector3 &wo, const Vector3 &wi) const override;

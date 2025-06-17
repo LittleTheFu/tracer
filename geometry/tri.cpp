@@ -72,7 +72,7 @@ bool Tri::hit(const Ray &ray, Interaction &interaction) const
     Vector3 localPoint = localRay.getPosition(interaction.t);
     Vector3 _objPoint = frame.pointToWorld(localPoint);
 
-    Vector3 pixelNormal = getWeightedNormal(_objPoint);
+    Vector3 weightedNormal = getWeightedNormal(_objPoint);
     //quick and dirty,need to refactor and optimized later...
     //and some variable should be renamed
     // if(m_pMtrl && m_pMtrl->isNormalTextureValid()) 
@@ -80,7 +80,7 @@ bool Tri::hit(const Ray &ray, Interaction &interaction) const
     //     //to be optimized later...
     //     pixelNormal = getNormalFromNormalMap(m_normal, _objPoint);
     // }
-    Frame pixelFrame(pixelNormal, m_ab, _objPoint);
+    Frame pixelFrame(weightedNormal, m_ab, _objPoint);
     Vector3 weghtedRayDir = pixelFrame.vectorToLocal(frame.vectorToWorld(localRay.dir));
 
     interaction.point = m_transform.transformPoint(_objPoint);
