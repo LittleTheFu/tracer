@@ -2,6 +2,14 @@
 
 #include "frame.h"
 
+Frame::Frame(const Frame &frame)
+{
+    x_axis = frame.x_axis;
+    y_axis = frame.y_axis;
+    z_axis = frame.z_axis;
+    origin = frame.origin;
+}
+
 Frame::Frame(const Vector3 &normal, const Vector3 &tangent, const Vector3 &_origin)
 {
     if (normal.isZero())
@@ -47,7 +55,7 @@ Frame::Frame(const Vector3 &normal, const Vector3 &_origin)
     origin = _origin;
 }
 
-void Frame::buildFromTBN(const Vector3 &t, const Vector3 &b, const Vector3 &n)
+void Frame::setTBN(const Vector3 &t, const Vector3 &b, const Vector3 &n)
 {
     x_axis = t;
     y_axis = b;

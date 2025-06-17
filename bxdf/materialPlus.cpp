@@ -25,3 +25,8 @@ std::shared_ptr<NormalTexture> MaterialPlus::getNormalTexture() const
     return normalTexture_;
 }
 
+void MaterialPlus::setNormalTexture(std::shared_ptr<NormalTexture> normalTexture)
+{
+    normalTexture_ = normalTexture;
+}
+

@@ -253,7 +253,10 @@ void SceneBuilder::buildMeasuredGreenPvcBall(const Vector3 &pos, float r)
 //     std::shared_ptr<Ball> volumeBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
 // }
 
-void SceneBuilder::buildModel(const Vector3 &pos, float scale, const std::string &model, MATERIAL_TYPE materialType)
+void SceneBuilder::buildModel(const Vector3 &pos, 
+    float scale,
+     const std::string &model,
+      MATERIAL_TYPE materialType)
 {
     std::shared_ptr<ImageTexture> albedoTexture = std::make_shared<ImageTexture>(ResourceDef::LENA);
     std::shared_ptr<MaterialPlus> material = nullptr;
@@ -310,6 +313,9 @@ void SceneBuilder::buildModel(const Vector3 &pos, float scale, const std::string
     {
         assert(0);
     }
+
+    std::shared_ptr<NormalTexture> normalTexture = std::make_shared<NormalTexture>(ResourceDef::NORMAL);
+    material->setNormalTexture(normalTexture);
 
     std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>(model, pos, scale);
     mesh->addToPool(m_pObjectPool, material);

@@ -6,7 +6,7 @@ Bsdf::Bsdf(const Vector3 &ns_world)
     nsWorld_ = ns_world;
 
     MathUtility::buildBTN(nsWorld_, tLocal_, bLocal_, nLocal_);
-    tbnFrame_.buildFromTBN(tLocal_, bLocal_, nLocal_);
+    tbnFrame_.setTBN(tLocal_, bLocal_, nLocal_);
 }
 
 void Bsdf::addBxdf(std::shared_ptr<Bxdf> bxdf)
@@ -59,7 +59,18 @@ Color Bsdf::sample_f(const Vector3 &wo,
 {
     std::vector<std::shared_ptr<Bxdf>> bxdfs;
 
-    Vector3 wo_local = tbnFrame_.vectorToLocal(wo);
+    Frame localFrame(tbnFrame_);
+    if(interaction.hasNormalMap())
+    {
+        Vector3 mapN = interaction.getNormalFromNormalMap(interaction.u, interaction.v);
+        Vector3 newNormal = tbnFrame_.vectorToWorld(mapN);
+
+        Vector3 newT, newB, newN;
+        MathUtility::buildBTN(newNormal, newB, newT, newN);
+        localFrame.setTBN(newT, newB, newN);
+    }
+
+    Vector3 wo_local = localFrame.vectorToLocal(wo);
 
     for (const auto &bxdf : bxdfs_)
     {
@@ -86,7 +97,7 @@ Color Bsdf::sample_f(const Vector3 &wo,
     Vector3 wi_local;
     Color f = bxdfs[index]->sample_f(wo_local, wi_local, pdf, interaction);
     sampledType = bxdfs[index]->getType();
-    wi = tbnFrame_.vectorToWorld(wi_local);
+    wi = localFrame.vectorToWorld(wi_local);
     
     pdf /= bxdfs.size();
 

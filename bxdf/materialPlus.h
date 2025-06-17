@@ -23,6 +23,7 @@ public:
 
     bool hasNormalMap() const;
     std::shared_ptr<NormalTexture> getNormalTexture() const;
+    void setNormalTexture(std::shared_ptr<NormalTexture> normalTexture);
 
 protected:
     std::shared_ptr<ImageTexture> albedoTexture_;
