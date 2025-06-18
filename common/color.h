@@ -10,6 +10,7 @@ public:
 
 public:
     Color();
+    Color(float v);
     Color(float r, float g, float b);
 
     float getClampedMaxComponent() const;

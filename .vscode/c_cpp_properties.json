@@ -5,7 +5,6 @@
             "includePath": [
                 "${workspaceFolder}/integrator",
                 "${workspaceFolder}/bxdf",
-                "${workspaceFolder}/brdf",
                 "${workspaceFolder}/camera",
                 "${workspaceFolder}/common",
                 "${workspaceFolder}/geometry",
@@ -13,7 +12,7 @@
                 "${workspaceFolder}/mathmatic",
                 "${workspaceFolder}/media",
                 "${workspaceFolder}/resource",
-                "${workspaceFolder}/scene",
+                "${workspaceFolder}/scene_management",
                 "${workspaceFolder}/scene_builder",
                 "${workspaceFolder}/volume",
                 "${workspaceFolder}/test",
@@ -22,7 +21,8 @@
                 "${workspaceFolder}/build/third/assimp/include",
                 "${workspaceFolder}/third/lodepng/include",
                 "${workspaceFolder}/third/powitacq/include",
-                "${workspaceFolder}/third/googletest/googletest/include"
+                "${workspaceFolder}/third/googletest/googletest/include",
+                "${workspaceFolder}/light"
             ],
             "cStandard": "c17",
             "cppStandard": "c++17",

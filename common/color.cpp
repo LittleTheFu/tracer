@@ -35,6 +35,14 @@ Color::Color()
     this->b = 1;
 }
 
+Color::Color(float v)
+{
+    this->r = v;
+    this->g = v;
+    this->b = v;
+}
+
+
 Color::Color(float r, float g, float b)
 {
     this->r = r;
