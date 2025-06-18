@@ -19,6 +19,8 @@
 #include <materialSilk.h>
 #include <materialTarkinTunic.h>
 #include <cassert>
+#include <materialRough.h>
+
 
 void SceneBuilder::init(std::shared_ptr<ObjectPool> pool)
 {
@@ -334,6 +336,10 @@ void SceneBuilder::buildModel(const Vector3 &pos,
     else if(materialType == MATERIAL_TYPE::M_MIRROR)
     {
         material = std::make_shared<MaterialMirror>();
+    }
+    else if(materialType == MATERIAL_TYPE::M_MICRO_FACET_SPECULAR)
+    {
+        material = std::make_shared<MaterialRough>();
     }
     else
     {

@@ -34,6 +34,8 @@ enum class MATERIAL_TYPE
 
     M_NORMAL_MAP_GREEN_PVC,
     M_NORMAL_MAP_SARI_SILK,
+
+    M_MICRO_FACET_SPECULAR,
 };
 
 #endif
