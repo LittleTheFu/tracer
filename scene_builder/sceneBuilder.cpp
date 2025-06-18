@@ -3,7 +3,6 @@
 #include "ball.h"
 #include "curve.h"
 #include "mathConstantDef.h"
-#include "materialManager.h"
 #include "mesh.h"
 #include "plane.h"
 #include "resourceDef.h"

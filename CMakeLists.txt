@@ -65,17 +65,6 @@ SET (RAY_TRACER_SOURCE
     geometry/room.cpp
     geometry/tri.cpp
     # main/main.cpp
-    material/combinedMaterial.cpp
-    material/conductorMaterial.cpp
-    material/dummyMaterial.cpp
-    material/refreactorMaterial.cpp
-    material/diffuseMaterial.cpp
-    material/material.cpp
-    material/materialManager.cpp
-    material/measuredMaterial.cpp
-    material/microMaterial.cpp
-    material/mirrorMaterial.cpp
-    material/dielectricMaterial.cpp
     mathmatic/frame.cpp
     mathmatic/matrix.cpp
     mathmatic/ray.cpp
@@ -143,18 +132,6 @@ SET (RAY_TRACER_HEADER
     geometry/plane.h
     geometry/room.h
     geometry/tri.h
-    material/combinedMaterial.h
-    material/conductorMaterial.h
-    material/dummyMaterial.h
-    material/refreactorMaterial.h
-    material/diffuseMaterial.h
-    material/material.h
-    material/materialDef.h
-    material/materialManager.h
-    material/measuredMaterial.h
-    material/microMaterial.h
-    material/mirrorMaterial.h
-    material/dielectricMaterial.h
     mathmatic/frame.h
     mathmatic/matrix.h
     mathmatic/ray.h
@@ -162,6 +139,7 @@ SET (RAY_TRACER_HEADER
     mathmatic/transform.h
     mathmatic/vector.h
     media/media.h
+    material/materialDef.h
     scene/bvh.h
     scene/bvhNode.h
     scene/simpleHitter.h

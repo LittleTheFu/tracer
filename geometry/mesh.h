@@ -7,7 +7,6 @@
 #include <assimp/mesh.h>
 
 #include "geometry.h"
-#include "material.h"
 #include "objectpool.h"
 #include "tri.h"
 #include "materialPlus.h"

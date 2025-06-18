@@ -3,10 +3,6 @@
 
 #include <memory>
 
-#include "dielectricMaterial.h"
-#include "diffuseMaterial.h"
-#include "refreactorMaterial.h"
-#include "mirrorMaterial.h"
 #include "materialDef.h"
 #include "objectpool.h"
 

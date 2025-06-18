@@ -9,7 +9,6 @@
 #include "tagDef.h"
 #include "transform.h"
 #include "vector.h"
-#include "material.h"
 
 //for refactoring
 #include "interaction.h"

@@ -4,7 +4,6 @@
 #include <memory>
 
 #include "geometry.h"
-#include "material.h"
 
 class Ball : public Geometry
 {
