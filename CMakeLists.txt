@@ -39,12 +39,16 @@ SET (MATERIAL_SOURCE_FILES
     ${MATERIAL_DIR}/emittingMaterial.cpp
 )
 
+SET (LIGHT_DIR "light")
+SET (LIGHT_SOURCE_FILES
+    ${LIGHT_DIR}/areaLight.cpp
+)
+
 SET (BXDF_DIR "bxdf")
 SET (BXDF_SOURCE_FILES 
     ${BXDF_DIR}/bsdf.cpp
     ${BXDF_DIR}/bxdf.cpp
     ${BXDF_DIR}/lambertianBxdf.cpp
-    ${BXDF_DIR}/areaLight.cpp
     ${BXDF_DIR}/measuredBxdf.cpp
     ${BXDF_DIR}/specularBxdf.cpp
     ${BXDF_DIR}/dielectricBxdf.cpp
@@ -185,6 +189,7 @@ INCLUDE_DIRECTORIES(${BXDF_DIR}
                     ${INTEGRATOR_DIR}
                     ${GEOMETRY_DIR}
                     ${MATERIAL_DIR}
+                    ${LIGHT_DIR}
                     brdf 
                     camera
                     common 
@@ -203,6 +208,7 @@ add_library(mylibs STATIC
             ${BXDF_SOURCE_FILES}
             ${MATERIAL_SOURCE_FILES}
             ${GEOMETRY_SOURCE_FILES}
+            ${LIGHT_SOURCE_FILES}
             ${INTEGRATOR_SOURCE_FILES})
 
 add_subdirectory(${PROJECT_SOURCE_DIR}/third/assimp/)
