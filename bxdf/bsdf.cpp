@@ -1,5 +1,6 @@
 #include "bsdf.h"
 #include "mathUtility.h"
+#include <cassert>
 
 Bsdf::Bsdf(const Vector3 &ns_world)
 {
@@ -91,6 +92,8 @@ Color Bsdf::sample_f(const Vector3 &wo,
     int index = MathUtility::sampleUniformly(bxdfs.size());
     if (index >= bxdfs.size())
     {
+        //for debug
+        assert(0);
         index = bxdfs.size() - 1;
     }
 
