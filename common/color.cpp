@@ -117,20 +117,26 @@ Color &Color::clamp()
     return *this;
 }
 
+Color Color::operator-(const Color &that) const
+{
+    return Color(r - that.r, g - that.g, b - that.b);
+}
+
+Color Color::operator+(const Color &that) const
+{
+        return Color(r + that.r, g + that.g, b + that.b);
+}
+
+Color Color::operator/(const Color &that) const
+{
+    return Color(r / that.r, g / that.g, b / that.b);
+}
+
 Color &Color::operator+=(const Color &that)
 {
-    // assert(that.r >= 0);
-    // assert(that.g >= 0);
-    // assert(that.b >= 0);
-
     r += that.r;
     g += that.g;
     b += that.b;
-
-    // MathUtility::clamp(r, 0, 1);
-    // MathUtility::clamp(g, 0, 1);
-    // MathUtility::clamp(b, 0, 1);
-
     return *this;
 }
 

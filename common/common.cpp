@@ -57,7 +57,7 @@ float Common::cosPhi(const Vector3 &v)
 {
     float r = sinTheta(v);
 
-    if(r == 0.0f)
+    if (r == 0.0f)
         return 1.0f;
 
     return MathUtility::clamp(v.x / r, -1.0f, 1.0f);
@@ -72,7 +72,7 @@ float Common::sinPhi(const Vector3 &v)
 {
     float r = sinTheta(v);
 
-    if(r == 0.0f)
+    if (r == 0.0f)
         return 0.0f;
 
     return MathUtility::clamp(v.y / r, -1.0f, 1.0f);
@@ -109,6 +109,47 @@ float Common::frenselComplex(std::complex<float> eta, float cos_theta_in)
                                 (cos_theta_in + eta * cos_theta_t);
 
     return 0.5f * (getNormSq(r_pa) + getNormSq(r_per));
+}
+
+Color Common::FresnelConductor(float cosThetaI, const Color &eta, const Color &k)
+{
+    cosThetaI = MathUtility::clamp(cosThetaI, 0.0f, 1.0f);
+
+    // Square terms
+    float cos2 = cosThetaI * cosThetaI;
+    Color eta2 = eta * eta;
+    Color k2 = k * k;
+
+    Color one(1.0f);
+    Color sin2 = one - Color(cos2);
+
+    Color t0 = eta2 - k2 - sin2;
+    Color a2plusb2 = (t0 * t0 + eta2 * k2 * Color(4.0f, 4.0f, 4.0f));
+
+    // sqrt(a^2 + b^2)
+    Color a2plusb2Sqrt(std::sqrt(a2plusb2.r), std::sqrt(a2plusb2.g), std::sqrt(a2plusb2.b));
+
+    // a = sqrt( (a2plusb2 + t0) / 2 )
+    Color a = Color(
+        std::sqrt(0.5f * (a2plusb2Sqrt.r + t0.r)),
+        std::sqrt(0.5f * (a2plusb2Sqrt.g + t0.g)),
+        std::sqrt(0.5f * (a2plusb2Sqrt.b + t0.b)));
+
+    Color twoCosTheta = Color(2.0f * cosThetaI);
+
+    // Rs
+    Color Rs_num = a2plusb2Sqrt - (a * twoCosTheta);
+    Color Rs_den = a2plusb2Sqrt + (a * twoCosTheta);
+    Color Rs = (Rs_num / Rs_den);
+    Rs = Rs * Rs; // (Rs)^2
+
+    // Rp
+    Color Rp_num = (a2plusb2Sqrt * Color(cos2)) - (a * Color(2.0f * cosThetaI) * sin2);
+    Color Rp_den = (a2plusb2Sqrt * Color(cos2)) + (a * Color(2.0f * cosThetaI) * sin2);
+    Color Rp = (Rp_num / Rp_den);
+    Rp = Rp * Rp; // (Rp)^2
+
+    return (Rs + Rp) * 0.5f;
 }
 
 float Common::getNormSq(std::complex<float> c)

@@ -6,6 +6,7 @@
 MicrofacetSpecularBxdf::MicrofacetSpecularBxdf(float roughness)
     : Bxdf(BxdfType::REFLECTION | BxdfType::GLOSSY)
 {
+    // roughness = 0.15;
     roughness_ = roughness;
     alpha_ = roughness;
 
@@ -20,16 +21,24 @@ Color MicrofacetSpecularBxdf::f(const Vector3 &wo, const Vector3 &wi) const
 
     Vector3 wh = (wo + wi).dir();
 
-    bool totalReflect = false;
-    float f;
-    Vector3 wt = wi.refract(wh, etaI_, etaT_, totalReflect, f);
+    //----------------------------------------------------
+    Color eta(0.2, 0.92, 1.1);
+    Color k(3.9, 2.45, 2.14);
+    float dot = std::abs(wo * wh);
+    Color F = Common::FresnelConductor(dot, eta, k);
+    //----------------------------------------------------
+
+    // bool totalReflect = false;
+    // float f;
+    // Vector3 wt = wi.refract(wh, etaI_, etaT_, totalReflect, f);
  
     // f = 1;
     // std::cout << "f:" << f << std::endl;
     float d = D(wh);
     float g = ggx_G(wi, wo, Vector3(0,0,1), alpha_);
 
-    return Color(d * g * f / (4.0f * wo.z * wi.z));
+    return Color(d * g * F / (4.0f * wo.z * wi.z));
+    // return Color(d * g * f / (4.0f * wo.z * wi.z));
 }
 
 float MicrofacetSpecularBxdf::pdf(const Vector3 &wo, const Vector3 &wi) const

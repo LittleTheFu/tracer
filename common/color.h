@@ -21,6 +21,14 @@ public:
     int validOverflow(float m = 1.0f) const;
     Color &clamp();
 
+    friend Color operator*(float scalar, const Color &color)
+    {
+        return Color(color.r * scalar, color.g * scalar, color.b * scalar);
+    }
+
+    Color operator-(const Color &that) const;
+    Color operator+(const Color &that) const;
+    Color operator/(const Color &that) const;
     Color &operator+=(const Color &that);
     Color &operator*=(const Color &that);
     Color operator*(const float m) const;

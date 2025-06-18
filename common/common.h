@@ -34,6 +34,9 @@ public:
                          float cos_theta_out);
 
     static float frenselComplex(std::complex<float> eta, float cos_theta_in);
+
+    static Color FresnelConductor(float cosThetaI, const Color &eta, const Color &k);
+
                 
     static float getNormSq(std::complex<float> c);
 

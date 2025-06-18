@@ -23,7 +23,7 @@ private:
     float alpha_;
 
     float etaI_ = 1.0f;
-    float etaT_ = 1.5f;
+    float etaT_ = 1.55f;
 };
 
 #endif
