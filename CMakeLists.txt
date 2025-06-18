@@ -17,7 +17,7 @@ SET (BXDF_SOURCE_FILES
     ${BXDF_DIR}/bxdf.cpp
     ${BXDF_DIR}/interaction.cpp
     ${BXDF_DIR}/materialLambertian.cpp
-    ${BXDF_DIR}/materialPlus.cpp
+    ${BXDF_DIR}/material.cpp
     ${BXDF_DIR}/emittingMaterial.cpp
     ${BXDF_DIR}/lambertianBxdf.cpp
     ${BXDF_DIR}/primitive.cpp
