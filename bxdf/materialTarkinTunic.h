@@ -1,7 +1,7 @@
 #ifndef _MATERIAL_TARKIN_TUNIC_H_
 #define _MATERIAL_TARKIN_TUNIC_H_
 
-#include "materialPlus.h"
+#include "material.h"
 #include "color.h"
 
 class MaterialTarkinTunic : public Material

@@ -3,7 +3,7 @@
 
 #include "ray.h"
 #include "interaction.h"
-#include "materialPlus.h"
+#include "material.h"
 #include "geometry.h"
 
 class Primitive

@@ -4,7 +4,6 @@
 #include "vector.h"
 #include <memory>
 // #include <geometry.h>
-// #include "materialPlus.h"
 
 class Primitive;
 class Geometry;

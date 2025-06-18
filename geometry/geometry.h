@@ -12,7 +12,7 @@
 
 //for refactoring
 #include "interaction.h"
-#include "materialPlus.h"
+#include "material.h"
 // class Interaction;
 
 

@@ -1,7 +1,7 @@
 #ifndef _EMITTING_MATERIAL_H_
 #define _EMITTING_MATERIAL_H_
 
-#include "materialPlus.h"
+#include "material.h"
 
 class EmittingMaterial : public Material
 {

@@ -1,7 +1,7 @@
 #ifndef _MATERIAL_GLASS_H_
 #define _MATERIAL_GLASS_H_
 
-#include "materialPlus.h"
+#include "material.h"
 
 class MaterialGlass : public Material
 {

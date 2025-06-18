@@ -1,7 +1,7 @@
 #ifndef _MATERIAL_SILK_H_
 #define _MATERIAL_SILK_H_
 
-#include "materialPlus.h"
+#include "material.h"
 #include "color.h"
 
 class MaterialSilk : public Material

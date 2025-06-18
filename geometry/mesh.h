@@ -9,7 +9,7 @@
 #include "geometry.h"
 #include "objectpool.h"
 #include "tri.h"
-#include "materialPlus.h"
+#include "material.h"
 
 class Mesh : public Geometry
 {

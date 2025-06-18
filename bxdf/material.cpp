@@ -1,4 +1,4 @@
-#include "materialPlus.h"
+#include "material.h"
 
 std::unique_ptr<Bsdf> Material::createBsdf(const Interaction& interaction)
 {
