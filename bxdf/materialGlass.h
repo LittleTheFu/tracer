@@ -3,7 +3,7 @@
 
 #include "materialPlus.h"
 
-class MaterialGlass : public MaterialPlus
+class MaterialGlass : public Material
 {
 public:
     MaterialGlass();

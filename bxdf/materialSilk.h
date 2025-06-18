@@ -4,7 +4,7 @@
 #include "materialPlus.h"
 #include "color.h"
 
-class MaterialSilk : public MaterialPlus
+class MaterialSilk : public Material
 {
 public:
     MaterialSilk();

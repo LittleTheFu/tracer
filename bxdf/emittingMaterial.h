@@ -3,7 +3,7 @@
 
 #include "materialPlus.h"
 
-class EmittingMaterial : public MaterialPlus
+class EmittingMaterial : public Material
 {
 public:
     EmittingMaterial() = default;

@@ -4,7 +4,7 @@
 #include "materialPlus.h"
 #include "color.h"
 
-class MaterialLambertian : public MaterialPlus
+class MaterialLambertian : public Material
 {
 public:
     MaterialLambertian(const Color &albedo);

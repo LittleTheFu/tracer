@@ -4,7 +4,7 @@
 #include "materialPlus.h"
 #include "color.h"
 
-class MaterialMirror : public MaterialPlus
+class MaterialMirror : public Material
 {
 public:
     MaterialMirror();

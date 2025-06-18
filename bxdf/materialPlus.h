@@ -9,11 +9,11 @@
 #include "color.h"
 
 
-class MaterialPlus
+class Material
 {
 public:
-    MaterialPlus() = default;
-    virtual ~MaterialPlus() = default;
+    Material() = default;
+    virtual ~Material() = default;
 
 public:
     virtual std::unique_ptr<Bsdf> createBsdf(const Interaction& interaction);

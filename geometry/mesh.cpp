@@ -64,7 +64,7 @@ bool Mesh::hit(const Ray &ray, Interaction &interaction) const
     return false;
 }
 
-void Mesh::addToPool(std::shared_ptr<ObjectPool> pool, std::shared_ptr<MaterialPlus> material)
+void Mesh::addToPool(std::shared_ptr<ObjectPool> pool, std::shared_ptr<Material> material)
 {
     for(auto it = m_tris.begin(); it != m_tris.end(); it++)
     {

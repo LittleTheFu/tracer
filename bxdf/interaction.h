@@ -8,7 +8,7 @@
 
 class Primitive;
 class Geometry;
-class MaterialPlus;
+class Material;
 
 class Interaction
 {

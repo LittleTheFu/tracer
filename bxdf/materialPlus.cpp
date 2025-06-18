@@ -1,31 +1,31 @@
 #include "materialPlus.h"
 
-std::unique_ptr<Bsdf> MaterialPlus::createBsdf(const Interaction& interaction)
+std::unique_ptr<Bsdf> Material::createBsdf(const Interaction& interaction)
 {
     return nullptr;
 }
 
-bool MaterialPlus::isEmitting() const
+bool Material::isEmitting() const
 {
     return false;
 }
 
-Color MaterialPlus::getEmittedRadiance() const
+Color Material::getEmittedRadiance() const
 {
     return Color::COLOR_WHITE;
 }
 
-bool MaterialPlus::hasNormalMap() const
+bool Material::hasNormalMap() const
 {
     return normalTexture_ != nullptr;
 }
 
-std::shared_ptr<NormalTexture> MaterialPlus::getNormalTexture() const
+std::shared_ptr<NormalTexture> Material::getNormalTexture() const
 {
     return normalTexture_;
 }
 
-void MaterialPlus::setNormalTexture(std::shared_ptr<NormalTexture> normalTexture)
+void Material::setNormalTexture(std::shared_ptr<NormalTexture> normalTexture)
 {
     normalTexture_ = normalTexture;
 }

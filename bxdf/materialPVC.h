@@ -4,7 +4,7 @@
 #include "materialPlus.h"
 #include "color.h"
 
-class MaterialPVC : public MaterialPlus
+class MaterialPVC : public Material
 {
 public:
     MaterialPVC();

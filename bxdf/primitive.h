@@ -14,7 +14,7 @@ public:
 
     virtual bool intersect(const Ray &ray, Interaction &interaction) const = 0;
 
-    virtual std::shared_ptr<MaterialPlus> getMaterial() const = 0;
+    virtual std::shared_ptr<Material> getMaterial() const = 0;
     virtual std::shared_ptr<Geometry> getGeometry() const = 0;
 
     bool isEmitting() const;

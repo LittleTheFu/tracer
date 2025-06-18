@@ -6,17 +6,17 @@
 class GeometryPrimitive : public Primitive
 {
 public:
-    GeometryPrimitive(std::shared_ptr<Geometry> geometry, std::shared_ptr<MaterialPlus> material);
+    GeometryPrimitive(std::shared_ptr<Geometry> geometry, std::shared_ptr<Material> material);
     ~GeometryPrimitive() = default;
 
     virtual bool intersect(const Ray &ray, Interaction &interaction) const override;
 
-    virtual std::shared_ptr<MaterialPlus> getMaterial() const override;
+    virtual std::shared_ptr<Material> getMaterial() const override;
     virtual std::shared_ptr<Geometry> getGeometry() const override;
 
 private:
     std::shared_ptr<Geometry> geometry_;
-    std::shared_ptr<MaterialPlus> material_;
+    std::shared_ptr<Material> material_;
 };
 
 #endif

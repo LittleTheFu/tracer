@@ -4,7 +4,7 @@
 #include "materialPlus.h"
 #include "color.h"
 
-class MaterialTarkinTunic : public MaterialPlus
+class MaterialTarkinTunic : public Material
 {
 public:
     MaterialTarkinTunic();
