@@ -57,13 +57,6 @@ SET (BXDF_SOURCE_FILES
 SET (RAY_TRACER_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/ray_tracer")
 
 SET (RAY_TRACER_SOURCE
-    brdf/brdf.cpp
-    brdf/conductorBrdf.cpp
-    brdf/refreactorBsdf.cpp
-    brdf/measuredBrdf.cpp
-    brdf/diffuseBrdf.cpp
-    brdf/microfacet.cpp
-    brdf/mirror.cpp
     camera/camera.cpp
     camera/fishEyeCamera.cpp
     camera/orthographicCamera.cpp
@@ -119,13 +112,6 @@ SET (RAY_TRACER_SOURCE
 )
 
 SET (RAY_TRACER_HEADER
-    brdf/brdf.h
-    brdf/conductorBrdf.h
-    brdf/refreactorBsdf.h
-    brdf/measuredBrdf.h
-    brdf/diffuseBrdf.h
-    brdf/microfacet.h
-    brdf/mirror.h
     camera/camera.h
     camera/fishEyeCamera.h
     camera/orthographicCamera.h
@@ -190,7 +176,6 @@ INCLUDE_DIRECTORIES(${BXDF_DIR}
                     ${GEOMETRY_DIR}
                     ${MATERIAL_DIR}
                     ${LIGHT_DIR}
-                    brdf 
                     camera
                     common 
                     mathmatic 
