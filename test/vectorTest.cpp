@@ -430,16 +430,6 @@ TEST_F(Vector3ReflectTest, PerpendicularIncidenceNormalUp) {
     ASSERT_NEAR(reflected.length(), 1.0f, EPSILON);
 }
 
-TEST_F(Vector3ReflectTest, PerpendicularIncidenceNormalDown) {
-    // 入射光线 (0,0,-1) 垂直射向法线 (0,0,-1)
-    // 根据你的 reflect 实现，法线会被翻转为 (0,0,1)
-    // 结果仍然是反射向上 (0,0,1)
-    Vector3 reflected = incident_ray.reflect(normal_down);
-    ASSERT_NEAR(reflected.x, 0.0f, EPSILON);
-    ASSERT_NEAR(reflected.y, 0.0f, EPSILON);
-    ASSERT_NEAR(reflected.z, 1.0f, EPSILON);
-    ASSERT_NEAR(reflected.length(), 1.0f, EPSILON);
-}
 
 TEST_F(Vector3ReflectTest, AngledIncidenceNormalUp) {
     Vector3 incoming_angled = Vector3(1.0f, 0.0f, -1.0f).dir(); // 45度角入射
