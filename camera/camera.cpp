@@ -28,7 +28,7 @@ Camera::Camera(int resolutionScale, int samplersPerPixel)
     m_enableLog = true;
 
     //-------for refactoring-------//
-    integrator_ = std::make_unique<PathIntegrator>();
+    integrator_ = std::make_unique<PathIntegrator>(configNeeTracerDepth);
 }
 
 void Camera::setPool(std::shared_ptr<const ObjectPool> pool)

@@ -6,6 +6,7 @@
 class PathIntegrator : public Integrator
 {
 public:
+    PathIntegrator(int depth);
     virtual Color Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool) const override;
 
 private:
@@ -23,7 +24,7 @@ private:
                    const Vector3 &reflect) const;
 
 private:
-    int m_depth = 5;
+    int depth_ = 5;
 };
 
 #endif

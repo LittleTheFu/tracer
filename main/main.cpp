@@ -44,7 +44,7 @@ void configFromParams(int argc, char *argv[])
     }
     else if (str == "room_normal_map")
     {
-        configScene = SceneType::ROOM_NORMAL_MAP;
+        configScene = SceneType::ROOM_TEAPOT_NORMAL_MAP;
         configOutputImageName = "room_normal_map";
     }
     else

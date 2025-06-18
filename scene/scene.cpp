@@ -93,6 +93,9 @@ bool Scene::isBVHOn(SceneType type) const
     if (type == SceneType::ROOM_COMPLEX_BUNNY)
         return true;
 
+    if (type == SceneType::ROOM_TEAPOT_NORMAL_MAP)
+        return true;
+
     return false;
 }
 
@@ -110,7 +113,7 @@ std::shared_ptr<SceneBuilder> Scene::createSceneBuilder(SceneType type) const
         builder = std::make_shared<TeapotSceneBuilder>();
     else if (type == SceneType::ROOM_MATERIAL_BALLS)
         builder = std::make_shared<MtrlSceneBuilder>();
-    else if (type == SceneType::ROOM_NORMAL_MAP)
+    else if (type == SceneType::ROOM_TEAPOT_NORMAL_MAP)
         builder = std::make_shared<NormalMapSceneBuilder>();
     // else if (type == SceneType::ROOM_CURVE)
     //     builder = std::make_shared<CurveSceneBuilder>();

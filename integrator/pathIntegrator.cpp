@@ -3,6 +3,11 @@
 #include <cassert>
 #include <mathConstantDef.h>
 
+PathIntegrator::PathIntegrator(int depth) : depth_(depth)
+{
+    assert(depth_ > 2);
+}
+
 Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool) const
 {
     Color color = Color::COLOR_BLACK;
@@ -13,7 +18,7 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
 
     while (true)
     {
-        if (depth > m_depth)
+        if (depth > depth_)
             break;
         depth++;
 

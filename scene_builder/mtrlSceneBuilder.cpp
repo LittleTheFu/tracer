@@ -3,8 +3,8 @@
 void MtrlSceneBuilder::build()
 {
     buildRoom();
-    buildLight(Vector3(0,70,160), 23);
-    setLightIntensity(80.0f);
+    buildLight(Vector3(0,70,160), 10);
+    setLightIntensity(60.0f);
 
     // buildMeasuredGreenBall(Vector3(-70, -30, 280), 20);
     // buildMeasuredWhiteBall(Vector3(-25, -30, 280), 20);
