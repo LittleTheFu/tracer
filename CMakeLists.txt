@@ -11,26 +11,30 @@ SET (INTEGRATOR_SOURCE_FILES
     ${INTEGRATOR_DIR}/pathIntegrator.cpp
 )
 
+SET (MATERIAL_DIR "material")
+SET (MATERIAL_SOURCE_FILES
+    ${MATERIAL_DIR}/material.cpp
+    ${MATERIAL_DIR}/materialLambertian.cpp
+    ${MATERIAL_DIR}/materialMirror.cpp
+    ${MATERIAL_DIR}/materialGlass.cpp
+    ${MATERIAL_DIR}/materialSilk.cpp
+    ${MATERIAL_DIR}/materialTarkinTunic.cpp
+    ${MATERIAL_DIR}/materialPVC.cpp
+    ${MATERIAL_DIR}/emittingMaterial.cpp
+)
+
 SET (BXDF_DIR "bxdf")
 SET (BXDF_SOURCE_FILES 
     ${BXDF_DIR}/bsdf.cpp
     ${BXDF_DIR}/bxdf.cpp
     ${BXDF_DIR}/interaction.cpp
-    ${BXDF_DIR}/materialLambertian.cpp
-    ${BXDF_DIR}/material.cpp
-    ${BXDF_DIR}/emittingMaterial.cpp
     ${BXDF_DIR}/lambertianBxdf.cpp
     ${BXDF_DIR}/primitive.cpp
     ${BXDF_DIR}/geometryPrimitive.cpp
     ${BXDF_DIR}/areaLight.cpp
-    ${BXDF_DIR}/materialPVC.cpp
     ${BXDF_DIR}/measuredBxdf.cpp
-    ${BXDF_DIR}/materialMirror.cpp
     ${BXDF_DIR}/specularBxdf.cpp
     ${BXDF_DIR}/dielectricBxdf.cpp
-    ${BXDF_DIR}/materialGlass.cpp
-    ${BXDF_DIR}/materialSilk.cpp
-    ${BXDF_DIR}/materialTarkinTunic.cpp
 )
 
 SET (RAY_TRACER_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/ray_tracer")
@@ -139,7 +143,6 @@ SET (RAY_TRACER_HEADER
     mathmatic/transform.h
     mathmatic/vector.h
     media/media.h
-    material/materialDef.h
     scene/bvh.h
     scene/bvhNode.h
     scene/simpleHitter.h
@@ -185,6 +188,7 @@ add_library(mylibs STATIC
             ${RAY_TRACER_SOURCE} 
             ${RAY_TRACER_HEADER} 
             ${BXDF_SOURCE_FILES}
+            ${MATERIAL_SOURCE_FILES}
             ${INTEGRATOR_SOURCE_FILES})
 
 add_subdirectory(${PROJECT_SOURCE_DIR}/third/assimp/)
