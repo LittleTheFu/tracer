@@ -13,6 +13,6 @@ void MtrlSceneBuilder::build()
     
     buildMeasuredGreenPvcBall(Vector3(-70, 30, 280), 20);
     // buildMeasuredBrushedAluminiumBall(Vector3(-25, 30, 280), 20);
-    // buildMeasuredTarkinTunicBall(Vector3(25, 30, 280), 20);
-    // buildMeasuredSariSilkBall(Vector3(70, 30, 280), 20);
+    buildMeasuredTarkinTunicBall(Vector3(25, 30, 280), 20);
+    buildMeasuredSariSilkBall(Vector3(70, 30, 280), 20);
 }

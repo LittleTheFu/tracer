@@ -1,9 +1,9 @@
 #include "config.h"
 
 //don't use ROOM_VOLUME right now
-SceneType configScene = SceneType::ROOM_TEAPOT;
+SceneType configScene = SceneType::ROOM_NORMAL_MAP;
 
-int configResolutionScale = 3;
+int configResolutionScale = 4;
 int configSamplersPerPixel = 10;
 int configNeeTracerDepth = 10;
 

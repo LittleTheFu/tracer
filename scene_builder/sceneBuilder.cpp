@@ -228,35 +228,58 @@ void SceneBuilder::buildMeasuredGreenPvcBall(const Vector3 &pos, float r)
 //     std::shared_ptr<Ball> measuredBrushedAluminiumBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
 // }
 
-// void SceneBuilder::buildMeasuredTarkinTunicBall(const Vector3 &pos, float r)
-// {
-//     std::shared_ptr<Ball> measuredTarkinTunicBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
-// }
+void SceneBuilder::buildMeasuredTarkinTunicBall(const Vector3 &pos, float r)
+{
+    std::shared_ptr<Ball> measuredTarkinTunicBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+    std::shared_ptr<MaterialTarkinTunic> material = std::make_shared<MaterialTarkinTunic>();
+    std::shared_ptr<GeometryPrimitive> measuredTarkinTunicPrimitive = std::make_shared<GeometryPrimitive>(measuredTarkinTunicBall, material);
 
-// void SceneBuilder::buildMeasuredSariSilkBall(const Vector3 &pos, float r)
-// {
-//     std::shared_ptr<Ball> measuredSariSilkBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
-// }
+    m_pObjectPool->addPrimitive(measuredTarkinTunicPrimitive);
+}
 
-// void SceneBuilder::buildNormalMapGreenPvcBall(const Vector3 &pos, float r)
-// {
-//     std::shared_ptr<Ball> normalMapGreenPvcBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
-// }
+void SceneBuilder::buildMeasuredSariSilkBall(const Vector3 &pos, float r)
+{
+    std::shared_ptr<Ball> measuredSariSilkBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+    std::shared_ptr<MaterialSilk> material = std::make_shared<MaterialSilk>();
+    std::shared_ptr<GeometryPrimitive> measuredSariSilkPrimitive = std::make_shared<GeometryPrimitive>(measuredSariSilkBall, material);
 
-// void SceneBuilder::buildNormalMapSariSilkBall(const Vector3 &pos, float r)
-// {
-//     std::shared_ptr<Ball> normalMapSariSilkBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
-// }
+    m_pObjectPool->addPrimitive(measuredSariSilkPrimitive);
+}
+
+void SceneBuilder::buildNormalMapGreenPvcBall(const Vector3 &pos, float r)
+{
+    std::shared_ptr<Ball> normalMapGreenPvcBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+    std::shared_ptr<MaterialPVC> material = std::make_shared<MaterialPVC>();
+    std::shared_ptr<NormalTexture> normalTexture = std::make_shared<NormalTexture>(ResourceDef::NORMAL);
+    material->setNormalTexture(normalTexture);
+    
+    std::shared_ptr<GeometryPrimitive> normalMapGreenPvcPrimitive = std::make_shared<GeometryPrimitive>(normalMapGreenPvcBall, material);
+
+    m_pObjectPool->addPrimitive(normalMapGreenPvcPrimitive);
+}
+
+void SceneBuilder::buildNormalMapSariSilkBall(const Vector3 &pos, float r)
+{
+    std::shared_ptr<Ball> normalMapSariSilkBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+    std::shared_ptr<MaterialSilk> material = std::make_shared<MaterialSilk>();
+    std::shared_ptr<NormalTexture> normalTexture = std::make_shared<NormalTexture>(ResourceDef::NORMAL);
+
+    material->setNormalTexture(normalTexture);
+    std::shared_ptr<GeometryPrimitive> normalMapSariSilkPrimitive = std::make_shared<GeometryPrimitive>(normalMapSariSilkBall, material);
+
+    m_pObjectPool->addPrimitive(normalMapSariSilkPrimitive);
+}
 
 // void SceneBuilder::buildVolumeBall(const Vector3 &pos, float r)
 // {
 //     std::shared_ptr<Ball> volumeBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
 // }
 
-void SceneBuilder::buildModel(const Vector3 &pos, 
-    float scale,
-     const std::string &model,
-      MATERIAL_TYPE materialType)
+void SceneBuilder::buildModel(const Vector3 &pos,
+                              float scale,
+                              const std::string &model,
+                              MATERIAL_TYPE materialType,
+                              bool useNormalMap)
 {
     std::shared_ptr<ImageTexture> albedoTexture = std::make_shared<ImageTexture>(ResourceDef::LENA);
     std::shared_ptr<MaterialPlus> material = nullptr;
@@ -276,6 +299,10 @@ void SceneBuilder::buildModel(const Vector3 &pos,
     else if(materialType == MATERIAL_TYPE::M_BLUE)
     {
         material = std::make_shared<MaterialLambertian>(Color::COLOR_BLUE);
+    }
+    else if(materialType == MATERIAL_TYPE::M_AQUA)
+    {
+        material = std::make_shared<MaterialLambertian>(Color::COLOR_AQUA);
     }
     else if(materialType == MATERIAL_TYPE::M_WHITE)
     {
@@ -314,9 +341,12 @@ void SceneBuilder::buildModel(const Vector3 &pos,
         assert(0);
     }
 
-    std::shared_ptr<NormalTexture> normalTexture = std::make_shared<NormalTexture>(ResourceDef::NORMAL);
-    material->setNormalTexture(normalTexture);
-
+    if(useNormalMap)
+    {
+        std::shared_ptr<NormalTexture> normalTexture = std::make_shared<NormalTexture>(ResourceDef::NORMAL);
+        material->setNormalTexture(normalTexture);
+    }
+    
     std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>(model, pos, scale);
     mesh->addToPool(m_pObjectPool, material);
 }
@@ -336,15 +366,17 @@ void SceneBuilder::buildRedTri(const Vector3 &pos)
     TriVertex tc(c, nc);
 
     std::shared_ptr<Tri> tri = std::make_shared<Tri>(ta, tb, tc, pos);
+    std::shared_ptr<MaterialPlus> material = std::make_shared<MaterialLambertian>(Color::COLOR_RED);
+    std::shared_ptr<GeometryPrimitive> primitive = std::make_shared<GeometryPrimitive>(tri, material);
 
-    // m_pObjectPool->add(tri);
+    m_pObjectPool->addPrimitive(primitive);
 }
 
 void SceneBuilder::buildGreenTri(const Vector3 &pos)
 {
-    Vector3 a(-150, -60, 200);
-    Vector3 b(-170, 40, 200);
-    Vector3 c(-40, 70, 200);
+    Vector3 a(-30, -30, -20);
+    Vector3 b(-30, 30, 0);
+    Vector3 c(20, -20, -10);
 
     Vector3 na = (a - b).cross(a - c);
     Vector3 nb = (b - c).cross(b - a);
@@ -355,7 +387,7 @@ void SceneBuilder::buildGreenTri(const Vector3 &pos)
     TriVertex tc(c, nc);
 
     std::shared_ptr<Tri> tri = std::make_shared<Tri>(ta, tb, tc, pos);
-    std::shared_ptr<MaterialPlus> material = std::make_shared<MaterialLambertian>(Color::COLOR_GREEN); 
+    std::shared_ptr<MaterialPlus> material = std::make_shared<MaterialLambertian>(Color::COLOR_YELLOW); 
     std::shared_ptr<GeometryPrimitive> primitive = std::make_shared<GeometryPrimitive>(tri, material);
 
     m_pObjectPool->addPrimitive(primitive);

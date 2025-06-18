@@ -3,20 +3,20 @@
 void SimpleSceneBuilder::build()
 {
     buildRoom();
-    buildLight(Vector3(-50, 10, 260), 10);
-    setLightIntensity(100.0f);
+    buildLight(Vector3(-5, 10, 260), 5);
+    setLightIntensity(80.0f);
 
     // buildConductorBall(Vector3(-10, -40, 350), 50);
-    // buildRedBall(Vector3(-60, 70, 300), 20);
-    // buildAquaBall(Vector3(-70, 80, 350), 20);
+    buildRedBall(Vector3(60, 70, 300), 20);
+    buildAquaBall(Vector3(-70, 80, 350), 20);
     // buildMeasuredGreenPvcBall(Vector3(-60, 30, 300), 20);
     // buildMirrorBall(Vector3(-50, 70, 350), 20);
 
     //to be fixed : light power leak
     buildGlassBall(Vector3(50, -60, 300), 30);
     
-    // buildRedTri(Vector3(-55,0,370));
-    // buildGreenTri(Vector3(50,-60,350));
+    buildRedTri(Vector3(-55,0,300));
+    buildGreenTri(Vector3(50,0,300));
     // buildGreenTri(Vector3(0,0,0));
 
     //to be fixed : light power leak

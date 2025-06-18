@@ -43,11 +43,11 @@ protected:
     // void buildMeasuredMintBall(const Vector3& pos, float r);
     void buildMeasuredGreenPvcBall(const Vector3& pos, float r);
     // void buildMeasuredBrushedAluminiumBall(const Vector3& pos, float r);
-    // void buildMeasuredTarkinTunicBall(const Vector3& pos, float r);
-    // void buildMeasuredSariSilkBall(const Vector3& pos, float r);
+    void buildMeasuredTarkinTunicBall(const Vector3& pos, float r);
+    void buildMeasuredSariSilkBall(const Vector3& pos, float r);
 
-    // void buildNormalMapGreenPvcBall(const Vector3& pos, float r);
-    // void buildNormalMapSariSilkBall(const Vector3& pos, float r);
+    void buildNormalMapGreenPvcBall(const Vector3& pos, float r);
+    void buildNormalMapSariSilkBall(const Vector3& pos, float r);
 
     // void buildVolumeBall(const Vector3& pos, float r);
 
@@ -56,7 +56,11 @@ protected:
 
     // void buildConductorBall(const Vector3& pos, float r);
 
-    void buildModel(const Vector3& pos, float scale, const std::string& model, MATERIAL_TYPE materialType);
+    void buildModel(const Vector3 &pos,
+                    float scale,
+                    const std::string &model,
+                    MATERIAL_TYPE materialType,
+                    bool useNormalMap = false);
 
     void buildRedTri(const Vector3& pos);
     void buildGreenTri(const Vector3& pos);
