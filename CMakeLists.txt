@@ -89,7 +89,7 @@ SET (MEDIA_SOURCE_FILES
     ${MEDIA_DIR}/media.cpp
 )
 
-SET (SCENE_DIR "scene")
+SET (SCENE_DIR "scene_management")
 SET (SCENE_SOURCE_FILES
     ${SCENE_DIR}/bvh.cpp
     ${SCENE_DIR}/bvhNode.cpp
