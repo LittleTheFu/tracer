@@ -11,6 +11,22 @@ SET (INTEGRATOR_SOURCE_FILES
     ${INTEGRATOR_DIR}/pathIntegrator.cpp
 )
 
+SET (GEOMETRY_DIR "geometry")
+SET (GEOMETRY_SOURCE_FILES
+    ${GEOMETRY_DIR}/ball.cpp
+    ${GEOMETRY_DIR}/boundBox.cpp
+    ${GEOMETRY_DIR}/circle.cpp
+    ${GEOMETRY_DIR}/curve.cpp
+    ${GEOMETRY_DIR}/geometry.cpp
+    ${GEOMETRY_DIR}/mesh.cpp
+    ${GEOMETRY_DIR}/plane.cpp
+    ${GEOMETRY_DIR}/room.cpp
+    ${GEOMETRY_DIR}/tri.cpp
+    ${GEOMETRY_DIR}/geometryPrimitive.cpp
+    ${GEOMETRY_DIR}/interaction.cpp
+    ${GEOMETRY_DIR}/primitive.cpp
+)
+
 SET (MATERIAL_DIR "material")
 SET (MATERIAL_SOURCE_FILES
     ${MATERIAL_DIR}/material.cpp
@@ -27,10 +43,7 @@ SET (BXDF_DIR "bxdf")
 SET (BXDF_SOURCE_FILES 
     ${BXDF_DIR}/bsdf.cpp
     ${BXDF_DIR}/bxdf.cpp
-    ${BXDF_DIR}/interaction.cpp
     ${BXDF_DIR}/lambertianBxdf.cpp
-    ${BXDF_DIR}/primitive.cpp
-    ${BXDF_DIR}/geometryPrimitive.cpp
     ${BXDF_DIR}/areaLight.cpp
     ${BXDF_DIR}/measuredBxdf.cpp
     ${BXDF_DIR}/specularBxdf.cpp
@@ -170,11 +183,11 @@ SET (RAY_TRACER_HEADER
 
 INCLUDE_DIRECTORIES(${BXDF_DIR}
                     ${INTEGRATOR_DIR}
+                    ${GEOMETRY_DIR}
+                    ${MATERIAL_DIR}
                     brdf 
                     camera
                     common 
-                    geometry 
-                    material
                     mathmatic 
                     media
                     scene
@@ -189,6 +202,7 @@ add_library(mylibs STATIC
             ${RAY_TRACER_HEADER} 
             ${BXDF_SOURCE_FILES}
             ${MATERIAL_SOURCE_FILES}
+            ${GEOMETRY_SOURCE_FILES}
             ${INTEGRATOR_SOURCE_FILES})
 
 add_subdirectory(${PROJECT_SOURCE_DIR}/third/assimp/)
