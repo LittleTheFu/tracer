@@ -142,20 +142,20 @@ void SceneBuilder::buildLight(const Vector3 &pos, float r)
     m_pObjectPool->addPrimitive(lightPrimitiveFirst);
 
     //----------------------second--------
-    std::shared_ptr<Geometry> ballSecond = std::make_shared<Ball>(Vector3::ZERO, pos + Vector3(50, 0, 0), r);
-    std::shared_ptr<GeometryPrimitive> lightPrimitiveSecond = std::make_shared<GeometryPrimitive>(ballSecond, lightMaterial);
-    std::shared_ptr<AreaLight> areaLightSecond = std::make_shared<AreaLight>(lightPrimitiveSecond);
+    // std::shared_ptr<Geometry> ballSecond = std::make_shared<Ball>(Vector3::ZERO, pos + Vector3(50, 0, 0), r);
+    // std::shared_ptr<GeometryPrimitive> lightPrimitiveSecond = std::make_shared<GeometryPrimitive>(ballSecond, lightMaterial);
+    // std::shared_ptr<AreaLight> areaLightSecond = std::make_shared<AreaLight>(lightPrimitiveSecond);
 
-    m_pObjectPool->addLight(areaLightSecond);
-    m_pObjectPool->addPrimitive(lightPrimitiveSecond);
+    // m_pObjectPool->addLight(areaLightSecond);
+    // m_pObjectPool->addPrimitive(lightPrimitiveSecond);
 
     //----------------------third--------
-    std::shared_ptr<Geometry> ballThird = std::make_shared<Ball>(Vector3::ZERO, pos + Vector3(-50, 0, 0), r);
-    std::shared_ptr<GeometryPrimitive> lightPrimitiveThird = std::make_shared<GeometryPrimitive>(ballThird, lightMaterial);
-    std::shared_ptr<AreaLight> areaLightThird = std::make_shared<AreaLight>(lightPrimitiveThird);
+    // std::shared_ptr<Geometry> ballThird = std::make_shared<Ball>(Vector3::ZERO, pos + Vector3(-50, 0, 0), r);
+    // std::shared_ptr<GeometryPrimitive> lightPrimitiveThird = std::make_shared<GeometryPrimitive>(ballThird, lightMaterial);
+    // std::shared_ptr<AreaLight> areaLightThird = std::make_shared<AreaLight>(lightPrimitiveThird);
 
-    m_pObjectPool->addLight(areaLightThird);
-    m_pObjectPool->addPrimitive(lightPrimitiveThird);
+    // m_pObjectPool->addLight(areaLightThird);
+    // m_pObjectPool->addPrimitive(lightPrimitiveThird);
 }
 
 void SceneBuilder::setLightIntensity(size_t index, float intensity)

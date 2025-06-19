@@ -5,7 +5,7 @@
 void TeapotSceneBuilder::build()
 {
     buildRoom();
-    buildLight(Vector3(0,30,220), 5);
+    buildLight(Vector3(0,30,220), 16);
     setLightIntensity(0, 30.0f);
     setLightIntensity(1, 30.0f);
     setLightIntensity(2, 30.0f);
