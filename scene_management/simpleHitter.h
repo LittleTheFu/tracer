@@ -11,12 +11,12 @@
 class SimperHitter : public HitterInterface
 {
 public:
-    virtual Color getColorFromLight(const Ray &ray) const override;
+    virtual Color getColorFromLight(const Ray &ray, int index) const override;
     virtual bool hitGeometryObjectOnly(const Ray &ray, Interaction &interaction, std::shared_ptr<Primitive> skipPrimitive) const override;
 
 
 private:
-    bool hitLightOnly(const Ray &ray, float &t, Vector3 &normal, float &dot) const;
+    // bool hitLightOnly(const Ray &ray, float &t, Vector3 &normal, float &dot) const;
 };
 
 #endif

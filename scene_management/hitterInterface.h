@@ -13,9 +13,9 @@
 class HitterInterface
 {
 public:
-    virtual void init(std::shared_ptr<const AreaLight> light,
+    virtual void init(std::vector<std::shared_ptr<AreaLight>> lights,
                       const std::vector<std::shared_ptr<Primitive>> &primitives);
-    virtual Color getColorFromLight(const Ray &ray) const;
+    virtual Color getColorFromLight(const Ray &ray, int index) const;
 
     //dirty: light ptr
     virtual bool hitGeometryObjectOnly(const Ray &ray, Interaction &interaction, std::shared_ptr<Primitive> skipPrimitive = nullptr) const;
@@ -23,7 +23,7 @@ public:
 protected:
 
     std::vector<std::shared_ptr<Primitive>> primitives_;
-    std::shared_ptr<const AreaLight> light_;
+    std::vector<std::shared_ptr<AreaLight>> lights_;
 };
 
 #endif

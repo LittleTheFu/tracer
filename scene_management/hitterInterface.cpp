@@ -1,13 +1,13 @@
 #include "hitterInterface.h"
 
-void HitterInterface::init(std::shared_ptr<const AreaLight> light,
+void HitterInterface::init(std::vector<std::shared_ptr<AreaLight>> lights,
                            const std::vector<std::shared_ptr<Primitive>> &primitives)
 {
     primitives_ = primitives;
-    light_ = light;
+    lights_ = lights;
 }
 
-Color HitterInterface::getColorFromLight(const Ray &ray) const
+Color HitterInterface::getColorFromLight(const Ray &ray, int index) const
 {
     return Color();
 }

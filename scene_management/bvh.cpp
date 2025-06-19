@@ -39,10 +39,10 @@ bool BVH::_search(std::shared_ptr<BVHNode> node, std::shared_ptr<Geometry> geome
     return false;
 }
 
-void BVH::init(std::shared_ptr<const AreaLight> light,
+void BVH::init(std::vector<std::shared_ptr<AreaLight>> lights,
                const std::vector<std::shared_ptr<Primitive>> &primitives)
 {
-    HitterInterface::init(light, primitives);
+    HitterInterface::init(lights, primitives);
     build();
 }
 
@@ -212,21 +212,26 @@ bool BVH::hitLeaf(const Ray &ray,
     return hit;
 }
 
-Color BVH::getColorFromLight(const Ray &ray) const
+Color BVH::getColorFromLight(const Ray &ray, int index) const
 {
-    float t;
-    Vector3 normal;
-    float dot;
-    Interaction _interaction;
-    if (!light_->getGeometryPrimitive()->getGeometry()->hit(ray, _interaction))
+    if(index >= lights_.size())
     {
         return Color::COLOR_BLACK;
     }
 
-    Color color = light_->getColor();
+    float t;
+    Vector3 normal;
+    float dot;
+    Interaction _interaction;
+    if (!lights_.at(index)->getGeometryPrimitive()->getGeometry()->hit(ray, _interaction))
+    {
+        return Color::COLOR_BLACK;
+    }
+
+    Color color = lights_.at(index)->getColor();
 
     Interaction interaction;
-    if (!_hitGeometryObjectOnly(m_rootNode, ray, interaction, light_->getGeometryPrimitive()))
+    if (!_hitGeometryObjectOnly(m_rootNode, ray, interaction, lights_.at(index)->getGeometryPrimitive()))
     {
         // return color * dot;
         return color;

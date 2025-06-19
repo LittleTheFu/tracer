@@ -17,13 +17,13 @@ public:
     bool _search(std::shared_ptr<BVHNode> node, std::shared_ptr<Geometry> geometry) const;
 
 public:
-    virtual void init(std::shared_ptr<const AreaLight> light,
+    virtual void init(std::vector<std::shared_ptr<AreaLight>> lights,
                        const std::vector<std::shared_ptr<Primitive>> &primitives) override;
     virtual bool hitGeometryObjectOnly(const Ray &ray, Interaction &interaction, std::shared_ptr<Primitive> skipPrimitive = nullptr) const override;
 
     
 public:
-    virtual Color getColorFromLight(const Ray &ray) const override;
+    virtual Color getColorFromLight(const Ray &ray, int index) const override;
 
 private:
     bool _hitGeometryObjectOnly(std::shared_ptr<BVHNode> node,

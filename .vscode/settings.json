@@ -150,7 +150,8 @@
     "xstddef": "cpp",
     "valarray": "cpp",
     "future": "cpp",
-    "*.rh": "cpp"
+    "*.rh": "cpp",
+    "*.inc": "cpp"
   },
   "C_Cpp.default.compilerPath": "cl.exe"
 }

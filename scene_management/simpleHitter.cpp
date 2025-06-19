@@ -3,22 +3,27 @@
 #include "mathUtility.h"
 #include <cassert>
 
-Color SimperHitter::getColorFromLight(const Ray &ray) const
+Color SimperHitter::getColorFromLight(const Ray &ray, int index) const
 {
+    if(index >= lights_.size())
+    {
+        return Color::COLOR_BLACK;
+    }
+
     float t = 0.0f;
     float dot = 1.0f;
     Vector3 normal;
 
     Interaction _interaction;
-    if (!light_->getGeometryPrimitive()->getGeometry()->hit(ray, _interaction))
+    if (!lights_.at(index)->getGeometryPrimitive()->getGeometry()->hit(ray, _interaction))
     {
         return Color::COLOR_BLACK;
     }
 
-    Color color = light_->getColor();
+    Color color = lights_.at(index)->getColor();
 
     Interaction interaction;
-    if (!hitGeometryObjectOnly(ray, interaction, light_->getGeometryPrimitive()))
+    if (!hitGeometryObjectOnly(ray, interaction, lights_.at(index)->getGeometryPrimitive()))
     {
         return color;
     }
@@ -62,13 +67,13 @@ bool SimperHitter::hitGeometryObjectOnly(const Ray &ray,
     return hit;
 }
 
-bool SimperHitter::hitLightOnly(const Ray &ray, float &t, Vector3 &normal, float &dot) const
-{
+// bool SimperHitter::hitLightOnly(const Ray &ray, float &t, Vector3 &normal, float &dot) const
+// {
     
-    Interaction interaction;
-    bool hit = light_->getGeometryPrimitive()->getGeometry()->hit(ray, interaction);
+//     Interaction interaction;
+//     bool hit = light_->getGeometryPrimitive()->getGeometry()->hit(ray, interaction);
 
-    //no more used
-    assert(0);
-    return hit;
-}
+//     //no more used
+//     assert(0);
+//     return hit;
+// }

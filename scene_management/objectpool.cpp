@@ -18,13 +18,18 @@ void ObjectPool::addPrimitives(std::vector<std::shared_ptr<Primitive>> primitive
     primitives_.insert(primitives_.end(), primitives.begin(), primitives.end());
 }
 
-void ObjectPool::setLight(std::shared_ptr<AreaLight> light)
+void ObjectPool::addLight(std::shared_ptr<AreaLight> light)
 {
-    light_ = light;
+    lights_.push_back(light);
+}
+
+const std::vector<std::shared_ptr<AreaLight>>& ObjectPool::getLights() const
+{
+    return lights_;
 }
 //-----------------end------------------------------
 
-ObjectPool::ObjectPool(bool useBVH) : light_(nullptr)
+ObjectPool::ObjectPool(bool useBVH) : lights_({})
 {
     if (useBVH)
         m_pHitter = new BVH();
@@ -34,7 +39,7 @@ ObjectPool::ObjectPool(bool useBVH) : light_(nullptr)
 
 void ObjectPool::initHitter()
 {
-    m_pHitter->init(light_, primitives_);
+    m_pHitter->init(lights_, primitives_);
 }
 
 void ObjectPool::log()
@@ -85,9 +90,9 @@ bool ObjectPool::hitScene(const Ray &ray, Interaction &interaction) const
     return m_pHitter->hitGeometryObjectOnly(ray, interaction);
 }
 
-Color ObjectPool::getColorFromLight(const Ray &ray) const
+Color ObjectPool::getColorFromLight(const Ray &ray, int index) const
 {
-    return m_pHitter->getColorFromLight(ray);
+    return m_pHitter->getColorFromLight(ray, index);
 }
 
 std::vector<std::shared_ptr<Primitive>> ObjectPool::getPrimitives() const

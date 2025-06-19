@@ -83,15 +83,15 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
     return color;
 }
 
-Color PathIntegrator::sampleLightFromDeltaMaterial(std::shared_ptr<const ObjectPool> pool,
-                                                   const Vector3 &pos,
-                                                   const Vector3 &dir) const
-{
-    Ray deltaLightRay(pos, dir);
-    Color lightColor = pool->getColorFromLight(deltaLightRay);
+// Color PathIntegrator::sampleLightFromDeltaMaterial(std::shared_ptr<const ObjectPool> pool,
+//                                                    const Vector3 &pos,
+//                                                    const Vector3 &dir) const
+// {
+//     Ray deltaLightRay(pos, dir);
+//     Color lightColor = pool->getColorFromLight(deltaLightRay);
 
-    return lightColor;
-}
+//     return lightColor;
+// }
 
 Color PathIntegrator::sampleLightFromNormalMaterial(std::shared_ptr<const ObjectPool> pool,
                                                     const Vector3 &pos,
@@ -100,23 +100,30 @@ Color PathIntegrator::sampleLightFromNormalMaterial(std::shared_ptr<const Object
 {
     // for test
     //  return Color::COLOR_WHITE * 100;
+    std::vector<std::shared_ptr<AreaLight>> lights = pool->getLights();
+    int lightNum = static_cast<int>(lights.size());
+    if (lightNum == 0)
+    {
+        return Color::COLOR_BLACK;
+    }
+    int lightIndex = MathUtility::sampleUniformly(lightNum);
+    float lightPickPdf = 1.0f / lightNum;
 
     float sampleLightPdf;
-    Vector3 lightSurfacePoint = pool->light_->sample(pos, sampleLightPdf);
-
+    Vector3 lightSurfacePoint = lights.at(lightIndex)->sample(pos, sampleLightPdf);
     Vector3 lightDir = lightSurfacePoint - pos;
     lightDir.normalize();
 
     // plus lightDir * 0.001f is a hotfix to avoid self intersection
     Ray sampleLightRay(pos + lightDir * 0.001f, lightDir);
     sampleRay = sampleLightRay; // return value
-    Color lightColor = pool->getColorFromLight(sampleLightRay);
+    Color lightColor = pool->getColorFromLight(sampleLightRay, lightIndex);
 
     // to be fixed later : test visibility with light first?
     float absDot = std::abs(normal * lightDir);
 
     // do half caculation here first
-    return lightColor * (absDot / sampleLightPdf);
+    return lightColor * (absDot / (sampleLightPdf * lightPickPdf));
 }
 
 Ray PathIntegrator::genNextRay(const Vector3 &pos, const Vector3 &normal, const Vector3 &reflect) const

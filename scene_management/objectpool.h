@@ -19,10 +19,11 @@ public:
     void addPrimitive(std::shared_ptr<Primitive> primitive);
     void addPrimitives(std::vector<std::shared_ptr<Primitive>> primitives);
 
-    void setLight(std::shared_ptr<AreaLight> light);
+    void addLight(std::shared_ptr<AreaLight> light);
+    const std::vector<std::shared_ptr<AreaLight>>& getLights() const;
 
 public:
-    std::shared_ptr<AreaLight> light_;
+    std::vector<std::shared_ptr<AreaLight>> lights_;
 
 private:
     std::vector<std::shared_ptr<Primitive>> primitives_;
@@ -45,7 +46,7 @@ public:
     bool hitScene(const Ray &ray, Interaction &interaction) const;
     
 public:
-    Color getColorFromLight(const Ray &ray) const;
+    Color getColorFromLight(const Ray &ray, int index) const;
 
     std::vector<std::shared_ptr<Primitive>> getPrimitives() const;
 

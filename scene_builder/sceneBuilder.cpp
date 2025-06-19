@@ -131,24 +131,42 @@ void SceneBuilder::buildMeshRoom()
 
 void SceneBuilder::buildLight(const Vector3 &pos, float r)
 {
-    std::shared_ptr<Geometry> ball = std::make_shared<Ball>(Vector3::ZERO, pos, r);
     std::shared_ptr<Material> lightMaterial = std::make_shared<EmittingMaterial>();
-    std::shared_ptr<GeometryPrimitive> lightPrimitive = std::make_shared<GeometryPrimitive>(ball, lightMaterial);
-    std::shared_ptr<AreaLight> areaLight = std::make_shared<AreaLight>(lightPrimitive);
 
-    m_pObjectPool->setLight(areaLight);
-    m_pObjectPool->addPrimitive(lightPrimitive);
+    //----------------------first--------
+    std::shared_ptr<Geometry> ballFirst = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+    std::shared_ptr<GeometryPrimitive> lightPrimitiveFirst = std::make_shared<GeometryPrimitive>(ballFirst, lightMaterial);
+    std::shared_ptr<AreaLight> areaLightFirst = std::make_shared<AreaLight>(lightPrimitiveFirst);
+
+    m_pObjectPool->addLight(areaLightFirst);
+    m_pObjectPool->addPrimitive(lightPrimitiveFirst);
+
+    //----------------------second--------
+    std::shared_ptr<Geometry> ballSecond = std::make_shared<Ball>(Vector3::ZERO, pos + Vector3(50, 0, 0), r);
+    std::shared_ptr<GeometryPrimitive> lightPrimitiveSecond = std::make_shared<GeometryPrimitive>(ballSecond, lightMaterial);
+    std::shared_ptr<AreaLight> areaLightSecond = std::make_shared<AreaLight>(lightPrimitiveSecond);
+
+    m_pObjectPool->addLight(areaLightSecond);
+    m_pObjectPool->addPrimitive(lightPrimitiveSecond);
+
+    //----------------------third--------
+    std::shared_ptr<Geometry> ballThird = std::make_shared<Ball>(Vector3::ZERO, pos + Vector3(-50, 0, 0), r);
+    std::shared_ptr<GeometryPrimitive> lightPrimitiveThird = std::make_shared<GeometryPrimitive>(ballThird, lightMaterial);
+    std::shared_ptr<AreaLight> areaLightThird = std::make_shared<AreaLight>(lightPrimitiveThird);
+
+    m_pObjectPool->addLight(areaLightThird);
+    m_pObjectPool->addPrimitive(lightPrimitiveThird);
 }
 
-void SceneBuilder::setLightIntensity(float intensity)
+void SceneBuilder::setLightIntensity(size_t index, float intensity)
 {
     if (!m_pObjectPool)
         return;
 
-    if (!m_pObjectPool->light_)
+    if ( index >= m_pObjectPool->lights_.size())
         return;
 
-    m_pObjectPool->light_->setIntensity(intensity);
+    m_pObjectPool->lights_.at(index)->setIntensity(intensity);
 }
 
 void SceneBuilder::buildSceneWithDefaultConfig()

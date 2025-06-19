@@ -3,7 +3,7 @@
 //don't use ROOM_VOLUME right now
 SceneType configScene = SceneType::ROOM_TEAPOT;
 
-int configResolutionScale = 4;
+int configResolutionScale = 3;
 int configSamplersPerPixel = 1;
 int configNeeTracerDepth = 3;
 

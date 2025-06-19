@@ -10,9 +10,9 @@ public:
     virtual Color Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool) const override;
 
 private:
-    Color sampleLightFromDeltaMaterial(std::shared_ptr<const ObjectPool> pool,
-                                       const Vector3 &pos,
-                                       const Vector3 &dir) const;
+    // Color sampleLightFromDeltaMaterial(std::shared_ptr<const ObjectPool> pool,
+    //                                    const Vector3 &pos,
+    //                                    const Vector3 &dir) const;
 
     Color sampleLightFromNormalMaterial(std::shared_ptr<const ObjectPool> pool,
                                         const Vector3 &pos,

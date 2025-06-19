@@ -5,8 +5,11 @@
 void TeapotSceneBuilder::build()
 {
     buildRoom();
-    buildLight(Vector3(30,30,220), 15);
-    setLightIntensity(60.0f);
+    buildLight(Vector3(0,30,220), 5);
+    setLightIntensity(0, 30.0f);
+    setLightIntensity(1, 30.0f);
+    setLightIntensity(2, 30.0f);
+
     
-    buildModel(Vector3(-10, -60, 300), 24, ResourceDef::TEAPOT, MATERIAL_TYPE::M_MICRO_FACET_SPECULAR);
+    buildModel(Vector3(-10, -60, 300), 24, ResourceDef::TEAPOT, MATERIAL_TYPE::M_GLASS);
 }
