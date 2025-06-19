@@ -342,10 +342,10 @@ void SceneBuilder::buildModel(const Vector3 &pos,
     {
         material = std::make_shared<MaterialRough>();
     }
-    else if(materialType == MATERIAL_TYPE::M_MICRO_FACET_TRANSMISSION)
-    {
-        material = std::make_shared<MaterialTRough>();
-    }
+    // else if(materialType == MATERIAL_TYPE::M_MICRO_FACET_TRANSMISSION)
+    // {
+    //     material = std::make_shared<MaterialTRough>();
+    // }
     else
     {
         assert(0);
