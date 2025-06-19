@@ -47,6 +47,7 @@ SET (MATERIAL_SOURCE_FILES
     ${MATERIAL_DIR}/materialTarkinTunic.cpp
     ${MATERIAL_DIR}/materialPVC.cpp
     ${MATERIAL_DIR}/emittingMaterial.cpp
+    ${MATERIAL_DIR}/materialTRough.cpp
     ${MATERIAL_DIR}/materialRough.cpp
 )
 
@@ -64,6 +65,7 @@ SET (BXDF_SOURCE_FILES
     ${BXDF_DIR}/specularBxdf.cpp
     ${BXDF_DIR}/dielectricBxdf.cpp
     ${BXDF_DIR}/microfacetSpecularBxdf.cpp
+    ${BXDF_DIR}/microfacetTransmissionBxdf.cpp
 )
 
 SET (CAMERA_DIR "camera")

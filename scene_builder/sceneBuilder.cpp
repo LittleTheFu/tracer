@@ -20,6 +20,7 @@
 #include <materialTarkinTunic.h>
 #include <cassert>
 #include <materialRough.h>
+#include <materialTRough.h>
 
 
 void SceneBuilder::init(std::shared_ptr<ObjectPool> pool)
@@ -340,6 +341,10 @@ void SceneBuilder::buildModel(const Vector3 &pos,
     else if(materialType == MATERIAL_TYPE::M_MICRO_FACET_SPECULAR)
     {
         material = std::make_shared<MaterialRough>();
+    }
+    else if(materialType == MATERIAL_TYPE::M_MICRO_FACET_TRANSMISSION)
+    {
+        material = std::make_shared<MaterialTRough>();
     }
     else
     {
