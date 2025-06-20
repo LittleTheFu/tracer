@@ -10,7 +10,19 @@ Ray::Ray()
 {
     origin = Vector3::ZERO;
     dir = Vector3::ZERO;
+
+    medium = nullptr;
 }
+
+Ray::Ray(const Ray &ray)
+{
+    origin = ray.origin;
+    dir = ray.dir;
+    t = ray.t;
+    media = ray.media;
+    medium = ray.medium;
+}
+
 
 Ray::Ray(const Vector3 &origin, const Vector3 &dir)
 {    

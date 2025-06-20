@@ -6,16 +6,21 @@
 #include "transform.h"
 #include "vector.h"
 
+class Medium;
+
 class Ray
 {
 public:
     Ray();
+    Ray(const Ray &ray);
     Ray(const Vector3 &origin, const Vector3 &dir);
 
     Vector3 origin;
     Vector3 dir;
     float t;
     Media media;
+
+    std::shared_ptr<const Medium> medium;
 
     Ray genNewRay(const Transform &transform) const;
     Ray genNewRay(const Frame &frame) const;
