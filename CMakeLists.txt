@@ -37,6 +37,14 @@ SET (GEOMETRY_SOURCE_FILES
     ${GEOMETRY_DIR}/primitive.cpp
 )
 
+SET (VOLUME_DIR "volume")
+SET (VOLUME_SOURCE_FILES
+    ${VOLUME_DIR}/volume.cpp
+    ${VOLUME_DIR}/sphereVolume.cpp
+    ${VOLUME_DIR}/medium.cpp
+
+)
+
 SET (MATERIAL_DIR "material")
 SET (MATERIAL_SOURCE_FILES
     ${MATERIAL_DIR}/material.cpp
@@ -88,11 +96,6 @@ SET (COMMON_SOURCE_FILES
     ${COMMON_DIR}/timeRecorder.cpp
 )
 
-SET (MEDIA_DIR "media")
-SET (MEDIA_SOURCE_FILES
-    ${MEDIA_DIR}/media.cpp
-)
-
 SET (SCENE_DIR "scene_management")
 SET (SCENE_SOURCE_FILES
     ${SCENE_DIR}/bvh.cpp
@@ -127,11 +130,6 @@ SET (TEXTURE_SOURCE_FILES
     ${TEXTURE_DIR}/uvTexture.cpp
 )
 
-SET (VOLUME_DIR "volume")
-SET (VOLUME_SOURCE_FILES
-    ${VOLUME_DIR}/vox.cpp
-)
-
 INCLUDE_DIRECTORIES(
     ${BXDF_DIR}
     ${INTEGRATOR_DIR}
@@ -141,7 +139,6 @@ INCLUDE_DIRECTORIES(
     ${MATHMATIC_DIR}
     ${CAMERA_DIR}
     ${COMMON_DIR}
-    ${MEDIA_DIR}
     ${SCENE_DIR}
     ${SCENE_BUILDER_DIR}
     ${VOLUME_DIR}
@@ -157,7 +154,6 @@ add_library(mylibs STATIC
     ${BXDF_SOURCE_FILES}
     ${CAMERA_SOURCE_FILES}
     ${COMMON_SOURCE_FILES}
-    ${MEDIA_SOURCE_FILES}
     ${SCENE_SOURCE_FILES}
     ${SCENE_BUILDER_SOURCE_FILES}
     ${TEXTURE_SOURCE_FILES}
