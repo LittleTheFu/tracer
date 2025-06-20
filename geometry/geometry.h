@@ -4,7 +4,6 @@
 #include <memory>
 
 #include "boundBox.h"
-#include "media.h"
 #include "ray.h"
 #include "tagDef.h"
 #include "transform.h"
@@ -18,11 +17,6 @@
 
 class Geometry
 {
-//for test media, not used right now
-public:
-    Media m_outsideMedia;
-    Media m_insideMedia;  
-      
 public:
     Geometry();
     

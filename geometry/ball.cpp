@@ -85,7 +85,7 @@ bool Ball::testHit(const Ray &localRay, float &t) const
     if (!MathUtility::solveLinerEquation(a, b, c, t0, t1))
         return false;
 
-    //refactor later...
+    // refactor later...
     if (!getHitParam(t0, t1, t))
         return false;
 
@@ -103,6 +103,20 @@ bool Ball::isIn(const Vector3 &point) const
     }
 
     return false;
+}
+
+bool Ball::hit(const Ray &ray, float &tMin, float &tMax) const
+{
+    const Ray newRay = ray.genNewRay(m_transform);
+    float a, b, c;
+    genRayHitParam(newRay, a, b, c);
+
+    float t0, t1;
+    if (!MathUtility::solveLinerEquation(a, b, c, t0, t1))
+        return false;
+
+    tMin = std::max(t0, t1);
+    tMax = std::min(t0, t1);
 }
 
 bool Ball::hit(const Ray &ray, Interaction &interaction) const

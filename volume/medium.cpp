@@ -22,14 +22,14 @@ float Medium::transmittance(float distance) const
     return std::exp(exponent);
 }
 
-float Medium::sample(const Ray& ray, float tMax, MediumInteraction &interaction)
+float Medium::sample(const Ray& ray, float tMax, Interaction &interaction)
 {
     float pdf = 0;
     float t = MathUtility::sampleExponential(sigma_t, pdf);
 
     if(t <= tMax)
     {
-        interaction.pos = ray.getPosition(t);
+        interaction.point = ray.getPosition(t);
         interaction.wo = -ray.dir;
         interaction.medium = std::shared_ptr<Medium>(this);
 

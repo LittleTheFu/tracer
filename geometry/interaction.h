@@ -8,6 +8,7 @@
 class Primitive;
 class Geometry;
 class Material;
+class Medium;
 
 class Interaction
 {
@@ -25,6 +26,9 @@ public:
     Vector3 normal_geometry;
     Vector3 normal_shading;
 
+    bool is_surface_hit = false;
+    bool is_volume_boundary_hit = false;
+
     Vector3 wo;
 
     float u;
@@ -33,7 +37,8 @@ public:
     // std::shared_ptr<Geometry> geometry;
     // std::shared_ptr<MaterialPlus> material;
 
-    std::shared_ptr<Primitive> primitive;
+    std::shared_ptr<Primitive> primitive = nullptr;
+    std::shared_ptr<Medium> medium = nullptr;
 
     //---for refactoring---
     float t;

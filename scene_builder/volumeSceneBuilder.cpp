@@ -1,5 +1,6 @@
 #include "config.h"
 #include "volumeSceneBuilder.h"
+#include "medium.h"
 
 void VolumeSceneBuilder::build()
 {
@@ -7,5 +8,10 @@ void VolumeSceneBuilder::build()
     buildLight(Vector3(0, 80, 200), 10);
     setLightIntensity(0, 40);
 
+    std::shared_ptr<Medium> medium = std::make_shared<Medium>(0.0f, 0.2f);
+    std::shared_ptr<SphereVolume> volume = std::make_shared<SphereVolume>(medium, Vector3(0, 0, 320), 100);
+
+    m_pObjectPool->setVolume(volume);
+    
     // buildVolumeBall(Vector3(0, 0, 320), 100);
 }

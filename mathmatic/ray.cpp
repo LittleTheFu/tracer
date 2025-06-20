@@ -19,7 +19,6 @@ Ray::Ray(const Ray &ray)
     origin = ray.origin;
     dir = ray.dir;
     t = ray.t;
-    media = ray.media;
     medium = ray.medium;
 }
 

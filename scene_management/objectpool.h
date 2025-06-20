@@ -11,6 +11,7 @@
 #include "transform.h"
 #include "interaction.h"
 #include "primitive.h"
+#include "sphereVolume.h"
 
 class ObjectPool
 {
@@ -22,11 +23,17 @@ public:
     void addLight(std::shared_ptr<AreaLight> light);
     const std::vector<std::shared_ptr<AreaLight>>& getLights() const;
 
+    void setVolume(std::shared_ptr<SphereVolume> volume);
+
 public:
     std::vector<std::shared_ptr<AreaLight>> lights_;
 
 private:
     std::vector<std::shared_ptr<Primitive>> primitives_;
+    std::shared_ptr<SphereVolume> volume_;
+
+    bool isVolumePrimitive(std::shared_ptr<const Primitive> primitive) const;
+
 //-----end----------------
 
 public:

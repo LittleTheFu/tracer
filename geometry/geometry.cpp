@@ -4,7 +4,6 @@
 
 Geometry::Geometry()
 {
-    m_insideMedia.set(1,1,1,Color::COLOR_WHITE);
 }
 
 void Geometry::init(const Vector3 &rotate, const Vector3 &position)

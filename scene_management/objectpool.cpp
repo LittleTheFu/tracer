@@ -27,7 +27,19 @@ const std::vector<std::shared_ptr<AreaLight>>& ObjectPool::getLights() const
 {
     return lights_;
 }
+void ObjectPool::setVolume(std::shared_ptr<SphereVolume> volume)
+{
+    volume_ = volume;
+}
 //-----------------end------------------------------
+
+bool ObjectPool::isVolumePrimitive(std::shared_ptr<const Primitive> primitive) const
+{
+    if(volume_ == nullptr)
+        return false;
+
+    return (volume_->getGeometry() == primitive->getGeometry());
+}
 
 ObjectPool::ObjectPool(bool useBVH) : lights_({})
 {
@@ -87,7 +99,29 @@ void ObjectPool::buildBoundBox()
 
 bool ObjectPool::hitScene(const Ray &ray, Interaction &interaction) const
 {
-    return m_pHitter->hitGeometryObjectOnly(ray, interaction);
+    bool isHit = m_pHitter->hitGeometryObjectOnly(ray, interaction);
+    
+    if(isHit)
+    {
+        if(isVolumePrimitive(interaction.primitive))
+        {
+            interaction.is_volume_boundary_hit = true;
+            interaction.is_surface_hit = false;
+        }
+        else
+        {
+            interaction.is_volume_boundary_hit = false;
+            interaction.is_surface_hit = true;
+        }
+    }
+    else
+    {
+        interaction.is_volume_boundary_hit = false;
+        interaction.is_surface_hit = false;
+    }
+
+
+    return isHit;
 }
 
 Color ObjectPool::getColorFromLight(const Ray &ray, int index) const

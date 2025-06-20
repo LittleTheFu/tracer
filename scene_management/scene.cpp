@@ -12,6 +12,7 @@
 #include "mtrlSceneBuilder.h"
 #include "complexBunnySceneBuilder.h"
 #include "normalMapSceneBuilder.h"
+#include <volumeSceneBuilder.h>
 
 Scene::Scene(SceneType sceneType, int resolutionScale, int samplersPerPixel, int depth)
 {
@@ -115,8 +116,8 @@ std::shared_ptr<SceneBuilder> Scene::createSceneBuilder(SceneType type) const
         builder = std::make_shared<MtrlSceneBuilder>();
     else if (type == SceneType::ROOM_TEAPOT_NORMAL_MAP)
         builder = std::make_shared<NormalMapSceneBuilder>();
-    // else if (type == SceneType::ROOM_CURVE)
-    //     builder = std::make_shared<CurveSceneBuilder>();
+    else if (type == SceneType::ROOM_VOLUME)
+        builder = std::make_shared<VolumeSceneBuilder>();
     else
         builder = std::make_shared<SimpleSceneBuilder>();
 

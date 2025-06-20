@@ -2,7 +2,6 @@
 #define _RAY_H_
 
 #include "frame.h"
-#include "media.h"
 #include "transform.h"
 #include "vector.h"
 
@@ -18,7 +17,6 @@ public:
     Vector3 origin;
     Vector3 dir;
     float t;
-    Media media;
 
     std::shared_ptr<const Medium> medium;
 
