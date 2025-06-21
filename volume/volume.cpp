@@ -1,11 +1,11 @@
 #include "volume.h"
 
-Volume::Volume(std::shared_ptr<const Medium> medium)
+Volume::Volume(std::shared_ptr<Medium> medium)
 {
     medium_ = medium;
 }
 
-std::shared_ptr<const Medium> Volume::getMedium() const
+std::shared_ptr<Medium> Volume::getMedium() const
 {
     return medium_;
 }

@@ -7,7 +7,9 @@
 class MediumInteraction
 {
 public:
-    Vector3 pos;
+    bool isInMedium() const;
+public:
+    Vector3 point;
     Vector3 wo;
     std::shared_ptr<const Medium> medium;
 };

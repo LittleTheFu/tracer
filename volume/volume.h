@@ -9,13 +9,13 @@ class Ray;
 class Volume
 {
 public:
-    Volume(std::shared_ptr<const Medium> medium);
-    std::shared_ptr<const Medium> getMedium() const;
+    Volume(std::shared_ptr<Medium> medium);
+    std::shared_ptr<Medium> getMedium() const;
 
     virtual bool intersect(const Ray& ray, float& t0, float& t1) const = 0;
 
 private:
-    std::shared_ptr<const Medium> medium_;
+    std::shared_ptr<Medium> medium_;
 
 };
 

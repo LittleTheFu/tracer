@@ -8,7 +8,7 @@
 class SphereVolume : public Volume
 {
 public:
-    SphereVolume(std::shared_ptr<const Medium> medium, const Vector3& center, float radius);
+    SphereVolume(std::shared_ptr<Medium> medium, const Vector3& center, float radius);
 
     bool intersect(const Ray& ray, float& t0, float& t1) const override;
     std::shared_ptr<Ball> getGeometry() const;

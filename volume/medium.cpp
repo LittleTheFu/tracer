@@ -2,7 +2,7 @@
 #include "mathConstantDef.h"
 #include <cmath>
 #include "mathUtility.h"
-
+#include "mediumInteraction.h"
 
 Medium::Medium(float sigma_a, float sigma_s)
     : sigma_a(sigma_a),
@@ -22,7 +22,7 @@ float Medium::transmittance(float distance) const
     return std::exp(exponent);
 }
 
-float Medium::sample(const Ray& ray, float tMax, Interaction &interaction)
+float Medium::sample(const Ray& ray, float tMax, MediumInteraction &interaction)
 {
     float pdf = 0;
     float t = MathUtility::sampleExponential(sigma_t, pdf);
@@ -31,7 +31,7 @@ float Medium::sample(const Ray& ray, float tMax, Interaction &interaction)
     {
         interaction.point = ray.getPosition(t);
         interaction.wo = -ray.dir;
-        interaction.medium = std::shared_ptr<Medium>(this);
+        interaction.medium = shared_from_this();
 
         return pdf;
     }

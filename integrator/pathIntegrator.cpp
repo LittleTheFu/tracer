@@ -1,7 +1,9 @@
 #include "pathIntegrator.h"
 #include <mathUtility.h>
 #include <cassert>
-#include <mathConstantDef.h>
+#include "mathConstantDef.h"
+#include "mediumInteraction.h"
+#include "medium.h"
 
 PathIntegrator::PathIntegrator(int depth) : depth_(depth)
 {
@@ -30,54 +32,65 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
         }
         assert(interaction.primitive != nullptr);
 
-        if (interaction.primitive->getMaterial() == nullptr)
+        if (interaction.is_surface_hit)
         {
-            break;
+            if (interaction.primitive->getMaterial() == nullptr)
+            {
+                break;
+            }
+
+            // for debug
+            assert(interaction.primitive->getMaterial() != nullptr);
+
+            if (interaction.primitive->getMaterial()->isEmitting())
+            {
+                color += beta * interaction.primitive->getMaterial()->getEmittedRadiance();
+                break;
+            }
+
+            // sample from bsdf
+            std::unique_ptr<Bsdf> bsdf = interaction.primitive->getMaterial()->createBsdf(interaction);
+            Vector3 wi;
+            float _pdf;
+            BxdfType sampledType;
+            Color sampled_f = bsdf->sample_f(-hitRay.dir, wi, _pdf, sampledType, interaction, BxdfType::ALL);
+
+            // sample from light
+            Color _directLight = Color::COLOR_BLACK;
+            Color f = Color::COLOR_BLACK;
+            if (hasFlag(sampledType, BxdfType::DIFFUSE))
+            {
+                Ray rayToLight;
+                _directLight = sampleLightFromNormalMaterial(pool, interaction.point, interaction.normal_shading, rayToLight);
+                f = bsdf->f(-hitRay.dir, rayToLight.dir, BxdfType::DIFFUSE);
+            }
+            color += beta * f * _directLight;
+
+            float cos_theta_incident_abs = std::abs(interaction.normal_geometry * wi);
+            if (_pdf < 0.0000001f) // quick and dirty
+            {
+                break;
+            }
+
+            if (hasFlag(sampledType, BxdfType::SPECULAR))
+            {
+                beta *= (sampled_f);
+            }
+            else
+            {
+                beta *= (sampled_f * cos_theta_incident_abs) / _pdf;
+            }
+
+            hitRay = genNextRay(interaction.point, interaction.normal_shading, wi);
         }
-
-        // for debug
-        assert(interaction.primitive->getMaterial() != nullptr);
-
-        if (interaction.primitive->getMaterial()->isEmitting())
+        else // volume
         {
-            color += beta * interaction.primitive->getMaterial()->getEmittedRadiance();
-            break;
-        }
 
-        // sample from bsdf
-        std::unique_ptr<Bsdf> bsdf = interaction.primitive->getMaterial()->createBsdf(interaction);
-        Vector3 wi;
-        float _pdf;
-        BxdfType sampledType;
-        Color sampled_f = bsdf->sample_f(-hitRay.dir, wi, _pdf, sampledType, interaction, BxdfType::ALL);
-
-        // sample from light
-        Color _directLight = Color::COLOR_BLACK;
-        Color f = Color::COLOR_BLACK;
-        if (hasFlag(sampledType, BxdfType::DIFFUSE))
-        {
-            Ray rayToLight;
-            _directLight = sampleLightFromNormalMaterial(pool, interaction.point, interaction.normal_shading, rayToLight);
-            f = bsdf->f(-hitRay.dir, rayToLight.dir, BxdfType::DIFFUSE);
+            //这里处理volume
+            assert(interaction.medium != nullptr);
+            MediumInteraction mediumInteraction;
+            float mediumPdf = (interaction.medium)->sample(hitRay, interaction.t, mediumInteraction);
         }
-        color += beta * f * _directLight;
-
-        float cos_theta_incident_abs = std::abs(interaction.normal_geometry * wi);
-        if (_pdf < 0.0000001f) // quick and dirty
-        {
-            break;
-        }
-
-        if (hasFlag(sampledType, BxdfType::SPECULAR))
-        {
-            beta *= (sampled_f);
-        }
-        else
-        {
-            beta *= (sampled_f * cos_theta_incident_abs) / _pdf;
-        }
-
-        hitRay = genNextRay(interaction.point, interaction.normal_shading, wi);
     }
 
     return color;

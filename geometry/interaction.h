@@ -38,8 +38,8 @@ public:
     // std::shared_ptr<MaterialPlus> material;
 
     std::shared_ptr<Primitive> primitive = nullptr;
+    
     std::shared_ptr<Medium> medium = nullptr;
-
     //---for refactoring---
     float t;
 };

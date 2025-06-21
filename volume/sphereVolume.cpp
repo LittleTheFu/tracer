@@ -1,6 +1,6 @@
 #include "sphereVolume.h"
 
-SphereVolume::SphereVolume(std::shared_ptr<const Medium> medium, const Vector3 &center, float radius)
+SphereVolume::SphereVolume(std::shared_ptr<Medium> medium, const Vector3 &center, float radius)
     : Volume(medium), center_(center), radius_(radius)
 {
     ball_ = std::make_shared<Ball>(Vector3::ZERO, center_, radius_);
