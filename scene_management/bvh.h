@@ -18,7 +18,8 @@ public:
 
 public:
     virtual void init(std::vector<std::shared_ptr<AreaLight>> lights,
-                       const std::vector<std::shared_ptr<Primitive>> &primitives) override;
+                       const std::vector<std::shared_ptr<Primitive>> &primitives,
+                       std::shared_ptr<SphereVolume> volume) override;
     virtual bool hitGeometryObjectOnly(const Ray &ray, Interaction &interaction, std::shared_ptr<Primitive> skipPrimitive = nullptr) const override;
 
     

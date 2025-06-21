@@ -6,9 +6,9 @@
 // #include "mediumInteraction.h"
 
 class MediumInteraction;
+class Ray;
 
 class Medium : public std::enable_shared_from_this<Medium>
-
 {
 public:
     Medium(float sigma_a, float sigma_s);

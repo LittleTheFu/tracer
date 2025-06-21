@@ -7,11 +7,12 @@
 class MediumInteraction
 {
 public:
-    bool isInMedium() const;
+    bool isValid() const;
 public:
+    float t;
     Vector3 point;
     Vector3 wo;
-    std::shared_ptr<const Medium> medium;
+    std::shared_ptr<Medium> medium;
 };
 
 

@@ -32,10 +32,42 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
         }
         assert(interaction.primitive != nullptr);
 
+        float tMax = interaction.t;
+
+        if (hitRay.medium)
+        {
+            MediumInteraction mediumInteraction;
+            float scatterPdf = hitRay.medium->sample(hitRay, tMax, mediumInteraction);
+
+            if (mediumInteraction.isValid())
+            {
+                float tr = mediumInteraction.medium->transmittance(mediumInteraction.t);
+                // beta *= tr;
+                // beta /= scatterPdf;
+                Ray _volumeRayToLight;
+                Color _light = sampleLightFromNormalMaterial(pool, mediumInteraction.point, Vector3::ZERO, _volumeRayToLight);
+                color += beta * _light * tr / scatterPdf;
+
+                break;
+            }
+            else
+            {
+                float tr = hitRay.medium->transmittance(tMax);
+                beta *= tr;
+            }
+        }
+        else
+        {
+            //in vacuum, do nothing
+        }
+       
+
         if (interaction.is_surface_hit)
         {
             if (interaction.primitive->getMaterial() == nullptr)
             {
+                //for debug
+                assert(0);
                 break;
             }
 
@@ -61,7 +93,7 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
             if (hasFlag(sampledType, BxdfType::DIFFUSE))
             {
                 Ray rayToLight;
-                _directLight = sampleLightFromNormalMaterial(pool, interaction.point, interaction.normal_shading, rayToLight);
+                _directLight = sampleLightFromNormalMaterial(pool, interaction.point, Vector3::ZERO, rayToLight);
                 f = bsdf->f(-hitRay.dir, rayToLight.dir, BxdfType::DIFFUSE);
             }
             color += beta * f * _directLight;
@@ -83,13 +115,14 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
 
             hitRay = genNextRay(interaction.point, interaction.normal_shading, wi);
         }
-        else // volume
+        else if (interaction.is_volume_boundary_hit)
         {
+            hitRay.origin = interaction.point + interaction.normal_geometry * MathConstant::FLOAT_SMALL_NUMBER;
 
-            //这里处理volume
-            assert(interaction.medium != nullptr);
-            MediumInteraction mediumInteraction;
-            float mediumPdf = (interaction.medium)->sample(hitRay, interaction.t, mediumInteraction);
+            if(hitRay.medium)
+                hitRay.medium = nullptr;
+            else
+                hitRay.medium = interaction.medium;
         }
     }
 
@@ -134,6 +167,10 @@ Color PathIntegrator::sampleLightFromNormalMaterial(std::shared_ptr<const Object
 
     // to be fixed later : test visibility with light first?
     float absDot = std::abs(normal * lightDir);
+
+    // warning: an ugly hotfix for test volume rendering
+    if (normal == Vector3::ZERO)
+        absDot = 1.0f;
 
     // do half caculation here first
     return lightColor * (absDot / (sampleLightPdf * lightPickPdf));

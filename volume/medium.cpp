@@ -29,6 +29,7 @@ float Medium::sample(const Ray& ray, float tMax, MediumInteraction &interaction)
 
     if(t <= tMax)
     {
+        interaction.t = t;
         interaction.point = ray.getPosition(t);
         interaction.wo = -ray.dir;
         interaction.medium = shared_from_this();

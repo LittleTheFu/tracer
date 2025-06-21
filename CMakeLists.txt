@@ -42,7 +42,7 @@ SET (VOLUME_SOURCE_FILES
     ${VOLUME_DIR}/volume.cpp
     ${VOLUME_DIR}/sphereVolume.cpp
     ${VOLUME_DIR}/medium.cpp
-
+    ${VOLUME_DIR}/mediumInteraction.cpp
 )
 
 SET (MATERIAL_DIR "material")

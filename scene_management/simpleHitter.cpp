@@ -2,10 +2,12 @@
 #include "mathConstantDef.h"
 #include "mathUtility.h"
 #include <cassert>
+#include "medium.h"
+
 
 Color SimperHitter::getColorFromLight(const Ray &ray, int index) const
 {
-    if(index >= lights_.size())
+    if (index >= lights_.size())
     {
         return Color::COLOR_BLACK;
     }
@@ -22,15 +24,40 @@ Color SimperHitter::getColorFromLight(const Ray &ray, int index) const
 
     Color color = lights_.at(index)->getColor();
 
-    Interaction interaction;
-    if (!hitGeometryObjectOnly(ray, interaction, lights_.at(index)->getGeometryPrimitive()))
+    Ray shadowRay(ray);
+    float tr = 1.0f;
+    while (true)
     {
-        return color;
-    }
+        Interaction interaction;
+        bool isHit = hitGeometryObjectOnly(shadowRay, interaction, nullptr);
 
-    if (_interaction.t < interaction.t)
-    {
-        return color;
+        // no other object hit, return light color directly
+        if (interaction.primitive == lights_.at(index)->getGeometryPrimitive())
+            return tr * color;
+
+        if (interaction.is_volume_boundary_hit)
+        {
+            if (shadowRay.medium)
+            {
+                tr *= shadowRay.medium->transmittance(interaction.t);
+                shadowRay.medium = nullptr;
+                shadowRay.origin = interaction.point + shadowRay.dir * MathConstant::FLOAT_SMALL_NUMBER;
+            }
+            else
+            {
+                shadowRay.medium = interaction.medium;
+                shadowRay.origin = interaction.point + shadowRay.dir * MathConstant::FLOAT_SMALL_NUMBER;
+            }
+        }
+        else
+        {
+            return Color::COLOR_BLACK;
+        }
+
+        // if (_interaction.t < interaction.t)
+        // {
+        //     return color;
+        // }
     }
 
     return Color::COLOR_BLACK;
@@ -64,12 +91,35 @@ bool SimperHitter::hitGeometryObjectOnly(const Ray &ray,
         }
     }
 
+    // quick and dirty
+    if (hit)
+    {
+        if (isVolumePrimitive(interaction.primitive))
+        {
+            interaction.is_volume_boundary_hit = true;
+            interaction.is_surface_hit = false;
+            interaction.medium = volume_->getMedium();
+        }
+        else
+        {
+            interaction.is_volume_boundary_hit = false;
+            interaction.is_surface_hit = true;
+            interaction.medium = nullptr;
+        }
+    }
+    else
+    {
+        interaction.is_volume_boundary_hit = false;
+        interaction.is_surface_hit = false;
+        interaction.medium = nullptr;
+    }
+
     return hit;
 }
 
 // bool SimperHitter::hitLightOnly(const Ray &ray, float &t, Vector3 &normal, float &dot) const
 // {
-    
+
 //     Interaction interaction;
 //     bool hit = light_->getGeometryPrimitive()->getGeometry()->hit(ray, interaction);
 

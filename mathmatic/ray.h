@@ -4,6 +4,7 @@
 #include "frame.h"
 #include "transform.h"
 #include "vector.h"
+// #include "medium.h"
 
 class Medium;
 
@@ -18,7 +19,7 @@ public:
     Vector3 dir;
     float t;
 
-    std::shared_ptr<const Medium> medium;
+    std::shared_ptr<Medium> medium;
 
     Ray genNewRay(const Transform &transform) const;
     Ray genNewRay(const Frame &frame) const;

@@ -1,6 +1,6 @@
 #include "mediumInteraction.h"
 
-bool MediumInteraction::isInMedium() const
+bool MediumInteraction::isValid() const
 {
     return medium != nullptr;
 }

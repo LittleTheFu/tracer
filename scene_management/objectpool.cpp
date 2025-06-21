@@ -51,7 +51,7 @@ ObjectPool::ObjectPool(bool useBVH) : lights_({})
 
 void ObjectPool::initHitter()
 {
-    m_pHitter->init(lights_, primitives_);
+    m_pHitter->init(lights_, primitives_, volume_);
 }
 
 void ObjectPool::log()
@@ -101,24 +101,24 @@ bool ObjectPool::hitScene(const Ray &ray, Interaction &interaction) const
 {
     bool isHit = m_pHitter->hitGeometryObjectOnly(ray, interaction);
     
-    if(isHit)
-    {
-        if(isVolumePrimitive(interaction.primitive))
-        {
-            interaction.is_volume_boundary_hit = true;
-            interaction.is_surface_hit = false;
-        }
-        else
-        {
-            interaction.is_volume_boundary_hit = false;
-            interaction.is_surface_hit = true;
-        }
-    }
-    else
-    {
-        interaction.is_volume_boundary_hit = false;
-        interaction.is_surface_hit = false;
-    }
+    // if(isHit)
+    // {
+    //     if(isVolumePrimitive(interaction.primitive))
+    //     {
+    //         interaction.is_volume_boundary_hit = true;
+    //         interaction.is_surface_hit = false;
+    //     }
+    //     else
+    //     {
+    //         interaction.is_volume_boundary_hit = false;
+    //         interaction.is_surface_hit = true;
+    //     }
+    // }
+    // else
+    // {
+    //     interaction.is_volume_boundary_hit = false;
+    //     interaction.is_surface_hit = false;
+    // }
 
 
     return isHit;
