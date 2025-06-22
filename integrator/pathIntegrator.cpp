@@ -38,12 +38,15 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
         {
             MediumInteraction mediumInteraction;
             float scatterPdf = hitRay.medium->sample(hitRay, tMax, mediumInteraction);
-
             if (mediumInteraction.isValid())
             {
                 float tr = mediumInteraction.medium->transmittance(mediumInteraction.t);
                 beta *= tr;
-                // beta /= scatterPdf;
+
+                if (scatterPdf < MathConstant::FLOAT_SMALL_NUMBER)
+                    break;
+                beta /= scatterPdf;
+
                 Ray _volumeRayToLight;
 
                 float phaseFunctionVal = 1.0f / (4.0f * MathConstant::PI);
@@ -52,29 +55,36 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
                 Color _light = sampleLightFromNormalMaterial(pool,
                                                              mediumInteraction.point,
                                                              Vector3::ZERO,
-                                                             _volumeRayToLight, 
+                                                             _volumeRayToLight,
                                                              true);
-                color += beta * _light * phaseFunctionVal * sigmaS/ scatterPdf;
+                color += beta * _light * phaseFunctionVal * sigmaS;
 
-                break;
+                Vector3 newDir = Vector3::sampleUniformFromSphere();
+                hitRay.origin = mediumInteraction.point;
+                hitRay.dir = newDir;
+
+                continue;
             }
             else
             {
                 float tr = hitRay.medium->transmittance(tMax);
                 beta *= tr;
+
+                if (scatterPdf < MathConstant::FLOAT_SMALL_NUMBER)
+                    break;
+                beta /= scatterPdf;
             }
         }
         else
         {
-            //in vacuum, do nothing
+            // in vacuum, do nothing
         }
-       
 
         if (interaction.is_surface_hit)
         {
             if (interaction.primitive->getMaterial() == nullptr)
             {
-                //for debug
+                // for debug
                 assert(0);
                 break;
             }
@@ -130,7 +140,7 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
         {
             hitRay.origin = interaction.point + hitRay.dir * MathConstant::FLOAT_SMALL_NUMBER;
 
-            if(hitRay.medium)
+            if (hitRay.medium)
                 hitRay.medium = nullptr;
             else
                 hitRay.medium = interaction.medium;
@@ -156,7 +166,6 @@ Color PathIntegrator::sampleLightFromNormalMaterial(std::shared_ptr<const Object
                                                     Ray &sampleRay,
                                                     bool isVolumetricPoint) const
 {
-    isVolumetricPoint = true;
     // for test
     //  return Color::COLOR_WHITE * 100;
     std::vector<std::shared_ptr<AreaLight>> lights = pool->getLights();
@@ -188,7 +197,7 @@ Color PathIntegrator::sampleLightFromNormalMaterial(std::shared_ptr<const Object
     // assert(MathUtility::is_in_range(lightColor.r, 99.99f, 100.01f, false, false));
     // assert(MathUtility::is_in_range(lightColor.g, 99.99f, 100.01f, false, false));
     // assert(MathUtility::is_in_range(lightColor.b, 99.99f, 100.01f, false, false));
-    
+
     // do half caculation here first
     return lightColor * (absDot / (sampleLightPdf * lightPickPdf));
 }

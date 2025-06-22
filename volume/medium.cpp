@@ -37,6 +37,8 @@ float Medium::sample(const Ray& ray, float tMax, MediumInteraction &interaction)
         return pdf;
     }
 
+    interaction.t = tMax;
     interaction.medium = nullptr;
-    return 0;
+
+    return std::exp(-sigma_t * tMax);
 }
