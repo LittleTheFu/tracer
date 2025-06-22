@@ -185,9 +185,9 @@ Color PathIntegrator::sampleLightFromNormalMaterial(std::shared_ptr<const Object
     if (isVolumetricPoint)
         absDot = 1.0f;
 
-    assert(MathUtility::is_in_range(lightColor.r, 99.99f, 100.01f, false, false));
-    assert(MathUtility::is_in_range(lightColor.g, 99.99f, 100.01f, false, false));
-    assert(MathUtility::is_in_range(lightColor.b, 99.99f, 100.01f, false, false));
+    // assert(MathUtility::is_in_range(lightColor.r, 99.99f, 100.01f, false, false));
+    // assert(MathUtility::is_in_range(lightColor.g, 99.99f, 100.01f, false, false));
+    // assert(MathUtility::is_in_range(lightColor.b, 99.99f, 100.01f, false, false));
     
     // do half caculation here first
     return lightColor * (absDot / (sampleLightPdf * lightPickPdf));
