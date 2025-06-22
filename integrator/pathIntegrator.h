@@ -17,7 +17,8 @@ private:
     Color sampleLightFromNormalMaterial(std::shared_ptr<const ObjectPool> pool,
                                         const Vector3 &pos,
                                         const Vector3 &normal,
-                                        Ray &sampleRay) const;
+                                        Ray &sampleRay,
+                                        bool isVolumetricPoint = false) const;
 
     Ray genNextRay(const Vector3 &pos,
                    const Vector3 &normal,

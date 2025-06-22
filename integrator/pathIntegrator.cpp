@@ -42,11 +42,19 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
             if (mediumInteraction.isValid())
             {
                 float tr = mediumInteraction.medium->transmittance(mediumInteraction.t);
-                // beta *= tr;
+                beta *= tr;
                 // beta /= scatterPdf;
                 Ray _volumeRayToLight;
-                Color _light = sampleLightFromNormalMaterial(pool, mediumInteraction.point, Vector3::ZERO, _volumeRayToLight);
-                color += beta * _light * tr / scatterPdf;
+
+                float phaseFunctionVal = 1.0f / (4.0f * MathConstant::PI);
+                float sigmaS = mediumInteraction.medium->sigma_s;
+
+                Color _light = sampleLightFromNormalMaterial(pool,
+                                                             mediumInteraction.point,
+                                                             Vector3::ZERO,
+                                                             _volumeRayToLight, 
+                                                             true);
+                color += beta * _light * phaseFunctionVal * sigmaS/ scatterPdf;
 
                 break;
             }
@@ -93,7 +101,10 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
             if (hasFlag(sampledType, BxdfType::DIFFUSE))
             {
                 Ray rayToLight;
-                _directLight = sampleLightFromNormalMaterial(pool, interaction.point, Vector3::ZERO, rayToLight);
+                _directLight = sampleLightFromNormalMaterial(pool,
+                                                             interaction.point,
+                                                             interaction.normal_shading,
+                                                             rayToLight, false);
                 f = bsdf->f(-hitRay.dir, rayToLight.dir, BxdfType::DIFFUSE);
             }
             color += beta * f * _directLight;
@@ -142,8 +153,10 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
 Color PathIntegrator::sampleLightFromNormalMaterial(std::shared_ptr<const ObjectPool> pool,
                                                     const Vector3 &pos,
                                                     const Vector3 &normal,
-                                                    Ray &sampleRay) const
+                                                    Ray &sampleRay,
+                                                    bool isVolumetricPoint) const
 {
+    isVolumetricPoint = true;
     // for test
     //  return Color::COLOR_WHITE * 100;
     std::vector<std::shared_ptr<AreaLight>> lights = pool->getLights();
@@ -169,9 +182,13 @@ Color PathIntegrator::sampleLightFromNormalMaterial(std::shared_ptr<const Object
     float absDot = std::abs(normal * lightDir);
 
     // warning: an ugly hotfix for test volume rendering
-    if (normal == Vector3::ZERO)
+    if (isVolumetricPoint)
         absDot = 1.0f;
 
+    assert(MathUtility::is_in_range(lightColor.r, 99.99f, 100.01f, false, false));
+    assert(MathUtility::is_in_range(lightColor.g, 99.99f, 100.01f, false, false));
+    assert(MathUtility::is_in_range(lightColor.b, 99.99f, 100.01f, false, false));
+    
     // do half caculation here first
     return lightColor * (absDot / (sampleLightPdf * lightPickPdf));
 }
