@@ -16,6 +16,8 @@ public:
     float transmittance(float distance) const;
     float sample(const Ray& ray, float tMax, MediumInteraction &interaction);
 
+    float getDensity(const Vector3& worldPos) const;
+
 public:
     float sigma_a;
     float sigma_s;

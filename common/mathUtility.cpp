@@ -111,15 +111,7 @@ bool MathUtility::solveLinerEquation(float a, float b, float c, float &r_min, fl
 
 float MathUtility::interpolate(float a, float b, float t)
 {
-    if (t <= 0)
-    {
-        return a;
-    }
-
-    if (t >= 1)
-    {
-        return b;
-    }
+    t = std::clamp(t, 0.0f, 1.0f);
 
     return a * (1 - t) + b * t;
 }
@@ -239,6 +231,11 @@ float MathUtility::getMax(float a0, float a1, float a2)
 float MathUtility::smooth(float t)
 {
    return t * t * (3 - 2 * t);
+}
+
+float MathUtility::smoothStep(float t)
+{
+    return t * t * t * (t * (t * 6 - 15) + 10);
 }
 
 float MathUtility::getSign(float x)

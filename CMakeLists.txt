@@ -43,6 +43,7 @@ SET (VOLUME_SOURCE_FILES
     ${VOLUME_DIR}/sphereVolume.cpp
     ${VOLUME_DIR}/medium.cpp
     ${VOLUME_DIR}/mediumInteraction.cpp
+    ${VOLUME_DIR}/perlinNoise.cpp
 )
 
 SET (MATERIAL_DIR "material")
@@ -174,11 +175,15 @@ add_subdirectory(${PROJECT_SOURCE_DIR}/third/googletest)
 
 add_executable(tracer_tests
     test/test.cpp
-    test/vectorTest.cpp
+    # test/vectorTest.cpp
+    test/perlinNoiseTest.cpp
 )
 
 target_link_libraries(tracer_tests
     mylibs
+    assimp
+    lodepng
+    powitacq
     GTest::gtest_main
 )
 

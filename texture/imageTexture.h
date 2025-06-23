@@ -9,11 +9,18 @@
 class ImageTexture : public Texture
 {
 public:
-    ImageTexture(const std::string fileName);
+    ImageTexture(const std::string &fileName);
+    ImageTexture(unsigned int width, unsigned int height, std::vector<unsigned char> &&data);
+
     virtual Color getColor(float u, float v) const override;
 
-private:
-    unsigned m_width;
+    bool writeToFile(const std::string& fileName) const;
+
+    //Hotfix: should be extracted elsewhere later
+    static ImageTexture createPerlinNoiseTexture(unsigned int width, unsigned int height, float noiseScale, float zSlice);
+
+    private :
+     unsigned m_width;
     unsigned m_height;
 
     std::vector<unsigned char> m_data;

@@ -23,6 +23,16 @@ Vector3::Vector3(float x, float y, float z)
     this->z = z;
 }
 
+Vector3 Vector3::getFloor() const
+{
+    return Vector3(std::floor(x), std::floor(y), std::floor(z));
+}
+
+Vector3 Vector3::getFractional() const
+{
+    return Vector3(x - std::floor(x), y - std::floor(y), z - std::floor(z));
+}
+
 Vector3 Vector3::cross(const Vector3 &that) const
 {
     float rX = y * that.z - z * that.y;

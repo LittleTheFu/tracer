@@ -10,6 +10,9 @@ public:
     Vector3();
     Vector3(float x, float y, float z);
 
+    Vector3 getFloor() const;
+    Vector3 getFractional() const;
+
     Vector3 cross(const Vector3 &that) const;
 
     Vector3 operator+(const Vector3 &that) const;

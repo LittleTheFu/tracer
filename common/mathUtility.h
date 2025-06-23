@@ -39,6 +39,8 @@ public:
     static float getMax(float a0, float a1, float a2);
 
     static float smooth(float t);
+    static float smoothStep(float t);
+
     static float getSign(float x);
 
     //should be extracted to a template function,later...

@@ -42,3 +42,8 @@ float Medium::sample(const Ray& ray, float tMax, MediumInteraction &interaction)
 
     return std::exp(-sigma_t * tMax);
 }
+
+float Medium::getDensity(const Vector3 &worldPos) const
+{
+    return 0.0f;
+}
