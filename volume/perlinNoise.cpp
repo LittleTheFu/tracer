@@ -66,8 +66,6 @@ float PerlinNoise::get(const Vector3 &point) const
     float g_abb = grad(abb, Vector3(u, v1, w1));  // (xi, yi+1, zi+1)
     float g_bbb = grad(bbb, Vector3(u1, v1, w1)); // (xi+1, yi+1, zi+1)
 
-    // 三线性插值
-    // 1. 沿 X 轴插值
     float x_interp_00 = MathUtility::interpolate(g_aaa, g_baa, su);
     float x_interp_10 = MathUtility::interpolate(g_aba, g_bba, su);
     float x_interp_01 = MathUtility::interpolate(g_aab, g_bab, su);
