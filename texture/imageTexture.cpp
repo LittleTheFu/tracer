@@ -3,7 +3,11 @@
 
 #include "imageTexture.h"
 #include <algorithm>
-#include <perlinNoise.h>
+#include "perlinNoise.h"
+
+ImageTexture::ImageTexture() : m_width(0), m_height(0)
+{
+}
 
 ImageTexture::ImageTexture(const std::string &fileName) : m_width(0), m_height(0)
 {
@@ -15,11 +19,17 @@ ImageTexture::ImageTexture(const std::string &fileName) : m_width(0), m_height(0
         std::cout << "decoder error " << error << ": " << lodepng_error_text(error) << std::endl;
 }
 
-ImageTexture::ImageTexture(unsigned int width, unsigned int height, std::vector<unsigned char> &&data) : m_width(width),
-                                                                                                         m_height(height),
-                                                                                                         m_data(std::move(data))
+ImageTexture::ImageTexture(unsigned int width, unsigned int height, std::vector<unsigned char> &&data)
 {
-    std::cout << "ImageTexture::ImageTexture(unsigned int width, unsigned int height, std::vector<unsigned char> &&data)" << std::endl;
+    m_width = width;
+    m_height = height;
+    m_data = std::move(data);
+    // std::cout << "ImageTexture::ImageTexture(unsigned int width, unsigned int height, std::vector<unsigned char> &&data)" << std::endl;
+}
+
+ImageTexture::~ImageTexture()
+{
+    // std::cout << "ImageTexture::~ImageTexture()" << std::endl;
 }
 
 Color ImageTexture::getColor(float u, float v) const

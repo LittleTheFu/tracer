@@ -88,7 +88,7 @@ void PerlinNoise::initTable()
 
     std::shuffle(v.begin(), v.end(), g);
 
-    for (int i = 0; i < TABLE_SIZE; i++)
+    for (int i = 0; i < BASE_COUNT; i++)
     {
         table_[i] = v[i];
         table_[i + BASE_COUNT] = v[i];
