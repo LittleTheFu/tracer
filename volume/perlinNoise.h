@@ -2,6 +2,7 @@
 #define _PERLIN_NOISE_
 
 #include "vector.h"
+#include <array>
 
 class PerlinNoise
 {
@@ -19,7 +20,7 @@ private:
 
     static const int BASE_COUNT = 256;
     static const int TABLE_SIZE = BASE_COUNT * 2;
-    int table_[TABLE_SIZE];
+    std::array<int, TABLE_SIZE> table_;
 };
 
 #endif

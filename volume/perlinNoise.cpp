@@ -4,10 +4,18 @@
 #include <mathUtility.h>
 
 const Vector3 PerlinNoise::grad3[12] = {
-    {1, 1, 0}, {-1, 1, 0}, {1, -1, 0},
-    {-1, -1, 0}, {1, 0, 1}, {-1, 0, 1},
-    {1, 0, -1}, {-1, 0, -1}, {0, 1, 1},
-    {0, -1, 1}, {0, 1, -1}, {0, -1, -1},
+    {1, 1, 0},
+    {-1, 1, 0},
+    {1, -1, 0},
+    {-1, -1, 0},
+    {1, 0, 1},
+    {-1, 0, 1},
+    {1, 0, -1},
+    {-1, 0, -1},
+    {0, 1, 1},
+    {0, -1, 1},
+    {0, 1, -1},
+    {0, -1, -1},
 };
 
 PerlinNoise::PerlinNoise()
@@ -36,27 +44,27 @@ float PerlinNoise::get(const Vector3 &point) const
     int j = yi & 255;
     int k = zi & 255;
 
-    int aaa = table_[table_[table_[i] + j] + k];
-    int aba = table_[table_[table_[i] + j + 1] + k];
-    int aab = table_[table_[table_[i] + j] + k + 1];
-    int abb = table_[table_[table_[i] + j + 1] + k + 1];
-    int baa = table_[table_[table_[i + 1] + j] + k];
-    int bba = table_[table_[table_[i + 1] + j + 1] + k];
-    int bab = table_[table_[table_[i + 1] + j] + k + 1];
-    int bbb = table_[table_[table_[i + 1] + j + 1] + k + 1];
+    int aaa = table_.at(table_.at(table_.at(i) + j) + k);
+    int aba = table_.at(table_.at(table_.at(i) + j + 1) + k);
+    int aab = table_.at(table_.at(table_.at(i) + j) + k + 1);
+    int abb = table_.at(table_.at(table_.at(i) + j + 1) + k + 1);
+    int baa = table_.at(table_.at(table_.at(i + 1) + j) + k);
+    int bba = table_.at(table_.at(table_.at(i + 1) + j + 1) + k);
+    int bab = table_.at(table_.at(table_.at(i + 1) + j) + k + 1);
+    int bbb = table_.at(table_.at(table_.at(i + 1) + j + 1) + k + 1);
 
     float u1 = u - 1.0f;
     float v1 = v - 1.0f;
     float w1 = w - 1.0f;
 
-    float g_aaa = grad(aaa, Vector3(u, v, w));           // (xi, yi, zi)
-    float g_baa = grad(baa, Vector3(u1, v, w));          // (xi+1, yi, zi)
-    float g_aba = grad(aba, Vector3(u, v1, w));          // (xi, yi+1, zi)
-    float g_bba = grad(bba, Vector3(u1, v1, w));         // (xi+1, yi+1, zi)
-    float g_aab = grad(aab, Vector3(u, v, w1));          // (xi, yi, zi+1)
-    float g_bab = grad(bab, Vector3(u1, v, w1));         // (xi+1, yi, zi+1)
-    float g_abb = grad(abb, Vector3(u, v1, w1));         // (xi, yi+1, zi+1)
-    float g_bbb = grad(bbb, Vector3(u1, v1, w1));        // (xi+1, yi+1, zi+1)
+    float g_aaa = grad(aaa, Vector3(u, v, w));    // (xi, yi, zi)
+    float g_baa = grad(baa, Vector3(u1, v, w));   // (xi+1, yi, zi)
+    float g_aba = grad(aba, Vector3(u, v1, w));   // (xi, yi+1, zi)
+    float g_bba = grad(bba, Vector3(u1, v1, w));  // (xi+1, yi+1, zi)
+    float g_aab = grad(aab, Vector3(u, v, w1));   // (xi, yi, zi+1)
+    float g_bab = grad(bab, Vector3(u1, v, w1));  // (xi+1, yi, zi+1)
+    float g_abb = grad(abb, Vector3(u, v1, w1));  // (xi, yi+1, zi+1)
+    float g_bbb = grad(bbb, Vector3(u1, v1, w1)); // (xi+1, yi+1, zi+1)
 
     // 三线性插值
     // 1. 沿 X 轴插值
@@ -90,8 +98,8 @@ void PerlinNoise::initTable()
 
     for (int i = 0; i < BASE_COUNT; i++)
     {
-        table_[i] = v[i];
-        table_[i + BASE_COUNT] = v[i];
+        table_.at(i) = v.at(i);
+        table_.at(i + BASE_COUNT) = v.at(i);
     }
 }
 
