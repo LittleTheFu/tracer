@@ -39,7 +39,8 @@ Color SimperHitter::getColorFromLight(const Ray &ray, int index) const
         {
             if (shadowRay.medium)
             {
-                tr *= shadowRay.medium->transmittance(interaction.t);
+                tr *= shadowRay.medium->transmittance(shadowRay, interaction.t);
+
                 shadowRay.medium = nullptr;
                 shadowRay.origin = interaction.point + shadowRay.dir * MathConstant::FLOAT_SMALL_NUMBER;
             }

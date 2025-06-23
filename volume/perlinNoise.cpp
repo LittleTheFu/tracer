@@ -81,10 +81,11 @@ float PerlinNoise::get(const Vector3 &point) const
 
 void PerlinNoise::initTable()
 {
-    std::vector<int> v(TABLE_SIZE);
-    for (int i = 0; i < TABLE_SIZE; i++)
+    std::array<int, BASE_COUNT> v;
+    for (int i = 0; i < BASE_COUNT; i++)
     {
-        v[i] = i;
+        v.at(i) = i;
+
     }
 
     std::random_device rd;

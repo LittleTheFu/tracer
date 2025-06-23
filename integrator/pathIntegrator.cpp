@@ -40,7 +40,7 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
             float scatterPdf = hitRay.medium->sample(hitRay, tMax, mediumInteraction);
             if (mediumInteraction.isValid())
             {
-                float tr = mediumInteraction.medium->transmittance(mediumInteraction.t);
+                float tr = mediumInteraction.medium->transmittance(hitRay, tMax);
                 beta *= tr;
 
                 if (scatterPdf < MathConstant::FLOAT_SMALL_NUMBER)
@@ -50,7 +50,7 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
                 Ray _volumeRayToLight;
 
                 float phaseFunctionVal = 1.0f / (4.0f * MathConstant::PI);
-                float sigmaS = mediumInteraction.medium->sigma_s;
+                float sigmaS = mediumInteraction.medium->getSigmaS(mediumInteraction.point);
 
                 Color _light = sampleLightFromNormalMaterial(pool,
                                                              mediumInteraction.point,
@@ -67,7 +67,7 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
             }
             else
             {
-                float tr = hitRay.medium->transmittance(tMax);
+                float tr = hitRay.medium->transmittance(hitRay, tMax);
                 beta *= tr;
 
                 if (scatterPdf < MathConstant::FLOAT_SMALL_NUMBER)
