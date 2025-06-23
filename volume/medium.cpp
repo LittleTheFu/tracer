@@ -35,17 +35,20 @@ float Medium::transmittance(const Ray& ray, float tMax) const
 
 float Medium::sample(const Ray& ray, float tMax, MediumInteraction &interaction)
 {
-    float pdf = 0;
+    float temp_pdf_from_exponential = 0; 
+    float sigma_t_majorant = 0.35f; // Debug 值，注意确保是实际最大 sigma_t 的上限
 
-    //for debug
-    float debug_sigma_t_majorant = 0.35;
-
-    float sigma_t_majorant = debug_sigma_t_majorant;
     float current_t = 0.0f;
+    // **修正 1：引入并初始化累积指数衰减因子**
+    float accumulated_majorant_exp_factor = 1.0f; 
 
     while(current_t <= tMax)
     {
-        float sampled_delta_t_majorant = MathUtility::sampleExponential(sigma_t_majorant, pdf);
+        float sampled_delta_t_majorant = MathUtility::sampleExponential(sigma_t_majorant, temp_pdf_from_exponential);
+        
+        // **修正 2：更新累积指数衰减因子**
+        accumulated_majorant_exp_factor *= std::exp(-sigma_t_majorant * sampled_delta_t_majorant);
+
         current_t += sampled_delta_t_majorant;
 
         if(current_t >= tMax)
@@ -55,24 +58,36 @@ float Medium::sample(const Ray& ray, float tMax, MediumInteraction &interaction)
         float real_sigma_t = getSigmaT(pos);
         
         float rnd = MathUtility::genRandomDecimal();
-        if (rnd < (real_sigma_t / sigma_t_majorant))
+        if (rnd < (real_sigma_t / sigma_t_majorant)) // 发生真实碰撞 (散射或吸收)
         {
             interaction.t = current_t;
             interaction.point = pos;
             interaction.wo = -ray.dir;
             interaction.medium = shared_from_this();
 
-            pdf = getSigmaS(pos);
-            return pdf;
+            // **修正 3：判断是散射还是吸收，并返回相应的 PDF**
+            float albedo = getSigmaS(pos) / real_sigma_t; // 单次散射反照率
+
+            if (MathUtility::genRandomDecimal() < albedo) // 发生散射
+            {
+                // 返回完整的散射事件 PDF
+                return getSigmaS(pos) * (real_sigma_t / sigma_t_majorant) * accumulated_majorant_exp_factor;
+            }
+            else // 发生吸收
+            {
+                // 吸收事件不产生光线贡献，返回 0 PDF
+                return 0.0f; 
+            }
         }
-        
     }
 
     interaction.t = tMax;
     interaction.medium = nullptr;
 
-    return std::exp(-sigma_t * tMax);
-    // return 0;
+    // **修正 4：光线穿透介质时返回真实的透射率**
+    // 假设你的介质最终会是非均匀的，因此使用 transmittance(ray, tMax)
+    return transmittance(ray, tMax); 
+    // 如果介质始终是均匀的，你现在使用的 std::exp(-sigma_t * tMax) 也可以，但未来会出问题。
 }
 
 float Medium::getSigmaS(const Vector3 &worldPos) const
