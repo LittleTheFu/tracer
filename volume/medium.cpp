@@ -26,7 +26,7 @@ float Medium::transmittance(const Ray& ray, float tMax) const
         // 累加真实介质在该位置的消光系数乘以步长
         opticalDepth += getSigmaT(currentPos) * currentStep;
 
-        t += stepSize;
+        t += currentStep;
     }
 
     return std::exp(-opticalDepth);
@@ -37,7 +37,8 @@ float Medium::sample(const Ray& ray, float tMax, MediumInteraction &interaction)
 {
     float pdf = 0;
 
-    float sigma_t_majorant = 1.0 + sigma_a;
+    // float sigma_t_majorant = 0.1 + sigma_a;
+    float sigma_t_majorant = 0.65;
     float current_t = 0.0f;
 
     while(current_t <= tMax)
@@ -68,8 +69,8 @@ float Medium::sample(const Ray& ray, float tMax, MediumInteraction &interaction)
     interaction.t = tMax;
     interaction.medium = nullptr;
 
-    // return std::exp(-sigma_t * tMax);
-    return 0;
+    return std::exp(-sigma_t * tMax);
+    // return 0;
 }
 
 float Medium::getSigmaS(const Vector3 &worldPos) const
