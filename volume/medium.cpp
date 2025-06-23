@@ -36,7 +36,7 @@ float Medium::transmittance(const Ray& ray, float tMax) const
 float Medium::sample(const Ray& ray, float tMax, MediumInteraction &interaction)
 {
     float temp_pdf_from_exponential = 0; 
-    float sigma_t_majorant = 0.35f; // Debug 值，注意确保是实际最大 sigma_t 的上限
+    float sigma_t_majorant = 1.2f; // Debug 值，注意确保是实际最大 sigma_t 的上限
 
     float current_t = 0.0f;
     // **修正 1：引入并初始化累积指数衰减因子**
