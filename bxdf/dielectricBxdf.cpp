@@ -1,5 +1,5 @@
 #include "dielectricBxdf.h"
-#include <mathUtility.h>
+#include "mathUtility.h"
 #include <cassert>
 
 DielectricBxdf::DielectricBxdf(float etaI, float etaT)

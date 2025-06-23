@@ -1,6 +1,6 @@
 #include "areaLight.h"
 #include <cassert>
-#include <ball.h>
+#include "ball.h"
 
 AreaLight::AreaLight(std::shared_ptr<GeometryPrimitive> geometryPrimitive)
     : geometryPrimitive_(geometryPrimitive)

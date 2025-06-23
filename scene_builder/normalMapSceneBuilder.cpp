@@ -1,6 +1,6 @@
 #include "normalMapSceneBuilder.h"
-#include <resourceDef.h>
-#include <materialDef.h>
+#include "resourceDef.h"
+#include "materialDef.h"
 
 void NormalMapSceneBuilder::build()
 {

@@ -1,7 +1,7 @@
 #include "microfacetSpecularBxdf.h"
 #include "mathConstantDef.h"
-#include <common.h>
-#include <mathUtility.h>
+#include "common.h"
+#include "mathUtility.h"
 
 MicrofacetSpecularBxdf::MicrofacetSpecularBxdf(float roughness)
     : Bxdf(BxdfType::REFLECTION | BxdfType::GLOSSY)
