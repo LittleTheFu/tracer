@@ -37,8 +37,10 @@ float Medium::sample(const Ray& ray, float tMax, MediumInteraction &interaction)
 {
     float pdf = 0;
 
-    // float sigma_t_majorant = 0.1 + sigma_a;
-    float sigma_t_majorant = 0.65;
+    //for debug
+    float debug_sigma_t_majorant = 0.35;
+
+    float sigma_t_majorant = debug_sigma_t_majorant;
     float current_t = 0.0f;
 
     while(current_t <= tMax)
