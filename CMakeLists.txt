@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.20)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
@@ -161,6 +161,24 @@ add_library(mylibs STATIC
     ${VOLUME_SOURCE_FILES}
 )
 
+# NanoVDB settings
+set(NANOVDB_BUILD_TOOLS OFF CACHE BOOL "Disable NanoVDB command-line tools" FORCE)
+set(NANOVDB_BUILD_UNITTESTS OFF CACHE BOOL "Disable NanoVDB unit tests" FORCE)
+set(NANOVDB_BUILD_EXAMPLES OFF CACHE BOOL "Disable NanoVDB examples" FORCE)
+set(NANOVDB_BUILD_PYTHON_MODULE OFF CACHE BOOL "Disable NanoVDB Python module" FORCE)
+
+set(NANOVDB_USE_CUDA OFF CACHE BOOL "Disable CUDA support in NanoVDB" FORCE)
+set(NANOVDB_USE_OPENVDB OFF CACHE BOOL "Do not link NanoVDB against full OpenVDB" FORCE)
+set(NANOVDB_USE_TBB OFF CACHE BOOL "Disable TBB support in NanoVDB" FORCE)
+
+set(NANOVDB_USE_ZLIB ON CACHE BOOL "Enable ZLIB support in NanoVDB for compression" FORCE)
+set(NANOVDB_USE_BLOSC OFF CACHE BOOL "Disable BLOSC compression support in NanoVDB" FORCE)
+set(NANOVDB_USE_MAGICAVOXEL OFF CACHE BOOL "Disable MagicaVoxel support in NanoVDB" FORCE)
+set(NANOVDB_ALLOW_FETCHCONTENT OFF CACHE BOOL "Do not allow FetchContent for NanoVDB" FORCE)
+
+#-------------------------------------------------------------------------------
+add_subdirectory(${PROJECT_SOURCE_DIR}/third/nanovdb)
+
 add_subdirectory(${PROJECT_SOURCE_DIR}/third/assimp/)
 include_directories(${PROJECT_SOURCE_DIR}/third/assimp/include)
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/third/assimp/include)
@@ -184,6 +202,7 @@ target_link_libraries(tracer_tests
     assimp
     lodepng
     powitacq
+    nanovdb
     GTest::gtest_main
 )
 
@@ -196,6 +215,7 @@ target_link_libraries(ray_tracer mylibs)
 target_link_libraries(ray_tracer assimp)
 target_link_libraries(ray_tracer lodepng)
 target_link_libraries(ray_tracer powitacq)
+target_link_libraries(ray_tracer nanovdb)
 
 set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/install" CACHE PATH "Install path" FORCE)
 
