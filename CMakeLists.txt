@@ -171,7 +171,10 @@ set(NANOVDB_USE_CUDA OFF CACHE BOOL "Disable CUDA support in NanoVDB" FORCE)
 set(NANOVDB_USE_OPENVDB OFF CACHE BOOL "Do not link NanoVDB against full OpenVDB" FORCE)
 set(NANOVDB_USE_TBB OFF CACHE BOOL "Disable TBB support in NanoVDB" FORCE)
 
-set(NANOVDB_USE_ZLIB ON CACHE BOOL "Enable ZLIB support in NanoVDB for compression" FORCE)
+# >>>>>>> 重点在这里修改 <<<<<<<
+set(NANOVDB_USE_ZLIB OFF CACHE BOOL "Disable ZLIB support in NanoVDB" FORCE) # 将这里改为 OFF
+# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
 set(NANOVDB_USE_BLOSC OFF CACHE BOOL "Disable BLOSC compression support in NanoVDB" FORCE)
 set(NANOVDB_USE_MAGICAVOXEL OFF CACHE BOOL "Disable MagicaVoxel support in NanoVDB" FORCE)
 set(NANOVDB_ALLOW_FETCHCONTENT OFF CACHE BOOL "Do not allow FetchContent for NanoVDB" FORCE)
