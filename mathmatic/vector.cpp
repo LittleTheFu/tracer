@@ -69,6 +69,15 @@ float Vector3::operator*(const Vector3 &that) const
     return x + y + z;
 }
 
+float Vector3::dot(const Vector3 &that) const
+{
+    float x = this->x * that.x;
+    float y = this->y * that.y;
+    float z = this->z * that.z;
+
+    return x + y + z;
+}
+
 Vector3 Vector3::operator*(float m) const
 {
     return Vector3(x * m, y * m, z * m);

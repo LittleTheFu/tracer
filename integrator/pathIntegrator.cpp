@@ -3,7 +3,7 @@
 #include <cassert>
 #include "mathConstantDef.h"
 #include "mediumInteraction.h"
-#include "medium.h"
+#include "medium.h" // 确保包含了 medium.h 以获取 MediumEventType
 
 PathIntegrator::PathIntegrator(int depth) : depth_(depth)
 {
@@ -20,181 +20,166 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
 
     while (true)
     {
-        if (depth > depth_) break;
-        depth++;
+        if (depth >= depth_) break; // 使用 >= 更安全
 
         Interaction interaction;
-        if (!pool->hitScene(hitRay, interaction))
-        {
-            // 如果光线未击中任何表面，并且还在介质中，需要处理介质到无限远的透射贡献
-            // 对于体积路径追踪，这通常意味着介质边界是无限远，或者有环境光
-            // 在这里简单 break 可能导致偏差，取决于你的场景设定。
-            // 假设此时光线离开了所有介质和物体，直接累积环境光并break
-            // color += beta * getEnvironmentLight(hitRay.dir); // 示例：累积环境光
-            break; 
-        }
-        
-        assert(interaction.primitive != nullptr);
+        bool hitScene = pool->hitScene(hitRay, interaction);
 
-        float tMax = interaction.t; // 到表面交点的距离
+        // 查找光线与表面的最近交点
+        // 如果没有交点，tMax 为无穷大
+        float tMax = hitScene ? interaction.t : MathConstant::FLOAT_MAX;
 
         if (hitRay.medium) // 如果光线当前在介质中
         {
             MediumInteraction mediumInteraction;
-            // 调用 sample 函数，期望它返回散射事件或穿透事件的 PDF
-            float sampledPdf = hitRay.medium->sample(hitRay, tMax, mediumInteraction); 
-            
-            // **核心修正：根据 mediumInteraction.isValid() 的状态来更新 beta 和计算贡献**
-            if (mediumInteraction.isValid()) // **发生了真实介质交互（散射或吸收）**
+            // 调用新的 sample 函数，它返回一个清晰的事件类型
+            MediumEventType eventType = hitRay.medium->sample(hitRay, tMax, mediumInteraction);
+
+            if (eventType == MediumEventType::Scatter)
             {
-                // 此时，光线在 mediumInteraction.t 处停止了。
-                // 如果 sample 返回 0 (表示吸收)，则路径终止。
-                if (sampledPdf < MathConstant::FLOAT_SMALL_NUMBER) { // 吸收发生
-                    break; 
-                }
+                // **[核心修正]** 处理散射事件
+                depth++; // 介质中的散射也算一次弹射
 
-                // 路径权重更新：beta /= sampledPdf;
-                // beta 包含了光线从起点到上一个点（或介质入口）的吞吐量。
-                // 现在光线在介质中发生了散射，我们需要除以采样的 PDF。
-                beta /= sampledPdf; 
+                // 获取散射点的属性
+                float sigma_s = hitRay.medium->getSigmaS(mediumInteraction.point);
+                // 假设是均匀介质，majorant 等于真实 sigma_t
+                float sigma_t_majorant = hitRay.medium->getSigmaT(mediumInteraction.point);
 
-                // 散射贡献计算：
-                // 注意：由于 sample 函数已经返回了完整的 P_scatter(t)，
-                // 这里的贡献计算不应该再乘以额外的 transmittance 或 sigmaS。
-                // 贡献 = beta * L_light_sampled_from_volume * phaseFunction
-                // 这里的 L_light_sampled_from_volume 是直接光照或间接光照的估算。
-                
+                // Ratio Tracking 的权重更新：beta *= (sigma_s / sigma_t_majorant)
+                // 这个权重已经隐式地包含了到散射点的透射率！
+                beta *= (sigma_s / sigma_t_majorant);
+
+                // --- 直接光照估计 (Next Event Estimation, NEE) ---
                 float phaseFunctionVal = 1.0f / (4.0f * MathConstant::PI); // 各向同性相函数
-
-                // sampleLightFromNormalMaterial 是对直接光照的采样
                 Ray _volumeRayToLight;
                 Color _light = sampleLightFromNormalMaterial(pool,
-                                                              mediumInteraction.point,
-                                                              Vector3::ZERO, // 散射点没有法线概念，可以传零向量
-                                                              _volumeRayToLight,
-                                                              true); // 假设这是从介质中向光源采样
+                                                            mediumInteraction.point,
+                                                            Vector3::ZERO, // 散射点没有法线
+                                                            _volumeRayToLight,
+                                                            true); // 告知是体积点
+                // 累加直接光贡献。_light 已经包含了 Le * G * Tr_shadow / pdf_light
+                color += beta * _light * phaseFunctionVal;
 
-                // 直接光照贡献：beta * (直接光) * 相函数
-                // 这里的 _light 已经包含了光源的 Le 和 PDF。
-                // 如果 _light 是 Li * abs(dot(wi, N)) / pdf_light，那么这里就是 Li * phaseFunction * (abs(dot(wi, N)) / pdf_light)
-                // 假设 _light 已经包含了必要的 pdf_light
-                color += beta * _light * phaseFunctionVal; 
-
+                // --- 为下一次弹射准备 (间接光) ---
+                // 从相函数采样新的出射方向 (这里用各向同性)
+                Vector3 newDir = Vector3::sampleUniformFromSphere();
+                float phasePdf = 1.0f / (4.0f * MathConstant::PI);
+                
+                // 更新 beta 以包含相函数项 (phase / pdf)
+                // 对于各向同性，这两项相等，所以 beta 不变
+                beta *= (phaseFunctionVal / phasePdf);
+                
                 // 更新光线，从散射点开始新的路径
-                Vector3 newDir = Vector3::sampleUniformFromSphere(); // 从相函数采样新的出射方向
                 hitRay.origin = mediumInteraction.point;
                 hitRay.dir = newDir;
-                hitRay.medium = mediumInteraction.medium; // 光线仍在当前介质中
-                
-                continue; // 继续下一轮迭代
-            }
-            else // **光线穿透介质，没有在 tMax 之前发生介质交互**
-            {
-                // 此时 sampledPdf 就是 transmittance(hitRay, tMax)
-                // 路径权重更新：beta /= sampledPdf
-                // 这使得 beta 抵消了从 hitRay.origin 到 tMax 的介质透射，从而只保留了之前的权重
-                // 这是正确的，因为光线现在是“透明地”穿过介质，到达了表面。
-                if (sampledPdf < MathConstant::FLOAT_SMALL_NUMBER) break; // 如果透射率为 0，则路径终止
-                beta /= sampledPdf; 
+                // hitRay.medium 保持不变
 
-                // 光线到达表面，继续执行 surface hit 逻辑。
-                // hitRay 和 interaction 保持不变，因为它们指向了表面交点。
-                // 无需 continue，直接进入下面的 if (interaction.is_surface_hit) 块。
+                continue; // 继续追踪新光线
             }
+            else if (eventType == MediumEventType::Absorb)
+            {
+                // **[核心修正]** 处理吸收事件
+                break; // 路径被吸收，终止
+            }
+            // else if (eventType == MediumEventType::Transmit)
+            // {
+            //     // **[核心修正]** 处理穿透事件
+            //     // 光线成功到达了 tMax 处的表面，没有发生真实交互。
+            //     // 使用 Delta Tracking 时，beta 在这里【不需要】任何更新！
+            //     // 路径的衰减已经通过 null collision 隐式地处理了。
+            //     // 我们只需要让代码继续执行到下面的 surface hit 逻辑即可。
+            // }
         }
-        else
+
+        // 如果没有命中任何物体（包括介质边界），则路径飞出场景
+        if (!hitScene)
         {
-            // in vacuum, do nothing
+            // 在这里可以添加环境光
+            // color += beta * getEnvironmentLight(hitRay.dir);
+            break;
         }
+
+        // --- 至此，光线已经到达了一个表面 ---
 
         if (interaction.is_surface_hit)
         {
-            if (interaction.primitive->getMaterial() == nullptr)
-            {
-                // for debug
-                assert(0);
-                break;
-            }
+            depth++; // 表面交互算一次弹射
 
-            // for debug
             assert(interaction.primitive->getMaterial() != nullptr);
 
+            // 1. 处理自发光表面
             if (interaction.primitive->getMaterial()->isEmitting())
             {
-                color += beta * interaction.primitive->getMaterial()->getEmittedRadiance();
+                // 只有当是第一次弹射时才添加自发光，或者从介质出来直接看到光源
+                // 否则 NEE 会计算它。这是一个简化，可以防止重复计算。
+                // 严格来说，需要检查前一个事件是否是 Specular/Delta。
+                if (depth == 1 || !hitRay.medium) {
+                     color += beta * interaction.primitive->getMaterial()->getEmittedRadiance();
+                }
                 break;
             }
 
-            // sample from bsdf
+            // 2. 表面散射
+            // a. 直接光照 (NEE)
             std::unique_ptr<Bsdf> bsdf = interaction.primitive->getMaterial()->createBsdf(interaction);
+            Color _directLight = Color::COLOR_BLACK;
+            // 只对非镜面材质做NEE
+            if (bsdf->hasNonSpecular()) {
+                Ray rayToLight;
+                _directLight = sampleLightFromNormalMaterial(pool, interaction.point, interaction.normal_shading, rayToLight, false);
+                Color f = bsdf->f(-hitRay.dir, rayToLight.dir, BxdfType::ALL_NON_SPECULAR);
+                color += beta * f * _directLight;
+            }
+            
+            // b. 间接光照 (BSDF 采样)
             Vector3 wi;
             float _pdf;
             BxdfType sampledType;
             Color sampled_f = bsdf->sample_f(-hitRay.dir, wi, _pdf, sampledType, interaction, BxdfType::ALL);
 
-            // sample from light
-            Color _directLight = Color::COLOR_BLACK;
-            Color f = Color::COLOR_BLACK;
-            if (hasFlag(sampledType, BxdfType::DIFFUSE))
-            {
-                Ray rayToLight;
-                _directLight = sampleLightFromNormalMaterial(pool,
-                                                             interaction.point,
-                                                             interaction.normal_shading,
-                                                             rayToLight, false);
-                f = bsdf->f(-hitRay.dir, rayToLight.dir, BxdfType::DIFFUSE);
-            }
-            color += beta * f * _directLight;
-
-            float cos_theta_incident_abs = std::abs(interaction.normal_geometry * wi);
-            if (_pdf < 0.0000001f) // quick and dirty
+            if (_pdf < MathConstant::FLOAT_SMALL_NUMBER || sampled_f.isBlack())
             {
                 break;
             }
-
-            if (hasFlag(sampledType, BxdfType::SPECULAR))
-            {
-                beta *= (sampled_f);
-            }
-            else
-            {
-                beta *= (sampled_f * cos_theta_incident_abs) / _pdf;
-            }
-
+            
+            float cos_theta_incident_abs = std::abs(interaction.normal_shading.dot(wi));
+            
+            // 更新路径权重 beta
+            beta *= (sampled_f * cos_theta_incident_abs) / _pdf;
+            
+            // 更新光线
             hitRay = genNextRay(interaction.point, interaction.normal_shading, wi);
+            // 处理介质边界转换
+            // if(interaction.primitive->getMaterial()->isTransition()){
+            //     // 如果当前在介质中，则离开；如果不在，则进入
+            //     hitRay.medium = hitRay.medium ? nullptr : interaction.primitive->getMediumInterface().getMedium(interaction.normal_geometry, wi);
+            // }
+
         }
         else if (interaction.is_volume_boundary_hit)
         {
+            // 光线碰到了介质的边界
             hitRay.origin = interaction.point + hitRay.dir * MathConstant::FLOAT_SMALL_NUMBER;
-
+            // 切换介质状态
             if (hitRay.medium)
                 hitRay.medium = nullptr;
             else
                 hitRay.medium = interaction.medium;
+            
+            // 从边界继续追踪，不增加深度
+            continue;
         }
     }
 
     return color;
 }
 
-// Color PathIntegrator::sampleLightFromDeltaMaterial(std::shared_ptr<const ObjectPool> pool,
-//                                                    const Vector3 &pos,
-//                                                    const Vector3 &dir) const
-// {
-//     Ray deltaLightRay(pos, dir);
-//     Color lightColor = pool->getColorFromLight(deltaLightRay);
-
-//     return lightColor;
-// }
-
 Color PathIntegrator::sampleLightFromNormalMaterial(std::shared_ptr<const ObjectPool> pool,
-                                                    const Vector3 &pos,
-                                                    const Vector3 &normal,
-                                                    Ray &sampleRay,
-                                                    bool isVolumetricPoint) const
+                                                   const Vector3 &pos,
+                                                   const Vector3 &normal,
+                                                   Ray &sampleRay,
+                                                   bool isVolumetricPoint) const
 {
-    // for test
-    //  return Color::COLOR_WHITE * 100;
     std::vector<std::shared_ptr<AreaLight>> lights = pool->getLights();
     int lightNum = static_cast<int>(lights.size());
     if (lightNum == 0)
@@ -209,32 +194,36 @@ Color PathIntegrator::sampleLightFromNormalMaterial(std::shared_ptr<const Object
     Vector3 lightDir = lightSurfacePoint - pos;
     lightDir.normalize();
 
-    // plus lightDir * 0.001f is a hotfix to avoid self intersection
+    // 加上一个小的偏移以避免自相交
     Ray sampleLightRay(pos + lightDir * 0.001f, lightDir);
-    sampleRay = sampleLightRay; // return value
+    sampleRay = sampleLightRay;
+
+    // 获取光源颜色，这个函数内部应该处理可见性测试和透射率
     Color lightColor = pool->getColorFromLight(sampleLightRay, lightIndex);
 
-    // to be fixed later : test visibility with light first?
-    float absDot = std::abs(normal * lightDir);
+    if (lightColor.isBlack()){
+        return Color::COLOR_BLACK;
+    }
 
-    // warning: an ugly hotfix for test volume rendering
+    float absDot = std::abs(normal.dot(lightDir));
+
+    // 对于体积内的散射点，几何项没有法线，所以 absDot 应该被吸收到相函数中。
+    // 对于各向同性相函数，这里可以认为是1。
     if (isVolumetricPoint)
         absDot = 1.0f;
+    
+    if(sampleLightPdf < MathConstant::FLOAT_SMALL_NUMBER || lightPickPdf < MathConstant::FLOAT_SMALL_NUMBER){
+        return Color::COLOR_BLACK;
+    }
 
-    // assert(MathUtility::is_in_range(lightColor.r, 99.99f, 100.01f, false, false));
-    // assert(MathUtility::is_in_range(lightColor.g, 99.99f, 100.01f, false, false));
-    // assert(MathUtility::is_in_range(lightColor.b, 99.99f, 100.01f, false, false));
-
-    // do half caculation here first
+    // 返回蒙特卡洛估计量的一部分: L_e * G * Tr / pdf_light
     return lightColor * (absDot / (sampleLightPdf * lightPickPdf));
 }
 
 Ray PathIntegrator::genNextRay(const Vector3 &pos, const Vector3 &normal, const Vector3 &reflect) const
 {
-    float sign = MathUtility::getSign(normal * reflect);
-
-    //  multiply by a 0.001f is a lazy way to avoid self intersection
+    // 根据反射方向和法线方向决定偏移方向，避免自相交
+    float sign = (normal.dot(reflect) > 0) ? 1.0f : -1.0f;
     Vector3 origin = pos + sign * normal * 0.001f;
-
     return Ray(origin, reflect);
 }

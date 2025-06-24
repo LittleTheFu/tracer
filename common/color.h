@@ -15,6 +15,7 @@ public:
 
     float getClampedMaxComponent() const;
     
+    bool isBlack() const;
     bool isValid() const;
     void getConvertedValue(unsigned char &r, unsigned char &g, unsigned char &b) const;
 

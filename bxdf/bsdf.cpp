@@ -111,3 +111,16 @@ Color Bsdf::sample_f(const Vector3 &wo,
 
     return f;
 }
+
+bool Bsdf::hasNonSpecular() const
+{
+    for (const auto &bxdf : bxdfs_)
+    {
+        if (hasFlag(bxdf->getType(), BxdfType::ALL_NON_SPECULAR))
+        {
+            return true;
+        }
+    }
+
+    return false;
+}

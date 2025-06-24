@@ -70,6 +70,11 @@ float Color::getClampedMaxComponent() const
 //     this->b = r / MAX;
 // }
 
+bool Color::isBlack() const
+{
+    return this->operator==(Color::COLOR_BLACK);
+}
+
 bool Color::isValid() const
 {
     float low = 0.0f;

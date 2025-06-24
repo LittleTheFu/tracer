@@ -26,6 +26,8 @@ public:
                    const Interaction &interaction,
                    BxdfType flags) const;
 
+    bool hasNonSpecular() const;
+
 private:
     Vector3 nsWorld_;
 
