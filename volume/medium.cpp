@@ -10,7 +10,7 @@ Medium::Medium(float sigma_a, float sigma_s)
       sigma_s(sigma_s),
       sigma_t(sigma_a + sigma_s)
 {
-    factor_ = 1.0f;
+    factor_ = 3.0f;
 }
 
 float Medium::transmittance(const Ray& ray, float tMax) const
@@ -32,9 +32,10 @@ float Medium::transmittance(const Ray& ray, float tMax) const
 
 MediumEventType Medium::sample(const Ray& ray, float tMax, MediumInteraction &interaction)
 {
-    float sigma_t_majorant = getSigmaT(ray.origin);
+    // float sigma_t_majorant = getSigmaT(ray.origin);
+    float sigma_t_majorant = 0.3;
 
-    float current_t = 0.0f;
+    float current_t = 0.2f;
     while (true)
     {
         float rand_val = MathUtility::genRandomDecimal();
@@ -49,6 +50,11 @@ MediumEventType Medium::sample(const Ray& ray, float tMax, MediumInteraction &in
         }
 
         Vector3 pos = ray.getPosition(current_t);
+        if( std::isnan(pos.x) || std::isnan(pos.y) || std::isnan(pos.z))
+        {
+            int a = 3;
+        }
+
         float real_sigma_t = getSigmaT(pos);
 
         if (MathUtility::genRandomDecimal() < (real_sigma_t / sigma_t_majorant))
@@ -59,6 +65,7 @@ MediumEventType Medium::sample(const Ray& ray, float tMax, MediumInteraction &in
             interaction.medium = shared_from_this();
 
             float albedo = getSigmaS(pos) / real_sigma_t;
+            assert(!std::isnan(albedo));
             if (MathUtility::genRandomDecimal() < albedo)
             {
                 return MediumEventType::Scatter;
@@ -75,15 +82,21 @@ MediumEventType Medium::sample(const Ray& ray, float tMax, MediumInteraction &in
 
 float Medium::getSigmaS(const Vector3 &worldPos) const
 {
+    // float noise = perlinNoise_.get(worldPos * factor_);
     return sigma_s;
 }
 
 float Medium::getSigmaA(const Vector3 &worldPos) const
 {
-    return sigma_a;
+    float noise = perlinNoise_.get(worldPos * factor_);
+    noise = noise * 0.5 + 0.5;
+    return sigma_a + noise * 0.05f;
 }
 
 float Medium::getSigmaT(const Vector3 &worldPos) const
 {
-    return getSigmaA(worldPos) + getSigmaS(worldPos);
+    float t = getSigmaA(worldPos) + getSigmaS(worldPos);
+    assert(!std::isnan(t));
+    
+    return t;
 }

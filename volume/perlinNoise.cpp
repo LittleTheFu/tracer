@@ -2,6 +2,7 @@
 #include <vector>
 #include <random>
 #include <mathUtility.h>
+#include <cassert>
 
 const Vector3 PerlinNoise::grad3[12] = {
     {1, 1, 0},
@@ -25,6 +26,11 @@ PerlinNoise::PerlinNoise()
 
 float PerlinNoise::get(const Vector3 &point) const
 {
+    if (std::isnan(point.x))
+    {
+        int a = 3;
+    }
+
     Vector3 floorPoint = point.getFloor();
     Vector3 fractionalPoint = point.getFractional();
 
@@ -76,6 +82,7 @@ float PerlinNoise::get(const Vector3 &point) const
 
     float final_noise_value = MathUtility::interpolate(y_interp_0, y_interp_1, sw);
 
+    assert(!std::isnan(final_noise_value));
     return final_noise_value;
 }
 
