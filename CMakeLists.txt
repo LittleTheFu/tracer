@@ -44,6 +44,7 @@ SET (VOLUME_SOURCE_FILES
     ${VOLUME_DIR}/medium.cpp
     ${VOLUME_DIR}/mediumInteraction.cpp
     ${VOLUME_DIR}/perlinNoise.cpp
+    ${VOLUME_DIR}/vox.cpp
 )
 
 SET (MATERIAL_DIR "material")
@@ -162,22 +163,20 @@ add_library(mylibs STATIC
 )
 
 # NanoVDB settings
-set(NANOVDB_BUILD_TOOLS OFF CACHE BOOL "Disable NanoVDB command-line tools" FORCE)
-set(NANOVDB_BUILD_UNITTESTS OFF CACHE BOOL "Disable NanoVDB unit tests" FORCE)
-set(NANOVDB_BUILD_EXAMPLES OFF CACHE BOOL "Disable NanoVDB examples" FORCE)
-set(NANOVDB_BUILD_PYTHON_MODULE OFF CACHE BOOL "Disable NanoVDB Python module" FORCE)
+# set(NANOVDB_BUILD_TOOLS OFF CACHE BOOL "Disable NanoVDB command-line tools" FORCE)
+# set(NANOVDB_BUILD_UNITTESTS OFF CACHE BOOL "Disable NanoVDB unit tests" FORCE)
+# set(NANOVDB_BUILD_EXAMPLES OFF CACHE BOOL "Disable NanoVDB examples" FORCE)
+# set(NANOVDB_BUILD_PYTHON_MODULE OFF CACHE BOOL "Disable NanoVDB Python module" FORCE)
 
-set(NANOVDB_USE_CUDA OFF CACHE BOOL "Disable CUDA support in NanoVDB" FORCE)
-set(NANOVDB_USE_OPENVDB OFF CACHE BOOL "Do not link NanoVDB against full OpenVDB" FORCE)
-set(NANOVDB_USE_TBB OFF CACHE BOOL "Disable TBB support in NanoVDB" FORCE)
+# set(NANOVDB_USE_CUDA OFF CACHE BOOL "Disable CUDA support in NanoVDB" FORCE)
+# set(NANOVDB_USE_OPENVDB OFF CACHE BOOL "Do not link NanoVDB against full OpenVDB" FORCE)
+# set(NANOVDB_USE_TBB OFF CACHE BOOL "Disable TBB support in NanoVDB" FORCE)
 
-# >>>>>>> 重点在这里修改 <<<<<<<
-set(NANOVDB_USE_ZLIB OFF CACHE BOOL "Disable ZLIB support in NanoVDB" FORCE) # 将这里改为 OFF
-# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# set(NANOVDB_USE_ZLIB OFF CACHE BOOL "Disable ZLIB support in NanoVDB" FORCE) # 将这里改为 OFF
 
-set(NANOVDB_USE_BLOSC OFF CACHE BOOL "Disable BLOSC compression support in NanoVDB" FORCE)
-set(NANOVDB_USE_MAGICAVOXEL OFF CACHE BOOL "Disable MagicaVoxel support in NanoVDB" FORCE)
-set(NANOVDB_ALLOW_FETCHCONTENT OFF CACHE BOOL "Do not allow FetchContent for NanoVDB" FORCE)
+# set(NANOVDB_USE_BLOSC OFF CACHE BOOL "Disable BLOSC compression support in NanoVDB" FORCE)
+# set(NANOVDB_USE_MAGICAVOXEL OFF CACHE BOOL "Disable MagicaVoxel support in NanoVDB" FORCE)
+# set(NANOVDB_ALLOW_FETCHCONTENT OFF CACHE BOOL "Do not allow FetchContent for NanoVDB" FORCE)
 
 #-------------------------------------------------------------------------------
 add_subdirectory(${PROJECT_SOURCE_DIR}/third/nanovdb)
@@ -205,7 +204,7 @@ target_link_libraries(tracer_tests
     assimp
     lodepng
     powitacq
-    nanovdb
+    # nanovdb
     GTest::gtest_main
 )
 
@@ -218,7 +217,7 @@ target_link_libraries(ray_tracer mylibs)
 target_link_libraries(ray_tracer assimp)
 target_link_libraries(ray_tracer lodepng)
 target_link_libraries(ray_tracer powitacq)
-target_link_libraries(ray_tracer nanovdb)
+# target_link_libraries(ray_tracer nanovdb)
 
 set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/install" CACHE PATH "Install path" FORCE)
 

@@ -33,8 +33,8 @@ float Vox::get(float x, float y, float z) const
     //     return 0;
 
     //hardcode for test
-    float xOffset = 0;
-    float yOffset = 0;
+    float xOffset = 60;
+    float yOffset = 20;
     float zOffset = 0;
 
     // float scale = 0.99;

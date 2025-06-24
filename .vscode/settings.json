@@ -152,7 +152,8 @@
     "future": "cpp",
     "*.rh": "cpp",
     "*.inc": "cpp",
-    "filesystem": "cpp"
+    "filesystem": "cpp",
+    "csetjmp": "cpp"
   },
   "C_Cpp.default.compilerPath": "cl.exe"
 }

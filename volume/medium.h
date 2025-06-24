@@ -5,7 +5,7 @@
 #include <memory>
 #include "perlinNoise.h"
 #include "mediumEvent.h"
-// #include "mediumInteraction.h"
+#include "vox.h"
 
 class MediumInteraction;
 class Ray;
@@ -33,6 +33,7 @@ public:
 
 private:
     PerlinNoise perlinNoise_;
+    Vox vox_;
 };
 
 #endif
