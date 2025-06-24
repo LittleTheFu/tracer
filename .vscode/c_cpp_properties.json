@@ -10,7 +10,7 @@
                 "${workspaceFolder}/geometry",
                 "${workspaceFolder}/material",
                 "${workspaceFolder}/mathmatic",
-                "${workspaceFolder}/media",
+                "${workspaceFolder}/third",
                 "${workspaceFolder}/resource",
                 "${workspaceFolder}/scene_management",
                 "${workspaceFolder}/scene_builder",
@@ -22,7 +22,8 @@
                 "${workspaceFolder}/third/lodepng/include",
                 "${workspaceFolder}/third/powitacq/include",
                 "${workspaceFolder}/third/googletest/googletest/include",
-                "${workspaceFolder}/light"
+                "${workspaceFolder}/light",
+                "${workspaceFolder}/third"
             ],
             "cStandard": "c17",
             "cppStandard": "c++17",
