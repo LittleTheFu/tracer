@@ -83,7 +83,9 @@ MediumEventType Medium::sample(const Ray& ray, float tMax, MediumInteraction &in
 float Medium::getSigmaS(const Vector3 &worldPos) const
 {
     // float noise = perlinNoise_.get(worldPos * factor_);
-    return sigma_s;
+    float noise = vox_.get(worldPos.x, worldPos.y, worldPos.z);
+
+    return sigma_s + noise * 0.2;
 }
 
 float Medium::getSigmaA(const Vector3 &worldPos) const
