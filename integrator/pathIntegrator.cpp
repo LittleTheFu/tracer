@@ -97,9 +97,17 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
                 break;
             }
 
-            float cos_theta_incident_abs = std::abs(interaction.normal_shading.dot(wi));
-            beta *= (sampled_f * cos_theta_incident_abs) / _pdf;
+            if (hasFlag(sampledType, BxdfType::SPECULAR))
+            {
+                beta *= (sampled_f);
+            }
+            else
+            {
+                float cos_theta_incident_abs = std::abs(interaction.normal_shading.dot(wi));
+                beta *= (sampled_f * cos_theta_incident_abs) / _pdf;
+            }
 
+        
             hitRay = genNextRay(interaction.point, interaction.normal_shading, wi);
         }
         else if (interaction.is_volume_boundary_hit)
