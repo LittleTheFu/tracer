@@ -10,6 +10,7 @@ public:
 public:
     Vox();
 
+    //a simplest function,for development
     float get(float x, float y, float z) const;
 
     std::unique_ptr<float[]> m_data;

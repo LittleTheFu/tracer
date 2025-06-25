@@ -32,7 +32,11 @@ public:
     float factor_;
 
 private:
+    //for test
     PerlinNoise perlinNoise_;
+
+    //this should be passed as a parameter,I'will come back here later.
+    //right now is in devlopment.
     Vox vox_;
 };
 
