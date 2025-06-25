@@ -92,11 +92,12 @@ float Medium::getSigmaA(const Vector3 &worldPos) const
     // noise = noise * 0.5 + 0.5;
     // return sigma_a + noise * 0.05f;
     float noise = vox_.get(worldPos.x, worldPos.y, worldPos.z);
+    // noise = noise * 0.5 + 0.5;
     if(noise > 0.2)
     {
         int a = 3;
     }
-    return sigma_a + noise * 1;
+    return sigma_a + noise * 0.4;
 }
 
 float Medium::getSigmaT(const Vector3 &worldPos) const
