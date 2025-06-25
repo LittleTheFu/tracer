@@ -4,6 +4,7 @@
 #include "config.h"
 #include "scene.h"
 #include "sceneDef.h"
+#include <cassert>
 
 void configFromParams(int argc, char *argv[])
 {
@@ -47,9 +48,15 @@ void configFromParams(int argc, char *argv[])
         configScene = SceneType::ROOM_TEAPOT_NORMAL_MAP;
         configOutputImageName = "room_normal_map";
     }
+    else if (str == "room_volume")
+    {
+        configScene = SceneType::ROOM_VOLUME;
+        configOutputImageName = "room_volume";
+    }
     else
     {
-        // do nothing
+        //do nothing
+        assert(0);
     }
 }
 
