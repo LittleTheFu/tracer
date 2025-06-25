@@ -1,10 +1,10 @@
 #include "config.h"
 
 //don't use ROOM_VOLUME right now
-SceneType configScene = SceneType::ROOM_VOLUME;
+SceneType configScene = SceneType::ROOM_TEAPOT;
 
-int configResolutionScale = 3;
-int configSamplersPerPixel = 8;
+int configResolutionScale = 1;
+int configSamplersPerPixel = 5;
 int configNeeTracerDepth = 10;
 
 std::string configOutputImageName = "img";

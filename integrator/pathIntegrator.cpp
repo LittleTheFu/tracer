@@ -80,7 +80,7 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
             std::unique_ptr<Bsdf> bsdf = interaction.primitive->getMaterial()->createBsdf(interaction);
             Color _directLight = Color::COLOR_BLACK;
 
-            if (bsdf->hasNonSpecular()) {
+            if (!bsdf->hasSpecular()) {
                 Ray rayToLight;
                 _directLight = sampleLightFromNormalMaterial(pool, interaction.point, interaction.normal_shading, rayToLight, false);
                 Color f = bsdf->f(-hitRay.dir, rayToLight.dir, BxdfType::ALL_NON_SPECULAR);
