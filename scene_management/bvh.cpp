@@ -5,6 +5,7 @@
 #include "boundBox.h"
 #include "mathConstantDef.h"
 #include "mathUtility.h"
+#include "medium.h"
 
 bool BVH::search(std::shared_ptr<Geometry> geometry) const
 {
@@ -101,7 +102,7 @@ std::shared_ptr<BVHNode> BVH::generateTree(const std::vector<std::shared_ptr<Pri
         node->rightChild = generateTree(rightPrimitives, depth + 1);
 
     if (!node->leftChild && !node->rightChild)
-        node->primitives = primitives; 
+        node->primitives = primitives;
 
     return node;
 }
@@ -120,7 +121,7 @@ void BVH::printNode(std::shared_ptr<BVHNode> node, const std::string &prefix)
 bool BVH::_hitGeometryObjectOnly(std::shared_ptr<BVHNode> node,
                                  const Ray &ray,
                                  Interaction &interaction,
-                                std::shared_ptr<Primitive> skipPrimitive) const
+                                 std::shared_ptr<Primitive> skipPrimitive) const
 {
     if (node->isLeaf())
         return hitLeaf(ray, node->primitives, interaction, skipPrimitive);
@@ -210,12 +211,36 @@ bool BVH::hitLeaf(const Ray &ray,
         }
     }
 
+    // quick and dirty
+    //consider to merge this with simpleHitter,later....
+    if (hit)
+    {
+        if (isVolumePrimitive(interaction.primitive))
+        {
+            interaction.is_volume_boundary_hit = true;
+            interaction.is_surface_hit = false;
+            interaction.medium = volume_->getMedium();
+        }
+        else
+        {
+            interaction.is_volume_boundary_hit = false;
+            interaction.is_surface_hit = true;
+            interaction.medium = nullptr;
+        }
+    }
+    else
+    {
+        interaction.is_volume_boundary_hit = false;
+        interaction.is_surface_hit = false;
+        interaction.medium = nullptr;
+    }
+
     return hit;
 }
 
 Color BVH::getColorFromLight(const Ray &ray, int index) const
 {
-    if(index >= lights_.size())
+    if (index >= lights_.size())
     {
         return Color::COLOR_BLACK;
     }
@@ -231,17 +256,36 @@ Color BVH::getColorFromLight(const Ray &ray, int index) const
 
     Color color = lights_.at(index)->getColor();
 
-    Interaction interaction;
-    if (!_hitGeometryObjectOnly(m_rootNode, ray, interaction, lights_.at(index)->getGeometryPrimitive()))
+    Ray shadowRay(ray);
+    float tr = 1.0f;
+    while (true)
     {
-        // return color * dot;
-        return color;
-    }
+        Interaction interaction;
+        bool isHit = hitGeometryObjectOnly(shadowRay, interaction, nullptr);
 
-    if (_interaction.t < interaction.t)
-    {
-        // return color * dot;
-        return color;
+        // no other object hit, return light color directly
+        if (interaction.primitive == lights_.at(index)->getGeometryPrimitive())
+            return tr * color;
+
+        if (interaction.is_volume_boundary_hit)
+        {
+            if (shadowRay.medium)
+            {
+                tr *= shadowRay.medium->transmittance(shadowRay, interaction.t);
+
+                shadowRay.medium = nullptr;
+                shadowRay.origin = interaction.point + shadowRay.dir * MathConstant::FLOAT_SMALL_NUMBER;
+            }
+            else
+            {
+                shadowRay.medium = interaction.medium;
+                shadowRay.origin = interaction.point + shadowRay.dir * MathConstant::FLOAT_SMALL_NUMBER;
+            }
+        }
+        else
+        {
+            return Color::COLOR_BLACK;
+        }
     }
 
     return Color::COLOR_BLACK;
