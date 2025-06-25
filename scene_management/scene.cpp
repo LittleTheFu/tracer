@@ -17,7 +17,7 @@
 Scene::Scene(SceneType sceneType, int resolutionScale, int samplersPerPixel, int depth)
 {
     m_pObjectPool = std::make_shared<ObjectPool>(isBVHOn(sceneType));
-    
+
     m_pBuilder = createSceneBuilder(sceneType);
     m_pBuilder->init(m_pObjectPool);
 
@@ -73,7 +73,7 @@ void Scene::preRender()
 void Scene::render()
 {
     // m_pCamera->render();
-    
+
     m_pCamera->renderPlus();
 }
 
@@ -85,17 +85,26 @@ void Scene::postRender()
 
 bool Scene::isBVHOn(SceneType type) const
 {
-    if (type == SceneType::ROOM_SIMPLE_BUNNY)
-        return true;
+    if (type == SceneType::ROOM_SIMPLE)
+        return false;
 
-    if (type == SceneType::ROOM_TEAPOT)
+    if (type == SceneType::ROOM_SIMPLE_BUNNY)
         return true;
 
     if (type == SceneType::ROOM_COMPLEX_BUNNY)
         return true;
 
+    if (type == SceneType::ROOM_TEAPOT)
+        return true;
+
+    if (type == SceneType::ROOM_MATERIAL_BALLS)
+        return false;
+
     if (type == SceneType::ROOM_TEAPOT_NORMAL_MAP)
         return true;
+
+    if (type == SceneType::ROOM_VOLUME)
+        return false;
 
     return false;
 }
