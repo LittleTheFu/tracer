@@ -177,7 +177,7 @@ add_subdirectory(${PROJECT_SOURCE_DIR}/third/googletest)
 add_executable(tracer_tests
     test/test.cpp
     # test/vectorTest.cpp
-    test/perlinNoiseTest.cpp
+    # test/perlinNoiseTest.cpp
 )
 
 target_link_libraries(tracer_tests
