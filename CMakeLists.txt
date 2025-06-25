@@ -162,8 +162,6 @@ add_library(mylibs STATIC
     ${VOLUME_SOURCE_FILES}
 )
 
-add_subdirectory(${PROJECT_SOURCE_DIR}/third/nanovdb)
-
 add_subdirectory(${PROJECT_SOURCE_DIR}/third/assimp/)
 include_directories(${PROJECT_SOURCE_DIR}/third/assimp/include)
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/third/assimp/include)
