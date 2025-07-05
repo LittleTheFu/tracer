@@ -18,32 +18,39 @@ Mesh::Mesh(const std::string fileName,
     std::cout << "starting importer...1" << std::endl;
 
     const aiScene *scene = importer.ReadFile(fileName.c_str(), aiProcess_Triangulate);
-    if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
+    if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
+    {
         std::cerr << "ERROR::ASSIMP:: " << importer.GetErrorString() << std::endl;
         return;
     }
-    int faceNUM = scene->mMeshes[0]->mNumFaces;
-    std::cout << "face num : " << faceNUM << std::endl;
-    for(int i = 0; i < faceNUM; i++)
+
+    for (int i = 0; i < scene->mNumMeshes; i++)
     {
-        aiFace face = scene->mMeshes[0]->mFaces[i];
-        assert(face.mNumIndices == 3);
 
-        TriVertex va = createTriVertex(scene->mMeshes[0], face.mIndices[0], scale);
-        TriVertex vb = createTriVertex(scene->mMeshes[0], face.mIndices[1], scale);
-        TriVertex vc = createTriVertex(scene->mMeshes[0], face.mIndices[2], scale);
+        int faceNUM = scene->mMeshes[0]->mNumFaces;
+        std::cout << "face num : " << faceNUM << std::endl;
+        for (int i = 0; i < faceNUM; i++)
+        {
+            aiFace face = scene->mMeshes[0]->mFaces[i];
+            assert(face.mNumIndices == 3);
 
-        // va.setUV(u_a, v_a);
-        // vb.setUV(u_b, v_b);
-        // vc.setUV(u_c, v_c);
+            TriVertex va = createTriVertex(scene->mMeshes[0], face.mIndices[0], scale);
+            TriVertex vb = createTriVertex(scene->mMeshes[0], face.mIndices[1], scale);
+            TriVertex vc = createTriVertex(scene->mMeshes[0], face.mIndices[2], scale);
 
-        auto tri = std::make_shared<Tri>(va, vb, vc, pos);
+            // va.setUV(u_a, v_a);
+            // vb.setUV(u_b, v_b);
+            // vc.setUV(u_c, v_c);
 
-        m_tris.push_back(tri);
+            auto tri = std::make_shared<Tri>(va, vb, vc, pos);
+
+            m_tris.push_back(tri);
+        }
     }
 }
 
-TriVertex Mesh::createTriVertex(const aiMesh* mesh, unsigned int index, float scale) const {
+TriVertex Mesh::createTriVertex(const aiMesh *mesh, unsigned int index, float scale) const
+{
     float x = mesh->mVertices[index].x;
     float y = mesh->mVertices[index].y;
     float z = mesh->mVertices[index].z;
@@ -66,7 +73,7 @@ bool Mesh::hit(const Ray &ray, Interaction &interaction) const
 
 void Mesh::addToPool(std::shared_ptr<ObjectPool> pool, std::shared_ptr<Material> material)
 {
-    for(auto it = m_tris.begin(); it != m_tris.end(); it++)
+    for (auto it = m_tris.begin(); it != m_tris.end(); it++)
     {
         std::shared_ptr<GeometryPrimitive> primitive = std::make_shared<GeometryPrimitive>(*it, material);
         pool->addPrimitive(primitive);

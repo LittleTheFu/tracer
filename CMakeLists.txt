@@ -118,6 +118,7 @@ SET (SCENE_BUILDER_SOURCE_FILES
     ${SCENE_BUILDER_DIR}/normalMapSceneBuilder.cpp
     ${SCENE_BUILDER_DIR}/sceneBuilder.cpp
     ${SCENE_BUILDER_DIR}/teapotSceneBuilder.cpp
+    ${SCENE_BUILDER_DIR}/botSceneBuilder.cpp
     ${SCENE_BUILDER_DIR}/volumeSceneBuilder.cpp
 )
 

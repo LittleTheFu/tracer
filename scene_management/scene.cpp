@@ -12,7 +12,8 @@
 #include "mtrlSceneBuilder.h"
 #include "complexBunnySceneBuilder.h"
 #include "normalMapSceneBuilder.h"
-#include <volumeSceneBuilder.h>
+#include "volumeSceneBuilder.h"
+#include "botSceneBuilder.h"
 
 Scene::Scene(SceneType sceneType, int resolutionScale, int samplersPerPixel, int depth)
 {
@@ -106,6 +107,9 @@ bool Scene::isBVHOn(SceneType type) const
     if (type == SceneType::ROOM_VOLUME)
         return false;
 
+    if (type == SceneType::ROOM_BOT)
+        return true;
+
     return false;
 }
 
@@ -127,6 +131,8 @@ std::shared_ptr<SceneBuilder> Scene::createSceneBuilder(SceneType type) const
         builder = std::make_shared<NormalMapSceneBuilder>();
     else if (type == SceneType::ROOM_VOLUME)
         builder = std::make_shared<VolumeSceneBuilder>();
+    else if (type == SceneType::ROOM_BOT)
+        builder = std::make_shared<BotSceneBuilder>();
     else
         builder = std::make_shared<SimpleSceneBuilder>();
 
