@@ -29,6 +29,7 @@ SET (GEOMETRY_SOURCE_FILES
     ${GEOMETRY_DIR}/curve.cpp
     ${GEOMETRY_DIR}/geometry.cpp
     ${GEOMETRY_DIR}/mesh.cpp
+    ${GEOMETRY_DIR}/model.cpp
     ${GEOMETRY_DIR}/plane.cpp
     ${GEOMETRY_DIR}/room.cpp
     ${GEOMETRY_DIR}/tri.cpp

@@ -10,13 +10,18 @@
 #include "objectpool.h"
 #include "tri.h"
 #include "material.h"
+#include <assimp/material.h>
 
 class Mesh : public Geometry
 {
 public:
-    Mesh(const std::string fileName,
-         const Vector3 pos,
-         float scale);
+    Mesh();
+
+    void create(const aiMesh *mesh, aiMaterial **materials, float scale, const Vector3 pos);
+
+    // Mesh(const std::string fileName,
+    //      const Vector3 pos,
+    //      float scale);
 
     virtual bool hit(const Ray &ray, Interaction &interaction) const override;
 

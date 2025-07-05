@@ -10,35 +10,43 @@
 #include "materialManager.h"
 #include <materialPBR.h>
 
-Mesh::Mesh(const std::string fileName,
-           const Vector3 pos,
-           float scale)
+Mesh::Mesh()
 {
-    assert(scale > 0);
+}
 
-    std::cout << "starting importer..." << std::endl;
-    Assimp::Importer importer;
-    std::cout << "starting importer...1" << std::endl;
-
-    const aiScene *scene = importer.ReadFile(fileName.c_str(), aiProcess_Triangulate);
-    if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
+void Mesh::create(const aiMesh *mesh, aiMaterial **materials, float scale, const Vector3 pos)
+{
+    int faceNUM = mesh->mNumFaces;
+    std::cout << "face num : " << faceNUM << std::endl;
+    for (int j = 0; j < faceNUM; j++)
     {
-        std::cerr << "ERROR::ASSIMP:: " << importer.GetErrorString() << std::endl;
-        return;
+        aiFace face = mesh->mFaces[j];
+        assert(face.mNumIndices == 3);
+
+        TriVertex va = createTriVertex(mesh, face.mIndices[0], scale);
+        TriVertex vb = createTriVertex(mesh, face.mIndices[1], scale);
+        TriVertex vc = createTriVertex(mesh, face.mIndices[2], scale);
+
+        // va.setUV(u_a, v_a);
+        // vb.setUV(u_b, v_b);
+        // vc.setUV(u_c, v_c);
+
+        auto tri = std::make_shared<Tri>(va, vb, vc, pos);
+
+        m_tris.push_back(tri);
     }
 
-    bool hasMaterial = scene->HasMaterials();
-    if(hasMaterial)
+    if (mesh->mMaterialIndex >= 0)
     {
-        aiMaterial *mat = scene->mMaterials[0];
-        assert(mat);
+        const aiMaterial *mat = materials[mesh->mMaterialIndex];
 
         aiColor3D color;
-        mat->Get(AI_MATKEY_BASE_COLOR, color);
+        // mat->Get(AI_MATKEY_BASE_COLOR, color);
+        mat->Get(AI_MATKEY_COLOR_DIFFUSE, color);
         Color albedo(color.r, color.g, color.b);
         albedo.clamp();
         std::cout << "albedo : " << albedo << std::endl;
-        
+
         float roughness = 0.0f;
         mat->Get(AI_MATKEY_ROUGHNESS_FACTOR, roughness);
         std::cout << "roughness : " << roughness << std::endl;
@@ -47,36 +55,8 @@ Mesh::Mesh(const std::string fileName,
         mat->Get(AI_MATKEY_METALLIC_FACTOR, metallic);
         std::cout << "metallic : " << metallic << std::endl;
 
-        // float ior = 1.5f;
-        // mat->Get(AI_MATKEY_REFRACTI, ior);
-        // std::cout << "ior : " << ior << std::endl;
-        
         std::shared_ptr<MaterialPBR> material = std::make_shared<MaterialPBR>(albedo, roughness, metallic);
         materialId_ = MaterialManager::getInstance().addMaterial(material);
-    }
-
-    for (int i = 0; i < scene->mNumMeshes; i++)
-    {
-
-        int faceNUM = scene->mMeshes[i]->mNumFaces;
-        std::cout << "face num : " << faceNUM << std::endl;
-        for (int j = 0; j < faceNUM; j++)
-        {
-            aiFace face = scene->mMeshes[i]->mFaces[j];
-            assert(face.mNumIndices == 3);
-
-            TriVertex va = createTriVertex(scene->mMeshes[0], face.mIndices[0], scale);
-            TriVertex vb = createTriVertex(scene->mMeshes[0], face.mIndices[1], scale);
-            TriVertex vc = createTriVertex(scene->mMeshes[0], face.mIndices[2], scale);
-
-            // va.setUV(u_a, v_a);
-            // vb.setUV(u_b, v_b);
-            // vc.setUV(u_c, v_c);
-
-            auto tri = std::make_shared<Tri>(va, vb, vc, pos);
-
-            m_tris.push_back(tri);
-        }
     }
 }
 

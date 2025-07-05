@@ -22,6 +22,7 @@
 #include "materialRough.h"
 #include "materialTRough.h"
 #include <materialManager.h>
+#include <model.h>
 
 
 void SceneBuilder::init(std::shared_ptr<ObjectPool> pool)
@@ -298,7 +299,7 @@ void SceneBuilder::buildNormalMapSariSilkBall(const Vector3 &pos, float r)
 
 void SceneBuilder::buildModel(const Vector3 &pos,
                               float scale,
-                              const std::string &model,
+                              const std::string &path,
                               MATERIAL_TYPE materialType,
                               bool useNormalMap)
 {
@@ -376,16 +377,18 @@ void SceneBuilder::buildModel(const Vector3 &pos,
         material->setNormalTexture(normalTexture);
     }
     
-    std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>(model, pos, scale);
-
-    //quick and dirty,for test
-    int materialId = mesh->getMaterialId();
-    if(materialId != -1)
+    // std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>(model, pos, scale);
+    std::shared_ptr<Model> model = std::make_shared<Model>(path, pos, scale);
+    for (auto mesh : model->getMeshes())
     {
-        material = MaterialManager::getInstance().getMaterial(materialId);
-    }
+        int materialId = mesh->getMaterialId();
+        if (materialId != -1)
+        {
+            material = MaterialManager::getInstance().getMaterial(materialId);
+        }
 
-    mesh->addToPool(m_pObjectPool, material);
+        mesh->addToPool(m_pObjectPool, material);
+    }
 }
 
 void SceneBuilder::buildRedTri(const Vector3 &pos)

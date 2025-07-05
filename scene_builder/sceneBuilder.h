@@ -54,7 +54,7 @@ protected:
 
     void buildModel(const Vector3 &pos,
                     float scale,
-                    const std::string &model,
+                    const std::string &path,
                     MATERIAL_TYPE materialType,
                     bool useNormalMap = false);
 
