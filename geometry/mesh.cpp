@@ -5,7 +5,9 @@
 #include <assimp/postprocess.h> // Post processing flags
 
 #include "mesh.h"
-#include <geometryPrimitive.h>
+#include "geometryPrimitive.h"
+#include "materialLambertian.h"
+#include "materialManager.h"
 
 Mesh::Mesh(const std::string fileName,
            const Vector3 pos,
@@ -22,6 +24,13 @@ Mesh::Mesh(const std::string fileName,
     {
         std::cerr << "ERROR::ASSIMP:: " << importer.GetErrorString() << std::endl;
         return;
+    }
+
+    bool hasMaterial = scene->HasMaterials();
+    if(hasMaterial)
+    {
+        std::shared_ptr<MaterialLambertian> material = std::make_shared<MaterialLambertian>(Color::COLOR_AQUA);
+        materialId_ = MaterialManager::getInstance().addMaterial(material);
     }
 
     for (int i = 0; i < scene->mNumMeshes; i++)

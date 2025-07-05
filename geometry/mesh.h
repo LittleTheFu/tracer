@@ -37,6 +37,13 @@ private:
 
 public:
     std::vector<std::shared_ptr<Tri>> m_tris;
+
+//temporary solution
+//and assuming there is at most 1 materail can be loaded from the file
+private:
+    int materialId_ = -1;//WARNING: magic number---quick and dirty,I will come back here later
+public:
+    int getMaterialId() const { return materialId_; }
 };
 
 #endif

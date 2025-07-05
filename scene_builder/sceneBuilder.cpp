@@ -21,6 +21,7 @@
 #include <cassert>
 #include "materialRough.h"
 #include "materialTRough.h"
+#include <materialManager.h>
 
 
 void SceneBuilder::init(std::shared_ptr<ObjectPool> pool)
@@ -376,6 +377,14 @@ void SceneBuilder::buildModel(const Vector3 &pos,
     }
     
     std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>(model, pos, scale);
+
+    //quick and dirty,for test
+    int materialId = mesh->getMaterialId();
+    if(materialId != -1)
+    {
+        material = MaterialManager::getInstance().getMaterial(materialId);
+    }
+
     mesh->addToPool(m_pObjectPool, material);
 }
 
