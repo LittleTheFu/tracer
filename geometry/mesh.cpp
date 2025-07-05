@@ -27,7 +27,7 @@ Mesh::Mesh(const std::string fileName,
     for (int i = 0; i < scene->mNumMeshes; i++)
     {
 
-        int faceNUM = scene->mMeshes[0]->mNumFaces;
+        int faceNUM = scene->mMeshes[i]->mNumFaces;
         std::cout << "face num : " << faceNUM << std::endl;
         for (int i = 0; i < faceNUM; i++)
         {
