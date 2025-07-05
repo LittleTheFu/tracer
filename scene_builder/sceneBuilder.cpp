@@ -377,11 +377,12 @@ void SceneBuilder::buildModel(const Vector3 &pos,
         material->setNormalTexture(normalTexture);
     }
     
-    // std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>(model, pos, scale);
     std::shared_ptr<Model> model = std::make_shared<Model>(path, pos, scale);
     for (auto mesh : model->getMeshes())
     {
         int materialId = mesh->getMaterialId();
+
+        //overwrite current material if there is a material can be loaded from the file
         if (materialId != -1)
         {
             material = MaterialManager::getInstance().getMaterial(materialId);
