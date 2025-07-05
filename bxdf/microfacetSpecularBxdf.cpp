@@ -3,12 +3,13 @@
 #include "common.h"
 #include "mathUtility.h"
 
-MicrofacetSpecularBxdf::MicrofacetSpecularBxdf(float roughness)
+MicrofacetSpecularBxdf::MicrofacetSpecularBxdf(float roughness, Color f0)
     : Bxdf(BxdfType::REFLECTION | BxdfType::GLOSSY)
 {
     // roughness = 0.15;
     roughness_ = roughness;
     alpha_ = roughness;
+    f0_ = f0;
 
     if (alpha_ <= 0)
         alpha_ = MathConstant::FLOAT_SMALL_NUMBER;
@@ -37,7 +38,7 @@ Color MicrofacetSpecularBxdf::f(const Vector3 &wo, const Vector3 &wi) const
     float d = D(wh);
     float g = ggx_G(wi, wo, Vector3(0,0,1), alpha_);
 
-    return Color(d * g * F / (4.0f * wo.z * wi.z));
+    return Color(d * g * F / (4.0f * wo.z * wi.z)) * f0_;
     // return Color(d * g * f / (4.0f * wo.z * wi.z));
 }
 

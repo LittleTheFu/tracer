@@ -6,7 +6,7 @@
 class MicrofacetSpecularBxdf : public Bxdf
 {
 public:
-    MicrofacetSpecularBxdf(float roughness);
+    MicrofacetSpecularBxdf(float roughness, Color f0);
 
     virtual Color f(const Vector3 &wo, const Vector3 &wi) const override;
     virtual float pdf(const Vector3 &wo, const Vector3 &wi) const override;
@@ -21,6 +21,7 @@ private:
 private:
     float roughness_;
     float alpha_;
+    Color f0_;//？？？
 
     float etaI_ = 1.0f;
     float etaT_ = 1.55f;

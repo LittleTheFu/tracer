@@ -27,6 +27,8 @@ public:
         return Color(color.r * scalar, color.g * scalar, color.b * scalar);
     }
 
+    static Color lerp(const Color &a, const Color &b, float t);
+
     Color operator-(const Color &that) const;
     Color operator+(const Color &that) const;
     Color operator/(const Color &that) const;

@@ -8,6 +8,7 @@
 #include "geometryPrimitive.h"
 #include "materialLambertian.h"
 #include "materialManager.h"
+#include <materialPBR.h>
 
 Mesh::Mesh(const std::string fileName,
            const Vector3 pos,
@@ -29,7 +30,28 @@ Mesh::Mesh(const std::string fileName,
     bool hasMaterial = scene->HasMaterials();
     if(hasMaterial)
     {
-        std::shared_ptr<MaterialLambertian> material = std::make_shared<MaterialLambertian>(Color::COLOR_AQUA);
+        aiMaterial *mat = scene->mMaterials[0];
+        assert(mat);
+
+        aiColor3D color;
+        mat->Get(AI_MATKEY_BASE_COLOR, color);
+        Color albedo(color.r, color.g, color.b);
+        albedo.clamp();
+        std::cout << "albedo : " << albedo << std::endl;
+        
+        float roughness = 0.0f;
+        mat->Get(AI_MATKEY_ROUGHNESS_FACTOR, roughness);
+        std::cout << "roughness : " << roughness << std::endl;
+
+        float metallic = 0.0f;
+        mat->Get(AI_MATKEY_METALLIC_FACTOR, metallic);
+        std::cout << "metallic : " << metallic << std::endl;
+
+        // float ior = 1.5f;
+        // mat->Get(AI_MATKEY_REFRACTI, ior);
+        // std::cout << "ior : " << ior << std::endl;
+        
+        std::shared_ptr<MaterialPBR> material = std::make_shared<MaterialPBR>(albedo, roughness, metallic);
         materialId_ = MaterialManager::getInstance().addMaterial(material);
     }
 
@@ -38,9 +60,9 @@ Mesh::Mesh(const std::string fileName,
 
         int faceNUM = scene->mMeshes[i]->mNumFaces;
         std::cout << "face num : " << faceNUM << std::endl;
-        for (int i = 0; i < faceNUM; i++)
+        for (int j = 0; j < faceNUM; j++)
         {
-            aiFace face = scene->mMeshes[0]->mFaces[i];
+            aiFace face = scene->mMeshes[i]->mFaces[j];
             assert(face.mNumIndices == 3);
 
             TriVertex va = createTriVertex(scene->mMeshes[0], face.mIndices[0], scale);

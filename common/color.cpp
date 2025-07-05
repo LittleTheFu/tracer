@@ -122,6 +122,11 @@ Color &Color::clamp()
     return *this;
 }
 
+Color Color::lerp(const Color &a, const Color &b, float t)
+{
+    return Color(a.r + (b.r - a.r) * t, a.g + (b.g - a.g) * t, a.b + (b.b - a.b) * t);
+}
+
 Color Color::operator-(const Color &that) const
 {
     return Color(r - that.r, g - that.g, b - that.b);

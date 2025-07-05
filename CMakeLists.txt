@@ -59,6 +59,7 @@ SET (MATERIAL_SOURCE_FILES
     ${MATERIAL_DIR}/emittingMaterial.cpp
     ${MATERIAL_DIR}/materialTRough.cpp
     ${MATERIAL_DIR}/materialRough.cpp
+    ${MATERIAL_DIR}/materialPBR.cpp
 )
 
 SET (LIGHT_DIR "light")
