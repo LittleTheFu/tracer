@@ -301,7 +301,8 @@ void SceneBuilder::buildModel(const Vector3 &pos,
                               float scale,
                               const std::string &path,
                               MATERIAL_TYPE materialType,
-                              bool useNormalMap)
+                              bool useNormalMap,
+                              bool forceUseInjectedMaterial)
 {
     std::shared_ptr<ImageTexture> albedoTexture = std::make_shared<ImageTexture>(ResourceDef::LENA);
     std::shared_ptr<Material> material = nullptr;
@@ -383,7 +384,11 @@ void SceneBuilder::buildModel(const Vector3 &pos,
         int materialId = mesh->getMaterialId();
 
         //overwrite current material if there is a material can be loaded from the file
-        if (materialId != -1)
+        if (materialId == -1 || forceUseInjectedMaterial)
+        {
+            //use injected material
+        }
+        else
         {
             material = MaterialManager::getInstance().getMaterial(materialId);
         }

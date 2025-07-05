@@ -10,6 +10,9 @@ void TeapotSceneBuilder::build()
     setLightIntensity(1, 30.0f);
     setLightIntensity(2, 30.0f);
 
-    
-    buildModel(Vector3(-10, -60, 300), 24, ResourceDef::TEAPOT, MATERIAL_TYPE::M_GLASS);
+    buildModel(Vector3(-10, -60, 300),
+               24,
+               ResourceDef::TEAPOT,
+               MATERIAL_TYPE::M_GLASS,
+               false);
 }

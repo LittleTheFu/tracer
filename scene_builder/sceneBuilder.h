@@ -56,7 +56,8 @@ protected:
                     float scale,
                     const std::string &path,
                     MATERIAL_TYPE materialType,
-                    bool useNormalMap = false);
+                    bool useNormalMap = false,
+                    bool forceUseInjectedMaterial = true);
 
     void buildRedTri(const Vector3& pos);
     void buildGreenTri(const Vector3& pos);
