@@ -122,6 +122,13 @@ SET (SCENE_BUILDER_SOURCE_FILES
     ${SCENE_BUILDER_DIR}/volumeSceneBuilder.cpp
 )
 
+SET (MANAGER_DIR "manager")
+SET (MANAGER_SOURCE_FILES
+    ${MANAGER_DIR}/id.cpp
+    ${MANAGER_DIR}/materialManager.cpp
+    ${MANAGER_DIR}/textureManager.cpp
+)
+
 SET (TEXTURE_DIR "texture")
 SET (TEXTURE_SOURCE_FILES
     ${TEXTURE_DIR}/chessboardTexture.cpp
@@ -138,6 +145,7 @@ INCLUDE_DIRECTORIES(
     ${INTEGRATOR_DIR}
     ${GEOMETRY_DIR}
     ${MATERIAL_DIR}
+    ${MANAGER_DIR}
     ${LIGHT_DIR}
     ${MATHMATIC_DIR}
     ${CAMERA_DIR}
@@ -153,6 +161,7 @@ add_library(mylibs STATIC
     ${INTEGRATOR_SOURCE_FILES}
     ${GEOMETRY_SOURCE_FILES}
     ${MATERIAL_SOURCE_FILES}
+    ${MANAGER_SOURCE_FILES}
     ${LIGHT_SOURCE_FILES}
     ${BXDF_SOURCE_FILES}
     ${CAMERA_SOURCE_FILES}
