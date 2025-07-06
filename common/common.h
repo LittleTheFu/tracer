@@ -28,6 +28,9 @@ public:
     static float sinPhi(const Vector3 &v);
     static float sinPhiSq(const Vector3 &v);
 
+    //???
+    static float fresnel(float etaI, float etaT, float cosThetaI);
+
     static float fresnel(float etaI,
                          float etaT,
                          float cos_theta_in,
