@@ -13,6 +13,6 @@ void TeapotSceneBuilder::build()
     buildModel(Vector3(-10, -60, 300),
                24,
                ResourceDef::TEAPOT,
-               MATERIAL_TYPE::M_GLASS,
+               MATERIAL_TYPE::M_MICRO_FACET_TRANSMISSION,
                true);
 }

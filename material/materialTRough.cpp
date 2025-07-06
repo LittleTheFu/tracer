@@ -1,16 +1,27 @@
-// #include "materialTRough.h"
-// #include <cassert>
-// #include <microfacetTransmissionBxdf.h>
+#include "materialTRough.h"
+#include <cassert>
+#include <microfacetTransmissionBxdf.h>
+#include "mediumBoundary.h"
+#include "medium.h"
 
-// MaterialTRough::MaterialTRough()
-// {
-// }
+MaterialTRough::MaterialTRough()
+{
+}
 
-// std::unique_ptr<Bsdf> MaterialTRough::createBsdf(const Interaction &interaction)
-// {
-//     std::unique_ptr<Bsdf> bsdf = std::make_unique<Bsdf>(interaction.normal_shading);
+std::unique_ptr<Bsdf> MaterialTRough::createBsdf(const Interaction &interaction)
+{
+    std::unique_ptr<Bsdf> bsdf = std::make_unique<Bsdf>(interaction.normal_shading);
 
-//     bsdf->addBxdf(std::make_shared<MicrofacetTransmissionBxdf>(0.01f));
+    float etaI = interaction.mediumBoundary->mediumOutside_->eta_;
+    float etaT = interaction.mediumBoundary->mediumInside_->eta_;
 
-//     return bsdf;
-// };
+    bool isSameDir = interaction.incoming.isSameDir(interaction.normal_shading);
+    if (isSameDir)
+    {
+        std::swap(etaI, etaT);
+    }
+
+    bsdf->addBxdf(std::make_shared<MicrofacetTransmissionBxdf>(0.5f, etaI, etaT));
+
+    return bsdf;
+};

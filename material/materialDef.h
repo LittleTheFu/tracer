@@ -36,7 +36,7 @@ enum class MATERIAL_TYPE
     M_NORMAL_MAP_SARI_SILK,
 
     M_MICRO_FACET_SPECULAR,
-    // M_MICRO_FACET_TRANSMISSION,
+    M_MICRO_FACET_TRANSMISSION,//is not finished yet
 };
 
 #endif
