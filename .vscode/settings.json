@@ -153,7 +153,11 @@
     "*.rh": "cpp",
     "*.inc": "cpp",
     "filesystem": "cpp",
-    "csetjmp": "cpp"
+    "csetjmp": "cpp",
+    "cerrno": "cpp",
+    "cfloat": "cpp",
+    "climits": "cpp",
+    "string_view": "cpp"
   },
   "C_Cpp.default.compilerPath": "cl.exe"
 }

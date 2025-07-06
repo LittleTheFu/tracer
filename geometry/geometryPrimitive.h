@@ -3,6 +3,8 @@
 
 #include "primitive.h"
 
+class MediumBoundary;
+
 class GeometryPrimitive : public Primitive
 {
 public:
@@ -17,6 +19,9 @@ public:
 private:
     std::shared_ptr<Geometry> geometry_;
     std::shared_ptr<Material> material_;
+
+    //this should be moved to geometry primitive class
+    std::shared_ptr<MediumBoundary> mediumBoundary_;
 };
 
 #endif

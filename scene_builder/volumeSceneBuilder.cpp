@@ -8,13 +8,13 @@ void VolumeSceneBuilder::build()
     buildLight(Vector3(0, 40, 290), 10);
     setLightIntensity(0, 60);
 
-    std::shared_ptr<Medium> medium = std::make_shared<Medium>(0.002f, 0.000f);
-    std::shared_ptr<SphereVolume> volume = std::make_shared<SphereVolume>(medium, Vector3(0, 0, 320), 60.0f);
+    // std::shared_ptr<Medium> medium = std::make_shared<Medium>(0.002f, 0.000f);
+    // std::shared_ptr<SphereVolume> volume = std::make_shared<SphereVolume>(medium, Vector3(0, 0, 320), 60.0f);
 
-    m_pObjectPool->setVolume(volume);
+    // m_pObjectPool->setVolume(volume);
 
-    std::shared_ptr<GeometryPrimitive> primitive = std::make_shared<GeometryPrimitive>(volume->getGeometry(), nullptr);
-    m_pObjectPool->addPrimitive(primitive);
+    // std::shared_ptr<GeometryPrimitive> primitive = std::make_shared<GeometryPrimitive>(volume->getGeometry(), nullptr);
+    // m_pObjectPool->addPrimitive(primitive);
     
     // buildVolumeBall(Vector3(0, 0, 320), 100);
 }

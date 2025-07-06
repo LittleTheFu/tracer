@@ -15,6 +15,7 @@ class Ray;
 class Medium : public std::enable_shared_from_this<Medium>
 {
 public:
+    Medium();
     Medium(float sigma_a, float sigma_s);
 
     float transmittance(const Ray& ray, float tMax) const;
@@ -30,6 +31,8 @@ public:
     float sigma_t;
 
     float factor_;
+
+    float eta_;
 
 private:
     //for test

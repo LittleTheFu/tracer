@@ -5,12 +5,19 @@
 #include "mediumInteraction.h"
 #include <cassert>
 
+Medium::Medium()
+{
+    eta_ = 1.0f;
+}
+
 Medium::Medium(float sigma_a, float sigma_s)
     : sigma_a(sigma_a),
       sigma_s(sigma_s),
       sigma_t(sigma_a + sigma_s)
 {
     factor_ = 3.0f;
+    
+    eta_ = 1.0f;
 }
 
 float Medium::transmittance(const Ray& ray, float tMax) const
