@@ -129,6 +129,7 @@ SET (MANAGER_SOURCE_FILES
     ${MANAGER_DIR}/id.cpp
     ${MANAGER_DIR}/materialManager.cpp
     ${MANAGER_DIR}/textureManager.cpp
+    ${MANAGER_DIR}/mediumManager.cpp
 )
 
 SET (TEXTURE_DIR "texture")

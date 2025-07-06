@@ -16,7 +16,7 @@ class Medium : public std::enable_shared_from_this<Medium>
 {
 public:
     Medium();
-    Medium(float sigma_a, float sigma_s);
+    Medium(float sigma_a, float sigma_s, float eta = 1.0f);
 
     float transmittance(const Ray& ray, float tMax) const;
     MediumEventType sample(const Ray& ray, float tMax, MediumInteraction &interaction);
