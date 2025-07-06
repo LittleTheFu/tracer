@@ -16,6 +16,7 @@ public:
 
     virtual std::shared_ptr<Material> getMaterial() const = 0;
     virtual std::shared_ptr<Geometry> getGeometry() const = 0;
+    virtual std::shared_ptr<MediumBoundary> getMediumBoundary() const = 0;
 
     bool isEmitting() const;
 };

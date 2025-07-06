@@ -52,6 +52,7 @@ protected:
 
     // void buildConductorBall(const Vector3& pos, float r);
 
+    //bad params....I'will come here later...
     void buildModel(const Vector3 &pos,
                     float scale,
                     const std::string &path,

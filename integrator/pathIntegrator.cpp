@@ -113,7 +113,7 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
         else if (interaction.is_volume_boundary_hit)
         {
             hitRay.origin = interaction.point + hitRay.dir * MathConstant::FLOAT_SMALL_NUMBER;
-            if (hitRay.medium)
+            if (hitRay.medium)//here, it should be replaced with mediumBoundary...
                 hitRay.medium = nullptr;
             else
                 hitRay.medium = interaction.medium;

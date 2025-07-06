@@ -1,4 +1,5 @@
 #include "mediumManager.h"
+#include "medium.h"
 #include <assert.h>
 
 MediumManager::MediumManager()
@@ -13,7 +14,7 @@ MediumManager &MediumManager::getInstance()
 }
 
 
-std::shared_ptr<Medium> MediumManager::getMediumBoundary(MediumType type)
+std::shared_ptr<Medium> MediumManager::getMedium(MediumType type)
 {
     if (m_mediums.find(type) == m_mediums.end())
     {

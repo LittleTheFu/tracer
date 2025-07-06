@@ -82,11 +82,13 @@ bool Mesh::hit(const Ray &ray, Interaction &interaction) const
     return false;
 }
 
-void Mesh::addToPool(std::shared_ptr<ObjectPool> pool, std::shared_ptr<Material> material)
+void Mesh::addToPool(std::shared_ptr<ObjectPool> pool, 
+    std::shared_ptr<Material> material, 
+    std::shared_ptr<MediumBoundary> mediumBoundary)
 {
     for (auto it = m_tris.begin(); it != m_tris.end(); it++)
     {
-        std::shared_ptr<GeometryPrimitive> primitive = std::make_shared<GeometryPrimitive>(*it, material);
+        std::shared_ptr<GeometryPrimitive> primitive = std::make_shared<GeometryPrimitive>(*it, material, mediumBoundary);
         pool->addPrimitive(primitive);
     }
 }

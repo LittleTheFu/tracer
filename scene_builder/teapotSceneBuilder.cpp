@@ -14,5 +14,5 @@ void TeapotSceneBuilder::build()
                24,
                ResourceDef::TEAPOT,
                MATERIAL_TYPE::M_GLASS,
-               false);
+               true);
 }

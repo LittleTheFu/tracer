@@ -21,7 +21,7 @@ public:
 
     static MediumManager &getInstance();
 
-    std::shared_ptr<Medium> getMediumBoundary(MediumType type);
+    std::shared_ptr<Medium> getMedium(MediumType type);
 
 private:
     void init();

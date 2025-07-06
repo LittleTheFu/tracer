@@ -1,5 +1,8 @@
 #include "materialGlass.h"
 #include "dielectricBxdf.h"
+#include "mediumBoundary.h"
+#include "medium.h"
+
 
 MaterialGlass::MaterialGlass()
 {
@@ -7,14 +10,16 @@ MaterialGlass::MaterialGlass()
 
 std::unique_ptr<Bsdf> MaterialGlass::createBsdf(const Interaction &interaction)
 {
-    float etaI = 1.0f;
-    float etaT = 1.5f;
+    //hotfix,quick and dirty
+    float etaI = interaction.mediumBoundary->mediumOutside_->eta_;
+    float etaT = interaction.mediumBoundary->mediumInside_->eta_;
 
     bool isSameDir = interaction.incoming.isSameDir(interaction.normal_shading);
     if(isSameDir)
     {
         std::swap(etaI, etaT);
     }
+
 
     std::shared_ptr<DielectricBxdf> dielectricBxdf = std::make_shared<DielectricBxdf>(etaI, etaT);
 

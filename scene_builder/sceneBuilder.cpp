@@ -23,7 +23,8 @@
 #include "materialTRough.h"
 #include <materialManager.h>
 #include <model.h>
-
+#include "mediumBoundary.h"
+#include <mediumManager.h>
 
 void SceneBuilder::init(std::shared_ptr<ObjectPool> pool)
 {
@@ -52,12 +53,10 @@ void SceneBuilder::buildRoom()
     std::shared_ptr<Plane> rightPlane = std::make_shared<Plane>(rightRotate, rightPosition, r);
     std::shared_ptr<Material> rightMtrlLambertian = std::make_shared<MaterialLambertian>(Color::COLOR_BLUE);
 
-
     Vector3 bottomRotate(MathConstant::PI / 2, 0, 0);
     Vector3 bottomPosition(0, c, 0);
     std::shared_ptr<Plane> bottomPlane = std::make_shared<Plane>(bottomRotate, bottomPosition, r);
     std::shared_ptr<Material> bottomMtrlLambertian = std::make_shared<MaterialLambertian>(Color::COLOR_GREEN);
-    
 
     Vector3 topRotate(-MathConstant::PI / 2, 0, 0);
     Vector3 topPosition(0, -c, 0);
@@ -80,7 +79,7 @@ void SceneBuilder::buildRoom()
 
     std::shared_ptr<GeometryPrimitive> rightPrimitive = std::make_shared<GeometryPrimitive>(rightPlane, rightMtrlLambertian);
     m_pObjectPool->addPrimitive(rightPrimitive);
-    
+
     std::shared_ptr<GeometryPrimitive> topPrimitive = std::make_shared<GeometryPrimitive>(topPlane, topMtrlLambertian);
 
     m_pObjectPool->addPrimitive(topPrimitive);
@@ -165,7 +164,7 @@ void SceneBuilder::setLightIntensity(size_t index, float intensity)
     if (!m_pObjectPool)
         return;
 
-    if ( index >= m_pObjectPool->lights_.size())
+    if (index >= m_pObjectPool->lights_.size())
         return;
 
     m_pObjectPool->lights_.at(index)->setIntensity(intensity);
@@ -274,7 +273,7 @@ void SceneBuilder::buildNormalMapGreenPvcBall(const Vector3 &pos, float r)
     std::shared_ptr<MaterialPVC> material = std::make_shared<MaterialPVC>();
     std::shared_ptr<NormalTexture> normalTexture = std::make_shared<NormalTexture>(ResourceDef::NORMAL);
     material->setNormalTexture(normalTexture);
-    
+
     std::shared_ptr<GeometryPrimitive> normalMapGreenPvcPrimitive = std::make_shared<GeometryPrimitive>(normalMapGreenPvcBall, material);
 
     m_pObjectPool->addPrimitive(normalMapGreenPvcPrimitive);
@@ -307,59 +306,59 @@ void SceneBuilder::buildModel(const Vector3 &pos,
     std::shared_ptr<ImageTexture> albedoTexture = std::make_shared<ImageTexture>(ResourceDef::LENA);
     std::shared_ptr<Material> material = nullptr;
 
-    if(materialType == MATERIAL_TYPE::M_RED)
+    if (materialType == MATERIAL_TYPE::M_RED)
     {
         material = std::make_shared<MaterialLambertian>(Color::COLOR_RED);
     }
-    else if(materialType == MATERIAL_TYPE::M_YELLOW)
+    else if (materialType == MATERIAL_TYPE::M_YELLOW)
     {
         material = std::make_shared<MaterialLambertian>(Color::COLOR_YELLOW);
     }
-    else if(materialType == MATERIAL_TYPE::M_GREEN)
+    else if (materialType == MATERIAL_TYPE::M_GREEN)
     {
         material = std::make_shared<MaterialLambertian>(Color::COLOR_GREEN);
     }
-    else if(materialType == MATERIAL_TYPE::M_BLUE)
+    else if (materialType == MATERIAL_TYPE::M_BLUE)
     {
         material = std::make_shared<MaterialLambertian>(Color::COLOR_BLUE);
     }
-    else if(materialType == MATERIAL_TYPE::M_AQUA)
+    else if (materialType == MATERIAL_TYPE::M_AQUA)
     {
         material = std::make_shared<MaterialLambertian>(Color::COLOR_AQUA);
     }
-    else if(materialType == MATERIAL_TYPE::M_WHITE)
+    else if (materialType == MATERIAL_TYPE::M_WHITE)
     {
         material = std::make_shared<MaterialLambertian>(Color::COLOR_WHITE);
     }
-    else if(materialType == MATERIAL_TYPE::M_PURPLE)
+    else if (materialType == MATERIAL_TYPE::M_PURPLE)
     {
         material = std::make_shared<MaterialLambertian>(Color::COLOR_PURPLE);
     }
-    else if(materialType == MATERIAL_TYPE::M_LENA)
+    else if (materialType == MATERIAL_TYPE::M_LENA)
     {
         material = std::make_shared<MaterialLambertian>(albedoTexture);
     }
-    else if(materialType == MATERIAL_TYPE::M_MEASURED_SARI_SILK_BRDF)
+    else if (materialType == MATERIAL_TYPE::M_MEASURED_SARI_SILK_BRDF)
     {
         material = std::make_shared<MaterialSilk>();
     }
-    else if(materialType == MATERIAL_TYPE::M_MEASURED_TARKIN_TUNIC_BRDF)
+    else if (materialType == MATERIAL_TYPE::M_MEASURED_TARKIN_TUNIC_BRDF)
     {
         material = std::make_shared<MaterialTarkinTunic>();
     }
-    else if(materialType == MATERIAL_TYPE::M_MEASURED_GREEN_PVC_BRDF)
+    else if (materialType == MATERIAL_TYPE::M_MEASURED_GREEN_PVC_BRDF)
     {
         material = std::make_shared<MaterialPVC>();
     }
-    else if(materialType == MATERIAL_TYPE::M_GLASS)
+    else if (materialType == MATERIAL_TYPE::M_GLASS)
     {
         material = std::make_shared<MaterialGlass>();
     }
-    else if(materialType == MATERIAL_TYPE::M_MIRROR)
+    else if (materialType == MATERIAL_TYPE::M_MIRROR)
     {
         material = std::make_shared<MaterialMirror>();
     }
-    else if(materialType == MATERIAL_TYPE::M_MICRO_FACET_SPECULAR)
+    else if (materialType == MATERIAL_TYPE::M_MICRO_FACET_SPECULAR)
     {
         material = std::make_shared<MaterialRough>();
     }
@@ -372,28 +371,36 @@ void SceneBuilder::buildModel(const Vector3 &pos,
         assert(0);
     }
 
-    if(useNormalMap)
+    if (useNormalMap)
     {
         std::shared_ptr<NormalTexture> normalTexture = std::make_shared<NormalTexture>(ResourceDef::NORMAL);
         material->setNormalTexture(normalTexture);
     }
-    
+
     std::shared_ptr<Model> model = std::make_shared<Model>(path, pos, scale);
     for (auto mesh : model->getMeshes())
     {
         int materialId = mesh->getMaterialId();
 
-        //overwrite current material if there is a material can be loaded from the file
+        std::shared_ptr<MediumBoundary> mediumBoundary = std::make_shared<MediumBoundary>();
+        mediumBoundary->mediumOutside_ = MediumManager::getInstance().getMedium(MediumType::VACUUM);
+        mediumBoundary->mediumInside_ = MediumManager::getInstance().getMedium(MediumType::VACUUM);
+        if (materialType == MATERIAL_TYPE::M_GLASS)
+        {
+            mediumBoundary->mediumInside_ = MediumManager::getInstance().getMedium(MediumType::GLASS);
+        }
+
+        // overwrite current material if there is a material can be loaded from the file
         if (materialId == -1 || forceUseInjectedMaterial)
         {
-            //use injected material
+            // use injected material
+            mesh->addToPool(m_pObjectPool, material, mediumBoundary);
         }
         else
         {
             material = MaterialManager::getInstance().getMaterial(materialId);
+            mesh->addToPool(m_pObjectPool, material);
         }
-
-        mesh->addToPool(m_pObjectPool, material);
     }
 }
 
@@ -433,7 +440,7 @@ void SceneBuilder::buildGreenTri(const Vector3 &pos)
     TriVertex tc(c, nc);
 
     std::shared_ptr<Tri> tri = std::make_shared<Tri>(ta, tb, tc, pos);
-    std::shared_ptr<Material> material = std::make_shared<MaterialLambertian>(Color::COLOR_YELLOW); 
+    std::shared_ptr<Material> material = std::make_shared<MaterialLambertian>(Color::COLOR_YELLOW);
     std::shared_ptr<GeometryPrimitive> primitive = std::make_shared<GeometryPrimitive>(tri, material);
 
     m_pObjectPool->addPrimitive(primitive);
@@ -441,19 +448,19 @@ void SceneBuilder::buildGreenTri(const Vector3 &pos)
 
 // void SceneBuilder::buildGlassTri(const Vector3 &pos)
 // {
-    // TriVertex a(-100, -100, -20);
-    // TriVertex b(-80, 90, 0);
-    // TriVertex c(40, -90, -10);
+// TriVertex a(-100, -100, -20);
+// TriVertex b(-80, 90, 0);
+// TriVertex c(40, -90, -10);
 // }
 
 // void SceneBuilder::buildRedCurve(const Vector3 &pos)
 // {
-    // Vector3 p0 = {-150, -50, 280};
-    // Vector3 p1 = {-150, 50, 280};
-    // Vector3 p2 = {150, -150, 280};
-    // Vector3 p3 = {150, 150, 280};
+// Vector3 p0 = {-150, -50, 280};
+// Vector3 p1 = {-150, 50, 280};
+// Vector3 p2 = {150, -150, 280};
+// Vector3 p3 = {150, 150, 280};
 
-    // std::shared_ptr<Curve> redCurve = std::make_shared<Curve>(p0, p1, p2, p3);
+// std::shared_ptr<Curve> redCurve = std::make_shared<Curve>(p0, p1, p2, p3);
 
-    // m_pObjectPool->add(redCurve);
+// m_pObjectPool->add(redCurve);
 // }
