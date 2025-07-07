@@ -10,17 +10,38 @@ void CubeSceneBuilder::build()
     // setLightIntensity(1, 30.0f);
     // setLightIntensity(2, 30.0f);
 
-    buildModel(Vector3(-10, 0, 300),
-               30,
+    buildModel(Vector3(-30, -30, 300),
+               20,
                ResourceDef::SLAB,
                MATERIAL_TYPE::M_YELLOW,
                false,
                true);
 
-    buildModel(Vector3(10, 0, 220),
+    buildModel(Vector3(-30, 30, 300),
                20,
                ResourceDef::SLAB,
-               MATERIAL_TYPE::M_MICRO_FACET_TRANSMISSION,
+               MATERIAL_TYPE::M_RED,
+               false,
+               true);
+
+    buildModel(Vector3(30, -30, 300),
+               20,
+               ResourceDef::SLAB,
+               MATERIAL_TYPE::M_AQUA,
+               false,
+               true);
+
+    buildModel(Vector3(30, 30, 300),
+               20,
+               ResourceDef::SLAB,
+               MATERIAL_TYPE::M_GREEN,
+               false,
+               true);
+
+    buildModel(Vector3(0, 0, 200),
+               20,
+               ResourceDef::SLAB,
+               MATERIAL_TYPE::M_WHITE,
                false,
                true);
 }

@@ -92,7 +92,8 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
             BxdfType sampledType;
             Color sampled_f = bsdf->sample_f(-hitRay.dir, wi, _pdf, sampledType, interaction, BxdfType::ALL);
 
-            if (_pdf < MathConstant::FLOAT_SMALL_NUMBER || sampled_f.isBlack())
+            // if (_pdf < MathConstant::FLOAT_SMALL_NUMBER || sampled_f.isBlack())
+            if (sampled_f.isBlack())
             {
                 break;
             }
@@ -104,7 +105,8 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
             else
             {
                 float cos_theta_incident_abs = std::abs(interaction.normal_shading.dot(wi));
-                beta *= (sampled_f * cos_theta_incident_abs) / _pdf;
+                Color tmp = (sampled_f * cos_theta_incident_abs) / _pdf;//debug
+                beta *= tmp;
             }
 
         

@@ -24,6 +24,15 @@ Scene::Scene(SceneType sceneType, int resolutionScale, int samplersPerPixel, int
     m_pBuilder->init(m_pObjectPool);
 
     m_pCamera = std::make_shared<PinholeCamera>(resolutionScale, samplersPerPixel);
+
+    if(configEnableLogProgress)
+    {
+        m_pCamera->enableLog();
+    }
+    else
+    {
+        m_pCamera->disableLog();
+    }
 }
 
 void Scene::run()
@@ -112,7 +121,7 @@ bool Scene::isBVHOn(SceneType type) const
         return true;
 
     if (type == SceneType::ROOM_CUBE)
-        return false;
+        return true;
 
     return false;
 }

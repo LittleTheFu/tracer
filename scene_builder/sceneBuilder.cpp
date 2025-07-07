@@ -387,7 +387,8 @@ void SceneBuilder::buildModel(const Vector3 &pos,
         mediumBoundary->mediumInside_ = MediumManager::getInstance().getMedium(MediumType::VACUUM);
         if (materialType == MATERIAL_TYPE::M_GLASS)
         {
-            mediumBoundary->mediumInside_ = MediumManager::getInstance().getMedium(MediumType::GLASS);
+            //debug
+            // mediumBoundary->mediumInside_ = MediumManager::getInstance().getMedium(MediumType::GLASS);
         }
 
         // overwrite current material if there is a material can be loaded from the file

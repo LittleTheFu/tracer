@@ -306,6 +306,14 @@ Vector3 Vector3::refract(const Vector3 &normal,
     assert((etaI != 0) && "Vector3::_refract");
     assert((etaT != 0) && "Vector3::_refract");
 
+    //hotfix,I'will come back here later....
+    if (std::abs(etaI - etaT) < MathConstant::FLOAT_SMALL_NUMBER) 
+    {
+        totalReflect = false; // 折射率相同，不可能发生全反射
+        fresnel = 0.0f;       // 折射率相同，没有反射
+        return *this;         // 光线直进直出，返回原始入射方向
+    }
+
     float current_etaI = etaI; 
     float current_etaT = etaT; 
 
