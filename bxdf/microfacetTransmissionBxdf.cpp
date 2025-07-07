@@ -52,6 +52,10 @@ Color MicrofacetTransmissionBxdf::sample_f(const Vector3 &wo, Vector3 &wi, float
     // BxDF 在局部空间工作，表面法线 N 默认为 (0,0,1)
     // 根据重要提示，假定 wo 已经在正确的半球，不需要翻转
     Vector3 N(0.0f, 0.0f, 1.0f); // 局部空间宏观法线
+    if(!N.isSameDir(wo))
+    {
+        N = -N;
+    }
     Vector3 local_wo = wo;       // 假设 wo 已经根据 N 调整到局部空间正确半球
     Vector3 local_N = N;         // 宏观法线保持 (0,0,1)
 
@@ -137,6 +141,7 @@ Color MicrofacetTransmissionBxdf::sample_f(const Vector3 &wo, Vector3 &wi, float
     Color sampled_f = (T_color * D_val * G_val * (current_etaT * current_etaT) * std::abs(H_dot_Wi)) / final_denominator_val;
 
     sampled_f.clamp();
+    sampled_f = Color::COLOR_WHITE;
     
     return sampled_f;
 }
@@ -149,6 +154,10 @@ Color MicrofacetTransmissionBxdf::f(const Vector3 &wo, const Vector3 &wi) const
     // BxDF 在局部空间工作，表面法线 N 默认为 (0,0,1)
     // 根据重要提示，假定 wo 和 wi 已经在正确的半球，不需要翻转
     Vector3 N(0.0f, 0.0f, 1.0f); // 局部空间宏观法线
+    if(!N.isSameDir(wo))
+    {
+        N = -N;
+    }
     Vector3 local_wo = wo;       // 假设 wo 已经根据 N 调整到局部空间正确半球
     Vector3 local_N = N;         // 宏观法线保持 (0,0,1)
     Vector3 current_wi = wi;     // 假设 wi 已经根据 N 调整到局部空间正确半球
@@ -218,6 +227,10 @@ float MicrofacetTransmissionBxdf::pdf(const Vector3 &wo, const Vector3 &wi) cons
     // BxDF 在局部空间工作，表面法线 N 默认为 (0,0,1)
     // 根据重要提示，假定 wo 和 wi 已经在正确的半球，不需要翻转
     Vector3 N(0.0f, 0.0f, 1.0f); // 局部空间宏观法线
+    if(!N.isSameDir(wo))
+    {
+        N = -N;
+    }
     Vector3 local_wo = wo;       // 假设 wo 已经根据 N 调整到局部空间正确半球
     Vector3 local_N = N;         // 宏观法线保持 (0,0,1)
     Vector3 current_wi = wi;     // 假设 wi 已经根据 N 调整到局部空间正确半球
