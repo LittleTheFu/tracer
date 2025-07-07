@@ -15,6 +15,7 @@ public:
     inline const static std::string TEAPOT = "../resource/teapot.obj";
     inline const static std::string BOT = "../resource/bot.fbx";
     inline const static std::string CUBE = "../resource/cube.obj";
+    inline const static std::string SLAB = "../resource/slab.obj";
     
     inline const static std::string BRDF_WHITE = "../resource/ilm_l3_37_matte_rgb.bsdf";
     inline const static std::string BRDF_GREEN = "../resource/acrylic_felt_green_rgb.bsdf";

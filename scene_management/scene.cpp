@@ -112,7 +112,7 @@ bool Scene::isBVHOn(SceneType type) const
         return true;
 
     if (type == SceneType::ROOM_CUBE)
-        return false;
+        return true;
 
     return false;
 }
