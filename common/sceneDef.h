@@ -12,6 +12,7 @@ enum class SceneType {
     ROOM_VOLUME,
     ROOM_BOT,
     ROOM_CUBE,
+    ROOM_CORNELL,
 };
 
 #endif

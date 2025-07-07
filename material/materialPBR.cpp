@@ -13,6 +13,7 @@ MaterialPBR::MaterialPBR(const Color &albedo, float roughness, float metallic)
     metallic_ = std::clamp(metallic_, 0.0f, 1.0f);
 }
 
+//at this moment only consider albedo
 std::unique_ptr<Bsdf> MaterialPBR::createBsdf(const Interaction &interaction)
 {
     std::unique_ptr<Bsdf> bsdf = std::make_unique<Bsdf>(interaction.normal_shading);
@@ -27,8 +28,8 @@ std::unique_ptr<Bsdf> MaterialPBR::createBsdf(const Interaction &interaction)
     Color diffuseColor = currentAlbedo * (Color(1.0f) - specularF0);
     diffuseColor.clamp();
 
-    bsdf->addBxdf(std::make_unique<LambertianBxdf>(diffuseColor));
-    bsdf->addBxdf(std::make_unique<MicrofacetSpecularBxdf>(currentRoughness, specularF0));
+    bsdf->addBxdf(std::make_unique<LambertianBxdf>(currentAlbedo));
+    // bsdf->addBxdf(std::make_unique<MicrofacetSpecularBxdf>(currentRoughness, specularF0));
     // bsdf->addBxdf(std::make_unique<DielectricBxdf>());
 
     return bsdf;

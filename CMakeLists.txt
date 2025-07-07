@@ -123,6 +123,7 @@ SET (SCENE_BUILDER_SOURCE_FILES
     ${SCENE_BUILDER_DIR}/botSceneBuilder.cpp
     ${SCENE_BUILDER_DIR}/volumeSceneBuilder.cpp
     ${SCENE_BUILDER_DIR}/cubeSceneBuilder.cpp
+    ${SCENE_BUILDER_DIR}/cornellSceneBuilder.cpp
 )
 
 SET (MANAGER_DIR "manager")
