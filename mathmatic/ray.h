@@ -4,6 +4,7 @@
 #include "frame.h"
 #include "transform.h"
 #include "vector.h"
+#include <memory>
 // #include "medium.h"
 
 class Medium;
