@@ -10,18 +10,26 @@ public:
     Vector3();
     Vector3(float x, float y, float z);
 
+    Vector3 getFloor() const;
+    Vector3 getFractional() const;
+
     Vector3 cross(const Vector3 &that) const;
 
     Vector3 operator+(const Vector3 &that) const;
     Vector3 operator-(const Vector3 &that) const;
     Vector3 operator-() const;
+
+
+    //------------warning: only one should be used,I will come back here later...
     float operator*(const Vector3 &that) const;
+    float dot(const Vector3 &that) const;
+    //-----------warning end------
+
+    friend Vector3 operator*(const float s, const Vector3 &v);
     Vector3 operator*(float m) const;
     Vector3 &operator*=(float m);
     Vector3 operator/(float m) const;
     Vector3 &operator/=(float m);
-    friend Vector3 operator*(const float s, const Vector3 &v);
-
     Vector3 abs() const;
 
     Vector3 div_component_wise(const Vector3 &that) const;

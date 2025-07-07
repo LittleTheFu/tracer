@@ -6,22 +6,7 @@
 #include "mathConstantDef.h"
 #include "mathUtility.h"
 #include <random>
-#include <chrono>   // 用于获取时间作为随机数种子
 
-
-// 声明一个全局或静态的随机数生成器和分布
-// 最好是只初始化一次，而不是每次调用函数都初始化
-static std::mt19937_64 rng(std::chrono::high_resolution_clock::now().time_since_epoch().count());
-// 解释：
-// std::mt19937_64 是一个 Mersenne Twister 引擎，它是一个高质量的伪随机数生成器。
-// std::chrono::high_resolution_clock::now().time_since_epoch().count()
-// 用当前高精度时间作为种子，确保每次程序运行的随机序列不同。
-
-static std::uniform_real_distribution<double> dist(0.0, 1.0);
-// 解释：
-// std::uniform_real_distribution<double> 定义了一个均匀分布，
-// 它会生成指定范围 [a, b) 内的浮点数。
-// 这里是 [0.0, 1.0)，表示包含 0.0，但不包含 1.0。
 
 bool MathUtility::is_in_range(float value, float low, float high, bool equalLow, bool equalHigh)
 {
@@ -126,30 +111,17 @@ bool MathUtility::solveLinerEquation(float a, float b, float c, float &r_min, fl
 
 float MathUtility::interpolate(float a, float b, float t)
 {
-    if (t <= 0)
-    {
-        return a;
-    }
-
-    if (t >= 1)
-    {
-        return b;
-    }
+    t = std::clamp(t, 0.0f, 1.0f);
 
     return a * (1 - t) + b * t;
 }
 
 float MathUtility::genRandomDecimal()
 {
-    return dist(rng); // 从生成器 rng 中获取一个符合 dist 分布的随机数
+    float d = static_cast<float>(RAND_MAX) + 1.0f; 
+    float u = static_cast<float>(std::rand()) / d;
 
-    // float max = (float)RAND_MAX;
-    // float u = 0;
-
-    // while (u == 0)
-    //     u = std::rand() / max;
-
-    // return u;
+    return u;
 }
 
 float MathUtility::genRamdomSignDecimal()
@@ -259,6 +231,11 @@ float MathUtility::getMax(float a0, float a1, float a2)
 float MathUtility::smooth(float t)
 {
    return t * t * (3 - 2 * t);
+}
+
+float MathUtility::smoothStep(float t)
+{
+    return t * t * t * (t * (t * 6 - 15) + 10);
 }
 
 float MathUtility::getSign(float x)

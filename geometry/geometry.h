@@ -4,26 +4,19 @@
 #include <memory>
 
 #include "boundBox.h"
-#include "media.h"
 #include "ray.h"
 #include "tagDef.h"
 #include "transform.h"
 #include "vector.h"
-#include "material.h"
 
 //for refactoring
 #include "interaction.h"
-#include "materialPlus.h"
+#include "material.h"
 // class Interaction;
 
 
 class Geometry
 {
-//for test media, not used right now
-public:
-    Media m_outsideMedia;
-    Media m_insideMedia;  
-      
 public:
     Geometry();
     

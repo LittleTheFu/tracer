@@ -1,32 +1,32 @@
 #include "material.h"
 
-Material::Material()
+std::unique_ptr<Bsdf> Material::createBsdf(const Interaction& interaction)
 {
-    m_NormalTexture = nullptr;
+    return nullptr;
 }
 
-Color Material::eval(float u,
-                     float v,
-                     const Vector3 &wo,
-                     Vector3 &wi,
-                     float &pdf,
-                     bool &isDelta,
-                     std::shared_ptr<Brdf> &brdf)
+bool Material::isEmitting() const
 {
-    return Color::COLOR_BLACK;
+    return false;
 }
 
-void Material::setNormalTexture(std::shared_ptr<NormalTexture> normalTexture)
+Color Material::getEmittedRadiance() const
 {
-    m_NormalTexture = normalTexture;
+    return Color::COLOR_WHITE;
 }
 
-bool Material::isNormalTextureValid() const
+bool Material::hasNormalMap() const
 {
-    return m_NormalTexture != nullptr;
+    return normalTexture_ != nullptr;
 }
 
 std::shared_ptr<NormalTexture> Material::getNormalTexture() const
 {
-    return m_NormalTexture;
+    return normalTexture_;
 }
+
+void Material::setNormalTexture(std::shared_ptr<NormalTexture> normalTexture)
+{
+    normalTexture_ = normalTexture;
+}
+

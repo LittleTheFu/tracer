@@ -3,10 +3,6 @@
 
 #include <memory>
 
-#include "dielectricMaterial.h"
-#include "diffuseMaterial.h"
-#include "refreactorMaterial.h"
-#include "mirrorMaterial.h"
 #include "materialDef.h"
 #include "objectpool.h"
 
@@ -30,7 +26,7 @@ protected:
 
     void buildMeshRoom();
     void buildLight(const Vector3& pos, float r);
-    void setLightIntensity(float intensity);
+    void setLightIntensity(size_t index, float intensity);
 
     void buildSceneWithDefaultConfig();
 
@@ -58,9 +54,10 @@ protected:
 
     void buildModel(const Vector3 &pos,
                     float scale,
-                    const std::string &model,
+                    const std::string &path,
                     MATERIAL_TYPE materialType,
-                    bool useNormalMap = false);
+                    bool useNormalMap = false,
+                    bool forceUseInjectedMaterial = true);
 
     void buildRedTri(const Vector3& pos);
     void buildGreenTri(const Vector3& pos);

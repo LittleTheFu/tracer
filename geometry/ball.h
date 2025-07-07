@@ -4,13 +4,16 @@
 #include <memory>
 
 #include "geometry.h"
-#include "material.h"
 
 class Ball : public Geometry
 {
 public:
     Ball();
     Ball(const Vector3 &rotate, const Vector3 &position, float r);
+
+    //for volume interaction
+    bool hit(const Ray &ray, float &tMin, float &tMax) const;
+    //end(for volume interaction)
 
     virtual bool hit(const Ray &ray, Interaction &interaction) const override;
     virtual Vector3 sampleFromPoint(const Vector3 &thatPoint, float &pdf) const override;

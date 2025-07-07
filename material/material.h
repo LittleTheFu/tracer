@@ -1,33 +1,33 @@
-#ifndef _R_MATERIAL_H_
-#define _R_MATERIAL_H_
+#ifndef _MATERIAL_PLUS_H_
+#define _MATERIAL_PLUS_H_
 
-#include "brdf.h"
-#include "color.h"
-#include "ray.h"
+#include "bsdf.h"
+#include "imageTexture.h"
 #include "normalTexture.h"
-#include "vector.h"
+#include "interaction.h"
 #include <memory>
+#include "color.h"
+
 
 class Material
 {
 public:
-    Material();
+    Material() = default;
+    virtual ~Material() = default;
 
-    virtual Color eval(float u,
-                       float v,
-                       const Vector3 &wo,
-                       Vector3 &wi,
-                       float &pdf,
-                       bool &isDelta,
-                       std::shared_ptr<Brdf> &brdf);
-    
-    //at this time,it only works for meshes,others will be added later...
-    void setNormalTexture(std::shared_ptr<NormalTexture> normalTexture);
-    bool isNormalTextureValid() const;
+public:
+    virtual std::unique_ptr<Bsdf> createBsdf(const Interaction& interaction);
+
+    virtual bool isEmitting() const;
+    virtual Color getEmittedRadiance() const;
+
+    bool hasNormalMap() const;
     std::shared_ptr<NormalTexture> getNormalTexture() const;
+    void setNormalTexture(std::shared_ptr<NormalTexture> normalTexture);
 
-private:
-    std::shared_ptr<NormalTexture> m_NormalTexture;
+protected:
+    std::shared_ptr<ImageTexture> albedoTexture_;
+    std::shared_ptr<NormalTexture> normalTexture_;
 };
 
 #endif

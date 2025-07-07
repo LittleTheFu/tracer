@@ -4,7 +4,6 @@
 #include "geometry.h"
 #include "vector.h"
 #include <memory>
-#include <material.h>
 
 class TriVertex
 {

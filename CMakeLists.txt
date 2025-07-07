@@ -1,9 +1,19 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.20)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
 project (ray_tracer)
+
+SET (MATHMATIC_DIR "mathmatic")
+SET (MATHMATIC_SOURCE_FILES
+    ${MATHMATIC_DIR}/frame.cpp
+    ${MATHMATIC_DIR}/matrix.cpp
+    ${MATHMATIC_DIR}/ray.cpp
+    ${MATHMATIC_DIR}/russianRoulette.cpp
+    ${MATHMATIC_DIR}/transform.cpp
+    ${MATHMATIC_DIR}/vector.cpp
+)
 
 SET (INTEGRATOR_DIR "integrator")
 SET (INTEGRATOR_SOURCE_FILES
@@ -11,203 +21,158 @@ SET (INTEGRATOR_SOURCE_FILES
     ${INTEGRATOR_DIR}/pathIntegrator.cpp
 )
 
+SET (GEOMETRY_DIR "geometry")
+SET (GEOMETRY_SOURCE_FILES
+    ${GEOMETRY_DIR}/ball.cpp
+    ${GEOMETRY_DIR}/boundBox.cpp
+    ${GEOMETRY_DIR}/circle.cpp
+    ${GEOMETRY_DIR}/curve.cpp
+    ${GEOMETRY_DIR}/geometry.cpp
+    ${GEOMETRY_DIR}/mesh.cpp
+    ${GEOMETRY_DIR}/model.cpp
+    ${GEOMETRY_DIR}/plane.cpp
+    ${GEOMETRY_DIR}/room.cpp
+    ${GEOMETRY_DIR}/tri.cpp
+    ${GEOMETRY_DIR}/geometryPrimitive.cpp
+    ${GEOMETRY_DIR}/interaction.cpp
+    ${GEOMETRY_DIR}/primitive.cpp
+)
+
+SET (VOLUME_DIR "volume")
+SET (VOLUME_SOURCE_FILES
+    ${VOLUME_DIR}/volume.cpp
+    ${VOLUME_DIR}/sphereVolume.cpp
+    ${VOLUME_DIR}/medium.cpp
+    ${VOLUME_DIR}/mediumInteraction.cpp
+    ${VOLUME_DIR}/perlinNoise.cpp
+    ${VOLUME_DIR}/vox.cpp
+)
+
+SET (MATERIAL_DIR "material")
+SET (MATERIAL_SOURCE_FILES
+    ${MATERIAL_DIR}/material.cpp
+    ${MATERIAL_DIR}/materialLambertian.cpp
+    ${MATERIAL_DIR}/materialMirror.cpp
+    ${MATERIAL_DIR}/materialGlass.cpp
+    ${MATERIAL_DIR}/materialSilk.cpp
+    ${MATERIAL_DIR}/materialTarkinTunic.cpp
+    ${MATERIAL_DIR}/materialPVC.cpp
+    ${MATERIAL_DIR}/emittingMaterial.cpp
+    ${MATERIAL_DIR}/materialTRough.cpp
+    ${MATERIAL_DIR}/materialRough.cpp
+    ${MATERIAL_DIR}/materialPBR.cpp
+)
+
+SET (LIGHT_DIR "light")
+SET (LIGHT_SOURCE_FILES
+    ${LIGHT_DIR}/areaLight.cpp
+)
+
 SET (BXDF_DIR "bxdf")
-SET (BXDF_SOURCE_FILES 
+SET (BXDF_SOURCE_FILES
     ${BXDF_DIR}/bsdf.cpp
     ${BXDF_DIR}/bxdf.cpp
-    ${BXDF_DIR}/interaction.cpp
-    ${BXDF_DIR}/materialLambertian.cpp
-    ${BXDF_DIR}/materialPlus.cpp
-    ${BXDF_DIR}/emittingMaterial.cpp
     ${BXDF_DIR}/lambertianBxdf.cpp
-    ${BXDF_DIR}/primitive.cpp
-    ${BXDF_DIR}/geometryPrimitive.cpp
-    ${BXDF_DIR}/areaLight.cpp
-    ${BXDF_DIR}/materialPVC.cpp
     ${BXDF_DIR}/measuredBxdf.cpp
-    ${BXDF_DIR}/materialMirror.cpp
     ${BXDF_DIR}/specularBxdf.cpp
     ${BXDF_DIR}/dielectricBxdf.cpp
-    ${BXDF_DIR}/materialGlass.cpp
-    ${BXDF_DIR}/materialSilk.cpp
-    ${BXDF_DIR}/materialTarkinTunic.cpp
+    ${BXDF_DIR}/microfacetSpecularBxdf.cpp
+    ${BXDF_DIR}/microfacetTransmissionBxdf.cpp
 )
 
-SET (RAY_TRACER_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/ray_tracer")
-
-SET (RAY_TRACER_SOURCE
-    brdf/brdf.cpp
-    brdf/conductorBrdf.cpp
-    brdf/refreactorBsdf.cpp
-    brdf/measuredBrdf.cpp
-    brdf/diffuseBrdf.cpp
-    brdf/microfacet.cpp
-    brdf/mirror.cpp
-    camera/camera.cpp
-    camera/fishEyeCamera.cpp
-    camera/orthographicCamera.cpp
-    camera/pinholeCamera.cpp
-    common/color.cpp
-    common/common.cpp
-    common/config.cpp
-    common/converter.cpp
-    common/mathUtility.cpp
-    common/noise.cpp
-    common/spectrum.cpp
-    common/timeRecorder.cpp
-    geometry/ball.cpp
-    geometry/boundBox.cpp
-    geometry/circle.cpp
-    geometry/curve.cpp
-    geometry/geometry.cpp
-    geometry/mesh.cpp
-    geometry/plane.cpp
-    geometry/room.cpp
-    geometry/tri.cpp
-    # main/main.cpp
-    material/combinedMaterial.cpp
-    material/conductorMaterial.cpp
-    material/dummyMaterial.cpp
-    material/refreactorMaterial.cpp
-    material/diffuseMaterial.cpp
-    material/material.cpp
-    material/materialManager.cpp
-    material/measuredMaterial.cpp
-    material/microMaterial.cpp
-    material/mirrorMaterial.cpp
-    material/dielectricMaterial.cpp
-    mathmatic/frame.cpp
-    mathmatic/matrix.cpp
-    mathmatic/ray.cpp
-    mathmatic/russianRoulette.cpp
-    mathmatic/transform.cpp
-    mathmatic/vector.cpp
-    media/media.cpp
-    scene/bvh.cpp
-    scene/bvhNode.cpp
-    scene/simpleHitter.cpp
-    scene/hitterInterface.cpp
-    scene/objectpool.cpp
-    scene/scene.cpp
-    scene_builder/curveSceneBuilder.cpp
-    scene_builder/complexBunnySceneBuilder.cpp
-    scene_builder/simpleBunnySceneBuilder.cpp
-    scene_builder/simpleSceneBuilder.cpp
-    scene_builder/mtrlSceneBuilder.cpp
-    scene_builder/normalMapSceneBuilder.cpp
-    scene_builder/sceneBuilder.cpp
-    scene_builder/teapotSceneBuilder.cpp
-    scene_builder/volumeSceneBuilder.cpp
-    volume/vox.cpp
-    texture/chessboardTexture.cpp
-    texture/constTexture.cpp
-    texture/imageTexture.cpp
-    texture/noiseTexture.cpp
-    texture/normalTexture.cpp
-    texture/texture.cpp
-    texture/uvTexture.cpp
+SET (CAMERA_DIR "camera")
+SET (CAMERA_SOURCE_FILES
+    ${CAMERA_DIR}/camera.cpp
+    ${CAMERA_DIR}/fishEyeCamera.cpp
+    ${CAMERA_DIR}/orthographicCamera.cpp
+    ${CAMERA_DIR}/pinholeCamera.cpp
 )
 
-SET (RAY_TRACER_HEADER
-    brdf/brdf.h
-    brdf/conductorBrdf.h
-    brdf/refreactorBsdf.h
-    brdf/measuredBrdf.h
-    brdf/diffuseBrdf.h
-    brdf/microfacet.h
-    brdf/mirror.h
-    camera/camera.h
-    camera/fishEyeCamera.h
-    camera/orthographicCamera.h
-    camera/pinholeCamera.h
-    common/axisDef.h
-    common/color.h
-    common/common.h
-    common/config.h
-    common/converter.h
-    common/mathConstantDef.h
-    common/mathUtility.h
-    common/noise.h
-    common/resourceDef.h
-    common/sceneDef.h
-    common/spectrum.h
-    common/tagDef.h
-    common/timeRecorder.h
-    common/tracerDef.h
-    geometry/ball.h
-    geometry/boundBox.h
-    geometry/circle.h
-    geometry/curve.h
-    geometry/geometry.h
-    geometry/mesh.h
-    geometry/plane.h
-    geometry/room.h
-    geometry/tri.h
-    material/combinedMaterial.h
-    material/conductorMaterial.h
-    material/dummyMaterial.h
-    material/refreactorMaterial.h
-    material/diffuseMaterial.h
-    material/material.h
-    material/materialDef.h
-    material/materialManager.h
-    material/measuredMaterial.h
-    material/microMaterial.h
-    material/mirrorMaterial.h
-    material/dielectricMaterial.h
-    mathmatic/frame.h
-    mathmatic/matrix.h
-    mathmatic/ray.h
-    mathmatic/russianRoulette.h
-    mathmatic/transform.h
-    mathmatic/vector.h
-    media/media.h
-    scene/bvh.h
-    scene/bvhNode.h
-    scene/simpleHitter.h
-    scene/hitterInterface.h
-    scene/objectpool.h
-    scene/scene.h
-    scene_builder/curveSceneBuilder.h
-    scene_builder/complexBunnySceneBuilder.h
-    scene_builder/simpleBunnySceneBuilder.h
-    scene_builder/simpleSceneBuilder.h
-    scene_builder/mtrlSceneBuilder.h
-    scene_builder/normalMapSceneBuilder.h
-    scene_builder/sceneBuilder.h
-    scene_builder/volumeSceneBuilder.h
-    scene_builder/teapotSceneBuilder.h
-    volume/vox.h
-    texture/chessboardTexture.h
-    texture/constTexture.h
-    texture/imageTexture.h
-    texture/noiseTexture.h
-    texture/normalTexture.h
-    texture/texture.h
-    texture/uvTexture.h
+SET (COMMON_DIR "common")
+SET (COMMON_SOURCE_FILES
+    ${COMMON_DIR}/color.cpp
+    ${COMMON_DIR}/common.cpp
+    ${COMMON_DIR}/config.cpp
+    ${COMMON_DIR}/converter.cpp
+    ${COMMON_DIR}/mathUtility.cpp
+    ${COMMON_DIR}/noise.cpp
+    ${COMMON_DIR}/spectrum.cpp
+    ${COMMON_DIR}/timeRecorder.cpp
 )
 
-INCLUDE_DIRECTORIES(${BXDF_DIR}
-                    ${INTEGRATOR_DIR}
-                    brdf 
-                    camera
-                    common 
-                    geometry 
-                    material
-                    mathmatic 
-                    media
-                    scene
-                    scene_builder  
-                    volume
-                    test
-                    texture 
-                    )
-                    
-add_library(mylibs STATIC 
-            ${RAY_TRACER_SOURCE} 
-            ${RAY_TRACER_HEADER} 
-            ${BXDF_SOURCE_FILES}
-            ${INTEGRATOR_SOURCE_FILES})
+SET (SCENE_DIR "scene_management")
+SET (SCENE_SOURCE_FILES
+    ${SCENE_DIR}/bvh.cpp
+    ${SCENE_DIR}/bvhNode.cpp
+    ${SCENE_DIR}/simpleHitter.cpp
+    ${SCENE_DIR}/hitterInterface.cpp
+    ${SCENE_DIR}/objectpool.cpp
+    ${SCENE_DIR}/scene.cpp
+)
+
+SET (SCENE_BUILDER_DIR "scene_builder")
+SET (SCENE_BUILDER_SOURCE_FILES
+    ${SCENE_BUILDER_DIR}/curveSceneBuilder.cpp
+    ${SCENE_BUILDER_DIR}/complexBunnySceneBuilder.cpp
+    ${SCENE_BUILDER_DIR}/simpleBunnySceneBuilder.cpp
+    ${SCENE_BUILDER_DIR}/simpleSceneBuilder.cpp
+    ${SCENE_BUILDER_DIR}/mtrlSceneBuilder.cpp
+    ${SCENE_BUILDER_DIR}/normalMapSceneBuilder.cpp
+    ${SCENE_BUILDER_DIR}/sceneBuilder.cpp
+    ${SCENE_BUILDER_DIR}/teapotSceneBuilder.cpp
+    ${SCENE_BUILDER_DIR}/botSceneBuilder.cpp
+    ${SCENE_BUILDER_DIR}/volumeSceneBuilder.cpp
+)
+
+SET (MANAGER_DIR "manager")
+SET (MANAGER_SOURCE_FILES
+    ${MANAGER_DIR}/id.cpp
+    ${MANAGER_DIR}/materialManager.cpp
+    ${MANAGER_DIR}/textureManager.cpp
+)
+
+SET (TEXTURE_DIR "texture")
+SET (TEXTURE_SOURCE_FILES
+    ${TEXTURE_DIR}/chessboardTexture.cpp
+    ${TEXTURE_DIR}/constTexture.cpp
+    ${TEXTURE_DIR}/imageTexture.cpp
+    ${TEXTURE_DIR}/noiseTexture.cpp
+    ${TEXTURE_DIR}/normalTexture.cpp
+    ${TEXTURE_DIR}/texture.cpp
+    ${TEXTURE_DIR}/uvTexture.cpp
+)
+
+INCLUDE_DIRECTORIES(
+    ${BXDF_DIR}
+    ${INTEGRATOR_DIR}
+    ${GEOMETRY_DIR}
+    ${MATERIAL_DIR}
+    ${MANAGER_DIR}
+    ${LIGHT_DIR}
+    ${MATHMATIC_DIR}
+    ${CAMERA_DIR}
+    ${COMMON_DIR}
+    ${SCENE_DIR}
+    ${SCENE_BUILDER_DIR}
+    ${VOLUME_DIR}
+    ${TEXTURE_DIR}
+)
+
+add_library(mylibs STATIC
+    ${MATHMATIC_SOURCE_FILES}
+    ${INTEGRATOR_SOURCE_FILES}
+    ${GEOMETRY_SOURCE_FILES}
+    ${MATERIAL_SOURCE_FILES}
+    ${MANAGER_SOURCE_FILES}
+    ${LIGHT_SOURCE_FILES}
+    ${BXDF_SOURCE_FILES}
+    ${CAMERA_SOURCE_FILES}
+    ${COMMON_SOURCE_FILES}
+    ${SCENE_SOURCE_FILES}
+    ${SCENE_BUILDER_SOURCE_FILES}
+    ${TEXTURE_SOURCE_FILES}
+    ${VOLUME_SOURCE_FILES}
+)
 
 add_subdirectory(${PROJECT_SOURCE_DIR}/third/assimp/)
 include_directories(${PROJECT_SOURCE_DIR}/third/assimp/include)
@@ -219,35 +184,24 @@ include_directories(${PROJECT_SOURCE_DIR}/third/lodepng/include)
 add_subdirectory(${PROJECT_SOURCE_DIR}/third/powitacq/)
 include_directories(${PROJECT_SOURCE_DIR}/third/powitacq/include)
 
-# --- START GOOGLETEST INTEGRATION ---
-
-# Add googletest as a subdirectory. This assumes googletest/ is at third/googletest
-# and contains its own CMakeLists.txt.
 add_subdirectory(${PROJECT_SOURCE_DIR}/third/googletest)
 
-# Find googletest. This will provide targets like gtest, gtest_main, gmock, gmock_main
-# find_package(GTest CONFIG REQUIRED)
-
-# Add your test executable
-add_executable(tracer_tests 
-                test/test.cpp
-                test/vectorTest.cpp)
-
-
-# Link your test executable with your project's library and googletest
-target_link_libraries(tracer_tests
-    mylibs
-    GTest::gtest_main  # Links against gtest and gtest_main (which provides main() function)
-    # If you're using Google Mock, you'd also add GTest::gmock_main
+add_executable(tracer_tests
+    test/test.cpp
+    # test/vectorTest.cpp
+    # test/perlinNoiseTest.cpp
 )
 
-# Enable testing for your project
+target_link_libraries(tracer_tests
+    mylibs
+    assimp
+    lodepng
+    powitacq
+    GTest::gtest_main
+)
+
 enable_testing()
-
-# Add the tests to CTest (optional, but good practice)
 add_test(NAME MyTracerTests COMMAND tracer_tests)
-
-# --- END GOOGLETEST INTEGRATION ---
 
 add_executable(ray_tracer main/main.cpp )
 
@@ -261,8 +215,7 @@ set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/install" CACHE PATH "Install path"
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/resource/ DESTINATION ${CMAKE_BINARY_DIR}/resource/
         FILES_MATCHING PATTERN "*")
 
-install(TARGETS ray_tracer  mylibs assimp lodepng RUNTIME DESTINATION ${CMAKE_BINARY_DIR}/bin/)
-
+install(TARGETS ray_tracer mylibs assimp lodepng RUNTIME DESTINATION ${CMAKE_BINARY_DIR}/bin/)
 
 if(WIN32)
     configure_file( ${CMAKE_SOURCE_DIR}/document/run_tracer_multiple.ps1 ${CMAKE_BINARY_DIR}/bin/run_tracer_multiple.ps1 COPYONLY)

@@ -1,5 +1,5 @@
 #include "dielectricBxdf.h"
-#include <mathUtility.h>
+#include "mathUtility.h"
 #include <cassert>
 
 DielectricBxdf::DielectricBxdf(float etaI, float etaT)
@@ -19,18 +19,15 @@ float DielectricBxdf::pdf(const Vector3 &wo, const Vector3 &wi) const
     return 0.0f;
 }
 
-// dielectricBxdf.cpp
-
 Color DielectricBxdf::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf, const Interaction &interaction) const
 {
-    // 1. 局部空间法线 (wo 已在 BTN 空间，法线是 Z 轴)
     Vector3 local_surface_normal = Vector3(0, 0, 1); 
     if(!local_surface_normal.isSameDir(wo))
     {
         local_surface_normal = -local_surface_normal;
     }
     
-    Vector3 inputVector = -wo; // 入射光线方向 (局部空间)
+    Vector3 inputVector = -wo;
 
     bool totalReflect;
     float fresnel;

@@ -5,12 +5,24 @@
 #include "frame.h"
 #include "mathUtility.h"
 #include "ray.h"
+// #include "medium.h"
 
 Ray::Ray()
 {
     origin = Vector3::ZERO;
     dir = Vector3::ZERO;
+
+    medium = nullptr;
 }
+
+Ray::Ray(const Ray &ray)
+{
+    origin = ray.origin;
+    dir = ray.dir;
+    t = ray.t;
+    medium = ray.medium;
+}
+
 
 Ray::Ray(const Vector3 &origin, const Vector3 &dir)
 {    

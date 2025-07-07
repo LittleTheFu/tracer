@@ -1,0 +1,15 @@
+#ifndef _MATERIAL_PVC_H_
+#define _MATERIAL_PVC_H_
+
+#include "material.h"
+#include "color.h"
+
+class MaterialPVC : public Material
+{
+public:
+    MaterialPVC();
+
+    virtual std::unique_ptr<Bsdf> createBsdf(const Interaction& interaction) override;
+};
+
+#endif

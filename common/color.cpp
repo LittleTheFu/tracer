@@ -35,6 +35,14 @@ Color::Color()
     this->b = 1;
 }
 
+Color::Color(float v)
+{
+    this->r = v;
+    this->g = v;
+    this->b = v;
+}
+
+
 Color::Color(float r, float g, float b)
 {
     this->r = r;
@@ -61,6 +69,11 @@ float Color::getClampedMaxComponent() const
 //     this->g = r / MAX;
 //     this->b = r / MAX;
 // }
+
+bool Color::isBlack() const
+{
+    return this->operator==(Color::COLOR_BLACK);
+}
 
 bool Color::isValid() const
 {
@@ -109,20 +122,31 @@ Color &Color::clamp()
     return *this;
 }
 
+Color Color::lerp(const Color &a, const Color &b, float t)
+{
+    return Color(a.r + (b.r - a.r) * t, a.g + (b.g - a.g) * t, a.b + (b.b - a.b) * t);
+}
+
+Color Color::operator-(const Color &that) const
+{
+    return Color(r - that.r, g - that.g, b - that.b);
+}
+
+Color Color::operator+(const Color &that) const
+{
+        return Color(r + that.r, g + that.g, b + that.b);
+}
+
+Color Color::operator/(const Color &that) const
+{
+    return Color(r / that.r, g / that.g, b / that.b);
+}
+
 Color &Color::operator+=(const Color &that)
 {
-    // assert(that.r >= 0);
-    // assert(that.g >= 0);
-    // assert(that.b >= 0);
-
     r += that.r;
     g += that.g;
     b += that.b;
-
-    // MathUtility::clamp(r, 0, 1);
-    // MathUtility::clamp(g, 0, 1);
-    // MathUtility::clamp(b, 0, 1);
-
     return *this;
 }
 

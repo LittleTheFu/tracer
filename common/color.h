@@ -10,16 +10,28 @@ public:
 
 public:
     Color();
+    Color(float v);
     Color(float r, float g, float b);
 
     float getClampedMaxComponent() const;
     
+    bool isBlack() const;
     bool isValid() const;
     void getConvertedValue(unsigned char &r, unsigned char &g, unsigned char &b) const;
 
     int validOverflow(float m = 1.0f) const;
     Color &clamp();
 
+    friend Color operator*(float scalar, const Color &color)
+    {
+        return Color(color.r * scalar, color.g * scalar, color.b * scalar);
+    }
+
+    static Color lerp(const Color &a, const Color &b, float t);
+
+    Color operator-(const Color &that) const;
+    Color operator+(const Color &that) const;
+    Color operator/(const Color &that) const;
     Color &operator+=(const Color &that);
     Color &operator*=(const Color &that);
     Color operator*(const float m) const;

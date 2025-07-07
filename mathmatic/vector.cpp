@@ -23,6 +23,16 @@ Vector3::Vector3(float x, float y, float z)
     this->z = z;
 }
 
+Vector3 Vector3::getFloor() const
+{
+    return Vector3(std::floor(x), std::floor(y), std::floor(z));
+}
+
+Vector3 Vector3::getFractional() const
+{
+    return Vector3(x - std::floor(x), y - std::floor(y), z - std::floor(z));
+}
+
 Vector3 Vector3::cross(const Vector3 &that) const
 {
     float rX = y * that.z - z * that.y;
@@ -51,6 +61,15 @@ Vector3 Vector3::operator-(const Vector3 &that) const
 }
 
 float Vector3::operator*(const Vector3 &that) const
+{
+    float x = this->x * that.x;
+    float y = this->y * that.y;
+    float z = this->z * that.z;
+
+    return x + y + z;
+}
+
+float Vector3::dot(const Vector3 &that) const
 {
     float x = this->x * that.x;
     float y = this->y * that.y;
@@ -252,7 +271,6 @@ Vector3 Vector3::conductorReflect(const Vector3 &normal, std::complex<float> eta
     return Vector3();
 }
 
-// 在 Vector3.cpp 或定义 Vector3::reflect 的位置
 Vector3 Vector3::reflect(const Vector3 &normal_raw) const
 {
     assert((normal_raw != Vector3::ZERO) && "Vector3::reflect() - Normal is zero.");
@@ -288,26 +306,9 @@ Vector3 Vector3::refract(const Vector3 &normal,
     assert((etaI != 0) && "Vector3::_refract");
     assert((etaT != 0) && "Vector3::_refract");
 
-    // 原始的向外法线 (N_outward)
-    // Vector3 N_outward = normal.dir(); 
-
-    // 计算入射光线与向外法线的点积
-    // float cos_theta_incident_raw = (*this) * N_outward; 
-
-    // 根据光线是进入还是离开，调整内部使用的折射率和法线方向
     float current_etaI = etaI; 
     float current_etaT = etaT; 
-    // Vector3 n_internal; 
 
-    // if (cos_theta_incident_raw < 0) { // 光线正在进入物体 (例如，从空气到玻璃)
-    //     n_internal = N_outward; 
-    // } else { // 光线正在离开物体 (例如，从玻璃到空气)
-    //     n_internal = -N_outward; 
-    //     // std::swap(current_etaI, current_etaT); 
-    // }
-
-    // 现在，'dot' (cos_theta_i) 始终是负值，符合标准折射公式的预期
-    // float dot = (*this) * n_internal; 
     float dot = (*this) * normal; 
     
     float cos_theta_in_sqr = dot * dot;
@@ -318,13 +319,10 @@ Vector3 Vector3::refract(const Vector3 &normal,
 
     float sin_theta_out_sqr = sin_theta_in_sqr * (eta_ratio * eta_ratio);
     
-    // if(sin_theta_out_sqr >= 1.0f - MathConstant::FLOAT_SMALL_NUMBER) // 使用 epsilon
     if(sin_theta_out_sqr > 1.0f)
     {
         totalReflect = true;
         fresnel = 1;
-        // 反射时，法线需要指向远离入射光线的方向
-        // return reflect(cos_theta_incident_raw < 0 ? N_outward : -N_outward); 
         return reflect(normal);
     }
 
@@ -333,24 +331,11 @@ Vector3 Vector3::refract(const Vector3 &normal,
     if (cos_theta_out_sqr < 0.0f) cos_theta_out_sqr = 0.0f; // 钳位
     float cos_theta_out = sqrt(cos_theta_out_sqr);
     
-    // --- 调试输出 (cos_theta_i) ---
-    // std::cout << "DEBUG: cos_theta_i (from dot) = " << dot << std::endl; 
-
-    // *** 新的折射向量计算方法 ***
-    // T_perp = eta * I_perp
-    // I_perp = I - (I . N_in) * N_in = I - dot * N_in
     Vector3 T_perp = eta_ratio * ((*this) - dot * normal); 
-
-    // T_parallel = -cos_theta_out * N_in
     Vector3 T_parallel = -cos_theta_out * normal;
 
-    // 最终折射向量 T = T_perp + T_parallel
     Vector3 out = T_perp + T_parallel;
 
-    // --- 调试输出 (out.length()) ---
-    // std::cout << "DEBUG: out.length() before final return = " << out.length() << std::endl;
-
-    // 菲涅尔计算 (注意传入 cos_theta_in 的绝对值)
     float cos_theta_in_fresnel = std::abs(dot); 
     fresnel = Common::fresnel(current_etaI, current_etaT, cos_theta_in_fresnel, cos_theta_out);
 

@@ -9,7 +9,8 @@ enum class SceneType {
     ROOM_MATERIAL_BALLS,
     ROOM_TEAPOT_NORMAL_MAP,
     // ROOM_CURVE,//not done yet!!!
-    // ROOM_VOLUME,
+    ROOM_VOLUME,
+    ROOM_BOT,
 };
 
 #endif
