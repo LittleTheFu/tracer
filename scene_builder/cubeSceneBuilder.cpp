@@ -13,7 +13,7 @@ void CubeSceneBuilder::build()
     buildModel(Vector3(-10, -60, 300),
                24,
                ResourceDef::CUBE,
-               MATERIAL_TYPE::M_YELLOW,
+               MATERIAL_TYPE::M_GLASS,
                false,
                true);
 }

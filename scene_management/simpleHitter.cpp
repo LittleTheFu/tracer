@@ -107,7 +107,7 @@ bool SimperHitter::hitGeometryObjectOnly(const Ray &ray,
             interaction.is_volume_boundary_hit = false;
             interaction.is_surface_hit = true;
             interaction.medium = nullptr;
-            interaction.mediumBoundary = nullptr;
+            interaction.mediumBoundary = interaction.primitive->getMediumBoundary();
         }
     }
     else

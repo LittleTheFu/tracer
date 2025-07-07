@@ -235,7 +235,7 @@ bool BVH::hitLeaf(const Ray &ray,
         interaction.is_volume_boundary_hit = false;
         interaction.is_surface_hit = false;
         interaction.medium = nullptr;
-        interaction.mediumBoundary = nullptr;
+        interaction.mediumBoundary = interaction.primitive->getMediumBoundary();
     }
 
     return hit;
