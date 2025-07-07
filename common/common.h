@@ -28,7 +28,7 @@ public:
     static float sinPhi(const Vector3 &v);
     static float sinPhiSq(const Vector3 &v);
 
-    //???
+    //I'will revisit this function later......
     static float fresnel(float etaI, float etaT, float cosThetaI);
 
     static float fresnel(float etaI,

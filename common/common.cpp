@@ -85,6 +85,9 @@ float Common::sinPhiSq(const Vector3 &v)
 
 float Common::fresnel(float etaI, float etaT, float cosThetaI)
 {
+    //for debug
+    cosThetaI = std::abs(cosThetaI);
+
     // 保证 cosThetaI 在 [0, 1] 范围内
     cosThetaI = std::max(0.0f, std::min(1.0f, cosThetaI));
 
@@ -93,7 +96,7 @@ float Common::fresnel(float etaI, float etaT, float cosThetaI)
     float currentEtaI = etaI;
     float currentEtaT = etaT;
     if (!entering) { // 如果是从内部射出，交换折射率
-        std::swap(currentEtaI, currentEtaT);
+        // std::swap(currentEtaI, currentEtaT);
     }
 
     // 使用斯涅尔定律计算透射角的正弦值

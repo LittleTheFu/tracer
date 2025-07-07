@@ -94,7 +94,8 @@ Color MicrofacetTransmissionBxdf::sample_f(const Vector3 &wo, Vector3 &wi, float
     // 计算微面元菲涅尔反射率 (F)
     // Common::fresnel 的参数为 (etaI, etaT, cosThetaI, cosThetaT)
     // 这里的 cosThetaI 和 cosThetaT 对应微面元上的入射角和透射角余弦值
-    float F_val_at_H = Common::fresnel(current_etaI, current_etaT, std::abs(H_dot_Wo), std::abs(H_dot_Wi)); 
+    // float F_val_at_H = Common::fresnel(current_etaI, current_etaT, std::abs(H_dot_Wo), std::abs(H_dot_Wi)); 
+    float F_val_at_H = Common::fresnel(current_etaI, current_etaT, std::abs(H_dot_Wo)); 
     if (F_val_at_H == 1.0f) { // 如果菲涅尔反射率为1，表示全反射
         pdf = 0.0f;
         return Color(0.0f);
@@ -141,7 +142,9 @@ Color MicrofacetTransmissionBxdf::sample_f(const Vector3 &wo, Vector3 &wi, float
     Color sampled_f = (T_color * D_val * G_val * (current_etaT * current_etaT) * std::abs(H_dot_Wi)) / final_denominator_val;
 
     sampled_f.clamp();
-    sampled_f = Color::COLOR_WHITE;
+    // sampled_f = Color::COLOR_WHITE;
+    // sampled_f *= 100000;
+    // std::cout << "sampled_f: " << sampled_f << std::endl;
     
     return sampled_f;
 }
@@ -187,7 +190,8 @@ Color MicrofacetTransmissionBxdf::f(const Vector3 &wo, const Vector3 &wi) const
     // 4. 检查是否发生全内反射 (TIR)
     float H_dot_Wo = H * local_wo;
     float H_dot_Wi = H * current_wi;
-    float F_color_at_H = Common::fresnel(etaI_val, etaT_val, std::abs(H_dot_Wo), std::abs(H_dot_Wi)); 
+    // float F_color_at_H = Common::fresnel(etaI_val, etaT_val, std::abs(H_dot_Wo), std::abs(H_dot_Wi)); 
+    float F_color_at_H = Common::fresnel(etaI_val, etaT_val, std::abs(H_dot_Wo)); 
     if (F_color_at_H == 1.0f) { // 如果菲涅尔反射率为1，表示全反射
         return Color(0.0f);
     }
@@ -262,7 +266,8 @@ float MicrofacetTransmissionBxdf::pdf(const Vector3 &wo, const Vector3 &wi) cons
     // 4. 检查是否发生全内反射 (TIR)
     float H_dot_Wo = H * local_wo;
     float H_dot_Wi = H * current_wi;
-    float F_color_at_H = Common::fresnel(etaI_val, etaT_val, std::abs(H_dot_Wo), std::abs(H_dot_Wi)); 
+    // float F_color_at_H = Common::fresnel(etaI_val, etaT_val, std::abs(H_dot_Wo), std::abs(H_dot_Wi)); 
+    float F_color_at_H = Common::fresnel(etaI_val, etaT_val, std::abs(H_dot_Wo)); 
     if (F_color_at_H == 1.0f) { // 如果菲涅尔反射率为1，表示全反射
         return 0.0f;
     }
@@ -288,8 +293,8 @@ float MicrofacetTransmissionBxdf::pdf(const Vector3 &wo, const Vector3 &wi) cons
 
 float MicrofacetTransmissionBxdf::D(const Vector3 &wh) const 
 { 
-    if(wh.z <= 0) // 如果微面元法线指向宏观表面下方，则 NDF 为 0
-        return 0.0f; 
+    // if(wh.z <= 0) // 如果微面元法线指向宏观表面下方，则 NDF 为 0
+    //     return 0.0f; 
 
     float alpha2 = alpha_ * alpha_; 
     float z2 = wh.z * wh.z; 
@@ -309,7 +314,8 @@ float MicrofacetTransmissionBxdf::ggx_G1(const Vector3& w, const Vector3& n, flo
     float z = n * w; 
 
     if (z <= 0.0f) { // 几何遮蔽项 G1 对于指向表面下方的光线为 0
-        return 0.0f; 
+        // return 0.0f; //debug
+        z = -z;
     } 
 
     float alpha2 = alpha * alpha; 

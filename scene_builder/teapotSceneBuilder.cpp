@@ -5,7 +5,7 @@
 void TeapotSceneBuilder::build()
 {
     buildRoom();
-    buildLight(Vector3(0,30,220), 16);
+    buildLight(Vector3(0, 30, 220), 16);
     setLightIntensity(0, 30.0f);
     setLightIntensity(1, 30.0f);
     setLightIntensity(2, 30.0f);
@@ -14,5 +14,6 @@ void TeapotSceneBuilder::build()
                24,
                ResourceDef::TEAPOT,
                MATERIAL_TYPE::M_MICRO_FACET_TRANSMISSION,
+               false,
                true);
 }
