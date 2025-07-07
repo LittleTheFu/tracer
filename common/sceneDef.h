@@ -11,6 +11,7 @@ enum class SceneType {
     // ROOM_CURVE,//not done yet!!!
     ROOM_VOLUME,
     ROOM_BOT,
+    ROOM_CUBE,
 };
 
 #endif
