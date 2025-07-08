@@ -85,6 +85,11 @@ void ObjectPool::applyTransfrom(Transform t)
         (*it)->getGeometry()->applyTransform(t);
     }
 
+    // for (auto it = lights_.begin(); it != lights_.end(); it++)
+    // {
+    //     (*it)->applyTransform(t);
+    // }
+
     // if(light_)
     //     light_->applyTransform(t);
 }
