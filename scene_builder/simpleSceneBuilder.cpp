@@ -1,9 +1,10 @@
 #include "simpleSceneBuilder.h"
+#include "config.h"
 
 void SimpleSceneBuilder::build()
 {
     buildCornellRoom();
-    applyLightIntensityScaleAll(20.0f);
+    applyLightIntensityScaleAll(configLightIntensityScale);
 
     buildRedBall(Vector3(60, 70, 350), 20);
     buildAquaBall(Vector3(-70, 80, 400), 20);

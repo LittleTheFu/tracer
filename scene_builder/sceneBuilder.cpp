@@ -96,7 +96,7 @@ void SceneBuilder::buildRoom()
 
 void SceneBuilder::buildCornellRoom()
 {
-    buildModel(Vector3(0, 0, 400),
+    buildModel(Vector3(0, 0, 500),
                2.0f,
                ResourceDef::ROOM,
                MATERIAL_TYPE::M_RED,
@@ -116,7 +116,7 @@ MATERIAL_TYPE SceneBuilder::getRightWallMaterial() const
 
 MATERIAL_TYPE SceneBuilder::getFloorMaterial() const
 {
-    return MATERIAL_TYPE::M_COMBINED;
+    return MATERIAL_TYPE::M_YELLOW;
 }
 
 MATERIAL_TYPE SceneBuilder::getCeilingMaterial() const
@@ -429,7 +429,7 @@ void SceneBuilder::buildModel(const Vector3 &pos,
         if (materialType == MATERIAL_TYPE::M_GLASS)
         {
             //debug
-            // mediumBoundary->mediumInside_ = MediumManager::getInstance().getMedium(MediumType::GLASS);
+            mediumBoundary->mediumInside_ = MediumManager::getInstance().getMedium(MediumType::GLASS);
         }
 
         // overwrite current material if there is a material can be loaded from the file

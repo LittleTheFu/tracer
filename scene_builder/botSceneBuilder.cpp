@@ -1,13 +1,14 @@
 #include "botSceneBuilder.h"
 #include "resourceDef.h"
+#include "config.h"
 
 void BotSceneBuilder::build()
 {
     buildCornellRoom();
-    applyLightIntensityScaleAll(20.0f);
+    applyLightIntensityScaleAll(configLightIntensityScale);
 
-    buildModel(Vector3(0, -100, 340),
-               0.5f,
+    buildModel(Vector3(0, -50, 450),
+               1.0f,
                ResourceDef::BOT,
                MATERIAL_TYPE::M_MIRROR,
                false,

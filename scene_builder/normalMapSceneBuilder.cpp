@@ -1,21 +1,22 @@
 #include "normalMapSceneBuilder.h"
 #include "resourceDef.h"
 #include "materialDef.h"
+#include "config.h"
 
 void NormalMapSceneBuilder::build()
 {
     buildCornellRoom();
-    applyLightIntensityScaleAll(20.0f);
+    applyLightIntensityScaleAll(configLightIntensityScale);
     
-    buildModel(Vector3(-10, -60, 400), 24, ResourceDef::TEAPOT, MATERIAL_TYPE::M_MIRROR, true);
+    buildModel(Vector3(-10, -60, 500), 24, ResourceDef::TEAPOT, MATERIAL_TYPE::M_MIRROR, true);
 }
 
 MATERIAL_TYPE NormalMapSceneBuilder::getLeftWallMaterial() const
 {
-    return MATERIAL_TYPE::M_NORMAL_MAP_GREEN_PVC;
+    return MATERIAL_TYPE::M_YELLOW;
 }
 
 MATERIAL_TYPE NormalMapSceneBuilder::getRightWallMaterial() const
 {
-    return MATERIAL_TYPE::M_NORMAL_MAP_SARI_SILK;
+    return MATERIAL_TYPE::M_YELLOW;
 }

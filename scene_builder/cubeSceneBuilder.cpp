@@ -1,11 +1,12 @@
 #include "materialDef.h"
 #include "resourceDef.h"
 #include "cubeSceneBuilder.h"
+#include "config.h"
 
 void CubeSceneBuilder::build()
 {
     buildCornellRoom();
-    applyLightIntensityScaleAll(20.0f);
+    applyLightIntensityScaleAll(configLightIntensityScale);
 
     buildModel(Vector3(-30, -30, 400),
                20,
