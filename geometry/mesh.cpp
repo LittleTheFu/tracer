@@ -10,6 +10,7 @@
 #include "materialManager.h"
 #include "materialPBR.h"
 #include "resourceDef.h"
+#include <emittingMaterial.h>
 
 Mesh::Mesh()
 {
@@ -41,6 +42,17 @@ void Mesh::create(const aiMesh *mesh, aiMaterial **materials, float scale, const
     {
         const aiMaterial *mat = materials[mesh->mMaterialIndex];
 
+        // 查询自发光颜色
+        aiColor3D emissiveColor(0.0f, 0.0f, 0.0f); // 默认值
+        mat->Get(AI_MATKEY_COLOR_EMISSIVE, emissiveColor);
+        if (emissiveColor.r > 0.0f || emissiveColor.g > 0.0f || emissiveColor.b > 0.0f)
+        {
+            std::shared_ptr<EmittingMaterial> material = std::make_shared<EmittingMaterial>();
+            materialId_ = MaterialManager::getInstance().addMaterial(material);
+
+            return ;
+        }
+        
         aiColor3D color;
         // mat->Get(AI_MATKEY_BASE_COLOR, color);
         mat->Get(AI_MATKEY_COLOR_DIFFUSE, color);
@@ -108,6 +120,13 @@ void Mesh::addToPool(std::shared_ptr<ObjectPool> pool,
     {
         std::shared_ptr<GeometryPrimitive> primitive = std::make_shared<GeometryPrimitive>(*it, material, mediumBoundary);
         pool->addPrimitive(primitive);
+
+        //quick but dirty
+        if(dynamic_cast<EmittingMaterial*>(material.get()))
+        {
+            std::shared_ptr<AreaLight> light = std::make_shared<AreaLight>(primitive);
+            pool->addLight(light);
+        }
     }
 }
 

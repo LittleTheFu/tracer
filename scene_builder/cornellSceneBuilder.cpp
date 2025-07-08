@@ -5,8 +5,7 @@
 void CornellSceneBuilder::build()
 {
     // buildRoom();
-    buildLight(Vector3(0, 30, 220), 10);
-    setLightIntensity(0, 100.0f);
+    // buildLight(Vector3(0, 30, 220), 10);
     // setLightIntensity(1, 30.0f);
     // setLightIntensity(2, 30.0f);
 
@@ -16,4 +15,7 @@ void CornellSceneBuilder::build()
                MATERIAL_TYPE::M_RED,
                false,
                false);
+
+    setLightIntensityAll(10.0f);
+    // setLightIntensity(0, 1000.0f);
 }

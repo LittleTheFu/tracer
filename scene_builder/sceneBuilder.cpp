@@ -134,9 +134,9 @@ void SceneBuilder::buildLight(const Vector3 &pos, float r)
 {
     std::shared_ptr<Material> lightMaterial = std::make_shared<EmittingMaterial>();
 
-    Vector3 a(-30, -30, 300);
-    Vector3 b(-30, 30, 300);
-    Vector3 c(20, -20, 300);
+    Vector3 a(-60, -40, 300);
+    Vector3 b(-60, 50, 300);
+    Vector3 c(30, -40, 300);
 
     Vector3 na = (a - b).cross(a - c);
     Vector3 nb = (b - c).cross(b - a);
@@ -187,6 +187,14 @@ void SceneBuilder::setLightIntensity(size_t index, float intensity)
         return;
 
     m_pObjectPool->lights_.at(index)->setIntensity(intensity);
+}
+
+void SceneBuilder::setLightIntensityAll(float intensity)
+{
+    for (auto light : m_pObjectPool->lights_)
+    {
+        light->setIntensity(intensity);
+    }
 }
 
 void SceneBuilder::buildSceneWithDefaultConfig()
