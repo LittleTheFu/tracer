@@ -13,7 +13,8 @@ public:
     ~AreaLight() = default;
 
     Color getColor() const;
-    Vector3 sample(const Vector3 &thatPoint, float &pdf) const;
+    Vector3 sample(const Vector3 &thatPoint, float &pdf, Vector3 &normal) const;
+
 
     void setIntensity(float intensity);
     float getIntensity() const;

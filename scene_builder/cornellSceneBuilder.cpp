@@ -6,9 +6,9 @@ void CornellSceneBuilder::build()
 {
     // buildRoom();
     buildLight(Vector3(0, 30, 220), 10);
-    setLightIntensity(0, 300.0f);
-    setLightIntensity(1, 30.0f);
-    setLightIntensity(2, 30.0f);
+    setLightIntensity(0, 100.0f);
+    // setLightIntensity(1, 30.0f);
+    // setLightIntensity(2, 30.0f);
 
     buildModel(Vector3(0, 0, 400),
                2.0f,

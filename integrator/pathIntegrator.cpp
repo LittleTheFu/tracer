@@ -142,10 +142,18 @@ Color PathIntegrator::sampleLightFromNormalMaterial(std::shared_ptr<const Object
     int lightIndex = MathUtility::sampleUniformly(lightNum);
     float lightPickPdf = 1.0f / lightNum;
 
+    //take care of the pdf here
     float sampleLightPdf;
-    Vector3 lightSurfacePoint = lights.at(lightIndex)->sample(pos, sampleLightPdf);
+    Vector3 lightNormal;
+    Vector3 lightSurfacePoint = lights.at(lightIndex)->sample(pos, sampleLightPdf, lightNormal);
+    lightNormal.normalize();
+    float d2 = (lightSurfacePoint - pos).lenthSq();
+ 
     Vector3 lightDir = lightSurfacePoint - pos;
     lightDir.normalize();
+
+    float lightDot = std::abs(lightNormal.dot(lightDir));
+
 
     Ray sampleLightRay(pos + lightDir * 0.001f, lightDir);
     sampleRay = sampleLightRay;
@@ -164,7 +172,7 @@ Color PathIntegrator::sampleLightFromNormalMaterial(std::shared_ptr<const Object
         return Color::COLOR_BLACK;
     }
 
-    return lightColor * (absDot / (sampleLightPdf * lightPickPdf));
+    return lightColor * (absDot / (sampleLightPdf * lightPickPdf * d2)) * lightDot;
 }
 
 Ray PathIntegrator::genNextRay(const Vector3 &pos, const Vector3 &normal, const Vector3 &reflect) const

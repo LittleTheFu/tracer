@@ -119,6 +119,31 @@ bool Tri::testHit(const Ray &localRay, float &t) const
     return true;
 }
 
+//sample point from triangle surface area
+//pdf is NOT the solid angle pdf
+//the confliction with Ball::sampleFromPoint which should be resolved later...
+Vector3 Tri::sampleFromPoint(const Vector3 &thatPoint, float &pdf, Vector3 &normal) const
+{
+    float s = MathUtility::genRandomDecimal();
+    float t = MathUtility::genRandomDecimal();
+
+    if(s + t > 1.0f)
+    {
+        s = 1.0f - s;
+        t = 1.0f - t;
+    }
+
+    Vector3 localPoint = s * m_a.pos + t * m_b.pos + (1.0f - s - t) * m_c.pos;
+    pdf = 1.0f / surfaceArea();
+
+    normal = getWeightedNormal(localPoint);
+    normal.normalize();
+    normal = m_transform.transformNormal(normal);
+
+    return m_transform.transformPoint(localPoint);
+}
+
+
 Vector3 Tri::getCentroid() const
 {
     return m_transform.transformPoint(m_localCentroid);

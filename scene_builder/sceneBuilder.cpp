@@ -134,13 +134,32 @@ void SceneBuilder::buildLight(const Vector3 &pos, float r)
 {
     std::shared_ptr<Material> lightMaterial = std::make_shared<EmittingMaterial>();
 
-    //----------------------first--------
-    std::shared_ptr<Geometry> ballFirst = std::make_shared<Ball>(Vector3::ZERO, pos, r);
-    std::shared_ptr<GeometryPrimitive> lightPrimitiveFirst = std::make_shared<GeometryPrimitive>(ballFirst, lightMaterial);
-    std::shared_ptr<AreaLight> areaLightFirst = std::make_shared<AreaLight>(lightPrimitiveFirst);
+    Vector3 a(-30, -30, 300);
+    Vector3 b(-30, 30, 300);
+    Vector3 c(20, -20, 300);
 
-    m_pObjectPool->addLight(areaLightFirst);
-    m_pObjectPool->addPrimitive(lightPrimitiveFirst);
+    Vector3 na = (a - b).cross(a - c);
+    Vector3 nb = (b - c).cross(b - a);
+    Vector3 nc = (c - a).cross(c - b);
+
+    TriVertex ta(a, na);
+    TriVertex tb(b, nb);
+    TriVertex tc(c, nc);
+
+    std::shared_ptr<Tri> tri = std::make_shared<Tri>(ta, tb, tc, pos);
+    std::shared_ptr<GeometryPrimitive> lightPrimitive = std::make_shared<GeometryPrimitive>(tri, lightMaterial);
+    std::shared_ptr<AreaLight> areaLight = std::make_shared<AreaLight>(lightPrimitive);
+
+    m_pObjectPool->addPrimitive(lightPrimitive);
+    m_pObjectPool->addLight(areaLight);
+
+    //----------------------first--------
+    // std::shared_ptr<Geometry> ballFirst = std::make_shared<Ball>(Vector3::ZERO, pos, r);
+    // std::shared_ptr<GeometryPrimitive> lightPrimitiveFirst = std::make_shared<GeometryPrimitive>(ballFirst, lightMaterial);
+    // std::shared_ptr<AreaLight> areaLightFirst = std::make_shared<AreaLight>(lightPrimitiveFirst);
+
+    // m_pObjectPool->addLight(areaLightFirst);
+    // m_pObjectPool->addPrimitive(lightPrimitiveFirst);
 
     //----------------------second--------
     // std::shared_ptr<Geometry> ballSecond = std::make_shared<Ball>(Vector3::ZERO, pos + Vector3(50, 0, 0), r);

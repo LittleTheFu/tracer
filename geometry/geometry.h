@@ -27,7 +27,7 @@ public:
     Vector3 getLocalPosition(const Vector3 &worldPosition) const;
 
     virtual bool hit(const Ray &ray, Interaction &interaction) const = 0;
-    virtual Vector3 sampleFromPoint(const Vector3 &thatPoint, float &pdf) const;
+    virtual Vector3 sampleFromPoint(const Vector3 &thatPoint, float &pdf, Vector3 &normal) const;
     
     virtual Vector3 getCentroid() const;
     virtual float surfaceArea() const;
