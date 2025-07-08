@@ -8,7 +8,8 @@
 #include "geometryPrimitive.h"
 #include "materialLambertian.h"
 #include "materialManager.h"
-#include <materialPBR.h>
+#include "materialPBR.h"
+#include "resourceDef.h"
 
 Mesh::Mesh()
 {
@@ -55,8 +56,25 @@ void Mesh::create(const aiMesh *mesh, aiMaterial **materials, float scale, const
         mat->Get(AI_MATKEY_METALLIC_FACTOR, metallic);
         std::cout << "metallic : " << metallic << std::endl;
 
-        std::shared_ptr<MaterialPBR> material = std::make_shared<MaterialPBR>(albedo, roughness, metallic);
-        materialId_ = MaterialManager::getInstance().addMaterial(material);
+        //should be relaced this with texture manager,I will do it later...
+        if (mat->GetTextureCount(aiTextureType_DIFFUSE) > 0)
+        {
+            aiString str;
+            mat->GetTexture(aiTextureType_DIFFUSE, 0, &str);
+            std::string texturePath = str.C_Str();
+            std::cout << "texture path : " << texturePath << std::endl;
+
+            std::unique_ptr<Texture> texture = std::make_unique<ImageTexture>(ResourceDef::RES_FOLDER + texturePath);
+            assert(texture);
+
+            std::shared_ptr<MaterialPBR> material = std::make_shared<MaterialPBR>(albedo, roughness, metallic, std::move(texture));
+            materialId_ = MaterialManager::getInstance().addMaterial(material);
+        }
+        else //dupliacated code should be extracted here, I will come here later...
+        {
+            std::shared_ptr<MaterialPBR> material = std::make_shared<MaterialPBR>(albedo, roughness, metallic, nullptr);
+            materialId_ = MaterialManager::getInstance().addMaterial(material);
+        }
     }
 }
 
