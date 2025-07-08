@@ -134,9 +134,9 @@ void SceneBuilder::buildLight(const Vector3 &pos, float r)
 {
     std::shared_ptr<Material> lightMaterial = std::make_shared<EmittingMaterial>();
 
-    Vector3 a(-20, -10, 300);
-    Vector3 b(-10, 20, 300);
-    Vector3 c(10, -10, 300);
+    Vector3 a(-20, -10, 0);
+    Vector3 b(-10, 20, 0);
+    Vector3 c(10, -10, 0);
 
     Vector3 na = (a - b).cross(a - c);
     Vector3 nb = (b - c).cross(b - a);

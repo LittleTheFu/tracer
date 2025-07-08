@@ -6,7 +6,7 @@ void BotSceneBuilder::build()
     buildRoom();
     buildLight(Vector3(0, 30, 220), 16);
 
-    setLightIntensity(0, 30.0f);
+    setLightIntensity(0, 100.0f);
     setLightIntensity(1, 30.0f);
     setLightIntensity(2, 30.0f);
 
