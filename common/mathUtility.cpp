@@ -266,6 +266,13 @@ void MathUtility::buildBTN(const Vector3 &normal, Vector3 &b, Vector3 &t, Vector
     n = normal;
     n.normalize();
 
+    if(std::abs(n.z) > 1.0f - MathConstant::FLOAT_SMALL_NUMBER)
+    {
+        b = Vector3(0, 1, 0);
+        t = Vector3(0, 0, 1);
+        return;
+    }
+
     Vector3 auxAxis;
     if(std::abs(n.x) < std::abs(n.y) && std::abs(n.x) < std::abs(n.z))
     {
@@ -285,4 +292,8 @@ void MathUtility::buildBTN(const Vector3 &normal, Vector3 &b, Vector3 &t, Vector
 
     b = n.cross(t);
     b.normalize();
+
+    assert(!t.isZero());
+    assert(!b.isZero());
+    assert(!n.isZero());
 }
