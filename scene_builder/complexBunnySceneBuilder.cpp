@@ -4,9 +4,10 @@
 
 void ComplexBunnyBuilder::build()
 {
-    buildRoom();
+    // buildRoom();
+    buildCornellRoom();
     buildLight(Vector3(40, 50, 200), 10);
-    setLightIntensity(0, 60.0f);
+    applyLightIntensityScale(0, 60.0f);
 
     buildModel(Vector3(20, -90, 300),
                50,

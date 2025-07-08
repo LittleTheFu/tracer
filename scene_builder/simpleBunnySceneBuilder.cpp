@@ -4,9 +4,11 @@
 
 void SimpleBunnySceneBuilder::build()
 {
-    buildRoom();
+    // buildRoom();
+    buildCornellRoom();
+
     buildLight(Vector3(-40, -30, 270), 10);
-    setLightIntensity(0, 60.0f);
+    applyLightIntensityScale(0, 60.0f);
 
     buildModel(Vector3(30, -100, 350),
                900,

@@ -48,6 +48,7 @@ void Mesh::create(const aiMesh *mesh, aiMaterial **materials, float scale, const
         if (emissiveColor.r > 0.0f || emissiveColor.g > 0.0f || emissiveColor.b > 0.0f)
         {
             std::shared_ptr<EmittingMaterial> material = std::make_shared<EmittingMaterial>();
+            material->setEmittedRadiance(Color(emissiveColor.r, emissiveColor.g, emissiveColor.b));
             materialId_ = MaterialManager::getInstance().addMaterial(material);
 
             return ;

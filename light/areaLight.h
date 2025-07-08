@@ -13,17 +13,15 @@ public:
     ~AreaLight() = default;
 
     Color getColor() const;
+    void setColor(const Color &finalColor);
+
     Vector3 sample(const Vector3 &thatPoint, float &pdf, Vector3 &normal) const;
+    std::shared_ptr<GeometryPrimitive> getGeometryPrimitive() const;
 
-
-    void setIntensity(float intensity);
-    float getIntensity() const;
-
+    void applyIntensityScale(float scale);
     void applyTransform(const Transform &t);
 
-    std::shared_ptr<GeometryPrimitive> getGeometryPrimitive() const;
 private:
-    float intensity_;
     Color color_;
     std::shared_ptr<GeometryPrimitive> geometryPrimitive_;
 };

@@ -94,6 +94,16 @@ void SceneBuilder::buildRoom()
     m_pObjectPool->addPrimitive(backPrimitive);
 }
 
+void SceneBuilder::buildCornellRoom()
+{
+    buildModel(Vector3(0, 0, 400),
+               2.0f,
+               ResourceDef::ROOM,
+               MATERIAL_TYPE::M_RED,
+               false,
+               false);
+}
+
 MATERIAL_TYPE SceneBuilder::getLeftWallMaterial() const
 {
     return MATERIAL_TYPE::M_RED;
@@ -178,7 +188,7 @@ void SceneBuilder::buildLight(const Vector3 &pos, float r)
     // m_pObjectPool->addPrimitive(lightPrimitiveThird);
 }
 
-void SceneBuilder::setLightIntensity(size_t index, float intensity)
+void SceneBuilder::applyLightIntensityScale(size_t index, float scale)
 {
     if (!m_pObjectPool)
         return;
@@ -186,14 +196,14 @@ void SceneBuilder::setLightIntensity(size_t index, float intensity)
     if (index >= m_pObjectPool->lights_.size())
         return;
 
-    m_pObjectPool->lights_.at(index)->setIntensity(intensity);
+    m_pObjectPool->lights_.at(index)->applyIntensityScale(scale);
 }
 
-void SceneBuilder::setLightIntensityAll(float intensity)
+void SceneBuilder::applyLightIntensityScaleAll(float scale)
 {
     for (auto light : m_pObjectPool->lights_)
     {
-        light->setIntensity(intensity);
+        light->applyIntensityScale(scale);
     }
 }
 

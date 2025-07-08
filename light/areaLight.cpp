@@ -2,6 +2,8 @@
 #include <cassert>
 #include "ball.h"
 #include "tri.h"
+#include "geometryPrimitive.h"
+#include "material.h"
 
 AreaLight::AreaLight(std::shared_ptr<GeometryPrimitive> geometryPrimitive)
     : geometryPrimitive_(geometryPrimitive)
@@ -11,23 +13,23 @@ AreaLight::AreaLight(std::shared_ptr<GeometryPrimitive> geometryPrimitive)
     assert(geometryPrimitive_->isEmitting());
 
     color_ = geometryPrimitive_->getMaterial()->getEmittedRadiance();
-    intensity_ = 0.0f;
 }
 
 Color AreaLight::getColor() const
 {
-    return color_ * intensity_;
+    return color_;
 }
 
-void AreaLight::setIntensity(float intensity)
+void AreaLight::setColor(const Color &finalColor)
 {
-    intensity_ = intensity;
+    color_ = finalColor;
 }
 
-float AreaLight::getIntensity() const
+void AreaLight::applyIntensityScale(float scale)
 {
-    return intensity_;
+    color_ *= scale;
 }
+
 
 void AreaLight::applyTransform(const Transform &t)
 {

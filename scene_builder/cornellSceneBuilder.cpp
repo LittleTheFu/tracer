@@ -16,6 +16,6 @@ void CornellSceneBuilder::build()
                false,
                false);
 
-    setLightIntensityAll(10.0f);
+    applyLightIntensityScaleAll(16.0f);
     // setLightIntensity(0, 1000.0f);
 }

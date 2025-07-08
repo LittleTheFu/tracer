@@ -2,9 +2,11 @@
 
 void SimpleSceneBuilder::build()
 {
-    buildRoom();
+    // buildRoom();
+    buildCornellRoom();
+
     buildLight(Vector3(-5, 10, 260), 15);
-    setLightIntensity(0, 80.0f);
+    applyLightIntensityScale(0, 80.0f);
 
     // buildConductorBall(Vector3(-10, -40, 350), 50);
     buildRedBall(Vector3(60, 70, 300), 20);

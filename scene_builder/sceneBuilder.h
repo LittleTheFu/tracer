@@ -14,6 +14,7 @@ public:
 
 protected:
     void buildRoom();
+    void buildCornellRoom();
 
     //notice: it seems that we haven't set the material to the right
     //wall because we are setting the materials in the LOCAL space!!!
@@ -26,8 +27,8 @@ protected:
 
     void buildMeshRoom();
     void buildLight(const Vector3& pos, float r);
-    void setLightIntensity(size_t index, float intensity);
-    void setLightIntensityAll(float intensity);
+    void applyLightIntensityScale(size_t index, float scale);
+    void applyLightIntensityScaleAll(float scale);
 
     void buildSceneWithDefaultConfig();
 
