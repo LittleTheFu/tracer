@@ -4,13 +4,10 @@
 
 void NormalMapSceneBuilder::build()
 {
-    // buildRoom();
     buildCornellRoom();
+    applyLightIntensityScaleAll(20.0f);
     
-    buildLight(Vector3(30,30,250), 15);
-    applyLightIntensityScale(0, 40.0f);
-    
-    buildModel(Vector3(-10, -60, 300), 24, ResourceDef::TEAPOT, MATERIAL_TYPE::M_MIRROR, true);
+    buildModel(Vector3(-10, -60, 400), 24, ResourceDef::TEAPOT, MATERIAL_TYPE::M_MIRROR, true);
 }
 
 MATERIAL_TYPE NormalMapSceneBuilder::getLeftWallMaterial() const

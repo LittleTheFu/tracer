@@ -2,9 +2,5 @@
 
 void CurveSceneBuilder::build()
 {
-    // buildRoom();
-    buildLight(Vector3(0, 70, 160), 23);
-    applyLightIntensityScale(0, 80.0f);
-
-    // buildRedCurve(Vector3(-70, -30, 280));
+    applyLightIntensityScaleAll(20.0f);
 }

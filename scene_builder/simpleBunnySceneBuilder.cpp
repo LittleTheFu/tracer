@@ -4,13 +4,10 @@
 
 void SimpleBunnySceneBuilder::build()
 {
-    // buildRoom();
     buildCornellRoom();
+    applyLightIntensityScaleAll(20.0f);
 
-    buildLight(Vector3(-40, -30, 270), 10);
-    applyLightIntensityScale(0, 60.0f);
-
-    buildModel(Vector3(30, -100, 350),
+    buildModel(Vector3(30, -100, 400),
                900,
                ResourceDef::SIMPLE_BUNNY,
                MATERIAL_TYPE::M_AQUA,

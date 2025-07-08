@@ -26,7 +26,7 @@ protected:
     virtual MATERIAL_TYPE getBackWallMaterial() const;
 
     void buildMeshRoom();
-    void buildLight(const Vector3& pos, float r);
+    void buildLight(const Vector3& pos, float scale = 1.0f);
     void applyLightIntensityScale(size_t index, float scale);
     void applyLightIntensityScaleAll(float scale);
 

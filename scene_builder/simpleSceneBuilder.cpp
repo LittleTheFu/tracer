@@ -2,24 +2,17 @@
 
 void SimpleSceneBuilder::build()
 {
-    // buildRoom();
     buildCornellRoom();
+    applyLightIntensityScaleAll(20.0f);
 
-    buildLight(Vector3(-5, 10, 260), 15);
-    applyLightIntensityScale(0, 80.0f);
-
-    // buildConductorBall(Vector3(-10, -40, 350), 50);
-    buildRedBall(Vector3(60, 70, 300), 20);
-    buildAquaBall(Vector3(-70, 80, 350), 20);
-    // buildMeasuredGreenPvcBall(Vector3(-60, 30, 300), 20);
-    // buildMirrorBall(Vector3(-50, 70, 350), 20);
+    buildRedBall(Vector3(60, 70, 350), 20);
+    buildAquaBall(Vector3(-70, 80, 400), 20);
 
     //to be fixed : light power leak
-    buildGlassBall(Vector3(50, -60, 300), 30);
+    buildGlassBall(Vector3(50, -60, 350), 30);
     
-    buildRedTri(Vector3(-55,0,300));
-    buildGreenTri(Vector3(50,0,300));
-    // buildGreenTri(Vector3(0,0,0));
+    buildRedTri(Vector3(-55,0,350));
+    buildGreenTri(Vector3(50,0,350));
 
     //to be fixed : light power leak
     // buildGlassTri(Vector3(20,35,230));

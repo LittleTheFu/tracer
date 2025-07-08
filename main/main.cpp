@@ -58,6 +58,11 @@ void configFromParams(int argc, char *argv[])
         configScene = SceneType::ROOM_CUBE;
         configOutputImageName = "room_cube";
     }
+    else if (str == "room_bot")
+    {
+        configScene = SceneType::ROOM_BOT;
+        configOutputImageName = "room_bot";
+    }
     else if (str == "room_cornell")
     {
         configScene = SceneType::ROOM_CORNELL;

@@ -4,14 +4,10 @@
 
 void CubeSceneBuilder::build()
 {
-    // buildRoom();
     buildCornellRoom();
-    buildLight(Vector3(0, 30, 180), 12);
-    applyLightIntensityScale(0, 160.0f);
-    // setLightIntensity(1, 30.0f);
-    // setLightIntensity(2, 30.0f);
+    applyLightIntensityScaleAll(20.0f);
 
-    buildModel(Vector3(-30, -30, 300),
+    buildModel(Vector3(-30, -30, 400),
                20,
                ResourceDef::SLAB,
                MATERIAL_TYPE::M_YELLOW,

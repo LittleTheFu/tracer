@@ -4,11 +4,8 @@
 
 void VolumeSceneBuilder::build()
 {
-    // buildRoom();
     buildCornellRoom();
-
-    buildLight(Vector3(0, 40, 290), 10);
-    applyLightIntensityScale(0, 60);
+    applyLightIntensityScaleAll(20.0f);
 
     // std::shared_ptr<Medium> medium = std::make_shared<Medium>(0.002f, 0.000f);
     // std::shared_ptr<SphereVolume> volume = std::make_shared<SphereVolume>(medium, Vector3(0, 0, 320), 60.0f);

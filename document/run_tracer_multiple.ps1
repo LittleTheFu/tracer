@@ -8,7 +8,11 @@ $scenes = @("simple_room",
  "room_teapot",
  "room_material_balls",
  "room_normal_map",
- "room_volume")
+ "room_volume",
+ "room_bot",
+ "room_cube",
+ "room_cornell"
+ )
 
 # 循环运行可执行文件并传递不同的参数
 foreach ($scene in $scenes) {
