@@ -20,6 +20,8 @@ public:
     Vector3 vectorToLocal(const Vector3 &vector) const;
     Vector3 vectorToWorld(const Vector3 &vector) const;
 
+    bool isOrthonormal() const;
+
     //normal version needed?
     //normal to world?
     //normal to local?

@@ -8,6 +8,8 @@ Bsdf::Bsdf(const Vector3 &ns_world)
 
     MathUtility::buildBTN(nsWorld_, tLocal_, bLocal_, nLocal_);
     tbnFrame_.setTBN(tLocal_, bLocal_, nLocal_);
+
+    assert(tbnFrame_.isOrthonormal());
 }
 
 void Bsdf::addBxdf(std::shared_ptr<Bxdf> bxdf)
@@ -60,6 +62,7 @@ Color Bsdf::sample_f(const Vector3 &wo,
 {
     std::vector<std::shared_ptr<Bxdf>> bxdfs;
 
+    assert(tbnFrame_.isOrthonormal());
     Frame localFrame(tbnFrame_);
     if(interaction.hasNormalMap())
     {

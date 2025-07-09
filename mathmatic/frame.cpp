@@ -108,3 +108,12 @@ Vector3 Frame::vectorToWorld(const Vector3 &vector) const
 
     return resultX + resultY + resultZ;
 }
+
+bool Frame::isOrthonormal() const
+{
+    bool perpXY = x_axis.isPerpendicular(y_axis);
+    bool perpYZ = y_axis.isPerpendicular(z_axis);
+    bool perpZX = z_axis.isPerpendicular(x_axis);
+
+    return (perpXY && perpYZ && perpZX);
+}

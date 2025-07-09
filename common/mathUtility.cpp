@@ -272,8 +272,19 @@ void MathUtility::buildBTN(const Vector3 &normal, Vector3 &b, Vector3 &t, Vector
 
     if(std::abs(n.z) > 1.0f - MathConstant::FLOAT_SMALL_NUMBER)
     {
-        b = Vector3(0, 1, 0);
-        t = Vector3(0, 0, 1);
+        //quick and dirty
+        if(n.z > 0)
+        {
+            n = Vector3(0, 0, 1);
+            b = Vector3(0, 1, 0);
+            t = Vector3(1, 0, 0);
+        }
+        else
+        {
+            n = Vector3(0, 0, -1);
+            b = Vector3(0, 1, 0);
+            t = Vector3(-1, 0, 0);
+        }
         return;
     }
 

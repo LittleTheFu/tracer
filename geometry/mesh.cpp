@@ -11,6 +11,7 @@
 #include "materialPBR.h"
 #include "resourceDef.h"
 #include <emittingMaterial.h>
+#include <materialMirror.h>
 
 Mesh::Mesh()
 {
@@ -81,11 +82,13 @@ void Mesh::create(const aiMesh *mesh, aiMaterial **materials, float scale, const
             assert(texture);
 
             std::shared_ptr<MaterialPBR> material = std::make_shared<MaterialPBR>(albedo, roughness, metallic, std::move(texture));
+            // std::shared_ptr<MaterialMirror> material = std::make_shared<MaterialMirror>();
             materialId_ = MaterialManager::getInstance().addMaterial(material);
         }
         else //dupliacated code should be extracted here, I will come here later...
         {
             std::shared_ptr<MaterialPBR> material = std::make_shared<MaterialPBR>(albedo, roughness, metallic, nullptr);
+            // std::shared_ptr<MaterialMirror> material = std::make_shared<MaterialMirror>();
             materialId_ = MaterialManager::getInstance().addMaterial(material);
         }
     }
