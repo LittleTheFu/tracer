@@ -98,7 +98,7 @@ void SceneBuilder::buildCornellRoom()
 {
     buildModel(Vector3(0, 0, 500),
                2.0f,
-               ResourceDef::LEFT_WHITE_ROOM,
+               ResourceDef::ROOM,
                MATERIAL_TYPE::M_RED,
                false,
                false);

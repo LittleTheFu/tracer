@@ -18,16 +18,16 @@ void CubeSceneBuilder::build()
                true);
 
     buildModel(Vector3(40, 20, 500),
-               50,
+               10,
                ResourceDef::SLAB,
-               MATERIAL_TYPE::M_WHITE,
+               MATERIAL_TYPE::M_RED,
                false,
                true);
 
-    buildModel(Vector3(-30, -30, 100),
+    buildModel(Vector3(-30, -30, 450),
                20,
                ResourceDef::SLAB,
-               MATERIAL_TYPE::M_AQUA,
+               MATERIAL_TYPE::M_YELLOW,
                false,
                true);
 
