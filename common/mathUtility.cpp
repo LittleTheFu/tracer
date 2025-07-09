@@ -116,12 +116,18 @@ float MathUtility::interpolate(float a, float b, float t)
     return a * (1 - t) + b * t;
 }
 
+
+std::mt19937 MathUtility::random_engine(std::random_device{}());
+std::uniform_real_distribution<float> MathUtility::s_uniform_dist(0.0f, 1.0f);
+
 float MathUtility::genRandomDecimal()
 {
-    float d = static_cast<float>(RAND_MAX) + 1.0f; 
-    float u = static_cast<float>(std::rand()) / d;
+    return s_uniform_dist(random_engine);
 
-    return u;
+    // float d = static_cast<float>(RAND_MAX) + 1.0f; 
+    // float u = static_cast<float>(std::rand()) / d;
+
+    // return u;
 }
 
 float MathUtility::genRamdomSignDecimal()
@@ -131,7 +137,6 @@ float MathUtility::genRamdomSignDecimal()
     return v;
 }
 
-std::mt19937 MathUtility::random_engine(std::random_device{}());
 int MathUtility::sampleUniformly(int size)
 {
     assert(size > 0);
