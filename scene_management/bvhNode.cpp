@@ -14,13 +14,12 @@ void BVHNode::print(const std::string &prefix) const
     std::string r = rightChild ? " R " : " N ";
     std::size_t num = getSize();
 
-    std::cout << prefix << "|" << l << r << num << std::endl;
-    // std::cout << boundBox << std::endl;
-    // for(auto it = objects.begin(); it != objects.end(); it++)
-    // {
-    //     std::cout <<(*it)->getClassName() << "  ";
-    // }
-    // std::cout << std::endl;
+    bool isLargeLeaf = num > 20;
+
+    if(isLeaf() && isLargeLeaf)
+    {
+        std::cout << prefix << "|" << l << r << num << std::endl;
+    }
 }
 
 bool BVHNode::isLeaf() const
