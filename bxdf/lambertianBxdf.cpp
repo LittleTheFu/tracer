@@ -14,13 +14,27 @@ Color LambertianBxdf::f(const Vector3 &wo, const Vector3 &wi) const
 
 float LambertianBxdf::pdf(const Vector3 &wo, const Vector3 &wi) const
 {
-    return MathConstant::INV_TWO_PI;
+    float cosTheta = wi.z;
+    if (cosTheta < MathConstant::FLOAT_SMALL_NUMBER)
+    {
+        return 0.0f;
+    }
+
+    return cosTheta * MathConstant::INV_PI;
 }
 
 Color LambertianBxdf::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf, const Interaction &interaction) const
 {
     wi = Vector3::sampleUniformFromHemisphere();
-    pdf = MathConstant::INV_TWO_PI;
+
+    pdf = wi.z * MathConstant::INV_PI; // cos(theta) / PI
+
+    // 避免 pdf 出现问题
+    if (pdf < MathConstant::FLOAT_SMALL_NUMBER)
+    {
+        pdf = 0.0f; // 或返回 Color::COLOR_BLACK
+        return Color::COLOR_BLACK;
+    }
 
     return reflectance_ * MathConstant::INV_PI;
 }
