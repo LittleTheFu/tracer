@@ -75,6 +75,7 @@ void Mesh::create(const aiMesh *mesh, aiMaterial **materials, float scale, const
             aiString str;
             mat->GetTexture(aiTextureType_DIFFUSE, 0, &str);
             std::string texturePath = str.C_Str();
+            std::replace(texturePath.begin(), texturePath.end(), '\\', '/');
             std::cout << "texture path : " << texturePath << std::endl;
 
             std::unique_ptr<Texture> texture = std::make_unique<ImageTexture>(ResourceDef::RES_FOLDER + texturePath);
