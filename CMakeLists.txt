@@ -5,6 +5,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
 project (ray_tracer)
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g")
+
 SET (MATHMATIC_DIR "mathmatic")
 SET (MATHMATIC_SOURCE_FILES
     ${MATHMATIC_DIR}/frame.cpp
