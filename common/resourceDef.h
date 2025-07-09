@@ -19,6 +19,7 @@ public:
     inline const static std::string CUBE = RES_FOLDER + "cube.obj";
     inline const static std::string SLAB = RES_FOLDER + "slab.obj";
     inline const static std::string ROOM = RES_FOLDER + "wall.fbx";
+    inline const static std::string WHITE_ROOM = RES_FOLDER + "whiteWall.fbx";
     
     inline const static std::string BRDF_WHITE = RES_FOLDER + "ilm_l3_37_matte_rgb.bsdf";
     inline const static std::string BRDF_GREEN = RES_FOLDER + "acrylic_felt_green_rgb.bsdf";
