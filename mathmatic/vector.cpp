@@ -428,6 +428,8 @@ Vector3 Vector3::getRandomVector()
     return vec;
 }
 
+//NOTICE : this is a function cos weight...
+//I will rename it later...
 Vector3 Vector3::sampleUniformFromHemisphere()
 {
     const float r1 = MathUtility::genRandomDecimal();

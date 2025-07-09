@@ -72,7 +72,7 @@ public:
     bool isInSameSide(const Vector3 &that) const;
 
     static Vector3 getRandomVector();
-    static Vector3 sampleUniformFromHemisphere();
+    static Vector3 sampleUniformFromHemisphere();//should be renamed later...
     static Vector3 sampleUniformFromSphere();
     static Vector3 sampleUniformFromCone(float thetaMax);
 
