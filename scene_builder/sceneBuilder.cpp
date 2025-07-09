@@ -371,6 +371,10 @@ void SceneBuilder::buildModel(const Vector3 &pos,
     {
         material = std::make_shared<MaterialLambertian>(Color::COLOR_WHITE);
     }
+    else if (materialType == MATERIAL_TYPE::M_BLACK)
+    {
+        material = std::make_shared<MaterialLambertian>(Color::COLOR_BLACK);
+    }
     else if (materialType == MATERIAL_TYPE::M_PURPLE)
     {
         material = std::make_shared<MaterialLambertian>(Color::COLOR_PURPLE);

@@ -23,6 +23,7 @@ std::unique_ptr<Bsdf> MaterialPBR::createBsdf(const Interaction &interaction)
     if(albedoTexture_)
     {
         currentAlbedo = albedoTexture_->getColor(interaction.u, interaction.v);
+        currentAlbedo = Color::COLOR_WHITE;
     }
 
     // float currentRoughness = roughness_;

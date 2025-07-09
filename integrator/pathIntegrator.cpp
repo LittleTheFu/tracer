@@ -177,7 +177,9 @@ Color PathIntegrator::sampleLightFromNormalMaterial(std::shared_ptr<const Object
 
     float absDot = std::abs(normal.dot(lightDir));
     if (isVolumetricPoint)
+    {
         absDot = 1.0f;
+    }
     
     if(sampleLightPdf < MathConstant::FLOAT_SMALL_NUMBER || lightPickPdf < MathConstant::FLOAT_SMALL_NUMBER){
         return Color::COLOR_BLACK;
