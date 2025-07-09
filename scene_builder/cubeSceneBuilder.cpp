@@ -8,7 +8,7 @@ void CubeSceneBuilder::build()
     buildCornellRoom();
     applyLightIntensityScaleAll(configLightIntensityScale);
 
-    buildModel(Vector3(40, 20, 400),
+    buildModel(Vector3(80, 20, 400),
                20,
                ResourceDef::CUBE,
                MATERIAL_TYPE::M_AQUA,
@@ -22,14 +22,14 @@ void CubeSceneBuilder::build()
                false,
                true);
 
-    buildModel(Vector3(-30, -30, 400),
+    buildModel(Vector3(-30, -30, 100),
                20,
                ResourceDef::SLAB,
                MATERIAL_TYPE::M_AQUA,
                false,
                true);
 
-    buildModel(Vector3(-30, 30, 400),
+    buildModel(Vector3(-70, 30, 400),
                20,
                ResourceDef::SLAB,
                MATERIAL_TYPE::M_GREEN,
