@@ -3,6 +3,7 @@
 
 #include <initializer_list>
 #include <complex>
+#include <random>
 
 #include "vector.h"
 
@@ -27,6 +28,8 @@ public:
     static float genRandomDecimal();
     static float genRamdomSignDecimal();
 
+    //later we will use a new random generator.
+    static std::mt19937 random_engine;
     static int sampleUniformly(int size);
 
     //sample e^(-lambda*t)

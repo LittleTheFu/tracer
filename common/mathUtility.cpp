@@ -131,14 +131,13 @@ float MathUtility::genRamdomSignDecimal()
     return v;
 }
 
+std::mt19937 MathUtility::random_engine(std::random_device{}());
 int MathUtility::sampleUniformly(int size)
 {
     assert(size > 0);
 
-    float r = genRandomDecimal();
-    int index = static_cast<int>(r * size);
-
-    return index;
+    std::uniform_int_distribution<int> distribution(0, size - 1);
+    return distribution(random_engine);
 }
 
 float MathUtility::sampleExponential(float lambda, float &pdf)
