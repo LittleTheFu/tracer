@@ -22,3 +22,8 @@ Vector3 Interaction::getNormalFromNormalMap(float u, float v) const
 
     return normal;
 }
+
+bool Interaction::isHitFromOutside() const
+{
+    return !incoming.isSameDir(normal_geometry);
+}

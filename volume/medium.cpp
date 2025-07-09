@@ -44,12 +44,13 @@ MediumEventType Medium::sample(const Ray& ray, float tMax, MediumInteraction &in
 
     //avoid an infinite loop
     int count = 0;
-    static const int maxCount = 10000;
+    const int maxCount = 100000;//I knew its too big,I will fix it later...
 
     float current_t = 0.0f;
     while (true)
     {
-        if(count++ > maxCount)
+        count++;
+        if(count >= maxCount)
         {
             return MediumEventType::Absorb;
         }
@@ -66,7 +67,7 @@ MediumEventType Medium::sample(const Ray& ray, float tMax, MediumInteraction &in
         }
 
         Vector3 pos = ray.getPosition(current_t);
-        if( std::isnan(pos.x) || std::isnan(pos.y) || std::isnan(pos.z))
+        if( std::isnan(pos.x) || std::isnan(pos.y) || std::isnan(pos.z))//debug for inserting a break point
         {
             int a = 3;
         }

@@ -4,6 +4,7 @@
 #include "mathConstantDef.h"
 #include "mediumInteraction.h"
 #include "medium.h"
+#include "mediumBoundary.h"
 
 PathIntegrator::PathIntegrator(int depth) : depth_(depth)
 {
@@ -109,17 +110,26 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
                 Color tmp = (sampled_f * cos_theta_incident_abs) / _pdf;//debug
                 beta *= tmp;
             }
-
         
             hitRay = genNextRay(interaction.point, interaction.normal_shading, wi);
         }
         else if (interaction.is_volume_boundary_hit)
         {
             hitRay.origin = interaction.point + hitRay.dir * MathConstant::FLOAT_SMALL_NUMBER;
-            if (hitRay.medium)//here, it should be replaced with mediumBoundary...
-                hitRay.medium = nullptr;
+            // if (hitRay.medium)//here, it should be replaced with mediumBoundary...
+            //     hitRay.medium = nullptr;
+            // else
+            //     hitRay.medium = interaction.medium;
+
+            //right now we are assuming there is medium everywhere
+            if (interaction.isHitFromOutside())
+            {
+                hitRay.medium = interaction.mediumBoundary->mediumInside_;
+            }
             else
-                hitRay.medium = interaction.medium;
+            {
+                hitRay.medium = interaction.mediumBoundary->mediumOutside_;
+            }
 
             continue;
         }
