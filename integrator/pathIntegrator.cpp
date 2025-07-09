@@ -8,7 +8,7 @@
 
 PathIntegrator::PathIntegrator(int depth) : depth_(depth)
 {
-    assert(depth_ > 2);
+    // assert(depth_ > 2);
 }
 
 Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool) const
@@ -178,6 +178,7 @@ Color PathIntegrator::sampleLightFromNormalMaterial(std::shared_ptr<const Object
     float absDot = std::abs(normal.dot(lightDir));
     if (isVolumetricPoint)
     {
+        assert(0);//debug test
         absDot = 1.0f;
     }
     
