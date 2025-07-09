@@ -42,9 +42,18 @@ MediumEventType Medium::sample(const Ray& ray, float tMax, MediumInteraction &in
     // float sigma_t_majorant = getSigmaT(ray.origin);
     float sigma_t_majorant = 1.0;
 
-    float current_t = 0.2f;
+    //avoid an infinite loop
+    int count = 0;
+    static const int maxCount = 10000;
+
+    float current_t = 0.0f;
     while (true)
     {
+        if(count++ > maxCount)
+        {
+            return MediumEventType::Absorb;
+        }
+
         float rand_val = MathUtility::genRandomDecimal();
         float sampled_delta_t = -std::log(1.0f - rand_val) / sigma_t_majorant;
         
