@@ -10,6 +10,10 @@ bool Material::isEmitting() const
     return false;
 }
 
+void Material::setEmittedRadiance(const Color& radiance)
+{
+}
+
 Color Material::getEmittedRadiance() const
 {
     return Color::COLOR_WHITE;

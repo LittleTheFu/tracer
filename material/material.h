@@ -19,6 +19,7 @@ public:
     virtual std::unique_ptr<Bsdf> createBsdf(const Interaction& interaction);
 
     virtual bool isEmitting() const;
+    virtual void setEmittedRadiance(const Color& radiance);
     virtual Color getEmittedRadiance() const;
 
     bool hasNormalMap() const;

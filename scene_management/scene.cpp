@@ -14,6 +14,8 @@
 #include "normalMapSceneBuilder.h"
 #include "volumeSceneBuilder.h"
 #include "botSceneBuilder.h"
+#include <cubeSceneBuilder.h>
+#include <cornellSceneBuilder.h>
 
 Scene::Scene(SceneType sceneType, int resolutionScale, int samplersPerPixel, int depth)
 {
@@ -23,6 +25,15 @@ Scene::Scene(SceneType sceneType, int resolutionScale, int samplersPerPixel, int
     m_pBuilder->init(m_pObjectPool);
 
     m_pCamera = std::make_shared<PinholeCamera>(resolutionScale, samplersPerPixel);
+
+    if(configEnableLogProgress)
+    {
+        m_pCamera->enableLog();
+    }
+    else
+    {
+        m_pCamera->disableLog();
+    }
 }
 
 void Scene::run()
@@ -110,6 +121,12 @@ bool Scene::isBVHOn(SceneType type) const
     if (type == SceneType::ROOM_BOT)
         return true;
 
+    if (type == SceneType::ROOM_CUBE)
+        return true;
+
+    if (type == SceneType::ROOM_CORNELL)
+        return true;
+
     return false;
 }
 
@@ -133,6 +150,10 @@ std::shared_ptr<SceneBuilder> Scene::createSceneBuilder(SceneType type) const
         builder = std::make_shared<VolumeSceneBuilder>();
     else if (type == SceneType::ROOM_BOT)
         builder = std::make_shared<BotSceneBuilder>();
+    else if (type == SceneType::ROOM_CUBE)
+        builder = std::make_shared<CubeSceneBuilder>();
+    else if (type == SceneType::ROOM_CORNELL)
+        builder = std::make_shared<CornellSceneBuilder>();
     else
         builder = std::make_shared<SimpleSceneBuilder>();
 

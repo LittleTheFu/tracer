@@ -1,17 +1,17 @@
 #include "simpleBunnySceneBuilder.h"
 #include "materialDef.h"
 #include "resourceDef.h"
+#include "config.h"
 
 void SimpleBunnySceneBuilder::build()
 {
-    buildRoom();
-    buildLight(Vector3(-40, -30, 270), 10);
-    setLightIntensity(0, 60.0f);
+    buildCornellRoom();
+    applyLightIntensityScaleAll(configLightIntensityScale);
 
-    buildModel(Vector3(30, -100, 350),
-               900,
+    buildModel(Vector3(30, -100, 400),
+               700,
                ResourceDef::SIMPLE_BUNNY,
-               MATERIAL_TYPE::M_AQUA,
+               MATERIAL_TYPE::M_YELLOW,
                false);
 }
 

@@ -8,7 +8,9 @@
 #include "geometryPrimitive.h"
 #include "materialLambertian.h"
 #include "materialManager.h"
-#include <materialPBR.h>
+#include "materialPBR.h"
+#include "resourceDef.h"
+#include <emittingMaterial.h>
 
 Mesh::Mesh()
 {
@@ -40,6 +42,18 @@ void Mesh::create(const aiMesh *mesh, aiMaterial **materials, float scale, const
     {
         const aiMaterial *mat = materials[mesh->mMaterialIndex];
 
+        // 查询自发光颜色
+        aiColor3D emissiveColor(0.0f, 0.0f, 0.0f); // 默认值
+        mat->Get(AI_MATKEY_COLOR_EMISSIVE, emissiveColor);
+        if (emissiveColor.r > 0.0f || emissiveColor.g > 0.0f || emissiveColor.b > 0.0f)
+        {
+            std::shared_ptr<EmittingMaterial> material = std::make_shared<EmittingMaterial>();
+            material->setEmittedRadiance(Color(emissiveColor.r, emissiveColor.g, emissiveColor.b));
+            materialId_ = MaterialManager::getInstance().addMaterial(material);
+
+            return ;
+        }
+        
         aiColor3D color;
         // mat->Get(AI_MATKEY_BASE_COLOR, color);
         mat->Get(AI_MATKEY_COLOR_DIFFUSE, color);
@@ -55,8 +69,25 @@ void Mesh::create(const aiMesh *mesh, aiMaterial **materials, float scale, const
         mat->Get(AI_MATKEY_METALLIC_FACTOR, metallic);
         std::cout << "metallic : " << metallic << std::endl;
 
-        std::shared_ptr<MaterialPBR> material = std::make_shared<MaterialPBR>(albedo, roughness, metallic);
-        materialId_ = MaterialManager::getInstance().addMaterial(material);
+        //should be relaced this with texture manager,I will do it later...
+        if (mat->GetTextureCount(aiTextureType_DIFFUSE) > 0)
+        {
+            aiString str;
+            mat->GetTexture(aiTextureType_DIFFUSE, 0, &str);
+            std::string texturePath = str.C_Str();
+            std::cout << "texture path : " << texturePath << std::endl;
+
+            std::unique_ptr<Texture> texture = std::make_unique<ImageTexture>(ResourceDef::RES_FOLDER + texturePath);
+            assert(texture);
+
+            std::shared_ptr<MaterialPBR> material = std::make_shared<MaterialPBR>(albedo, roughness, metallic, std::move(texture));
+            materialId_ = MaterialManager::getInstance().addMaterial(material);
+        }
+        else //dupliacated code should be extracted here, I will come here later...
+        {
+            std::shared_ptr<MaterialPBR> material = std::make_shared<MaterialPBR>(albedo, roughness, metallic, nullptr);
+            materialId_ = MaterialManager::getInstance().addMaterial(material);
+        }
     }
 }
 
@@ -82,12 +113,21 @@ bool Mesh::hit(const Ray &ray, Interaction &interaction) const
     return false;
 }
 
-void Mesh::addToPool(std::shared_ptr<ObjectPool> pool, std::shared_ptr<Material> material)
+void Mesh::addToPool(std::shared_ptr<ObjectPool> pool, 
+    std::shared_ptr<Material> material, 
+    std::shared_ptr<MediumBoundary> mediumBoundary)
 {
     for (auto it = m_tris.begin(); it != m_tris.end(); it++)
     {
-        std::shared_ptr<GeometryPrimitive> primitive = std::make_shared<GeometryPrimitive>(*it, material);
+        std::shared_ptr<GeometryPrimitive> primitive = std::make_shared<GeometryPrimitive>(*it, material, mediumBoundary);
         pool->addPrimitive(primitive);
+
+        //quick but dirty
+        if(dynamic_cast<EmittingMaterial*>(material.get()))
+        {
+            std::shared_ptr<AreaLight> light = std::make_shared<AreaLight>(primitive);
+            pool->addLight(light);
+        }
     }
 }
 

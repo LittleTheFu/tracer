@@ -83,6 +83,57 @@ float Common::sinPhiSq(const Vector3 &v)
     return sinPhi(v) * sinPhi(v);
 }
 
+float Common::fresnel(float etaI, float etaT, float cosThetaI)
+{
+    //for debug
+    cosThetaI = std::abs(cosThetaI);
+
+    // 保证 cosThetaI 在 [0, 1] 范围内
+    cosThetaI = std::max(0.0f, std::min(1.0f, cosThetaI));
+
+    // 检查是否是从高折射率介质进入低折射率介质
+    bool entering = cosThetaI > 0.f;
+    float currentEtaI = etaI;
+    float currentEtaT = etaT;
+    if (!entering) { // 如果是从内部射出，交换折射率
+        // std::swap(currentEtaI, currentEtaT);
+    }
+
+    // 使用斯涅尔定律计算透射角的正弦值
+    // eta_i * sin_i = eta_t * sin_t
+    // sin_t = (eta_i / eta_t) * sin_i
+    float sinThetaI = std::sqrt(std::max(0.0f, 1.0f - cosThetaI * cosThetaI));
+    float sinThetaT = (currentEtaI / currentEtaT) * sinThetaI;
+
+    // --- 检查全内反射 (Total Internal Reflection, TIR) ---
+    // 只有当光从高折射率射向低折射率时才可能发生 (currentEtaI > currentEtaT)
+    // 此时 sinThetaT 可能会大于 1.0
+    if (sinThetaT >= 1.0f) {
+        return 1.0f; // 所有光都被反射
+    }
+
+    // 计算透射角的余弦值
+    // cos_t = sqrt(1 - sin_t^2)
+    float cosThetaT = std::sqrt(std::max(0.0f, 1.0f - sinThetaT * sinThetaT));
+
+    // --- 计算两个偏振分量的反射率 ---
+
+    // 1. R_p (p-polarized: 平行于入射面的分量)
+    // R_p = ((eta_t * cos_i - eta_i * cos_t) / (eta_t * cos_i + eta_i * cos_t))^2
+    float rp_num = currentEtaT * cosThetaI - currentEtaI * cosThetaT;
+    float rp_den = currentEtaT * cosThetaI + currentEtaI * cosThetaT;
+    float Rp = (rp_den != 0.0f) ? (rp_num / rp_den) : 0.0f;
+
+    // 2. R_s (s-polarized: 垂直于入射面的分量)
+    // R_s = ((eta_i * cos_i - eta_t * cos_t) / (eta_i * cos_i + eta_t * cos_t))^2
+    float rs_num = currentEtaI * cosThetaI - currentEtaT * cosThetaT;
+    float rs_den = currentEtaI * cosThetaI + currentEtaT * cosThetaT;
+    float Rs = (rs_den != 0.0f) ? (rs_num / rs_den) : 0.0f;
+    
+    // 对于非偏振光，反射率是两个分量反射率的平均值
+    return (Rp * Rp + Rs * Rs) * 0.5f;
+}
+
 float Common::fresnel(float etaI,
                       float etaT,
                       float cos_theta_in,

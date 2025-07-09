@@ -151,7 +151,8 @@ bool Ball::hit(const Ray &ray, Interaction &interaction) const
     return true;
 }
 
-Vector3 Ball::sampleFromPoint(const Vector3 &thatPoint, float &pdf) const
+//solid angle pdf
+Vector3 Ball::sampleFromPoint(const Vector3 &thatPoint, float &pdf, Vector3 &normal) const
 {
     Vector3 localPoint = m_transform.invTransformPoint(thatPoint);
     Vector3 zAxisVector = -localPoint;
@@ -184,6 +185,10 @@ Vector3 Ball::sampleFromPoint(const Vector3 &thatPoint, float &pdf) const
     float oneMinus = 1 - cosThetaMax;
     float div = 1 / oneMinus;
     pdf = div * MathConstant::INV_TWO_PI;
+
+    normal = getLocalNormal(sampledBallPoint);
+    normal.normalize();
+    normal = m_transform.transformNormal(normal);
 
     return worldSampledPoint;
 }

@@ -1,15 +1,15 @@
 #include "complexBunnySceneBuilder.h"
 #include "materialDef.h"
 #include "resourceDef.h"
+#include "config.h"
 
 void ComplexBunnyBuilder::build()
 {
-    buildRoom();
-    buildLight(Vector3(40, 50, 200), 10);
-    setLightIntensity(0, 60.0f);
+    buildCornellRoom();
+    applyLightIntensityScaleAll(configLightIntensityScale);
 
-    buildModel(Vector3(20, -90, 300),
-               50,
+    buildModel(Vector3(20, -90, 400),
+               30,
                ResourceDef::COMPLEX_BUNNY,
                MATERIAL_TYPE::M_MEASURED_GREEN_PVC_BRDF,
                false);

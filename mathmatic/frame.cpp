@@ -57,6 +57,10 @@ Frame::Frame(const Vector3 &normal, const Vector3 &_origin)
 
 void Frame::setTBN(const Vector3 &t, const Vector3 &b, const Vector3 &n)
 {
+    assert(!t.isZero());
+    assert(!b.isZero());
+    assert(!n.isZero());
+
     x_axis = t;
     y_axis = b;
     z_axis = n;

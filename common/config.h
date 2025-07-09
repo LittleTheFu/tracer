@@ -11,6 +11,7 @@ extern SceneType configScene;
 extern int configResolutionScale;
 extern int configSamplersPerPixel;
 extern int configNeeTracerDepth;
+extern float configLightIntensityScale;
 
 extern std::string configOutputImageName;
 

@@ -14,6 +14,7 @@ public:
 
 protected:
     void buildRoom();
+    void buildCornellRoom();
 
     //notice: it seems that we haven't set the material to the right
     //wall because we are setting the materials in the LOCAL space!!!
@@ -25,8 +26,9 @@ protected:
     virtual MATERIAL_TYPE getBackWallMaterial() const;
 
     void buildMeshRoom();
-    void buildLight(const Vector3& pos, float r);
-    void setLightIntensity(size_t index, float intensity);
+    void buildLight(const Vector3& pos, float scale = 1.0f);
+    void applyLightIntensityScale(size_t index, float scale);
+    void applyLightIntensityScaleAll(float scale);
 
     void buildSceneWithDefaultConfig();
 
@@ -52,6 +54,7 @@ protected:
 
     // void buildConductorBall(const Vector3& pos, float r);
 
+    //bad params....I'will come here later...
     void buildModel(const Vector3 &pos,
                     float scale,
                     const std::string &path,

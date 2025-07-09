@@ -26,9 +26,11 @@ public:
     virtual bool hit(const Ray &ray, Interaction &interaction) const override;
 
 public:
-    void addToPool(std::shared_ptr<ObjectPool> pool, std::shared_ptr<Material> material);
+    void addToPool(std::shared_ptr<ObjectPool> pool,
+                   std::shared_ptr<Material> material,
+                   std::shared_ptr<MediumBoundary> mediumBoundary = nullptr);
 
-//we don't calculate things related to uv in mesh but in tri
+    // we don't calculate things related to uv in mesh but in tri
 private:
     virtual Vector3 dpdu(const Vector3 &point) const override;
     virtual Vector3 dpdv(const Vector3 &point) const override;

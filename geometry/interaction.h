@@ -9,6 +9,8 @@ class Primitive;
 class Geometry;
 class Material;
 class Medium;
+class MediumBoundary;
+
 
 class Interaction
 {
@@ -40,6 +42,7 @@ public:
     std::shared_ptr<Primitive> primitive = nullptr;
     
     std::shared_ptr<Medium> medium = nullptr;
+     std::shared_ptr<MediumBoundary> mediumBoundary = nullptr;
     //---for refactoring---
     float t;
 };

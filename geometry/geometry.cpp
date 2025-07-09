@@ -83,9 +83,10 @@ Transform Geometry::getTransform() const
 //    return m_pMtrl == nullptr;
 // }
 
-Vector3 Geometry::sampleFromPoint(const Vector3 &thatPoint, float &pdf) const
+Vector3 Geometry::sampleFromPoint(const Vector3 &thatPoint, float &pdf, Vector3 &normal) const
 {
     pdf = 1;
+    normal = Vector3::ZERO;
 
     return Vector3::ZERO;
 }

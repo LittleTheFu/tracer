@@ -1,18 +1,17 @@
 #include "materialDef.h"
 #include "resourceDef.h"
 #include "teapotSceneBuilder.h"
+#include "config.h"
 
 void TeapotSceneBuilder::build()
 {
-    buildRoom();
-    buildLight(Vector3(0,30,220), 16);
-    setLightIntensity(0, 30.0f);
-    setLightIntensity(1, 30.0f);
-    setLightIntensity(2, 30.0f);
+    buildCornellRoom();
+    applyLightIntensityScaleAll(configLightIntensityScale);
 
-    buildModel(Vector3(-10, -60, 300),
-               24,
+    buildModel(Vector3(0, -50, 400),
+               25,
                ResourceDef::TEAPOT,
                MATERIAL_TYPE::M_GLASS,
-               false);
+               false,
+               true);
 }

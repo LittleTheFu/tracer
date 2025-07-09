@@ -16,7 +16,8 @@ public:
     //end(for volume interaction)
 
     virtual bool hit(const Ray &ray, Interaction &interaction) const override;
-    virtual Vector3 sampleFromPoint(const Vector3 &thatPoint, float &pdf) const override;
+    virtual Vector3 sampleFromPoint(const Vector3 &thatPoint, float &pdf, Vector3 &normal) const override;
+
     Vector3 getLocalDirection(float u, float v) const;
 
     virtual Vector3 getCentroid() const override;

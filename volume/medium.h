@@ -15,7 +15,8 @@ class Ray;
 class Medium : public std::enable_shared_from_this<Medium>
 {
 public:
-    Medium(float sigma_a, float sigma_s);
+    Medium();
+    Medium(float sigma_a, float sigma_s, float eta = 1.0f);
 
     float transmittance(const Ray& ray, float tMax) const;
     MediumEventType sample(const Ray& ray, float tMax, MediumInteraction &interaction);
@@ -30,6 +31,8 @@ public:
     float sigma_t;
 
     float factor_;
+
+    float eta_;
 
 private:
     //for test

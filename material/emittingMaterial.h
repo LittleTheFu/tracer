@@ -12,9 +12,10 @@ public:
 public:
     virtual bool isEmitting() const override;
     virtual Color getEmittedRadiance() const override;
+    virtual void setEmittedRadiance(const Color &radiance) override;
 
 private:
-
+    Color emittedRadiance;
 };
 
 #endif
