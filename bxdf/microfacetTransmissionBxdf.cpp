@@ -3,6 +3,7 @@
 #include <common.h>
 #include <mathUtility.h>
 #include <assert.h>
+#include <cfloat> // For C++ style include
 
 #define _FIX_BUG_ (1)
 
