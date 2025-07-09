@@ -42,8 +42,7 @@ void Mesh::create(const aiMesh *mesh, aiMaterial **materials, float scale, const
     {
         const aiMaterial *mat = materials[mesh->mMaterialIndex];
 
-        // 查询自发光颜色
-        aiColor3D emissiveColor(0.0f, 0.0f, 0.0f); // 默认值
+        aiColor3D emissiveColor(0.0f, 0.0f, 0.0f);
         mat->Get(AI_MATKEY_COLOR_EMISSIVE, emissiveColor);
         if (emissiveColor.r > 0.0f || emissiveColor.g > 0.0f || emissiveColor.b > 0.0f)
         {
