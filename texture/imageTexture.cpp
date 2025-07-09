@@ -4,6 +4,7 @@
 #include "imageTexture.h"
 #include <algorithm>
 #include "perlinNoise.h"
+#include <cassert>
 
 ImageTexture::ImageTexture() : m_width(0), m_height(0)
 {
@@ -13,6 +14,8 @@ ImageTexture::ImageTexture(const std::string &fileName) : m_width(0), m_height(0
 {
     // decode
     unsigned error = lodepng::decode(m_data, m_width, m_height, fileName);
+
+    assert(error != 0);
 
     // if there's an error, display it
     if (error)
