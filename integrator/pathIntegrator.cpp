@@ -26,6 +26,7 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
         bool hitScene = pool->hitScene(hitRay, interaction);
         float tMax = hitScene ? interaction.t : MathConstant::FLOAT_MAX;
 
+        // if (hitRay.medium && !hitRay.medium->isVaccum())
         if (hitRay.medium)
         {
             MediumInteraction mediumInteraction;

@@ -125,3 +125,10 @@ float Medium::getSigmaT(const Vector3 &worldPos) const
     
     return t;
 }
+
+//i know 1.0 is magic number here, I will fix it later...
+//1.0 here is the eat of vaccum
+bool Medium::isVaccum() const
+{
+    return std::abs(eta_ - 1.0f) < MathConstant::FLOAT_SMALL_NUMBER;
+}
