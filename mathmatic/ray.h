@@ -4,9 +4,11 @@
 #include "frame.h"
 #include "transform.h"
 #include "vector.h"
-#include "medium.h"
+// #include "medium.h"
+#include <memory>
 
-// class Medium;
+
+class Medium;
 
 class Ray
 {

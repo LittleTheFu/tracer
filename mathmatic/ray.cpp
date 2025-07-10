@@ -5,7 +5,7 @@
 #include "frame.h"
 #include "mathUtility.h"
 #include "ray.h"
-// #include "medium.h"
+#include "medium.h"
 
 Ray::Ray()
 {
