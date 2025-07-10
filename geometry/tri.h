@@ -50,7 +50,7 @@ public:
     virtual void buildBoundBox() override;
     virtual bool testHit(const Ray &localRay, float &t) const override;
 
-    virtual Vector3 sampleFromPoint(const Vector3 &thatPoint, float &pdf, Vector3 &normal) const;
+    virtual Vector3 sampleFromPoint(const Vector3 &thatPoint, float &pdf, Vector3 &normal) const override;
 
 private:
     bool isAllFacePositive(const Vector3 &p) const;

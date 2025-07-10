@@ -3,6 +3,7 @@
 #include <random>
 #include <mathUtility.h>
 #include <cassert>
+#include <algorithm>
 
 const Vector3 PerlinNoise::grad3[12] = {
     {1, 1, 0},
