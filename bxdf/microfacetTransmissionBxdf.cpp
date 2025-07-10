@@ -3,6 +3,7 @@
 #include <common.h>
 #include <mathUtility.h>
 #include <assert.h>
+#include <float.h>
 
 #define _FIX_BUG_ (1)
 
