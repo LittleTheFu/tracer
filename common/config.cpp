@@ -6,7 +6,7 @@ SceneType configScene = SceneType::ROOM_TEAPOT;
 int configResolutionScale = 1;
 int configSamplersPerPixel = 1;
 int configNeeTracerDepth = 10;
-float configLightIntensityScale = 20.0f;
+float configLightIntensityScale = 30.0f;
 
 std::string configOutputImageName = "img";
 
