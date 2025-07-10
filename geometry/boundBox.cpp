@@ -110,18 +110,18 @@ BoundBox BoundBox::createSubBox(Axis axis, float startPercent, float endPercent)
 
     if(axis == Axis::X)
     {
-        min.x = min.x + e.x * startPercent;
-        max.x = min.x + e.x * endPercent;
+        min.x = minPoint.x + e.x * startPercent;
+        max.x = minPoint.x + e.x * endPercent;
     }
     else if(axis == Axis::Y)
     {
-        min.y = min.y + e.y * startPercent;
-        max.y = min.y + e.y * endPercent;
+        min.y = minPoint.y + e.y * startPercent;
+        max.y = minPoint.y + e.y * endPercent;
     }
     else
     {
-        min.z = min.z + e.z * startPercent;
-        max.z = min.z + e.z * endPercent;
+        min.z = minPoint.z + e.z * startPercent;
+        max.z = minPoint.z + e.z * endPercent;
     }
 
     BoundBox box;
@@ -214,11 +214,11 @@ void BoundBox::set(const Vector3 &p1, const Vector3 &p2)
     // assert(minPoint.less_or_equal_component_wise(maxPoint));
 }
 
-bool BoundBox::isInBox(const Vector3 &point) const
+bool BoundBox::isInBox(const Vector3 &point, bool equalLow, bool eqaualHigh) const
 {
-    bool bX = MathUtility::is_in_range(point.x, minPoint.x, maxPoint.x, true, true);
-    bool bY = MathUtility::is_in_range(point.y, minPoint.y, maxPoint.y, true, true);
-    bool bZ = MathUtility::is_in_range(point.z, minPoint.z, maxPoint.z, true, true);
+    bool bX = MathUtility::is_in_range(point.x, minPoint.x, maxPoint.x, equalLow, eqaualHigh);
+    bool bY = MathUtility::is_in_range(point.y, minPoint.y, maxPoint.y, equalLow, eqaualHigh);
+    bool bZ = MathUtility::is_in_range(point.z, minPoint.z, maxPoint.z, equalLow, eqaualHigh);
 
     bool isIn = bX && bY && bZ;
 

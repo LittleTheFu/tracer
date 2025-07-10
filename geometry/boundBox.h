@@ -30,7 +30,7 @@ public:
     void update(const Vector3 &p);
     void update(const BoundBox &b);
     
-    bool isInBox(const Vector3 &point) const;
+    bool isInBox(const Vector3 &point, bool equalLow = true, bool eqaualHigh = true) const;
     bool hit(const Ray &ray, float &t) const;
     bool hasInfiniteComponent() const;
 
