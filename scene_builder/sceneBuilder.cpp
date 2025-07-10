@@ -25,6 +25,8 @@
 #include <model.h>
 #include "mediumBoundary.h"
 #include <mediumManager.h>
+#include "medium.h"
+#include "mediumBoundary.h"
 
 void SceneBuilder::init(std::shared_ptr<ObjectPool> pool)
 {
@@ -220,7 +222,13 @@ void SceneBuilder::buildGlassBall(const Vector3 &pos, float r)
     std::shared_ptr<Ball> glassBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
     std::shared_ptr<Material> glassMaterial = std::make_shared<MaterialGlass>();
 
-    std::shared_ptr<GeometryPrimitive> glassPrimitive = std::make_shared<GeometryPrimitive>(glassBall, glassMaterial);
+    std::shared_ptr<MediumBoundary> boundary = std::make_shared<MediumBoundary>();
+    boundary->mediumOutside_ = std::make_shared<Medium>();
+    boundary->mediumInside_ = std::make_shared<Medium>();
+    boundary->mediumInside_->eta_ = 1.5f;
+
+    std::shared_ptr<GeometryPrimitive> glassPrimitive = std::make_shared<GeometryPrimitive>(glassBall, glassMaterial, boundary);
+
     m_pObjectPool->addPrimitive(glassPrimitive);
 }
 
