@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include "vector.h"
+#include <memory>
 
 class Mesh;
 
