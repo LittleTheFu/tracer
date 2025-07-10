@@ -178,7 +178,6 @@ Color PathIntegrator::sampleLightFromNormalMaterial(std::shared_ptr<const Object
     float absDot = std::abs(normal.dot(lightDir));
     if (isVolumetricPoint)
     {
-        assert(0);//debug test
         absDot = 1.0f;
     }
     
