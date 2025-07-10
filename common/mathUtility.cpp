@@ -282,7 +282,7 @@ void MathUtility::buildBTN(const Vector3 &normal, Vector3 &b, Vector3 &t, Vector
         else
         {
             n = Vector3(0, 0, -1);
-            b = Vector3(0, 1, 0);
+            b = Vector3(0, -1, 0);
             t = Vector3(-1, 0, 0);
         }
         return;
