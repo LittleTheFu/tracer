@@ -153,6 +153,7 @@ Color PathIntegrator::sampleLightFromNormalMaterial(std::shared_ptr<const Object
     int lightIndex = MathUtility::sampleUniformly(lightNum);
     float lightPickPdf = 1.0f / lightNum;
 
+
     //take care of the pdf here
     float sampleLightPdf;
     Vector3 lightNormal;
@@ -165,8 +166,24 @@ Color PathIntegrator::sampleLightFromNormalMaterial(std::shared_ptr<const Object
 
     float lightDot = std::abs(lightNormal.dot(lightDir));
 
+    Vector3 offset;
+    if(isVolumetricPoint)
+    {
+        offset = Vector3::ZERO;
+    }
+    else
+    {
+        if(normal.isInSameSide(lightDir))
+        {
+            offset = normal * MathConstant::FLOAT_SMALL_NUMBER;
+        }
+        else
+        {
+            offset = -normal * MathConstant::FLOAT_SMALL_NUMBER;
+        }
+    }
 
-    Ray sampleLightRay(pos + lightDir * 0.001f, lightDir);
+    Ray sampleLightRay(pos + offset, lightDir);
     sampleRay = sampleLightRay;
 
     Color lightColor = pool->getColorFromLight(sampleLightRay, lightIndex);
