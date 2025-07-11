@@ -3,8 +3,8 @@
 //don't use ROOM_VOLUME right now
 SceneType configScene = SceneType::ROOM_CUBE;
 
-int configResolutionScale = 1;
-int configSamplersPerPixel = 1;
+int configResolutionScale = 10;
+int configSamplersPerPixel = 1024;
 int configNeeTracerDepth = 10;
 float configLightIntensityScale = 30.0f;
 
