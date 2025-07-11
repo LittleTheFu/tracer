@@ -274,7 +274,11 @@ Vector3 Vector3::conductorReflect(const Vector3 &normal, std::complex<float> eta
 Vector3 Vector3::reflect(const Vector3 &normal_raw) const
 {
     assert((normal_raw != Vector3::ZERO) && "Vector3::reflect() - Normal is zero.");
-    assert(!this->isSameDir(normal_raw));
+
+    //DEBUG watch
+    float debugDot = this->operator*(normal_raw);
+
+    // assert(!this->isSameDir(normal_raw));
 
     Vector3 n = normal_raw.dir();
     float dot_prod = this->operator*(n); 

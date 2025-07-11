@@ -438,10 +438,10 @@ void SceneBuilder::buildModel(const Vector3 &pos,
         std::shared_ptr<MediumBoundary> mediumBoundary = std::make_shared<MediumBoundary>();
         mediumBoundary->mediumOutside_ = MediumManager::getInstance().getMedium(MediumType::VACUUM);
         mediumBoundary->mediumInside_ = MediumManager::getInstance().getMedium(MediumType::VACUUM);
-        if (materialType == MATERIAL_TYPE::M_GLASS)
+        if (materialType == MATERIAL_TYPE::M_GLASS || materialType == MATERIAL_TYPE::M_MICRO_FACET_TRANSMISSION)
         {
             //debug
-            mediumBoundary->mediumInside_ = MediumManager::getInstance().getMedium(MediumType::GLASS);
+            // mediumBoundary->mediumInside_ = MediumManager::getInstance().getMedium(MediumType::GLASS);
         }
 
         // overwrite current material if there is a material can be loaded from the file
