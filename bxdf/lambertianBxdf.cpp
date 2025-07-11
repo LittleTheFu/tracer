@@ -29,10 +29,9 @@ Color LambertianBxdf::sample_f(const Vector3 &wo, Vector3 &wi, float &pdf, const
 
     pdf = wi.z * MathConstant::INV_PI; // cos(theta) / PI
 
-    // 避免 pdf 出现问题
     if (pdf < MathConstant::FLOAT_SMALL_NUMBER)
     {
-        pdf = 0.0f; // 或返回 Color::COLOR_BLACK
+        pdf = 0.0f;
         return Color::COLOR_BLACK;
     }
 

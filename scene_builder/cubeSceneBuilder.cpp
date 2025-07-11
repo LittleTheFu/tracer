@@ -25,7 +25,7 @@ void CubeSceneBuilder::build()
                true);
 
     buildModel(Vector3(0, 0, 150),
-               28,
+               25,
                ResourceDef::SLAB,
                MATERIAL_TYPE::M_MICRO_FACET_TRANSMISSION,
                false,
