@@ -208,6 +208,6 @@ Color PathIntegrator::sampleLightFromNormalMaterial(std::shared_ptr<const Object
 Ray PathIntegrator::genNextRay(const Vector3 &pos, const Vector3 &normal, const Vector3 &reflect) const
 {
     float sign = (normal.dot(reflect) > 0) ? 1.0f : -1.0f;
-    Vector3 origin = pos + sign * normal * 0.001f;
+    Vector3 origin = pos + sign * normal * MathConstant::FLOAT_SMALL_NUMBER;
     return Ray(origin, reflect);
 }
