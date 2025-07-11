@@ -4,7 +4,7 @@
 SceneType configScene = SceneType::ROOM_TEAPOT;
 
 int configResolutionScale = 4;
-int configSamplersPerPixel = 50;
+int configSamplersPerPixel = 4;
 int configNeeTracerDepth = 10;
 float configLightIntensityScale = 30.0f;
 
