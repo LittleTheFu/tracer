@@ -12,6 +12,6 @@ void TeapotSceneBuilder::build()
                30,
                ResourceDef::TEAPOT,
                MATERIAL_TYPE::M_MICRO_FACET_SPECULAR,
-               true,
+               false,
                true);
 }
