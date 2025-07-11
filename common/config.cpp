@@ -1,10 +1,10 @@
 #include "config.h"
 
 //don't use ROOM_VOLUME right now
-SceneType configScene = SceneType::ROOM_VOLUME;
+SceneType configScene = SceneType::ROOM_CORNELL;
 
-int configResolutionScale = 4;
-int configSamplersPerPixel = 50;
+int configResolutionScale = 2;
+int configSamplersPerPixel = 3;
 int configNeeTracerDepth = 10;
 float configLightIntensityScale = 30.0f;
 

@@ -21,7 +21,7 @@ std::unique_ptr<Bsdf> MaterialTRough::createBsdf(const Interaction &interaction)
         std::swap(etaI, etaT);
     }
 
-    bsdf->addBxdf(std::make_shared<MicrofacetTransmissionBxdf>(0.9f, etaI, etaT));
+    bsdf->addBxdf(std::make_shared<MicrofacetTransmissionBxdf>(0.5f, etaI, etaT));
 
     return bsdf;
 };

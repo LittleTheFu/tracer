@@ -11,7 +11,7 @@ void TeapotSceneBuilder::build()
     buildModel(Vector3(10, -150, 500),
                30,
                ResourceDef::TEAPOT,
-               MATERIAL_TYPE::M_MICRO_FACET_TRANSMISSION,
-               false,
+               MATERIAL_TYPE::M_MIRROR,
+               true,
                true);
 }
