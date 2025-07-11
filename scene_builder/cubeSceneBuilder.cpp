@@ -24,10 +24,10 @@ void CubeSceneBuilder::build()
                false,
                true);
 
-    buildModel(Vector3(-30, -30, 450),
-               20,
+    buildModel(Vector3(0, 0, 150),
+               28,
                ResourceDef::SLAB,
-               MATERIAL_TYPE::M_YELLOW,
+               MATERIAL_TYPE::M_MICRO_FACET_TRANSMISSION,
                false,
                true);
 
