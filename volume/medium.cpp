@@ -40,7 +40,7 @@ float Medium::transmittance(const Ray& ray, float tMax) const
 MediumEventType Medium::sample(const Ray& ray, float tMax, MediumInteraction &interaction)
 {
     // float sigma_t_majorant = getSigmaT(ray.origin);
-    float sigma_t_majorant = 1.0;
+    float sigma_t_majorant = 0.4;
 
     //avoid an infinite loop
     int count = 0;
@@ -99,14 +99,16 @@ MediumEventType Medium::sample(const Ray& ray, float tMax, MediumInteraction &in
 
 float Medium::getSigmaS(const Vector3 &worldPos) const
 {
+    // return 0;
     // float noise = perlinNoise_.get(worldPos * factor_);
     float noise = vox_.get(worldPos.x, worldPos.y, worldPos.z);
 
-    return sigma_s + noise * 0.2;
+    return sigma_s + noise * 0.1;
 }
 
 float Medium::getSigmaA(const Vector3 &worldPos) const
 {
+    // return 0;
     // float noise = perlinNoise_.get(worldPos * factor_);
     // noise = noise * 0.5 + 0.5;
     // return sigma_a + noise * 0.05f;
@@ -116,7 +118,7 @@ float Medium::getSigmaA(const Vector3 &worldPos) const
     {
         int a = 3;
     }
-    return sigma_a + noise * 0.4;
+    return sigma_a + noise * 0.04;
 }
 
 float Medium::getSigmaT(const Vector3 &worldPos) const
