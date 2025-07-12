@@ -6,7 +6,7 @@ SceneType configScene = SceneType::ROOM_CUBE;
 int configResolutionScale = 40;
 int configSamplersPerPixel = 1024;
 int configNeeTracerDepth = 10;
-float configLightIntensityScale = 30.0f;
+float configLightIntensityScale = 24.0f;
 
 std::string configOutputImageName = "img";
 
