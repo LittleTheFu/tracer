@@ -3,6 +3,7 @@
 
 #include <initializer_list>
 #include <complex>
+#include <random>
 
 #include "vector.h"
 
@@ -24,10 +25,14 @@ public:
     static float interpolate(float a, float b, float t);
     // const static float TrilinearInterpolation();
 
+    //-----RANDOM GENERATOR-------
+    static std::mt19937 random_engine;
+    static std::uniform_real_distribution<float> s_uniform_dist;
+
     static float genRandomDecimal();
     static float genRamdomSignDecimal();
-
     static int sampleUniformly(int size);
+    //-----RANDOM GENERATOR END-------
 
     //sample e^(-lambda*t)
     static float sampleExponential(float lambda, float &pdf);

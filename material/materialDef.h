@@ -11,6 +11,7 @@ enum class MATERIAL_TYPE
     M_GREEN,
     M_BLUE,
     M_WHITE,
+    M_BLACK,
 
     M_LENA,
     M_CHESSBOARD,

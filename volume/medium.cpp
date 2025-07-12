@@ -40,16 +40,17 @@ float Medium::transmittance(const Ray& ray, float tMax) const
 MediumEventType Medium::sample(const Ray& ray, float tMax, MediumInteraction &interaction)
 {
     // float sigma_t_majorant = getSigmaT(ray.origin);
-    float sigma_t_majorant = 1.0;
+    float sigma_t_majorant = 0.4;
 
     //avoid an infinite loop
     int count = 0;
-    static const int maxCount = 10000;
+    const int maxCount = 100000;//I knew its too big,I will fix it later...
 
     float current_t = 0.0f;
     while (true)
     {
-        if(count++ > maxCount)
+        count++;
+        if(count >= maxCount)
         {
             return MediumEventType::Absorb;
         }
@@ -66,7 +67,7 @@ MediumEventType Medium::sample(const Ray& ray, float tMax, MediumInteraction &in
         }
 
         Vector3 pos = ray.getPosition(current_t);
-        if( std::isnan(pos.x) || std::isnan(pos.y) || std::isnan(pos.z))
+        if( std::isnan(pos.x) || std::isnan(pos.y) || std::isnan(pos.z))//debug for inserting a break point
         {
             int a = 3;
         }
@@ -98,14 +99,16 @@ MediumEventType Medium::sample(const Ray& ray, float tMax, MediumInteraction &in
 
 float Medium::getSigmaS(const Vector3 &worldPos) const
 {
+    // return 0;
     // float noise = perlinNoise_.get(worldPos * factor_);
     float noise = vox_.get(worldPos.x, worldPos.y, worldPos.z);
 
-    return sigma_s + noise * 0.2;
+    return sigma_s + noise * 0.1;
 }
 
 float Medium::getSigmaA(const Vector3 &worldPos) const
 {
+    // return 0;
     // float noise = perlinNoise_.get(worldPos * factor_);
     // noise = noise * 0.5 + 0.5;
     // return sigma_a + noise * 0.05f;
@@ -115,7 +118,7 @@ float Medium::getSigmaA(const Vector3 &worldPos) const
     {
         int a = 3;
     }
-    return sigma_a + noise * 0.4;
+    return sigma_a + noise * 0.04;
 }
 
 float Medium::getSigmaT(const Vector3 &worldPos) const
@@ -124,4 +127,11 @@ float Medium::getSigmaT(const Vector3 &worldPos) const
     assert(!std::isnan(t));
     
     return t;
+}
+
+//i know 1.0 is magic number here, I will fix it later...
+//1.0 here is the eat of vaccum
+bool Medium::isVaccum() const
+{
+    return std::abs(eta_ - 1.0f) < MathConstant::FLOAT_SMALL_NUMBER;
 }

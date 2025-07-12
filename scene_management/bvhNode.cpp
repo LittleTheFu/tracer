@@ -14,9 +14,11 @@ void BVHNode::print(const std::string &prefix) const
     std::string r = rightChild ? " R " : " N ";
     std::size_t num = getSize();
 
+    //debug
     bool isLargeLeaf = num > 20;
 
-    if(isLeaf() && isLargeLeaf)
+    // if(isLeaf() && isLargeLeaf)
+    if(isLeaf())
     {
         std::cout << prefix << "|" << l << r << num << std::endl;
     }

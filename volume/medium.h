@@ -25,6 +25,8 @@ public:
     float getSigmaA(const Vector3& worldPos) const;
     float getSigmaT(const Vector3& worldPos) const;
 
+    bool isVaccum() const;
+
 public:
     float sigma_a;
     float sigma_s;

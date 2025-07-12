@@ -4,10 +4,11 @@
 #include "mathConstantDef.h"
 #include "mediumInteraction.h"
 #include "medium.h"
+#include "mediumBoundary.h"
 
 PathIntegrator::PathIntegrator(int depth) : depth_(depth)
 {
-    assert(depth_ > 2);
+    // assert(depth_ > 2);
 }
 
 Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool) const
@@ -26,6 +27,7 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
         bool hitScene = pool->hitScene(hitRay, interaction);
         float tMax = hitScene ? interaction.t : MathConstant::FLOAT_MAX;
 
+        // if (hitRay.medium && !hitRay.medium->isVaccum())
         if (hitRay.medium)
         {
             MediumInteraction mediumInteraction;
@@ -108,17 +110,26 @@ Color PathIntegrator::Li(const Ray &ray, std::shared_ptr<const ObjectPool> pool)
                 Color tmp = (sampled_f * cos_theta_incident_abs) / _pdf;//debug
                 beta *= tmp;
             }
-
         
             hitRay = genNextRay(interaction.point, interaction.normal_shading, wi);
         }
         else if (interaction.is_volume_boundary_hit)
         {
             hitRay.origin = interaction.point + hitRay.dir * MathConstant::FLOAT_SMALL_NUMBER;
-            if (hitRay.medium)//here, it should be replaced with mediumBoundary...
-                hitRay.medium = nullptr;
+            // if (hitRay.medium)//here, it should be replaced with mediumBoundary...
+            //     hitRay.medium = nullptr;
+            // else
+            //     hitRay.medium = interaction.medium;
+
+            //right now we are assuming there is medium everywhere
+            if (interaction.isHitFromOutside())
+            {
+                hitRay.medium = interaction.mediumBoundary->mediumInside_;
+            }
             else
-                hitRay.medium = interaction.medium;
+            {
+                hitRay.medium = interaction.mediumBoundary->mediumOutside_;
+            }
 
             continue;
         }
@@ -142,6 +153,7 @@ Color PathIntegrator::sampleLightFromNormalMaterial(std::shared_ptr<const Object
     int lightIndex = MathUtility::sampleUniformly(lightNum);
     float lightPickPdf = 1.0f / lightNum;
 
+
     //take care of the pdf here
     float sampleLightPdf;
     Vector3 lightNormal;
@@ -154,8 +166,24 @@ Color PathIntegrator::sampleLightFromNormalMaterial(std::shared_ptr<const Object
 
     float lightDot = std::abs(lightNormal.dot(lightDir));
 
+    Vector3 offset;
+    if(isVolumetricPoint)
+    {
+        offset = Vector3::ZERO;
+    }
+    else
+    {
+        if(normal.isInSameSide(lightDir))
+        {
+            offset = normal * MathConstant::FLOAT_SMALL_NUMBER;
+        }
+        else
+        {
+            offset = -normal * MathConstant::FLOAT_SMALL_NUMBER;
+        }
+    }
 
-    Ray sampleLightRay(pos + lightDir * 0.001f, lightDir);
+    Ray sampleLightRay(pos + offset, lightDir);
     sampleRay = sampleLightRay;
 
     Color lightColor = pool->getColorFromLight(sampleLightRay, lightIndex);
@@ -166,7 +194,9 @@ Color PathIntegrator::sampleLightFromNormalMaterial(std::shared_ptr<const Object
 
     float absDot = std::abs(normal.dot(lightDir));
     if (isVolumetricPoint)
+    {
         absDot = 1.0f;
+    }
     
     if(sampleLightPdf < MathConstant::FLOAT_SMALL_NUMBER || lightPickPdf < MathConstant::FLOAT_SMALL_NUMBER){
         return Color::COLOR_BLACK;
@@ -178,6 +208,6 @@ Color PathIntegrator::sampleLightFromNormalMaterial(std::shared_ptr<const Object
 Ray PathIntegrator::genNextRay(const Vector3 &pos, const Vector3 &normal, const Vector3 &reflect) const
 {
     float sign = (normal.dot(reflect) > 0) ? 1.0f : -1.0f;
-    Vector3 origin = pos + sign * normal * 0.001f;
+    Vector3 origin = pos + sign * normal * MathConstant::FLOAT_SMALL_NUMBER;
     return Ray(origin, reflect);
 }

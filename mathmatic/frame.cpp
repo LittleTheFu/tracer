@@ -30,11 +30,16 @@ Frame::Frame(const Vector3 &normal, const Vector3 &tangent, const Vector3 &_orig
     z_axis = normal;
     z_axis.normalize();
 
-    x_axis = tangent;
-    x_axis.normalize();
+    // x_axis = tangent;
+    // x_axis.normalize();
+    Vector3 aux = tangent;
+    aux.normalize();
 
-    y_axis = z_axis.cross(x_axis);
+    y_axis = z_axis.cross(aux);
     y_axis.normalize();
+
+    x_axis = y_axis.cross(z_axis);
+    x_axis.normalize();
 
     origin = _origin;
 }
@@ -102,4 +107,13 @@ Vector3 Frame::vectorToWorld(const Vector3 &vector) const
     Vector3 resultZ = vector.z * z_axis;
 
     return resultX + resultY + resultZ;
+}
+
+bool Frame::isOrthonormal() const
+{
+    bool perpXY = x_axis.isPerpendicular(y_axis);
+    bool perpYZ = y_axis.isPerpendicular(z_axis);
+    bool perpZX = z_axis.isPerpendicular(x_axis);
+
+    return (perpXY && perpYZ && perpZX);
 }

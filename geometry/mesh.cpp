@@ -11,6 +11,7 @@
 #include "materialPBR.h"
 #include "resourceDef.h"
 #include <emittingMaterial.h>
+#include <materialMirror.h>
 
 Mesh::Mesh()
 {
@@ -42,8 +43,7 @@ void Mesh::create(const aiMesh *mesh, aiMaterial **materials, float scale, const
     {
         const aiMaterial *mat = materials[mesh->mMaterialIndex];
 
-        // 查询自发光颜色
-        aiColor3D emissiveColor(0.0f, 0.0f, 0.0f); // 默认值
+        aiColor3D emissiveColor(0.0f, 0.0f, 0.0f);
         mat->Get(AI_MATKEY_COLOR_EMISSIVE, emissiveColor);
         if (emissiveColor.r > 0.0f || emissiveColor.g > 0.0f || emissiveColor.b > 0.0f)
         {
@@ -76,18 +76,19 @@ void Mesh::create(const aiMesh *mesh, aiMaterial **materials, float scale, const
             mat->GetTexture(aiTextureType_DIFFUSE, 0, &str);
             std::string texturePath = str.C_Str();
             std::replace(texturePath.begin(), texturePath.end(), '\\', '/');
-
             std::cout << "texture path : " << texturePath << std::endl;
 
             std::unique_ptr<Texture> texture = std::make_unique<ImageTexture>(ResourceDef::RES_FOLDER + texturePath);
             assert(texture);
 
             std::shared_ptr<MaterialPBR> material = std::make_shared<MaterialPBR>(albedo, roughness, metallic, std::move(texture));
+            // std::shared_ptr<MaterialMirror> material = std::make_shared<MaterialMirror>();
             materialId_ = MaterialManager::getInstance().addMaterial(material);
         }
         else //dupliacated code should be extracted here, I will come here later...
         {
             std::shared_ptr<MaterialPBR> material = std::make_shared<MaterialPBR>(albedo, roughness, metallic, nullptr);
+            // std::shared_ptr<MaterialMirror> material = std::make_shared<MaterialMirror>();
             materialId_ = MaterialManager::getInstance().addMaterial(material);
         }
     }

@@ -25,6 +25,8 @@
 #include <model.h>
 #include "mediumBoundary.h"
 #include <mediumManager.h>
+#include "medium.h"
+#include "mediumBoundary.h"
 
 void SceneBuilder::init(std::shared_ptr<ObjectPool> pool)
 {
@@ -46,32 +48,32 @@ void SceneBuilder::buildRoom()
     Vector3 leftRotate(0, MathConstant::PI / 2, 0);
     Vector3 leftPosition(-c, 0, 0);
     std::shared_ptr<Plane> leftPlane = std::make_shared<Plane>(leftRotate, leftPosition, r);
-    std::shared_ptr<Material> leftMtrlLambertian = std::make_shared<MaterialLambertian>(Color::COLOR_RED);
+    std::shared_ptr<Material> leftMtrlLambertian = std::make_shared<MaterialLambertian>(Color::COLOR_WHITE);
 
     Vector3 rightRotate(0, -MathConstant::PI / 2, 0);
     Vector3 rightPosition(c, 0, 0);
     std::shared_ptr<Plane> rightPlane = std::make_shared<Plane>(rightRotate, rightPosition, r);
-    std::shared_ptr<Material> rightMtrlLambertian = std::make_shared<MaterialLambertian>(Color::COLOR_BLUE);
+    std::shared_ptr<Material> rightMtrlLambertian = std::make_shared<MaterialLambertian>(Color::COLOR_WHITE);
 
     Vector3 bottomRotate(MathConstant::PI / 2, 0, 0);
     Vector3 bottomPosition(0, c, 0);
     std::shared_ptr<Plane> bottomPlane = std::make_shared<Plane>(bottomRotate, bottomPosition, r);
-    std::shared_ptr<Material> bottomMtrlLambertian = std::make_shared<MaterialLambertian>(Color::COLOR_GREEN);
+    std::shared_ptr<Material> bottomMtrlLambertian = std::make_shared<MaterialLambertian>(Color::COLOR_WHITE);
 
     Vector3 topRotate(-MathConstant::PI / 2, 0, 0);
     Vector3 topPosition(0, -c, 0);
     std::shared_ptr<Plane> topPlane = std::make_shared<Plane>(topRotate, topPosition, r);
-    std::shared_ptr<Material> topMtrlLambertian = std::make_shared<MaterialLambertian>(Color::COLOR_YELLOW);
+    std::shared_ptr<Material> topMtrlLambertian = std::make_shared<MaterialLambertian>(Color::COLOR_WHITE);
 
     Vector3 frontRotate(MathConstant::PI, 0, 0);
     Vector3 frontPosition(0, 0, 5 * c);
     std::shared_ptr<Plane> frontPlane = std::make_shared<Plane>(frontRotate, frontPosition, r);
-    std::shared_ptr<Material> frontMtrlLambertian = std::make_shared<MaterialLambertian>(Color::COLOR_PINK);
+    std::shared_ptr<Material> frontMtrlLambertian = std::make_shared<MaterialLambertian>(Color::COLOR_WHITE);
 
     Vector3 backRotate(0, 0, 0);
     Vector3 backPosition(0, 0, -3 * c);
     std::shared_ptr<Plane> backPlane = std::make_shared<Plane>(backRotate, backPosition, r);
-    std::shared_ptr<Material> backMtrlLambertian = std::make_shared<MaterialLambertian>(Color::COLOR_ORANGE);
+    std::shared_ptr<Material> backMtrlLambertian = std::make_shared<MaterialLambertian>(Color::COLOR_WHITE);
 
     //---------------for refactoring-------
     std::shared_ptr<GeometryPrimitive> leftPrimitive = std::make_shared<GeometryPrimitive>(leftPlane, leftMtrlLambertian);
@@ -220,7 +222,13 @@ void SceneBuilder::buildGlassBall(const Vector3 &pos, float r)
     std::shared_ptr<Ball> glassBall = std::make_shared<Ball>(Vector3::ZERO, pos, r);
     std::shared_ptr<Material> glassMaterial = std::make_shared<MaterialGlass>();
 
-    std::shared_ptr<GeometryPrimitive> glassPrimitive = std::make_shared<GeometryPrimitive>(glassBall, glassMaterial);
+    std::shared_ptr<MediumBoundary> boundary = std::make_shared<MediumBoundary>();
+    boundary->mediumOutside_ = std::make_shared<Medium>();
+    boundary->mediumInside_ = std::make_shared<Medium>();
+    boundary->mediumInside_->eta_ = 1.5f;
+
+    std::shared_ptr<GeometryPrimitive> glassPrimitive = std::make_shared<GeometryPrimitive>(glassBall, glassMaterial, boundary);
+
     m_pObjectPool->addPrimitive(glassPrimitive);
 }
 
@@ -371,6 +379,10 @@ void SceneBuilder::buildModel(const Vector3 &pos,
     {
         material = std::make_shared<MaterialLambertian>(Color::COLOR_WHITE);
     }
+    else if (materialType == MATERIAL_TYPE::M_BLACK)
+    {
+        material = std::make_shared<MaterialLambertian>(Color::COLOR_BLACK);
+    }
     else if (materialType == MATERIAL_TYPE::M_PURPLE)
     {
         material = std::make_shared<MaterialLambertian>(Color::COLOR_PURPLE);
@@ -426,7 +438,7 @@ void SceneBuilder::buildModel(const Vector3 &pos,
         std::shared_ptr<MediumBoundary> mediumBoundary = std::make_shared<MediumBoundary>();
         mediumBoundary->mediumOutside_ = MediumManager::getInstance().getMedium(MediumType::VACUUM);
         mediumBoundary->mediumInside_ = MediumManager::getInstance().getMedium(MediumType::VACUUM);
-        if (materialType == MATERIAL_TYPE::M_GLASS)
+        if (materialType == MATERIAL_TYPE::M_GLASS || materialType == MATERIAL_TYPE::M_MICRO_FACET_TRANSMISSION)
         {
             //debug
             mediumBoundary->mediumInside_ = MediumManager::getInstance().getMedium(MediumType::GLASS);

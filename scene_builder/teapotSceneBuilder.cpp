@@ -8,10 +8,10 @@ void TeapotSceneBuilder::build()
     buildCornellRoom();
     applyLightIntensityScaleAll(configLightIntensityScale);
 
-    buildModel(Vector3(0, -50, 400),
-               25,
+    buildModel(Vector3(10, -150, 500),
+               30,
                ResourceDef::TEAPOT,
-               MATERIAL_TYPE::M_GLASS,
+               MATERIAL_TYPE::M_MICRO_FACET_SPECULAR,
                false,
                true);
 }

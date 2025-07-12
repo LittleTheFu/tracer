@@ -48,10 +48,10 @@ private:
     float D(const Vector3 &wh) const;
 
     // 几何遮蔽函数 G1
-    float ggx_G1(const Vector3& w, const Vector3& n, float alpha) const;
+    float ggx_G1(const Vector3 &w, const Vector3 &H, float alpha) const;
 
     // 联合遮蔽函数 G (Smith G)
-    float ggx_G(const Vector3& wi, const Vector3& wo, const Vector3& n, float alpha) const;
+    float ggx_G(const Vector3& wi, const Vector3& wo, const Vector3& H, float alpha) const;
 };
 
 #endif // MICROFACET_TRANSMISSION_BXDF_H_

@@ -116,12 +116,18 @@ float MathUtility::interpolate(float a, float b, float t)
     return a * (1 - t) + b * t;
 }
 
+
+std::mt19937 MathUtility::random_engine(std::random_device{}());
+std::uniform_real_distribution<float> MathUtility::s_uniform_dist(0.0f, 1.0f);
+
 float MathUtility::genRandomDecimal()
 {
-    float d = static_cast<float>(RAND_MAX) + 1.0f; 
-    float u = static_cast<float>(std::rand()) / d;
+    return s_uniform_dist(random_engine);
 
-    return u;
+    // float d = static_cast<float>(RAND_MAX) + 1.0f; 
+    // float u = static_cast<float>(std::rand()) / d;
+
+    // return u;
 }
 
 float MathUtility::genRamdomSignDecimal()
@@ -135,10 +141,8 @@ int MathUtility::sampleUniformly(int size)
 {
     assert(size > 0);
 
-    float r = genRandomDecimal();
-    int index = static_cast<int>(r * size);
-
-    return index;
+    std::uniform_int_distribution<int> distribution(0, size - 1);
+    return distribution(random_engine);
 }
 
 float MathUtility::sampleExponential(float lambda, float &pdf)
@@ -268,8 +272,19 @@ void MathUtility::buildBTN(const Vector3 &normal, Vector3 &b, Vector3 &t, Vector
 
     if(std::abs(n.z) > 1.0f - MathConstant::FLOAT_SMALL_NUMBER)
     {
-        b = Vector3(0, 1, 0);
-        t = Vector3(0, 0, 1);
+        //quick and dirty
+        if(n.z > 0)
+        {
+            n = Vector3(0, 0, 1);
+            b = Vector3(0, 1, 0);
+            t = Vector3(1, 0, 0);
+        }
+        else
+        {
+            n = Vector3(0, 0, -1);
+            b = Vector3(0, -1, 0);
+            t = Vector3(-1, 0, 0);
+        }
         return;
     }
 

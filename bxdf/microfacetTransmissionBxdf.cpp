@@ -3,7 +3,7 @@
 #include <common.h>
 #include <mathUtility.h>
 #include <assert.h>
-#include <cfloat> // For C++ style include
+#include <float.h>
 
 #define _FIX_BUG_ (1)
 
@@ -49,6 +49,12 @@ Vector3 MicrofacetTransmissionBxdf::SampleGGX(const Vector3 &N, float roughness)
     H_local.x = sinThetaH * std::cos(phi);
     H_local.y = sinThetaH * std::sin(phi);
     H_local.z = cosThetaH; // cosThetaH 总是 >= 0，所以 H_local.z 总是 >= 0
+
+    //ugly!!!! hot fix!!!
+    if(N.z < 0)
+    {
+        H_local.z = -H_local.z;
+    }
 
     return H_local;
 }
@@ -148,7 +154,7 @@ Color MicrofacetTransmissionBxdf::sample_f(const Vector3 &wo, Vector3 &wi, float
     // }
 
     // --- 4. 计算 BTDF 值本身 ---
-    float G_val = ggx_G(local_wo, wi, local_N, alpha_); // 几何项
+    float G_val = ggx_G(local_wo, wi, H, alpha_); // 几何项
 
     Color T_color = Color(1.0f) - F_val_at_H; // 透射率 T = 1 - F
 
@@ -233,7 +239,7 @@ Color MicrofacetTransmissionBxdf::f(const Vector3 &wo, const Vector3 &wi) const
     float D_val = D(H);
 
     // 6. 计算几何项 (G)
-    float G_val = ggx_G(local_wo, current_wi, local_N, alpha_);
+    float G_val = ggx_G(local_wo, current_wi, H, alpha_);
 
     // 7. 计算菲涅尔透射项 (1 - F)
     Color T_color = Color(1.0f) - F_color_at_H; // (1 - F)
@@ -373,25 +379,43 @@ float MicrofacetTransmissionBxdf::D(const Vector3 &wh) const
     return v;
 }
 
-float MicrofacetTransmissionBxdf::ggx_G1(const Vector3 &w, const Vector3 &n, float alpha) const
+float MicrofacetTransmissionBxdf::ggx_G1(const Vector3 &w, const Vector3 &H, float alpha) const
 {
-    float z = n * w;
+    // 对于 GGX 微面元模型中的 Smith 几何项，cosTheta 应该始终是正的。
+    // 这是因为 G1 描述的是从一个方向看，微面元法线 H 方向的可见性。
+    // 对于反射，wi 和 wo 都在 H 的同侧。
+    // 对于透射，尽管 wi 和 wo 在 H 的异侧，但在计算 G1 时，我们仍然考虑它们各自相对于 H 的“投影”可见性。
+    // 因此，这里取绝对值是正确的做法。
+    float cosTheta = std::abs(H * w); // <--- 关键修正：对点积取绝对值
 
-    if (z <= 0.0f)
-    { // 几何遮蔽项 G1 对于指向表面下方的光线为 0
-        // return 0.0f; //debug
-        z = -z;
-    }
+    // 此时，由于 cosTheta 已经确保 >= 0，所以不需要这个判断了
+    // if (cosTheta <= 0.0f)
+    // {
+    //     return 0.0f;
+    // }
 
     float alpha2 = alpha * alpha;
-    float z2 = z * z;
+    float cosTheta2 = cosTheta * cosTheta;
 
-    float sqrt_term = std::sqrt(alpha2 + (1.0f - alpha2) * z2);
+    // 避免除以零，特别是当 cosTheta 接近 0 时
+    if (cosTheta2 < MathConstant::FLOAT_SMALL_NUMBER) {
+        return 0.0f; // 掠射角，视为无贡献
+    }
 
-    return (2.0f * z) / (z + sqrt_term);
+    float tanTheta2 = (1.0f - cosTheta2) / cosTheta2;
+    float val = std::sqrt(1.0f + alpha2 * tanTheta2);
+    return 2.0f / (1.0f + val);
 }
 
-float MicrofacetTransmissionBxdf::ggx_G(const Vector3 &wi, const Vector3 &wo, const Vector3 &n, float alpha) const
+float MicrofacetTransmissionBxdf::ggx_G(const Vector3 &wi, const Vector3 &wo, const Vector3 &H, float alpha) const
 {
-    return ggx_G1(wi, n, alpha) * ggx_G1(wo, n, alpha);
+    float a = ggx_G1(wi, H, alpha);
+    float b = ggx_G1(wo, H, alpha);
+
+    if(a * b > 0)
+    {
+        int k  = 3;
+    }
+
+    return a * b;
 }

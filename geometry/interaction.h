@@ -21,6 +21,8 @@ public:
     bool hasNormalMap() const;
     Vector3 getNormalFromNormalMap(float u, float v) const;
 
+    bool isHitFromOutside() const;
+
 public:
     Vector3 incoming;
     Vector3 point;
@@ -42,7 +44,7 @@ public:
     std::shared_ptr<Primitive> primitive = nullptr;
     
     std::shared_ptr<Medium> medium = nullptr;
-     std::shared_ptr<MediumBoundary> mediumBoundary = nullptr;
+    std::shared_ptr<MediumBoundary> mediumBoundary = nullptr;
     //---for refactoring---
     float t;
 };

@@ -7,7 +7,10 @@ complex_room_bunny
 room_teapot
 room_material_balls
 room_normal_map
-room_volume)
+room_volume
+room_bot
+room_cube
+room_cornell)
 
 for SCENE in "${SCENES[@]}"; do
     echo "scene: $SCENE"

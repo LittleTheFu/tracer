@@ -365,6 +365,8 @@ void BVH::calcBestSplit(const std::vector<std::shared_ptr<Primitive>> &primitive
 
     // 2.create buckets
     const int BUCKET_NUM = 12;
+    const int LAST_BUCKET_INDEX = BUCKET_NUM - 1;
+
     Bucket buckets[BUCKET_NUM];
 
     float percent = 1.0f / BUCKET_NUM;
@@ -382,8 +384,10 @@ void BVH::calcBestSplit(const std::vector<std::shared_ptr<Primitive>> &primitive
     {
         for (int i = 0; i < BUCKET_NUM; i++)
         {
+            bool equalLow = true;
+            bool equalHigh = (i == LAST_BUCKET_INDEX) ? true : false;
             Vector3 centroid = (*it)->getGeometry()->getCentroid();
-            if (buckets[i].originBoundBox.isInBox(centroid))
+            if (buckets[i].originBoundBox.isInBox(centroid, equalLow, equalHigh))
             {
                 BoundBox box = (*it)->getGeometry()->getBoundBox();
                 buckets[i].num++;
